@@ -28,6 +28,7 @@ define('_MI_WGGALLERY_ADMENU1', 'Dashboard');
 define('_MI_WGGALLERY_ADMENU2', 'Albums');
 define('_MI_WGGALLERY_ADMENU3', 'Images');
 define('_MI_WGGALLERY_ADMENU4', 'Permissions');
+define('_MI_WGGALLERY_ADMENU5', 'Maintenance');
 define('_MI_WGGALLERY_ABOUT', 'About');
 // ---------------- Admin Nav ----------------
 define('_MI_WGGALLERY_ADMIN_PAGER', 'Admin pager');

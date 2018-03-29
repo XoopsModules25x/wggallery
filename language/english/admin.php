@@ -35,6 +35,8 @@ define('_AM_WGGALLERY_ADD_IMAGE', 'Add New Image');
 // Lists
 define('_AM_WGGALLERY_ALBUMS_LIST', 'List of Albums');
 define('_AM_WGGALLERY_IMAGES_LIST', 'List of Images');
+define('_AM_WGGALLERY_FORM_ACTION', 'Actions');
+
 // ---------------- Admin Classes ----------------
 
 // ---------------- Admin Others ----------------
