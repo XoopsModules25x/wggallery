@@ -215,7 +215,10 @@ class WggalleryHelper
 
     /**
      * @public function getForm for delete
-     * @param bool $action
+     * @param        $arrParams
+     * @param string $title
+     * @param        $text
+     * @param string $descr
      * @return XoopsThemeForm
      */
     public function getFormDelete($arrParams, $title = '', $text, $descr = '')

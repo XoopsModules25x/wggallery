@@ -307,6 +307,7 @@ class WggalleryImagesHandler extends XoopsPersistableObjectHandler
 
     /**
      * Get Count Images in the database
+     * @param int    $albId
      * @param int    $start
      * @param int    $limit
      * @param string $sort
@@ -338,6 +339,7 @@ class WggalleryImagesHandler extends XoopsPersistableObjectHandler
     /**
      * Get Criteria Images
      * @param        $crImages
+     * @param        $albId
      * @param int    $start
      * @param int    $limit
      * @param string $sort
@@ -358,7 +360,7 @@ class WggalleryImagesHandler extends XoopsPersistableObjectHandler
 
     /**
      * delete all copies of a specific image
-     * @param string $imgName
+     * @param $imageName
      * @return bool
      */
     public function unlinkImages($imageName)

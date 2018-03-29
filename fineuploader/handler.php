@@ -218,9 +218,10 @@ class UploadHandler
     /**
      * Process a delete.
      * @param string $uploadDirectory Target directory.
+     * @param null   $name
+     * @return array
      * @params string $name Overwrites the name of the file.
      *
-     * @return array
      */
     public function handleDelete($uploadDirectory, $name = null)
     {
