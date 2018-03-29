@@ -78,7 +78,7 @@ function b_wggallery_albums_show($options)
         $block[$i]['image']     = $albumsAll[$i]->getVar('alb_image');
         $block[$i]['imgid']     = $albumsAll[$i]->getVar('alb_imgid');
         $block[$i]['state']     = $albumsAll[$i]->getVar('alb_state');
-        $block[$i]['date']      = formatTimeStamp($albumsAll[$i]->getVar('alb_date'));
+        $block[$i]['date']      = formatTimestamp($albumsAll[$i]->getVar('alb_date'));
         $block[$i]['submitter'] = XoopsUser::getUnameFromId($albumsAll[$i]->getVar('alb_submitter'));
     }
     return $block;

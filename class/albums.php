@@ -268,7 +268,7 @@ class WggalleryAlbums extends XoopsObject
         $ret['nb_images']  = $imagesHandler->getCountImages($this->getVar('alb_id'));
         $ret['state']      = $this->getVar('alb_state');
         $ret['state_text'] = $wggallery->getStateText($this->getVar('alb_state'));
-        $ret['date']       = formatTimeStamp($this->getVar('alb_date'), 's');
+        $ret['date']       = formatTimestamp($this->getVar('alb_date'), 's');
         $ret['submitter']  = XoopsUser::getUnameFromId($this->getVar('alb_submitter'));
         return $ret;
     }
