@@ -74,7 +74,6 @@ if ($op === 'global') {
         $imagesAll = $imagesHandler->getAllImages(0, 'img_name');
         foreach (array_keys($imagesAll) as $i) {
             $permform->addItem($imagesAll[$i]->getVar('img_id'), $imagesAll[$i]->getVar('img_name'));
-
         }
         $GLOBALS['xoopsTpl']->assign('form', $permform->render());
     } else {

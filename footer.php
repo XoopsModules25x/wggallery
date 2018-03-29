@@ -24,11 +24,11 @@ if (count($xoBreadcrumbs) > 1) {
     $GLOBALS['xoopsTpl']->assign('xoBreadcrumbs', $xoBreadcrumbs);
 }
 $GLOBALS['xoopsTpl']->assign('adv', $wggallery->getConfig('advertise'));
-// 
+//
 $GLOBALS['xoopsTpl']->assign('bookmarks', $wggallery->getConfig('bookmarks'));
 $GLOBALS['xoopsTpl']->assign('fbcomments', $wggallery->getConfig('fbcomments'));
-// 
+//
 $GLOBALS['xoopsTpl']->assign('admin', WGGALLERY_ADMIN);
 $GLOBALS['xoopsTpl']->assign('copyright', $copyright);
-// 
+//
 include_once XOOPS_ROOT_PATH . '/footer.php';

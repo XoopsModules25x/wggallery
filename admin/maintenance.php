@@ -26,7 +26,7 @@ $op = XoopsRequest::getString('op', 'list');
 // Request alb_id
 $albId = XoopsRequest::getInt('alb_id');
 
-// add scripts 
+// add scripts
 $GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/wggallery/assets/js/admin.js');
 
 switch ($op) {
@@ -115,7 +115,7 @@ switch ($op) {
         if ($albumsHandler->insert($albumsObj)) {
             $newCatId     = $albumsObj->getNewInsertedIdAlbums();
             $permId       = isset($_REQUEST['alb_id']) ? $albId : $newAlbId;
-            $gpermHandler = xoops_gethandler('groupperm');
+            $gpermHandler = xoops_getHandler('groupperm');
             // Permission to view
             if (isset($_POST['groups_view'])) {
                 foreach ($_POST['groups_view'] as $onegroupId) {

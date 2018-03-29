@@ -36,11 +36,11 @@ if (_CANCEL === XoopsRequest::getString('cancel', 'none')) {
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet($style, null);
 $GLOBALS['xoTheme']->addStylesheet(WGGALLERY_CSS_URL . '/style' . $wggallery->getConfig('style_index_image') . '.css', null);
-// 
+//
 $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
-// 
+//
 
 switch ($op) {
     case 'list':
@@ -69,7 +69,6 @@ switch ($op) {
 
             //check permissions
             $GLOBALS['xoopsTpl']->assign('user_edit', true);
-
         }
 
         break;

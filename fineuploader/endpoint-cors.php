@@ -116,7 +116,7 @@ if ($method == "OPTIONS") {
     handlePreflight();
 } /*
  * handle a DELETE request or a POST with a _method of DELETE.
- */ else if ($method == "DELETE") {
+ */ elseif ($method == "DELETE") {
     handleCorsRequest();
 
     $result = $uploader->handleDelete("files");
@@ -125,13 +125,13 @@ if ($method == "OPTIONS") {
     // return some JSON along with self-executing javascript (iframe.ss.response)
     // that will parse the JSON and pass it along to Fine Uploader via
     // window.postMessage
-    if ($iframeRequest == true) {
+    if ($iframeRequest === true) {
         header("Content-Type: text/html");
         echo json_encode($result) . "<script src='http://10.0.2.2/jquery.fineuploader-4.1.1/iframe.xss.response-4.1.1.js'></script>";
     } else {
         echo json_encode($result);
     }
-} else if ($method == "POST") {
+} elseif ($method == "POST") {
     handleCorsRequest();
     header("Content-Type: text/plain");
 
@@ -151,7 +151,7 @@ if ($method == "OPTIONS") {
         // return some JSON along with self-executing javascript (iframe.ss.response)
         // that will parse the JSON and pass it along to Fine Uploader via
         // window.postMessage
-        if ($iframeRequest == true) {
+        if ($iframeRequest === true) {
             header("Content-Type: text/html");
             echo json_encode($result) . "<script src='http://{{SERVER_URL}}/{{FINE_UPLOADER_FOLDER}}/iframe.xss.response.js'></script>";
         } else {
@@ -161,5 +161,3 @@ if ($method == "OPTIONS") {
 } else {
     header("HTTP/1.0 405 Method Not Allowed");
 }
-
-?>

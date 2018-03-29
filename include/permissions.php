@@ -30,6 +30,5 @@
  */
 function permGetUserAlbum($albId)
 {
-
     return 1;
 }

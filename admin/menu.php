@@ -21,7 +21,7 @@
  * @version        $Id: 1.0 menu.php 1 Mon 2018-03-19 10:04:52Z XOOPS Project (www.xoops.org) $
  */
 $dirname                = basename(dirname(__DIR__));
-$moduleHandler          = xoops_gethandler('module');
+$moduleHandler          = xoops_getHandler('module');
 $xoopsModule            = XoopsModule::getByDirname($dirname);
 $moduleInfo             = $moduleHandler->get($xoopsModule->getVar('mid'));
 $sysPathIcon32          = $moduleInfo->getInfo('sysicons32');

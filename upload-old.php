@@ -34,43 +34,43 @@ $GLOBALS['xoTheme']->addStylesheet(XOOPS_URL . '/modules/wggallery/fineuploader/
 
 echo "<br>Dir:" . getcwd();
 echo "<br>Dir:" . dirname(dirname(__DIR__)) . '\mainfile.php';
-/* 
+/*
 switch($op) {
-	case 'form':
-	default:
-		// Navigation
-		$navigation = _MA_WGGALLERY_SUBMIT_PROPOSER;
-		$GLOBALS['xoopsTpl']->assign('navigation', $navigation);
-		// Title of page
-		$title = _MA_WGGALLERY_SUBMIT_PROPOSER . '&nbsp;-&nbsp;';
-		$title .= $GLOBALS['xoopsModule']->name();
-		$GLOBALS['xoopsTpl']->assign('xoops_pagetitle', $title);
-		// Description
-		$GLOBALS['xoTheme']->addMeta( 'meta', 'description', strip_tags(_MA_WGGALLERY_SUBMIT_PROPOSER));
-		// Form Create
-		$picturesObj = $picturesHandler->create();
-		$form = $picturesObj->getFormPictures();
-		$GLOBALS['xoopsTpl']->assign('form', $form->render());
+    case 'form':
+    default:
+        // Navigation
+        $navigation = _MA_WGGALLERY_SUBMIT_PROPOSER;
+        $GLOBALS['xoopsTpl']->assign('navigation', $navigation);
+        // Title of page
+        $title = _MA_WGGALLERY_SUBMIT_PROPOSER . '&nbsp;-&nbsp;';
+        $title .= $GLOBALS['xoopsModule']->name();
+        $GLOBALS['xoopsTpl']->assign('xoops_pagetitle', $title);
+        // Description
+        $GLOBALS['xoTheme']->addMeta( 'meta', 'description', strip_tags(_MA_WGGALLERY_SUBMIT_PROPOSER));
+        // Form Create
+        $picturesObj = $picturesHandler->create();
+        $form = $picturesObj->getFormPictures();
+        $GLOBALS['xoopsTpl']->assign('form', $form->render());
 
-	break;
-	case 'save':
-		// Security Check
-		if(!$GLOBALS['xoopsSecurity']->check()) {
-			redirect_header('pictures.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
-		}
-		$picturesObj = $picturesHandler->create();
-		$pictureDate = date_create_from_format(_SHORTDATESTRING, $_POST['pic_date']);
+    break;
+    case 'save':
+        // Security Check
+        if(!$GLOBALS['xoopsSecurity']->check()) {
+            redirect_header('pictures.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+        }
+        $picturesObj = $picturesHandler->create();
+        $pictureDate = date_create_from_format(_SHORTDATESTRING, $_POST['pic_date']);
         $picturesObj->setVar('pic_date', $pictureDate->getTimestamp());
-		// Insert Data
-		if($picturesHandler->insert($picturesObj)) {
-			redirect_header('index.php', 2, _MA_WGGALLERY_FORM_OK);
-		}
-		// Get Form Error
-		$GLOBALS['xoopsTpl']->assign('error', $picturesObj->getHtmlErrors());
-		$form = $picturesObj->getFormPictures();
-		$GLOBALS['xoopsTpl']->assign('form', $form->display());
+        // Insert Data
+        if($picturesHandler->insert($picturesObj)) {
+            redirect_header('index.php', 2, _MA_WGGALLERY_FORM_OK);
+        }
+        // Get Form Error
+        $GLOBALS['xoopsTpl']->assign('error', $picturesObj->getHtmlErrors());
+        $form = $picturesObj->getFormPictures();
+        $GLOBALS['xoopsTpl']->assign('form', $form->display());
 
-	break;
+    break;
 } */
 // Breadcrumbs
 $xoBreadcrumbs[] = array('title' => _MA_WGGALLERY_SUBMIT);

@@ -165,9 +165,9 @@ class WggalleryAlbums extends XoopsObject
         $albStateSelect->addOption(WGGALLERY_STATE_APPROVAL_VAL, _CO_WGGALLERY_STATE_APPROVAL);
         $form->addElement($albStateSelect);
         // Permissions
-        $memberHandler = xoops_gethandler('member');
+        $memberHandler = xoops_getHandler('member');
         $groupList     = $memberHandler->getGroupList();
-        $gpermHandler  = xoops_gethandler('groupperm');
+        $gpermHandler  = xoops_getHandler('groupperm');
         $fullList[]    = array_keys($groupList);
         if (!$this->isNew()) {
             $groupsIdsApprove         = $gpermHandler->getGroupIds('wggallery_approve', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));

@@ -39,7 +39,6 @@ $form = $albumsObj->getFormUploadToAlbum();
 $GLOBALS['xoopsTpl']->assign('form', $form->render());
 
 if (0 < $albId) {
-
     $albumObj = $albumsHandler->get($albId);
     // get config for file type/extenstion
     $fileextions = $wggallery->getConfig('fileext');

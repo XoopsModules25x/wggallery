@@ -44,10 +44,10 @@ if ($albumsCount > 0) {
     $GLOBALS['xoopsTpl']->assign('numb_col', $wggallery->getConfig('numb_col'));
 }
 unset($count);
-// 
+//
 $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
-// 
+//
 $imagesCount = $imagesHandler->getCountImages();
 $count       = 1;
 if ($imagesCount > 0) {

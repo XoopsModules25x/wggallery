@@ -32,13 +32,13 @@ $albumsHandler = $wggallery->getHandler('albums');
 $imagesHandler = $wggallery->getHandler('images');
 // Permission
 include_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
-$gpermHandler = xoops_gethandler('groupperm');
+$gpermHandler = xoops_getHandler('groupperm');
 if (is_object($xoopsUser)) {
     $groups = $xoopsUser->getGroups();
 } else {
     $groups = XOOPS_GROUP_ANONYMOUS;
 }
-// 
+//
 $myts = MyTextSanitizer::getInstance();
 // Default Css Style
 $style = WGGALLERY_URL . '/assets/css/style.css';

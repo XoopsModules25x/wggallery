@@ -21,7 +21,7 @@
  * @version        $Id: 1.0 xoops_version.php 1 Mon 2018-03-19 07:47:33Z XOOPS Project (www.xoops.org) $
  */
 
-// 
+//
 $dirname = basename(__DIR__);
 // ------------------- Informations ------------------- //
 $modversion['name']                = _MI_WGGALLERY_NAME;
@@ -150,7 +150,7 @@ $modversion['config'][$c]['default']     = 'dhtml';
 $modversion['config'][$c]['options']     = array_flip($editorHandlerDesc->getList());
 ++$c;
 // Get groups
-$memberHandler = xoops_gethandler('member');
+$memberHandler = xoops_getHandler('member');
 $xoopsGroups   = $memberHandler->getGroupList();
 foreach ($xoopsGroups as $key => $group) {
     $groups[$group] = $key;
@@ -166,7 +166,7 @@ $modversion['config'][$c]['options']     = $groups;
 // Get Admin groups
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('group_type', 'Admin'));
-$memberHandler    = xoops_gethandler('member');
+$memberHandler    = xoops_getHandler('member');
 $adminXoopsGroups = $memberHandler->getGroupList($criteria);
 foreach ($adminXoopsGroups as $key => $adminGroup) {
     $adminGroups[$adminGroup] = $key;

@@ -122,7 +122,8 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
             );
         }
         // create medium image
-        $ret = $this->resizeImage($this->pathUpload . '/medium/' . $this->imageName, 300, 300);;
+        $ret = $this->resizeImage($this->pathUpload . '/medium/' . $this->imageName, 300, 300);
+        ;
         if (false === $ret) {
             return array('error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_MEDIUM, $this->imageNicename));
         }
@@ -130,7 +131,8 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
             copy($this->pathUpload . '/large/' . $this->imageName, $this->pathUpload . '/medium/' . $this->imageName);
         }
         // create thumb
-        $ret = $this->resizeImage($this->pathUpload . '/thumbs/' . $this->imageName, 100, 100);;
+        $ret = $this->resizeImage($this->pathUpload . '/thumbs/' . $this->imageName, 100, 100);
+        ;
         if (false === $ret) {
             return array('error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_THUMBS, $this->imageNicename));
         }
@@ -142,7 +144,6 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 
     private function handleImgLarge()
     {
-
         include XOOPS_ROOT_PATH . '/modules/wggallery/header.php';
         global $xoopsUser;
 
@@ -173,18 +174,15 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 
     private function handleImgMedium()
     {
-
         return $this->resizeImage($this->pathUpload . '/medium/' . $this->imageName, 100, 100);
     }
 
     private function handleImgThumbs()
     {
-
     }
 
     private function getImageDim()
     {
-
         switch ($this->imageMimetype) {
             case'image/png':
                 $img = imagecreatefrompng($this->imagePath);
@@ -286,5 +284,4 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
         imagedestroy($img);
         return true;
     }
-
 }

@@ -89,7 +89,7 @@ class WggalleryImages extends XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
         // Permissions for uploader
-        $gpermHandler = xoops_gethandler('groupperm');
+        $gpermHandler = xoops_getHandler('groupperm');
         $groups       = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
         if ($GLOBALS['xoopsUser']) {
             if (!$GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid())) {
@@ -166,9 +166,9 @@ class WggalleryImages extends XoopsObject
         // Form Text ImgIp
         $form->addElement(new XoopsFormText(_AM_WGGALLERY_IMAGE_IP, 'img_ip', 50, 255, $this->getVar('img_ip')));
         // Permissions
-        $memberHandler = xoops_gethandler('member');
+        $memberHandler = xoops_getHandler('member');
         $groupList     = $memberHandler->getGroupList();
-        $gpermHandler  = xoops_gethandler('groupperm');
+        $gpermHandler  = xoops_getHandler('groupperm');
         $fullList[]    = array_keys($groupList);
         if (!$this->isNew()) {
             $groupsIdsApprove         = $gpermHandler->getGroupIds('wggallery_approve', $this->getVar('img_id'), $GLOBALS['xoopsModule']->getVar('mid'));

@@ -85,11 +85,9 @@ if ($method == "POST") {
 
     echo json_encode($result);
 } // for delete file requests
-else if ($method == "DELETE") {
+elseif ($method == "DELETE") {
     $result = $uploader->handleDelete("files");
     echo json_encode($result);
 } else {
     header("HTTP/1.0 405 Method Not Allowed");
 }
-
-?>

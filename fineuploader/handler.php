@@ -8,7 +8,6 @@
 
 class UploadHandler
 {
-
     public $allowedExtensions = array();
     public $sizeLimit         = null;
     public $inputName         = 'qqfile';
@@ -100,7 +99,6 @@ class UploadHandler
      */
     public function handleUpload($uploadDirectory, $name = null)
     {
-
         if (is_writable($this->chunksFolder)
             && 1 == mt_rand(1, 1 / $this->chunksCleanupProbability)) {
 
@@ -127,7 +125,7 @@ class UploadHandler
 
         if (!isset($type)) {
             return array('error' => "No files were uploaded.");
-        } else if (strpos(strtolower($type), 'multipart/') !== 0) {
+        } elseif (strpos(strtolower($type), 'multipart/') !== 0) {
             return array('error' => "Server error. Not a multipart request. Please set forceMultipart to default value (true).");
         }
 
@@ -194,7 +192,6 @@ class UploadHandler
             $success = move_uploaded_file($_FILES[$this->inputName]['tmp_name'], $target);
 
             return array("success" => true, "uuid" => $uuid);
-
         } else {
             # non-chunked upload
 
@@ -236,7 +233,7 @@ class UploadHandler
             $url    = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             $tokens = explode('/', $url);
             $uuid   = $tokens[sizeof($tokens) - 1];
-        } else if ($method == "POST") {
+        } elseif ($method == "POST") {
             $uuid = $_REQUEST['qquuid'];
         } else {
             return array(
@@ -257,7 +254,6 @@ class UploadHandler
                 "path"    => $uuid
             );
         }
-
     }
 
     /**
@@ -346,7 +342,6 @@ class UploadHandler
             } else {
                 unlink(join(DIRECTORY_SEPARATOR, array($dir, $item)));
             }
-
         }
         rmdir($dir);
     }
@@ -369,9 +364,11 @@ class UploadHandler
             case 'g':
             case 'G':
                 $val *= 1024;
+                // no break
             case 'm':
             case 'M':
                 $val *= 1024;
+                // no break
             case 'k':
             case 'K':
                 $val *= 1024;
@@ -408,5 +405,4 @@ class UploadHandler
         $isWin = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN');
         return $isWin;
     }
-
 }
