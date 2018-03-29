@@ -31,7 +31,6 @@
 // Include the upload handler class
 require_once "handler.php";
 
-
 $uploader = new UploadHandler();
 
 // Specify the list of valid extensions, ex. array("jpeg", "xml", "bmp")
@@ -53,11 +52,12 @@ $method = get_request_method();
 // must be hidden in the parameters of the request.  For example, when attempting to
 // delete a file using a POST request. In that case, "DELETE" will be sent along with
 // the request in a "_method" parameter.
-function get_request_method() {
+function get_request_method()
+{
     global $HTTP_RAW_POST_DATA;
 
-    if(isset($HTTP_RAW_POST_DATA)) {
-    	parse_str($HTTP_RAW_POST_DATA, $_POST);
+    if (isset($HTTP_RAW_POST_DATA)) {
+        parse_str($HTTP_RAW_POST_DATA, $_POST);
     }
 
     if (isset($_POST["_method"]) && $_POST["_method"] != null) {
@@ -74,8 +74,7 @@ if ($method == "POST") {
     // For example: /myserver/handlers/endpoint.php?done
     if (isset($_GET["done"])) {
         $result = $uploader->combineChunks("files");
-    }
-    // Handles upload requests
+    } // Handles upload requests
     else {
         // Call handleUpload() with the name of the folder, relative to PHP's getcwd()
         $result = $uploader->handleUpload("files");
@@ -85,13 +84,11 @@ if ($method == "POST") {
     }
 
     echo json_encode($result);
-}
-// for delete file requests
+} // for delete file requests
 else if ($method == "DELETE") {
     $result = $uploader->handleDelete("files");
     echo json_encode($result);
-}
-else {
+} else {
     header("HTTP/1.0 405 Method Not Allowed");
 }
 

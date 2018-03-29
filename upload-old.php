@@ -26,14 +26,14 @@ xoops_loadLanguage('admin', 'wggallery');
 $op = XoopsRequest::getString('op', 'form');
 // Template
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_upload.tpl';
-include_once XOOPS_ROOT_PATH .'/header.php';
-$GLOBALS['xoTheme']->addStylesheet( $style, null );
+include_once XOOPS_ROOT_PATH . '/header.php';
+$GLOBALS['xoTheme']->addStylesheet($style, null);
 $GLOBALS['xoTheme']->addScript('browse.php?Frameworks/jquery/jquery.js');
 $GLOBALS['xoTheme']->addScript('browse.php?modules/wggallery/fineuploader/jquery.fine-uploader.js');
-$GLOBALS['xoTheme']->addStylesheet( XOOPS_URL . '/modules/wggallery/fineuploader/fine-uploader-new.css', null );
+$GLOBALS['xoTheme']->addStylesheet(XOOPS_URL . '/modules/wggallery/fineuploader/fine-uploader-new.css', null);
 
-echo "<br>Dir:". getcwd();
-echo "<br>Dir:".  dirname(dirname(__DIR__)) .'\mainfile.php';
+echo "<br>Dir:" . getcwd();
+echo "<br>Dir:" . dirname(dirname(__DIR__)) . '\mainfile.php';
 /* 
 switch($op) {
 	case 'form':

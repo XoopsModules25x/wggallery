@@ -20,8 +20,8 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 footer.php 1 Mon 2018-03-19 10:04:54Z XOOPS Project (www.xoops.org) $
  */
-if(count($xoBreadcrumbs) > 1) {
-	$GLOBALS['xoopsTpl']->assign('xoBreadcrumbs', $xoBreadcrumbs);
+if (count($xoBreadcrumbs) > 1) {
+    $GLOBALS['xoopsTpl']->assign('xoBreadcrumbs', $xoBreadcrumbs);
 }
 $GLOBALS['xoopsTpl']->assign('adv', $wggallery->getConfig('advertise'));
 // 
@@ -31,4 +31,4 @@ $GLOBALS['xoopsTpl']->assign('fbcomments', $wggallery->getConfig('fbcomments'));
 $GLOBALS['xoopsTpl']->assign('admin', WGGALLERY_ADMIN);
 $GLOBALS['xoopsTpl']->assign('copyright', $copyright);
 // 
-include_once XOOPS_ROOT_PATH .'/footer.php';
+include_once XOOPS_ROOT_PATH . '/footer.php';

@@ -21,8 +21,8 @@
  * @version        $Id: 1.0 admin.php 1 Mon 2018-03-19 10:04:52Z XOOPS Project (www.xoops.org) $
  */
 
-include_once 'common.php'; 
- 
+include_once 'common.php';
+
 // ---------------- Admin Index ----------------
 define('_AM_WGGALLERY_STATISTICS', 'Statistics');
 // There are
