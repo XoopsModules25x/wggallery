@@ -20,7 +20,7 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 main.php 1 Mon 2018-03-19 10:04:56Z XOOPS Project (www.xoops.org) $
  */
- 
+
 // constants for state
 define('_CO_WGGALLERY_STATE_OFFLINE', 'Offline');
 define('_CO_WGGALLERY_STATE_ONLINE', 'Online');
@@ -42,7 +42,7 @@ define('_CO_WGGALLERY_THEREARENT_ALBUMS', "There aren't albums");
 define('_CO_WGGALLERY_THEREARENT_IMAGES', "There aren't images");
 // Album buttons
 define('_CO_WGGALLERY_ALBUM_ADD', 'Add Album');
-define('_CO_WGGALLERY_ALBUM_EDIT', 'Edit Album'); 
+define('_CO_WGGALLERY_ALBUM_EDIT', 'Edit Album');
 
 // Elements of Album
 define('_CO_WGGALLERY_ALBUM_ID', 'Id');
@@ -58,13 +58,13 @@ define('_CO_WGGALLERY_ALBUM_USE_UPLOADED', '(2) Use an uploaded image as album i
 define('_CO_WGGALLERY_ALBUM_FORM_UPLOAD_IMAGE', 'Upload a new image');
 define('_CO_WGGALLERY_ALBUM_STATE', 'State');
 define('_CO_WGGALLERY_ALBUM_DATE', 'Date');
-define('_CO_WGGALLERY_ALBUM_SUBMITTER', 'Submitter'); 
+define('_CO_WGGALLERY_ALBUM_SUBMITTER', 'Submitter');
 define('_CO_WGGALLERY_ALBUM_DELETE_DESC', 'Attention: All images linked to this album will also be deleted');
 
 define('_AM_WGGALLERY_IMAGE_COUNT', 'Number of images');
 define('_CO_WGGALLERY_IMAGES_ALBUMSHOW', 'Show Album');
-define('_CO_WGGALLERY_IMAGES_INDEX', 'Show Images Index'); 
-define('_CO_WGGALLERY_IMAGES_UPLOAD', 'Upload Images'); 
+define('_CO_WGGALLERY_IMAGES_INDEX', 'Show Images Index');
+define('_CO_WGGALLERY_IMAGES_UPLOAD', 'Upload Images');
 // Image add/edit
 define('_AM_WGGALLERY_IMAGE_ADD', 'Add Image');
 define('_AM_WGGALLERY_IMAGE_EDIT', 'Edit Image');

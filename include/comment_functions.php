@@ -28,10 +28,11 @@
  * @param mixed $itemNumb
  * @return bool
  */
-function wggalleryCommentsUpdate($itemId, $itemNumb) {
-    $itemId = (int) ($itemId);
-    $itemNumb = (int) ($itemNumb);
-    $article = new WggalleryImages($itemId);
+function wggalleryCommentsUpdate($itemId, $itemNumb)
+{
+    $itemId   = (int)($itemId);
+    $itemNumb = (int)($itemNumb);
+    $article  = new WggalleryImages($itemId);
     if (!$article->updateComments($itemNumb)) {
         return false;
     }
@@ -41,9 +42,10 @@ function wggalleryCommentsUpdate($itemId, $itemNumb) {
 /**
  * CommentsApprove
  *
- * @param string  $comment
+ * @param string $comment
  * @return void
  */
-function wggalleryCommentsApprove(&$comment){
+function wggalleryCommentsApprove(&$comment)
+{
     // notification mail here
 }

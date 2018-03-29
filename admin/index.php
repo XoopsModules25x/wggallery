@@ -29,22 +29,22 @@ $templateMain = 'wggallery_admin_index.tpl';
 // InfoBox Statistics
 $adminObject->addInfoBox(_AM_WGGALLERY_STATISTICS);
 // Info elements
-$adminObject->addInfoBoxLine(sprintf( '<label>'._AM_WGGALLERY_THEREARE_ALBUMS.'</label>', $countAlbums));
-$adminObject->addInfoBoxLine(sprintf( '<label>'._AM_WGGALLERY_THEREARE_IMAGES.'</label>', $countImages));
+$adminObject->addInfoBoxLine(sprintf('<label>' . _AM_WGGALLERY_THEREARE_ALBUMS . '</label>', $countAlbums));
+$adminObject->addInfoBoxLine(sprintf('<label>' . _AM_WGGALLERY_THEREARE_IMAGES . '</label>', $countImages));
 // Upload Folders
 $folder = array(
-	WGGALLERY_UPLOAD_PATH,
-	WGGALLERY_UPLOAD_PATH . '/albums/',
-	WGGALLERY_UPLOAD_PATH . '/images/',
-	WGGALLERY_UPLOAD_PATH . '/images/albums/',
-	WGGALLERY_UPLOAD_PATH . '/images/large/',
-	WGGALLERY_UPLOAD_PATH . '/images/medium/',
-	WGGALLERY_UPLOAD_PATH . '/images/thumbs/'
+    WGGALLERY_UPLOAD_PATH,
+    WGGALLERY_UPLOAD_PATH . '/albums/',
+    WGGALLERY_UPLOAD_PATH . '/images/',
+    WGGALLERY_UPLOAD_PATH . '/images/albums/',
+    WGGALLERY_UPLOAD_PATH . '/images/large/',
+    WGGALLERY_UPLOAD_PATH . '/images/medium/',
+    WGGALLERY_UPLOAD_PATH . '/images/thumbs/'
 );
 // Uploads Folders Created
-foreach(array_keys($folder) as $i) {
-	$adminObject->addConfigBoxLine($folder[$i], 'folder');
-	$adminObject->addConfigBoxLine(array($folder[$i], '777'), 'chmod');
+foreach (array_keys($folder) as $i) {
+    $adminObject->addConfigBoxLine($folder[$i], 'folder');
+    $adminObject->addConfigBoxLine(array($folder[$i], '777'), 'chmod');
 }
 
 // Render Index

@@ -20,37 +20,37 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 header.php 1 Mon 2018-03-19 10:04:54Z XOOPS Project (www.xoops.org) $
  */
-include dirname(dirname(__DIR__)) .'/mainfile.php';
-include __DIR__ .'/include/common.php';
+include dirname(dirname(__DIR__)) . '/mainfile.php';
+include __DIR__ . '/include/common.php';
 $dirname = basename(__DIR__);
 // Breadcrumbs
-$xoBreadcrumbs = array();
+$xoBreadcrumbs   = array();
 $xoBreadcrumbs[] = array('title' => _MA_WGGALLERY_TITLE, 'link' => WGGALLERY_URL . '/');
 // Get instance of module
-$wggallery = WggalleryHelper::getInstance();
+$wggallery     = WggalleryHelper::getInstance();
 $albumsHandler = $wggallery->getHandler('albums');
 $imagesHandler = $wggallery->getHandler('images');
 // Permission
-include_once XOOPS_ROOT_PATH .'/class/xoopsform/grouppermform.php';
-$gpermHandler = xoops_gethandler('groupperm');
-if(is_object($xoopsUser)) {
-	$groups  = $xoopsUser->getGroups();
+include_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
+$gpermHandler = xoops_getHandler('groupperm');
+if (is_object($xoopsUser)) {
+    $groups = $xoopsUser->getGroups();
 } else {
-	$groups  = XOOPS_GROUP_ANONYMOUS;
+    $groups = XOOPS_GROUP_ANONYMOUS;
 }
-// 
+//
 $myts = MyTextSanitizer::getInstance();
 // Default Css Style
 $style = WGGALLERY_URL . '/assets/css/style.css';
-if(!file_exists($style)) {
-	return false;
+if (!file_exists($style)) {
+    return false;
 }
 // Smarty Default
-$sysPathIcon16 = $GLOBALS['xoopsModule']->getInfo('sysicons16');
-$sysPathIcon32 = $GLOBALS['xoopsModule']->getInfo('sysicons32');
+$sysPathIcon16   = $GLOBALS['xoopsModule']->getInfo('sysicons16');
+$sysPathIcon32   = $GLOBALS['xoopsModule']->getInfo('sysicons32');
 $pathModuleAdmin = $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin');
-$modPathIcon16 = $GLOBALS['xoopsModule']->getInfo('modicons16');
-$modPathIcon32 = $GLOBALS['xoopsModule']->getInfo('modicons16');
+$modPathIcon16   = $GLOBALS['xoopsModule']->getInfo('modicons16');
+$modPathIcon32   = $GLOBALS['xoopsModule']->getInfo('modicons16');
 // Load Languages
 xoops_loadLanguage('main');
 xoops_loadLanguage('modinfo');
