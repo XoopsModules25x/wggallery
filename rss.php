@@ -27,7 +27,7 @@ if (function_exists('mb_http_output')) {
     mb_http_output('pass');
 }
 //header ('Content-Type:text/xml; charset=UTF-8');
-$wggallery->geConfig('utf8') = false;
+$wggallery->getConfig('utf8') = false; //TODO Expression is not assignable: Method reference
 
 $tpl = new XoopsTpl();
 $tpl->xoops_setCaching(2); //1 = Cache global, 2 = Cache individual (for template)
