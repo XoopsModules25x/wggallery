@@ -96,6 +96,7 @@ class UploadHandler
      * Process the upload.
      * @param string $uploadDirectory Target directory.
      * @param string $name            Overwrites the name of the file.
+     * @return array
      */
     public function handleUpload($uploadDirectory, $name = null)
     {
@@ -219,6 +220,7 @@ class UploadHandler
      * @param string $uploadDirectory Target directory.
      * @params string $name Overwrites the name of the file.
      *
+     * @return array
      */
     public function handleDelete($uploadDirectory, $name = null)
     {
@@ -261,6 +263,7 @@ class UploadHandler
      * and appends a suffix otherwise.
      * @param string $uploadDirectory Target directory
      * @param string $filename        The name of the file to use.
+     * @return bool|string
      */
     protected function getUniqueTargetPath($uploadDirectory, $filename)
     {
@@ -349,6 +352,7 @@ class UploadHandler
     /**
      * Converts a given size with units to bytes.
      * @param string $str
+     * @return int
      */
     protected function toBytes($str)
     {
@@ -386,6 +390,7 @@ class UploadHandler
      * otherwise, it checks additionally for executable status (like before).
      *
      * @param string $directory The target directory to test access
+     * @return bool
      */
     protected function isInaccessible($directory)
     {
