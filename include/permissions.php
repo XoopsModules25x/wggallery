@@ -21,14 +21,49 @@
  * @version        $Id: 1.0 permissions.php 1 Mon 2018-03-19 10:04:53Z XOOPS Project (www.xoops.org) $
  */
 
-/***************Permissions***************/
-/**
+ /***************Permissions***************/
+ /**
  * get perms for current user for given album
  *
- * @param string $albId string to transform
+ * @param string $albId      string to transform
  * @return int
  */
-function permGetUserAlbum($albId)
-{
+function permGetUserAlbum($albId) {
+
     return 1;
 }
+
+function permEditAlbum($albId) {
+
+    global $xoopsUser;
+    
+    if ( isset($xoopsUser) && is_object($xoopsUser) ) {
+        if ($xoopsUser->isAdmin()) {
+            return true;
+        } else {
+            // must be adopted to perm per user
+            $uid = $xoopsUser->id;
+            return true;
+        }
+    }   
+    return false;
+    
+}
+
+function permCreateAlbum() {
+    
+    global $xoopsUser;
+    
+    if ( isset($xoopsUser) && is_object($xoopsUser) ) {
+        if ($xoopsUser->isAdmin()) {
+            return true;
+        } else {
+            // must be adopted to perm per user
+            $uid = $xoopsUser->id;
+            return true;
+        }
+    }   
+    return false;
+}
+
+ 

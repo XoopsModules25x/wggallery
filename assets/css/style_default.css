@@ -1,0 +1,70 @@
+@charset "UTF-8";
+/*
+ You may not change or alter any portion of this comment or credits
+ of supporting developers from this source code or any supporting source code
+ which is considered copyrighted (c) material of the original comment or credit authors.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+*/
+
+/**
+ * wgGallery module for xoops
+ *
+ * @copyright      module for xoops
+ * @license        GPL 2.0 or later
+ * @package        wggallery
+ * @since          1.0
+ * @min_xoops      2.5.7
+ * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
+ * @version        $Id: 1.0 style.css 1 Mon 2018-03-19 10:04:56Z XOOPS Project (www.xoops.org) $
+ */
+
+
+.wgg-album-img {
+	margin: 5px auto 5px auto;
+    border: 1px solid grey;
+    padding: 2px;
+}
+.wgg-img {
+	margin: 0px auto 0px auto;
+    border: 1px solid grey;
+    padding: 2px;
+}		
+.wgg-album-btntray,
+.wgg-img-btntray  {
+	display:inline-block;
+	border: 1px solid;
+	border-radius:5px;
+	margin:2px;
+	padding:2px 5px;
+}
+.wgg-album-btntray img,
+.wgg-img-btntray img {
+	margin: 0 3px;
+}
+.wgg-album-list,
+.wgg-image-list {
+	border-bottom: 1px solid grey;
+	padding-bottom:20px;
+}
+
+.wgg-btn-icon{
+	margin:0 5px 0 0;
+}
+.wgg-album-footer {
+	
+}
+.wgg-img-panel  {
+	margin: 0px;
+}
+.wgg-img-panel-row p {
+	margin:2px 0;
+}
+.wgg-img-panel-row img {
+	margin: 0 5px 0 0;
+}
+.wgg-img-panel-row .wgg-img {
+	margin: 5px;
+}

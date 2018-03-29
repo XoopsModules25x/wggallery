@@ -21,8 +21,8 @@
  * @version        $Id: 1.0 admin.php 1 Mon 2018-03-19 10:04:52Z XOOPS Project (www.xoops.org) $
  */
 
-include_once __DIR__ . '/common.php';
-
+include_once 'common.php'; 
+ 
 // ---------------- Admin Index ----------------
 define('_AM_WGGALLERY_STATISTICS', 'Statistics');
 // There are
@@ -35,8 +35,6 @@ define('_AM_WGGALLERY_ADD_IMAGE', 'Add New Image');
 // Lists
 define('_AM_WGGALLERY_ALBUMS_LIST', 'List of Albums');
 define('_AM_WGGALLERY_IMAGES_LIST', 'List of Images');
-define('_AM_WGGALLERY_FORM_ACTION', 'Actions');
-
 // ---------------- Admin Classes ----------------
 
 // ---------------- Admin Others ----------------

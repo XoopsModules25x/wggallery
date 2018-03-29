@@ -14,6 +14,7 @@
 CREATE TABLE `wggallery_albums` (
   `alb_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   `alb_pid` INT(8) NOT NULL DEFAULT '0',
+  `alb_iscat` INT(8) NOT NULL DEFAULT '0',
   `alb_name` VARCHAR(200) NOT NULL DEFAULT '',
   `alb_desc` TEXT NOT NULL ,
   `alb_weight` INT(8) NOT NULL DEFAULT '0',

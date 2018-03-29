@@ -21,20 +21,20 @@
  * @version        $Id: 1.0 single.php 1 Mon 2018-03-19 10:04:55Z XOOPS Project (www.xoops.org) $
  */
 include __DIR__ . '/header.php';
-$imgId                                   = XoopsRequest::getInt('img_id', 0);
+$imgId = XoopsRequest::getInt('img_id', 0);
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_single.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+include_once XOOPS_ROOT_PATH .'/header.php';
 // Define Stylesheet
-$GLOBALS['xoTheme']->addStylesheet($style, null);
+$GLOBALS['xoTheme']->addStylesheet( $style, null );
 $keywords = array();
 // Breadcrumbs
 $xoBreadcrumbs[] = array('title' => _MA_WGGALLERY_IMAGES);
 // Keywords
-wggalleryMetaKeywords($wggallery->getConfig('keywords') . ', ' . implode(',', $keywords));
+wggalleryMetaKeywords($wggallery->getConfig('keywords').', '. implode(',', $keywords));
 unset($keywords);
 // Description
 wggalleryMetaDescription(_MA_WGGALLERY_IMAGES_DESC);
-$GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGGALLERY_URL . '/index.php');
+$GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGGALLERY_URL.'/index.php');
 $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
 include __DIR__ . '/footer.php';

@@ -21,7 +21,7 @@
  * @version        $Id: 1.0 main.php 1 Mon 2018-03-19 10:04:56Z XOOPS Project (www.xoops.org) $
  */
 
-include_once __DIR__ . '/common.php';
+include_once 'common.php';
 
 // ---------------- Main ----------------
 define('_MA_WGGALLERY_INDEX', 'Home');
@@ -54,7 +54,7 @@ define('_MA_WGGALLERY_ALBUM_SELECT_DESC', 'Please select album for uploading ima
 // Image
 define('_MA_WGGALLERY_IMAGE', 'Image');
 define('_MA_WGGALLERY_IMAGES', 'Images');
-define('_MA_WGGALLERY_IMAGES_TITLE', 'Gallery of images');
+define('_MA_WGGALLERY_IMAGES_TITLE', 'Images of gallery');
 define('_MA_WGGALLERY_IMAGES_DESC', 'Images description');
 define('_MA_WGGALLERY_IMAGES_UPLOAD', 'Upload images');
 // Caption of Image

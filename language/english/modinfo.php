@@ -28,7 +28,6 @@ define('_MI_WGGALLERY_ADMENU1', 'Dashboard');
 define('_MI_WGGALLERY_ADMENU2', 'Albums');
 define('_MI_WGGALLERY_ADMENU3', 'Images');
 define('_MI_WGGALLERY_ADMENU4', 'Permissions');
-define('_MI_WGGALLERY_ADMENU5', 'Maintenance');
 define('_MI_WGGALLERY_ABOUT', 'About');
 // ---------------- Admin Nav ----------------
 define('_MI_WGGALLERY_ADMIN_PAGER', 'Admin pager');
@@ -92,6 +91,8 @@ define('_MI_WGGALLERY_STYLE_INDEX_ALBUM', 'Style album index page');
 define('_MI_WGGALLERY_STYLE_INDEX_ALBUM_DESC', 'Please select a style for your album index page');
 define('_MI_WGGALLERY_STYLE_INDEX_IMAGE', 'Style image index page');
 define('_MI_WGGALLERY_STYLE_INDEX_IMAGE_DESC', 'Please select a style for your image index page');
+define('_MI_WGGALLERY_GALLERY_TYPE', 'Gallery type');
+define('_MI_WGGALLERY_GALLERY_TYPE_DESC', 'Please select a gallery type for displaying your images');
 define('_MI_WGGALLERY_NUMB_COL', 'Number Columns');
 define('_MI_WGGALLERY_NUMB_COL_DESC', 'Number Columns to View.');
 define('_MI_WGGALLERY_DIVIDEBY', 'Divide By');

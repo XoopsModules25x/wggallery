@@ -27,10 +27,10 @@ $op    = XoopsRequest::getString('op', 'form');
 $albId = XoopsRequest::getInt('alb_id', 0);
 // Template
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_upload.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+include_once XOOPS_ROOT_PATH .'/header.php';
 
 // Form Create
-if (isset($albId)) {
+if(isset($albId)) {
     $albumsObj = $albumsHandler->get($albId);
 } else {
     $albumsObj = $albumsHandler->create();
@@ -39,50 +39,51 @@ $form = $albumsObj->getFormUploadToAlbum();
 $GLOBALS['xoopsTpl']->assign('form', $form->render());
 
 if (0 < $albId) {
+    
     $albumObj = $albumsHandler->get($albId);
-    // get config for file type/extenstion
-    $fileextions = $wggallery->getConfig('fileext');
-    $mimetypes   = array();
+	// get config for file type/extenstion
+	$fileextions = $wggallery->getConfig('fileext');
+    $mimetypes = array();
     foreach ($fileextions as $fe) {
         switch ($fe) {
             case 'jpg':
             case 'jpeg':
             case 'jpe':
                 $mimetypes['image/jpeg'] = 'image/jpeg';
-                break;
+            break;
             case 'gif':
                 $mimetypes['image/gif'] = 'image/gif';
-                break;
+            break;
             case 'png':
                 $mimetypes['image/png'] = 'image/png';
-                break;
+            break;
             case 'bmp':
                 $mimetypes['image/bmp'] = 'image/bmp';
-                break;
+            break;
             case 'tiff':
             case 'tif':
                 $mimetypes['image/tiff'] = 'image/tiff';
-                break;
+            break;
             case 'else':
             default:
-
-                break;
+                
+            break;
         }
-    }
-    $allowedfileext = '';
-    $allowedfileext = implode("', '", $fileextions);
-    if ('' !== $allowedfileext) {
-        $allowedfileext = "'" . $allowedfileext . "'";
-    }
-    $allowedmimetypes = '';
-    $allowedmimetypes = implode("', '", $mimetypes);
-    if ('' !== $allowedmimetypes) {
-        $allowedmimetypes = "'" . $allowedmimetypes . "'";
-    }
+    }  
+	$allowedfileext = '';
+	$allowedfileext = implode("', '", $fileextions);
+	if ('' !== $allowedfileext) {
+		$allowedfileext = "'" . $allowedfileext . "'";
+	}
+	$allowedmimetypes = '';
+	$allowedmimetypes = implode("', '", $mimetypes);
+	if ('' !== $allowedmimetypes) {
+		$allowedmimetypes = "'" . $allowedmimetypes . "'";
+	}	
     // Define Stylesheet
     $xoTheme->addStylesheet(XOOPS_URL . '/media/fine-uploader/fine-uploader-new.css');
     $xoTheme->addStylesheet(XOOPS_URL . '/media/fine-uploader/ManuallyTriggerUploads.css');
-    $xoTheme->addStylesheet(XOOPS_URL . '/media/font-awesome/css/font-awesome.min.css');
+    $xoTheme->addStylesheet(XOOPS_URL . '/media/font-awesome/css/font-awesome.min.css');        
     $xoTheme->addStylesheet(XOOPS_URL . '/modules/system/css/admin.css');
     // Define scripts
     $xoTheme->addScript('browse.php?Frameworks/jquery/jquery.js');
@@ -95,20 +96,21 @@ if (0 < $albId) {
     $xoopsTpl->assign('img_maxwidth', $wggallery->getConfig('maxwidth'));
     $xoopsTpl->assign('img_maxheight', $wggallery->getConfig('maxheight'));
     $xoopsTpl->assign('img_albname', $albumObj->getVar('alb_name'));
-    $xoopsTpl->assign('allowedfileext', $albumObj->getVar('allowedfileext'));
-    $xoopsTpl->assign('allowedmimetypes', $albumObj->getVar('allowedmimetypes'));
+	$xoopsTpl->assign('allowedfileext', $albumObj->getVar('allowedfileext'));
+	$xoopsTpl->assign('allowedmimetypes', $albumObj->getVar('allowedmimetypes'));
     $payload = array(
-        'aud'     => 'ajaxfineupload.php',
-        'cat'     => $albId,
-        'uid'     => $xoopsUser instanceof \XoopsUser ? $xoopsUser->id() : 0,
+        'aud' => 'ajaxfineupload.php',
+        'cat' => $albId,
+        'uid' => $xoopsUser instanceof \XoopsUser ? $xoopsUser->id() : 0,
         'handler' => 'fineimpuploadhandler',
-        'moddir'  => 'wggallery',
+        'moddir' => 'wggallery',
     );
-    $jwt     = \Xmf\Jwt\TokenFactory::build('fineuploader', $payload, 60 * 30); // token good for 30 minutes
+    $jwt = \Xmf\Jwt\TokenFactory::build('fineuploader', $payload, 60*30); // token good for 30 minutes
     $xoopsTpl->assign('jwt', $jwt);
     $fineup_debug = 'false';
     if (($xoopsUser instanceof \XoopsUser ? $xoopsUser->isAdmin() : false)
-        && isset($_REQUEST['FINEUPLOADER_DEBUG'])) {
+        && isset($_REQUEST['FINEUPLOADER_DEBUG']))
+    {
         $fineup_debug = 'true';
     }
     $xoopsTpl->assign('fineup_debug', $fineup_debug);
