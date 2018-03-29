@@ -147,8 +147,10 @@ switch ($op) {
 // Breadcrumbs
 $xoBreadcrumbs[] = array('title' => _MA_WGGALLERY_IMAGES);
 // Keywords
-wggalleryMetaKeywords($wggallery->getConfig('keywords') . ', ' . implode(',', $keywords));
-unset($keywords);
+if (null !== ($wggallery->getConfig('keywords')) && isset($keywords)) {
+    wggalleryMetaKeywords($wggallery->getConfig('keywords') . ', ' . implode(',', $keywords));
+    unset($keywords);
+}
 // Description
 wggalleryMetaDescription(_MA_WGGALLERY_IMAGES_DESC);
 $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGGALLERY_URL . '/images.php');
