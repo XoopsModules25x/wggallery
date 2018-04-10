@@ -77,4 +77,11 @@ if(!is_dir($specimage)) {
 }
 copy($indexFile, $specimage.'/index.html');
 copy($blankFile, $specimage.'/blank.gif');
+// Making of gallerytypes uploads folder
+$gallerytypes = $wggallery.'/gallerytypes';
+if(!is_dir($gallerytypes)) {
+	mkdir($gallerytypes, 0777);
+	chmod($gallerytypes, 0777);
+}
+copy($indexFile, $gallerytypes.'/index.html');
 // ------------------- Install Footer ------------------- //

@@ -31,34 +31,34 @@ xoops_load('XoopsFormLoader');
 $permTableForm = new XoopsSimpleForm('', 'fselperm', 'permissions.php', 'post');
 $formSelect = new XoopsFormSelect('', 'op', $op);
 $formSelect->setExtra('onchange="document.fselperm.submit()"');
-$formSelect->addOption('global', _CO_WGGALLERY_PERMISSIONS_GLOBAL);
-$formSelect->addOption('approve', _CO_WGGALLERY_PERMISSIONS_APPROVE);
-$formSelect->addOption('submit', _CO_WGGALLERY_PERMISSIONS_SUBMIT);
-$formSelect->addOption('view', _CO_WGGALLERY_PERMISSIONS_VIEW);
+$formSelect->addOption('global', _CO_WGGALLERY_PERMS_GLOBAL);
+$formSelect->addOption('view', _CO_WGGALLERY_PERMS_ALB_VIEW);
+$formSelect->addOption('dllarge', _CO_WGGALLERY_PERMS_ALB_DLLARGE);
+$formSelect->addOption('dlmedium', _CO_WGGALLERY_PERMS_ALB_DLMEDIUM);
 $permTableForm->addElement($formSelect);
 $permTableForm->display();
 switch($op) {
-	case 'global':
+ 	case 'global':
 	default:
-		$formTitle = _CO_WGGALLERY_PERMISSIONS_GLOBAL;
-		$permName = 'wggallery_ac';
-		$permDesc = _CO_WGGALLERY_PERMISSIONS_GLOBAL_DESC;
-		$globalPerms = array( '4' => _CO_WGGALLERY_PERMISSIONS_GLOBAL_4, '8' => _CO_WGGALLERY_PERMISSIONS_GLOBAL_8, '16' => _CO_WGGALLERY_PERMISSIONS_GLOBAL_16 );
-	break;
-	case 'approve':
-		$formTitle = _CO_WGGALLERY_PERMISSIONS_APPROVE;
-		$permName = 'wggallery_approve';
-		$permDesc = _CO_WGGALLERY_PERMISSIONS_APPROVE_DESC;
-	break;
-	case 'submit':
-		$formTitle = _CO_WGGALLERY_PERMISSIONS_SUBMIT;
-		$permName = 'wggallery_submit';
-		$permDesc = _CO_WGGALLERY_PERMISSIONS_SUBMIT_DESC;
+		$formTitle = _CO_WGGALLERY_PERMS_GLOBAL;
+		$permName = 'wggallery_global';
+		$permDesc = _CO_WGGALLERY_PERMS_GLOBAL_DESC;
+		$globalPerms = array( '4' => _CO_WGGALLERY_PERMS_GLOBAL_4, '8' => _CO_WGGALLERY_PERMS_GLOBAL_8, '16' => _CO_WGGALLERY_PERMS_GLOBAL_16 );
 	break;
 	case 'view':
-		$formTitle = _CO_WGGALLERY_PERMISSIONS_VIEW;
+		$formTitle = _CO_WGGALLERY_PERMS_ALB_VIEW;
 		$permName = 'wggallery_view';
-		$permDesc = _CO_WGGALLERY_PERMISSIONS_VIEW_DESC;
+		$permDesc = _CO_WGGALLERY_PERMS_ALB_VIEW_DESC;
+	break;
+	case 'dllarge':
+		$formTitle = _CO_WGGALLERY_PERMS_ALB_DLLARGE;
+		$permName = 'wggallery_dllarge';
+		$permDesc = _CO_WGGALLERY_PERMS_ALB_DLLARGE_DESC;
+	break;
+	case 'dlmedium':
+		$formTitle = _CO_WGGALLERY_PERMS_ALB_DLMEDIUM;
+		$permName = 'wggallery_dlmedium';
+		$permDesc = _CO_WGGALLERY_PERMS_ALB_DLMEDIUM_DESC;
 	break;
 }
 $moduleId = $xoopsModule->getVar('mid');
@@ -69,16 +69,14 @@ if($op === 'global') {
 	}
 	$GLOBALS['xoopsTpl']->assign('form', $permform->render());
 } else {
-	$imagesCount = $imagesHandler->getCountImages();
-	if($imagesCount > 0) {
-		$imagesAll = $imagesHandler->getAllImages(0, 'img_name');
-		foreach(array_keys($imagesAll) as $i) {
-			$permform->addItem($imagesAll[$i]->getVar('img_id'), $imagesAll[$i]->getVar('img_name'));
-		}
+	$albumsCount = $albumsHandler->getCountAlbums();
+	if($albumsCount > 0) {
+		$albumsAll = $albumsHandler->getAllAlbums(0, 'alb_name');
+		foreach(array_keys($albumsAll) as $i) {
+			$permform->addItem($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_name'));		}
 		$GLOBALS['xoopsTpl']->assign('form', $permform->render());
 	} else {
-		redirect_header('images.php?op=new', 3, _AM_WGGALLERY_NO_PERMISSIONS_SET);
-		exit();
+		$GLOBALS['xoopsTpl']->assign('error', _CO_WGGALLERY_THEREARENT_ALBUMS);
 	}
 }
 unset($permform);

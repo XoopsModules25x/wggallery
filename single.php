@@ -34,7 +34,7 @@ wggalleryMetaKeywords($wggallery->getConfig('keywords').', '. implode(',', $keyw
 unset($keywords);
 // Description
 wggalleryMetaDescription(_MA_WGGALLERY_IMAGES_DESC);
-$GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGGALLERY_URL.'/index.php');
-$GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
+// $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGGALLERY_URL.'/index.php');
+// $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
 include __DIR__ . '/footer.php';

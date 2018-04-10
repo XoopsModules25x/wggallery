@@ -24,6 +24,7 @@ include __DIR__ . '/header.php';
 // Count elements
 $countAlbums = $albumsHandler->getCount();
 $countImages = $imagesHandler->getCount();
+$countGallerytypes = $gallerytypesHandler->getCount();
 // Template Index
 $templateMain = 'wggallery_admin_index.tpl';
 // InfoBox Statistics
@@ -31,6 +32,7 @@ $adminObject->addInfoBox(_AM_WGGALLERY_STATISTICS);
 // Info elements
 $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_WGGALLERY_THEREARE_ALBUMS.'</label>', $countAlbums));
 $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_WGGALLERY_THEREARE_IMAGES.'</label>', $countImages));
+$adminObject->addInfoBoxLine(sprintf( '<label>'._AM_WGGALLERY_THEREARE_GALLERYTYPES.'</label>', $countGallerytypes));
 // Upload Folders
 $folder = array(
 	WGGALLERY_UPLOAD_PATH,
@@ -39,7 +41,8 @@ $folder = array(
 	WGGALLERY_UPLOAD_PATH . '/images/albums/',
 	WGGALLERY_UPLOAD_PATH . '/images/large/',
 	WGGALLERY_UPLOAD_PATH . '/images/medium/',
-	WGGALLERY_UPLOAD_PATH . '/images/thumbs/'
+	WGGALLERY_UPLOAD_PATH . '/images/thumbs/',
+	WGGALLERY_UPLOAD_PATH . '/gallerytypes/'
 );
 // Uploads Folders Created
 foreach(array_keys($folder) as $i) {

@@ -73,6 +73,7 @@ $modversion['templates'][] = array('file' => 'wggallery_admin_header.tpl', 'desc
 $modversion['templates'][] = array('file' => 'wggallery_admin_index.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_albums.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_images.tpl', 'description' => '', 'type' => 'admin');
+$modversion['templates'][] = array('file' => 'wggallery_admin_gallerytypes.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_permissions.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_footer.tpl', 'description' => '', 'type' => 'admin');
 // User
@@ -80,6 +81,16 @@ $modversion['templates'][] = array('file' => 'wggallery_header.tpl', 'descriptio
 $modversion['templates'][] = array('file' => 'wggallery_index_default.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_albums_default.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_images_default.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_gallery_pgwslideshow.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_gallery_pgwslider.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_gallery_tarasdimagesgrid.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_gallery_viewerjs.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_gallery_blueimpgallery.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_gallery_justifiedgallery.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_gallery_lightbox.tpl', 'description' => '');
+
+
+$modversion['templates'][] = array('file' => 'wggallery_gallery_pwgslideshow.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_breadcrumbs.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_rate.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_rss.tpl', 'description' => '');
@@ -94,6 +105,7 @@ $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 // Tables
 $modversion['tables'][1] = 'wggallery_albums';
 $modversion['tables'][2] = 'wggallery_images';
+$modversion['tables'][3] = 'wggallery_gallerytypes';
 // ------------------- Search ------------------- //
 $modversion['hasSearch'] = 1;
 $modversion['search']['file'] = 'include/search.inc.php';
@@ -106,15 +118,35 @@ $modversion['comments']['callbackFile'] = 'include/comment_functions.php';
 $modversion['comments']['callback']['approve'] = 'wggalleryCommentsApprove';
 $modversion['comments']['callback']['update'] = 'wggalleryCommentsUpdate';
 // ------------------- Submenu ------------------- //
+$currdirname = isset($GLOBALS['xoopsModule']) && is_object($GLOBALS['xoopsModule']) ? $GLOBALS['xoopsModule']->getVar('dirname') : 'system';
+if ($dirname == $currdirname) {
+    $subcount = 1;
+    $pathname = XOOPS_ROOT_PATH . '/modules/' . $dirname;
+    include_once $pathname . '/include/common.php';
+	$wggallery = WggalleryHelper::getInstance();
+	$permissionsHandler = $wggallery->getHandler('permissions');
+	
+	if (0 < $permissionsHandler->permGlobalSubmit()) {
+		$modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME1;
+		$modversion['sub'][$subcount]['url'] = 'albums.php';
+		$subcount++;
+		// Sub Submit
+		$modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME3;
+		$modversion['sub'][$subcount]['url'] = 'upload.php';
+	}
+		
+	
+
+}
 // Sub albums
-$modversion['sub'][1]['name'] = _MI_WGGALLERY_SMNAME1;
-$modversion['sub'][1]['url'] = 'albums.php';
+// $modversion['sub'][1]['name'] = _MI_WGGALLERY_SMNAME1;
+// $modversion['sub'][1]['url'] = 'albums.php';
 // Sub images
-$modversion['sub'][2]['name'] = _MI_WGGALLERY_SMNAME2;
-$modversion['sub'][2]['url'] = 'images.php';
+// $modversion['sub'][2]['name'] = _MI_WGGALLERY_SMNAME2;
+// $modversion['sub'][2]['url'] = 'images.php';
 // Sub Submit
-$modversion['sub'][3]['name'] = _MI_WGGALLERY_SMNAME3;
-$modversion['sub'][3]['url'] = 'upload.php';
+// $modversion['sub'][3]['name'] = _MI_WGGALLERY_SMNAME3;
+// $modversion['sub'][3]['url'] = 'upload.php';
 // ------------------- Blocks ------------------- //
 $b = 1;
 // Albums
@@ -318,15 +350,15 @@ $modversion['config'][$c]['valuetype'] = 'array';
 $modversion['config'][$c]['default'] = '_default';
 $modversion['config'][$c]['options'] = array('default' => '_default', 'label style 1' => '_style1','style 2' => '_style2');
 ++$c;
-// style of image index page
+/* // type of gallery
 $modversion['config'][$c]['name'] = 'gallery_type';
 $modversion['config'][$c]['title'] = '_MI_WGGALLERY_GALLERY_TYPE';
 $modversion['config'][$c]['description'] = '_MI_WGGALLERY_GALLERY_TYPE_DESC';
 $modversion['config'][$c]['formtype'] = 'select';
 $modversion['config'][$c]['valuetype'] = 'array';
 $modversion['config'][$c]['default'] = 'none';
-$modversion['config'][$c]['options'] = array('none' => 'none', 'label style 1' => '_style1','style 2' => '_style2');
-++$c;
+$modversion['config'][$c]['options'] = array('none' => 'none', 'PwgSlideshow' => 'pwgslideshow');
+++$c; */
 // Number column
 $modversion['config'][$c]['name'] = 'numb_col';
 $modversion['config'][$c]['title'] = '_MI_WGGALLERY_NUMB_COL';

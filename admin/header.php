@@ -31,6 +31,8 @@ $modPathIcon32  = $GLOBALS['xoopsModule']->getInfo('modicons32');
 $wggallery = WggalleryHelper::getInstance();
 $albumsHandler = $wggallery->getHandler('albums');
 $imagesHandler = $wggallery->getHandler('images');
+$gallerytypesHandler = $wggallery->getHandler('gallerytypes');
+$permissionsHandler = $wggallery->getHandler('permissions');
 $myts = MyTextSanitizer::getInstance();
 // 
 if(!isset($xoopsTpl) || !is_object($xoopsTpl)) {

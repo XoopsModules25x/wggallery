@@ -21,8 +21,8 @@
  * @version        $Id: 1.0 header.php 1 Mon 2018-03-19 10:04:54Z XOOPS Project (www.xoops.org) $
  */
 include dirname(dirname(__DIR__)) .'/mainfile.php';
-include __DIR__ .'/include/common.php';
-include __DIR__ .'/include/permissions.php';
+include_once __DIR__ .'/include/common.php';
+// include_once __DIR__ .'/include/permissions.php';
 $dirname = basename(__DIR__);
 // Breadcrumbs
 $xoBreadcrumbs = array();
@@ -31,6 +31,8 @@ $xoBreadcrumbs[] = array('title' => _MA_WGGALLERY_TITLE, 'link' => WGGALLERY_URL
 $wggallery = WggalleryHelper::getInstance();
 $albumsHandler = $wggallery->getHandler('albums');
 $imagesHandler = $wggallery->getHandler('images');
+$gallerytypesHandler = $wggallery->getHandler('gallerytypes');
+$permissionsHandler = $wggallery->getHandler('permissions');
 // Permission
 include_once XOOPS_ROOT_PATH .'/class/xoopsform/grouppermform.php';
 $gpermHandler = xoops_gethandler('groupperm');

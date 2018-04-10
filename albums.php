@@ -21,12 +21,12 @@
  * @version        $Id: 1.0 albums.php 1 Mon 2018-03-19 10:04:50Z XOOPS Project (www.xoops.org) $
  */
 include __DIR__ . '/header.php';
-$GLOBALS['xoopsOption']['template_main'] = 'wggallery_albums' . $wggallery->getConfig('style_index_album') . '.tpl';
+$GLOBALS['xoopsOption']['template_main'] = 'wggallery_albums' . $wggallery->getConfig('style_index_album', true) . '.tpl';
 include_once XOOPS_ROOT_PATH .'/header.php';
 
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet( $style, null );
-$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_CSS_URL . '/style' . $wggallery->getConfig('style_index_album') . '.css' , null );
+$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_CSS_URL . '/style' . $wggallery->getConfig('style_index_album', true) . '.css' , null );
 
 // $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 // $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
@@ -41,21 +41,23 @@ if (_CANCEL === XoopsRequest::getString('cancel', 'none')) {
 // add scripts 
 $GLOBALS['xoTheme']->addScript( XOOPS_URL . '/modules/wggallery/assets/js/admin.js' );
 
+$keywords = array();
+
 switch($op) {
 	case 'list':
 	default:
-			// Define Stylesheet
+		// Define Stylesheet
 		$GLOBALS['xoTheme']->addStylesheet( $style, null );
 		$start = XoopsRequest::getInt('start', 0);
 		$limit = XoopsRequest::getInt('limit', $wggallery->getConfig('adminpager'));
         $crAlbums = new CriteriaCompo();
-        if (!permCreateAlbum()) {
+        if (!$permissionsHandler->permGlobalSubmit()) {
             $crAlbums->add(new Criteria('alb_state', WGGALLERY_STATE_ONLINE_VAL));
         }
         $crAlbums->setStart( $start );
 		$crAlbums->setLimit( $limit );
-        $crAlbums->setSort('alb_weight');
-        $crAlbums->setOrder('ASC');
+        $crAlbums->setSort('alb_weight ASC, alb_date');
+		$crAlbums->setOrder('DESC');
 		$albumsCount = $albumsHandler->getCount($crAlbums);
 		$albumsAll = $albumsHandler->getAll($crAlbums);
 		$GLOBALS['xoopsTpl']->assign('albums_count', $albumsCount);
@@ -68,7 +70,8 @@ switch($op) {
 			foreach(array_keys($albumsAll) as $i) {
 				$album = $albumsAll[$i]->getValuesAlbums();
                 //check permissions
-                $album['edit'] = permEditAlbum();
+                $album['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
+				$keywords[] = $albumsAll[$i]->getVar('alb_name');
 				$GLOBALS['xoopsTpl']->append('albums_list', $album);
 				unset($album);
 			}
@@ -82,6 +85,8 @@ switch($op) {
 			$GLOBALS['xoopsTpl']->assign('error', _CO_WGGALLERY_THEREARENT_ALBUMS);
 		}
 		$GLOBALS['xoopsTpl']->assign('btn_new', _CO_WGGALLERY_ALBUM_ADD);
+		$pr_gallery = $gallerytypesHandler->getPrimaryGallery();
+		$GLOBALS['xoopsTpl']->assign('gallery', 'none' != $pr_gallery['template']);
 		
 	break;
 	case 'new':
@@ -102,6 +107,18 @@ switch($op) {
 		}
 		// Set Vars
 		$albumsObj->setVar('alb_pid', XoopsRequest::getInt('alb_pid'));
+		$albIscat = XoopsRequest::getInt('alb_iscat');
+/* 		if ( 0 === $albIscat && 0 < $albId ) {
+			// check whether there is an existing sub album
+			$crAlbPid = new CriteriaCompo();
+			$crAlbPid->add(new Criteria('alb_pid', $albId));
+			$albumsCountSub = $albumsHandler->getCount($crAlbPid);
+			if ( 0 < $albumsCountSub) {
+				$albIscat = 1;
+			}
+			unset($crAlbPid);
+		} */
+		$albumsObj->setVar('alb_iscat', $albIscat);
 		$alb_name =  XoopsRequest::getString('alb_name');
 		$albumsObj->setVar('alb_name', $alb_name);
 		$albumsObj->setVar('alb_desc', XoopsRequest::getString('alb_desc'));
@@ -127,6 +144,7 @@ switch($op) {
 		}
 		$albumsObj->setVar('alb_imgid', XoopsRequest::getInt('alb_imgid'));
 		$albumsObj->setVar('alb_state', XoopsRequest::getInt('alb_state'));
+		$albumsObj->setVar('alb_allowdownload', XoopsRequest::getInt('alb_allowdownload'));
 		$albumDate = date_create_from_format(_SHORTDATESTRING, $_POST['alb_date']);
 		$albumsObj->setVar('alb_date', $albumDate->getTimestamp());
 		$albumsObj->setVar('alb_submitter', XoopsRequest::getInt('alb_submitter'));
@@ -135,24 +153,31 @@ switch($op) {
 			$newAlbId = $albumsObj->getNewInsertedIdAlbums();
 			$permId = isset($_REQUEST['alb_id']) ? $albId : $newAlbId;
 			$gpermHandler = xoops_gethandler('groupperm');
+			// remove all existing rights
+			$gpermHandler->deleteByModule($perm_modid, 'wggallery_view', $permId);
+			$gpermHandler->deleteByModule($perm_modid, 'wggallery_dllarge', $permId);
+			$gpermHandler->deleteByModule($perm_modid, 'wggallery_dlmedium', $permId);
+			// set selected rights new
 			// Permission to view
 			if(isset($_POST['groups_view'])) {
 				foreach($_POST['groups_view'] as $onegroupId) {
 					$gpermHandler->addRight('wggallery_view', $permId, $onegroupId, $GLOBALS['xoopsModule']->getVar('mid'));
 				}
 			}
-			// Permission to submit
-			if(isset($_POST['groups_submit'])) {
-				foreach($_POST['groups_submit'] as $onegroupId) {
-					$gpermHandler->addRight('wggallery_submit', $permId, $onegroupId, $GLOBALS['xoopsModule']->getVar('mid'));
+			// Permission to download large images
+			if(isset($_POST['groups_dllarge'])) {
+				foreach($_POST['groups_dllarge'] as $onegroupId) {
+					$gpermHandler->addRight('wggallery_dllarge', $permId, $onegroupId, $perm_modid);
 				}
 			}
-			// Permission to approve
-			if(isset($_POST['groups_approve'])) {
-				foreach($_POST['groups_approve'] as $onegroupId) {
-					$gpermHandler->addRight('wggallery_approve', $permId, $onegroupId, $GLOBALS['xoopsModule']->getVar('mid'));
+			// Permission to download medium images
+			if(isset($_POST['groups_dlmedium'])) {
+				foreach($_POST['groups_dlmedium'] as $onegroupId) {
+					$gpermHandler->addRight('wggallery_dlmedium', $permId, $onegroupId, $perm_modid);
 				}
 			}
+			
+			$albumsHandler->setAlbumIsCat();
 			redirect_header('albums.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
 		}
 		// Get Form
@@ -204,12 +229,12 @@ switch($op) {
 }
 
 // Breadcrumbs
-$xoBreadcrumbs[] = array('title' => _MA_WGGALLERY_ALBUMS);
+$xoBreadcrumbs[] = array('title' => _CO_WGGALLERY_ALBUMS);
 // Keywords
 wggalleryMetaKeywords($wggallery->getConfig('keywords').', '. implode(',', $keywords));
 unset($keywords);
 // Description
-wggalleryMetaDescription(_MA_WGGALLERY_ALBUMS_DESC);
-$GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGGALLERY_URL.'/albums.php');
+wggalleryMetaDescription(_CO_WGGALLERY_ALBUMS_DESC);
+// $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGGALLERY_URL.'/albums.php');
 $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
 include __DIR__ . '/footer.php';

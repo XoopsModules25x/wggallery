@@ -52,3 +52,6 @@ include_once WGGALLERY_PATH .'/include/functions.php';
 define('WGGALLERY_STATE_OFFLINE_VAL',  0);
 define('WGGALLERY_STATE_ONLINE_VAL',   1);
 define('WGGALLERY_STATE_APPROVAL_VAL', 2);
+// constants for download
+define('WGGALLERY_DOWNLOAD_MEDIUM',  1);
+define('WGGALLERY_DOWNLOAD_LARGE',   2);

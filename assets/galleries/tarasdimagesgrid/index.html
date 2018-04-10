@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <title>Images grid</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- jQuery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>-->
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
+
+        <!-- Images grid -->
+        <script src="src/images-grid.js"></script>
+        <link rel="stylesheet" href="src/images-grid.css">
+
+        <style>
+            body {
+                font-family: sans-serif;
+            }
+            p {
+                text-align: center;
+                margin: 30px;
+                line-height: 1.5;
+            }
+        </style>
+
+    </head>
+    <body>
+
+        <p>
+            Images grid jQuery plugin<br>
+            More info on <a href="https://github.com/taras-d/images-grid#images-grid">GitHub</a>
+        </p>
+        <div id="gallery"></div>
+
+        <script>
+            $('#gallery').imagesGrid({
+                images: [
+                    { src: 'imgs/1.jpg', thumbnail: 'imgs/1-thumbnail.jpg' },
+                    { src: 'imgs/2.jpg', alt: 'Nature', title: 'Nature' },
+                    'imgs/3.jpg',
+                    { src: 'imgs/4.jpg', caption: 'The long way' },
+                    'imgs/5.jpg',
+                    'imgs/6.jpg',
+                    'imgs/7.jpg'
+                ],
+                align: true
+            });
+        </script>
+
+    </body>
+</html>

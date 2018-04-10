@@ -43,8 +43,10 @@ class WggalleryAlbums extends XoopsObject
 		$this->initVar('alb_image', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('alb_imgid', XOBJ_DTYPE_INT);
 		$this->initVar('alb_state', XOBJ_DTYPE_INT);
+		$this->initVar('alb_allowdownload', XOBJ_DTYPE_INT);
 		$this->initVar('alb_date', XOBJ_DTYPE_INT);
 		$this->initVar('alb_submitter', XOBJ_DTYPE_INT);
+		$this->initVar('dohtml', XOBJ_DTYPE_INT, 1, false);
 	}
 
 	/**
@@ -160,40 +162,64 @@ class WggalleryAlbums extends XoopsObject
 		$form->addElement($imageTray2);
 		unset($criteria);
 		// Form Select Albstate
-		$albStateSelect = new XoopsFormSelect( _CO_WGGALLERY_ALBUM_STATE, 'alb_state', $this->getVar('alb_state'));
+		$albState = $this->isNew() ? 0 : $this->getVar('alb_state');
+		$albStateSelect = new XoopsFormSelect( _CO_WGGALLERY_ALBUM_STATE, 'alb_state', $albState);
 		$albStateSelect->addOption(WGGALLERY_STATE_OFFLINE_VAL, _CO_WGGALLERY_STATE_OFFLINE);
 		$albStateSelect->addOption(WGGALLERY_STATE_ONLINE_VAL, _CO_WGGALLERY_STATE_ONLINE);
 		$albStateSelect->addOption(WGGALLERY_STATE_APPROVAL_VAL, _CO_WGGALLERY_STATE_APPROVAL);
 		$form->addElement($albStateSelect);
+		// Form Select Allowdownload
+		$albAllowdownload = $this->isNew() ? 0 : $this->getVar('alb_allowdownload');
+		$allowdownloadSelect = new XoopsFormSelect( _CO_WGGALLERY_ALBUM_ALLOWDOWNLOAD, 'alb_allowdownload', $albAllowdownload);
+		$allowdownloadSelect->addOption(0, _CO_WGGALLERY_NONE);
+		$allowdownloadSelect->addOption(WGGALLERY_DOWNLOAD_MEDIUM, _CO_WGGALLERY_ALBUM_DOWNLOAD_MEDIUM);
+		$allowdownloadSelect->addOption(WGGALLERY_DOWNLOAD_LARGE, _CO_WGGALLERY_ALBUM_DOWNLOAD_LARGE);
+		$form->addElement($allowdownloadSelect);
 		// Permissions
 		$memberHandler = xoops_gethandler('member');
 		$groupList = $memberHandler->getGroupList();
 		$gpermHandler = xoops_gethandler('groupperm');
 		$fullList[] = array_keys($groupList);
 		if(!$this->isNew()) {
-			$groupsIdsApprove = $gpermHandler->getGroupIds('wggallery_approve', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
+/* 			$groupsIdsApprove = $gpermHandler->getGroupIds('wggallery_approve', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
 			$groupsIdsApprove[] = array_values($groupsIdsApprove);
-			$groupsCanApproveCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMISSIONS_APPROVE, 'groups_approve[]', $groupsIdsApprove);
+			$groupsCanApproveCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_GL_APPROVE, 'groups_approve[]', $groupsIdsApprove);
 			$groupsIdsSubmit = $gpermHandler->getGroupIds('wggallery_submit', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
 			$groupsIdsSubmit[] = array_values($groupsIdsSubmit);
-			$groupsCanSubmitCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMISSIONS_SUBMIT, 'groups_submit[]', $groupsIdsSubmit);
+			$groupsCanSubmitCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_GL_SUBMIT, 'groups_submit[]', $groupsIdsSubmit); */
 			$groupsIdsView = $gpermHandler->getGroupIds('wggallery_view', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
 			$groupsIdsView[] = array_values($groupsIdsView);
-			$groupsCanViewCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMISSIONS_VIEW, 'groups_view[]', $groupsIdsView);
+			$groupsCanViewCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_ALB_VIEW, 'groups_view[]', $groupsIdsView);
+			
+			$groupsIdsDlLarge = $gpermHandler->getGroupIds('wggallery_dllarge', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
+			$groupsIdsDlLarge[] = array_values($groupsIdsDlLarge);
+			$groupsCanDlLargeCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_ALB_DLLARGE, 'groups_dllarge[]', $groupsIdsDlLarge);
+			
+			$groupsIdsDlMedium = $gpermHandler->getGroupIds('wggallery_dlmedium', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
+			$groupsIdsDlMedium[] = array_values($groupsIdsDlMedium);
+			$groupsCanDlMediumCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_ALB_DLMEDIUM, 'groups_dlmedium[]', $groupsIdsDlMedium);
 		} else {
-			$groupsCanApproveCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMISSIONS_APPROVE, 'groups_approve[]', $fullList);
-			$groupsCanSubmitCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMISSIONS_SUBMIT, 'groups_submit[]', $fullList);
-			$groupsCanViewCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMISSIONS_VIEW, 'groups_view[]', $fullList);
+			// $groupsCanApproveCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_GL_APPROVE, 'groups_approve[]', $fullList);
+			// $groupsCanSubmitCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_GL_SUBMIT, 'groups_submit[]', $fullList);
+			$groupsCanViewCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_ALB_VIEW, 'groups_view[]', $fullList);
+			$groupsCanDlLargeCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_ALB_DLLARGE, 'groups_dllarge[]', $fullList);
+			$groupsCanDlMediumCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_ALB_DLMEDIUM, 'groups_dlmedium[]', $fullList);
 		}
-		// To Approve
+/* 		// To Approve
 		$groupsCanApproveCheckbox->addOptionArray($groupList);
 		$form->addElement($groupsCanApproveCheckbox);
 		// To Submit
 		$groupsCanSubmitCheckbox->addOptionArray($groupList);
-		$form->addElement($groupsCanSubmitCheckbox);
+		$form->addElement($groupsCanSubmitCheckbox); */
 		// To View
 		$groupsCanViewCheckbox->addOptionArray($groupList);
 		$form->addElement($groupsCanViewCheckbox);
+		// To Download Large Images
+		$groupsCanDlLargeCheckbox->addOptionArray($groupList);
+		$form->addElement($groupsCanDlLargeCheckbox);
+		// To Download Medium Images
+		$groupsCanDlMediumCheckbox->addOptionArray($groupList);
+		$form->addElement($groupsCanDlMediumCheckbox);
 		// Form Text Date Select AlbDate
 		$albDate = $this->isNew() ? 0 : $this->getVar('alb_date');
 		$form->addElement(new XoopsFormTextDateSelect( _CO_WGGALLERY_ALBUM_DATE, 'alb_date', '', $albDate ));
@@ -218,19 +244,21 @@ class WggalleryAlbums extends XoopsObject
 		}
 		// Get Theme Form
 		xoops_load('XoopsFormLoader');
-		$form = new XoopsThemeForm(_MA_WGGALLERY_ALBUM_SELECT_DESC, 'formselalbum', $action, 'post', true);
+		$form = new XoopsThemeForm(_CO_WGGALLERY_ALBUM_SELECT_DESC, 'formselalbum', $action, 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
 		// Form Table Albums
 		$albumsHandler = $wggallery->getHandler('albums');
 		$criteria = new CriteriaCompo();
 		// Form Select Albums
-		$albIdSelect = new XoopsFormSelect( _MA_WGGALLERY_ALBUM_SELECT, 'alb_id', $this->getVar('alb_id'));
+		$albIdSelect = new XoopsFormSelect( _CO_WGGALLERY_ALBUM_SELECT, 'alb_id', $this->getVar('alb_id'));
         $albIdSelect->setExtra('onchange="submit()"');
 		$albIdSelect->addOption(0, '&nbsp;');
 		$albIdSelect->addOptionArray($albumsHandler->getList($criteria));
-
 		$form->addElement($albIdSelect);
 		unset($criteria);
+		
+		$form->addElement(new XoopsFormHidden('start', 0));
+		$form->addElement(new XoopsFormHidden('limit', 0));
 
 		return $form;
 	}
@@ -247,12 +275,12 @@ class WggalleryAlbums extends XoopsObject
 		$wggallery = WggalleryHelper::getInstance();
 		$ret = $this->getValues($keys, $format, $maxDepth);
 		$ret['id'] = $this->getVar('alb_id');
-		$albums = $wggallery->getHandler('albums');
-		$albumsObj = $albums->get($this->getVar('alb_pid'));
+		// $albums = $wggallery->getHandler('albums');
+		// $albumsObj = $albums->get($this->getVar('alb_pid'));
 		$ret['pid'] = $this->getVar('alb_pid');
         $ret['iscat'] = $this->getVar('alb_iscat');
 		$ret['name'] = $this->getVar('alb_name');
-		$ret['desc'] = strip_tags($this->getVar('alb_desc'));
+		$ret['desc'] = $this->getVar('alb_desc', 'n');
 		$ret['weight'] = $this->getVar('alb_weight');
 		$imagesHandler = $wggallery->getHandler('images');
 		if (0 < $this->getVar('alb_imgid')) {
@@ -269,6 +297,7 @@ class WggalleryAlbums extends XoopsObject
 		$ret['image'] = $image;
 		$ret['nb_images'] = $imagesHandler->getCountImages($this->getVar('alb_id'));
 		$ret['state'] = $this->getVar('alb_state');
+		$ret['allowdownload'] = $this->getVar('alb_allowdownload');
 		$ret['state_text'] = $wggallery->getStateText($this->getVar('alb_state'));
 		$ret['date'] = formatTimeStamp($this->getVar('alb_date'), 's');
 		$ret['submitter'] = XoopsUser::getUnameFromId($this->getVar('alb_submitter'));
@@ -385,5 +414,27 @@ class WggalleryAlbumsHandler extends XoopsPersistableObjectHandler
 		$crAlbums->setSort( $sort );
 		$crAlbums->setOrder( $order );
 		return $crAlbums;
+	}
+		/**
+	 * Get Criteria Albums
+	 * @return boolean
+	 */
+	public function setAlbumIsCat()
+	{
+		// reset (necessary after deleting)
+		$strSQL = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . ' SET ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '.alb_iscat = 0';
+		$GLOBALS['xoopsDB']->queryF($strSQL);
+		
+		// set values new
+		$albumsAll = $this->getAllAlbums();
+		foreach(array_keys($albumsAll) as $i) {
+			$albPid = $albumsAll[$i]->getVar('alb_pid');
+			$strSQL = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . ' SET ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '.alb_iscat = 1 WHERE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '.alb_id = ' . $albPid;
+			$GLOBALS['xoopsDB']->query($strSQL);
+			
+		}
+		unset($albumsAll);
+		
+		return false;
 	}
 }

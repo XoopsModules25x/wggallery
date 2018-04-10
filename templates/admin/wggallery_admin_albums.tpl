@@ -6,14 +6,16 @@
 			<tr class='head'>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_ID}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_PID}></th>
+				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_ISCAT}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_NAME}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_DESC}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_WEIGHT}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_IMAGE}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_STATE}></th>
+				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_ALLOWDOWNLOAD}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_DATE}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_SUBMITTER}></th>
-				<th class='center width5'><{$smarty.const._AM_WGGALLERY_FORM_ACTION}></th>
+				<th class='center width5'><{$smarty.const._CO_WGGALLERY_FORM_ACTION}></th>
 			</tr>
 		</thead>
 		<{if $albums_count}>
@@ -22,6 +24,7 @@
 					<tr class="<{cycle values='odd, even'}>">
 						<td class='center'><{$album.id}></td>
 						<td class='center'><{$album.pid}></td>
+						<td class='center'><{$album.iscat}></td>
 						<td class='center'><{$album.name}></td>
 						<td class='center'><{$album.desc}></td>
 						<td class='center'><{$album.weight}></td>
@@ -33,6 +36,7 @@
 							<{/if}>
 						</td>
 						<td class='center'><{$album.state_text}></td>
+						<td class='center'><{$album.allowdownload}></td>
 						<td class='center'><{$album.date}></td>
 						<td class='center'><{$album.submitter}></td>
 						<td class='center  width5'>

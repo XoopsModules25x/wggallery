@@ -87,7 +87,7 @@ class WggalleryHelper
     *  @param string $name
     *  @return null|string
     */
-    public function getConfig($name = null)
+    public function getConfig($name = null, $first = false)
     {
         if ($this->config === null) {
             $this->initConfig();
@@ -102,7 +102,11 @@ class WggalleryHelper
         }
 		if (is_array($this->config[$name])) {
             $this->addLog("Getting config '{$name}' : " . serialize($this->config[$name]));
-			return $this->config[$name][0];
+			if ($first) {
+				return $this->config[$name][0];
+			} else {
+				return $this->config[$name];
+			}
         } else {
             $this->addLog("Getting config '{$name}' : " . $this->config[$name]);
 			return $this->config[$name];

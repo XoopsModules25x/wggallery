@@ -20,7 +20,7 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 upload.php 1 Sat 2018-03-17 09:55:45Z XOOPS Project (www.xoops.org) $
  */
-include __DIR__ . '/header.php';
+include_once __DIR__ . '/header.php';
 xoops_loadLanguage('admin', 'wggallery');
 // It recovered the value of argument op in URL$
 $op    = XoopsRequest::getString('op', 'form');
@@ -91,7 +91,7 @@ if (0 < $albId) {
     $xoTheme->addScript('media/fine-uploader/fine-uploader.js');
     // Define Breadcrumb and tips
     $xoopsTpl->assign('multiupload', true);
-    echo $wggallery->getConfig('mimetypes');
+    // echo $wggallery->getConfig('mimetypes');
     $xoopsTpl->assign('img_maxsize', $wggallery->getConfig('maxsize'));
     $xoopsTpl->assign('img_maxwidth', $wggallery->getConfig('maxwidth'));
     $xoopsTpl->assign('img_maxheight', $wggallery->getConfig('maxheight'));

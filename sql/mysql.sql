@@ -14,13 +14,14 @@
 CREATE TABLE `wggallery_albums` (
   `alb_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   `alb_pid` INT(8) NOT NULL DEFAULT '0',
-  `alb_iscat` INT(8) NOT NULL DEFAULT '0',
+  `alb_iscat` INT(1) NOT NULL DEFAULT '0',
   `alb_name` VARCHAR(200) NOT NULL DEFAULT '',
   `alb_desc` TEXT NOT NULL ,
   `alb_weight` INT(8) NOT NULL DEFAULT '0',
   `alb_image` VARCHAR(200) NOT NULL DEFAULT '',
   `alb_imgid` INT(8) NOT NULL DEFAULT '0',
-  `alb_state` INT(8) NOT NULL DEFAULT '0',
+  `alb_state` INT(1) NOT NULL DEFAULT '0',
+  `alb_allowdownload` INT(1) NOT NULL DEFAULT '0',
   `alb_date` INT(8) NOT NULL DEFAULT '0',
   `alb_submitter` INT(8) NOT NULL DEFAULT '0',
   PRIMARY KEY (`alb_id`)
@@ -52,3 +53,18 @@ CREATE TABLE `wggallery_images` (
   PRIMARY KEY (`img_id`)
 ) ENGINE=InnoDB;
 
+#
+# Structure table for `wggallery_gallerytypes` 7
+#
+
+CREATE TABLE `wggallery_gallerytypes` (
+  `gt_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `gt_primary` INT(1) NOT NULL DEFAULT '0',
+  `gt_name` VARCHAR(100) NOT NULL DEFAULT '',
+  `gt_desc` TEXT NOT NULL ,
+  `gt_credits` VARCHAR(100) NOT NULL DEFAULT '',
+  `gt_template` VARCHAR(100) NOT NULL DEFAULT '',
+  `gt_options` TEXT NOT NULL ,
+  `gt_date` INT(8) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`gt_id`)
+) ENGINE=InnoDB;

@@ -1,5 +1,6 @@
 <{include file='db:wggallery_header.tpl'}>
 
+<{if $form}><{$form}><{/if}>
 
     <!-- Fine Uploader Thumbnails template w/ customization
     ====================================================================== -->
@@ -90,8 +91,7 @@
     </style>
 
     <title>Fine Uploader Manual Upload Trigger Demo</title>
-</head>
-<body>
+
     <!-- Fine Uploader DOM Element
     ====================================================================== -->
     <div id="fine-uploader-manual-trigger"></div>
@@ -102,7 +102,7 @@
         $('#fine-uploader-manual-trigger').fineUploader({
             template: 'qq-template-manual-trigger',
             request: {
-                endpoint: 'endpoint.php'
+                endpoint: 'fu_endpoint.php'
             },
             thumbnails: {
                 placeholders: {

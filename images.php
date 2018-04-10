@@ -21,12 +21,13 @@
  * @version        $Id: 1.0 images.php 1 Mon 2018-03-19 10:04:51Z XOOPS Project (www.xoops.org) $
  */
 include __DIR__ . '/header.php';
-$GLOBALS['xoopsOption']['template_main'] = 'wggallery_images' . $wggallery->getConfig('style_index_image') . '.tpl';
+$GLOBALS['xoopsOption']['template_main'] = 'wggallery_images' . $wggallery->getConfig('style_index_image', true) . '.tpl';
 include_once XOOPS_ROOT_PATH .'/header.php';
 
 $op    = XoopsRequest::getString('op', 'list');
 $imgId = XoopsRequest::getInt('img_id');
 $albId = XoopsRequest::getInt('alb_id');
+$albForId = XoopsRequest::getInt('alb_for_id');
 $start = XoopsRequest::getInt('start', 0);
 $limit = XoopsRequest::getInt('limit', $wggallery->getConfig('userpager'));
 
@@ -36,14 +37,24 @@ if (_CANCEL === XoopsRequest::getString('cancel', 'none')) {
 
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet( $style, null );
-$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_CSS_URL . '/style' . $wggallery->getConfig('style_index_image') . '.css' , null );
+$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_CSS_URL . '/style' . $wggallery->getConfig('style_index_image', true) . '.css' , null );
 // 
-$GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
+// $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
 // 
 
+// Breadcrumbs
+$xoBreadcrumbs[] = array('title' => _CO_WGGALLERY_ALBUMS, 'link' => WGGALLERY_URL . '/');
+if ( 0 < $albForId ) {
+	$albumsObj = $albumsHandler->get($albForId);
+	$xoBreadcrumbs[] = array('title' => $albumsObj->getVar('alb_name'), 'link' => WGGALLERY_URL . '/index.php?op=list&amp;alb_for_id=' . $albForId);
+}
+$albumsObj = $albumsHandler->get($albId);
+$xoBreadcrumbs[] = array('title' => $albumsObj->getVar('alb_name'));
 
+// Breadcrumbs
+$xoBreadcrumbs[] = array('title' => _MA_WGGALLERY_IMAGES);
 
 switch($op) {
 	case 'list':
@@ -52,13 +63,19 @@ switch($op) {
         $albums = $wggallery->getHandler('albums');
 		$albumsObj = $albums->get($albId);
 		if (isset($albumsObj) && is_object($albumsObj)) {
-			$alb_name = $albumsObj->getVar('alb_name');
+			$albName = $albumsObj->getVar('alb_name');
+			$albAllowdownload = $albumsObj->getVar('alb_allowdownload');
+			$albSubmitter = $albumsObj->getVar('alb_submitter');
 		}
-        $GLOBALS['xoopsTpl']->assign('alb_name', $alb_name);
+        $GLOBALS['xoopsTpl']->assign('alb_name', $albName);
+		if ($permissionsHandler->permAlbumDownload($albId)) {
+			$GLOBALS['xoopsTpl']->assign('alb_allowdownload', $albAllowdownload);
+		}
+		$GLOBALS['xoopsTpl']->assign('alb_for_id', $albForId);
         
 		$crImages = new CriteriaCompo();
         $crImages->add(new Criteria('img_albid', $albId));
-        if (!permCreateAlbum()) {
+        if (!$permissionsHandler->permAlbumEdit($albId, $albSubmitter)) {
             $crImages->add(new Criteria('img_state', 1));
         }
         $crImages->setSort('img_weight');
@@ -74,7 +91,7 @@ switch($op) {
 			foreach(array_keys($imagesAll) as $i) {
 				$images[$i] = $imagesAll[$i]->getValuesImages();
                 //check permissions
-                $images[$i]['edit'] = permEditAlbum($albId);
+                $images[$i]['edit'] = $permissionsHandler->permAlbumEdit($albId);
 				$keywords[] = $imagesAll[$i]->getVar('img_name');
 			}
 			$GLOBALS['xoopsTpl']->assign('images', $images);
@@ -167,15 +184,12 @@ switch($op) {
 
 	break;
 }		
-		
-		
-// Breadcrumbs
-$xoBreadcrumbs[] = array('title' => _MA_WGGALLERY_IMAGES);
+
 // Keywords
 wggalleryMetaKeywords($wggallery->getConfig('keywords').', '. implode(',', $keywords));
 unset($keywords);
 // Description
 wggalleryMetaDescription(_MA_WGGALLERY_IMAGES_DESC);
-$GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGGALLERY_URL.'/images.php');
+// $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGGALLERY_URL.'/images.php');
 $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
 include __DIR__ . '/footer.php';

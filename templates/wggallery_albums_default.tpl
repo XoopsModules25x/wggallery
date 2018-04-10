@@ -2,7 +2,7 @@
 
 <{if $albums_list}>
 	<div class='panel panel-<{$panel_type}>'>
-		<div class='panel-heading'><{$smarty.const._MA_WGGALLERY_ALBUMS_TITLE}></div>
+		<div class='panel-heading'><{$smarty.const._CO_WGGALLERY_ALBUMS_TITLE}></div>
 		<div class='panel-body'>
 			<{foreach item=album from=$albums_list}>
 				<div class='row wgg-album-list'>
@@ -13,7 +13,7 @@
 					</div>
 					<div class='col-sm-4'>
 						<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/state<{$album.state}>.png' alt='<{$album.state_text}>' /><{$album.state_text}></p>
-                        <p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/photos.png' alt='<{$smarty.const._AM_WGGALLERY_IMAGE_COUNT}>' title='<{$smarty.const._AM_WGGALLERY_IMAGE_COUNT}>' /><span><{$album.nb_images}></span></p>
+                        <p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/photos.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_COUNT}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_COUNT}>' /><span><{$album.nb_images}></span></p>
 						<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/date.png' alt='<{$album.date}>' /><{$album.date}></p>
 						<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/submitter.png' alt='<{$album.submitter}>' /><{$album.submitter}></p>
 					</div>
@@ -29,12 +29,16 @@
                                 <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/upload.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}>' /><{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}>
                             </a>
                         <{/if}>
-                        <a class='btn btn-default' href='gallery.php?op=show&amp;alb_id=<{$album.id}>&amp;type=<{$gallery_type}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>'>
-							<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/show.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>' /><{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>
-						</a>
-                        <a class='btn btn-default' href='images.php?op=list&amp;alb_id=<{$album.id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'>
-							<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/index.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>' /><{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>
-						</a>
+						<{if $album.nb_images}>
+							<{if $gallery}>
+								<a class='btn btn-default' href='gallery.php?op=show&amp;alb_id=<{$album.id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>'>
+									<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/show.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>' /><{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>
+								</a>
+							<{/if}>
+							<a class='btn btn-default' href='images.php?op=list&amp;alb_id=<{$album.id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'>
+								<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/index.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>' /><{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>
+							</a>
+						<{/if}>
 					</div>
 				</div>
 			<{/foreach}>

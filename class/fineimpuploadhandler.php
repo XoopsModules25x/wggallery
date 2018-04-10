@@ -95,11 +95,10 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 
     protected function storeUploadedFile($target, $mimeType, $uid)
     {
-        include XOOPS_ROOT_PATH .'/modules/wggallery/header.php';
-		include XOOPS_ROOT_PATH .'/modules/wggallery/include/permissions.php';
+        include_once XOOPS_ROOT_PATH .'/modules/wggallery/header.php';
 		$this->pathUpload = WGGALLERY_UPLOAD_IMAGE_PATH;
 
-		$this->permUseralbum = permGetUserAlbum($this->claims->cat);
+		$this->permUseralbum = 1; //TODO: handle an option, whether images should be online immetiately or not
 		
         $pathParts = pathinfo($this->getName());
 
@@ -135,7 +134,7 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 			return array('error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_THUMBS, $this->imageNicename));
 		} 
 		if ('copy' === $ret) {
-			copy($this->pathUpload . '/large/' . $this->imageName, $this->pathUpload . '/thums/' . $this->imageName);
+			copy($this->pathUpload . '/large/' . $this->imageName, $this->pathUpload . '/thumbs/' . $this->imageName);
 		}
         return array('success'=> true, "uuid" => $uuid);
     }
@@ -143,11 +142,14 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 	
 	private function handleImgLarge () {
 		
-		include XOOPS_ROOT_PATH .'/modules/wggallery/header.php';
+		include_once XOOPS_ROOT_PATH .'/modules/wggallery/header.php';
 		global $xoopsUser;
 		
 		$this->getImageDim();
-		
+
+		$wggallery = WggalleryHelper::getInstance();
+		$imagesHandler = $wggallery->getHandler('images');
+
 		$imagesObj = $imagesHandler->create();
 		// Set Vars
      	$imagesObj->setVar('img_title', $this->imageNicename);

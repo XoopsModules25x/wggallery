@@ -33,23 +33,19 @@ define('_MA_WGGALLERY_NO_PDF_LIBRARY', 'Libraries TCPDF not there yet, upload th
 define('_MA_WGGALLERY_NO', 'No');
 // ---------------- Contents ----------------
 // Album
-define('_MA_WGGALLERY_ALBUM', 'Album');
-define('_MA_WGGALLERY_ALBUMS', 'Albums');
-define('_MA_WGGALLERY_ALBUMS_TITLE', 'Gallery of albums');
-define('_MA_WGGALLERY_ALBUMS_DESC', 'Albums description');
+
+// define('_CO_WGGALLERY_ALBUMS_DESC', 'Albums description');
 // Caption of Album
-define('_MA_WGGALLERY_ALBUM_ID', 'Id');
-define('_MA_WGGALLERY_ALBUM_PID', 'Pid');
-define('_MA_WGGALLERY_ALBUM_NAME', 'Name');
-define('_MA_WGGALLERY_ALBUM_DESC', 'Desc');
-define('_MA_WGGALLERY_ALBUM_WEIGHT', 'Weight');
-define('_MA_WGGALLERY_ALBUM_IMAGE', 'Image');
-define('_MA_WGGALLERY_ALBUM_IMGID', 'Imgid');
-define('_MA_WGGALLERY_ALBUM_STATE', 'State');
-define('_MA_WGGALLERY_ALBUM_DATE', 'Date');
-define('_MA_WGGALLERY_ALBUM_SUBMITTER', 'Submitter');
-define('_MA_WGGALLERY_ALBUM_SELECT', 'Select album');
-define('_MA_WGGALLERY_ALBUM_SELECT_DESC', 'Please select album for uploading images');
+// define('_MA_WGGALLERY_ALBUM_ID', 'Id');
+// define('_MA_WGGALLERY_ALBUM_PID', 'Pid');
+// define('_MA_WGGALLERY_ALBUM_NAME', 'Name');
+// define('_MA_WGGALLERY_ALBUM_DESC', 'Desc');
+// define('_MA_WGGALLERY_ALBUM_WEIGHT', 'Weight');
+// define('_MA_WGGALLERY_ALBUM_IMAGE', 'Image');
+// define('_MA_WGGALLERY_ALBUM_IMGID', 'Imgid');
+// define('_MA_WGGALLERY_ALBUM_STATE', 'State');
+// define('_MA_WGGALLERY_ALBUM_DATE', 'Date');
+// define('_MA_WGGALLERY_ALBUM_SUBMITTER', 'Submitter');
 
 // Image
 define('_MA_WGGALLERY_IMAGE', 'Image');
@@ -88,6 +84,13 @@ define('_MA_WGGALLERY_SUBMIT_PROPOSER', 'Submit a image');
 define('_MA_WGGALLERY_SUBMIT_RECEIVED', 'We have received your image info. Thank you !');
 define('_MA_WGGALLERY_SUBMIT_SUBMITONCE', 'Submit your image/script only once.');
 define('_MA_WGGALLERY_SUBMIT_TAKEDAYS', 'This will take many days to see your image/script added successfully in our database.');
+// Colorbox
+define('_MA_WGGALLERY_COLORBOX_CLOSE', 'close');
+define('_MA_WGGALLERY_COLORBOX_PREVIOUS', 'previous');
+define('_MA_WGGALLERY_COLORBOX_NEXT', 'next');
+define('_MA_WGGALLERY_COLORBOX_CURRENT', 'image {current} of {total}');
+define('_MA_WGGALLERY_COLORBOX_SLIDESHOWSTART', 'start slideshow');
+define('_MA_WGGALLERY_COLORBOX_SLIDESHOWSTOP', 'stop slideshow');
 // Admin link
 define('_MA_WGGALLERY_ADMIN', 'Admin');
 // ---------------- Errors ----------------

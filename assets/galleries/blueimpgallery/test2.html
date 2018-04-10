@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+<head>
+<link rel="stylesheet" href="css/blueimp-gallery.min.css">
+
+</head>
+<body>
+
+
+<div id="links">
+        <a href="http://localhost/wggallery/htdocs/uploads/wggallery/images/large/img5abdec93237ac3.84710897.jpg" title="014">
+    <img src="http://localhost/wggallery/htdocs/uploads/wggallery/images/thumbs/img5abdec93237ac3.84710897.jpg" alt="014">
+</a>
+        <a href="http://localhost/wggallery/htdocs/uploads/wggallery/images/large/img5abded149f8c53.45426922.jpg" title="016">
+    <img src="http://localhost/wggallery/htdocs/uploads/wggallery/images/thumbs/img5abded149f8c53.45426922.jpg" alt="016">
+</a>
+        <a href="http://localhost/wggallery/htdocs/uploads/wggallery/images/large/img5abded14a09e46.78573197.jpg" title="015">
+    <img src="http://localhost/wggallery/htdocs/uploads/wggallery/images/thumbs/img5abded14a09e46.78573197.jpg" alt="015">
+</a>
+        <a href="http://localhost/wggallery/htdocs/uploads/wggallery/images/large/img5abded14a4bfa4.11126593.jpg" title="017">
+    <img src="http://localhost/wggallery/htdocs/uploads/wggallery/images/thumbs/img5abded14a4bfa4.11126593.jpg" alt="017">
+</a>
+        <a href="http://localhost/wggallery/htdocs/uploads/wggallery/images/large/img5ac0f861630483.74300818.jpg" title="007">
+    <img src="http://localhost/wggallery/htdocs/uploads/wggallery/images/thumbs/img5ac0f861630483.74300818.jpg" alt="007">
+</a>
+        <a href="http://localhost/wggallery/htdocs/uploads/wggallery/images/large/img5ac0f861650597.43243391.jpg" title="006">
+    <img src="http://localhost/wggallery/htdocs/uploads/wggallery/images/thumbs/img5ac0f861650597.43243391.jpg" alt="006">
+</a>
+</div>
+            
+<!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+<div id="blueimp-gallery" class="blueimp-gallery">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+</div>
+
+
+<script src="js/blueimp-gallery.min.js"></script>
+<script>
+document.getElementById('links').onclick = function (event) {
+    event = event || window.event;
+    var target = event.target || event.srcElement,
+        link = target.src ? target.parentNode : target,
+        options = {index: link, event: event},
+        links = this.getElementsByTagName('a');
+    blueimp.Gallery(links, options);
+};
+</script>
+</body>
+</html>
