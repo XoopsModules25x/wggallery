@@ -51,7 +51,7 @@ define('_CO_WGGALLERY_ALBUM_EDIT', 'Edit Album');
 
 // Elements of categories
 define('_CO_WGGALLERY_CATS_TITLE', 'Available categories');
-define('_CO_WGGALLERY_CATS_ALBUMS', 'Show albums');
+define('_CO_WGGALLERY_CATS_ALBUMS', 'Show sub albums');
 // Elements of Album
 define('_CO_WGGALLERY_ALBUMS_TITLE', 'Gallery of albums');
 define('_CO_WGGALLERY_ALBUMS_COUNT', 'Number of albums');
@@ -78,7 +78,7 @@ define('_CO_WGGALLERY_ALBUM_SELECT_DESC', 'Please select album for uploading ima
 define('_CO_WGGALLERY_ALBUM_ALLOWDOWNLOAD', 'Allow download');
 define('_CO_WGGALLERY_ALBUM_DOWNLOAD_MEDIUM', 'Medium images');
 define('_CO_WGGALLERY_ALBUM_DOWNLOAD_LARGE', 'Large images');
-
+define('_CO_WGGALLERY_ALBUMS_SHOW', 'Show all albums');
 
 define('_CO_WGGALLERY_IMAGE', 'Image');
 define('_CO_WGGALLERY_IMAGES', 'Images');

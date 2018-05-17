@@ -25,7 +25,7 @@
 $dirname  = basename(__DIR__);
 // ------------------- Informations ------------------- //
 $modversion['name'] = _MI_WGGALLERY_NAME;
-$modversion['version'] = 1.02;
+$modversion['version'] = 1.03;
 $modversion['description'] = _MI_WGGALLERY_DESC;
 $modversion['author'] = 'Wedega';
 $modversion['author_mail'] = 'webmaster@wedega.com';
@@ -88,7 +88,9 @@ $modversion['templates'][] = array('file' => 'wggallery_gallery_viewerjs.tpl', '
 $modversion['templates'][] = array('file' => 'wggallery_gallery_blueimpgallery.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_gallery_justifiedgallery.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_gallery_lightbox.tpl', 'description' => '');
-
+// Blocks
+$modversion['templates'][] = array('file' => 'wggallery_block_albums_default.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_block_albums_slider.tpl', 'description' => '');
 
 $modversion['templates'][] = array('file' => 'wggallery_gallery_pwgslideshow.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_breadcrumbs.tpl', 'description' => '');
@@ -151,21 +153,21 @@ if ($dirname == $currdirname) {
 $b = 1;
 // Albums
 $modversion['blocks'][$b]['file'] = 'albums.php';
-$modversion['blocks'][$b]['name'] = _MI_WGGALLERY_ALBUMS_BLOCK_ALBUM;
-$modversion['blocks'][$b]['description'] = _MI_WGGALLERY_ALBUMS_BLOCK_ALBUM_DESC;
+$modversion['blocks'][$b]['name'] = _MI_WGGALLERY_ALBUMS_BLOCK;
+$modversion['blocks'][$b]['description'] = _MI_WGGALLERY_ALBUMS_BLOCK_DESC;
 $modversion['blocks'][$b]['show_func'] = 'b_wggallery_albums_show';
 $modversion['blocks'][$b]['edit_func'] = 'b_wggallery_albums_edit';
 $modversion['blocks'][$b]['template'] = 'wggallery_block_albums.tpl';
-$modversion['blocks'][$b]['options'] = 'alb|5|25|0';
+$modversion['blocks'][$b]['options'] = 'default|5|25|3|1|1|0|0';
 ++$b;
 // Images
 $modversion['blocks'][$b]['file'] = 'images.php';
-$modversion['blocks'][$b]['name'] = _MI_WGGALLERY_IMAGES_BLOCK_IMAGE;
-$modversion['blocks'][$b]['description'] = _MI_WGGALLERY_IMAGES_BLOCK_IMAGE_DESC;
+$modversion['blocks'][$b]['name'] = _MI_WGGALLERY_IMAGES_BLOCK;
+$modversion['blocks'][$b]['description'] = _MI_WGGALLERY_IMAGES_BLOCK_DESC;
 $modversion['blocks'][$b]['show_func'] = 'b_wggallery_images_show';
 $modversion['blocks'][$b]['edit_func'] = 'b_wggallery_images_edit';
 $modversion['blocks'][$b]['template'] = 'wggallery_block_images.tpl';
-$modversion['blocks'][$b]['options'] = 'img|5|25|0';
+$modversion['blocks'][$b]['options'] = 'img|5|25|3|1|0';
 ++$b;
 unset($b);
 // ------------------- Config ------------------- //

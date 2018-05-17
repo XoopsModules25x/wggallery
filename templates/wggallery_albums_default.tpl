@@ -14,6 +14,9 @@
 					<div class='col-sm-4'>
 						<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/state<{$album.state}>.png' alt='<{$album.state_text}>' /><{$album.state_text}></p>
                         <p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/photos.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_COUNT}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_COUNT}>' /><span><{$album.nb_images}></span></p>
+						<{if $album.nb_subalbums > 0}>
+							<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/albums.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUMS_COUNT}>' title='<{$smarty.const._CO_WGGALLERY_ALBUMS_COUNT}>' /><span><{$album.nb_subalbums}></span></p>
+						<{/if}>
 						<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/date.png' alt='<{$album.date}>' /><{$album.date}></p>
 						<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/submitter.png' alt='<{$album.submitter}>' /><{$album.submitter}></p>
 					</div>
@@ -29,6 +32,17 @@
                                 <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/upload.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}>' /><{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}>
                             </a>
                         <{/if}>
+						
+						<{if $album.nb_subalbums}>
+							<a class='btn btn-default' href='index.php?op=list&amp;alb_for_id=<{$album.id}>&amp;subm_id=<{$subm_id}>' title='<{$smarty.const._CO_WGGALLERY_CATS_ALBUMS}>'>
+								<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/index.png' alt='<{$smarty.const._CO_WGGALLERY_CATS_ALBUMS}>' /><{$smarty.const._CO_WGGALLERY_CATS_ALBUMS}>
+							</a>
+						<{/if}>
+
+						
+						
+						
+						
 						<{if $album.nb_images}>
 							<{if $gallery}>
 								<a class='btn btn-default' href='gallery.php?op=show&amp;alb_id=<{$album.id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>'>

@@ -25,8 +25,8 @@ $pr_gallery = $gallerytypesHandler->getPrimaryGallery();
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_gallery_' . $pr_gallery['template'] . '.tpl';
 include_once XOOPS_ROOT_PATH .'/header.php';
 
-echo '<br>template:wggallery_gallery_' . $pr_gallery['template'] . '.tpl';
-echo '<br>isdir template: ' . is_dir(WGGALLERY_URL . '/assets/wggallery_gallery_' . $pr_gallery['template'] . '.tpl');
+// echo '<br>template:wggallery_gallery_' . $pr_gallery['template'] . '.tpl';
+// echo '<br>isdir template: ' . is_dir(WGGALLERY_URL . '/assets/wggallery_gallery_' . $pr_gallery['template'] . '.tpl');
 
 $albId = XoopsRequest::getInt('alb_id');
 

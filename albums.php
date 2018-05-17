@@ -32,8 +32,9 @@ $GLOBALS['xoTheme']->addStylesheet( WGGALLERY_CSS_URL . '/style' . $wggallery->g
 // $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
 // $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_32', WGGALLERY_ICONS_URL . '/32');
 
-$op    = XoopsRequest::getString('op', 'list');
-$albId = XoopsRequest::getInt('alb_id');
+$op     = XoopsRequest::getString('op', 'list');
+$albId  = XoopsRequest::getInt('alb_id');
+$albPid = XoopsRequest::getInt('alb_pid');
 if (_CANCEL === XoopsRequest::getString('cancel', 'none')) {
 	$op = 'list';
 }
@@ -54,6 +55,7 @@ switch($op) {
         if (!$permissionsHandler->permGlobalSubmit()) {
             $crAlbums->add(new Criteria('alb_state', WGGALLERY_STATE_ONLINE_VAL));
         }
+		$crAlbums->add(new Criteria('alb_pid', $albPid));
         $crAlbums->setStart( $start );
 		$crAlbums->setLimit( $limit );
         $crAlbums->setSort('alb_weight ASC, alb_date');

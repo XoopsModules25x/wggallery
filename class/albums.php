@@ -120,11 +120,12 @@ class WggalleryAlbums extends XoopsObject
 		// Form Table Images
 		$imagesHandler = $wggallery->getHandler('images');
 		$albImgid = $this->getVar('alb_imgid');
+		$albImage1 = 'blank.gif';
 		if (0 < $albImgid) {
 			$imagesObj = $imagesHandler->get($albImgid);
-			$albImage1 = $imagesObj->getVar('img_name');
-		} else {
-			$albImage1 = 'blank.gif';
+			if (isset($imagesObj) & is_object($imagesObj) ) {
+				$albImage1 = $imagesObj->getVar('img_name');
+			}
 		}
 		$imageDirectory = '/uploads/wggallery/images/medium';
 		$imageTray1 = new XoopsFormElementTray(_CO_WGGALLERY_ALBUM_USE_EXIST, '<br>' );
@@ -301,6 +302,10 @@ class WggalleryAlbums extends XoopsObject
 		$ret['state_text'] = $wggallery->getStateText($this->getVar('alb_state'));
 		$ret['date'] = formatTimeStamp($this->getVar('alb_date'), 's');
 		$ret['submitter'] = XoopsUser::getUnameFromId($this->getVar('alb_submitter'));
+		$crAlbums = new CriteriaCompo();
+		$crAlbums->add(new Criteria('alb_pid', $this->getVar('alb_id')));
+		$albumsCount = $wggallery->getHandler('albums')->getCount($crAlbums);
+		$ret['nb_subalbums'] = $albumsCount;
 		return $ret;
 	}
 

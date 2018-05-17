@@ -107,6 +107,7 @@ if (0 < $albId) {
     );
     $jwt = \Xmf\Jwt\TokenFactory::build('fineuploader', $payload, 60*30); // token good for 30 minutes
     $xoopsTpl->assign('jwt', $jwt);
+	setcookie ( 'jwt', $jwt );
     $fineup_debug = 'false';
     if (($xoopsUser instanceof \XoopsUser ? $xoopsUser->isAdmin() : false)
         && isset($_REQUEST['FINEUPLOADER_DEBUG']))
