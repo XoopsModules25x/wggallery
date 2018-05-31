@@ -21,21 +21,45 @@
  * @version        $Id: 1.0 albums.php 1 Mon 2018-03-19 10:04:50Z XOOPS Project (www.xoops.org) $
  */
 include __DIR__ . '/header.php';
-$GLOBALS['xoopsOption']['template_main'] = 'wggallery_index' . $wggallery->getConfig('style_index_album', true) . '.tpl';
+$pr_album = $albumtypesHandler->getPrimaryAlbum();
+$GLOBALS['xoopsOption']['template_main'] = 'wggallery_index_' . $pr_album['template'] . '.tpl';
 include_once XOOPS_ROOT_PATH .'/header.php';
 $start       = XoopsRequest::getInt('start', 0);
 $limit       = XoopsRequest::getInt('limit', $wggallery->getConfig('userpager'));
 $albForId    = XoopsRequest::getInt('alb_for_id', 0);
 $submitterId = XoopsRequest::getInt('subm_id', 0);
 
+$wggallery_nbcola = 2;
+$wggallery_nbcolc = 2;
+
+// assign all gallery options
+$options = unserialize($pr_album['options']);
+foreach ($options as $option) {
+	$GLOBALS['xoopsTpl']->assign($option['name'], $option['value']);
+    if ('number_cols_album' === $option['name']) {$wggallery_nbcola = $option['value'];}
+    if ('number_cols_cat' === $option['name']) {$wggallery_nbcolc = $option['value'];}
+}
+
+$GLOBALS['xoopsTpl']->assign('wggallery_nbcola', $wggallery_nbcola);
+$GLOBALS['xoopsTpl']->assign('wggallery_nbcolc', $wggallery_nbcola);
+
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet( $style, null );
-$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_CSS_URL . '/style' . $wggallery->getConfig('style_index_album', true) . '.css' , null );
 
+switch($pr_album['template']) {
+	case 'hovereffectideas':
+		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/albumtypes/hovereffectideas/style.css', null );	
+	break;
+    case 'default':
+	default:
+		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_CSS_URL . '/style_default.css' , null );
+	break;
+}
 // general template assigns
 // $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+
 
 $keywords = array();
 
@@ -68,6 +92,7 @@ $crAlbums->setLimit( $limit );
 $albumsAll = $albumsHandler->getAll($crAlbums);
 
 if($albumsCount > 0) {
+    $counter = 0;
 	$albums = array();
 	// Get All Albums
 	foreach(array_keys($albumsAll) as $i) {
@@ -75,7 +100,15 @@ if($albumsCount > 0) {
 		$submitter = $albumsAll[$i]->getVar('alb_submitter');
         //check permissions
         $albums[$i]['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
-        
+        //set indicator for line break
+        $counter++;
+        if (1 === $counter) {
+            $albums[$i]['newrow'] = true;
+        }
+        if ($wggallery_nbcola == $counter) {
+            $albums[$i]['linebreak'] = true;
+            $counter = 0;
+        }
 		$keywords[] = $albumsAll[$i]->getVar('alb_name');
 		
 		// echo "<br>------------------------------------------------------------";
@@ -87,17 +120,19 @@ if($albumsCount > 0) {
 		// echo "<br>permGlobalSubmitAll:".$permissionsHandler->permGlobalSubmitAll();
 		// echo "<br>permGlobalApprove:".$permissionsHandler->permGlobalApprove();
 		
-		
 	}
+    // add linebreak to last album item
+    $albums[$i]['linebreak'] = true;
+
 	$GLOBALS['xoopsTpl']->assign('albums', $albums);
 	$GLOBALS['xoopsTpl']->assign('alb_for_id', $albForId);
 	$pr_gallery = $gallerytypesHandler->getPrimaryGallery();
 	$GLOBALS['xoopsTpl']->assign('gallery', 'none' != $pr_gallery['template']);
 	$GLOBALS['xoopsTpl']->assign('album_showsubmitter', $wggallery->getConfig('album_showsubmitter'));
 	if ( 0 < $submitterId ) {
-		$GLOBALS['xoopsTpl']->assign('index_title', _CO_WGGALLERY_ALBUMS_TITLE . ": " . XoopsUser::getUnameFromId($submitter));
+		$GLOBALS['xoopsTpl']->assign('index_alb_title', _CO_WGGALLERY_ALBUMS_TITLE . ": " . XoopsUser::getUnameFromId($submitter));
 	} else {
-		$GLOBALS['xoopsTpl']->assign('index_title', _CO_WGGALLERY_ALBUMS_TITLE);
+		$GLOBALS['xoopsTpl']->assign('index_alb_title', _CO_WGGALLERY_ALBUMS_TITLE);
 	}
 
 	unset($albums);
@@ -128,6 +163,7 @@ $albumsAll = $albumsHandler->getAll($crAlbums);
 
 if($albumsCount > 0) {
 	$albums = array();
+    $counter = 0;
 	// Get All Albums
 	foreach(array_keys($albumsAll) as $i) {
 		$albums[$i] = $albumsAll[$i]->getValuesAlbums();
@@ -139,10 +175,20 @@ if($albumsCount > 0) {
         //check permissions
         $albums[$i]['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
 		$keywords[] = $albumsAll[$i]->getVar('alb_name');
+        $counter++;
+        if ($wggallery_nbcolc == $counter) {
+            $albums[$i]['linebreak'] = true;
+            $counter = 0;
+        }
 	}
 	$GLOBALS['xoopsTpl']->assign('categories', $albums);
 	$GLOBALS['xoopsTpl']->assign('album_showsubmitter', $wggallery->getConfig('album_showsubmitter'));
 	unset($albums);
+	if ( 0 < $submitterId ) {
+		$GLOBALS['xoopsTpl']->assign('index_cats_title', _CO_WGGALLERY_CATS_TITLE . ": " . XoopsUser::getUnameFromId($submitter));
+	} else {
+		$GLOBALS['xoopsTpl']->assign('index_cats_title', _CO_WGGALLERY_CATS_TITLE);
+	}
 	// Display Navigation
 	if($albumsCount > $limit) {
 		include_once XOOPS_ROOT_PATH .'/class/pagenav.php';
@@ -150,9 +196,10 @@ if($albumsCount > 0) {
 		$GLOBALS['xoopsTpl']->assign('pagenav_cats', $pagenav->renderNav(4));
 	}
 }
-$GLOBALS['xoopsTpl']->assign('type', $wggallery->getConfig('table_type'));
-$GLOBALS['xoopsTpl']->assign('divideby', $wggallery->getConfig('divideby'));
-$GLOBALS['xoopsTpl']->assign('numb_col', $wggallery->getConfig('numb_col'));
+$GLOBALS['xoopsTpl']->assign('panel_type', $wggallery->getConfig('panel_type'));
+// $GLOBALS['xoopsTpl']->assign('type', $wggallery->getConfig('table_type'));
+// $GLOBALS['xoopsTpl']->assign('divideby', $wggallery->getConfig('divideby'));
+// $GLOBALS['xoopsTpl']->assign('numb_col', $wggallery->getConfig('numb_col'));
 	
 // Keywords
 wggalleryMetaKeywords($wggallery->getConfig('keywords').', '. implode(',', $keywords));

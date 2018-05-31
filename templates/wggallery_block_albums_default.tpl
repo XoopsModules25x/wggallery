@@ -1,10 +1,11 @@
 <{if $albums_list}>
-    <{if $container == 1}><div class='container'><div class='row'><{/if}>
+    <{if $container}><div class="container"><div class="row"><{/if}>
     <{foreach item=album from=$albums_list}>
-        <{if $numb_albums == 3}><div class='col-sm-4'>
-        <{elseif $numb_albums == 4}><div class='col-sm-3'>
-        <{elseif $numb_albums == 6}><div class='col-sm-2'>
-        <{else}><div class='col-sm-6'>
+        <{if $numb_albums == 2}><div class='col-xs-12 col-sm-6'>
+        <{elseif $numb_albums == 3}><div class='col-xs-12 col-sm-4'>
+        <{elseif $numb_albums == 4}><div class='col-xs-12 col-sm-3'>
+        <{elseif $numb_albums == 6}><div class='col-xs-12 col-sm-2'>
+        <{else}><div class='col-xs-12 col-sm-12'>
         <{/if}>
             <{if $gallery == 1}>
                 <a class='wgg-b-album-link' href='<{$wggallery_url}>/gallery.php?op=show&amp;alb_id=<{$album.id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>'>
@@ -23,5 +24,5 @@
             <a class='btn wgfxg-more-btn' href='<{$wggallery_url}>/albums.php' title='<{$smarty.const._CO_WGGALLERY_ALBUMS_SHOW}>'><{$smarty.const._CO_WGGALLERY_ALBUMS_SHOW}></a>
         </div>
     <{/if}>
-    <{if $container == 1}></div></div><{/if}>
+    <{if $container}></div></div><{/if}>
 <{/if}>

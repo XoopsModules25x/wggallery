@@ -30,11 +30,14 @@ define('_CO_WGGALLERY_STATE_APPROVAL', 'Waiting for approval');
 // General
 define('_CO_WGGALLERY_NONE', 'None');
 define('_CO_WGGALLERY_BACK', 'Go back');
+define('_CO_WGGALLERY_ALL', 'All');
 define('_CO_WGGALLERY_DOWNLOAD', 'Download');
 define('_CO_WGGALLERY_FORM_UPLOAD', 'Upload file');
 define('_CO_WGGALLERY_FORM_IMAGE_PATH', 'Files in %s ');
 define('_CO_WGGALLERY_FORM_ACTION', 'Action');
 define('_CO_WGGALLERY_FORM_EDIT', 'Modification');
+define('_CO_WGGALLERY_FORM_TOGGLE_SELECT', 'select/unselect all');
+
 // Save/Delete
 define('_CO_WGGALLERY_FORM_OK', 'Successfully saved');
 define('_CO_WGGALLERY_FORM_DELETE_OK', 'Successfully deleted');
@@ -127,10 +130,10 @@ define('_CO_WGGALLERY_PERMS_GLOBAL_DESC', '<ul>
 										   </ul>');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW', 'Permissions to view');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW_DESC', 'Groups which should have permissions to view an album');
-define('_CO_WGGALLERY_PERMS_ALB_DLLARGE', 'Permissions to download large images');
-define('_CO_WGGALLERY_PERMS_ALB_DLLARGE_DESC', 'Groups which should have permissions to download large images');
-define('_CO_WGGALLERY_PERMS_ALB_DLMEDIUM', 'Permissions to download medium images');
-define('_CO_WGGALLERY_PERMS_ALB_DLMEDIUM_DESC', 'Groups which should have permissions to download medium images');
+define('_CO_WGGALLERY_PERMS_ALB_DLFULLALB', 'Permissions to download full album');
+define('_CO_WGGALLERY_PERMS_ALB_DLFULLALB_DESC', 'Groups which should have permissions to download the full album at once');
+define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE', 'Permissions to download images');
+define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_DESC', 'Groups which should have permissions to download images');
 define('_AM_WGGALLERY_NO_PERMISSIONS_SET', 'No permission set');
 
 // ---------------- Errors ----------------

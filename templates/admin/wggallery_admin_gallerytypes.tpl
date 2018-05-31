@@ -5,7 +5,6 @@
 		<thead>
 			<tr class="head">
 				<th class="center"><{$smarty.const._AM_WGGALLERY_GALLERYTYPE_ID}></th>
-				<th class="center"><{$smarty.const._AM_WGGALLERY_GALLERYTYPE_PRIMARY}></th>
 				<th class="center"><{$smarty.const._AM_WGGALLERY_GALLERYTYPE_NAME}></th>
 				<th class="center"><{$smarty.const._AM_WGGALLERY_GALLERYTYPE_DESC}></th>
 				<th class="center"><{$smarty.const._AM_WGGALLERY_GALLERYTYPE_CREDITS}></th>
@@ -21,7 +20,6 @@
 				<{foreach item=gallerytype from=$gallerytypes_list}>
 					<tr class="<{cycle values='odd, even'}>">
 						<td class='center'><{$gallerytype.id}></td>
-						<td class="center"><img src="<{$wggallery_icon_url_16}>/<{$gallerytype.primary}>.png" alt="gallerytypes" /></td>
 						<td class="center"><{$gallerytype.name}></td>
 						<td class="left"><{$gallerytype.desc}></td>
 						<td class="center"><{$gallerytype.credits}></td>
@@ -31,9 +29,11 @@
 						<td class="center">
 							<{if 0 == $gallerytype.primary}>
 								<a href="gallerytypes.php?op=set_primary&amp;gt_id=<{$gallerytype.id}>" title="<{$smarty.const._AM_WGGALLERY_GALLERYTYPE_PRIMARY_SET}>">
-									<img src="<{$wggallery_icon_url_16}>/1.png" alt="_AM_WGGALLERY_GALLERYTYPE_PRIMARY_SET" />
+									<img src="<{$wggallery_icon_url_16}>/0.png" alt="_AM_WGGALLERY_GALLERYTYPE_PRIMARY_SET" />
 								</a>
-							<{/if}>
+							<{else}>
+                                <img src="<{$wggallery_icon_url_16}>/on.png" alt="_AM_WGGALLERY_GALLERYTYPE_PRIMARY" />
+                            <{/if}>
 						</td>
 						<td class="center  width5">
 							<{if 1 < $gallerytype.id}>

@@ -1,0 +1,22 @@
+<?php
+    $XLANGUAGE_CONFIG_VAR['xlanguage_base'] = array(
+        "german"=>array(
+            "lang_id"=>1,
+            "weight"=>1,
+            "lang_name"=>"german",
+            "lang_desc"=>"Deutsch",
+            "lang_code"=>"de",
+            "lang_charset"=>"UTF-8",
+            "lang_image"=>"german.gif"
+        ),
+        "english"=>array(
+            "lang_id"=>2,
+            "weight"=>2,
+            "lang_name"=>"english",
+            "lang_desc"=>"English",
+            "lang_code"=>"en",
+            "lang_charset"=>"UTF-8",
+            "lang_image"=>"english.gif"
+        ),
+    );
+?>

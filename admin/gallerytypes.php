@@ -22,9 +22,9 @@
  */
 include __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
-$op = XoopsRequest::getString('op', 'list');
-// Request gt_id
+$op   = XoopsRequest::getString('op', 'list');
 $gtId = XoopsRequest::getInt('gt_id');
+
 switch($op) {
 	case 'list':
 	default:
@@ -110,7 +110,7 @@ switch($op) {
 			redirect_header('gallerytypes.php', 3, 'invalid gt_id at saveoptions');
 		}
 		$options = array();
-		if (isset($_POST['css_pgwslideshow'])) {$options[] = array('name' => 'css_pgwslideshow', 'value' => $_POST['css_pgwslideshow']);}
+		if (isset($_POST['css'])) {$options[] = array('name' => 'css', 'value' => $_POST['css']);}
 		if (isset($_POST['source'])) {$options[] = array('name' => 'source', 'value' => $_POST['source']);}
         if (isset($_POST['source_preview'])) {$options[] = array('name' => 'source_preview', 'value' => $_POST['source_preview']);}
 		if (isset($_POST['transitionEffect'])) {$options[] = array('name' => 'transitionEffect', 'value' => $_POST['transitionEffect']);}

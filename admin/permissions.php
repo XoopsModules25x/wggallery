@@ -33,8 +33,8 @@ $formSelect = new XoopsFormSelect('', 'op', $op);
 $formSelect->setExtra('onchange="document.fselperm.submit()"');
 $formSelect->addOption('global', _CO_WGGALLERY_PERMS_GLOBAL);
 $formSelect->addOption('view', _CO_WGGALLERY_PERMS_ALB_VIEW);
-$formSelect->addOption('dllarge', _CO_WGGALLERY_PERMS_ALB_DLLARGE);
-$formSelect->addOption('dlmedium', _CO_WGGALLERY_PERMS_ALB_DLMEDIUM);
+$formSelect->addOption('dlfullalb', _CO_WGGALLERY_PERMS_ALB_DLFULLALB);
+$formSelect->addOption('dlimage', _CO_WGGALLERY_PERMS_ALB_DLIMAGE);
 $permTableForm->addElement($formSelect);
 $permTableForm->display();
 switch($op) {
@@ -50,15 +50,15 @@ switch($op) {
 		$permName = 'wggallery_view';
 		$permDesc = _CO_WGGALLERY_PERMS_ALB_VIEW_DESC;
 	break;
-	case 'dllarge':
-		$formTitle = _CO_WGGALLERY_PERMS_ALB_DLLARGE;
-		$permName = 'wggallery_dllarge';
-		$permDesc = _CO_WGGALLERY_PERMS_ALB_DLLARGE_DESC;
+	case 'dlfullalb':
+		$formTitle = _CO_WGGALLERY_PERMS_ALB_DLFULLALB;
+		$permName = 'wggallery_dlfullalb';
+		$permDesc = _CO_WGGALLERY_PERMS_ALB_DLFULLALB_DESC;
 	break;
-	case 'dlmedium':
-		$formTitle = _CO_WGGALLERY_PERMS_ALB_DLMEDIUM;
-		$permName = 'wggallery_dlmedium';
-		$permDesc = _CO_WGGALLERY_PERMS_ALB_DLMEDIUM_DESC;
+	case 'dlimage':
+		$formTitle = _CO_WGGALLERY_PERMS_ALB_DLIMAGE;
+		$permName = 'wggallery_dlimage';
+		$permDesc = _CO_WGGALLERY_PERMS_ALB_DLIMAGE_DESC;
 	break;
 }
 $moduleId = $xoopsModule->getVar('mid');

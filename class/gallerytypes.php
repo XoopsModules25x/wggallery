@@ -85,8 +85,8 @@ class WggalleryGallerytypes extends XoopsObject
 		$form = new XoopsThemeForm($title, 'form', $action, 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
 		// Form Text GtPrimary
-		$gtPrimary = $this->isNew() ? 0 : $this->getVar('gt_primary');
-		$form->addElement(new XoopsFormRadioYN( _AM_WGGALLERY_GALLERYTYPE_PRIMARY, 'gt_primary', $gtPrimary ), true);
+		$gtCat = $this->isNew() ? 0 : $this->getVar('gt_primary');
+		$form->addElement(new XoopsFormRadioYN( _AM_WGGALLERY_GALLERYTYPE_CAT, 'gt_primary', $gtCat ), true);
 		// Form Text GtName
 		$form->addElement(new XoopsFormText( _AM_WGGALLERY_GALLERYTYPE_NAME, 'gt_name', 50, 255, $this->getVar('gt_name') ), true);
 		// Form Text Area GtDesc
@@ -119,7 +119,7 @@ class WggalleryGallerytypes extends XoopsObject
 		}
 		// Get Theme Form
 		xoops_load('XoopsFormLoader');
-		$form = new XoopsThemeForm(_AM_WGGALLERY_OPTION_SET, 'form', $action, 'post', true);
+		$form = new XoopsThemeForm(_AM_WGGALLERY_OPTION_GT_SET, 'form', $action, 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
 		// Form Text GtPrimary
 		
@@ -130,56 +130,56 @@ class WggalleryGallerytypes extends XoopsObject
 			// echo '<br>name'.$option['name'];
             switch ($option['name']) {
 				case 'showThumbs':
-					$randomize = new XoopsFormRadio(_AM_WGGALLERY_OPTION_SHOWTHUMBSDOTS, 'showThumbs', $option['value']);
-					$randomize->addOption('true', _AM_WGGALLERY_OPTION_SHOWTHUMBS);
-					$randomize->addOption('false', _AM_WGGALLERY_OPTION_SHOWDOTS);
+					$randomize = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_SHOWTHUMBSDOTS, 'showThumbs', $option['value']);
+					$randomize->addOption('true', _AM_WGGALLERY_OPTION_GT_SHOWTHUMBS);
+					$randomize->addOption('false', _AM_WGGALLERY_OPTION_GT_SHOWDOTS);
 					$form->addElement($randomize);
 				break;
 				case 'rowHeight':
-					$rowHeight = new XoopsFormSelect(_AM_WGGALLERY_OPTION_ROWHEIGHT, 'rowHeight', $option['value']);
+					$rowHeight = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_ROWHEIGHT, 'rowHeight', $option['value']);
 					for ($i = 10; $i <= 50; $i++) {
 						$rowHeight->addOption( $i . '0', $i . '0');
 					}
 					$form->addElement($rowHeight);
 				break;
 				case 'lastRow':
-					$lastRow = new XoopsFormRadio(_AM_WGGALLERY_OPTION_JUSTIFY, 'lastRow', $option['value']);
+					$lastRow = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_JUSTIFY, 'lastRow', $option['value']);
 					$lastRow->addOption('justify', _YES);
 					$lastRow->addOption('nojustify', _NO);
 					$form->addElement($lastRow);
 				break;
 				case 'margins':
-					$margins = new XoopsFormSelect(_AM_WGGALLERY_OPTION_MARGINS, 'margins', $option['value']);
+					$margins = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_MARGINS, 'margins', $option['value']);
 					for ($i = 1; $i <= 30; $i++) {
 						$margins->addOption( $i, $i);
 					}
 					$form->addElement($margins);
 				break;
 				case 'border':
-					$border = new XoopsFormSelect(_AM_WGGALLERY_OPTION_BORDER, 'border', $option['value']);
+					$border = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_BORDER, 'border', $option['value']);
 					for ($i = 1; $i <= 100; $i++) {
 						$border->addOption( $i, $i);
 					}
 					$form->addElement($border);
 				break;
 				case 'randomize':
-					$randomize = new XoopsFormRadio(_AM_WGGALLERY_OPTION_RANDOMIZE, 'randomize', $option['value']);
+					$randomize = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_RANDOMIZE, 'randomize', $option['value']);
 					$randomize->addOption('true', _YES);
 					$randomize->addOption('false', _NO);
 					$form->addElement($randomize);
 				break;
 				case 'slideshow':
-					$randomize = new XoopsFormRadio(_AM_WGGALLERY_OPTION_SLIDESHOW, 'slideshow', $option['value']);
+					$randomize = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_SLIDESHOW, 'slideshow', $option['value']);
 					$randomize->addOption('true', _YES);
 					$randomize->addOption('false', _NO);
 					$form->addElement($randomize);
 				break;
 				case 'slideshow_options':
-					$form->addElement(new XoopsFormLabel( '<br><u>' . _AM_WGGALLERY_OPTION_SLIDESHOW_OPTIONS . '</u>', ''));
+					$form->addElement(new XoopsFormLabel( '<br><u>' . _AM_WGGALLERY_OPTION_GT_SLIDESHOW_OPTIONS . '</u>', ''));
 					$form->addElement(new XoopsFormHidden( 'slideshow_options', ''));
 				break;
 				case 'colorboxstyle':
-					$colorboxstyle = new XoopsFormSelect(_AM_WGGALLERY_OPTION_COLORBOXSTYLE, 'colorboxstyle', $option['value']);
+					$colorboxstyle = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_COLORBOXSTYLE, 'colorboxstyle', $option['value']);
 					$colorboxstyle->addOption('style1', 'style1');
 					$colorboxstyle->addOption('style2', 'style2');
 					$colorboxstyle->addOption('style3', 'style3');
@@ -188,34 +188,34 @@ class WggalleryGallerytypes extends XoopsObject
 					$form->addElement($colorboxstyle);
 				break;
 				case 'speed':
-					$speed = new XoopsFormSelect(_AM_WGGALLERY_OPTION_SPEEDOPEN, 'speed', $option['value']);
+					$speed = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_SPEEDOPEN, 'speed', $option['value']);
 					for ($i = 1; $i <= 10; $i++) {
 						$speed->addOption( $i . '00', $i . '00');
 					}
 					$form->addElement($speed);
 				break;
 				case 'open':
-					$open = new XoopsFormRadio(_AM_WGGALLERY_OPTION_AUTOOPEN, 'open', $option['value']);
+					$open = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_AUTOOPEN, 'open', $option['value']);
 					$open->addOption('true', _YES);
 					$open->addOption('false', _NO);
 					$form->addElement($open);
 				break;
 				case 'transition':
-					$transition = new XoopsFormSelect(_AM_WGGALLERY_OPTION_TRANSITION, 'transition', $option['value']);
+					$transition = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_TRANSITION, 'transition', $option['value']);
 					$transition->addOption('elastic', 'elastic');
 					$transition->addOption('fade', 'fade');
 					$transition->addOption('none', 'none');
 					$form->addElement($transition);
 				break;
 				case 'slideshowSpeed':
-					$slideshowSpeed = new XoopsFormSelect(_AM_WGGALLERY_OPTION_SLIDESHOWSPEED, 'slideshowSpeed', $option['value']);
+					$slideshowSpeed = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_SLIDESHOWSPEED, 'slideshowSpeed', $option['value']);
 					for ($i = 5; $i <= 50; $i+=5) {
 						$slideshowSpeed->addOption( $i . '00', $i . '00');
 					}
 					$form->addElement($slideshowSpeed);
 				break;
 				case 'slideshowAuto':
-					$slideshowAuto = new XoopsFormRadio(_AM_WGGALLERY_OPTION_SLIDESHOWAUTO, 'slideshowAuto', $option['value']);
+					$slideshowAuto = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_SLIDESHOWAUTO, 'slideshowAuto', $option['value']);
 					$slideshowAuto->addOption('true', _YES);
 					$slideshowAuto->addOption('false', _NO);
 					$form->addElement($slideshowAuto);
@@ -235,97 +235,97 @@ class WggalleryGallerytypes extends XoopsObject
 					$form->addElement($opacity);
 				break;
                 case 'fullscreen':
-					$fullscreen = new XoopsFormRadio(_AM_WGGALLERY_OPTION_FULLSCREEN, 'fullscreen', $option['value']);
+					$fullscreen = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_FULLSCREEN, 'fullscreen', $option['value']);
 					$fullscreen->addOption('true', _YES);
 					$fullscreen->addOption('false', _NO);
 					$form->addElement($fullscreen);
 				break;
                 case 'download':
-					$download = new XoopsFormRadio(_AM_WGGALLERY_OPTION_TOOLBARDOWNLOAD, 'download', $option['value']);
+					$download = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_TOOLBARDOWNLOAD, 'download', $option['value']);
 					$download->addOption('true', _YES);
 					$download->addOption('false', _NO);
 					$form->addElement($download);
 				break;
                 case 'zoomable':
-					$zoomable = new XoopsFormRadio(_AM_WGGALLERY_OPTION_TOOLBARZOOM, 'zoomable', $option['value']);
+					$zoomable = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_TOOLBARZOOM, 'zoomable', $option['value']);
 					$zoomable->addOption('true', _YES);
 					$zoomable->addOption('false', _NO);
 					$form->addElement($zoomable);
 				break;
                 case 'toolbar':
-					$toolbar = new XoopsFormRadio(_AM_WGGALLERY_OPTION_TOOLBAR, 'toolbar', $option['value']);
+					$toolbar = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_TOOLBAR, 'toolbar', $option['value']);
 					$toolbar->addOption('true', _YES);
 					$toolbar->addOption('false', _NO);
 					$form->addElement($toolbar);
 				break;
                 case 'title':
-					$title = new XoopsFormRadio(_AM_WGGALLERY_OPTION_TITLE, 'title', $option['value']);
+					$title = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_TITLE, 'title', $option['value']);
 					$title->addOption('true', _YES);
 					$title->addOption('false', _NO);
 					$form->addElement($title);
 				break;
                 case 'navbar':
-					$navbar = new XoopsFormRadio(_AM_WGGALLERY_OPTION_NAVBAR, 'navbar', $option['value']);
+					$navbar = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_NAVBAR, 'navbar', $option['value']);
 					$navbar->addOption('true', _YES);
 					$navbar->addOption('false', _NO);
 					$form->addElement($navbar);
 				break;
                 case 'button_close':
-					$button_close = new XoopsFormRadio(_AM_WGGALLERY_OPTION_BUTTTONCLOSE, 'button_close', $option['value']);
+					$button_close = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_BUTTTONCLOSE, 'button_close', $option['value']);
 					$button_close->addOption('true', _YES);
 					$button_close->addOption('false', _NO);
 					$form->addElement($button_close);
 				break;
                 case 'source_preview':
-					$source_preview = new XoopsFormSelect(_AM_WGGALLERY_OPTION_SOURCE, 'source_preview', $option['value']);
+					$source_preview = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_SOURCE, 'source_preview', $option['value']);
 					$source_preview->addOption('medium', 'medium');
 					$source_preview->addOption('large', 'large');
 					$form->addElement($source_preview);
 				break;
 				case 'adaptiveHeight':
-					$adaptiveHeight = new XoopsFormRadio(_AM_WGGALLERY_OPTION_ADAPTHEIGT, 'adaptiveHeight', $option['value']);
+					$adaptiveHeight = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_ADAPTHEIGT, 'adaptiveHeight', $option['value']);
 					$adaptiveHeight->addOption('true', _YES);
 					$adaptiveHeight->addOption('false', _NO);
 					$form->addElement($adaptiveHeight);
 				break;
 				case 'verticalCentering':
-					$verticalCentering = new XoopsFormRadio(_AM_WGGALLERY_OPTION_VERTCENTER, 'verticalCentering', $option['value']);
+					$verticalCentering = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_VERTCENTER, 'verticalCentering', $option['value']);
 					$verticalCentering->addOption('true', _YES);
 					$verticalCentering->addOption('false', _NO);
 					$form->addElement($verticalCentering);
 				break;
 				case 'displayList':
-					$displayList = new XoopsFormRadio(_AM_WGGALLERY_OPTION_DISPLAYLIST, 'displayList', $option['value']);
+					$displayList = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_DISPLAYLIST, 'displayList', $option['value']);
 					$displayList->addOption('true', _YES);
 					$displayList->addOption('false', _NO);
 					$form->addElement($displayList);
 				break;
 				case 'listPosition':
-					$listPosition = new XoopsFormRadio(_AM_WGGALLERY_OPTION_DISPLAYPOS, 'listPosition', $option['value']);
-					$listPosition->addOption('left', _AM_WGGALLERY_OPTION_DISPLAYPOS_LEFT);
-					$listPosition->addOption('right', _AM_WGGALLERY_OPTION_DISPLAYPOS_RIGHT);
+					$listPosition = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_DISPLAYPOS, 'listPosition', $option['value']);
+					$listPosition->addOption('left', _AM_WGGALLERY_OPTION_GT_DISPLAYPOS_LEFT);
+					$listPosition->addOption('right', _AM_WGGALLERY_OPTION_GT_DISPLAYPOS_RIGHT);
 					$form->addElement($listPosition);
 				break;
 				case 'css_pgwslideshow':
-					$css_pgwslideshow = new XoopsFormSelect(_AM_WGGALLERY_OPTION_THEME, 'css_pgwslideshow', $option['value']);
+					$css_pgwslideshow = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_THEME, 'css_pgwslideshow', $option['value']);
 					$css_pgwslideshow->addOption('pgwslideshow.min.css', 'dark');
 					$css_pgwslideshow->addOption('pgwslideshow_light.min.css', 'light');
 					$form->addElement($css_pgwslideshow);
 				break;
 				case 'source':
-					$source = new XoopsFormSelect(_AM_WGGALLERY_OPTION_SOURCE, 'source', $option['value']);
+					$source = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_SOURCE, 'source', $option['value']);
 					$source->addOption('medium', 'medium');
 					$source->addOption('large', 'large');
 					$form->addElement($source);
 				break;
 				case 'transitionEffect':
-					$transitionEffect = new XoopsFormSelect(_AM_WGGALLERY_OPTION_TRANSEFFECT, 'transitionEffect', $option['value']);
+					$transitionEffect = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_TRANSEFFECT, 'transitionEffect', $option['value']);
 					$transitionEffect->addOption('fading', 'fading');
 					$transitionEffect->addOption('sliding', 'sliding');
 					$form->addElement($transitionEffect);
 				break;
 				case 'adaptiveDuration':
-					$dadapt = new XoopsFormSelect(_AM_WGGALLERY_OPTION_ADAPDURATION, 'adaptiveDuration', $option['value']);
+					$dadapt = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_ADAPDURATION, 'adaptiveDuration', $option['value']);
 					$dadapt->addOption('100', '100');
 					$dadapt->addOption('200', '200');
 					$dadapt->addOption('300', '300');
@@ -339,7 +339,7 @@ class WggalleryGallerytypes extends XoopsObject
 					$form->addElement($dadapt);
 				break;
 				case 'transitionDuration':
-					$dtrans = new XoopsFormSelect(_AM_WGGALLERY_OPTION_TRANSDURATION, 'transitionDuration', $option['value']);
+					$dtrans = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_TRANSDURATION, 'transitionDuration', $option['value']);
 					$dtrans->addOption('100', '100');
 					$dtrans->addOption('200', '200');
 					$dtrans->addOption('300', '300');
@@ -353,19 +353,19 @@ class WggalleryGallerytypes extends XoopsObject
 					$form->addElement($dtrans);
 				break;
 				case 'autoSlide':
-					$autoSlide = new XoopsFormRadio(_AM_WGGALLERY_OPTION_AUTOPLAY, 'autoSlide', $option['value']);
+					$autoSlide = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_AUTOPLAY, 'autoSlide', $option['value']);
 					$autoSlide->addOption('true', _YES);
 					$autoSlide->addOption('false', _NO);
 					$form->addElement($autoSlide);
 				break;
 				case 'displayControls':
-					$displayControls = new XoopsFormRadio(_AM_WGGALLERY_OPTION_DISPLAYCONTROLS, 'displayControls', $option['value']);
+					$displayControls = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_DISPLAYCONTROLS, 'displayControls', $option['value']);
 					$displayControls->addOption('true', _YES);
 					$displayControls->addOption('false', _NO);
 					$form->addElement($displayControls);
 				break;
 				case 'intervalDuration':
-					$dint = new XoopsFormSelect(_AM_WGGALLERY_OPTION_INTDURATION, 'intervalDuration', $option['value']);
+					$dint = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_INTDURATION, 'intervalDuration', $option['value']);
 					$dint->addOption('500', '500');
 					$dint->addOption('1000', '1000');
 					$dint->addOption('1500', '1500');
@@ -405,12 +405,14 @@ class WggalleryGallerytypes extends XoopsObject
 		$ret['template'] = $this->getVar('gt_template');
 		$ret['options'] = $this->getVar('gt_options');
 		$gt_options = $this->getVar('gt_options', 'N');
-		$options = unserialize($gt_options);
-		$options_text = '';
-        $counter = 0;
-		foreach ($options as $option) {
-			$options_text .= $option['name'] . ': ' . $option['value'] . '<br>';
-		}
+        $options_text = '';
+		if ( '' !== $gt_options ) {
+            $options = unserialize($gt_options);
+            $counter = 0;
+            foreach ($options as $option) {
+                $options_text .= $option['name'] . ': ' . $option['value'] . '<br>';
+            }
+        }
 		$ret['options_text'] = $options_text;
 		$ret['date'] = formatTimeStamp($this->getVar('gt_date'), 's');
 		return $ret;

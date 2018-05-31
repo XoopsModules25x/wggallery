@@ -334,7 +334,7 @@ class WggalleryImagesHandler extends XoopsPersistableObjectHandler
 		$crAllImages = new CriteriaCompo();
 		$crAllImages = $this->getImagesCriteria($crAllImages, 0, $start, $limit, $sort, $order);
 		return parent::getAll($crAllImages);
-	}
+	}    
 
 	/**
 	 * Get Criteria Images

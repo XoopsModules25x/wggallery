@@ -130,13 +130,17 @@ class WggalleryAlbums extends XoopsObject
 		$imageDirectory = '/uploads/wggallery/images/medium';
 		$imageTray1 = new XoopsFormElementTray(_CO_WGGALLERY_ALBUM_USE_EXIST, '<br>' );
 		
-		$criteria = new CriteriaCompo();
+		$albImgidSelect = new XoopsFormSelect( _CO_WGGALLERY_ALBUM_IMGID, 'alb_imgid', $albImage1);
+		$albImgidSelect->addOption(0, '&nbsp;');
+        // Get All Images of this album
+        $criteria = new CriteriaCompo();
 		$criteria->add(new Criteria('img_albid', $this->getVar('alb_id')));
         $criteria->setSort('img_weight');
         $criteria->setOrder('DESC');
-		$albImgidSelect = new XoopsFormSelect( _CO_WGGALLERY_ALBUM_IMGID, 'alb_imgid', $albImgid);
-		$albImgidSelect->addOption(0, '&nbsp;');
-		$albImgidSelect->addOptionArray($imagesHandler->getList($criteria));
+        $imagesAll = $imagesHandler->getAll($criteria);
+        foreach(array_keys($imagesAll) as $i) {
+            $albImgidSelect->addOption($imagesAll[$i]->getVar('img_name'),$imagesAll[$i]->getVar('img_title'));
+        }
 		$albImgidSelect->setExtra("onchange='wgshowImgSelected(\"imagepreview1\", \"alb_imgid\", \"".$imageDirectory."\", \"\", \"".XOOPS_URL."\")'");
 		$imageTray1->addElement($albImgidSelect);
 		$imageTray1->addElement(new XoopsFormLabel('', "<br><img src='".XOOPS_URL."/".$imageDirectory."/".$albImage1."' name='imagepreview1' id='imagepreview1' alt='' style='max-width:100px' />"));
@@ -164,63 +168,67 @@ class WggalleryAlbums extends XoopsObject
 		unset($criteria);
 		// Form Select Albstate
 		$albState = $this->isNew() ? 0 : $this->getVar('alb_state');
-		$albStateSelect = new XoopsFormSelect( _CO_WGGALLERY_ALBUM_STATE, 'alb_state', $albState);
+		$albStateSelect = new XoopsFormRadio( _CO_WGGALLERY_ALBUM_STATE, 'alb_state', $albState);
 		$albStateSelect->addOption(WGGALLERY_STATE_OFFLINE_VAL, _CO_WGGALLERY_STATE_OFFLINE);
 		$albStateSelect->addOption(WGGALLERY_STATE_ONLINE_VAL, _CO_WGGALLERY_STATE_ONLINE);
 		$albStateSelect->addOption(WGGALLERY_STATE_APPROVAL_VAL, _CO_WGGALLERY_STATE_APPROVAL);
 		$form->addElement($albStateSelect);
-		// Form Select Allowdownload
-		$albAllowdownload = $this->isNew() ? 0 : $this->getVar('alb_allowdownload');
-		$allowdownloadSelect = new XoopsFormSelect( _CO_WGGALLERY_ALBUM_ALLOWDOWNLOAD, 'alb_allowdownload', $albAllowdownload);
-		$allowdownloadSelect->addOption(0, _CO_WGGALLERY_NONE);
-		$allowdownloadSelect->addOption(WGGALLERY_DOWNLOAD_MEDIUM, _CO_WGGALLERY_ALBUM_DOWNLOAD_MEDIUM);
-		$allowdownloadSelect->addOption(WGGALLERY_DOWNLOAD_LARGE, _CO_WGGALLERY_ALBUM_DOWNLOAD_LARGE);
-		$form->addElement($allowdownloadSelect);
 		// Permissions
 		$memberHandler = xoops_gethandler('member');
 		$groupList = $memberHandler->getGroupList();
 		$gpermHandler = xoops_gethandler('groupperm');
 		$fullList[] = array_keys($groupList);
 		if(!$this->isNew()) {
-/* 			$groupsIdsApprove = $gpermHandler->getGroupIds('wggallery_approve', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
-			$groupsIdsApprove[] = array_values($groupsIdsApprove);
-			$groupsCanApproveCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_GL_APPROVE, 'groups_approve[]', $groupsIdsApprove);
-			$groupsIdsSubmit = $gpermHandler->getGroupIds('wggallery_submit', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
-			$groupsIdsSubmit[] = array_values($groupsIdsSubmit);
-			$groupsCanSubmitCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_GL_SUBMIT, 'groups_submit[]', $groupsIdsSubmit); */
 			$groupsIdsView = $gpermHandler->getGroupIds('wggallery_view', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
 			$groupsIdsView[] = array_values($groupsIdsView);
-			$groupsCanViewCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_ALB_VIEW, 'groups_view[]', $groupsIdsView);
+			$groupsCanViewCheckbox = new XoopsFormCheckBox( '', 'groups_view[]', $groupsIdsView);
 			
-			$groupsIdsDlLarge = $gpermHandler->getGroupIds('wggallery_dllarge', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
-			$groupsIdsDlLarge[] = array_values($groupsIdsDlLarge);
-			$groupsCanDlLargeCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_ALB_DLLARGE, 'groups_dllarge[]', $groupsIdsDlLarge);
+			$groupsIdsDlFullAlb = $gpermHandler->getGroupIds('wggallery_dlfullalb', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
+			$groupsIdsDlFullAlb[] = array_values($groupsIdsDlFullAlb);
+			$groupsCanDlFullAlbCheckbox = new XoopsFormCheckBox( '', 'groups_dlfullalb[]', $groupsIdsDlFullAlb);
 			
-			$groupsIdsDlMedium = $gpermHandler->getGroupIds('wggallery_dlmedium', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
-			$groupsIdsDlMedium[] = array_values($groupsIdsDlMedium);
-			$groupsCanDlMediumCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_ALB_DLMEDIUM, 'groups_dlmedium[]', $groupsIdsDlMedium);
+			$groupsIdsDlImage = $gpermHandler->getGroupIds('wggallery_dlimage', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
+			$groupsIdsDlImage[] = array_values($groupsIdsDlImage);
+			$groupsCanDlImageCheckbox = new XoopsFormCheckBox( '', 'groups_dlimage[]', $groupsIdsDlImage);
 		} else {
-			// $groupsCanApproveCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_GL_APPROVE, 'groups_approve[]', $fullList);
-			// $groupsCanSubmitCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_GL_SUBMIT, 'groups_submit[]', $fullList);
-			$groupsCanViewCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_ALB_VIEW, 'groups_view[]', $fullList);
-			$groupsCanDlLargeCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_ALB_DLLARGE, 'groups_dllarge[]', $fullList);
-			$groupsCanDlMediumCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_ALB_DLMEDIUM, 'groups_dlmedium[]', $fullList);
+			$groupsCanViewCheckbox = new XoopsFormCheckBox( '', 'groups_view[]', $fullList);
+			$groupsCanDlFullAlbCheckbox = new XoopsFormCheckBox( '', 'groups_dlfullalb[]', $fullList);
+			$groupsCanDlImageCheckbox = new XoopsFormCheckBox( '', 'groups_dlimage[]', $fullList);
 		}
-/* 		// To Approve
-		$groupsCanApproveCheckbox->addOptionArray($groupList);
-		$form->addElement($groupsCanApproveCheckbox);
-		// To Submit
-		$groupsCanSubmitCheckbox->addOptionArray($groupList);
-		$form->addElement($groupsCanSubmitCheckbox); */
 		// To View
-		$groupsCanViewCheckbox->addOptionArray($groupList);
-		$form->addElement($groupsCanViewCheckbox);
+        $groupsCanViewCheckbox->addOptionArray($groupList);
+        $groupsCanViewTray = new XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_VIEW, '&nbsp;' );
+        $groupsCanViewTray->addElement($groupsCanViewCheckbox, false);
+        $groupsCanViewAll = new XoopsFormCheckBox( '', 'all_groups_view', 0);
+        $groupsCanViewAll->setExtra('onclick="javascript:toggleCheckbox(this)"');
+        $groupsCanViewAll->addOption(1, _CO_WGGALLERY_ALL);
+        $groupsCanViewTray->addElement($groupsCanViewAll, false);
+		$form->addElement($groupsCanViewTray);
 		// To Download Large Images
-		$groupsCanDlLargeCheckbox->addOptionArray($groupList);
-		$form->addElement($groupsCanDlLargeCheckbox);
+        $groupsCanDlFullAlbCheckbox->addOptionArray($groupList);
+        $groupsCanDlFullAlbTray = new XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_DLFULLALB, '&nbsp;' );
+        $groupsCanDlFullAlbTray->addElement($groupsCanDlFullAlbCheckbox, false);
+        $groupsCanDlFullAlbAll = new XoopsFormCheckBox( '', 'all_groups_dlfullalb', 0);
+        $groupsCanDlFullAlbAll->setExtra('onclick="javascript:toggleCheckbox(this)"');
+        $groupsCanDlFullAlbAll->addOption(1, _CO_WGGALLERY_ALL);
+        $groupsCanDlFullAlbTray->addElement($groupsCanDlFullAlbAll, false);
+		$form->addElement($groupsCanDlFullAlbTray);
 		// To Download Medium Images
-		$groupsCanDlMediumCheckbox->addOptionArray($groupList);
-		$form->addElement($groupsCanDlMediumCheckbox);
+        $groupsCanDlImageCheckbox->addOptionArray($groupList);
+        $groupsCanDlImageTray = new XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_DLIMAGE, '&nbsp;' );
+        $groupsCanDlImageTray->addElement($groupsCanDlImageCheckbox, false);
+        $groupsCanDlImageAll = new XoopsFormCheckBox( '', 'all_groups_dlimage', 0);
+        $groupsCanDlImageAll->setExtra('onclick="javascript:toggleCheckbox(this)"');
+        $groupsCanDlImageAll->addOption(1, _CO_WGGALLERY_ALL);
+        $groupsCanDlImageTray->addElement($groupsCanDlImageAll, false);
+		$form->addElement($groupsCanDlImageTray);
+        // Form Select Allowdownload
+		$albAllowdownload = $this->isNew() ? 0 : $this->getVar('alb_allowdownload');
+		$allowdownloadSelect = new XoopsFormRadio( _CO_WGGALLERY_ALBUM_ALLOWDOWNLOAD, 'alb_allowdownload', $albAllowdownload);
+		$allowdownloadSelect->addOption(0, _CO_WGGALLERY_NONE);
+		$allowdownloadSelect->addOption(WGGALLERY_DOWNLOAD_MEDIUM, _CO_WGGALLERY_ALBUM_DOWNLOAD_MEDIUM);
+		$allowdownloadSelect->addOption(WGGALLERY_DOWNLOAD_LARGE, _CO_WGGALLERY_ALBUM_DOWNLOAD_LARGE);
+		$form->addElement($allowdownloadSelect);
 		// Form Text Date Select AlbDate
 		$albDate = $this->isNew() ? 0 : $this->getVar('alb_date');
 		$form->addElement(new XoopsFormTextDateSelect( _CO_WGGALLERY_ALBUM_DATE, 'alb_date', '', $albDate ));

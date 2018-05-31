@@ -29,23 +29,17 @@
 					<{if $image.edit || $alb_allowdownload}>
 						<div class='wgg-img-panel-row col-sm-12 center'>
 							<{if $image.edit}>
-								<div class='wgg-album-btntray'>
-									<a class='' href='images.php?op=edit&amp;img_id=<{$image.id}>' title='<{$smarty.const._EDIT}>'>
-										<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/edit.png' alt='<{$smarty.const._EDIT}>' /><{$smarty.const._EDIT}>
-									</a>
-								</div>
-								<div class='wgg-album-btntray'>
-									<a class='' href='images.php?op=delete&amp;img_id=<{$image.id}>' title='<{$smarty.const._DELETE}>'>
-										<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/delete.png' alt='<{$smarty.const._DELETE}>' /><{$smarty.const._DELETE}>
-									</a>
-								</div>
+								<a class='btn btn-default wgg-btn' href='images.php?op=edit&amp;img_id=<{$image.id}>' title='<{$smarty.const._EDIT}>'>
+									<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/edit.png' alt='<{$smarty.const._EDIT}>' /><{$smarty.const._EDIT}>
+								</a>
+								<a class='btn btn-default wgg-btn' href='images.php?op=delete&amp;img_id=<{$image.id}>' title='<{$smarty.const._DELETE}>'>
+									<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/delete.png' alt='<{$smarty.const._DELETE}>' /><{$smarty.const._DELETE}>
+								</a>
 							<{/if}>
 							<{if $alb_allowdownload}>
-								<div class='wgg-album-btntray'>
-									<a class='' href='images.php?op=download&amp;img_id=<{$image.id}>' title='<{$smarty.const._CO_WGGALLERY_DOWNLOAD}>'>
-										<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/download.png' alt='<{$smarty.const._CO_WGGALLERY_DOWNLOAD}>' /><{$smarty.const._CO_WGGALLERY_DOWNLOAD}>
-									</a>
-								</div>
+								<a class='btn btn-default wgg-btn' href='images.php?op=download&amp;img_id=<{$image.id}>' title='<{$smarty.const._CO_WGGALLERY_DOWNLOAD}>'>
+									<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/download.png' alt='<{$smarty.const._CO_WGGALLERY_DOWNLOAD}>' /><{$smarty.const._CO_WGGALLERY_DOWNLOAD}>
+								</a>
 							<{/if}>
 						</div>
 					<{/if}>
@@ -57,8 +51,8 @@
 			</div>
 		<{/if}>
 		<div class='clear'>&nbsp;</div>
-		<div class='wgg-album-btntray'>
-			<a class='' href='index.php?op=list&amp;alb_for_id=<{$alb_for_id}>' title='<{$smarty.const._CO_WGGALLERY_BACK}>'>
+		<div class='wgg-goback'>
+			<a class='btn btn-default wgg-btn' href='index.php?op=list&amp;alb_for_id=<{$alb_for_id}>' title='<{$smarty.const._CO_WGGALLERY_BACK}>'>
 				<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/back.png' alt='<{$smarty.const._CO_WGGALLERY_BACK}>' /><{$smarty.const._CO_WGGALLERY_BACK}>
 			</a>
 		</div>

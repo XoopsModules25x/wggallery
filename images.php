@@ -24,12 +24,13 @@ include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_images' . $wggallery->getConfig('style_index_image', true) . '.tpl';
 include_once XOOPS_ROOT_PATH .'/header.php';
 
-$op    = XoopsRequest::getString('op', 'list');
-$imgId = XoopsRequest::getInt('img_id');
-$albId = XoopsRequest::getInt('alb_id');
+$op       = XoopsRequest::getString('op', 'list');
+$imgId    = XoopsRequest::getInt('img_id');
+$albId    = XoopsRequest::getInt('alb_id');
 $albForId = XoopsRequest::getInt('alb_for_id');
-$start = XoopsRequest::getInt('start', 0);
-$limit = XoopsRequest::getInt('limit', $wggallery->getConfig('userpager'));
+$imgSubm  = XoopsRequest::getInt('img_submitter');
+$start    = XoopsRequest::getInt('start', 0);
+$limit    = XoopsRequest::getInt('limit', $wggallery->getConfig('userpager'));
 
 if (_CANCEL === XoopsRequest::getString('cancel', 'none')) {
 	$op = 'list';
@@ -99,7 +100,10 @@ switch($op) {
 			// Display Navigation
 			if($imagesCount > $limit) {
 				include_once XOOPS_ROOT_PATH .'/class/pagenav.php';
-				$pagenav = new XoopsPageNav($imagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
+                
+
+                
+				$pagenav = new XoopsPageNav($imagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit . '&alb_id=' . $albId . '&alb_for_id=' . $albForId . '&img_submitter=' . $imgSubm );
 				$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
 			}
 			$GLOBALS['xoopsTpl']->assign('type', $wggallery->getConfig('table_type'));

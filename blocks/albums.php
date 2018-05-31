@@ -135,6 +135,7 @@ function b_wggallery_albums_edit($options)
     $form .= "<input type='text' name='options[1]' size='5' maxlength='255' value='" . $options[1] . "' />&nbsp;<br>";
     $form .= _MB_WGGALLERY_TITLE_LENGTH." : <input type='text' name='options[2]' size='5' maxlength='255' value='" . $options[2] . "' /><br>";
     $form .= _MB_WGGALLERY_NUMB_ALBUMS.": <select name='options[3]' size='4'>";
+    $form .= "<option value='1' " . (1 == $options[3] ? "selected='selected'" : '') . '>1</option>';
     $form .= "<option value='2' " . (2 == $options[3] ? "selected='selected'" : '') . '>2</option>';
     $form .= "<option value='3' " . (3 == $options[3] ? "selected='selected'" : '') . '>3</option>';
     $form .= "<option value='4' " . (4 == $options[3] ? "selected='selected'" : '') . '>4</option>';

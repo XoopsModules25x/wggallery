@@ -17,9 +17,9 @@
             element: document.getElementById('fine-uploader-manual-trigger'),
             template: 'qq-template-manual-trigger',
             request: {
-                endpoint: '<{$xoops_url}>/ajaxfineupload.php?xoopsauth_jwt=<{$jwt}>',
-                customHeaders: {
-                    "Authorization": "Basic <{$jwt}>"
+                endpoint: '<{$xoops_url}>/ajaxfineupload.php',
+                params: {
+                    "Authorization": "<{$jwt}>"
                 }
             },
             text: {

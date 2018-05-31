@@ -32,6 +32,7 @@ $wggallery = WggalleryHelper::getInstance();
 $albumsHandler = $wggallery->getHandler('albums');
 $imagesHandler = $wggallery->getHandler('images');
 $gallerytypesHandler = $wggallery->getHandler('gallerytypes');
+$albumtypesHandler = $wggallery->getHandler('albumtypes');
 $permissionsHandler = $wggallery->getHandler('permissions');
 // Permission
 include_once XOOPS_ROOT_PATH .'/class/xoopsform/grouppermform.php';

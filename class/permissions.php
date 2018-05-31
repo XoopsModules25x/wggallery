@@ -135,7 +135,6 @@ class WggalleryPermissionsHandler extends XoopsPersistableObjectHandler
 
 		global $xoopsUser, $xoopsModule;
 		
-				
 		$currentuid = 0;
 		if ( isset($xoopsUser) && is_object($xoopsUser) ) {
 			if ($xoopsUser->isAdmin()) {
@@ -181,6 +180,8 @@ class WggalleryPermissionsHandler extends XoopsPersistableObjectHandler
 		return $gperm_handler->checkRight( 'wggallery_view', $albId, $my_group_ids, $mid  ) ;
 	}
 
+    
+    
 	public function permAlbumDownload($albId) {
 
 		global $xoopsUser, $xoopsModule;
@@ -200,12 +201,28 @@ class WggalleryPermissionsHandler extends XoopsPersistableObjectHandler
 		} else {
 			$my_group_ids = $member_handler->getGroupsByUser( $currentuid ) ;
 		}
-		if ($gperm_handler->checkRight( 'wggallery_dllarge', $albId, $my_group_ids, $mid  )) {
-			return 1;
+		return $gperm_handler->checkRight( 'wggallery_dlfullalb', $albId, $my_group_ids, $mid  );
+	}
+    
+    public function permImageDownload($albId) {
+
+		global $xoopsUser, $xoopsModule;
+		
+		$currentuid = 0;
+		if ( isset($xoopsUser) && is_object($xoopsUser) ) {
+			if ($xoopsUser->isAdmin()) {
+				return 1;
+			}
+			$currentuid = $xoopsUser->uid();
 		}
-		if ($gperm_handler->checkRight( 'wggallery_dlmedium', $albId, $my_group_ids, $mid  )) {
-			return 2;
+		$gperm_handler = xoops_getHandler('groupperm');
+		$mid = $xoopsModule->mid();
+		$member_handler = xoops_getHandler('member');
+		if ($currentuid == 0) {
+			$my_group_ids = array(XOOPS_GROUP_ANONYMOUS);
+		} else {
+			$my_group_ids = $member_handler->getGroupsByUser( $currentuid ) ;
 		}
-		return false;
+		return $gperm_handler->checkRight( 'wggallery_dlimage', $albId, $my_group_ids, $mid  );
 	}
 }

@@ -82,20 +82,7 @@ switch($pr_gallery['template']) {
 		// $GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/galleries/pgwslideshow/pgwslideshow.css', null );
 		$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/pgwslideshow/pgwslideshow.min.js');		
 	break;
-	case 'tarasdimagesgrid': //alles mehrfach
-		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/galleries/tarasdimagesgrid/src/images-grid.css', null );
-		$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/tarasdimagesgrid/src/images-grid.js');
-		foreach ($images as $image) {	
-			$container .= "'" .WGGALLERY_UPLOAD_URL . "/images/large/" . $image['img_name'] ."',";
-		}
-		$GLOBALS['xoopsTpl']->assign('imagesCount', $imagesCount);
-		$GLOBALS['xoopsTpl']->assign('container', $container);
-	break;
 	case 'pgwslider':
-		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/galleries/pgwslider/pgwslider.min.css', null );
-		$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/pgwslider/pgwslider.min.js');		
-	break;
-	case 'tincatmosaic':
 		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/galleries/pgwslider/pgwslider.min.css', null );
 		$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/pgwslider/pgwslider.min.js');		
 	break;

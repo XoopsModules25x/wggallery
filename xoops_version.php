@@ -44,7 +44,7 @@ $modversion['min_php'] = '5.3';
 $modversion['min_xoops'] = '2.5.7';
 $modversion['min_admin'] = '1.1';
 $modversion['min_db'] = array('mysql' => '5.0.7', 'mysqli' => '5.0.7');
-$modversion['image'] = 'assets/images/empty.png';
+$modversion['image'] = 'assets/images/wggallery_logo.png';
 $modversion['dirname'] = basename(__DIR__);
 $modversion['dirmoduleadmin'] = 'Frameworks/moduleclasses/moduleadmin';
 $modversion['sysicons16'] = '../../Frameworks/moduleclasses/icons/16';
@@ -74,11 +74,18 @@ $modversion['templates'][] = array('file' => 'wggallery_admin_index.tpl', 'descr
 $modversion['templates'][] = array('file' => 'wggallery_admin_albums.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_images.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_gallerytypes.tpl', 'description' => '', 'type' => 'admin');
+$modversion['templates'][] = array('file' => 'wggallery_admin_albumtypes.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_permissions.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_footer.tpl', 'description' => '', 'type' => 'admin');
 // User
 $modversion['templates'][] = array('file' => 'wggallery_header.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_index_default.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_index_hovereffectideas.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_albumitem_1.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_albumitem_2.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_categoryitem_1.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_categoryitem_2.tpl', 'description' => '');
+
 $modversion['templates'][] = array('file' => 'wggallery_albums_default.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_images_default.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_gallery_pgwslideshow.tpl', 'description' => '');
@@ -335,13 +342,31 @@ $modversion['config'][$c]['valuetype'] = 'int';
 $modversion['config'][$c]['default'] = 1;
 ++$c;
 // style of album index page
-$modversion['config'][$c]['name'] = 'style_index_album';
-$modversion['config'][$c]['title'] = '_MI_WGGALLERY_STYLE_INDEX_ALBUM';
-$modversion['config'][$c]['description'] = '_MI_WGGALLERY_STYLE_INDEX_ALBUM_DESC';
+$modversion['config'][$c]['name'] = 'index_album_style';
+$modversion['config'][$c]['title'] = '_MI_WGGALLERY_INDEX_ALBUM_STYLE';
+$modversion['config'][$c]['description'] = '_MI_WGGALLERY_INDEX_ALBUM_STYLE_DESC';
 $modversion['config'][$c]['formtype'] = 'select';
 $modversion['config'][$c]['valuetype'] = 'array';
 $modversion['config'][$c]['default'] = '_default';
 $modversion['config'][$c]['options'] = array('default' => '_default', 'label style 1' => '_style1','style 2' => '_style2');
+++$c;
+// style of album items on index page
+$modversion['config'][$c]['name'] = 'index_album_numbcola';
+$modversion['config'][$c]['title'] = '_MI_WGGALLERY_INDEX_ALBUM_NUMBCOLA';
+$modversion['config'][$c]['description'] = '_MI_WGGALLERY_INDEX_ALBUM_NUMBCOLA_DESC';
+$modversion['config'][$c]['formtype'] = 'select';
+$modversion['config'][$c]['valuetype'] = 'array';
+$modversion['config'][$c]['default'] = 1;
+$modversion['config'][$c]['options'] = array(1 => 1, 2 => 2, 3 => 3, 4 => 4);
+++$c;
+// style of album items on index page
+$modversion['config'][$c]['name'] = 'index_album_numbcolc';
+$modversion['config'][$c]['title'] = '_MI_WGGALLERY_INDEX_ALBUM_NUMBCOLC';
+$modversion['config'][$c]['description'] = '_MI_WGGALLERY_INDEX_ALBUM_NUMBCOLC_DESC';
+$modversion['config'][$c]['formtype'] = 'select';
+$modversion['config'][$c]['valuetype'] = 'array';
+$modversion['config'][$c]['default'] = 1;
+$modversion['config'][$c]['options'] = array(1 => 1, 2 => 2, 3 => 3, 4 => 4);
 ++$c;
 // style of image index page
 $modversion['config'][$c]['name'] = 'style_index_image';

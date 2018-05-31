@@ -1,5 +1,4 @@
 <!-- Header -->
-<link href="<{$wggallery_url}>/assets/galleries/pgwslideshow/<{$css_pgwslideshow}>" rel="stylesheet">
 
 <{include file='db:wggallery_admin_header.tpl'}>
 
