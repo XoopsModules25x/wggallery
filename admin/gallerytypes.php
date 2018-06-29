@@ -110,50 +110,78 @@ switch($op) {
 			redirect_header('gallerytypes.php', 3, 'invalid gt_id at saveoptions');
 		}
 		$options = array();
+        //general
 		if (isset($_POST['css'])) {$options[] = array('name' => 'css', 'value' => $_POST['css']);}
-		if (isset($_POST['source'])) {$options[] = array('name' => 'source', 'value' => $_POST['source']);}
-        if (isset($_POST['source_preview'])) {$options[] = array('name' => 'source_preview', 'value' => $_POST['source_preview']);}
-		if (isset($_POST['transitionEffect'])) {$options[] = array('name' => 'transitionEffect', 'value' => $_POST['transitionEffect']);}
-		if (isset($_POST['autoSlide'])) {$options[] = array('name' => 'autoSlide', 'value' => $_POST['autoSlide']);}
-		if (isset($_POST['adaptiveDuration'])) {$options[] = array('name' => 'adaptiveDuration', 'value' => $_POST['adaptiveDuration']);}
-		if (isset($_POST['transitionDuration'])) {$options[] = array('name' => 'transitionDuration', 'value' => $_POST['transitionDuration']);}
-		if (isset($_POST['intervalDuration'])) {$options[] = array('name' => 'intervalDuration', 'value' => $_POST['intervalDuration']);}
-		if (isset($_POST['displayControls'])) {$options[] = array('name' => 'displayControls', 'value' => $_POST['displayControls']);}
-		if (isset($_POST['displayList'])) {$options[] = array('name' => 'displayList', 'value' => $_POST['displayList']);}
-		if (isset($_POST['listPosition'])) {$options[] = array('name' => 'listPosition', 'value' => $_POST['listPosition']);}
-		if (isset($_POST['verticalCentering'])) {$options[] = array('name' => 'verticalCentering', 'value' => $_POST['verticalCentering']);}
-		if (isset($_POST['adaptiveHeight'])) {$options[] = array('name' => 'adaptiveHeight', 'value' => $_POST['adaptiveHeight']);}
+		if (isset($_POST['source'])) {$options[] = array('name' => 'source', 'value' => $_POST['source'], 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE');}
+        if (isset($_POST['source_preview'])) {$options[] = array('name' => 'source_preview', 'value' => $_POST['source_preview'], 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW');}
+		//jssor
+		if (isset($_POST['jssor_arrows'])) {$options[] = array('name' => 'jssor_arrows', 'value' => $_POST['jssor_arrows'], 'caption' => '_AM_WGGALLERY_OPTION_GT_ARROWS');}
+		if (isset($_POST['jssor_bullets'])) {$options[] = array('name' => 'jssor_bullets', 'value' => $_POST['jssor_bullets'], 'caption' => '_AM_WGGALLERY_OPTION_GT_BULLETS');}
+		if (isset($_POST['jssor_thumbnails'])) {$options[] = array('name' => 'jssor_thumbnails', 'value' => $_POST['jssor_thumbnails'], 'caption' => '_AM_WGGALLERY_OPTION_GT_THUMBNAILS');}
+		if (isset($_POST['jssor_loadings'])) {$options[] = array('name' => 'jssor_loadings', 'value' => $_POST['jssor_loadings'], 'caption' => '_AM_WGGALLERY_OPTION_GT_LOADINGS');}
+        if (isset($_POST['jssor_autoplay'])) {$options[] = array('name' => 'jssor_autoplay', 'value' => $_POST['jssor_autoplay'], 'caption' => '_AM_WGGALLERY_OPTION_GT_PLAYOPTIONS');}
+        
+        
+        //
+        if (isset($_POST['showThumbs'])) {$options[] = array('name' => 'showThumbs', 'value' => $_POST['showThumbs'], 'caption' => '_AM_WGGALLERY_OPTION_GT_SHOWTHUMBSDOTS');}
+        if (isset($_POST['showTitle'])) {$options[] = array('name' => 'showTitle', 'value' => $_POST['showTitle'], 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE');}
+        if (isset($_POST['showDescr'])) {$options[] = array('name' => 'showDescr', 'value' => $_POST['showDescr'], 'caption' => '_AM_WGGALLERY_OPTION_SHOWDESCR');}
+        if (isset($_POST['slideshowSpeed'])) {$options[] = array('name' => 'slideshowSpeed', 'value' => $_POST['slideshowSpeed'], 'caption' => '_AM_WGGALLERY_OPTION_GT_SLIDESHOWSPEED');}
+        if (isset($_POST['slideshowAuto'])) {$options[] = array('name' => 'slideshowAuto', 'value' => $_POST['slideshowAuto'], 'caption' => '_AM_WGGALLERY_OPTION_GT_AUTOPLAY');}
+        if (isset($_POST['rowHeight'])) {$options[] = array('name' => 'rowHeight', 'value' => $_POST['rowHeight'], 'caption' => '_AM_WGGALLERY_OPTION_GT_ROWHEIGHT');}
+        if (isset($_POST['lastRow'])) {$options[] = array('name' => 'lastRow', 'value' => $_POST['lastRow'], 'caption' => '_AM_WGGALLERY_OPTION_GT_LASTROW_DESC');}
+		if (isset($_POST['margins'])) {$options[] = array('name' => 'margins', 'value' => $_POST['margins'], 'caption' => '_AM_WGGALLERY_OPTION_GT_MARGINS');}
+		if (isset($_POST['border'])) {$options[] = array('name' => 'border', 'value' => $_POST['border'], 'caption' => '_AM_WGGALLERY_OPTION_GT_BORDER');}
+		if (isset($_POST['randomize'])) {$options[] = array('name' => 'randomize', 'value' => $_POST['randomize'], 'caption' => '_AM_WGGALLERY_OPTION_GT_RANDOMIZE');}
+        if (isset($_POST['slideshow'])) {$options[] = array('name' => 'slideshow', 'value' => $_POST['slideshow'], 'caption' => '_AM_WGGALLERY_OPTION_GT_SLIDESHOW');}
+		// if (isset($_POST['slideshow_options'])) {$options[] = array('name' => 'slideshow_options', 'value' => $_POST['slideshow_options']);}
+		if (isset($_POST['colorboxstyle'])) {$options[] = array('name' => 'colorboxstyle', 'value' => $_POST['colorboxstyle'], 'caption' => '_AM_WGGALLERY_OPTION_GT_COLORBOXSTYLE');}
+		if (isset($_POST['transition'])) {$options[] = array('name' => 'transition', 'value' => $_POST['transition'], 'caption' => '_AM_WGGALLERY_OPTION_GT_TRANSEFFECT');}
+		if (isset($_POST['speed'])) {$options[] = array('name' => 'speed', 'value' => $_POST['speed'], 'caption' => '_AM_WGGALLERY_OPTION_GT_SPEEDOPEN');}
+		if (isset($_POST['open'])) {$options[] = array('name' => 'open', 'value' => $_POST['open'], 'caption' => '_AM_WGGALLERY_OPTION_GT_AUTOOPEN');}
+        if (isset($_POST['opacity'])) {$options[] = array('name' => 'opacity', 'value' => $_POST['opacity'], 'caption' => '_AM_WGGALLERY_OPTION_OPACITIY');}
+        if (isset($_POST['slideshowtype'])) {$options[] = array('name' => 'slideshowtype', 'value' => $_POST['slideshowtype'], 'caption' => '_AM_WGGALLERY_OPTION_GT_SLIDESHOWTYPE');}
+        if (isset($_POST['button_close'])) {$options[] = array('name' => 'button_close', 'value' => $_POST['button_close'], 'caption' => '_AM_WGGALLERY_OPTION_GT_BUTTTONCLOSE');}
+        if (isset($_POST['navbar'])) {$options[] = array('name' => 'navbar', 'value' => $_POST['navbar'], 'caption' => '_AM_WGGALLERY_OPTION_GT_NAVBAR');}
+        if (isset($_POST['toolbar'])) {$options[] = array('name' => 'toolbar', 'value' => $_POST['toolbar'], 'caption' => '_AM_WGGALLERY_OPTION_GT_TOOLBAR');}
+        if (isset($_POST['zoomable'])) {$options[] = array('name' => 'zoomable', 'value' => $_POST['zoomable'], 'caption' => '_AM_WGGALLERY_OPTION_GT_TOOLBARZOOM');}
+        if (isset($_POST['download'])) {$options[] = array('name' => 'download', 'value' => $_POST['download'], 'caption' => '_AM_WGGALLERY_OPTION_GT_TOOLBARDOWNLOAD');}
+        if (isset($_POST['fullscreen'])) {$options[] = array('name' => 'fullscreen', 'value' => $_POST['fullscreen'], 'caption' => '_AM_WGGALLERY_OPTION_GT_FULLSCREEN');}
+        if (isset($_POST['transitionDuration'])) {$options[] = array('name' => 'transitionDuration', 'value' => $_POST['transitionDuration'], 'caption' => '_AM_WGGALLERY_OPTION_GT_TRANSDURATION');}
+        if (isset($_POST['viewerjs_title'])) {$options[] = array('name' => 'viewerjs_title', 'value' => $_POST['viewerjs_title'], 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE');}
+        if (isset($_POST['loop'])) {$options[] = array('name' => 'loop', 'value' => $_POST['loop'], 'caption' => '_AM_WGGALLERY_OPTION_GT_PLAYOPTIONS');}
+        if (isset($_POST['showThumbnails'])) {$options[] = array('name' => 'showThumbnails', 'value' => $_POST['showThumbnails'], 'caption' => '_AM_WGGALLERY_OPTION_GT_SHOWTHUMBS');}
 
-        if (isset($_POST['button_close'])) {$options[] = array('name' => 'button_close', 'value' => $_POST['button_close']);}
-        if (isset($_POST['navbar'])) {$options[] = array('name' => 'navbar', 'value' => $_POST['navbar']);}
-        if (isset($_POST['title'])) {$options[] = array('name' => 'title', 'value' => $_POST['title']);}
-        if (isset($_POST['toolbar'])) {$options[] = array('name' => 'toolbar', 'value' => $_POST['toolbar']);}
-        if (isset($_POST['zoomable'])) {$options[] = array('name' => 'zoomable', 'value' => $_POST['zoomable']);}
-        if (isset($_POST['download'])) {$options[] = array('name' => 'download', 'value' => $_POST['download']);}
-        if (isset($_POST['fullscreen'])) {$options[] = array('name' => 'fullscreen', 'value' => $_POST['fullscreen']);}
+		if (isset($_POST['showAlbumlabel'])) {$options[] = array('name' => 'showAlbumlabel', 'value' => $_POST['showAlbumlabel'], 'caption' => '_AM_WGGALLERY_OPTION_GT_SHOWLABEL');}
+		if (isset($_POST['indexImage'])) {$options[] = array('name' => 'indexImage', 'value' => $_POST['indexImage'], 'caption' => '_AM_WGGALLERY_OPTION_GT_INDEXIMG');}
+		if (isset($_POST['indexImageheight'])) {$options[] = array('name' => 'indexImageheight', 'value' => $_POST['indexImageheight'], 'caption' => '_AM_WGGALLERY_OPTION_GT_INDEXIMGHEIGHT');}
+
+        
+		// if (isset($_POST['transitionEffect'])) {$options[] = array('name' => 'transitionEffect', 'value' => $_POST['transitionEffect']);}
+		// 
+		// if (isset($_POST['adaptiveDuration'])) {$options[] = array('name' => 'adaptiveDuration', 'value' => $_POST['adaptiveDuration']);}
+		// 
+		// if (isset($_POST['intervalDuration'])) {$options[] = array('name' => 'intervalDuration', 'value' => $_POST['intervalDuration']);}
+		// if (isset($_POST['displayControls'])) {$options[] = array('name' => 'displayControls', 'value' => $_POST['displayControls']);}
+		// if (isset($_POST['displayList'])) {$options[] = array('name' => 'displayList', 'value' => $_POST['displayList']);}
+		// if (isset($_POST['listPosition'])) {$options[] = array('name' => 'listPosition', 'value' => $_POST['listPosition']);}
+		// if (isset($_POST['verticalCentering'])) {$options[] = array('name' => 'verticalCentering', 'value' => $_POST['verticalCentering']);}
+		// if (isset($_POST['adaptiveHeight'])) {$options[] = array('name' => 'adaptiveHeight', 'value' => $_POST['adaptiveHeight']);}
+
+
 		// colorbox
-		if (isset($_POST['rowHeight'])) {$options[] = array('name' => 'rowHeight', 'value' => $_POST['rowHeight']);}
-		if (isset($_POST['lastRow'])) {$options[] = array('name' => 'lastRow', 'value' => $_POST['lastRow']);}
-		if (isset($_POST['margins'])) {$options[] = array('name' => 'margins', 'value' => $_POST['margins']);}
-		if (isset($_POST['border'])) {$options[] = array('name' => 'border', 'value' => $_POST['border']);}
-		if (isset($_POST['randomize'])) {$options[] = array('name' => 'randomize', 'value' => $_POST['randomize']);}
-		if (isset($_POST['slideshow'])) {$options[] = array('name' => 'slideshow', 'value' => $_POST['slideshow']);}
-		if (isset($_POST['slideshow_options'])) {$options[] = array('name' => 'slideshow_options', 'value' => $_POST['slideshow_options']);}
-		if (isset($_POST['colorboxstyle'])) {$options[] = array('name' => 'colorboxstyle', 'value' => $_POST['colorboxstyle']);}
-		if (isset($_POST['transition'])) {$options[] = array('name' => 'transition', 'value' => $_POST['transition']);}
-		if (isset($_POST['slideshowSpeed'])) {$options[] = array('name' => 'slideshowSpeed', 'value' => $_POST['slideshowSpeed']);}
-		if (isset($_POST['slideshowAuto'])) {$options[] = array('name' => 'slideshowAuto', 'value' => $_POST['slideshowAuto']);}
-		if (isset($_POST['speed'])) {$options[] = array('name' => 'speed', 'value' => $_POST['speed']);}
-		if (isset($_POST['open'])) {$options[] = array('name' => 'open', 'value' => $_POST['open']);}
-		if (isset($_POST['maxWidth'])) {$options[] = array('name' => 'maxWidth', 'value' => $_POST['maxWidth']);}
-		if (isset($_POST['maxHeight'])) {$options[] = array('name' => 'maxHeight', 'value' => $_POST['maxHeight']);}
-		if (isset($_POST['width'])) {$options[] = array('name' => 'width', 'value' => $_POST['width']);}
-		if (isset($_POST['height'])) {$options[] = array('name' => 'height', 'value' => $_POST['height']);}
-		if (isset($_POST['innerWidth'])) {$options[] = array('name' => 'innerWidth', 'value' => $_POST['innerWidth']);}
-		if (isset($_POST['innerHeight'])) {$options[] = array('name' => 'innerHeight', 'value' => $_POST['innerHeight']);}
-		if (isset($_POST['opacity'])) {$options[] = array('name' => 'opacity', 'value' => $_POST['opacity']);}
+		// 
+
+
+		// if (isset($_POST['maxWidth'])) {$options[] = array('name' => 'maxWidth', 'value' => $_POST['maxWidth']);}
+		// if (isset($_POST['maxHeight'])) {$options[] = array('name' => 'maxHeight', 'value' => $_POST['maxHeight']);}
+		// if (isset($_POST['width'])) {$options[] = array('name' => 'width', 'value' => $_POST['width']);}
+		// if (isset($_POST['height'])) {$options[] = array('name' => 'height', 'value' => $_POST['height']);}
+		// if (isset($_POST['innerWidth'])) {$options[] = array('name' => 'innerWidth', 'value' => $_POST['innerWidth']);}
+		// if (isset($_POST['innerHeight'])) {$options[] = array('name' => 'innerHeight', 'value' => $_POST['innerHeight']);}
+		// 
 		
-		if (isset($_POST['showThumbs'])) {$options[] = array('name' => 'showThumbs', 'value' => $_POST['showThumbs']);}
+		// var_dump($options);die;
         
 		// Set Vars
 		$gallerytypesObj->setVar('gt_options', serialize($options));
@@ -167,6 +195,18 @@ switch($op) {
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());
 
 	break;
+    
+    case 'reset':
+		$gallerytypesObj = $gallerytypesHandler->get($gtId);
+		$template = $gallerytypesObj->getVar('gt_template');
+		$primary  = $gallerytypesObj->getVar('gt_primary');
+		if($gallerytypesHandler->reset($gtId, $template, $primary)) {
+            redirect_header('gallerytypes.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
+        } else {
+			redirect_header('gallerytypes.php?op=list', 2, _CO_WGGALLERY_FORM_ERROR);
+		}   
+    break;
+	
 	case 'save':
 		// Security Check
 		if(!$GLOBALS['xoopsSecurity']->check()) {

@@ -1,0 +1,12 @@
+.simpleContainer {
+    position: relative;
+}
+
+.simpleContainer .simpleContent {
+    position: absolute; /* Position the background text */
+    bottom: 0; /* At the bottom. Use top:0 to append it to the top */
+    background: rgba(255, 255, 255, 0.5); /* Black background with 0.5 opacity */
+    color: #f1f1f1; /* Grey text */
+    width: 100%; /* Full width */
+    padding: 5px; /* Some padding */
+}

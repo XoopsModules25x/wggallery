@@ -1,15 +1,15 @@
 <!-- Header -->
 <{include file='db:wggallery_admin_header.tpl'}>
 
-<link href="<{$wggallery_url}>/assets/galleries/colorbox/<{$colorboxstyle}>/colorbox.css" rel="stylesheet">
+<link href="<{$wggallery_url}>/assets/gallerytypes/justifiedgallery/dist/css/colorbox/<{$colorboxstyle}>/colorbox.css" rel="stylesheet">
 
 <{if $images_nb > 0}>
 	<div id="mygallery" >
-			<{foreach item=image from=$images}>
-				<a href='<{$wggallery_upload_url}>/images/<{$source}>/<{$image.name}>' rel='gallery1'>
-					<img alt='<{$image.title}>' src='<{$wggallery_upload_url}>/images/<{$source_preview}>/<{$image.name}>'/>
-				</a>
-			<{/foreach}>
+		<{foreach item=image from=$images}>
+			<a href='<{$wggallery_upload_url}>/images/<{$source}>/<{$image.name}>' rel='gallery1'>
+				<img alt='<{$image.title}>' src='<{$wggallery_upload_url}>/images/<{$source_preview}>/<{$image.name}>'/>
+			</a>
+		<{/foreach}>
 	</div>
 <{/if}> 		
 
@@ -19,7 +19,7 @@
 		lastRow:'<{$lastRow}>',
 		margins:<{$margins}>,
 		border:<{$border}>,
-		captions:<{$title}>,
+		captions:<{$showTitle}>,
 		randomize:<{$randomize}>,
 		rel:'gallery1'
 	}).on('jg.complete', function () {
@@ -27,8 +27,8 @@
 			slideshow:<{$slideshow}>,
 			slideshowSpeed:<{$slideshowSpeed}>,
 			slideshowAuto: <{$slideshowAuto}>,
-			slideshowStart:'<{$slideshowStart}>',
-			slideshowStop: '<{$slideshowStop}>',
+			slideshowStart:'<{$colorbox_slideshowstart}>',
+			slideshowStop: '<{$colorbox_slideshowstop}>',
 			speed:<{$speed}>,
 			open:<{$open}>,
 			opacity:<{$opacity}>,
@@ -38,7 +38,7 @@
 			next: '<{$colorbox_next}>',
 			close: '<{$colorbox_close}>',
 			maxWidth: '100%',
-			<{if $open}>
+			<{if $open == 'true'}>
 				onClosed: function () {
 					window.history.go(-1);
 				}

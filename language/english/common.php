@@ -37,6 +37,7 @@ define('_CO_WGGALLERY_FORM_IMAGE_PATH', 'Files in %s ');
 define('_CO_WGGALLERY_FORM_ACTION', 'Action');
 define('_CO_WGGALLERY_FORM_EDIT', 'Modification');
 define('_CO_WGGALLERY_FORM_TOGGLE_SELECT', 'select/unselect all');
+define('_CO_WGGALLERY_FORM_IMAGEPICKER', 'Select an image');
 
 // Save/Delete
 define('_CO_WGGALLERY_FORM_OK', 'Successfully saved');

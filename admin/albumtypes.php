@@ -110,16 +110,13 @@ switch($op) {
 			redirect_header('albumtypes.php', 3, 'invalid at_id at saveoptions');
 		}
 		$options = array();
-        
-   // $options[] = array('name' => 'hovereffect', 'value' => 'lily');
 
-        
-		if (isset($_POST['number_cols_album'])) {$options[] = array('name' => 'number_cols_album', 'value' => $_POST['number_cols_album']);}
-        if (isset($_POST['number_cols_cat'])) {$options[] = array('name' => 'number_cols_cat', 'value' => $_POST['number_cols_cat']);}
-        if (isset($_POST['hovereffect'])) {$options[] = array('name' => 'hovereffect', 'value' => $_POST['hovereffect']);}
-		
-
-
+		if (isset($_POST['number_cols_album'])) {$options[] = array('name' => 'number_cols_album', 'value' => $_POST['number_cols_album'], 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB');}
+		if (isset($_POST['number_cols_cat'])) {$options[] = array('name' => 'number_cols_cat', 'value' => $_POST['number_cols_cat'], 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT');}
+		if (isset($_POST['hovereffect'])) {$options[] = array('name' => 'hovereffect', 'value' => $_POST['hovereffect'], 'caption' => '_AM_WGGALLERY_OPTION_AT_HOVER');}
+        if (isset($_POST['showTitle'])) {$options[] = array('name' => 'showTitle', 'value' => $_POST['showTitle'], 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE');}
+        if (isset($_POST['showDesc'])) {$options[] = array('name' => 'showDesc', 'value' => $_POST['showDesc'], 'caption' => '_AM_WGGALLERY_OPTION_SHOWDESCR');}
+		if (isset($_POST['album_showsubmitter'])) {$options[] = array('name' => 'album_showsubmitter', 'value' => $_POST['album_showsubmitter'], 'caption' => '_AM_WGGALLERY_OPTION_AT_SHOWSUBMITTER');}
         
 		// Set Vars
 		$albumtypesObj->setVar('at_options', serialize($options));
@@ -133,6 +130,17 @@ switch($op) {
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());
 
 	break;
+	case 'reset':
+		$albumtypesObj = $albumtypesHandler->get($atId);
+		$template = $albumtypesObj->getVar('at_template');
+		$primary  = $albumtypesObj->getVar('at_primary');
+		if($albumtypesHandler->reset($atId, $template, $primary)) {
+            redirect_header('albumtypes.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
+        } else {
+			redirect_header('albumtypes.php?op=list', 3, _CO_WGGALLERY_FORM_ERROR);
+		} 
+	break;
+	
 	case 'save':
 		// Security Check
 		if(!$GLOBALS['xoopsSecurity']->check()) {

@@ -8,7 +8,7 @@
 				<div class='row wgg-img-panel wgg-image-list'>
 					<div class='wgg-img-panel-row col-sm-8'>
 						<{if $image.medium}>
-							<div class='center'><img class='img-responsive wgg-img' src='<{$image.large}>' alt='<{$image.large}>' /></div>
+							<div class='center'><img class='img-responsive wgg-img' src='<{$image.large}>' alt='<{$image.title}>' /></div>
 						<{/if}>
 					</div>
 					<div class='wgg-img-panel-row col-sm-4'>
@@ -29,15 +29,15 @@
 					<{if $image.edit || $alb_allowdownload}>
 						<div class='wgg-img-panel-row col-sm-12 center'>
 							<{if $image.edit}>
-								<a class='btn btn-default wgg-btn' href='images.php?op=edit&amp;img_id=<{$image.id}>' title='<{$smarty.const._EDIT}>'>
+								<a class='btn btn-default wgg-btn' href='<{$wggallery_url}>/images.php?op=edit&amp;img_id=<{$image.id}>' title='<{$smarty.const._EDIT}>'>
 									<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/edit.png' alt='<{$smarty.const._EDIT}>' /><{$smarty.const._EDIT}>
 								</a>
-								<a class='btn btn-default wgg-btn' href='images.php?op=delete&amp;img_id=<{$image.id}>' title='<{$smarty.const._DELETE}>'>
+								<a class='btn btn-default wgg-btn' href='<{$wggallery_url}>/images.php?op=delete&amp;img_id=<{$image.id}>' title='<{$smarty.const._DELETE}>'>
 									<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/delete.png' alt='<{$smarty.const._DELETE}>' /><{$smarty.const._DELETE}>
 								</a>
 							<{/if}>
 							<{if $alb_allowdownload}>
-								<a class='btn btn-default wgg-btn' href='images.php?op=download&amp;img_id=<{$image.id}>' title='<{$smarty.const._CO_WGGALLERY_DOWNLOAD}>'>
+								<a class='btn btn-default wgg-btn' href='<{$wggallery_url}>/images.php?op=download&amp;img_id=<{$image.id}>' title='<{$smarty.const._CO_WGGALLERY_DOWNLOAD}>'>
 									<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/download.png' alt='<{$smarty.const._CO_WGGALLERY_DOWNLOAD}>' /><{$smarty.const._CO_WGGALLERY_DOWNLOAD}>
 								</a>
 							<{/if}>

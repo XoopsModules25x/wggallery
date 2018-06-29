@@ -29,37 +29,43 @@ $limit       = XoopsRequest::getInt('limit', $wggallery->getConfig('userpager'))
 $albForId    = XoopsRequest::getInt('alb_for_id', 0);
 $submitterId = XoopsRequest::getInt('subm_id', 0);
 
-$wggallery_nbcola = 2;
-$wggallery_nbcolc = 2;
+// general template assigns
+$GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
+$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+$GLOBALS['xoopsTpl']->assign('panel_type', $wggallery->getConfig('panel_type'));
+// $GLOBALS['xoopsTpl']->assign('type', $wggallery->getConfig('table_type'));
+// $GLOBALS['xoopsTpl']->assign('divideby', $wggallery->getConfig('divideby'));
+// $GLOBALS['xoopsTpl']->assign('numb_col', $wggallery->getConfig('numb_col'));
 
-// assign all gallery options
-$options = unserialize($pr_album['options']);
-foreach ($options as $option) {
-	$GLOBALS['xoopsTpl']->assign($option['name'], $option['value']);
-    if ('number_cols_album' === $option['name']) {$wggallery_nbcola = $option['value'];}
-    if ('number_cols_cat' === $option['name']) {$wggallery_nbcolc = $option['value'];}
+// assign all album options
+$atoptions = unserialize($pr_album['options']);
+foreach ($atoptions as $atoption) {
+	$GLOBALS['xoopsTpl']->assign($atoption['name'], $atoption['value']);
+	if ('number_cols_album' === $atoption['name']) {$number_cols_album = $atoption['value'];}
+	if ('number_cols_cat' === $atoption['name']) {$number_cols_cat = $atoption['value'];}
 }
-
-$GLOBALS['xoopsTpl']->assign('wggallery_nbcola', $wggallery_nbcola);
-$GLOBALS['xoopsTpl']->assign('wggallery_nbcolc', $wggallery_nbcola);
+// assign gallery options
+$GLOBALS['xoopsTpl']->assign('gallery_target', $wggallery->getConfig('gallery_target', true));
 
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet( $style, null );
 
 switch($pr_album['template']) {
 	case 'hovereffectideas':
-		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/albumtypes/hovereffectideas/style.css', null );	
+		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/albumtypes/hovereffectideas/style.css', null );
+        $GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/albumtypes/hovereffectideas/font-awesome-4.2.0/css/font-awesome.min.css', null );
+	break;
+    case 'simple':
+		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/albumtypes/simple/style.css' , null );
+	break;
+    case 'bcards':
+		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/albumtypes/bcards/style.css' , null );
 	break;
     case 'default':
 	default:
-		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_CSS_URL . '/style_default.css' , null );
+		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/css/style_default.css' , null );
 	break;
 }
-// general template assigns
-// $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
-$GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
-$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
-
 
 $keywords = array();
 
@@ -105,7 +111,7 @@ if($albumsCount > 0) {
         if (1 === $counter) {
             $albums[$i]['newrow'] = true;
         }
-        if ($wggallery_nbcola == $counter) {
+        if ($number_cols_album == $counter) {
             $albums[$i]['linebreak'] = true;
             $counter = 0;
         }
@@ -128,7 +134,7 @@ if($albumsCount > 0) {
 	$GLOBALS['xoopsTpl']->assign('alb_for_id', $albForId);
 	$pr_gallery = $gallerytypesHandler->getPrimaryGallery();
 	$GLOBALS['xoopsTpl']->assign('gallery', 'none' != $pr_gallery['template']);
-	$GLOBALS['xoopsTpl']->assign('album_showsubmitter', $wggallery->getConfig('album_showsubmitter'));
+	// $GLOBALS['xoopsTpl']->assign('album_showsubmitter', $wggallery->getConfig('album_showsubmitter'));
 	if ( 0 < $submitterId ) {
 		$GLOBALS['xoopsTpl']->assign('index_alb_title', _CO_WGGALLERY_ALBUMS_TITLE . ": " . XoopsUser::getUnameFromId($submitter));
 	} else {
@@ -162,28 +168,35 @@ $crAlbums->setLimit( $limit );
 $albumsAll = $albumsHandler->getAll($crAlbums);
 
 if($albumsCount > 0) {
-	$albums = array();
+	$categories = array();
     $counter = 0;
 	// Get All Albums
 	foreach(array_keys($albumsAll) as $i) {
-		$albums[$i] = $albumsAll[$i]->getValuesAlbums();
+		$categories[$i] = $albumsAll[$i]->getValuesAlbums();
 		// count albums
 		$crSubAlbums = new CriteriaCompo();
-		$crSubAlbums->add(new Criteria('alb_pid', $albums[$i]['alb_id']));
+		$crSubAlbums->add(new Criteria('alb_pid', $categories[$i]['alb_id']));
 		$nbAlbums = $albumsHandler->getCount($crSubAlbums);
-		$albums[$i]['nb_albums'] = $nbAlbums;
+		$categories[$i]['nb_albums'] = $nbAlbums;
         //check permissions
-        $albums[$i]['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
-		$keywords[] = $albumsAll[$i]->getVar('alb_name');
+        $categories[$i]['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
+        //set indicator for line break
         $counter++;
-        if ($wggallery_nbcolc == $counter) {
-            $albums[$i]['linebreak'] = true;
+        if (1 === $counter) {
+            $categories[$i]['newrow'] = true;
+        }
+        if ($number_cols_cat == $counter) {
+            $categories[$i]['linebreak'] = true;
             $counter = 0;
         }
+		$keywords[] = $albumsAll[$i]->getVar('alb_name');
 	}
-	$GLOBALS['xoopsTpl']->assign('categories', $albums);
-	$GLOBALS['xoopsTpl']->assign('album_showsubmitter', $wggallery->getConfig('album_showsubmitter'));
-	unset($albums);
+    // add linebreak to last album item
+    $categories[$i]['linebreak'] = true;
+    
+	$GLOBALS['xoopsTpl']->assign('categories', $categories);
+	// $GLOBALS['xoopsTpl']->assign('album_showsubmitter', $wggallery->getConfig('album_showsubmitter'));
+	unset($categories);
 	if ( 0 < $submitterId ) {
 		$GLOBALS['xoopsTpl']->assign('index_cats_title', _CO_WGGALLERY_CATS_TITLE . ": " . XoopsUser::getUnameFromId($submitter));
 	} else {
@@ -196,10 +209,6 @@ if($albumsCount > 0) {
 		$GLOBALS['xoopsTpl']->assign('pagenav_cats', $pagenav->renderNav(4));
 	}
 }
-$GLOBALS['xoopsTpl']->assign('panel_type', $wggallery->getConfig('panel_type'));
-// $GLOBALS['xoopsTpl']->assign('type', $wggallery->getConfig('table_type'));
-// $GLOBALS['xoopsTpl']->assign('divideby', $wggallery->getConfig('divideby'));
-// $GLOBALS['xoopsTpl']->assign('numb_col', $wggallery->getConfig('numb_col'));
 	
 // Keywords
 wggalleryMetaKeywords($wggallery->getConfig('keywords').', '. implode(',', $keywords));

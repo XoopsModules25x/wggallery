@@ -26,37 +26,64 @@ function b_wggallery_albums_show($options)
 {
     include_once XOOPS_ROOT_PATH.'/modules/wggallery/class/albums.php';
     $myts = MyTextSanitizer::getInstance();
-    $block       = array();
-    $typeBlock   = $options[0];
-    $limit       = $options[1];
-    $lenghtTitle = $options[2];
-    $numb_albums = $options[3];
-    $gallery     = $options[4];
-    $container   = $options[5];
-    $style       = $options[6];
+    $block           = array();
+    $typeBlock       = $options[0];
+    $limit           = $options[1];
+    $lenghtTitle     = $options[2];
+    $numb_albums     = $options[3];
+    $gallery         = $options[4];
+    $container       = $options[5];
+	$container_width = $options[6];
+	array_shift($options);
     array_shift($options);
     array_shift($options);
     array_shift($options);
     array_shift($options);
     array_shift($options);
     array_shift($options);
-    
+
+    $wggallery = WggalleryHelper::getInstance();
+	$albumtypesHandler = $wggallery->getHandler('albumtypes');
+	$pr_album = $albumtypesHandler->getPrimaryAlbum();
+
+	$template = $pr_album['template'];
+	// assign all album options
+	$atoptions = unserialize($pr_album['options']);
+	foreach ($atoptions as $atoption) {
+		$GLOBALS['xoopsTpl']->assign($atoption['name'], $atoption['value']);
+	}
+	
+    // $GLOBALS['xoopsTpl']->assign('album_showsubmitter', $wggallery->getConfig('album_showsubmitter'));
+    $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+	$GLOBALS['xoopsTpl']->assign('template', $template);
     $GLOBALS['xoopsTpl']->assign('gallery', true);
     $GLOBALS['xoopsTpl']->assign('container', true);
     $GLOBALS['xoopsTpl']->assign('numb_albums', $numb_albums);
     $GLOBALS['xoopsTpl']->assign('container', $container);
+	$GLOBALS['xoopsTpl']->assign('container_width', $container_width);
     $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
-    switch ($style) { 
-        case 1: //slider
-            $GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/css/blocks/albums_default.css', null );
-            $GLOBALS['xoopsTpl']->assign('template', 'slider');
+    switch ($template) { 
+        case 'hovereffectideas':
+			$GLOBALS['xoopsTpl']->assign('number_cols_album', $numb_albums);
+			$GLOBALS['xoopsTpl']->assign('inblock', '_block');
+			$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/albumtypes/hovereffectideas/style.css', null );
+			$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/albumtypes/hovereffectideas/font-awesome-4.2.0/css/font-awesome.min.css', null );
         break;
-        case 0:
+		case 'simple':
+			$GLOBALS['xoopsTpl']->assign('number_cols_album', $numb_albums);
+			$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/albumtypes/simple/style.css' , null );
+		break;
+        case 'bcards':
+			$GLOBALS['xoopsTpl']->assign('number_cols_album', $numb_albums);
+			$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/albumtypes/bcards/style.css' , null );
+		break;
+        case 'default':
         default:
-            $GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/css/blocks/albums_default.css', null );
-            $GLOBALS['xoopsTpl']->assign('template', 'default');
+            $GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/albumtypes/default/albums_default.css', null );
+            
         break;
     }
+
     
     $wggallery = WggalleryHelper::getInstance();
     $albumsHandler = $wggallery->getHandler('albums');
@@ -112,13 +139,27 @@ function b_wggallery_albums_show($options)
         $GLOBALS['xoopsTpl']->assign('show_more_albums', true);
     }
     $GLOBALS['xoopsTpl']->assign('show_more_albums', true);
+	
+	$counter = 0;
     foreach(array_keys($albumsAll) as $i)
     {
         $block[$i] = $albumsAll[$i]->getValuesAlbums();
         if ( 0 < $lenghtTitle && $lenghtTitle < strlen($block[$i]['name'])) {
             $block[$i]['name_limited'] = substr($block[$i]['name'], 0, $lenghtTitle) . '...';
         }
+		//set indicator for line break
+        $counter++;
+        if (1 === $counter) {
+            $block[$i]['newrow'] = true;
+        }
+        if ($numb_albums == $counter) {
+            $block[$i]['linebreak'] = true;
+            $counter = 0;
+        }
     }
+	// add linebreak to last album item
+    $block[$i]['linebreak'] = true;
+	// var_dump($block);
     $GLOBALS['xoopsTpl']->assign('albums_list', $block);
     return $block;
 }
@@ -148,11 +189,12 @@ function b_wggallery_albums_edit($options)
     $form .= _MB_WGGALLERY_TYPE.": <select name='options[5]' size='2'>";
     $form .= "<option value='0' " . (0 == $options[5] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_TYPE_BLOCK . '</option>';
     $form .= "<option value='1' " . (1 == $options[5] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_TYPE_CONTAINER . '</option>';
-    $form .= '</select><br>';
-    $form .= _MB_WGGALLERY_STYLE.": <select name='options[6]' size='3'>";
-    $form .= "<option value='0' " . (0 == $options[6] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_STYLE_DEFAULT . '</option>';
-    $form .= "<option value='1' " . (1 == $options[6] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_STYLE_SLIDER . '</option>';
-    $form .= '</select><br>';
+    $form .= '</select>&nbsp;';
+	$form .= _MB_WGGALLERY_TYPE_CONTAINER_WIDTH." : <input type='text' name='options[6]' size='5' maxlength='255' value='" . $options[6] . "' /><br>";
+    // $form .= _MB_WGGALLERY_STYLE.": <select name='options[6]' size='3'>";
+    // $form .= "<option value='0' " . (0 == $options[6] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_STYLE_DEFAULT . '</option>';
+    // $form .= "<option value='1' " . (1 == $options[6] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_STYLE_SLIDER . '</option>';
+    // $form .= '</select><br>';
     array_shift($options);
     array_shift($options);
     array_shift($options);

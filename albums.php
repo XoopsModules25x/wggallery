@@ -26,7 +26,7 @@ include_once XOOPS_ROOT_PATH .'/header.php';
 
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet( $style, null );
-$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_CSS_URL . '/style_default.css' );
+$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/css/style_default.css' );
 
 // $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 // $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
@@ -43,6 +43,8 @@ if (_CANCEL === XoopsRequest::getString('cancel', 'none')) {
 
 // add scripts 
 $GLOBALS['xoTheme']->addScript( XOOPS_URL . '/modules/wggallery/assets/js/admin.js' );
+
+$GLOBALS['xoopsTpl']->assign('gallery_target', $wggallery->getConfig('gallery_target', true));
 
 $keywords = array();
 

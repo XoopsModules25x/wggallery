@@ -30,9 +30,10 @@ define('_MB_WGGALLERY_NUMB_ALBUMS', 'Number of albums for display');
 define('_MB_WGGALLERY_TYPE', 'Block type');
 define('_MB_WGGALLERY_TYPE_BLOCK', 'Show as default block');
 define('_MB_WGGALLERY_TYPE_CONTAINER', 'Show in an own container');
-define('_MB_WGGALLERY_STYLE', 'Style');
-define('_MB_WGGALLERY_STYLE_DEFAULT', 'Default');
-define('_MB_WGGALLERY_STYLE_SLIDER', 'Slider');
+define('_MB_WGGALLERY_TYPE_CONTAINER_WIDTH', 'Width of container in px (if selected)');
+// define('_MB_WGGALLERY_STYLE', 'Style');
+// define('_MB_WGGALLERY_STYLE_DEFAULT', 'Default');
+// define('_MB_WGGALLERY_STYLE_SLIDER', 'Slider');
 define('_MB_WGGALLERY_ALBUMS_TO_DISPLAY', 'Albums to display');
 define('_MB_WGGALLERY_ALL_ALBUMS', 'All albums');
 // Albums

@@ -1,28 +1,33 @@
 <{if $albums_list}>
-    <{if $container}><div class="container"><div class="row"><{/if}>
+    <{if $container}><div class="clear"></div><div class="container wgcontainer-block" style="width:<{$container_width}>px"><div class="row"><{/if}>
     <{foreach item=album from=$albums_list}>
-        <{if $numb_albums == 2}><div class='col-xs-12 col-sm-6'>
-        <{elseif $numb_albums == 3}><div class='col-xs-12 col-sm-4'>
-        <{elseif $numb_albums == 4}><div class='col-xs-12 col-sm-3'>
-        <{elseif $numb_albums == 6}><div class='col-xs-12 col-sm-2'>
-        <{else}><div class='col-xs-12 col-sm-12'>
-        <{/if}>
-            <{if $gallery == 1}>
-                <a class='wgg-b-album-link' href='<{$wggallery_url}>/gallery.php?op=show&amp;alb_id=<{$album.id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>'>
+			<{if $template == 'hovereffectideas'}>
+				<{include file='db:wggallery_albumitem_hovereffectideas.tpl' album=$album}>
+			<{elseif $template == 'simple'}>
+				<{include file='db:wggallery_albumitem_simple.tpl' album=$album}>
+			<{elseif $template == 'bcards'}>
+				<{include file='db:wggallery_albumitem_bcards.tpl' album=$album}>
             <{else}>
-                <a class='wgg-b-album-link' href='<{$wggallery_url}>/images.php?op=list&amp;alb_id=<{$album.id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'>
-            <{/if}>
-            <p><img class='img-responsive wgg-b-album-img' src='<{$album.image}>' alt='albums'/></p>
-            <p class='wgg-b-album-name'><{if $album.name_limited}><{$album.name_limited}><{else}><{$album.name}><{/if}></p>
-            <{if $album.desc}><p class='wgg-b-album-desc'><{$album.desc}></p><{/if}>
-            </a>
-        </div>
+				<{if $numb_albums == 2}><div class='col-xs-12 col-sm-6'>
+				<{elseif $numb_albums == 3}><div class='col-xs-12 col-sm-4'>
+				<{elseif $numb_albums == 4}><div class='col-xs-12 col-sm-3'>
+				<{elseif $numb_albums == 6}><div class='col-xs-12 col-sm-2'>
+				<{else}><div class='col-xs-12 col-sm-12'>
+				<{/if}>
+					<{if $template == 'simple'}>
+						
+					<{else}>
+						<{include file='db:wggallery_albumitem_2.tpl' album=$album}>
+					<{/if}>
+				</div>
+			<{/if}>
+        
     <{/foreach}>
     <div class="clear"></div>
     <{if $show_more_albums}>
         <div class="wgg-b-album-more center">
-            <a class='btn wgfxg-more-btn' href='<{$wggallery_url}>/albums.php' title='<{$smarty.const._CO_WGGALLERY_ALBUMS_SHOW}>'><{$smarty.const._CO_WGGALLERY_ALBUMS_SHOW}></a>
+            <a class='btn wgfxg-more-btn' href='<{$wggallery_url}>/index.php' title='<{$smarty.const._CO_WGGALLERY_ALBUMS_SHOW}>'><{$smarty.const._CO_WGGALLERY_ALBUMS_SHOW}></a>
         </div>
     <{/if}>
-    <{if $container}></div></div><{/if}>
+    <{if $container}></div></div><div class="clear"></div><{/if}>
 <{/if}>

@@ -128,7 +128,7 @@ class WggalleryAlbums extends XoopsObject
 			}
 		}
 		$imageDirectory = '/uploads/wggallery/images/medium';
-		$imageTray1 = new XoopsFormElementTray(_CO_WGGALLERY_ALBUM_USE_EXIST, '<br>' );
+		$imageTray1 = new XoopsFormElementTray(_CO_WGGALLERY_ALBUM_USE_EXIST, '&nbsp;' );
 		
 		$albImgidSelect = new XoopsFormSelect( _CO_WGGALLERY_ALBUM_IMGID, 'alb_imgid', $albImage1);
 		$albImgidSelect->addOption(0, '&nbsp;');
@@ -138,14 +138,36 @@ class WggalleryAlbums extends XoopsObject
         $criteria->setSort('img_weight');
         $criteria->setOrder('DESC');
         $imagesAll = $imagesHandler->getAll($criteria);
+        $imagesModal = array();
         foreach(array_keys($imagesAll) as $i) {
             $albImgidSelect->addOption($imagesAll[$i]->getVar('img_name'),$imagesAll[$i]->getVar('img_title'));
+            $imagesModal[] = $imagesAll[$i]->getVar('img_name');
         }
 		$albImgidSelect->setExtra("onchange='wgshowImgSelected(\"imagepreview1\", \"alb_imgid\", \"".$imageDirectory."\", \"\", \"".XOOPS_URL."\")'");
 		$imageTray1->addElement($albImgidSelect);
-		$imageTray1->addElement(new XoopsFormLabel('', "<br><img src='".XOOPS_URL."/".$imageDirectory."/".$albImage1."' name='imagepreview1' id='imagepreview1' alt='' style='max-width:100px' />"));
+        if ( 0 < count($imagesModal)) {
+            // xoopsTpl assign
+            $imageTray1->addElement(new XoopsFormLabel('', "&nbsp;<button type='button' id='myModalImagePicker-btn' class='btn btn-primary' data-toggle='modal' data-target='#myModalImagePicker'>" . _CO_WGGALLERY_FORM_IMAGEPICKER . "</button>"));
+        }
+        $imageTray1->addElement(new XoopsFormLabel('', "<img src='".XOOPS_URL."/".$imageDirectory."/".$albImage1."' name='imagepreview1' id='imagepreview1' alt='' style='max-width:100px' />"));
 		$form->addElement($imageTray1);
-		
+        $crImages = new CriteriaCompo();
+        $crImages->add(new Criteria('img_albid', $this->getVar('alb_id')));
+        $crImages->setSort('img_weight');
+        $crImages->setOrder('ASC');
+        $imagesCount = $imagesHandler->getCount($crImages);
+		$imagesAll = $imagesHandler->getAll($crImages);
+		if($imagesCount > 0) {
+			$images = array();
+			// Get All Images
+			foreach(array_keys($imagesAll) as $i) {
+				$images[$i] = $imagesAll[$i]->getValuesImages();
+                if ($albImage1 == $images[$i]['img_name']) {$images[$i]['selected'] = 1;}
+			}
+			$GLOBALS['xoopsTpl']->assign('images', $images);
+			unset($images);
+		}
+        
 		// Form Upload Image AlbImage
 		$getAlbImage = $this->getVar('alb_image');
 		$albImage = $getAlbImage ? $getAlbImage : 'blank.gif';

@@ -69,3 +69,7 @@
 .wgg-img-panel-row .wgg-img {
 	margin: 5px;
 }
+
+.wgg-modal-selected {
+    border:2px solid #ff0000;
+}

@@ -75,31 +75,40 @@ $modversion['templates'][] = array('file' => 'wggallery_admin_albums.tpl', 'desc
 $modversion['templates'][] = array('file' => 'wggallery_admin_images.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_gallerytypes.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_albumtypes.tpl', 'description' => '', 'type' => 'admin');
-$modversion['templates'][] = array('file' => 'wggallery_admin_permissions.tpl', 'description' => '', 'type' => 'admin');
+$modversion['templates'][] = array('file' => 'wggallery_admin_albumtypes.tpl', 'description' => '', 'type' => 'admin');
+$modversion['templates'][] = array('file' => 'wggallery_admin_maintenance.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_footer.tpl', 'description' => '', 'type' => 'admin');
 // User
 $modversion['templates'][] = array('file' => 'wggallery_header.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_index_default.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_index_hovereffectideas.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_index_simple.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_index_bcards.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_albumitem_1.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_albumitem_2.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_albumitem_hovereffectideas.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_albumitem_simple.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_albumitem_bcards.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_categoryitem_1.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_categoryitem_2.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_categoryitem_hovereffectideas.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_categoryitem_simple.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_categoryitem_bcards.tpl', 'description' => '');
 
 $modversion['templates'][] = array('file' => 'wggallery_albums_default.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_images_default.tpl', 'description' => '');
-$modversion['templates'][] = array('file' => 'wggallery_gallery_pgwslideshow.tpl', 'description' => '');
-$modversion['templates'][] = array('file' => 'wggallery_gallery_pgwslider.tpl', 'description' => '');
-$modversion['templates'][] = array('file' => 'wggallery_gallery_tarasdimagesgrid.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_gallery_jssor.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_gallery_jssor_arrows.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_gallery_jssor_bullets.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_gallery_jssor_thumbnails.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_gallery_jssor_loadings.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_gallery_viewerjs.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_gallery_blueimpgallery.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_gallery_justifiedgallery.tpl', 'description' => '');
-$modversion['templates'][] = array('file' => 'wggallery_gallery_lightbox.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_gallery_lightbox2.tpl', 'description' => '');
 // Blocks
 $modversion['templates'][] = array('file' => 'wggallery_block_albums_default.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_block_albums_slider.tpl', 'description' => '');
-
-$modversion['templates'][] = array('file' => 'wggallery_gallery_pwgslideshow.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_breadcrumbs.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_rate.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_rss.tpl', 'description' => '');
@@ -115,6 +124,7 @@ $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 $modversion['tables'][1] = 'wggallery_albums';
 $modversion['tables'][2] = 'wggallery_images';
 $modversion['tables'][3] = 'wggallery_gallerytypes';
+$modversion['tables'][4] = 'wggallery_albumtypes';
 // ------------------- Search ------------------- //
 $modversion['hasSearch'] = 1;
 $modversion['search']['file'] = 'include/search.inc.php';
@@ -165,7 +175,7 @@ $modversion['blocks'][$b]['description'] = _MI_WGGALLERY_ALBUMS_BLOCK_DESC;
 $modversion['blocks'][$b]['show_func'] = 'b_wggallery_albums_show';
 $modversion['blocks'][$b]['edit_func'] = 'b_wggallery_albums_edit';
 $modversion['blocks'][$b]['template'] = 'wggallery_block_albums.tpl';
-$modversion['blocks'][$b]['options'] = 'default|5|25|3|1|1|0|0';
+$modversion['blocks'][$b]['options'] = 'default|4|25|4|1|1|900|0';
 ++$b;
 // Images
 $modversion['blocks'][$b]['file'] = 'images.php';
@@ -326,13 +336,13 @@ $modversion['config'][$c]['valuetype'] = 'int';
 $modversion['config'][$c]['default'] = 10;
 ++$c;
 // show submitter album
-$modversion['config'][$c]['name'] = 'album_showsubmitter';
+/* $modversion['config'][$c]['name'] = 'album_showsubmitter';
 $modversion['config'][$c]['title'] = '_MI_WGGALLERY_ALBUM_SHOWSUBMITTER';
 $modversion['config'][$c]['description'] = '_MI_WGGALLERY_ALBUM_SHOWSUBMITTER_DESC';
 $modversion['config'][$c]['formtype'] = 'yesno';
 $modversion['config'][$c]['valuetype'] = 'int';
 $modversion['config'][$c]['default'] = 1;
-++$c;
+++$c; */
 // show submitter image
 $modversion['config'][$c]['name'] = 'image_showsubmitter';
 $modversion['config'][$c]['title'] = '_MI_WGGALLERY_IMAGE_SHOWSUBMITTER';
@@ -350,7 +360,24 @@ $modversion['config'][$c]['valuetype'] = 'array';
 $modversion['config'][$c]['default'] = '_default';
 $modversion['config'][$c]['options'] = array('default' => '_default', 'label style 1' => '_style1','style 2' => '_style2');
 ++$c;
-// style of album items on index page
+// target for gallery page
+$modversion['config'][$c]['name'] = 'gallery_target';
+$modversion['config'][$c]['title'] = '_MI_WGGALLERY_GALLERY_TARGET';
+$modversion['config'][$c]['description'] = '_MI_WGGALLERY_GALLERY_TARGET_DESC';
+$modversion['config'][$c]['formtype'] = 'select';
+$modversion['config'][$c]['valuetype'] = 'array';
+$modversion['config'][$c]['default'] = '_self';
+$modversion['config'][$c]['options'] = array('_MI_WGGALLERY_GALLERY_TARGET_SELF' => '_self', '_MI_WGGALLERY_GALLERY_TARGET_BLANK' => '_blank');
+++$c;
+// Bookmarks
+$modversion['config'][$c]['name'] = 'addjquery';
+$modversion['config'][$c]['title'] = '_MI_WGGALLERY_ADDJQUERY';
+$modversion['config'][$c]['description'] = '_MI_WGGALLERY_ADDJQUERY_DESC';
+$modversion['config'][$c]['formtype'] = 'yesno';
+$modversion['config'][$c]['valuetype'] = 'int';
+$modversion['config'][$c]['default'] = 0;
+++$c;
+/* // style of album items on index page
 $modversion['config'][$c]['name'] = 'index_album_numbcola';
 $modversion['config'][$c]['title'] = '_MI_WGGALLERY_INDEX_ALBUM_NUMBCOLA';
 $modversion['config'][$c]['description'] = '_MI_WGGALLERY_INDEX_ALBUM_NUMBCOLA_DESC';
@@ -376,7 +403,7 @@ $modversion['config'][$c]['formtype'] = 'select';
 $modversion['config'][$c]['valuetype'] = 'array';
 $modversion['config'][$c]['default'] = '_default';
 $modversion['config'][$c]['options'] = array('default' => '_default', 'label style 1' => '_style1','style 2' => '_style2');
-++$c;
+++$c; */
 /* // type of gallery
 $modversion['config'][$c]['name'] = 'gallery_type';
 $modversion['config'][$c]['title'] = '_MI_WGGALLERY_GALLERY_TYPE';
@@ -386,7 +413,7 @@ $modversion['config'][$c]['valuetype'] = 'array';
 $modversion['config'][$c]['default'] = 'none';
 $modversion['config'][$c]['options'] = array('none' => 'none', 'PwgSlideshow' => 'pwgslideshow');
 ++$c; */
-// Number column
+/* // Number column
 $modversion['config'][$c]['name'] = 'numb_col';
 $modversion['config'][$c]['title'] = '_MI_WGGALLERY_NUMB_COL';
 $modversion['config'][$c]['description'] = '_MI_WGGALLERY_NUMB_COL_DESC';
@@ -412,7 +439,7 @@ $modversion['config'][$c]['formtype'] = 'select';
 $modversion['config'][$c]['valuetype'] = 'int';
 $modversion['config'][$c]['default'] = 'bordered';
 $modversion['config'][$c]['options'] = array('bordered' => 'bordered', 'striped' => 'striped', 'hover' => 'hover', 'condensed' => 'condensed');
-++$c;
+++$c; */
 // Panel by
 $modversion['config'][$c]['name'] = 'panel_type';
 $modversion['config'][$c]['title'] = '_MI_WGGALLERY_PANEL_TYPE';

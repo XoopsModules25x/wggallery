@@ -39,7 +39,7 @@
   </style>
   
 <{if $images_nb > 0}>
-    <div id="galley">
+    <div id="gallery">
         <ul class="pictures">
             <{foreach item=image from=$images}>
                 <li><img data-original="<{$wggallery_upload_url}>/images/<{$source}>/<{$image.name}>" src="<{$wggallery_upload_url}>/images/<{$source_preview}>/<{$image.name}>" alt="<{$image.title}>"></li>
@@ -50,37 +50,45 @@
 
 <script>
     window.addEventListener('DOMContentLoaded', function () {
-      var galley = document.getElementById('galley');
-      var viewer = new Viewer(galley, {
-        url: 'data-original',
-        inline: false,
-        button: <{$button_close}>,
-        navbar: <{$navbar}>,
-        title: <{$title}>,
-        fullscreen: <{$fullscreen}>,
-        zoomable: <{$zoomable}>,
-        <{if $toolbar}>toolbar: {
-          oneToOne: true,
-          zoomIn: true,
-          zoomOut: true,
-          prev: function() {
-            viewer.prev(true);
-          },
-          play: true,
-          next: function() {
-            viewer.next(true);
-          },
-          <{if $download}>download: function() {
-            const a = document.createElement('a');
-
-            a.href = viewer.image.src;
-            a.download = viewer.image.alt;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-          },<{else}>download: false,<{/if}>
-        },<{else}>toolbar: false,<{/if}>
-      });
+        var gallery = document.getElementById('gallery');
+        var viewer = new Viewer(gallery, {
+            url: 'data-original',
+            inline: false,
+            loop: <{$loop}>,
+            interval: <{$slideshowSpeed}>,
+            button: <{$button_close}>,
+            navbar: <{$navbar}>,
+            title: <{$viewerjs_title}>,
+            fullscreen: <{$fullscreen}>,
+            zoomable: <{$zoomable}>,
+            <{if $toolbar}>toolbar: {
+                oneToOne: true,
+                zoomIn: true,
+                zoomOut: true,
+                prev: function() {
+                    viewer.prev(true);
+                },
+                play: true,
+                next: function() {
+                    viewer.next(true);
+                },
+                <{if $download}>
+                    download: function() {
+                    const a = document.createElement('a');
+                    a.href = viewer.image.src;
+                    a.download = viewer.image.alt;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    },
+                <{else}>
+                    download: false,
+                <{/if}>
+                },
+            <{else}>
+                toolbar: false,
+            <{/if}>
+        });
     });
 </script>
 

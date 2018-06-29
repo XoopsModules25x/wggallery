@@ -5,21 +5,21 @@
 		<div class='panel-heading wgg-cats-header'><{$index_alb_title}></div>
 		<div class='panel-body'>
 			<{foreach item=album from=$albums}>
-                <{if $wggallery_nbcola == 4}>
+                <{if $number_cols_album == 4}>
                     <div class='col-xs-12 col-sm-3 wgg-album-panel'>
                         <{include file='db:wggallery_albumitem_2.tpl' album=$album}>
                     </div>
                     <{if $album.linebreak}>
                         <div class='clear'>&nbsp;</div>
                     <{/if}>
-                <{elseif $wggallery_nbcola == 3}>
+                <{elseif $number_cols_album == 3}>
                     <div class='col-xs-12 col-sm-4 wgg-album-panel'>
                         <{include file='db:wggallery_albumitem_2.tpl' album=$album}>
                     </div>
                     <{if $album.linebreak}>
                         <div class='clear'>&nbsp;</div>
                     <{/if}>
-                <{elseif $wggallery_nbcola == 2}>
+                <{elseif $number_cols_album == 2}>
                     <div class='col-xs-12 col-sm-6 wgg-album-panel'>
                         <{include file='db:wggallery_albumitem_2.tpl' album=$album}>
                     </div>
@@ -43,21 +43,21 @@
 		<div class='panel-heading wgg-cats-header'><{$index_cats_title}></div>
 		<div class='panel-body'>
 			<{foreach item=category from=$categories}>
-                <{if $wggallery_nbcolc == 4}>
+                <{if $number_cols_cat == 4}>
                     <div class='col-xs-12 col-sm-3 wgg-album-panel'>
                         <{include file='db:wggallery_categoryitem_2.tpl' category=$category}>
                     </div>
                     <{if $album.linebreak}>
                         <div class='clear'>&nbsp;</div>
                     <{/if}>
-                <{elseif $wggallery_nbcolc == 3}>
+                <{elseif $number_cols_cat == 3}>
                     <div class='col-xs-12 col-sm-4 wgg-album-panel'>
                         <{include file='db:wggallery_categoryitem_2.tpl' category=$category}>
                     </div>
                     <{if $album.linebreak}>
                         <div class='clear'>&nbsp;</div>
                     <{/if}>
-                <{elseif $wggallery_nbcolc == 2}>
+                <{elseif $number_cols_cat == 2}>
                     <div class='col-xs-12 col-sm-6 wgg-album-panel'>
                         <{include file='db:wggallery_categoryitem_2.tpl' category=$category}>
                     </div>

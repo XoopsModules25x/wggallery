@@ -91,6 +91,8 @@ define('_MA_WGGALLERY_COLORBOX_NEXT', 'next');
 define('_MA_WGGALLERY_COLORBOX_CURRENT', 'image {current} of {total}');
 define('_MA_WGGALLERY_COLORBOX_SLIDESHOWSTART', 'start slideshow');
 define('_MA_WGGALLERY_COLORBOX_SLIDESHOWSTOP', 'stop slideshow');
+// lightbox2
+define('_MA_WGGALLERY_LIGHTBOX2_LABEL', 'image {current} of {total}');
 // Admin link
 define('_MA_WGGALLERY_ADMIN', 'Admin');
 // ---------------- Errors ----------------

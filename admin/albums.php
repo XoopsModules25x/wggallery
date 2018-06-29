@@ -49,6 +49,11 @@ switch($op) {
 		if($albumsCount > 0) {
 			foreach(array_keys($albumsAll) as $i) {
 				$album = $albumsAll[$i]->getValuesAlbums();
+                $crImages = new CriteriaCompo();
+                $crImages->add(new Criteria('img_albid',$album['alb_id']));
+                $crImages->setSort('img_weight');
+                $crImages->setOrder('ASC');
+                $album['nb_images'] = $imagesHandler->getCount($crImages);
 				$GLOBALS['xoopsTpl']->append('albums_list', $album);
 				unset($album);
 			}

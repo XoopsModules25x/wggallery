@@ -13,6 +13,7 @@
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_IMAGE}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_STATE}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_ALLOWDOWNLOAD}></th>
+                <th class='center'><{$smarty.const._CO_WGGALLERY_IMAGES}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_DATE}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_SUBMITTER}></th>
 				<th class='center width5'><{$smarty.const._CO_WGGALLERY_FORM_ACTION}></th>
@@ -37,6 +38,7 @@
 						</td>
 						<td class='center'><{$album.state_text}></td>
 						<td class='center'><{$album.allowdownload}></td>
+                        <td class='center'><{$album.nb_images}></td>
 						<td class='center'><{$album.date}></td>
 						<td class='center'><{$album.submitter}></td>
 						<td class='center  width5'>
@@ -60,7 +62,99 @@
 <{/if}>
 <{if $form}>
 	<{$form}>
+    <!-- Modal for selection album image -->
+    <div class="modal fade" id="myModalImagePicker" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button id="close-btn" type="button" class="close" data-dismiss="modal"
+                            aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Image Gallery</h4>
+                </div>
+                <div class="modal-body">
+                    <{foreach item=image from=$images}>
+                        <input class="img <{if $image.selected}>wgg-modal-selected<{/if}>" type="image" src="<{$image.thumb}>" alt="<{$image.title}>"
+                               height="100" width="130" value="<{$image.name}>"
+                               style="padding:3px;">
+                    <{/foreach}>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="application/javascript">       
+        var modal = document.getElementById('myModalImagePicker');
+        $("#myModalImagePicker-btn").click(function(){
+            modal.style.display = "block";
+        });
+        
+        $("#close-btn").click(function(){
+            modal.style.display = "none";
+        });
+        $(".img").click(function () {
+            modal.style.display = "none";
+            $('#alb_imgid').val($(this).attr('value')); 
+            var elements = document.getElementsByClassName('wgg-modal-selected');
+            while(elements.length > 0){
+                elements[0].classList.remove('wgg-modal-selected');
+            }
+            $(this).addClass("wgg-modal-selected");
+            $('#alb_imgid').change();
+
+            return false;
+        })
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>   
+    <style> 
+     /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    } 
+    .wgg-modal-selected {
+        border:2px solid #ff0000;
+    }
+    </style>
+    <!-- End of modal for selection album image -->
 <{/if}>
+
 <{if $error}>
 	<div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>

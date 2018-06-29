@@ -6,7 +6,6 @@
 			<tr class="head">
 				<th class="center"><{$smarty.const._AM_WGGALLERY_GALLERYTYPE_ID}></th>
 				<th class="center"><{$smarty.const._AM_WGGALLERY_GALLERYTYPE_NAME}></th>
-				<th class="center"><{$smarty.const._AM_WGGALLERY_GALLERYTYPE_DESC}></th>
 				<th class="center"><{$smarty.const._AM_WGGALLERY_GALLERYTYPE_CREDITS}></th>
 				<th class="center"><{$smarty.const._AM_WGGALLERY_GALLERYTYPE_TEMPLATE}></th>
 				<th class="center"><{$smarty.const._AM_WGGALLERY_GALLERYTYPE_OPTION}></th>
@@ -21,10 +20,9 @@
 					<tr class="<{cycle values='odd, even'}>">
 						<td class='center'><{$gallerytype.id}></td>
 						<td class="center"><{$gallerytype.name}></td>
-						<td class="left"><{$gallerytype.desc}></td>
 						<td class="center"><{$gallerytype.credits}></td>
 						<td class="center"><{$gallerytype.template}></td>
-						<td class="left"><{$gallerytype.options_text}></td>
+						<td class="left width30"><{$gallerytype.options_text}></td>
 						<td class="center"><{$gallerytype.date}></td>
 						<td class="center">
 							<{if 0 == $gallerytype.primary}>
@@ -35,17 +33,20 @@
                                 <img src="<{$wggallery_icon_url_16}>/on.png" alt="_AM_WGGALLERY_GALLERYTYPE_PRIMARY" />
                             <{/if}>
 						</td>
-						<td class="center  width5">
+						<td class="center  width10">
 							<{if 1 < $gallerytype.id}>
 								<a href="gallerytypes.php?op=options&amp;gt_id=<{$gallerytype.id}>" title="<{$smarty.const._OPTIONS}>">
 									<img src="<{$wggallery_icon_url_16}>/options.png" alt="<{$smarty.const._OPTIONS}>" />
 								</a>
 							<{/if}>
 							<a href="gallerytypes.php?op=edit&amp;gt_id=<{$gallerytype.id}>" title="<{$smarty.const._EDIT}>">
-								<img src="<{xoModuleIcons16 edit.png}>" alt="gallerytypes" />
+								<img src="<{xoModuleIcons16 edit.png}>" alt="<{$smarty.const._EDIT}>" />
+							</a>
+                            <a href="gallerytypes.php?op=reset&amp;gt_id=<{$gallerytype.id}>&amp;template=<{$gallerytype.template}>" title="<{$smarty.const._RESET}>">
+								<img src="<{$wggallery_icon_url_16}>/reset.png" alt="<{$smarty.const._RESET}>" />
 							</a>
 							<a href="gallerytypes.php?op=delete&amp;gt_id=<{$gallerytype.id}>" title="<{$smarty.const._DELETE}>">
-								<img src="<{xoModuleIcons16 delete.png}>" alt="gallerytypes" />
+								<img src="<{xoModuleIcons16 delete.png}>" alt="<{$smarty.const._DELETE}>" />
 							</a>
 						</td>
 					</tr>

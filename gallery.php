@@ -32,6 +32,7 @@ $albId = XoopsRequest::getInt('alb_id');
 
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet( $style, null );
+if ($wggallery->getConfig('addjquery')) {$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/js/jquery-1.9.1.min.js');}
 
 // $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
@@ -77,27 +78,26 @@ switch($pr_gallery['template']) {
 	default:
 		echo 'invalid gallery type';
 	break;
-
-	case 'pgwslideshow':
-		// $GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/galleries/pgwslideshow/pgwslideshow.css', null );
-		$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/pgwslideshow/pgwslideshow.min.js');		
-	break;
-	case 'pgwslider':
-		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/galleries/pgwslider/pgwslider.min.css', null );
-		$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/pgwslider/pgwslider.min.js');		
+	case 'jssor':	
+		$GLOBALS['xoopsTpl']->assign('uniqid', uniqid());
+			
+		$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/jssor/js/jssor.slider.min.js');			
 	break;
 	case 'viewerjs':
-		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/galleries/viewerjs/dist/viewer.min.css', null );
-		$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/viewerjs/dist/viewer.min.js');			
+		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/gallerytypes/viewerjs/dist/viewer.min.css', null );
+		$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/viewerjs/dist/viewer.min.js');			
 	break;
-	case 'lightbox':
-		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/galleries/lightbox/lightbox.css', null );
-		// $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/lightbox/lightbox.js');		
+	case 'lightbox2':
+		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/gallerytypes/lightbox2/dist/css/lightbox.min.css', null );
+		$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/lightbox2/dist/js/lightbox-plus-jquery.js');
+		$GLOBALS['xoopsTpl']->assign('albumLabel', _MA_WGGALLERY_LIGHTBOX2_LABEL);
 	break;
 	case 'justifiedgallery':
-		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/galleries/justifiedgallery/dist/css/justifiedGallery.css', null );
-		$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/justifiedgallery/dist/js/jquery.justifiedGallery.js');	
-		$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/colorbox/jquery.colorbox.js');	
+		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/gallerytypes/justifiedgallery/dist/css/justifiedGallery.min.css', null );
+		$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/justifiedgallery/dist/js/jquery.justifiedGallery.min.js');	
+		// $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/justifiedgallery/dist/js/justifiedGallery.min.js');	
+		$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/justifiedgallery/dist/js/jquery.colorbox-min.js');	
+		// $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/colorbox/jquery.colorbox.js');	
 		$GLOBALS['xoopsTpl']->assign('colorbox_current', _MA_WGGALLERY_COLORBOX_CURRENT);
 		$GLOBALS['xoopsTpl']->assign('colorbox_previous', _MA_WGGALLERY_COLORBOX_PREVIOUS);
 		$GLOBALS['xoopsTpl']->assign('colorbox_next', _MA_WGGALLERY_COLORBOX_NEXT);
@@ -106,28 +106,28 @@ switch($pr_gallery['template']) {
 		$GLOBALS['xoopsTpl']->assign('colorbox_slideshowstop', _MA_WGGALLERY_COLORBOX_SLIDESHOWSTOP);
 	break;
 	case 'blueimpgallery':
-		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/galleries/blueimpgallery/css/blueimp-gallery.min.css', null );
-        // $GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/galleries/blueimpgallery/css/blueimp-gallery-indicator.css', null );
-        // $GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/galleries/blueimpgallery/css/blueimp-gallery-video.css', null );
+		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/css/blueimp-gallery.min.css', null );
+        $GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/css/blueimp-gallery-indicator.css', null );
+        // $GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/css/blueimp-gallery-video.css', null );
+        // $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-gallery-fullscreen.js');
 	
         
-        // $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/blueimpgallery/js/blueimp-gallery.js');
-/*         $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/blueimpgallery/js/blueimp-helper.js');
+        // $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-gallery.js');
+/*         $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-helper.js');
 
-$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/blueimpgallery/js/blueimp-gallery-fullscreen.js');
-$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/blueimpgallery/js/blueimp-gallery-indicator.js');
-$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/blueimpgallery/js/blueimp-gallery-video.js');
-$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/blueimpgallery/js/blueimp-gallery-vimeo.js');
-$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/blueimpgallery/js/blueimp-gallery-youtube.js');
-$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/blueimpgallery/js/vendor/jquery.js');
-$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/blueimpgallery/js/jquery.blueimp-gallery.js');
-$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/blueimpgallery/js/demo/demo.js');
+$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-gallery-fullscreen.js');
+$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-gallery-indicator.js');
+$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-gallery-video.js');
+$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-gallery-vimeo.js');
+$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-gallery-youtube.js');
+$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/vendor/jquery.js');
+$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/jquery.blueimp-gallery.js');
+$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/demo/demo.js');
  */
 
 
 	break;    
  
-    
     
 
   
@@ -138,7 +138,10 @@ unset($images);
 // assign all gallery options
 $options = unserialize($pr_gallery['options']);
 foreach ($options as $option) {
-	$GLOBALS['xoopsTpl']->assign($option['name'], $option['value']);
+	if ($option['value'] !== 'none') {
+		$GLOBALS['xoopsTpl']->assign($option['name'], $option['value']);
+	}
+	echo "<br>".$option['name'].":".$option['value'];
 }
 
 // Description

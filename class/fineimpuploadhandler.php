@@ -121,7 +121,7 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 			);
 		} 
 		// create medium image
-		$ret = $this->resizeImage($this->pathUpload . '/medium/' . $this->imageName, 300, 300);;
+		$ret = $this->resizeImage($this->pathUpload . '/medium/' . $this->imageName, $wggallery->getConfig('maxwidth_medium'), $wggallery->getConfig('maxheight_medium'));;
 		if(false === $ret) {
 			return array('error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_MEDIUM, $this->imageNicename));
 		} 
@@ -129,7 +129,7 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 			copy($this->pathUpload . '/large/' . $this->imageName, $this->pathUpload . '/medium/' . $this->imageName);
 		}
 		// create thumb
-		$ret = $this->resizeImage($this->pathUpload . '/thumbs/' . $this->imageName, 100, 100);;
+		$ret = $this->resizeImage($this->pathUpload . '/thumbs/' . $this->imageName, $wggallery->getConfig('maxwidth_thumbs'), $wggallery->getConfig('maxheight_thumbs'));
 		if(false === $ret) {
 			return array('error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_THUMBS, $this->imageNicename));
 		} 
@@ -172,18 +172,6 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
  		}
 		return false; 
 	}
-	
-	
- 	private function handleImgMedium () {
-		
-		return $this->resizeImage($this->pathUpload . '/medium/' . $this->imageName, 100, 100);
-	}
-	
-	
-	private function handleImgThumbs () {
-		
-	}
-	
 	
 	private function getImageDim () {
 		

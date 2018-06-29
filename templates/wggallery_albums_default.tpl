@@ -26,11 +26,11 @@
                         
 						<{if $album.nb_images}>
 							<{if $gallery}>
-								<a class='btn btn-default wgg-btn' href='gallery.php?op=show&amp;alb_id=<{$album.id}>&amp;subm_id=<{$subm_id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>'>
+								<a class='btn btn-default wgg-btn' href='<{$wggallery_url}>/gallery.php?op=show&amp;alb_id=<{$album.id}>&amp;subm_id=<{$subm_id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>' target='<{$gallery_target}>' >
 									<span class="wgg-btn-icon"><img class='' src='<{$wggallery_icon_url_16}>/show.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>' /></span><{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>
 								</a>
 							<{/if}>
-							<a class='btn btn-default wgg-btn' href='images.php?op=list&amp;alb_id=<{$album.id}>&amp;alb_for_id=<{$alb_for_id}>&amp;subm_id=<{$subm_id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'>
+							<a class='btn btn-default wgg-btn' href='<{$wggallery_url}>/images.php?op=list&amp;alb_id=<{$album.id}>&amp;alb_for_id=<{$alb_for_id}>&amp;subm_id=<{$subm_id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'>
 								<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/photos.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_COUNT}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_COUNT}>' /><{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>
 							</a>
 						<{else}>
@@ -67,6 +67,47 @@
 
 <{if $form}>
 	<{$form}>
+	
+    <!-- Modal -->
+    <div class="modal fade" id="myModalImagePicker" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Image Gallery</h4>
+                </div>
+                <div class="modal-body">
+                    <{foreach item=image from=$images}>
+                        <input class="img <{if $image.selected}>wgg-modal-selected<{/if}>" type="image" src="<{$image.thumb}>" alt="<{$image.title}>"
+                               height="100" width="130" value="<{$image.name}>"
+                               style="padding:3px;">
+                    <{/foreach}>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="application/javascript">
+        $('#myModalImagePicker').on('shown.bs.modal', function () {
+            $('#alb_imgid').focus()
+        })
+        $(".img").click(function () {
+            $('#alb_imgid').val($(this).attr('value')); 
+            var elements = document.getElementsByClassName('wgg-modal-selected');
+            while(elements.length > 0){
+                elements[0].classList.remove('wgg-modal-selected');
+            }
+            $(this).addClass("wgg-modal-selected");
+            $('#alb_imgid').change();
+
+            $('#myModalImagePicker').modal('hide');
+            return false;
+        })
+    </script>
+
 <{/if}>
 <{if $error}>
 	<div class='errorMsg'><strong><{$error}></strong></div>

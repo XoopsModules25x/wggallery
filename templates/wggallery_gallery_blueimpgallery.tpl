@@ -25,18 +25,24 @@
         </div>
     <{/if}>
     <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
-    <div id="blueimp-gallery" class="blueimp-gallery">
+    <div id="blueimp-gallery" class="blueimp-gallery  blueimp-gallery-controls">
         <div class="slides"></div>
-        <h3 class="title"></h3>
+        <{if $showTitle == 'true'}><h3 class="title"></h3><{/if}>
         <p class="description"></p>
         <a class="prev">‹</a>
         <a class="next">›</a>
         <a class="close">×</a>
         <a class="play-pause"></a>
-        <ol class="indicator"></ol>
+        <{if $showThumbnails == 'true'}>
+            <ol class="indicator">
+                <{foreach name=image item=image from=$images}>
+                    <li style="background-image: url('<{$wggallery_upload_url}>/images/thumbs/<{$image.name}>');" title="<{$image.title}>" data-index="<{$smarty.foreach.image.iteration}>"></li>
+                <{/foreach}>
+            </ol>
+        <{/if}>
     </div>
 
-    <script src="<{$wggallery_url}>/assets/galleries/blueimpgallery/js/blueimp-gallery.js" type="text/javascript"></script>
+    <script src="<{$wggallery_url}>/assets/gallerytypes/blueimpgallery/js/blueimp-gallery.js" type="text/javascript"></script>
     
     <script>
         document.getElementById('links').onclick = function (event) {
@@ -45,9 +51,9 @@
                 link = target.src ? target.parentNode : target,
                 options = {
                     index: link,
-                    startSlideshow: true,
-                    slideshowInterval: 3000,
-                    transitionSpeed: 400,
+                    startSlideshow: <{$slideshowAuto}>,
+                    slideshowInterval: <{$slideshowSpeed}>,
+                    transitionSpeed: <{$transitionDuration}>,
                     event: event
                 },
                 links = this.getElementsByTagName('a');
@@ -72,13 +78,19 @@
 <{if $slideshowtype == 'inline'}>
 
     <!-- The Gallery as inline carousel, can be positioned anywhere on the page -->
-    <div id="blueimp-gallery-carousel" class="blueimp-gallery blueimp-gallery-carousel">
+    <div id="blueimp-gallery-carousel" class="blueimp-gallery blueimp-gallery-controls blueimp-gallery-carousel blueimp-gallery-display blueimp-gallery-playing">
         <div class="slides"></div>
-        <h3 class="title"></h3>
+        <{if $showTitle == 'true'}><h3 class="title"></h3><{/if}>
         <a class="prev">‹</a>
         <a class="next">›</a>
         <a class="play-pause"></a>
-        <ol class="indicator"></ol>
+        <{if $showThumbnails == 'true'}>
+            <ol class="indicator">
+                <{foreach name=image item=image from=$images}>
+                    <li style="background-image: url('<{$wggallery_upload_url}>/images/thumbs/<{$image.name}>');" title="<{$image.title}>" data-index="<{$smarty.foreach.image.iteration}>"></li>
+                <{/foreach}>
+            </ol>
+        <{/if}>
     </div>
     
     <{if $images_nb > 0}>
@@ -90,15 +102,20 @@
     <{/if}>
 
 
-    <script src="<{$wggallery_url}>/assets/galleries/blueimpgallery/js/blueimp-gallery.js" type="text/javascript"></script>
+    <script src="<{$wggallery_url}>/assets/gallerytypes/blueimpgallery/js/blueimp-gallery.js" type="text/javascript"></script>
     
     <script>
         blueimp.Gallery(
         document.getElementById('links').getElementsByTagName('a'),
         {
             container: '#blueimp-gallery-carousel',
+            controlsClass: 'blueimp-gallery-controls',
             carousel: true,
-            startSlideshow: true
+            hidePageScrollbars: false,
+            disableScroll: false,
+            startSlideshow: <{$slideshowAuto}>,
+            slideshowInterval: <{$slideshowSpeed}>,
+            transitionSpeed: <{$transitionDuration}>
         }
     );
     </script>

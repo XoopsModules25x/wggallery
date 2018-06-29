@@ -21,7 +21,7 @@
  * @version        $Id: 1.0 images.php 1 Mon 2018-03-19 10:04:51Z XOOPS Project (www.xoops.org) $
  */
 include __DIR__ . '/header.php';
-$GLOBALS['xoopsOption']['template_main'] = 'wggallery_images' . $wggallery->getConfig('style_index_image', true) . '.tpl';
+$GLOBALS['xoopsOption']['template_main'] = 'wggallery_images_default.tpl';
 include_once XOOPS_ROOT_PATH .'/header.php';
 
 $op       = XoopsRequest::getString('op', 'list');
@@ -38,7 +38,7 @@ if (_CANCEL === XoopsRequest::getString('cancel', 'none')) {
 
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet( $style, null );
-$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_CSS_URL . '/style' . $wggallery->getConfig('style_index_image', true) . '.css' , null );
+$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/css/style' . $wggallery->getConfig('style_index_image', true) . '.css' , null );
 // 
 // $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);

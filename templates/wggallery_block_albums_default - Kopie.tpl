@@ -8,7 +8,7 @@
         <{else}><div class='col-sm-6'>
         <{/if}>
             <{if $gallery == 1}>
-                <a class='wgg-b-album-link' href='<{$wggallery_url}>/gallery.php?op=show&amp;alb_id=<{$album.id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>'>
+                <a class='wgg-b-album-link' href='<{$wggallery_url}>/gallery.php?op=show&amp;alb_id=<{$album.id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>' target='<{$gallery_target}>' >
             <{else}>
                 <a class='wgg-b-album-link' href='<{$wggallery_url}>/images.php?op=list&amp;alb_id=<{$album.id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'>
             <{/if}>

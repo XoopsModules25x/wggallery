@@ -9,8 +9,7 @@
 <div class='center wgg-album-desc'><{$category.desc}></div>
 <div class='center wgg-album-footer'>
     <a class='btn btn-default wgg-btn' href='index.php?op=list&amp;alb_for_id=<{$category.id}>&amp;subm_id=<{$subm_id}>' title='<{$smarty.const._CO_WGGALLERY_CATS_ALBUMS}>'>
-        <span class = "wgg-btn-icon"><img class='' src='<{$wggallery_icon_url_16}>/albums.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUMS_COUNT}>' title='<{$smarty.const._CO_WGGALLERY_ALBUMS_COUNT}>' />
-        <{$category.nb_albums}></span>
+        <span class = "wgg-btn-icon"><img class='' src='<{$wggallery_icon_url_16}>/albums.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUMS_COUNT}>' title='<{$smarty.const._CO_WGGALLERY_ALBUMS_COUNT}>' /></span>
         <{$smarty.const._CO_WGGALLERY_CATS_ALBUMS}>
     </a>
     <{if $category.edit}>
