@@ -52,6 +52,10 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
     /**
      * @var string
      */
+    private $imageNameLarge = null;
+    /**
+     * @var string
+     */
     private $imageNicename = null;
     /**
      * @var string
@@ -60,7 +64,7 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
     /**
      * @var string
      */
-    private $imageOrigname = null;
+    private $imageNameOrig = null;
     /**
      * @var string
      */
@@ -102,19 +106,20 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 		
         $pathParts = pathinfo($this->getName());
 
-        $this->imageName = uniqid('img', true) . '.' . strtolower($pathParts['extension']);
-        $this->imageNicename = str_replace(array('_','-'), ' ', $pathParts['filename']);
-		$this->imagePath = $this->pathUpload . '/large/' . $this->imageName;
+        $this->imageName      = uniqid('img') . '.' . strtolower($pathParts['extension']);
+        $this->imageNicename  = str_replace(array('_','-'), ' ', $pathParts['filename']);
+        $this->imageNameLarge = uniqid('imgl') . '.' . strtolower($pathParts['extension']);
+		$this->imagePath      = $this->pathUpload . '/large/' . $this->imageNameLarge;
 		
         if (false === move_uploaded_file($_FILES[$this->inputName]['tmp_name'], $this->imagePath)) {
             return false;
         }
 		
-		$this->imageOrigname = $_FILES[$this->inputName]['name'];
+		$this->imageNameOrig = $_FILES[$this->inputName]['name'];
  		$this->imageMimetype = $_FILES[$this->inputName]['type'];
 		$this->imageSize = $_FILES[$this->inputName]['size'];
 		
-		$ret = $this->handleImgLarge();
+		$ret = $this->handleImageDB();
 		if(false === $ret) {
 			return array(
 				'error' => sprintf(_FAILSAVEIMG, $this->imageNicename)
@@ -126,7 +131,7 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 			return array('error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_MEDIUM, $this->imageNicename));
 		} 
 		if ('copy' === $ret) {
-			copy($this->pathUpload . '/large/' . $this->imageName, $this->pathUpload . '/medium/' . $this->imageName);
+			copy($this->pathUpload . '/large/' . $this->imageNameLarge, $this->pathUpload . '/medium/' . $this->imageName);
 		}
 		// create thumb
 		$ret = $this->resizeImage($this->pathUpload . '/thumbs/' . $this->imageName, $wggallery->getConfig('maxwidth_thumbs'), $wggallery->getConfig('maxheight_thumbs'));
@@ -134,13 +139,13 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 			return array('error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_THUMBS, $this->imageNicename));
 		} 
 		if ('copy' === $ret) {
-			copy($this->pathUpload . '/large/' . $this->imageName, $this->pathUpload . '/thumbs/' . $this->imageName);
+			copy($this->pathUpload . '/large/' . $this->imageNameLarge, $this->pathUpload . '/thumbs/' . $this->imageName);
 		}
         return array('success'=> true, "uuid" => $uuid);
     }
 	
 	
-	private function handleImgLarge () {
+	private function handleImageDB () {
 		
 		include_once XOOPS_ROOT_PATH .'/modules/wggallery/header.php';
 		global $xoopsUser;
@@ -155,7 +160,8 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
      	$imagesObj->setVar('img_title', $this->imageNicename);
 		$imagesObj->setVar('img_desc', '');
 		$imagesObj->setVar('img_name', $this->imageName);
-		$imagesObj->setVar('img_origname', $this->imageOrigname);
+        $imagesObj->setVar('img_namelarge', $this->imageNameLarge);
+		$imagesObj->setVar('img_nameorig', $this->imageNameOrig);
         $imagesObj->setVar('img_mimetype',  $this->imageMimetype);
 		$imagesObj->setVar('img_size', $this->imageSize);
 		$imagesObj->setVar('img_resx', $this->imageWidth);

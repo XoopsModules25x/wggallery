@@ -4,13 +4,13 @@
 	<table class='table table-bordered'>
 		<thead>
 			<tr class="head">
-				<th class="center"><{$smarty.const._AM_WGGALLERY_GALLERYTYPE_ID}></th>
-				<th class="center"><{$smarty.const._AM_WGGALLERY_GALLERYTYPE_NAME}></th>
-				<th class="center"><{$smarty.const._AM_WGGALLERY_GALLERYTYPE_CREDITS}></th>
-				<th class="center"><{$smarty.const._AM_WGGALLERY_GALLERYTYPE_TEMPLATE}></th>
-				<th class="center"><{$smarty.const._AM_WGGALLERY_GALLERYTYPE_OPTION}></th>
-				<th class="center"><{$smarty.const._AM_WGGALLERY_GALLERYTYPE_DATE}></th>
-				<th class="center"><{$smarty.const._AM_WGGALLERY_GALLERYTYPE_PRIMARY_SET}></th>
+				<th class="center"><{$smarty.const._AM_WGGALLERY_GT_AT_ID}></th>
+				<th class="center"><{$smarty.const._AM_WGGALLERY_GT_AT_NAME}></th>
+				<th class="center"><{$smarty.const._AM_WGGALLERY_GT_AT_CREDITS}></th>
+				<th class="center"><{$smarty.const._AM_WGGALLERY_GT_AT_TEMPLATE}></th>
+				<th class="center"><{$smarty.const._AM_WGGALLERY_GT_AT_OPTIONS}></th>
+				<th class="center"><{$smarty.const._AM_WGGALLERY_GT_AT_DATE}></th>
+				<th class="center"><{$smarty.const._AM_WGGALLERY_GT_AT_PRIMARY_SET}></th>
 				<th class="center width5"><{$smarty.const._CO_WGGALLERY_FORM_ACTION}></th>
 			</tr>
 		</thead>
@@ -26,11 +26,11 @@
 						<td class="center"><{$gallerytype.date}></td>
 						<td class="center">
 							<{if 0 == $gallerytype.primary}>
-								<a href="gallerytypes.php?op=set_primary&amp;gt_id=<{$gallerytype.id}>" title="<{$smarty.const._AM_WGGALLERY_GALLERYTYPE_PRIMARY_SET}>">
-									<img src="<{$wggallery_icon_url_16}>/0.png" alt="_AM_WGGALLERY_GALLERYTYPE_PRIMARY_SET" />
+								<a href="gallerytypes.php?op=set_primary&amp;gt_id=<{$gallerytype.id}>" title="<{$smarty.const._AM_WGGALLERY_GT_AT_PRIMARY_SET}>">
+									<img src="<{$wggallery_icon_url_16}>/0.png" alt="_AM_WGGALLERY_GT_AT_PRIMARY_SET" />
 								</a>
 							<{else}>
-                                <img src="<{$wggallery_icon_url_16}>/on.png" alt="_AM_WGGALLERY_GALLERYTYPE_PRIMARY" />
+                                <img src="<{$wggallery_icon_url_16}>/on.png" alt="_AM_WGGALLERY_GT_AT_PRIMARY" />
                             <{/if}>
 						</td>
 						<td class="center  width10">

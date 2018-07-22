@@ -182,5 +182,21 @@ switch($op) {
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());
 
 	break;
+	case 'delete':
+		$albumtypesObj = $albumtypesHandler->get($atId);
+		if(isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
+			if(!$GLOBALS['xoopsSecurity']->check()) {
+				redirect_header('albumtypes.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+			}
+			if($albumtypesHandler->delete($albumtypesObj)) {
+				redirect_header('albumtypes.php', 3, _CO_WGGALLERY_FORM_DELETE_OK);
+			} else {
+				$GLOBALS['xoopsTpl']->assign('error', $albumtypesObj->getHtmlErrors());
+			}
+		} else {
+			xoops_confirm(array('ok' => 1, 'at_id' => $atId, 'op' => 'delete'), $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $albumtypesObj->getVar('at_name')));
+		}
+
+	break;
 }
 include __DIR__ . '/footer.php';

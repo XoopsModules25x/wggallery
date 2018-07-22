@@ -6,8 +6,8 @@
 <{if $images_nb > 0}>
 	<div id="mygallery" >
 		<{foreach item=image from=$images}>
-			<a href='<{$wggallery_upload_url}>/images/<{$source}>/<{$image.name}>' rel='gallery1'>
-				<img alt='<{$image.title}>' src='<{$wggallery_upload_url}>/images/<{$source_preview}>/<{$image.name}>'/>
+			<a href='<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>' rel='gallery1'>
+				<img alt='<{$image.title}>' src='<{if $source_preview == 'medium'}><{$image.medium}><{else}><{$image.thumb}><{/if}>'/>
 			</a>
 		<{/foreach}>
 	</div>

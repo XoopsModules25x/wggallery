@@ -172,7 +172,7 @@ function b_wggallery_albums_edit($options)
     $albumsHandler = $wggallery->getHandler('albums');
     $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
     $form  = "<input type='hidden' name='options[0]' value='".$options[0]."' />";
-    $form .= _MB_WGGALLERY_DISPLAY;
+    $form .= _MB_WGGALLERY_ALBUMS_DISPLAYLIST;
     $form .= "<input type='text' name='options[1]' size='5' maxlength='255' value='" . $options[1] . "' />&nbsp;<br>";
     $form .= _MB_WGGALLERY_TITLE_LENGTH." : <input type='text' name='options[2]' size='5' maxlength='255' value='" . $options[2] . "' /><br>";
     $form .= _MB_WGGALLERY_NUMB_ALBUMS.": <select name='options[3]' size='4'>";

@@ -29,7 +29,7 @@
                 <td class="center"><{$list.title}></td>
                 <td class="center"><{$list.desc}></td>
                 <td class="center"><{$list.name}></td>
-                <td class="center"><{$list.origname}></td>
+                <td class="center"><{$list.nameorig}></td>
                 <td class="center"><{$list.mimetype}></td>
                 <td class="center"><{$list.size}></td>
                 <td class="center"><{$list.resx}></td>

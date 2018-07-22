@@ -96,10 +96,11 @@ switch($op) {
 		$albumsObj->setVar('alb_desc', XoopsRequest::getString('alb_desc'));
 		$albumsObj->setVar('alb_weight', XoopsRequest::getInt('alb_weight'));
 		// Set Var alb_image
+        $albumsObj->setVar('alb_imgcat', XoopsRequest::getInt('alb_imgcat'));
 		include_once XOOPS_ROOT_PATH .'/class/uploader.php';
 		$uploader = new XoopsMediaUploader(WGGALLERY_UPLOAD_IMAGE_PATH.'/albums/', 
 													$wggallery->getConfig('mimetypes'), 
-													$wggallery->getConfig('maxsize'), null, null);
+													$wggallery->getConfig('maxsize', true), null, null);
 		if($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
 			$extension = preg_replace('/^.+\.([^.]+)$/sU', '', $_FILES['attachedfile']['name']);
 			$imgName = str_replace(' ', '', $_POST['alb_name']).'.'.$extension;

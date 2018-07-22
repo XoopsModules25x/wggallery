@@ -54,7 +54,7 @@ switch($op) {
 		$imagesObj->setVar('img_title', $_POST['img_title']);
 		$imagesObj->setVar('img_desc', $_POST['img_desc']);
 		$imagesObj->setVar('img_name', $_POST['img_name']);
-		$imagesObj->setVar('img_origname', $_POST['img_origname']);
+		$imagesObj->setVar('img_nameorig', $_POST['img_nameorig']);
 		$imagesObj->setVar('img_mimetype', $_POST['img_mimetype']);
 		$imagesObj->setVar('img_size', $_POST['img_size']);
 		$imagesObj->setVar('img_resx', $_POST['img_resx']);

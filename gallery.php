@@ -52,7 +52,7 @@ $GLOBALS['xoopsTpl']->assign('alb_name', $albName);
 if (0 < $permissionsHandler->permAlbumDownload($albId)) {
 	$GLOBALS['xoopsTpl']->assign('alb_allowdownload', $albAllowdownload);
 }
-// $GLOBALS['xoopsTpl']->assign('alb_for_id', $albForId);
+// $GLOBALS['xoopsTpl']->assign('alb_pid', $albPid);
 
 $crImages = new CriteriaCompo();
 $crImages->add(new Criteria('img_albid', $albId));
@@ -90,7 +90,7 @@ switch($pr_gallery['template']) {
 	case 'lightbox2':
 		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/gallerytypes/lightbox2/dist/css/lightbox.min.css', null );
 		$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/lightbox2/dist/js/lightbox-plus-jquery.js');
-		$GLOBALS['xoopsTpl']->assign('albumLabel', _MA_WGGALLERY_LIGHTBOX2_LABEL);
+		$GLOBALS['xoopsTpl']->assign('albumLabel', _MA_WGGALLERY_CURRENT_LABEL);
 	break;
 	case 'justifiedgallery':
 		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/gallerytypes/justifiedgallery/dist/css/justifiedGallery.min.css', null );
@@ -98,7 +98,7 @@ switch($pr_gallery['template']) {
 		// $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/justifiedgallery/dist/js/justifiedGallery.min.js');	
 		$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/justifiedgallery/dist/js/jquery.colorbox-min.js');	
 		// $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/galleries/colorbox/jquery.colorbox.js');	
-		$GLOBALS['xoopsTpl']->assign('colorbox_current', _MA_WGGALLERY_COLORBOX_CURRENT);
+		$GLOBALS['xoopsTpl']->assign('colorbox_current', _MA_WGGALLERY_CURRENT_LABEL);
 		$GLOBALS['xoopsTpl']->assign('colorbox_previous', _MA_WGGALLERY_COLORBOX_PREVIOUS);
 		$GLOBALS['xoopsTpl']->assign('colorbox_next', _MA_WGGALLERY_COLORBOX_NEXT);
 		$GLOBALS['xoopsTpl']->assign('colorbox_close', _MA_WGGALLERY_COLORBOX_CLOSE);
@@ -141,7 +141,7 @@ foreach ($options as $option) {
 	if ($option['value'] !== 'none') {
 		$GLOBALS['xoopsTpl']->assign($option['name'], $option['value']);
 	}
-	echo "<br>".$option['name'].":".$option['value'];
+	// echo "<br>".$option['name'].":".$option['value'];
 }
 
 // Description

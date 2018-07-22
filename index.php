@@ -26,7 +26,7 @@ $GLOBALS['xoopsOption']['template_main'] = 'wggallery_index_' . $pr_album['templ
 include_once XOOPS_ROOT_PATH .'/header.php';
 $start       = XoopsRequest::getInt('start', 0);
 $limit       = XoopsRequest::getInt('limit', $wggallery->getConfig('userpager'));
-$albForId    = XoopsRequest::getInt('alb_for_id', 0);
+$albPid    = XoopsRequest::getInt('alb_pid', 0);
 $submitterId = XoopsRequest::getInt('subm_id', 0);
 
 // general template assigns
@@ -70,9 +70,9 @@ switch($pr_album['template']) {
 $keywords = array();
 
 // Breadcrumbs
-if ($albForId) {
+if ($albPid) {
 	$xoBreadcrumbs[] = array('title' => _CO_WGGALLERY_ALBUMS, 'link' => WGGALLERY_URL . '/');
-	$albumsObj = $albumsHandler->get($albForId);
+	$albumsObj = $albumsHandler->get($albPid);
 	$xoBreadcrumbs[] = array('title' => $albumsObj->getVar('alb_name'));
 } else {
 	$xoBreadcrumbs[] = array('title' => _CO_WGGALLERY_ALBUMS);
@@ -88,7 +88,7 @@ if ($permissionsHandler->permGlobalSubmit()) {
 if ( 0 < $submitterId ) {
     $crAlbums->add(new Criteria('alb_submitter', $submitterId));
 }
-$crAlbums->add(new Criteria('alb_pid', $albForId));
+$crAlbums->add(new Criteria('alb_pid', $albPid));
 $crAlbums->add(new Criteria('alb_iscat', 0));
 $crAlbums->setSort('alb_weight ASC, alb_date');
 $crAlbums->setOrder('DESC');
@@ -131,7 +131,7 @@ if($albumsCount > 0) {
     $albums[$i]['linebreak'] = true;
 
 	$GLOBALS['xoopsTpl']->assign('albums', $albums);
-	$GLOBALS['xoopsTpl']->assign('alb_for_id', $albForId);
+	$GLOBALS['xoopsTpl']->assign('alb_pid', $albPid);
 	$pr_gallery = $gallerytypesHandler->getPrimaryGallery();
 	$GLOBALS['xoopsTpl']->assign('gallery', 'none' != $pr_gallery['template']);
 	// $GLOBALS['xoopsTpl']->assign('album_showsubmitter', $wggallery->getConfig('album_showsubmitter'));
@@ -158,10 +158,10 @@ if (!$permissionsHandler->permGlobalSubmit()) {
 if ( 0 < $submitterId ) {
     $crAlbums->add(new Criteria('alb_submitter', $submitterId));
 }
-$crAlbums->add(new Criteria('alb_pid', $albForId));
+$crAlbums->add(new Criteria('alb_pid', $albPid));
 $crAlbums->add(new Criteria('alb_iscat', 1));
-$crAlbums->setSort('alb_weight');
-$crAlbums->setOrder('ASC');
+$crAlbums->setSort('alb_weight ASC, alb_date');
+$crAlbums->setOrder('DESC');
 $albumsCount = $albumsHandler->getCount($crAlbums);
 $crAlbums->setStart( $start );
 $crAlbums->setLimit( $limit );

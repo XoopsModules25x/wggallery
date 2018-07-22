@@ -38,7 +38,8 @@ class WggalleryImages extends XoopsObject
 		$this->initVar('img_title', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('img_desc', XOBJ_DTYPE_TXTAREA);
 		$this->initVar('img_name', XOBJ_DTYPE_TXTBOX);
-		$this->initVar('img_origname', XOBJ_DTYPE_TXTBOX);
+        $this->initVar('img_namelarge', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('img_nameorig', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('img_mimetype', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('img_size', XOBJ_DTYPE_INT);
 		$this->initVar('img_resx', XOBJ_DTYPE_INT);
@@ -121,8 +122,10 @@ class WggalleryImages extends XoopsObject
 		$form->addElement(new XoopsFormEditor( _CO_WGGALLERY_IMAGE_DESC, 'img_desc', $editorConfigs));
 		// Form Text ImgName
 		$form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_NAME, 'img_name', 50, 255, $this->getVar('img_name') ), true);
+        // Form Text ImgNameLarge
+		$form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_NAMELARGE, 'img_namelarge', 50, 255, $this->getVar('img_namelarge') ), true);
 		// Form Text ImgOrigname
-		$form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_ORIGNAME, 'img_origname', 50, 255, $this->getVar('img_origname') ), true);
+		$form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_NAMEORIG, 'img_nameorig', 50, 255, $this->getVar('img_nameorig') ), true);
 		// Form Text ImgMimetype
 		$imgMimetype = $this->isNew() ? '0' : $this->getVar('img_mimetype');
 		$form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_MIMETYPE, 'img_mimetype', 20, 150, $imgMimetype ));
@@ -166,35 +169,6 @@ class WggalleryImages extends XoopsObject
 		$form->addElement(new XoopsFormSelectUser( _CO_WGGALLERY_IMAGE_SUBMITTER, 'img_submitter', false, $this->getVar('img_submitter') ));
 		// Form Text ImgIp
 		$form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_IP, 'img_ip', 50, 255, $this->getVar('img_ip') ));
-		// Permissions
-		$memberHandler = xoops_gethandler('member');
-		$groupList = $memberHandler->getGroupList();
-		$gpermHandler = xoops_gethandler('groupperm');
-		$fullList[] = array_keys($groupList);
-		if(!$this->isNew()) {
-			$groupsIdsApprove = $gpermHandler->getGroupIds('wggallery_approve', $this->getVar('img_id'), $GLOBALS['xoopsModule']->getVar('mid'));
-			$groupsIdsApprove[] = array_values($groupsIdsApprove);
-			$groupsCanApproveCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_GL_APPROVE, 'groups_approve[]', $groupsIdsApprove);
-			$groupsIdsSubmit = $gpermHandler->getGroupIds('wggallery_submit', $this->getVar('img_id'), $GLOBALS['xoopsModule']->getVar('mid'));
-			$groupsIdsSubmit[] = array_values($groupsIdsSubmit);
-			$groupsCanSubmitCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_GL_SUBMIT, 'groups_submit[]', $groupsIdsSubmit);
-			$groupsIdsView = $gpermHandler->getGroupIds('wggallery_view', $this->getVar('img_id'), $GLOBALS['xoopsModule']->getVar('mid'));
-			$groupsIdsView[] = array_values($groupsIdsView);
-			$groupsCanViewCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_ALB_VIEW, 'groups_view[]', $groupsIdsView);
-		} else {
-			$groupsCanApproveCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_GL_APPROVE, 'groups_approve[]', $fullList);
-			$groupsCanSubmitCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_GL_SUBMIT, 'groups_submit[]', $fullList);
-			$groupsCanViewCheckbox = new XoopsFormCheckBox( _CO_WGGALLERY_PERMS_ALB_VIEW, 'groups_view[]', $fullList);
-		}
-		// To Approve
-		$groupsCanApproveCheckbox->addOptionArray($groupList);
-		$form->addElement($groupsCanApproveCheckbox);
-		// To Submit
-		$groupsCanSubmitCheckbox->addOptionArray($groupList);
-		$form->addElement($groupsCanSubmitCheckbox);
-		// To View
-		$groupsCanViewCheckbox->addOptionArray($groupList);
-		$form->addElement($groupsCanViewCheckbox);
 		// To Save
 		$form->addElement(new XoopsFormHidden('op', 'save'));
 		$form->addElement(new XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
@@ -216,7 +190,8 @@ class WggalleryImages extends XoopsObject
 		$ret['title'] = $this->getVar('img_title');
 		$ret['desc'] = $this->getVar('img_desc', 'n');
 		$ret['name'] = $this->getVar('img_name');
-		$ret['origname'] = $this->getVar('img_origname');
+        $ret['namelarge'] = $this->getVar('img_namelarge');
+		$ret['nameorig'] = $this->getVar('img_nameorig');
 		$ret['mimetype'] = $this->getVar('img_mimetype');
 		$ret['size'] = $this->getVar('img_size');
 		$ret['resx'] = $this->getVar('img_resx');
@@ -236,7 +211,7 @@ class WggalleryImages extends XoopsObject
 		$ret['date'] = formatTimeStamp($this->getVar('img_date'), 's');
 		$ret['submitter'] = XoopsUser::getUnameFromId($this->getVar('img_submitter'));
 		$ret['ip'] = $this->getVar('img_ip');
-		$ret['large'] = WGGALLERY_UPLOAD_IMAGE_URL . '/large/' .  $this->getVar('img_name');
+		$ret['large'] = WGGALLERY_UPLOAD_IMAGE_URL . '/large/' .  $this->getVar('img_namelarge');
 		$ret['medium'] = WGGALLERY_UPLOAD_IMAGE_URL . '/medium/' .  $this->getVar('img_name');
 		$ret['thumb'] = WGGALLERY_UPLOAD_IMAGE_URL . '/thumbs/' .  $this->getVar('img_name');
 		return $ret;
@@ -362,10 +337,10 @@ class WggalleryImagesHandler extends XoopsPersistableObjectHandler
 	 * @param string $imgName
 	 * @return bool
 	 */
-	public function unlinkImages($imageName)
+	public function unlinkImages($imageName, $imageNameLarge)
 	{
-		unlink(WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imageName);
-		if (file_exists(WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imageName)) {return false;}
+		unlink(WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imageNameLarge);
+		if (file_exists(WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imageNameLarge)) {return false;}
 		unlink(WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $imageName);
 		if (file_exists(WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $imageName)) {return false;}
 		unlink(WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/' . $imageName);

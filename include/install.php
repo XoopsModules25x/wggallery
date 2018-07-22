@@ -23,6 +23,7 @@
 // Copy base file
 $indexFile = XOOPS_UPLOAD_PATH.'/index.html';
 $blankFile = XOOPS_UPLOAD_PATH.'/blank.gif';
+$noimage   = XOOPS_ROOT_PATH.'/modules/wggallery/assets/images/noimage.png';
 // Making of uploads/wggallery folder
 $wggallery = XOOPS_UPLOAD_PATH.'/wggallery';
 if(!is_dir($wggallery)) {
@@ -30,13 +31,6 @@ if(!is_dir($wggallery)) {
 	chmod($wggallery, 0777);
 }
 copy($indexFile, $wggallery.'/index.html');
-// Making of albums uploads folder
-$albums = $wggallery.'/albums';
-if(!is_dir($albums)) {
-	mkdir($albums, 0777);
-	chmod($albums, 0777);
-}
-copy($indexFile, $albums.'/index.html');
 // Making of images folder
 $images = $wggallery.'/images';
 if(!is_dir($images)) {
@@ -53,6 +47,7 @@ if(!is_dir($specimage)) {
 }
 copy($indexFile, $specimage.'/index.html');
 copy($blankFile, $specimage.'/blank.gif');
+copy($noimage, $specimage.'/noimage.png');
 // Making of large images folder
 $specimage = $images.'/large';
 if(!is_dir($specimage)) {
@@ -77,11 +72,4 @@ if(!is_dir($specimage)) {
 }
 copy($indexFile, $specimage.'/index.html');
 copy($blankFile, $specimage.'/blank.gif');
-// Making of gallerytypes uploads folder
-$gallerytypes = $wggallery.'/gallerytypes';
-if(!is_dir($gallerytypes)) {
-	mkdir($gallerytypes, 0777);
-	chmod($gallerytypes, 0777);
-}
-copy($indexFile, $gallerytypes.'/index.html');
 // ------------------- Install Footer ------------------- //

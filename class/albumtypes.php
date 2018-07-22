@@ -86,20 +86,20 @@ class WggalleryAlbumtypes extends XoopsObject
 		$form->setExtra('enctype="multipart/form-data"');
 		// Form Text GtPrimary
 		$gtCat = $this->isNew() ? 0 : $this->getVar('at_primary');
-		$form->addElement(new XoopsFormRadioYN( _AM_WGGALLERY_ALBUMTYPE_PRIMARY, 'at_primary', $gtCat ), true);
+		$form->addElement(new XoopsFormRadioYN( _AM_WGGALLERY_GT_AT_PRIMARY, 'at_primary', $gtCat ), true);
 		// Form Text GtName
-		$form->addElement(new XoopsFormText( _AM_WGGALLERY_ALBUMTYPE_NAME, 'at_name', 50, 255, $this->getVar('at_name') ), true);
+		$form->addElement(new XoopsFormText( _AM_WGGALLERY_GT_AT_NAME, 'at_name', 50, 255, $this->getVar('at_name') ), true);
 		// Form Text Area GtDesc
 		$form->addElement(new XoopsFormTextArea( _AM_WGGALLERY_ALBUMTYPE_DESC, 'at_desc', $this->getVar('at_desc', 'e'), 4, 47 ));
 		// Form Text GtCredits
-		$form->addElement(new XoopsFormText( _AM_WGGALLERY_ALBUMTYPE_CREDITS, 'at_credits', 50, 255, $this->getVar('at_credits') ));
+		$form->addElement(new XoopsFormText( _AM_WGGALLERY_GT_AT_CREDITS, 'at_credits', 50, 255, $this->getVar('at_credits') ));
 		// Form Text GtTemplate
-		$form->addElement(new XoopsFormText( _AM_WGGALLERY_ALBUMTYPE_TEMPLATE, 'at_template', 50, 255, $this->getVar('at_template') ));
+		$form->addElement(new XoopsFormText( _AM_WGGALLERY_GT_AT_TEMPLATE, 'at_template', 50, 255, $this->getVar('at_template') ));
 		// Form Text Area GtOption
-		$form->addElement(new XoopsFormTextArea( _AM_WGGALLERY_ALBUMTYPE_OPTION, 'at_options', $this->getVar('at_options'), 4, 47 ));
+		$form->addElement(new XoopsFormTextArea( _AM_WGGALLERY_GT_AT_OPTIONS, 'at_options', $this->getVar('at_options'), 4, 47 ));
 		// Form Text Date Select GtDate
 		$gtDate = $this->isNew() ? 0 : $this->getVar('at_date');
-		$form->addElement(new XoopsFormTextDateSelect( _AM_WGGALLERY_ALBUMTYPE_DATE, 'at_date', '', $gtDate ));
+		$form->addElement(new XoopsFormTextDateSelect( _AM_WGGALLERY_GT_AT_DATE, 'at_date', '', $gtDate ));
 		// To Save
 		$form->addElement(new XoopsFormHidden('op', 'save'));
 		$form->addElement(new XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
@@ -406,14 +406,14 @@ class WggalleryAlbumtypesHandler extends XoopsPersistableObjectHandler
         switch ($template) {
             case 'default':
                 $at_name = 'Default album style';
-				$at_credits = '';
+				$at_credits = 'https://xoops.wedega.com';
                 $options[] = array('name' => 'number_cols_album', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB');
 				$options[] = array('name' => 'number_cols_cat', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT');      
 				$options[] = array('name' => 'album_showsubmitter', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_AT_SHOWSUBMITTER');				
             break;
             case 'simple':
                 $at_name = 'Simple Album';
-				$at_credits = '';
+				$at_credits = 'https://xoops.wedega.com';
                 $options[] = array('name' => 'number_cols_album', 'value' => '3', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB');
 				$options[] = array('name' => 'number_cols_cat', 'value' => '3', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT');
                 $options[] = array('name' => 'showTitle', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE');
@@ -421,14 +421,14 @@ class WggalleryAlbumtypesHandler extends XoopsPersistableObjectHandler
             break;
             case 'hovereffectideas':
                 $at_name = 'Hover Effect Ideas';
-				$at_credits = 'Codrops (http://tympanus.net/codrops)';
+				$at_credits = 'Codrops (http://tympanus.net/codrops, http://tympanus.net/Development/HoverEffectIdeas/)';
                 $options[] = array('name' => 'number_cols_album', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB');
 				$options[] = array('name' => 'number_cols_cat', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT');
 				$options[] = array('name' => 'hovereffect', 'value' => 'duke', 'caption' => '_AM_WGGALLERY_OPTION_AT_HOVER');
-            break;  
+            break;
             case 'bcards':
                 $at_name = 'Bootstrap Cards';
-				$at_credits = 'Bootstrap';
+				$at_credits = 'https://getbootstrap.com/';
                 $options[] = array('name' => 'number_cols_album', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB');
 				$options[] = array('name' => 'number_cols_cat', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT');
 				$options[] = array('name' => 'album_showsubmitter', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_AT_SHOWSUBMITTER');

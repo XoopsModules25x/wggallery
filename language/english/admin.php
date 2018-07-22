@@ -31,8 +31,8 @@ define('_AM_WGGALLERY_THEREARE_IMAGES', "There are <span class='bold'>%s</span> 
 define('_AM_WGGALLERY_THEREARE_GALLERYTYPES', "There are <span class='bold'>%s</span> gallery types in the database");
 define('_AM_WGGALLERY_THEREARE_ALBUMTYPES', "There are <span class='bold'>%s</span> album types in the database");
 // There aren't
-define('_AM_WGGALLERY_THEREARENT_GALLERYTYPES', "There aren't gallery types");
-define('_AM_WGGALLERY_THEREARENT_ALBUMTYPES', "There aren't album types");
+define('_AM_WGGALLERY_THEREARENT_GALLERYTYPES', "There aren't gallery types! For initialization/reset goto 'Maintenance' => 'Maintain gallerytypes' and click on button 'Only reset all'");
+define('_AM_WGGALLERY_THEREARENT_ALBUMTYPES', "There aren't album types! For initialization/reset goto 'Maintenance' => 'Maintain albumtypes' and click on button 'Only reset all'");
 // ---------------- Admin Files ----------------
 // Buttons
 define('_AM_WGGALLERY_ADD_ALBUM', 'Add New Album');
@@ -48,16 +48,16 @@ define('_AM_WGGALLERY_ALBUMTYPES_LIST', 'List of Album types');
 define('_AM_WGGALLERY_GALLERYTYPE_ADD', 'Add Gallerytype');
 define('_AM_WGGALLERY_GALLERYTYPE_EDIT', 'Edit Gallerytype');
 // Elements of Gallerytype
-define('_AM_WGGALLERY_GALLERYTYPE_ID', 'Id');
-define('_AM_WGGALLERY_GALLERYTYPE_PRIMARY', 'Primary');
-define('_AM_WGGALLERY_GALLERYTYPE_PRIMARY_1', 'Currently primary');
-define('_AM_WGGALLERY_GALLERYTYPE_PRIMARY_0', 'Currently not primary');
-define('_AM_WGGALLERY_GALLERYTYPE_PRIMARY_SET', 'Set to primary');
-define('_AM_WGGALLERY_GALLERYTYPE_NAME', 'Name');
-define('_AM_WGGALLERY_GALLERYTYPE_CREDITS', 'Credits');
-define('_AM_WGGALLERY_GALLERYTYPE_TEMPLATE', 'Template');
-define('_AM_WGGALLERY_GALLERYTYPE_OPTION', 'Option');
-define('_AM_WGGALLERY_GALLERYTYPE_DATE', 'Date');
+define('_AM_WGGALLERY_GT_AT_ID', 'Id');
+define('_AM_WGGALLERY_GT_AT_PRIMARY', 'Primary');
+define('_AM_WGGALLERY_GT_AT_PRIMARY_1', 'Currently primary');
+define('_AM_WGGALLERY_GT_AT_PRIMARY_0', 'Currently not primary');
+define('_AM_WGGALLERY_GT_AT_PRIMARY_SET', 'Set to primary');
+define('_AM_WGGALLERY_GT_AT_NAME', 'Name');
+define('_AM_WGGALLERY_GT_AT_CREDITS', 'Credits');
+define('_AM_WGGALLERY_GT_AT_TEMPLATE', 'Template');
+define('_AM_WGGALLERY_GT_AT_OPTIONS', 'Option');
+define('_AM_WGGALLERY_GT_AT_DATE', 'Date');
 // Elements of Gallery options
 define('_AM_WGGALLERY_OPTION_GT_SET', 'Set options for selected gallerytype');
 define('_AM_WGGALLERY_OPTION_GT_SOURCE', 'Slideshow source');
@@ -145,23 +145,12 @@ define('_AM_WGGALLERY_OPTION_GT_INDEXIMGHEIGHT', 'Image height');
 // Albumtype add/edit
 define('_AM_WGGALLERY_ALBUMTYPE_ADD', 'Add Albumtype');
 define('_AM_WGGALLERY_ALBUMTYPE_EDIT', 'Edit Albumtype');
-// Elements of Albumtype
-define('_AM_WGGALLERY_ALBUMTYPE_ID', 'Id');
-define('_AM_WGGALLERY_ALBUMTYPE_PRIMARY', 'Primary');
-define('_AM_WGGALLERY_ALBUMTYPE_PRIMARY_1', 'Currently primary');
-define('_AM_WGGALLERY_ALBUMTYPE_PRIMARY_0', 'Currently not primary');
-define('_AM_WGGALLERY_ALBUMTYPE_PRIMARY_SET', 'Set to primary');
-define('_AM_WGGALLERY_ALBUMTYPE_NAME', 'Name');
-define('_AM_WGGALLERY_ALBUMTYPE_CREDITS', 'Credits');
-define('_AM_WGGALLERY_ALBUMTYPE_TEMPLATE', 'Template');
-define('_AM_WGGALLERY_ALBUMTYPE_OPTION', 'Option');
-define('_AM_WGGALLERY_ALBUMTYPE_DATE', 'Date');
 // options  of Albumtypes
 define('_AM_WGGALLERY_OPTION_AT_SET', 'Set options for selected album type');
 define('_AM_WGGALLERY_OPTION_AT_SETINFO', 'The settings for album types will be used for index page and album blocks');
 define('_AM_WGGALLERY_OPTION_AT_HOVER', 'Hover effect');
-define('_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB', 'Number of columns for albums');
-define('_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT', 'Number of columns for categories');
+define('_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB', 'Number of columns for album list');
+define('_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT', 'Number of columns for category list');
 define('_AM_WGGALLERY_OPTION_GT_SHOWLABEL', 'Show index label (image {current} of {total}%)');
 define('_AM_WGGALLERY_OPTION_SHOWTITLE', 'Show title');
 define('_AM_WGGALLERY_OPTION_SHOWDESCR', 'Show description');
@@ -172,28 +161,40 @@ define('_AM_WGGALLERY_OPTION_AT_SHOWSUBMITTER', 'Show submitter of album');
 define('_AM_WGGALLERY_OPTION_OPACITIY', 'Opacity');
 // Maintenance
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_DR', 'Delete and reset');
-define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_R', 'Only reset all');
+define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_R', 'Set default settings');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_RIM', 'Resize medium');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_RIT', 'Resize thumbs');
+define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_DUI', 'Delete unused images');
+define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_DUI_SHOW', 'Show list of unused images');
 define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET', 'Successfully reset: ');
 define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE', 'Successfully created: ');
 define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_RESIZE', 'Successfully resized: %s of %t images');
+define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_DELETE', 'Successfully deleted: ');
 define('_AM_WGGALLERY_MAINTENANCE_ERROR_RESET', 'Error when reseting: ');
 define('_AM_WGGALLERY_MAINTENANCE_ERROR_DELETE', 'Error when deleting: ');
 define('_AM_WGGALLERY_MAINTENANCE_ERROR_RESIZE', 'Error when resizing: ');
+define('_AM_WGGALLERY_MAINTENANCE_ERROR_READDIR', 'Error when reading directory: ');
 define('_AM_WGGALLERY_MAINTENANCE_TYP', 'Typ of maintenance');
 define('_AM_WGGALLERY_MAINTENANCE_DESC', 'Description');
 define('_AM_WGGALLERY_MAINTENANCE_RESULTS', 'Results');
 define('_AM_WGGALLERY_MAINTENANCE_GT', 'Maintain gallerytypes');
 define('_AM_WGGALLERY_MAINTENANCE_GT_DESC', 'Delete gallerytypes not supported anymore and/or reset all gallerytypes to default values');
-define('_AM_WGGALLERY_MAINTENANCE_GT_SURERESET', 'All existing gallerytypes (settings included) will be updated by current gallerytypes. Do you want to continue?');
+define('_AM_WGGALLERY_MAINTENANCE_GT_SURERESET', 'All existing gallery settings will be updated to default settings. Do you want to continue?');
 define('_AM_WGGALLERY_MAINTENANCE_GT_SUREDELETE', 'All existing gallerytypes (settings included) will be deleted and replaced by current gallerytypes. Do you want to continue?');
 define('_AM_WGGALLERY_MAINTENANCE_AT', 'Maintain albumtypes');
 define('_AM_WGGALLERY_MAINTENANCE_AT_DESC', 'Delete albumtypes not supported anymore and/or reset all albumtypes to default values');
-define('_AM_WGGALLERY_MAINTENANCE_AT_SURERESET', 'All existing albumtypes (settings included) will be updated by current albumtypes. Do you want to continue?');
+define('_AM_WGGALLERY_MAINTENANCE_AT_SURERESET', 'All existing album settings will be updated to default albumtypes. Do you want to continue?');
 define('_AM_WGGALLERY_MAINTENANCE_AT_SUREDELETE', 'All existing albumtypes (settings included) will be deleted and replaced by current albumtypes. Do you want to continue?');
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE', 'Resize images');
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE_DESC', 'Resize images or thumbs to max height corresponding preferences:<br>medium: max width %mw px / max height %mh px<br>thumb: max width %tw px / max height %th px');
+define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED', 'Cleanup image directory');
+define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC', 'All currently unused album images (not included in any albums) from following directories will be deleted:<ul>
+<li>%p/large/</li>
+<li>%p/medium/</li>
+<li>%p/thumbs/</li>
+</ul>');
+define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_NONE', 'No unused images found');
+define('_AM_WGGALLERY_MAINTENANCE_DUI_SUREDELETE', 'All currently unused album images (not included in any albums) will be deleted! Do you want to continue?');
 // ---------------- Admin Others ----------------
 define('_AM_WGGALLERY_MAINTAINEDBY', ' is maintained by ');
 // ---------------- End ----------------

@@ -1,12 +1,18 @@
 .simpleContainer {
     position: relative;
+    margin-top:10px;
 }
-
 .simpleContainer .simpleContent {
     position: absolute; /* Position the background text */
     bottom: 0; /* At the bottom. Use top:0 to append it to the top */
-    background: rgba(255, 255, 255, 0.5); /* Black background with 0.5 opacity */
-    color: #f1f1f1; /* Grey text */
+    background: rgba(255, 255, 255, 0.7); /* Black background with 0.5 opacity */
+    color: #000000; /* color text */
     width: 100%; /* Full width */
     padding: 5px; /* Some padding */
+}
+.simpleContainer .simpleContent  :hover {
+    font-weight: 700;
+}
+.linebreak {
+    margin:20px;
 }

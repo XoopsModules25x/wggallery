@@ -102,7 +102,7 @@ switch($op) {
 		$imagesObj->setVar('img_title', $_POST['img_title']);
 		$imagesObj->setVar('img_desc', $_POST['img_desc']);
 		$imagesObj->setVar('img_name', $_POST['img_name']);
-		$imagesObj->setVar('img_origname', $_POST['img_origname']);
+		$imagesObj->setVar('img_nameorig', $_POST['img_nameorig']);
 		$imagesObj->setVar('img_mimetype', isset($_POST['img_mimetype']) ? $_POST['img_mimetype'] : 0);
 		$imagesObj->setVar('img_size', isset($_POST['img_size']) ? $_POST['img_size'] : 0);
 		$imagesObj->setVar('img_resx', isset($_POST['img_resx']) ? $_POST['img_resx'] : 0);
@@ -116,7 +116,7 @@ switch($op) {
 		$imageDate = date_create_from_format(_SHORTDATESTRING, $_POST['img_date']);
 		$imagesObj->setVar('img_date', $imageDate->getTimestamp());
 		$imagesObj->setVar('img_submitter', isset($_POST['img_submitter']) ? $_POST['img_submitter'] : 0);
-		$imagesObj->setVar('img_ip', $_POST['img_ip']);
+		$imagesObj->setVar('img_ip', $_SERVER['REMOTE_ADDR']);
 		// Insert Data
 		if($imagesHandler->insert($imagesObj)) {
 			redirect_header('images.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
@@ -146,7 +146,7 @@ switch($op) {
 			}
 			$img_name = $imagesObj->getVar('img_name');
 			if($imagesHandler->delete($imagesObj)) {
-				if($imagesHandler->unlinkImages($img_name)) {
+				if($imagesHandler->unlinkImages($img_name, $imagesObj->getVar('img_namelarge'))) {
 					redirect_header('images.php?alb_id=' . $albId, 3, _CO_WGGALLERY_FORM_DELETE_OK);
 				} else {
 					$GLOBALS['xoopsTpl']->assign('error', _CO_WGGALLERY_IMAGE_ERRORUNLINK);

@@ -53,3 +53,7 @@ define('WGGALLERY_STATE_APPROVAL_VAL', 2);
 // constants for download
 define('WGGALLERY_DOWNLOAD_MEDIUM',  1);
 define('WGGALLERY_DOWNLOAD_LARGE',   2);
+// constants for album image cat
+define('WGGALLERY_ALBUM_IMGCAT_USE_EXIST_VAL',  1);
+define('WGGALLERY_ALBUM_IMGCAT_USE_UPLOADED',   2);
+// define('WGGALLERY_ALBUM_IMGCAT_USE_GRID',       3);

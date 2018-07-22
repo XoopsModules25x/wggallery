@@ -13,9 +13,9 @@
 				<th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_ID}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_TITLE}></th>
-				<th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_DESC}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_NAME}></th>
-				<th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_ORIGNAME}></th>
+				<th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_NAMELARGE}></th>
+				<th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_NAMEORIG}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_MIMETYPE}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_SIZE}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_RESX}></th>
@@ -39,9 +39,9 @@
 						<td class='center'><{$image.id}></td>
 						<td class='center'><img src='<{$image.thumb}>' style='max-height:50px' alt='<{$image.name}>' /></td>
 						<td class='center'><{$image.title}></td>
-						<td class='center'><{$image.desc}></td>
 						<td class='center'><{$image.name}></td>
-						<td class='center'><{$image.origname}></td>
+						<td class='center'><{$image.namelarge}></td>
+						<td class='center'><{$image.nameorig}></td>
 						<td class='center'><{$image.mimetype}></td>
 						<td class='center'><{$image.size}></td>
 						<td class='center'><{$image.resx}></td>

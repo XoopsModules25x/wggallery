@@ -18,7 +18,7 @@
     <{if $images_nb > 0}>
         <div id="links">
             <{foreach item=image from=$images}>
-                <a href="<{$wggallery_upload_url}>/images/<{$source}>/<{$image.name}>" title="<{$image.title}>" data-description="This is a banana.">
+                <a href="<{$wggallery_upload_url}>/images/<{$source}>/<{$image.name}>" title="<{$image.title}>" data-description="<{$image.desc}>">
                     <img src="<{$wggallery_upload_url}>/images/<{$source_preview}>/<{$image.name}>" alt="<{$image.title}>">
                 </a>
             <{/foreach}>

@@ -1,6 +1,8 @@
 <{include file='db:wggallery_header.tpl'}>
 
-<{if $form}><{$form}><{/if}>
+<{if $form}>
+	<{$form}>
+<{/if}>
 
 <{if $multiupload}>
     <div class="clear">&nbsp;</div>
@@ -72,7 +74,15 @@
     </script>
 <{/if}>
 <div class="clear">&nbsp;</div>
-<div class='multiupload-footer'></div>
+<div class='multiupload-footer'>
+	<{if $albId}>
+		<div class='col-xs-12 col-sm-12 right'>
+			<a class='btn btn-default wgg-btn' href='albums.php?op=edit&amp;alb_id=<{$albId}>' title='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>'>
+				<span class = "wgg-btn-icon"><img class='' src='<{$wggallery_icon_url_16}>/edit.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>' /></span><{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>
+			</a>
+		</div>
+	<{/if}>
+</div>
 
 
 <{include file='db:wggallery_footer.tpl'}>

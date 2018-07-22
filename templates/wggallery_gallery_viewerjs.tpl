@@ -42,7 +42,7 @@
     <div id="gallery">
         <ul class="pictures">
             <{foreach item=image from=$images}>
-                <li><img data-original="<{$wggallery_upload_url}>/images/<{$source}>/<{$image.name}>" src="<{$wggallery_upload_url}>/images/<{$source_preview}>/<{$image.name}>" alt="<{$image.title}>"></li>
+                <li><img data-original="<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>" src="<{if $source_preview == 'medium'}><{$image.medium}><{else}><{$image.thumb}><{/if}>" alt="<{$image.title}>"></li>
             <{/foreach}>
         </ul>
     </div>

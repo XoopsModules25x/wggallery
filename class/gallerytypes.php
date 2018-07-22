@@ -85,18 +85,18 @@ class WggalleryGallerytypes extends XoopsObject
 		$form->setExtra('enctype="multipart/form-data"');
 		// Form Text GtPrimary
 		$gtCat = $this->isNew() ? 0 : $this->getVar('gt_primary');
-		$form->addElement(new XoopsFormRadioYN( _AM_WGGALLERY_GALLERYTYPE_PRIMARY, 'gt_primary', $gtCat ), true);
+		$form->addElement(new XoopsFormRadioYN( _AM_WGGALLERY_GT_AT_PRIMARY, 'gt_primary', $gtCat ), true);
 		// Form Text GtName
-		$form->addElement(new XoopsFormText( _AM_WGGALLERY_GALLERYTYPE_NAME, 'gt_name', 50, 255, $this->getVar('gt_name') ), true);
+		$form->addElement(new XoopsFormText( _AM_WGGALLERY_GT_AT_NAME, 'gt_name', 50, 255, $this->getVar('gt_name') ), true);
 		// Form Text GtCredits
-		$form->addElement(new XoopsFormText( _AM_WGGALLERY_GALLERYTYPE_CREDITS, 'gt_credits', 50, 255, $this->getVar('gt_credits') ));
+		$form->addElement(new XoopsFormText( _AM_WGGALLERY_GT_AT_CREDITS, 'gt_credits', 50, 255, $this->getVar('gt_credits') ));
 		// Form Text GtTemplate
-		$form->addElement(new XoopsFormText( _AM_WGGALLERY_GALLERYTYPE_TEMPLATE, 'gt_template', 50, 255, $this->getVar('gt_template') ));
+		$form->addElement(new XoopsFormText( _AM_WGGALLERY_GT_AT_TEMPLATE, 'gt_template', 50, 255, $this->getVar('gt_template') ));
 		// Form Text Area GtOption
-		$form->addElement(new XoopsFormTextArea( _AM_WGGALLERY_GALLERYTYPE_OPTION, 'gt_options', $this->getVar('gt_options'), 4, 47 ));
+		$form->addElement(new XoopsFormTextArea( _AM_WGGALLERY_GT_AT_OPTIONS, 'gt_options', $this->getVar('gt_options'), 4, 47 ));
 		// Form Text Date Select GtDate
 		$gtDate = $this->isNew() ? 0 : $this->getVar('gt_date');
-		$form->addElement(new XoopsFormTextDateSelect( _AM_WGGALLERY_GALLERYTYPE_DATE, 'gt_date', '', $gtDate ));
+		$form->addElement(new XoopsFormTextDateSelect( _AM_WGGALLERY_GT_AT_DATE, 'gt_date', '', $gtDate ));
 		// To Save
 		$form->addElement(new XoopsFormHidden('op', 'save'));
 		$form->addElement(new XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
@@ -135,7 +135,7 @@ class WggalleryGallerytypes extends XoopsObject
                 case 'source_preview':
 					$source_preview = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_SOURCE_DESC . '</span>', 'source_preview', $option['value']);
 					$source_preview->addOption('medium', 'medium');
-					$source_preview->addOption('large', 'large');
+					$source_preview->addOption('thumb', 'thumb');
 					$form->addElement($source_preview);
 				break;
 				case 'jssor_arrows':
@@ -799,7 +799,7 @@ class WggalleryGallerytypesHandler extends XoopsPersistableObjectHandler
                 $options[] = array('name' => 'slideshowSpeed', 'value'=> '3000', 'caption' => '_AM_WGGALLERY_OPTION_GT_SLIDESHOWSPEED');
                 $options[] = array('name' => 'transitionDuration', 'value' => '500', 'caption' => '_AM_WGGALLERY_OPTION_GT_TRANSDURATION');
                 $options[] = array('name' => 'slideshowAuto', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_AUTOPLAY');
-                $options[] = array('name' => 'showThumbnails', 'value' => 'tru', 'caption' => '_AM_WGGALLERY_OPTION_GT_SHOWTHUMBS');
+                $options[] = array('name' => 'showThumbnails', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_SHOWTHUMBS');
                 $options[] = array('name' => 'showTitle', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE');
             
             break;
