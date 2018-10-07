@@ -20,18 +20,21 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 albumtypes.php 1 Sat 2018-03-31 11:31:09Z XOOPS Project (www.xoops.org) $
  */
+  
+use Xmf\Request;
+
 include __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
-$op   = XoopsRequest::getString('op', 'list');
-$atId = XoopsRequest::getInt('at_id');
+$op   = Request::getString('op', 'list');
+$atId = Request::getInt('at_id');
 
 switch($op) {
 	case 'list':
 	default:
 		// Define Stylesheet
 		$GLOBALS['xoTheme']->addStylesheet( $style, null );
-		$start = XoopsRequest::getInt('start', 0);
-		$limit = XoopsRequest::getInt('limit', $wggallery->getConfig('adminpager'));
+		$start = Request::getInt('start', 0);
+		$limit = Request::getInt('limit', $wggallery->getConfig('adminpager'));
 		$templateMain = 'wggallery_admin_albumtypes.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('albumtypes.php'));
 		$adminObject->addItemButton(_AM_WGGALLERY_ADD_ALBUMTYPE, 'albumtypes.php?op=new', 'add');
@@ -116,10 +119,21 @@ switch($op) {
 		if (isset($_POST['hovereffect'])) {$options[] = array('name' => 'hovereffect', 'value' => $_POST['hovereffect'], 'caption' => '_AM_WGGALLERY_OPTION_AT_HOVER');}
         if (isset($_POST['showTitle'])) {$options[] = array('name' => 'showTitle', 'value' => $_POST['showTitle'], 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE');}
         if (isset($_POST['showDesc'])) {$options[] = array('name' => 'showDesc', 'value' => $_POST['showDesc'], 'caption' => '_AM_WGGALLERY_OPTION_SHOWDESCR');}
-		if (isset($_POST['album_showsubmitter'])) {$options[] = array('name' => 'album_showsubmitter', 'value' => $_POST['album_showsubmitter'], 'caption' => '_AM_WGGALLERY_OPTION_AT_SHOWSUBMITTER');}
+		if (isset($_POST['album_showsubmitter'])) {$options[] = array('name' => 'album_showsubmitter', 'value' => $_POST['album_showsubmitter'], 'caption' => '_AM_WGGALLERY_OPTION_SHOWSUBMITTER');}
+        
+        // apply sort order
+		$option_sort = Request::getString('option_sort', '');
+		$sort_arr = explode('|', $option_sort);
+		$options_final = array(); // result array
+		foreach($sort_arr as $val){ // loop
+			foreach ($options as $option) {
+				if ($val == $option['name']) {$options_final[] = array('name' => $option['name'], 'value' => $option['value'], 'caption' =>$option['caption'] );} // adding values
+			}
+		}
+		$options_final[] = array('name' => 'option_sort', 'value' => $option_sort);
         
 		// Set Vars
-		$albumtypesObj->setVar('at_options', serialize($options));
+		$albumtypesObj->setVar('at_options', serialize($options_final));
 		// Insert Data
 		if($albumtypesHandler->insert($albumtypesObj)) {
 			redirect_header('albumtypes.php?op=list', 2, _CO_WGGALLERY_FORM_OK);

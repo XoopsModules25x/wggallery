@@ -120,18 +120,10 @@ define('_MI_WGGALLERY_ADDJQUERY_DESC', 'If you use already jquery (e.g. in your 
 // define('_MI_WGGALLERY_TABLE_TYPE_DESC', 'Table Type is the bootstrap html table.');
 define('_MI_WGGALLERY_PANEL_TYPE', 'Panel Type');
 define('_MI_WGGALLERY_PANEL_TYPE_DESC', 'Panel Type is the bootstrap html div.');
-define('_MI_WGGALLERY_IDPAYPAL', 'Paypal ID');
-define('_MI_WGGALLERY_IDPAYPAL_DESC', 'Insert here your PayPal ID for donactions.');
-define('_MI_WGGALLERY_ADVERTISE', 'Advertisement Code');
-define('_MI_WGGALLERY_ADVERTISE_DESC', 'Insert here the advertisement code');
+define('_MI_WGGALLERY_SHOW_MODULETITLE', 'Show module title');
+define('_MI_WGGALLERY_SHOW_MODULETITLE_DESC', 'Show module title in breadcrumbs');
 define('_MI_WGGALLERY_MAINTAINEDBY', 'Maintained By');
 define('_MI_WGGALLERY_MAINTAINEDBY_DESC', 'Allow url of support site or community');
-define('_MI_WGGALLERY_BOOKMARKS', 'Social Bookmarks');
-define('_MI_WGGALLERY_BOOKMARKS_DESC', 'Show Social Bookmarks in the single page');
-define('_MI_WGGALLERY_FACEBOOK_COMMENTS', 'Facebook comments');
-define('_MI_WGGALLERY_FACEBOOK_COMMENTS_DESC', 'Allow Facebook comments in the single page');
-define('_MI_WGGALLERY_DISQUS_COMMENTS', 'Disqus comments');
-define('_MI_WGGALLERY_DISQUS_COMMENTS_DESC', 'Allow Disqus comments in the single page');
 // Notifications
 define('_MI_WGGALLERY_GLOBAL_NOTIFY', 'Global notify');
 define('_MI_WGGALLERY_GLOBAL_NOTIFY_DESC', 'Global notify desc');

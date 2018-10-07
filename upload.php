@@ -80,12 +80,11 @@ if ($permissionsHandler->permGlobalSubmit()) {
 				break;
 			}
 		}  
-		$allowedfileext = '';
+
 		$allowedfileext = implode("', '", $fileextions);
 		if ('' !== $allowedfileext) {
 			$allowedfileext = "'" . $allowedfileext . "'";
 		}
-		$allowedmimetypes = '';
 		$allowedmimetypes = implode("', '", $mimetypes);
 		if ('' !== $allowedmimetypes) {
 			$allowedmimetypes = "'" . $allowedmimetypes . "'";

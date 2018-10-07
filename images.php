@@ -20,19 +20,22 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 images.php 1 Mon 2018-03-19 10:04:51Z XOOPS Project (www.xoops.org) $
  */
+  
+use Xmf\Request;
+
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_images_default.tpl';
 include_once XOOPS_ROOT_PATH .'/header.php';
 
-$op       = XoopsRequest::getString('op', 'list');
-$imgId    = XoopsRequest::getInt('img_id');
-$albId    = XoopsRequest::getInt('alb_id');
-$albPid   = XoopsRequest::getInt('alb_pid');
-$imgSubm  = XoopsRequest::getInt('img_submitter');
-$start    = XoopsRequest::getInt('start', 0);
-$limit    = XoopsRequest::getInt('limit', $wggallery->getConfig('userpager'));
+$op       = Request::getString('op', 'list');
+$imgId    = Request::getInt('img_id');
+$albId    = Request::getInt('alb_id');
+$albPid   = Request::getInt('alb_pid');
+$imgSubm  = Request::getInt('img_submitter');
+$start    = Request::getInt('start', 0);
+$limit    = Request::getInt('limit', $wggallery->getConfig('userpager'));
 
-if (_CANCEL === XoopsRequest::getString('cancel', 'none')) {
+if (_CANCEL === Request::getString('cancel', 'none')) {
 	$op = 'list';
 }
 
@@ -58,60 +61,6 @@ $xoBreadcrumbs[] = array('title' => $albumsObj->getVar('alb_name'));
 $xoBreadcrumbs[] = array('title' => _MA_WGGALLERY_IMAGES);
 
 switch($op) {
-	case 'list':
-	default:
-    
-        $albums = $wggallery->getHandler('albums');
-		$albumsObj = $albums->get($albId);
-		if (isset($albumsObj) && is_object($albumsObj)) {
-			$albName = $albumsObj->getVar('alb_name');
-			$albAllowdownload = $albumsObj->getVar('alb_allowdownload');
-			$albSubmitter = $albumsObj->getVar('alb_submitter');
-		}
-        $GLOBALS['xoopsTpl']->assign('alb_name', $albName);
-		if ($permissionsHandler->permAlbumDownload($albId)) {
-			$GLOBALS['xoopsTpl']->assign('alb_allowdownload', $albAllowdownload);
-		}
-		$GLOBALS['xoopsTpl']->assign('alb_pid', $albPid);
-        
-		$crImages = new CriteriaCompo();
-        $crImages->add(new Criteria('img_albid', $albId));
-        if (!$permissionsHandler->permAlbumEdit($albId, $albSubmitter)) {
-            $crImages->add(new Criteria('img_state', 1));
-        }
-        $crImages->setSort('img_weight');
-        $crImages->setOrder('ASC');
-        $imagesCount = $imagesHandler->getCount($crImages);
-        $crImages->setStart( $start );
-        $crImages->setLimit( $limit );
-		$imagesAll = $imagesHandler->getAll($crImages);
-		$keywords = array();
-		if($imagesCount > 0) {
-			$images = array();
-			// Get All Images
-			foreach(array_keys($imagesAll) as $i) {
-				$images[$i] = $imagesAll[$i]->getValuesImages();
-                //check permissions
-                $images[$i]['edit'] = $permissionsHandler->permAlbumEdit($albId);
-				$keywords[] = $imagesAll[$i]->getVar('img_name');
-			}
-			$GLOBALS['xoopsTpl']->assign('images', $images);
-			unset($images);
-			// Display Navigation
-			if($imagesCount > $limit) {
-				include_once XOOPS_ROOT_PATH .'/class/pagenav.php';
-                
-
-                
-				$pagenav = new XoopsPageNav($imagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit . '&alb_id=' . $albId . '&alb_pid=' . $albPid . '&img_submitter=' . $imgSubm );
-				$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
-			}
-			$GLOBALS['xoopsTpl']->assign('type', $wggallery->getConfig('table_type'));
-			$GLOBALS['xoopsTpl']->assign('divideby', $wggallery->getConfig('divideby'));
-			$GLOBALS['xoopsTpl']->assign('numb_col', $wggallery->getConfig('numb_col'));
-		}
-		
-	break;
 	case 'save':
 		// Security Check
 		if(!$GLOBALS['xoopsSecurity']->check()) {
@@ -180,9 +129,62 @@ switch($op) {
 			$form = $wggallery->getFormDelete(array('ok' => 1, 'img_id' => $imgId, 'op' => 'delete'), _CO_WGGALLERY_FORM_DELETE, $imagesObj->getVar('img_name'));
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
 		}
-
 	break;
-}		
+
+    case 'list':
+    default:
+
+        $albums = $wggallery->getHandler('albums');
+        $albumsObj = $albums->get($albId);
+        if (isset($albumsObj) && is_object($albumsObj)) {
+            $albName = $albumsObj->getVar('alb_name');
+            $albAllowdownload = $albumsObj->getVar('alb_allowdownload');
+            $albSubmitter = $albumsObj->getVar('alb_submitter');
+        }
+        $GLOBALS['xoopsTpl']->assign('alb_name', $albName);
+        if ($permissionsHandler->permAlbumDownload($albId)) {
+            $GLOBALS['xoopsTpl']->assign('alb_allowdownload', $albAllowdownload);
+        }
+        $GLOBALS['xoopsTpl']->assign('alb_pid', $albPid);
+
+        $crImages = new CriteriaCompo();
+        $crImages->add(new Criteria('img_albid', $albId));
+        if (!$permissionsHandler->permAlbumEdit($albSubmitter)) {
+            $crImages->add(new Criteria('img_state', 1));
+        }
+        $crImages->setSort('img_weight');
+        $crImages->setOrder('ASC');
+        $imagesCount = $imagesHandler->getCount($crImages);
+        $crImages->setStart( $start );
+        $crImages->setLimit( $limit );
+        $imagesAll = $imagesHandler->getAll($crImages);
+        $keywords = array();
+        if($imagesCount > 0) {
+            $images = array();
+            // Get All Images
+            foreach(array_keys($imagesAll) as $i) {
+                $images[$i] = $imagesAll[$i]->getValuesImages();
+                //check permissions
+                $images[$i]['edit'] = $permissionsHandler->permAlbumEdit($images[$i]['img_submitter']);
+                $keywords[] = $imagesAll[$i]->getVar('img_name');
+            }
+            $GLOBALS['xoopsTpl']->assign('images', $images);
+            unset($images);
+            // Display Navigation
+            if($imagesCount > $limit) {
+                include_once XOOPS_ROOT_PATH .'/class/pagenav.php';
+
+
+
+                $pagenav = new XoopsPageNav($imagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit . '&alb_id=' . $albId . '&alb_pid=' . $albPid . '&img_submitter=' . $imgSubm );
+                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+            }
+            $GLOBALS['xoopsTpl']->assign('type', $wggallery->getConfig('table_type'));
+            $GLOBALS['xoopsTpl']->assign('divideby', $wggallery->getConfig('divideby'));
+            $GLOBALS['xoopsTpl']->assign('numb_col', $wggallery->getConfig('numb_col'));
+        }
+        break;
+}
 
 // Keywords
 wggalleryMetaKeywords($wggallery->getConfig('keywords').', '. implode(',', $keywords));

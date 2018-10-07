@@ -20,14 +20,17 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 albums.php 1 Mon 2018-03-19 10:04:50Z XOOPS Project (www.xoops.org) $
  */
+  
+use Xmf\Request;
+
 include __DIR__ . '/header.php';
 $pr_album = $albumtypesHandler->getPrimaryAlbum();
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_index_' . $pr_album['template'] . '.tpl';
 include_once XOOPS_ROOT_PATH .'/header.php';
-$start       = XoopsRequest::getInt('start', 0);
-$limit       = XoopsRequest::getInt('limit', $wggallery->getConfig('userpager'));
-$albPid    = XoopsRequest::getInt('alb_pid', 0);
-$submitterId = XoopsRequest::getInt('subm_id', 0);
+$start       = Request::getInt('start', 0);
+$limit       = Request::getInt('limit', $wggallery->getConfig('userpager'));
+$albPid    = Request::getInt('alb_pid', 0);
+$submitterId = Request::getInt('subm_id', 0);
 
 // general template assigns
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
@@ -38,7 +41,7 @@ $GLOBALS['xoopsTpl']->assign('panel_type', $wggallery->getConfig('panel_type'));
 // $GLOBALS['xoopsTpl']->assign('numb_col', $wggallery->getConfig('numb_col'));
 
 // assign all album options
-$atoptions = unserialize($pr_album['options']);
+$atoptions = unserialize($pr_album['options'], ['allowed_classes' => false]);
 foreach ($atoptions as $atoption) {
 	$GLOBALS['xoopsTpl']->assign($atoption['name'], $atoption['value']);
 	if ('number_cols_album' === $atoption['name']) {$number_cols_album = $atoption['value'];}
@@ -53,7 +56,7 @@ $GLOBALS['xoTheme']->addStylesheet( $style, null );
 switch($pr_album['template']) {
 	case 'hovereffectideas':
 		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/albumtypes/hovereffectideas/style.css', null );
-        $GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/albumtypes/hovereffectideas/font-awesome-4.2.0/css/font-awesome.min.css', null );
+        $GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/albumtypes/hovereffectideas/fonts/font-awesome-4.2.0/css/font-awesome.min.css', null );
 	break;
     case 'simple':
 		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/albumtypes/simple/style.css' , null );
@@ -71,7 +74,7 @@ $keywords = array();
 
 // Breadcrumbs
 if ($albPid) {
-	$xoBreadcrumbs[] = array('title' => _CO_WGGALLERY_ALBUMS, 'link' => WGGALLERY_URL . '/');
+    $xoBreadcrumbs[] = array('title' => _CO_WGGALLERY_ALBUMS, 'link' => WGGALLERY_URL . '/');
 	$albumsObj = $albumsHandler->get($albPid);
 	$xoBreadcrumbs[] = array('title' => $albumsObj->getVar('alb_name'));
 } else {
@@ -80,6 +83,7 @@ if ($albPid) {
 if ( 0 < $submitterId ) {
 	$GLOBALS['xoopsTpl']->assign('subm_id', $submitterId);
 }
+
 // get all albums which are online
 $crAlbums = new CriteriaCompo();
 if ($permissionsHandler->permGlobalSubmit()) {
@@ -105,7 +109,7 @@ if($albumsCount > 0) {
 		$albums[$i] = $albumsAll[$i]->getValuesAlbums();
 		$submitter = $albumsAll[$i]->getVar('alb_submitter');
         //check permissions
-        $albums[$i]['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
+        $albums[$i]['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_submitter'));
         //set indicator for line break
         $counter++;
         if (1 === $counter) {
@@ -136,7 +140,7 @@ if($albumsCount > 0) {
 	$GLOBALS['xoopsTpl']->assign('gallery', 'none' != $pr_gallery['template']);
 	// $GLOBALS['xoopsTpl']->assign('album_showsubmitter', $wggallery->getConfig('album_showsubmitter'));
 	if ( 0 < $submitterId ) {
-		$GLOBALS['xoopsTpl']->assign('index_alb_title', _CO_WGGALLERY_ALBUMS_TITLE . ": " . XoopsUser::getUnameFromId($submitter));
+		$GLOBALS['xoopsTpl']->assign('index_alb_title', _CO_WGGALLERY_ALBUMS_TITLE . ': ' . XoopsUser::getUnameFromId($submitter));
 	} else {
 		$GLOBALS['xoopsTpl']->assign('index_alb_title', _CO_WGGALLERY_ALBUMS_TITLE);
 	}
@@ -179,7 +183,7 @@ if($albumsCount > 0) {
 		$nbAlbums = $albumsHandler->getCount($crSubAlbums);
 		$categories[$i]['nb_albums'] = $nbAlbums;
         //check permissions
-        $categories[$i]['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
+        $categories[$i]['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_submitter'));
         //set indicator for line break
         $counter++;
         if (1 === $counter) {
@@ -198,7 +202,7 @@ if($albumsCount > 0) {
 	// $GLOBALS['xoopsTpl']->assign('album_showsubmitter', $wggallery->getConfig('album_showsubmitter'));
 	unset($categories);
 	if ( 0 < $submitterId ) {
-		$GLOBALS['xoopsTpl']->assign('index_cats_title', _CO_WGGALLERY_CATS_TITLE . ": " . XoopsUser::getUnameFromId($submitter));
+		$GLOBALS['xoopsTpl']->assign('index_cats_title', _CO_WGGALLERY_CATS_TITLE . ': ' . XoopsUser::getUnameFromId($submitter));
 	} else {
 		$GLOBALS['xoopsTpl']->assign('index_cats_title', _CO_WGGALLERY_CATS_TITLE);
 	}

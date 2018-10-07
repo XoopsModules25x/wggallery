@@ -21,7 +21,10 @@
  * @version        $Id: 1.0 permissions.php 1 Mon 2018-03-19 10:04:53Z XOOPS Project (www.xoops.org) $
  */
 
- /***************Permissions***************/
+/***************Permissions**************
+ * @param $albId
+ * @return bool
+ */
 
 function permGlobalApprove($albId) {
     

@@ -106,9 +106,9 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 		
         $pathParts = pathinfo($this->getName());
 
-        $this->imageName      = uniqid('img') . '.' . strtolower($pathParts['extension']);
+        $this->imageName      = uniqid('img', true) . '.' . strtolower($pathParts['extension']);
         $this->imageNicename  = str_replace(array('_','-'), ' ', $pathParts['filename']);
-        $this->imageNameLarge = uniqid('imgl') . '.' . strtolower($pathParts['extension']);
+        $this->imageNameLarge = uniqid('imgl', true) . '.' . strtolower($pathParts['extension']);
 		$this->imagePath      = $this->pathUpload . '/large/' . $this->imageNameLarge;
 		
         if (false === move_uploaded_file($_FILES[$this->inputName]['tmp_name'], $this->imagePath)) {
@@ -126,8 +126,8 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 			);
 		} 
 		// create medium image
-		$ret = $this->resizeImage($this->pathUpload . '/medium/' . $this->imageName, $wggallery->getConfig('maxwidth_medium'), $wggallery->getConfig('maxheight_medium'));;
-		if(false === $ret) {
+		$ret = $this->resizeImage($this->pathUpload . '/medium/' . $this->imageName, $wggallery->getConfig('maxwidth_medium'), $wggallery->getConfig('maxheight_medium'));
+        if(false === $ret) {
 			return array('error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_MEDIUM, $this->imageNicename));
 		} 
 		if ('copy' === $ret) {
@@ -141,7 +141,7 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 		if ('copy' === $ret) {
 			copy($this->pathUpload . '/large/' . $this->imageNameLarge, $this->pathUpload . '/thumbs/' . $this->imageName);
 		}
-        return array('success'=> true, "uuid" => $uuid);
+        return array('success'=> true, 'uuid' => $uuid);
     }
 	
 	
@@ -209,7 +209,7 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 	 * @param string $endfile 
      * @param int    $max_width 
 	 * @param int    $max_height 
-	 * @return string|void
+	 * @return string|boolean
      */
     private function resizeImage($endfile, $max_width, $max_height){
         // check file extension
@@ -241,14 +241,12 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
                     $divisor = $width / $new_width;
                     $new_height = floor( $height / $divisor);
                 }
+            } else if($height < $max_height){
+                $new_height = $height;
             } else {
-                if($height < $max_height){
-                    $new_height = $height;
-                } else {
-                    $new_height =  $max_height;
-                    $divisor = $height / $new_height;
-                    $new_width = floor( $width / $divisor );
-                }
+                $new_height =  $max_height;
+                $divisor = $height / $new_height;
+                $new_width = floor( $width / $divisor );
             }
 
             // Create a new temporary image.

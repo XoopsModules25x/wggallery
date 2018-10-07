@@ -34,7 +34,7 @@
 }
 
 .wgg-img {
-	margin: 0px auto 0px auto;
+	margin: 0 auto 0 auto;
     border: 1px solid grey;
     padding: 2px;
 	
@@ -58,7 +58,7 @@
 	
 }
 .wgg-img-panel  {
-	margin: 0px;
+	margin: 0;
 }
 .wgg-img-panel-row p {
 	margin:2px 0;

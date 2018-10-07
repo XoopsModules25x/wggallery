@@ -101,7 +101,7 @@ function wggalleryMetaKeywords($content)
     global $xoopsTpl, $xoTheme;
     $myts = MyTextSanitizer::getInstance();
     $content= $myts->undoHtmlSpecialChars($myts->displayTarea($content));
-    if(isset($xoTheme) && is_object($xoTheme)) {
+    if($xoTheme !== null && is_object($xoTheme)) {
         $xoTheme->addMeta( 'meta', 'keywords', strip_tags($content));
     } else {    // Compatibility for old Xoops versions
         $xoopsTpl->assign('xoops_meta_keywords', strip_tags($content));
@@ -119,7 +119,7 @@ function wggalleryMetaDescription($content)
     global $xoopsTpl, $xoTheme;
     $myts = MyTextSanitizer::getInstance();
     $content = $myts->undoHtmlSpecialChars($myts->displayTarea($content));
-    if(isset($xoTheme) && is_object($xoTheme)) {
+    if($xoTheme !== null && is_object($xoTheme)) {
         $xoTheme->addMeta( 'meta', 'description', strip_tags($content));
     } else {    // Compatibility for old Xoops versions
         $xoopsTpl->assign('xoops_meta_description', strip_tags($content));
@@ -138,7 +138,7 @@ function wggallery_RewriteUrl($module, $array, $type = 'content')
 {
     $comment = '';
     $wggallery = WggalleryHelper::getInstance();
-    $images = $wggallery->getHandler('images');
+    //$images = $wggallery->getHandler('images');
     $lenght_id = $wggallery->getConfig('lenght_id');
     $rewrite_url = $wggallery->getConfig('rewrite_url');
 
@@ -227,15 +227,15 @@ function wggallery_Filter($url, $type = '', $module = 'wggallery') {
 
     // Get regular expression from module setting. default setting is : `[^a-z0-9]`i
     $wggallery = WggalleryHelper::getInstance();
-    $images = $wggallery->getHandler('images');
+    //$images = $wggallery->getHandler('images');
     $regular_expression = $wggallery->getConfig('regular_expression');
 
     $url = strip_tags($url);
-    $url = preg_replace("`\[.*\]`U", "", $url);
+    $url = preg_replace("`\[.*\]`U", '', $url);
     $url = preg_replace('`&(amp;)?#?[a-z0-9]+;`i', '-', $url);
     $url = htmlentities($url, ENT_COMPAT, 'utf-8');
     $url = preg_replace("`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig);`i", "\1", $url);
-    $url = preg_replace(array($regular_expression, "`[-]+`"), "-", $url);
+    $url = preg_replace(array($regular_expression, "`[-]+`"), '-', $url);
     $url = ($url == '') ? $type : strtolower(trim($url, '-'));
     return $url;
 }

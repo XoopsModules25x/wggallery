@@ -2,7 +2,7 @@
 <{include file='db:wggallery_admin_header.tpl'}>
 <style>
  .btn {
-	margin:0px;
+	margin:0;
 	padding: 4px 10px;
 	border:1px solid #ccc;
 	border-radius:5px;

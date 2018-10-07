@@ -49,8 +49,8 @@ define('_CO_WGGALLERY_FORM_SURE_RENEW', "Wollen Sie wirklich aktualisieren: <b><
 define('_CO_WGGALLERY_FORM_DELETE', 'Löschen'); //wggallery xoops confirm
 define('_CO_WGGALLERY_FORM_DELETE_SURE', 'Wollen Sie wirklich löschen?'); //wggallery xoops confirm
 // There aren't
-define('_CO_WGGALLERY_THEREARENT_ALBUMS', "Es gibt keine Alben");
-define('_CO_WGGALLERY_THEREARENT_IMAGES', "Es gibt keine Bilder");
+define('_CO_WGGALLERY_THEREARENT_ALBUMS', 'Es gibt keine Alben');
+define('_CO_WGGALLERY_THEREARENT_IMAGES', 'Es gibt keine Bilder');
 // Album buttons
 define('_CO_WGGALLERY_ALBUM_ADD', 'Album hinzufügen');
 define('_CO_WGGALLERY_ALBUM_EDIT', 'Album bearbeiten'); 
@@ -59,7 +59,7 @@ define('_CO_WGGALLERY_ALBUM_EDIT', 'Album bearbeiten');
 define('_CO_WGGALLERY_CATS_TITLE', 'Verfügbare Kategorien');
 define('_CO_WGGALLERY_CATS_ALBUMS', 'Enthaltene Alben anzeigen');
 // Elements of Album
-define('_CO_WGGALLERY_ALBUMS_TITLE', 'Gallerie unserer Alben');
+define('_CO_WGGALLERY_ALBUMS_TITLE', 'Galerie unserer Alben');
 define('_CO_WGGALLERY_ALBUMS_COUNT', 'Anzahl der Alben');
 define('_CO_WGGALLERY_ALBUM', 'Album');
 define('_CO_WGGALLERY_ALBUMS', 'Alben');
@@ -95,7 +95,7 @@ define('_CO_WGGALLERY_ALBUM_SORT_SHOWHIDE', 'Zum Anzeigen/Verstecken der Listene
 
 define('_CO_WGGALLERY_IMAGE', 'Bild');
 define('_CO_WGGALLERY_IMAGES', 'Bilder');
-define('_CO_WGGALLERY_IMAGES_TITLE', 'Bildergallerie');
+define('_CO_WGGALLERY_IMAGES_TITLE', 'Bildergalerie');
 define('_CO_WGGALLERY_IMAGES_COUNT', 'Anzahl der Bilder');
 define('_CO_WGGALLERY_IMAGES_ALBUMSHOW', 'Album anzeigen');
 define('_CO_WGGALLERY_IMAGES_INDEX', 'Bilderindex anzeigen'); 
@@ -125,19 +125,16 @@ define('_CO_WGGALLERY_IMAGE_IP', 'Ip');
 // ---------------- Admin Permissions ----------------
 // Permissions
 define('_CO_WGGALLERY_PERMS_GLOBAL', 'Globale Berechtigungen');
-define('_CO_WGGALLERY_PERMS_GLOBAL_4', 'Globale Berechtigung zum Freigeben');
-define('_CO_WGGALLERY_PERMS_GLOBAL_8', 'Globale Berechtigung zum Bearbeiten aller Alben');
-define('_CO_WGGALLERY_PERMS_GLOBAL_16', 'Globale Berechtigung zum Bearbeiten eigener Alben');
-define('_CO_WGGALLERY_PERMS_GL_APPROVE', 'Berechtigung zum Freigeben');
-define('_CO_WGGALLERY_PERMS_GL_APPROVE_DESC', 'Gruppen mit der Berechtigung zum Freigeben eingesendeter Alben');
-define('_CO_WGGALLERY_PERMS_GL_SUBMIT_ALL', 'Berechtigung zum Einsenden und Bearbeiten aller Alben');
-define('_CO_WGGALLERY_PERMS_GL_SUBMIT_ALL_DESC', 'Gruppen mit der Berechtigung zum <ul><li>Erstellen von Alben</li><li>Bearbeiten aller Alben</li><li>Hochladen von Bildern in alle Alben</li></ul>');
-define('_CO_WGGALLERY_PERMS_GL_SUBMIT', 'Berechtigung zum Einsenden und Bearbeiten');
-define('_CO_WGGALLERY_PERMS_GL_SUBMIT_DESC', 'Gruppen mit der Berechtigung zum <ul><li>Erstellen von Alben</li><li>Bearbeiten der eigenen Alben</li><li>Hochladen von Bildern in eigene Alben</li></ul>');
+define('_CO_WGGALLERY_PERMS_GLOBAL_APPROVE', 'Globale Berechtigung zum Freigeben');
+define('_CO_WGGALLERY_PERMS_GLOBAL_APPROVE_DESC', 'Gruppen mit der Berechtigung zum Freigeben eingesendeter Alben');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL', 'Globale Berechtigung zum Bearbeiten aller Alben');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC', 'Gruppen mit der Berechtigung zum <ul><li>Erstellen von Alben</li><li>Bearbeiten aller Alben</li><li>Hochladen von Bildern in alle Alben</li></ul>');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMIT', 'Globale Berechtigung zum Bearbeiten eigener Alben');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMIT_DESC', 'Gruppen mit der Berechtigung zum <ul><li>Erstellen von Alben</li><li>Bearbeiten der eigenen Alben</li><li>Hochladen von Bildern in eigene Alben</li></ul>');
 define('_CO_WGGALLERY_PERMS_GLOBAL_DESC', '<ul>
-												<li>' . _CO_WGGALLERY_PERMS_GL_APPROVE . ': ' . _CO_WGGALLERY_PERMS_GL_APPROVE_DESC. '</li>
-												<li>' . _CO_WGGALLERY_PERMS_GL_SUBMIT_ALL . ': ' . _CO_WGGALLERY_PERMS_GL_SUBMIT_ALL_DESC. '</li>
-												<li>' . _CO_WGGALLERY_PERMS_GL_SUBMIT . ': ' . _CO_WGGALLERY_PERMS_GL_SUBMIT_DESC. '</li>
+												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_APPROVE . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_APPROVE_DESC. '</li>
+												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC. '</li>
+												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMIT . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMIT_DESC. '</li>
 										   </ul>');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW', 'Berechtigung zum Ansehen');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW_DESC', 'Gruppen mit der Berechtigung zum Ansehen der Alben');

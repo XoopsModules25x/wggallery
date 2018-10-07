@@ -1390,7 +1390,7 @@ figure.effect-winston figcaption::before {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: url(../img/triangle.svg) no-repeat center center;
+	background: url(img/triangle.svg) no-repeat center center;
 	background-size: 100% 100%;
 	content: '';
 	-webkit-transition: opacity 0.45s, -webkit-transform 0.45s;
@@ -1504,8 +1504,8 @@ figure.effect-selena p {
 	transition: opacity 0.35s, transform 0.35s;
 	-webkit-transform: perspective(1000px) rotate3d(1,0,0,90deg);
 	transform: perspective(1000px) rotate3d(1,0,0,90deg);
-	-webkit-transform-origin: 50% 0%;
-	transform-origin: 50% 0%;
+	-webkit-transform-origin: 50% 0;
+	transform-origin: 50% 0;
 }
 
 figure.effect-selena:hover h3 {
@@ -1675,7 +1675,7 @@ figure.effect-phoebe figcaption::before {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: url(../img/triangle2.svg) no-repeat center center;
+	background: url(img/triangle2.svg) no-repeat center center;
 	background-size: 100% 100%;
 	content: '';
 	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;

@@ -18,7 +18,7 @@
 		rowHeight:<{$rowHeight}>,
 		lastRow:'<{$lastRow}>',
 		margins:<{$margins}>,
-		border:<{$border}>,
+		border:<{$outerborder}>,
 		captions:<{$showTitle}>,
 		randomize:<{$randomize}>,
 		rel:'gallery1'
@@ -29,7 +29,7 @@
 			slideshowAuto: <{$slideshowAuto}>,
 			slideshowStart:'<{$colorbox_slideshowstart}>',
 			slideshowStop: '<{$colorbox_slideshowstop}>',
-			speed:<{$speed}>,
+			speed:<{$speedOpen}>,
 			open:<{$open}>,
 			opacity:<{$opacity}>,
 			transition: '<{$transition}>',

@@ -44,9 +44,6 @@ define('_AM_WGGALLERY_ALBUMS_LIST', 'List of Albums');
 define('_AM_WGGALLERY_IMAGES_LIST', 'List of Images');
 define('_AM_WGGALLERY_GALLERYTYPES_LIST', 'List of Gallery types');
 define('_AM_WGGALLERY_ALBUMTYPES_LIST', 'List of Album types');
-// Gallerytype add/edit
-define('_AM_WGGALLERY_GALLERYTYPE_ADD', 'Add Gallerytype');
-define('_AM_WGGALLERY_GALLERYTYPE_EDIT', 'Edit Gallerytype');
 // Elements of Gallerytype
 define('_AM_WGGALLERY_GT_AT_ID', 'Id');
 define('_AM_WGGALLERY_GT_AT_PRIMARY', 'Primary');
@@ -58,11 +55,16 @@ define('_AM_WGGALLERY_GT_AT_CREDITS', 'Credits');
 define('_AM_WGGALLERY_GT_AT_TEMPLATE', 'Template');
 define('_AM_WGGALLERY_GT_AT_OPTIONS', 'Option');
 define('_AM_WGGALLERY_GT_AT_DATE', 'Date');
+// Gallerytype add/edit
+define('_AM_WGGALLERY_GALLERYTYPE_ADD', 'Add Gallerytype');
+define('_AM_WGGALLERY_GALLERYTYPE_EDIT', 'Edit Gallerytype');
 // Elements of Gallery options
 define('_AM_WGGALLERY_OPTION_GT_SET', 'Set options for selected gallerytype');
 define('_AM_WGGALLERY_OPTION_GT_SOURCE', 'Slideshow source');
-define('_AM_WGGALLERY_OPTION_GT_SOURCE_DESC', ' (large or medium images)');
 define('_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW', 'Preview source');
+define('_AM_WGGALLERY_OPTION_GT_SOURCE_LARGE', 'large images');
+define('_AM_WGGALLERY_OPTION_GT_SOURCE_MEDIUM', 'medium images');
+define('_AM_WGGALLERY_OPTION_GT_SOURCE_THUMB', 'thumbs');
 // jssor
 define('_AM_WGGALLERY_OPTION_GT_ARROWS', 'Type of arrows');
 define('_AM_WGGALLERY_OPTION_GT_BULLETS', 'Type of bullets');
@@ -71,25 +73,42 @@ define('_AM_WGGALLERY_OPTION_GT_THUMBNAILS', 'Type of thumbnail list');
 define('_AM_WGGALLERY_OPTION_GT_LOADINGS', 'Type of loading symbol');
 define('_AM_WGGALLERY_OPTION_GT_AUTOPLAY', 'Autoplay');
 define('_AM_WGGALLERY_OPTION_GT_PLAYOPTIONS', 'Play options');
-define('_AM_WGGALLERY_OPTION_GT_AUTOPLAY_1', 'play continuously');
-define('_AM_WGGALLERY_OPTION_GT_AUTOPLAY_2', 'stop at last slide');
-define('_AM_WGGALLERY_OPTION_GT_AUTOPLAY_4', 'stop on click');
-define('_AM_WGGALLERY_OPTION_GT_AUTOPLAY_8', 'stop on user navigation (click on arrow/bullet/thumbnail, swipe slide, press keyboard left, right arrow key)');
-define('_AM_WGGALLERY_OPTION_GT_AUTOPLAY_12', 'stop on click or user navigation');
-
+define('_AM_WGGALLERY_OPTION_GT_PLAYOPTION_1', 'play continuously');
+define('_AM_WGGALLERY_OPTION_GT_PLAYOPTION_2', 'stop at last slide');
+define('_AM_WGGALLERY_OPTION_GT_PLAYOPTION_4', 'stop on click');
+define('_AM_WGGALLERY_OPTION_GT_PLAYOPTION_8', 'stop on user navigation (click on arrow/bullet/thumbnail, swipe slide, press keyboard left, right arrow key)');
+define('_AM_WGGALLERY_OPTION_GT_PLAYOPTION_12', 'stop on click or user navigation');
+define('_AM_WGGALLERY_OPTION_GT_FILLMODE', 'Options for fill mode');
+define('_AM_WGGALLERY_OPTION_GT_FILLMODE_0', 'Stretch');
+define('_AM_WGGALLERY_OPTION_GT_FILLMODE_1', 'contain (keep aspect ratio and put all inside slide)');
+define('_AM_WGGALLERY_OPTION_GT_FILLMODE_2', 'cover (keep aspect ratio and cover whole slide)');
+define('_AM_WGGALLERY_OPTION_GT_FILLMODE_4', 'actual size');
+define('_AM_WGGALLERY_OPTION_GT_FILLMODE_5', 'contain for large image and actual size for small image');
+define('_AM_WGGALLERY_OPTION_GT_SLIDERTYPE', 'Slideshow type');
+define('_AM_WGGALLERY_OPTION_GT_SLIDERTYPE_1', 'Defined size');
+define('_AM_WGGALLERY_OPTION_GT_SLIDERTYPE_2', 'Full template width');
+// define('_AM_WGGALLERY_OPTION_GT_SLIDERTYPE_3', 'Full window');
+define('_AM_WGGALLERY_OPTION_GT_MAXWIDTH', 'Max image width');
+define('_AM_WGGALLERY_OPTION_GT_MAXWIDTH_DESC', "Define max image width for image container in pixel. Not valid for '" . _AM_WGGALLERY_OPTION_GT_SLIDERTYPE_2 . "'");
+define('_AM_WGGALLERY_OPTION_GT_MAXHEIGHT', 'Max image height');
+define('_AM_WGGALLERY_OPTION_GT_MAXHEIGHT_DESC', "Define max image height for image container in pixel. Not valid for '" . _AM_WGGALLERY_OPTION_GT_SLIDERTYPE_2 . "'");
+define('_AM_WGGALLERY_OPTION_GT_ORIENTATION', 'Orientation');
+define('_AM_WGGALLERY_OPTION_GT_ORIENTATION_H', 'Horizontal');
+define('_AM_WGGALLERY_OPTION_GT_ORIENTATION_V', 'Vertical');
+define('_AM_WGGALLERY_OPTION_GT_TRANSORDER', 'Transition order');
+define('_AM_WGGALLERY_OPTION_GT_TRANSORDER_RANDOM', 'Random');
+define('_AM_WGGALLERY_OPTION_GT_TRANSORDER_INORDER', 'In order of list');
 define('_AM_WGGALLERY_OPTION_GT_SHOWTHUMBSDOTS', 'Show thumbs or dots');
 define('_AM_WGGALLERY_OPTION_GT_SHOWTHUMBS', 'Show thumbs');
 define('_AM_WGGALLERY_OPTION_GT_SHOWDOTS', 'Show dots');
-// define('_AM_WGGALLERY_OPTION_GT_TITLE', 'Show image title');
-// define('_AM_WGGALLERY_OPTION_GT_DESCRIPTION', 'Show image decription');
 define('_AM_WGGALLERY_OPTION_GT_SLIDESHOWSPEED', 'Slideshow speed');
 define('_AM_WGGALLERY_OPTION_GT_SLIDESHOWSPEED_DESC', 'Interval in milliseconds before displaying the next image');
-define('_AM_WGGALLERY_OPTION_GT_AUTOPLAY_DESC', 'Automatically start slideshow when opened');
+define('_AM_WGGALLERY_OPTION_GT_PLAYOPTION_DESC', 'Automatically start slideshow when opened');
 define('_AM_WGGALLERY_OPTION_GT_ROWHEIGHT', 'Row height');
 define('_AM_WGGALLERY_OPTION_GT_LASTROW', 'Last row');
 define('_AM_WGGALLERY_OPTION_GT_LASTROW_DESC', 'Should the last row be justified to full width of row');
 define('_AM_WGGALLERY_OPTION_GT_MARGINS', 'Margin between the images');
-define('_AM_WGGALLERY_OPTION_GT_BORDER', 'Outer margin of image container');
+define('_AM_WGGALLERY_OPTION_GT_OUTERBORDER', 'Outer margin of image container');
 define('_AM_WGGALLERY_OPTION_GT_RANDOMIZE', 'Show image in random order');
 define('_AM_WGGALLERY_OPTION_GT_SLIDESHOW', 'Show slideshow');
 define('_AM_WGGALLERY_OPTION_GT_SLIDESHOW_OPTIONS', 'Slideshow options (not all option apply to each colorbox style):');
@@ -113,34 +132,49 @@ define('_AM_WGGALLERY_OPTION_GT_TRANSDURATION', 'Transition speed');
 define('_AM_WGGALLERY_OPTION_GT_TRANSDURATION_DESC', 'Period of animation in milliseconds between 2 images');
 define('_AM_WGGALLERY_OPTION_GT_INDEXIMG', 'Type of image  on index page');
 define('_AM_WGGALLERY_OPTION_GT_INDEXIMGHEIGHT', 'Image height');
-
-// define('_AM_WGGALLERY_OPTION_GT_INTDURATION', 'Interval duration');
-// define('_AM_WGGALLERY_OPTION_GT_INTDURATION_DESC', 'Interval in milliseconds before displaying of the next image');
-
-
-
-
-// 
-// define('_AM_WGGALLERY_OPTION_GT_ADAPDURATION', 'Adaptive duration:<br>This duration is the period in milliseconds, during the adjustment of the previous option runs');
-
-// define('_AM_WGGALLERY_OPTION_GT_TRANSDURATION', 'Transition duration:<br>Period of animation in milliseconds between 2 images');
-// define('_AM_WGGALLERY_OPTION_GT_INTDURATION', 'Interval duration for autoslide:<br>Interval in milliseconds before displaying of the next image');
-// define('_AM_WGGALLERY_OPTION_GT_AUTOPLAY', 'Auto playing');
-// define('_AM_WGGALLERY_OPTION_GT_DISPLAYCONTROLS', 'Display control for the previous or next image');
-// define('_AM_WGGALLERY_OPTION_GT_ADAPTHEIGT', 'Adaptive height:<br>If your images have a different height, this option adjusts automatically the global height of the slider.');
-// define('_AM_WGGALLERY_OPTION_GT_VERTCENTER', 'Vertical centering:<br>If the height of the list or the main container is smaller than the height of the image, this option can vertically center the element.');
-// define('_AM_WGGALLERY_OPTION_GT_DISPLAYLIST', 'Display thumbs list');
-// define('_AM_WGGALLERY_OPTION_GT_DISPLAYPOS', 'Position of thumbs list');
-// define('_AM_WGGALLERY_OPTION_GT_DISPLAYPOS_LEFT', 'Left');
-// define('_AM_WGGALLERY_OPTION_GT_DISPLAYPOS_RIGHT', 'Right');
-// 
-// 
-
-// 
-
-// define('_AM_WGGALLERY_OPTION_GT_AUTOPLAY', 'Automatically start slideshow when opened');
-
-
+define('_AM_WGGALLERY_OPTION_GT_SHOWLABEL', 'Show image index (Image {current} of {total}%)');
+define('_AM_WGGALLERY_OPTION_GT_LCLSKIN', 'Style commands');
+define('_AM_WGGALLERY_OPTION_GT_ANIMTIME', 'Animation speed');
+define('_AM_WGGALLERY_OPTION_GT_ANIMTIME_DESC', 'Time for animaton (e.g. resize image) between two images in millisecunds');
+define('_AM_WGGALLERY_OPTION_GT_LCLCOUNTER', 'Show counter');
+define('_AM_WGGALLERY_OPTION_GT_LCLPROGRESSBAR', 'Show progress bar');
+define('_AM_WGGALLERY_OPTION_GT_LCLMAXWIDTH', 'Max gallery width (in % of window)');
+define('_AM_WGGALLERY_OPTION_GT_LCLMAXHEIGTH', 'Max gallery height (in % of window)');
+define('_AM_WGGALLERY_OPTION_GT_BACKGROUND', 'Background');
+define('_AM_WGGALLERY_OPTION_GT_BACKHEIGHT', 'Background height');
+define('_AM_WGGALLERY_OPTION_GT_BORDER', 'Border');
+define('_AM_WGGALLERY_OPTION_GT_BORDERWIDTH', 'Width');
+define('_AM_WGGALLERY_OPTION_GT_BORDERCOLOR', 'Color');
+define('_AM_WGGALLERY_OPTION_GT_BORDERPADDING', 'Padding');
+define('_AM_WGGALLERY_OPTION_GT_BORDERRADIUS', 'Radius');
+define('_AM_WGGALLERY_OPTION_GT_SHADOW', 'Show shadow');
+define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION', 'Data position');
+define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_UNDER', 'Under');
+define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_OVER', 'Over');
+define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_RSIDE', 'Right side');
+define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_LSIDE', 'Left side');
+define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_DESC', "Please note lightbox uses a smart system automatically switching to '" . _AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_OVER . "' as soon element becomes too small because of long texts or tiny window.");
+define('_AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION', 'Command position');
+define('_AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION_INNER', 'Inner');
+define('_AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION_OUTER', 'Outer');
+define('_AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION_DESC', "Please note lightbox will automatically switch to '" . _AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION_OUTER . "' if inner commands are too wide for the represented element");
+define('_AM_WGGALLERY_OPTION_GT_LCLTHUMBSWIDTH', 'Thumbs width (in pixel)');
+define('_AM_WGGALLERY_OPTION_GT_LCLTHUMBSHEIGTH', 'Thumbs height (in pixel)');
+define('_AM_WGGALLERY_OPTION_GT_LCLFULLSCREEN', "Show command 'Fullscreeen'");
+define('_AM_WGGALLERY_OPTION_GT_LCLFSIMGBEHAVIOUR', 'Fullscreen image behavior');
+define('_AM_WGGALLERY_OPTION_GT_LCLFSIMGBEHAVIOUR_FIT', 'fit - image will be completely visible (eventually leaving spaces on edges)');
+define('_AM_WGGALLERY_OPTION_GT_LCLFSIMGBEHAVIOUR_FILL', 'fill - image will always fill the screen (a portion could be eventually hidden)');
+define('_AM_WGGALLERY_OPTION_GT_LCLFSIMGBEHAVIOUR_SMART', "smart - LC Lightbox uses 'fit' mode and switches to 'fill' only if images aspect ratio is similar to available space");
+define('_AM_WGGALLERY_OPTION_GT_LCLSOCIALS', "Show command 'Socials'");
+define('_AM_WGGALLERY_OPTION_GT_LCLSOCIALS_FB', 'Facebook App ID');
+define('_AM_WGGALLERY_OPTION_GT_LCLSOCIALS_FB_DESC', 'Remember to add Facebook SDK in your website');
+define('_AM_WGGALLERY_OPTION_GT_LCLDOWNLOAD', "Show command 'Download'");
+define('_AM_WGGALLERY_OPTION_GT_LCLRCLICK', 'Disable right mouse click');
+define('_AM_WGGALLERY_OPTION_GT_LCLTOGGLETXT', "Show toggle command 'Text'");
+define('_AM_WGGALLERY_OPTION_GT_LCLNAVBTNPOS', 'Position of nav buttons');
+define('_AM_WGGALLERY_OPTION_GT_LCLNAVBTNPOS_N', 'Normal');
+define('_AM_WGGALLERY_OPTION_GT_LCLNAVBTNPOS_M', 'Middle');
+define('_AM_WGGALLERY_OPTION_GT_LCLSLIDESHOW', "Show command 'Play'");
 
 // Albumtype add/edit
 define('_AM_WGGALLERY_ALBUMTYPE_ADD', 'Add Albumtype');
@@ -151,14 +185,12 @@ define('_AM_WGGALLERY_OPTION_AT_SETINFO', 'The settings for album types will be 
 define('_AM_WGGALLERY_OPTION_AT_HOVER', 'Hover effect');
 define('_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB', 'Number of columns for album list');
 define('_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT', 'Number of columns for category list');
-define('_AM_WGGALLERY_OPTION_GT_SHOWLABEL', 'Show index label (image {current} of {total}%)');
+// common ptions
+define('_AM_WGGALLERY_OPTION_OPACITIY', 'Opacity');
 define('_AM_WGGALLERY_OPTION_SHOWTITLE', 'Show title');
 define('_AM_WGGALLERY_OPTION_SHOWDESCR', 'Show description');
 define('_AM_WGGALLERY_OPTION_CSS', 'Select css for style');
-define('_AM_WGGALLERY_OPTION_AT_SHOWSUBMITTER', 'Show submitter of album');
-
-// common ptions
-define('_AM_WGGALLERY_OPTION_OPACITIY', 'Opacity');
+define('_AM_WGGALLERY_OPTION_SHOWSUBMITTER', 'Show submitter');
 // Maintenance
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_DR', 'Delete and reset');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_R', 'Set default settings');
@@ -171,6 +203,7 @@ define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE', 'Successfully created: ');
 define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_RESIZE', 'Successfully resized: %s of %t images');
 define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_DELETE', 'Successfully deleted: ');
 define('_AM_WGGALLERY_MAINTENANCE_ERROR_RESET', 'Error when reseting: ');
+define('_AM_WGGALLERY_MAINTENANCE_ERROR_CREATE', 'Error when creating: ');
 define('_AM_WGGALLERY_MAINTENANCE_ERROR_DELETE', 'Error when deleting: ');
 define('_AM_WGGALLERY_MAINTENANCE_ERROR_RESIZE', 'Error when resizing: ');
 define('_AM_WGGALLERY_MAINTENANCE_ERROR_READDIR', 'Error when reading directory: ');

@@ -20,13 +20,16 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 permissions.php 1 Mon 2018-03-19 10:04:53Z XOOPS Project (www.xoops.org) $
  */
+  
+use Xmf\Request;
+
 include __DIR__ . '/header.php';
 include_once XOOPS_ROOT_PATH .'/class/xoopsform/grouppermform.php';
 $imagesHandler = $wggallery->getHandler('images');
 // Check admin have access to this page
 $templateMain = 'wggallery_admin_permissions.tpl';
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('permissions.php'));
-$op = XoopsRequest::getString('op', 'global');
+$op = Request::getString('op', 'global');
 xoops_load('XoopsFormLoader');
 $permTableForm = new XoopsSimpleForm('', 'fselperm', 'permissions.php', 'post');
 $formSelect = new XoopsFormSelect('', 'op', $op);
@@ -43,7 +46,7 @@ switch($op) {
 		$formTitle = _CO_WGGALLERY_PERMS_GLOBAL;
 		$permName = 'wggallery_global';
 		$permDesc = _CO_WGGALLERY_PERMS_GLOBAL_DESC;
-		$globalPerms = array( '4' => _CO_WGGALLERY_PERMS_GLOBAL_4, '8' => _CO_WGGALLERY_PERMS_GLOBAL_8, '16' => _CO_WGGALLERY_PERMS_GLOBAL_16 );
+		$globalPerms = array( '4' => _CO_WGGALLERY_PERMS_GLOBAL_APPROVE, '8' => _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL, '16' => _CO_WGGALLERY_PERMS_GLOBAL_SUBMIT );
 	break;
 	case 'view':
 		$formTitle = _CO_WGGALLERY_PERMS_ALB_VIEW;

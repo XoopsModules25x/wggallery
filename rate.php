@@ -20,9 +20,12 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 rate.php 1 Mon 2018-03-19 10:04:54Z XOOPS Project (www.xoops.org) $
  */
+  
+use Xmf\Request;
+
 include __DIR__ . '/header.php';
-$op = XoopsRequest::getString('op', 'form');
-$lid = XoopsRequest::getInt('lid');
+$op = Request::getString('op', 'form');
+$lid = Request::getInt('lid');
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_images.tpl';
 include_once XOOPS_ROOT_PATH .'/header.php';
 // Define Stylesheet

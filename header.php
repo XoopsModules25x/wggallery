@@ -24,9 +24,6 @@ include dirname(dirname(__DIR__)) .'/mainfile.php';
 include_once __DIR__ .'/include/common.php';
 // include_once __DIR__ .'/include/permissions.php';
 $dirname = basename(__DIR__);
-// Breadcrumbs
-$xoBreadcrumbs = array();
-$xoBreadcrumbs[] = array('title' => _MA_WGGALLERY_TITLE, 'link' => WGGALLERY_URL . '/');
 // Get instance of module
 $wggallery = WggalleryHelper::getInstance();
 $albumsHandler = $wggallery->getHandler('albums');
@@ -41,6 +38,11 @@ if(is_object($xoopsUser)) {
 	$groups  = $xoopsUser->getGroups();
 } else {
 	$groups  = XOOPS_GROUP_ANONYMOUS;
+}
+// Breadcrumbs
+$xoBreadcrumbs = array();
+if ($wggallery->getConfig('show_moduletitle')) {
+    $xoBreadcrumbs[] = array('title' => _MA_WGGALLERY_TITLE, 'link' => WGGALLERY_URL . '/');
 }
 // 
 $myts = MyTextSanitizer::getInstance();

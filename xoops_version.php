@@ -107,6 +107,7 @@ $modversion['templates'][] = array('file' => 'wggallery_gallery_viewerjs.tpl', '
 $modversion['templates'][] = array('file' => 'wggallery_gallery_blueimpgallery.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_gallery_justifiedgallery.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_gallery_lightbox2.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_gallery_lclightboxlite.tpl', 'description' => '');
 // Blocks
 $modversion['templates'][] = array('file' => 'wggallery_block_albums_default.tpl', 'description' => '');
 // $modversion['templates'][] = array('file' => 'wggallery_block_albums_slider.tpl', 'description' => '');
@@ -469,37 +470,13 @@ $modversion['config'][$c]['valuetype'] = 'text';
 $modversion['config'][$c]['default'] = 'default';
 $modversion['config'][$c]['options'] = array('default' => 'default', 'primary' => 'primary', 'success' => 'success', 'info' => 'info', 'warning' => 'warning', 'danger' => 'danger');
 ++$c;
-// Advertise
-$modversion['config'][$c]['name'] = 'advertise';
-$modversion['config'][$c]['title'] = '_MI_WGGALLERY_ADVERTISE';
-$modversion['config'][$c]['description'] = '_MI_WGGALLERY_ADVERTISE_DESC';
-$modversion['config'][$c]['formtype'] = 'textarea';
-$modversion['config'][$c]['valuetype'] = 'text';
-$modversion['config'][$c]['default'] = '';
-++$c;
-// Bookmarks
-$modversion['config'][$c]['name'] = 'bookmarks';
-$modversion['config'][$c]['title'] = '_MI_WGGALLERY_BOOKMARKS';
-$modversion['config'][$c]['description'] = '_MI_WGGALLERY_BOOKMARKS_DESC';
+// Show module name
+$modversion['config'][$c]['name'] = 'show_moduletitle';
+$modversion['config'][$c]['title'] = '_MI_WGGALLERY_SHOW_MODULETITLE';
+$modversion['config'][$c]['description'] = '_MI_WGGALLERY_SHOW_MODULETITLE_DESC';
 $modversion['config'][$c]['formtype'] = 'yesno';
 $modversion['config'][$c]['valuetype'] = 'int';
-$modversion['config'][$c]['default'] = 0;
-++$c;
-// Facebook Comments
-$modversion['config'][$c]['name'] = 'facebook_comments';
-$modversion['config'][$c]['title'] = '_MI_WGGALLERY_FACEBOOK_COMMENTS';
-$modversion['config'][$c]['description'] = '_MI_WGGALLERY_FACEBOOK_COMMENTS_DESC';
-$modversion['config'][$c]['formtype'] = 'yesno';
-$modversion['config'][$c]['valuetype'] = 'int';
-$modversion['config'][$c]['default'] = 0;
-++$c;
-// Disqus Comments
-$modversion['config'][$c]['name'] = 'disqus_comments';
-$modversion['config'][$c]['title'] = '_MI_WGGALLERY_DISQUS_COMMENTS';
-$modversion['config'][$c]['description'] = '_MI_WGGALLERY_DISQUS_COMMENTS_DESC';
-$modversion['config'][$c]['formtype'] = 'yesno';
-$modversion['config'][$c]['valuetype'] = 'int';
-$modversion['config'][$c]['default'] = 0;
+$modversion['config'][$c]['default'] = 1;
 ++$c;
 // Maintained by
 $modversion['config'][$c]['name'] = 'maintainedby';

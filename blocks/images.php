@@ -25,7 +25,7 @@ include_once XOOPS_ROOT_PATH.'/modules/wggallery/include/common.php';
 function b_wggallery_images_show($options)
 {
     include_once XOOPS_ROOT_PATH.'/modules/wggallery/class/images.php';
-    $myts = MyTextSanitizer::getInstance();
+    //$myts = MyTextSanitizer::getInstance();
     $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
     $block       = array();
     $typeBlock       = $options[0];
@@ -49,7 +49,7 @@ function b_wggallery_images_show($options)
 
 	$template = $pr_album['template'];
 	// assign all album options
-	$atoptions = unserialize($pr_album['options']);
+	$atoptions = unserialize($pr_album['options'], ['allowed_classes' => false]);
 	foreach ($atoptions as $atoption) {
 		$GLOBALS['xoopsTpl']->assign($atoption['name'], $atoption['value']);
 	}
@@ -64,16 +64,10 @@ function b_wggallery_images_show($options)
 	$GLOBALS['xoopsTpl']->assign('container_width', $container_width);
     $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
     
-    
-    
     $wggallery = WggalleryHelper::getInstance();
     $imagesHandler = $wggallery->getHandler('images');
     $criteria = new CriteriaCompo();
-    
-    $wggallery = WggalleryHelper::getInstance();
-    $imagesHandler = $wggallery->getHandler('images');
-    $criteria = new CriteriaCompo();
-    $album_ids = implode(",", $options);
+    $album_ids = implode(',', $options);
     // echo "options;".$album_ids;
     if ( '0' !== substr($album_ids, 0, 1)) {
         $criteria->add(new Criteria('img_albid', '(' . $album_ids . ')', 'IN'));
@@ -143,19 +137,19 @@ function b_wggallery_images_edit($options)
     $form .= "<input type='text' name='options[1]' size='5' maxlength='255' value='" . $options[1] . "' />&nbsp;<br>";
     $form .= _MB_WGGALLERY_TITLE_LENGTH." : <input type='text' name='options[2]' size='5' maxlength='255' value='" . $options[2] . "' /><br><br>";
     $form .= _MB_WGGALLERY_NUMB_ALBUMS.": <select name='options[3]' size='4'>";
-    $form .= "<option value='1' " . (1 == $options[3] ? "selected='selected'" : '') . '>1</option>';
-    $form .= "<option value='2' " . (2 == $options[3] ? "selected='selected'" : '') . '>2</option>';
-    $form .= "<option value='3' " . (3 == $options[3] ? "selected='selected'" : '') . '>3</option>';
-    $form .= "<option value='4' " . (4 == $options[3] ? "selected='selected'" : '') . '>4</option>';
-    $form .= "<option value='6' " . (6 == $options[3] ? "selected='selected'" : '') . '>6</option>';
+    $form .= "<option value='1' " . (1 === intval($options[3]) ? "selected='selected'" : '') . '>1</option>';
+    $form .= "<option value='2' " . (2 === intval($options[3]) ? "selected='selected'" : '') . '>2</option>';
+    $form .= "<option value='3' " . (3 === intval($options[3]) ? "selected='selected'" : '') . '>3</option>';
+    $form .= "<option value='4' " . (4 === intval($options[3]) ? "selected='selected'" : '') . '>4</option>';
+    $form .= "<option value='6' " . (6 === intval($options[3]) ? "selected='selected'" : '') . '>6</option>';
     $form .= '</select><br>';
     // $form .= _MB_WGGALLERY_SHOW.": <select name='options[4]' size='2'>";
     // $form .= "<option value='0' " . (0 == $options[4] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_SHOW_INDEX . '</option>';
     // $form .= "<option value='1' " . (1 == $options[4] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_SHOW_GALLERY . '</option>';
     // $form .= '</select><br>';
     $form .= _MB_WGGALLERY_TYPE.": <select name='options[4]' size='2'>";
-    $form .= "<option value='0' " . (0 == $options[4] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_TYPE_BLOCK . '</option>';
-    $form .= "<option value='1' " . (1 == $options[4] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_TYPE_CONTAINER . '</option>';
+    $form .= "<option value='0' " . (0 === intval($options[4]) ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_TYPE_BLOCK . '</option>';
+    $form .= "<option value='1' " . (1 === intval($options[4]) ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_TYPE_CONTAINER . '</option>';
     $form .= '</select>&nbsp;';
 	$form .= _MB_WGGALLERY_TYPE_CONTAINER_WIDTH." : <input type='text' name='options[5]' size='5' maxlength='255' value='" . $options[5] . "' /><br>";
     // $form .= _MB_WGGALLERY_STYLE.": <select name='options[6]' size='3'>";

@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ALL */
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -20,20 +20,23 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 albums.php 1 Mon 2018-03-19 10:04:50Z XOOPS Project (www.xoops.org) $
  */
+ 
+use Xmf\Request;
+
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_albums_default.tpl';
 include_once XOOPS_ROOT_PATH .'/header.php';
 
-$op       = XoopsRequest::getString('op', 'list');
-$albId    = XoopsRequest::getInt('alb_id', 0);
-$albPid   = XoopsRequest::getInt('alb_pid');
-$albSubm  = XoopsRequest::getInt('alb_submitter');
-$albPid   = XoopsRequest::getInt('alb_pid');
+$op       = Request::getString('op', 'list');
+$albId    = Request::getInt('alb_id', 0);
+$albPid   = Request::getInt('alb_pid');
+$albSubm  = Request::getInt('alb_submitter');
+$albPid   = Request::getInt('alb_pid');
 
-if (_CANCEL === XoopsRequest::getString('cancel', 'none')) {
+if (_CANCEL === Request::getString('cancel', 'none')) {
 	$op = 'list';
 }
-if (_CO_WGGALLERY_FORM_SUBMIT_SUBMITUPLOAD === XoopsRequest::getString('submit_upload', 'none')) {
+if (_CO_WGGALLERY_FORM_SUBMIT_SUBMITUPLOAD === Request::getString('submit_upload', 'none')) {
 	$redir = 'upload';
 }
 
@@ -60,8 +63,8 @@ switch($op) {
 		$GLOBALS['xoTheme']->addScript( XOOPS_URL . '/modules/wggallery/assets/js/jquery.mjs.nestedSortable.js' );
 		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/css/nestedsortable.css' );
 
-		$start = XoopsRequest::getInt('start', 0);
-		$limit = XoopsRequest::getInt('limit', $wggallery->getConfig('adminpager'));
+		$start = Request::getInt('start', 0);
+		$limit = Request::getInt('limit', $wggallery->getConfig('adminpager'));
         $crAlbums = new CriteriaCompo();
         if (!$permissionsHandler->permGlobalSubmit()) {
             $crAlbums->add(new Criteria('alb_state', WGGALLERY_STATE_ONLINE_VAL));
@@ -81,7 +84,7 @@ switch($op) {
 			foreach(array_keys($albumsAll) as $i) {
 				$album = $albumsAll[$i]->getValuesAlbums();
                 //check permissions
-                $album['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
+                $album['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_submitter'));
 				$keywords[] = $albumsAll[$i]->getVar('alb_name');
 				$GLOBALS['xoopsTpl']->append('albums_list', $album);
 				unset($album);
@@ -102,7 +105,7 @@ switch($op) {
 
 		$GLOBALS['xoopsTpl']->assign('global_submit', $permissionsHandler->permGlobalSubmit());
 		$pr_gallery = $gallerytypesHandler->getPrimaryGallery();
-		$GLOBALS['xoopsTpl']->assign('gallery', 'none' != $pr_gallery['template']);
+		$GLOBALS['xoopsTpl']->assign('gallery', 'none' !== $pr_gallery['template']);
 		$GLOBALS['xoopsTpl']->assign('goback', 0 < $albPid);
 	break;
 	case 'new':
@@ -118,7 +121,7 @@ switch($op) {
 	case 'save':
 		// Security Check
 		if(!$GLOBALS['xoopsSecurity']->check()) {
-			// redirect_header('albums.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+			redirect_header('albums.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
 		}
 		if (!$permissionsHandler->permGlobalSubmit()) {
 			redirect_header('albums.php', 3, _NOPERM);
@@ -130,14 +133,14 @@ switch($op) {
 		}
 		// Set Vars
 		$albumsObj->setVar('alb_pid', $albPid);
-		$albIscat = XoopsRequest::getInt('alb_iscat');
+		$albIscat = Request::getInt('alb_iscat');
 		$albumsObj->setVar('alb_iscat', $albIscat);
-		$alb_name =  XoopsRequest::getString('alb_name');
+		$alb_name =  Request::getString('alb_name');
 		$albumsObj->setVar('alb_name', $alb_name);
-		$albumsObj->setVar('alb_desc', XoopsRequest::getString('alb_desc'));
-		$albumsObj->setVar('alb_weight', XoopsRequest::getInt('alb_weight'));
+		$albumsObj->setVar('alb_desc', Request::getString('alb_desc'));
+		$albumsObj->setVar('alb_weight', Request::getInt('alb_weight'));
 		// Set Var alb_image
-        $albumsObj->setVar('alb_imgcat', XoopsRequest::getInt('alb_imgcat'));
+        $albumsObj->setVar('alb_imgcat', Request::getInt('alb_imgcat'));
 		include_once XOOPS_ROOT_PATH .'/class/uploader.php';
 		$uploader = new XoopsMediaUploader(WGGALLERY_UPLOAD_IMAGE_PATH.'/albums/', 
 													$wggallery->getConfig('mimetypes'), 
@@ -154,9 +157,9 @@ switch($op) {
 				$albumsObj->setVar('alb_image', $uploader->getSavedFileName());
 			}
 		} else {
-			$albumsObj->setVar('alb_image', XoopsRequest::getString('alb_image'));
+			$albumsObj->setVar('alb_image', Request::getString('alb_image'));
 		}
-        $imgName = XoopsRequest::getString('alb_imgid', 'none');
+        $imgName = Request::getString('alb_imgid', 'none');
         $albImgid = 0;
         if ('none' !== $imgName) {
             $crImages = new CriteriaCompo();
@@ -168,11 +171,11 @@ switch($op) {
 			}
         }
 		$albumsObj->setVar('alb_imgid', $albImgid);
-		$albumsObj->setVar('alb_state', XoopsRequest::getInt('alb_state'));
-		$albumsObj->setVar('alb_allowdownload', XoopsRequest::getInt('alb_allowdownload'));
+		$albumsObj->setVar('alb_state', Request::getInt('alb_state'));
+		$albumsObj->setVar('alb_allowdownload', Request::getInt('alb_allowdownload'));
 		$albumDate = date_create_from_format(_SHORTDATESTRING, $_POST['alb_date']);
 		$albumsObj->setVar('alb_date', $albumDate->getTimestamp());
-		$albumsObj->setVar('alb_submitter', XoopsRequest::getInt('alb_submitter'));
+		$albumsObj->setVar('alb_submitter', Request::getInt('alb_submitter'));
 		// Insert Data
 		if($albumsHandler->insert($albumsObj)) {
 			$newAlbId = $albumsObj->getNewInsertedIdAlbums();
@@ -233,7 +236,7 @@ switch($op) {
 			redirect_header('albums.php', 3, _NOPERM);
 		}
 		$albumsObj = $albumsHandler->get($albId);
-		if(1 == XoopsRequest::getInt('ok')) {
+		if(1 == Request::getInt('ok')) {
 			if(!$GLOBALS['xoopsSecurity']->check()) {
 				redirect_header('albums.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
 			}

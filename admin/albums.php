@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpUndefinedClassInspection */
+/** @noinspection PhpIncludeInspection */
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -20,11 +21,14 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 albums.php 1 Mon 2018-03-19 10:04:49Z XOOPS Project (www.xoops.org) $
  */
+  
+use Xmf\Request;
+
 include __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
-$op = XoopsRequest::getString('op', 'list');
+$op = Request::getString('op', 'list');
 // Request alb_id
-$albId = XoopsRequest::getInt('alb_id');
+$albId = Request::getInt('alb_id');
 
 // add scripts 
 $GLOBALS['xoTheme']->addScript( XOOPS_URL . '/modules/wggallery/assets/js/admin.js' );
@@ -34,8 +38,8 @@ switch($op) {
 	default:
 		// Define Stylesheet
 		$GLOBALS['xoTheme']->addStylesheet( $style, null );
-		$start = XoopsRequest::getInt('start', 0);
-		$limit = XoopsRequest::getInt('limit', $wggallery->getConfig('adminpager'));
+		$start = Request::getInt('start', 0);
+		$limit = Request::getInt('limit', $wggallery->getConfig('adminpager'));
 		$templateMain = 'wggallery_admin_albums.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('albums.php'));
 		$adminObject->addItemButton(_AM_WGGALLERY_ADD_ALBUM, 'albums.php?op=new', 'add');
@@ -90,13 +94,13 @@ switch($op) {
 			$albumsObj = $albumsHandler->create();
 		}
 		// Set Vars
-		$albumsObj->setVar('alb_pid', XoopsRequest::getInt('alb_pid'));
-		$albumsObj->setVar('alb_iscat', XoopsRequest::getInt('alb_iscat'));
-		$albumsObj->setVar('alb_name', XoopsRequest::getString('alb_name'));
-		$albumsObj->setVar('alb_desc', XoopsRequest::getString('alb_desc'));
-		$albumsObj->setVar('alb_weight', XoopsRequest::getInt('alb_weight'));
+		$albumsObj->setVar('alb_pid', Request::getInt('alb_pid'));
+		$albumsObj->setVar('alb_iscat', Request::getInt('alb_iscat'));
+		$albumsObj->setVar('alb_name', Request::getString('alb_name'));
+		$albumsObj->setVar('alb_desc', Request::getString('alb_desc'));
+		$albumsObj->setVar('alb_weight', Request::getInt('alb_weight'));
 		// Set Var alb_image
-        $albumsObj->setVar('alb_imgcat', XoopsRequest::getInt('alb_imgcat'));
+        $albumsObj->setVar('alb_imgcat', Request::getInt('alb_imgcat'));
 		include_once XOOPS_ROOT_PATH .'/class/uploader.php';
 		$uploader = new XoopsMediaUploader(WGGALLERY_UPLOAD_IMAGE_PATH.'/albums/', 
 													$wggallery->getConfig('mimetypes'), 
@@ -113,9 +117,9 @@ switch($op) {
 				$albumsObj->setVar('alb_image', $uploader->getSavedFileName());
 			}
 		} else {
-			$albumsObj->setVar('alb_image', XoopsRequest::getString('alb_image'));
+			$albumsObj->setVar('alb_image', Request::getString('alb_image'));
 		}
-        $imgName = XoopsRequest::getString('alb_imgid', 'none');
+        $imgName = Request::getString('alb_imgid', 'none');
         $albImgid = 0;
         if ('none' !== $imgName) {
             $crImages = new CriteriaCompo();
@@ -127,11 +131,11 @@ switch($op) {
 			}
         }
 		$albumsObj->setVar('alb_imgid', $albImgid);
-		$albumsObj->setVar('alb_state', XoopsRequest::getInt('alb_state'));
-		$albumsObj->setVar('alb_allowdownload', XoopsRequest::getInt('alb_allowdownload'));
+		$albumsObj->setVar('alb_state', Request::getInt('alb_state'));
+		$albumsObj->setVar('alb_allowdownload', Request::getInt('alb_allowdownload'));
 		$albumDate = date_create_from_format(_SHORTDATESTRING, $_POST['alb_date']);
 		$albumsObj->setVar('alb_date', $albumDate->getTimestamp());
-		$albumsObj->setVar('alb_submitter', XoopsRequest::getInt('alb_submitter'));
+		$albumsObj->setVar('alb_submitter', Request::getInt('alb_submitter'));
 		// Insert Data
 		if($albumsHandler->insert($albumsObj)) {
 			$newAlbId = $albumsObj->getNewInsertedIdAlbums();

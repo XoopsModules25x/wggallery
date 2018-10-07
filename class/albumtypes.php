@@ -74,7 +74,7 @@ class WggalleryAlbumtypes extends XoopsObject
 	 */
 	public function getFormAlbumtypes($action = false)
 	{
-		$wggallery = WggalleryHelper::getInstance();
+		//$wggallery = WggalleryHelper::getInstance();
 		if(false === $action) {
 			$action = $_SERVER['REQUEST_URI'];
 		}
@@ -113,7 +113,7 @@ class WggalleryAlbumtypes extends XoopsObject
 	 */
 	public function getFormAlbumtypeOptions($action = false)
 	{
-		$wggallery = WggalleryHelper::getInstance();
+		//$wggallery = WggalleryHelper::getInstance();
 		if(false === $action) {
 			$action = $_SERVER['REQUEST_URI'];
 		}
@@ -123,7 +123,7 @@ class WggalleryAlbumtypes extends XoopsObject
 		$form->setExtra('enctype="multipart/form-data"');
 		
 		$tpl_options = $this->getVar('at_options', 'N');
-        $options = unserialize($tpl_options);
+        $options = unserialize($tpl_options, ['allowed_classes' => false]);
 		
 		foreach ($options as $option) {
 			// echo '<br>name'.$option['name'];
@@ -189,7 +189,11 @@ class WggalleryAlbumtypes extends XoopsObject
 					$form->addElement(new XoopsFormRadioYN(_AM_WGGALLERY_OPTION_SHOWDESCR, 'showDesc', $option['value']));
 				break;
 				case 'album_showsubmitter':
-					$form->addElement(new XoopsFormRadioYN(_AM_WGGALLERY_OPTION_AT_SHOWSUBMITTER, 'album_showsubmitter', $option['value']));
+					$form->addElement(new XoopsFormRadioYN(_AM_WGGALLERY_OPTION_SHOWSUBMITTER, 'album_showsubmitter', $option['value']));
+				break;
+                case 'option_sort':
+					// $form->addElement(new XoopsFormText('option_sort', 'option_sort',  100, 255, $option['value']));
+                    $form->addElement(new XoopsFormHidden('option_sort', $option['value']));
 				break;
                 case 'default':
                 default:
@@ -214,7 +218,7 @@ class WggalleryAlbumtypes extends XoopsObject
 	 */
 	public function getValuesAlbumtypes($keys = null, $format = null, $maxDepth = null)
 	{
-		$wggallery = WggalleryHelper::getInstance();
+		// $wggallery = WggalleryHelper::getInstance();
 		$ret = $this->getValues($keys, $format, $maxDepth);
 		$ret['id'] = $this->getVar('at_id');
 		$ret['primary'] = $this->getVar('at_primary');
@@ -226,16 +230,18 @@ class WggalleryAlbumtypes extends XoopsObject
 		$at_options = $this->getVar('at_options', 'N');
         $options_text = '';
 		if ( '' !== $at_options ) {
-            $options = unserialize($at_options);
+            $options = unserialize($at_options, ['allowed_classes' => false]);
             $options_text = '<ul>';
             foreach ($options as $option) {
-                $options_text .= '<li>';
-                if ('' == $option['caption']) {
-                    $options_text .= '"' . $option['name'] . '"';
-                } else {
-                    $options_text .= constant($option['caption']);
+                if ('option_sort' != $option['name']) {
+                    $options_text .= '<li>';
+                    if ('' == $option['caption']) {
+                        $options_text .= '"' . $option['name'] . '"';
+                    } else {
+                        $options_text .= constant($option['caption']);
+                    }
+                    $options_text .= ': ' . $option['value'] . '</li>';
                 }
-                $options_text .= ': ' . $option['value'] . '</li>';
             }
             $options_text .= '</ul>';
         }
@@ -355,11 +361,11 @@ class WggalleryAlbumtypesHandler extends XoopsPersistableObjectHandler
 		$crAlbumtypes->setOrder( $order );
 		return $crAlbumtypes;
 	}
-	
-	/**
-	 * Get primary Albumtype
-	 * @return string
-	 */
+
+    /**
+     * Get primary Albumtype
+     * @return array
+     */
 	public function getPrimaryAlbum()
 	{
 		$albumtype = array();
@@ -379,9 +385,9 @@ class WggalleryAlbumtypesHandler extends XoopsPersistableObjectHandler
 	 * Get primary Albumtype
 	 * @return array
 	 */
-	public function getAlbumOptions()
+/* 	public function getAlbumOptions()
 	{
-		$options = array();
+		$at_options = array();
 		$crAlbumtypes = new CriteriaCompo();
 		$crAlbumtypes->add(new Criteria('at_primary', 1));
 		$crAlbumtypes->setLimit( 1 );
@@ -392,14 +398,15 @@ class WggalleryAlbumtypesHandler extends XoopsPersistableObjectHandler
 		$optionsTmp = explode('|', at_options);
 		
 		return $albumtype;
-	}
-	
-	/**
-	 * Reset Albumtype
-	 * @param int    $gtId
-	 * @param string $sort
-	 * @return boolean
-	 */
+	} */
+
+    /**
+     * Reset Albumtype
+     * @param $atId
+     * @param $template
+     * @param $primary
+     * @return boolean
+     */
  	public function reset($atId, $template, $primary)
 	{
 		$options = array();
@@ -409,7 +416,7 @@ class WggalleryAlbumtypesHandler extends XoopsPersistableObjectHandler
 				$at_credits = 'https://xoops.wedega.com';
                 $options[] = array('name' => 'number_cols_album', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB');
 				$options[] = array('name' => 'number_cols_cat', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT');      
-				$options[] = array('name' => 'album_showsubmitter', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_AT_SHOWSUBMITTER');				
+				$options[] = array('name' => 'album_showsubmitter', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_SHOWSUBMITTER');				
             break;
             case 'simple':
                 $at_name = 'Simple Album';
@@ -431,7 +438,7 @@ class WggalleryAlbumtypesHandler extends XoopsPersistableObjectHandler
 				$at_credits = 'https://getbootstrap.com/';
                 $options[] = array('name' => 'number_cols_album', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB');
 				$options[] = array('name' => 'number_cols_cat', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT');
-				$options[] = array('name' => 'album_showsubmitter', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_AT_SHOWSUBMITTER');
+				$options[] = array('name' => 'album_showsubmitter', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_SHOWSUBMITTER');
                 $options[] = array('name' => 'showTitle', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE');
 				$options[] = array('name' => 'showDesc', 'value' => '0', 'caption' => '_AM_WGGALLERY_OPTION_SHOWDESCR');
             break;
@@ -441,7 +448,15 @@ class WggalleryAlbumtypesHandler extends XoopsPersistableObjectHandler
             break;
         }
 
-        if(isset($atId)) {
+        // define sorting
+		$option_sort = '';
+		foreach ($options as $option) {     
+			if ('' !== $option_sort) {$option_sort .= '|';}
+			$option_sort .= $option['name'];
+		}
+		$options[] = array('name' => 'option_sort', 'value'=> $option_sort);
+        
+        if($atId !== null) {
 			$albumtypesObj = $this->get($atId);	
             // Set Vars           
             $albumtypesObj->setVar('at_name', $at_name);

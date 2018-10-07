@@ -90,18 +90,6 @@ class WggalleryImages extends XoopsObject
 		if(false === $action) {
 			$action = $_SERVER['REQUEST_URI'];
 		}
-		// Permissions for uploader
-		$gpermHandler = xoops_gethandler('groupperm');
-		$groups = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
-		if($GLOBALS['xoopsUser']) {
-			if(!$GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid())) {
-				$permissionUpload = $gpermHandler->checkRight('', 32, $groups, $GLOBALS['xoopsModule']->getVar('mid')) ? true : false;
-			} else {
-				$permissionUpload = true;
-			}
-		} else {
-				$permissionUpload = $gpermHandler->checkRight('', 32, $groups, $GLOBALS['xoopsModule']->getVar('mid')) ? true : false;
-		}
 		// Title
 		$title = $this->isNew() ? sprintf(_CO_WGGALLERY_IMAGE_ADD) : sprintf(_CO_WGGALLERY_IMAGE_EDIT);
 		// Get Theme Form
@@ -281,14 +269,15 @@ class WggalleryImagesHandler extends XoopsPersistableObjectHandler
 		return $this->db->getInsertId();
 	}
 
-	/**
-	 * Get Count Images in the database
-	 * @param int    $start 
-	 * @param int    $limit 
-	 * @param string $sort 
-	 * @param string $order 
-	 * @return int
-	 */
+    /**
+     * Get Count Images in the database
+     * @param int $albId
+     * @param int $start
+     * @param int $limit
+     * @param string $sort
+     * @param string $order
+     * @return int
+     */
 	public function getCountImages($albId = 0, $start = 0, $limit = 0, $sort = 'img_id ASC, img_name', $order = 'ASC')
 	{
 		$crCountImages = new CriteriaCompo();
@@ -309,17 +298,18 @@ class WggalleryImagesHandler extends XoopsPersistableObjectHandler
 		$crAllImages = new CriteriaCompo();
 		$crAllImages = $this->getImagesCriteria($crAllImages, 0, $start, $limit, $sort, $order);
 		return parent::getAll($crAllImages);
-	}    
+	}
 
-	/**
-	 * Get Criteria Images
-	 * @param        $crImages
-	 * @param int    $start 
-	 * @param int    $limit 
-	 * @param string $sort 
-	 * @param string $order 
-	 * @return int
-	 */
+    /**
+     * Get Criteria Images
+     * @param $crImages
+     * @param $albId
+     * @param int $start
+     * @param int $limit
+     * @param string $sort
+     * @param string $order
+     * @return int
+     */
 	private function getImagesCriteria($crImages, $albId, $start, $limit, $sort, $order)
 	{
 		if ( 0 < $albId) {
@@ -331,12 +321,13 @@ class WggalleryImagesHandler extends XoopsPersistableObjectHandler
 		$crImages->setOrder( $order );
 		return $crImages;
 	}
-		
-	/**
-	 * delete all copies of a specific image
-	 * @param string $imgName
-	 * @return bool
-	 */
+
+    /**
+     * delete all copies of a specific image
+     * @param $imageName
+     * @param $imageNameLarge
+     * @return bool
+     */
 	public function unlinkImages($imageName, $imageNameLarge)
 	{
 		unlink(WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imageNameLarge);

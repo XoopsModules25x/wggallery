@@ -20,12 +20,15 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 images.php 1 Mon 2018-03-19 10:04:51Z XOOPS Project (www.xoops.org) $
  */
+  
+use Xmf\Request;
+
 include __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
-$op = XoopsRequest::getString('op', 'list');
+$op = Request::getString('op', 'list');
 // Request img_id
-$imgId = XoopsRequest::getInt('img_id');
-$albId = XoopsRequest::getInt('alb_id');
+$imgId = Request::getInt('img_id');
+$albId = Request::getInt('alb_id');
 
 $templateMain = 'wggallery_admin_images.tpl';
 	
@@ -44,8 +47,8 @@ switch($op) {
 		if (0 < $albId) {
 			// Define Stylesheet
 			$GLOBALS['xoTheme']->addStylesheet( $style, null );
-			$start = XoopsRequest::getInt('start', 0);
-			$limit = XoopsRequest::getInt('limit', $wggallery->getConfig('adminpager'));
+			$start = Request::getInt('start', 0);
+			$limit = Request::getInt('limit', $wggallery->getConfig('adminpager'));
 			$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('images.php'));
 			$adminObject->addItemButton(_AM_WGGALLERY_ADD_IMAGE, 'images.php?op=new', 'add');
 			$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));

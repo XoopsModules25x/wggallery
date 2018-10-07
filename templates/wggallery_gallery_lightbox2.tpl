@@ -41,7 +41,7 @@
 	  'showImageNumberLabel':<{$showAlbumlabel}>
 	  'albumLabel':'<{$albumLabel}>',
 	  'imageFadeDuration':<{$slideshowSpeed}>,
-	  'fadeDuration':<{$speed}>,
+	  'fadeDuration':<{$speedOpen}>,
 	  'positionFromTop': 50,
 	  'resizeDuration': 400,
       'wrapAround': true
@@ -53,18 +53,18 @@
 	<!-- Images used to open the lightbox -->
 	<div>
 		<{foreach item=image from=$images name=images}>
-			<a class="lightbox-image-link" href="<{$wggallery_upload_url}>/images/<{$source}>/<{$image.name}>" data-lightbox="lightbox2-set" 
+			<a class="lightbox-image-link" href="<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>" data-lightbox="lightbox2-set" 
 			<{if $showDescr}> data-title="<{$image.desc}>"<{/if}> >
 				<{if $indexImage == 'simpleContainer'}>
 					<div class="simpleContainer">
-						<img class="img-responsive" src="<{$wggallery_upload_url}>/images/<{$source_preview}>/<{$image.name}>" alt="<{$image.title}>" title="<{$image.title}>">
+						<img class="img-responsive" src="<{if $source_preview == 'medium'}><{$image.medium}><{else}><{$image.thumb}><{/if}>" alt="<{$image.title}>" title="<{$image.title}>">
 						<div class="simpleContent">
 							<{if $showTitle}><p><{$image.title}></p><{/if}>
 							<{if $showDescr}><p><{$image.desc}></p><{/if}>
 						</div>
 					</div>
 				<{else}> 
-					<img class="lightbox-image-preview <{$indexImage}>" src="<{$wggallery_upload_url}>/images/<{$source_preview}>/<{$image.name}>" alt="<{$image.title}>"/>
+					<img class="lightbox-image-preview <{$indexImage}>" src="<{if $source_preview == 'medium'}><{$image.medium}><{else}><{$image.thumb}><{/if}>" alt="<{$image.title}>"/>
 				<{/if}> 
 			</a>
 		<{/foreach}>

@@ -141,7 +141,7 @@ class WggalleryAlbums extends XoopsObject
 		$albImage1 = 'blank.gif';
 		if (0 < $albImgid) {
 			$imagesObj = $imagesHandler->get($albImgid);
-			if (isset($imagesObj) & is_object($imagesObj) ) {
+			if ($imagesObj !== null & is_object($imagesObj) ) {
 				$albImage1 = $imagesObj->getVar('img_name');
 			}
 		}
@@ -161,7 +161,7 @@ class WggalleryAlbums extends XoopsObject
             $imagesAll = $imagesHandler->getAll($crImages);
             foreach(array_keys($imagesAll) as $i) {
                 $images[$i] = $imagesAll[$i]->getValuesImages();
-                if ($albImage1 == $images[$i]['img_name']) {$images[$i]['selected'] = 1;}
+                if ($albImage1 === $images[$i]['img_name']) {$images[$i]['selected'] = 1;}
                 if ( '' === $alb_name ) {
                     $albums = $wggallery->getHandler('albums');
                     $alb_name = $albums->get($child)->getVar('alb_name');
@@ -175,10 +175,10 @@ class WggalleryAlbums extends XoopsObject
 		$albImgidSelect->setExtra("onchange='wgshowImgSelected(\"imagepreview1\", \"alb_imgid\", \"".$imageDirectory."\", \"\", \"".XOOPS_URL."\")'");
 		$imageTray1->addElement($albImgidSelect);
         if ( 0 < count($images)) {
-            $imageTray1->addElement(new XoopsFormLabel('', "&nbsp;<button type='button' id='myModalImagePicker-btn' class='btn btn-primary' data-toggle='modal' data-target='#myModalImagePicker'>" . _CO_WGGALLERY_FORM_IMAGEPICKER . "</button>"));
+            $imageTray1->addElement(new XoopsFormLabel('', "&nbsp;<button type='button' id='myModalImagePicker-btn' class='btn btn-primary' data-toggle='modal' data-target='#myModalImagePicker'>" . _CO_WGGALLERY_FORM_IMAGEPICKER . '</button>'));
 			$GLOBALS['xoopsTpl']->assign('images', $images);
         }
-        $imageTray1->addElement(new XoopsFormLabel('', "<img src='".XOOPS_URL."/".$imageDirectory."/".$albImage1."' name='imagepreview1' id='imagepreview1' alt='' style='max-width:100px' />"));
+        $imageTray1->addElement(new XoopsFormLabel('', "<img src='".XOOPS_URL. '/' .$imageDirectory."/".$albImage1."' name='imagepreview1' id='imagepreview1' alt='' style='max-width:100px' />"));
 		$form->addElement($imageTray1);
 		
 		// Form Upload Image AlbImage
@@ -354,10 +354,10 @@ class WggalleryAlbums extends XoopsObject
 		if (WGGALLERY_ALBUM_IMGCAT_USE_EXIST_VAL === $this->getVar('alb_imgcat')) {
 			if ( 0 < $this->getVar('alb_imgid') ) {
 				$imagesObj = $imagesHandler->get($this->getVar('alb_imgid'));
-				if (isset($imagesObj) && is_object($imagesObj)) {
+				if ($imagesObj !== null && is_object($imagesObj)) {
 					$image = WGGALLERY_UPLOAD_IMAGE_URL . '/medium/' .  $imagesObj->getVar('img_name');
 				} else {
-					$image = _CO_WGGALLERY_ALBUM_IMAGE_ERRORNOTFOUND;
+					//$image = _CO_WGGALLERY_ALBUM_IMAGE_ERRORNOTFOUND;
 					$ret['image_err'] = true;
 					$image = WGGALLERY_UPLOAD_IMAGE_URL . '/medium/blank.gif';
 				}
@@ -569,13 +569,13 @@ class WggalleryAlbumsHandler extends XoopsPersistableObjectHandler
 		
 		return false;
 	}
-    
+
     /**
-	 * Get all childs of a category
-	 * @param int $albId 
-	 * @return array
-	 */
-    function getChildsOfCategory($albPid)
+     * Get all childs of a category
+     * @param $albPid
+     * @return string
+     */
+    public function getChildsOfCategory($albPid)
     {
         $childsAll = '';
        
@@ -589,7 +589,7 @@ class WggalleryAlbumsHandler extends XoopsPersistableObjectHandler
 		if($albumsCount > 0) {
 			foreach(array_keys($albumsAll) as $i) {
                 // if ( 0 < count($childsAll) ) {$childsAll .= "#".('' !== $childsAll)."|";}
-				$childsAll .= "|" . $albumsAll[$i]->getVar('alb_id');
+				$childsAll .= '|' . $albumsAll[$i]->getVar('alb_id');
                 $child = $this->getChildsOfCategory($albumsAll[$i]->getVar('alb_id'));
                 if ( $child ) {
                     $childsAll .= $child;
@@ -636,14 +636,19 @@ class WggalleryAlbumsHandler extends XoopsPersistableObjectHandler
 		}
         return $childrens;
     } */
-	function getListChildsOfCategory($albPid)
+
+    /**
+     * @param $albPid
+     * @return bool|string
+     */
+    public function getListChildsOfCategory($albPid)
     {
         if ( 0 < $albPid) {
 			$childsAll = '<ol>';
 		} else {
 			$childsAll = '';
-		};
-       
+		}
+
         $wggallery = WggalleryHelper::getInstance();
 		$albumsHandler = $wggallery->getHandler('albums');
         $crAlbums = new CriteriaCompo();

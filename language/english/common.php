@@ -125,19 +125,16 @@ define('_CO_WGGALLERY_IMAGE_IP', 'Ip');
 // ---------------- Admin Permissions ----------------
 // Permissions
 define('_CO_WGGALLERY_PERMS_GLOBAL', 'Permissions global');
-define('_CO_WGGALLERY_PERMS_GLOBAL_4', 'Permissions global to approve');
-define('_CO_WGGALLERY_PERMS_GLOBAL_8', 'Permissions global to submit/edit all albums');
-define('_CO_WGGALLERY_PERMS_GLOBAL_16', 'Permissions global to submit/edit own albums');
-define('_CO_WGGALLERY_PERMS_GL_APPROVE', 'Permissions to approve');
-define('_CO_WGGALLERY_PERMS_GL_APPROVE_DESC', 'Groups which should have permissions to approve submitted albums');
-define('_CO_WGGALLERY_PERMS_GL_SUBMIT_ALL', 'Permissions to submit all');
-define('_CO_WGGALLERY_PERMS_GL_SUBMIT_ALL_DESC', 'Groups which should have permissions to <ul><li>create albums</li><li>edit all albums</li><li>upload images to all albums</li></ul>');
-define('_CO_WGGALLERY_PERMS_GL_SUBMIT', 'Permissions to submit');
-define('_CO_WGGALLERY_PERMS_GL_SUBMIT_DESC', 'Groups which should have permissions to <ul><li>create albums</li><li>edit own albums</li><li>upload images to own albums</li></ul>');
+define('_CO_WGGALLERY_PERMS_GLOBAL_APPROVE', 'Permissions global to approve');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL', 'Permissions global to submit/edit all albums');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMIT', 'Permissions global to submit/edit own albums');
+define('_CO_WGGALLERY_PERMS_GLOBAL_APPROVE_DESC', 'Groups which should have permissions to approve submitted albums');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC', 'Groups which should have permissions to <ul><li>create albums</li><li>edit all albums</li><li>upload images to all albums</li></ul>');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMIT_DESC', 'Groups which should have permissions to <ul><li>create albums</li><li>edit own albums</li><li>upload images to own albums</li></ul>');
 define('_CO_WGGALLERY_PERMS_GLOBAL_DESC', '<ul>
-												<li>' . _CO_WGGALLERY_PERMS_GL_APPROVE . ': ' . _CO_WGGALLERY_PERMS_GL_APPROVE_DESC. '</li>
-												<li>' . _CO_WGGALLERY_PERMS_GL_SUBMIT_ALL . ': ' . _CO_WGGALLERY_PERMS_GL_SUBMIT_ALL_DESC. '</li>
-												<li>' . _CO_WGGALLERY_PERMS_GL_SUBMIT . ': ' . _CO_WGGALLERY_PERMS_GL_SUBMIT_DESC. '</li>
+												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_APPROVE . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_APPROVE_DESC. '</li>
+												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC. '</li>
+												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMIT . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMIT_DESC. '</li>
 										   </ul>');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW', 'Permissions to view');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW_DESC', 'Groups which should have permissions to view an album');

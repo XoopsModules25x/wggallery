@@ -82,11 +82,13 @@ class WggalleryHelper
         }
         return $this->module;
     }
+
     /**
-    *  @static function getConfig
-    *  @param string $name
-    *  @return null|string
-    */
+     * @static function getConfig
+     * @param string $name
+     * @param bool $first
+     * @return string
+     */
     public function getConfig($name = null, $first = false)
     {
         if ($this->config === null) {
@@ -111,7 +113,6 @@ class WggalleryHelper
             $this->addLog("Getting config '{$name}' : " . $this->config[$name]);
 			return $this->config[$name];
         }
-        return null;
     }
     /**
     *  @static function setConfig
@@ -189,7 +190,7 @@ class WggalleryHelper
 	/**
     *  @function getStateText
     *  @param string $state
-	*  @return void|string text for state
+	*  @return string text for state
     */
     public function getStateText($state)
     {
@@ -205,18 +206,19 @@ class WggalleryHelper
 				return _CO_WGGALLERY_STATE_OFFLINE;
 			break;  
         }
-		
-		return void;
     }
-	
-	/**
-	 * @public function getForm for delete
-	 * @param bool $action
-	 * @return XoopsThemeForm
-	 */
+
+    /**
+     * @public function getForm for delete
+     * @param array $arrParams
+     * @param string $title
+     * @param string $text
+     * @param string $descr
+     * @return XoopsThemeForm
+     */
 	public function getFormDelete($arrParams, $title = '', $text, $descr = '')
 	{
-		$wggallery = WggalleryHelper::getInstance();
+		//$wggallery = WggalleryHelper::getInstance();
 		$action = $_SERVER['REQUEST_URI'];
 
 		// Get Theme Form

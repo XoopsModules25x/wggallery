@@ -131,10 +131,10 @@ class WggalleryPermissionsHandler extends XoopsPersistableObjectHandler
 		return $gperm_handler->checkRight( 'wggallery_global', '16', $my_group_ids, $mid  ) ;
 	}
 
-	public function permAlbumEdit($albId, $submitterId = 0) {
+	public function permAlbumEdit($submitterId = 0) {
 
-		global $xoopsUser, $xoopsModule;
-		
+		global $xoopsUser;
+
 		$currentuid = 0;
 		if ( isset($xoopsUser) && is_object($xoopsUser) ) {
 			if ($xoopsUser->isAdmin()) {
@@ -145,11 +145,7 @@ class WggalleryPermissionsHandler extends XoopsPersistableObjectHandler
 		if ($this->permGlobalSubmitAll()) {
 			return true;
 		}
-		$currentuid = (is_object($xoopsUser) && isset($xoopsUser)) ? $xoopsUser->uid(): 0;
-		if ( $this->permGlobalSubmit() && $currentuid == $submitterId ) {
-			return true;
-		}  
-		return false; 
+        return $this->permGlobalSubmit() && $currentuid == $submitterId;
 	}
 
 	 /**

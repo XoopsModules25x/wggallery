@@ -18,8 +18,8 @@
     <{if $images_nb > 0}>
         <div id="links">
             <{foreach item=image from=$images}>
-                <a href="<{$wggallery_upload_url}>/images/<{$source}>/<{$image.name}>" title="<{$image.title}>" data-description="<{$image.desc}>">
-                    <img src="<{$wggallery_upload_url}>/images/<{$source_preview}>/<{$image.name}>" alt="<{$image.title}>">
+                <a href="<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>" title="<{$image.title}>" data-description="<{$image.desc}>">
+                    <img src="<{if $source_preview == 'medium'}><{$image.medium}><{else}><{$image.thumb}><{/if}>" alt="<{$image.title}>">
                 </a>
             <{/foreach}>
         </div>
@@ -36,7 +36,7 @@
         <{if $showThumbnails == 'true'}>
             <ol class="indicator">
                 <{foreach name=image item=image from=$images}>
-                    <li style="background-image: url('<{$wggallery_upload_url}>/images/thumbs/<{$image.name}>');" title="<{$image.title}>" data-index="<{$smarty.foreach.image.iteration}>"></li>
+                    <li style="background-image: url('<{$image.thumb}>');" title="<{$image.title}>" data-index="<{$smarty.foreach.image.iteration}>"></li>
                 <{/foreach}>
             </ol>
         <{/if}>
@@ -87,7 +87,7 @@
         <{if $showThumbnails == 'true'}>
             <ol class="indicator">
                 <{foreach name=image item=image from=$images}>
-                    <li style="background-image: url('<{$wggallery_upload_url}>/images/thumbs/<{$image.name}>');" title="<{$image.title}>" data-index="<{$smarty.foreach.image.iteration}>"></li>
+                    <li style="background-image: url('<{$image.thumb}>');" title="<{$image.title}>" data-index="<{$smarty.foreach.image.iteration}>"></li>
                 <{/foreach}>
             </ol>
         <{/if}>
@@ -96,7 +96,7 @@
     <{if $images_nb > 0}>
         <div id="links" class='hidden'>
             <{foreach item=image from=$images}>
-                <a href="<{$wggallery_upload_url}>/images/<{$source}>/<{$image.name}>" title="<{$image.title}>"></a>
+                <a href="<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>" title="<{$image.title}>"></a>
             <{/foreach}>
         </div>
     <{/if}>
