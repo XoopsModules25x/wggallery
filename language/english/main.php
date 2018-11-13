@@ -53,6 +53,8 @@ define('_MA_WGGALLERY_COLORBOX_SLIDESHOWSTOP', 'stop slideshow');
 // Admin link
 define('_MA_WGGALLERY_ADMIN', 'Admin');
 // ---------------- Errors ----------------
-define('_MA_WGGALLERY_FAILSAVEIMG_MEDIUM', 'Error when creating medium image');
-define('_MA_WGGALLERY_FAILSAVEIMG_THUMBS', 'Error when creating thumb image');
+define('_MA_WGGALLERY_FAILSAVEIMG_MEDIUM', 'Error when creating medium image: %s');
+define('_MA_WGGALLERY_FAILSAVEIMG_THUMBS', 'Error when creating thumb image: %s');
+define('_MA_WGGALLERY_FAILSAVEWM_MEDIUM', 'Error when adding watermark to medium image: %s (reason: %g)');
+define('_MA_WGGALLERY_FAILSAVEWM_LARGE', 'Error when adding watermark to large image: %s (reason: %g)');
 // ---------------- End ----------------

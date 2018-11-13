@@ -11,10 +11,10 @@
 <table class='table table-bordered'>
 	<thead>
 		<tr class='head'>
-			<th class='center'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_TYP}></th>
-			<th class='center'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_DESC}></th>
-            <th class='center'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_RESULTS}></th>
-			<th class='center width15'><{$smarty.const._CO_WGGALLERY_FORM_ACTION}></th>
+			<th class='center' style='width:10%'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_TYP}></th>
+			<th class='center' style='width:35%'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_DESC}></th>
+            <th class='center' style='width:35%'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_RESULTS}></th>
+			<th class='center' style='width:20%'><{$smarty.const._CO_WGGALLERY_FORM_ACTION}></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -52,6 +52,32 @@
             <td class='center'>
 				<p><a class='btn' href='maintenance.php?op=delete_unused_images_show' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_DUI_SHOW}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_DUI_SHOW}></a></p>
 				<p><a class='btn' href='maintenance.php?op=delete_unused_images' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_DUI}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_DUI}></a></p>
+			</td>
+		</tr>
+        <tr class="<{cycle values='odd, even'}>">
+			<td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMGDIR}></td>
+			<td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMGDIR_DESC}></td>
+			<td class='left'><{$result6}></td>
+            <td class='center'>
+				<p><a class='btn' href='maintenance.php?op=broken_imgdir_search' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_SEARCH}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_SEARCH}></a></p>
+                <p><a class='btn' href='maintenance.php?op=broken_imgdir_clean' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_CLEAN}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_CLEAN}></a></p>
+			</td>
+		</tr>
+        <tr class="<{cycle values='odd, even'}>">
+			<td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMGALB}></td>
+			<td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMGALB_DESC}></td>
+			<td class='left'><{$result7}></td>
+            <td class='center'>
+				<p><a class='btn' href='maintenance.php?op=broken_imgalb_search' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_SEARCH}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_SEARCH}></a></p>
+                <p><a class='btn' href='maintenance.php?op=broken_imgalb_clean' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_CLEAN}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_CLEAN}></a></p>
+			</td>
+		</tr>
+        <tr class="<{cycle values='odd, even'}>">
+			<td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_WATERMARK}></td>
+			<td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_WATERMARK_DESC}></td>
+			<td class='left'><{$result5}></td>
+            <td class='center'>
+				<p><a class='btn' href='maintenance.php?op=watermark_select' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_WATERMARK_SELECT}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_WATERMARK_SELECT}></a></p>
 			</td>
 		</tr>
 	</tbody>

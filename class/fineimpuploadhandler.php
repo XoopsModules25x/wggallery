@@ -124,7 +124,20 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 			return array(
 				'error' => sprintf(_FAILSAVEIMG, $this->imageNicename)
 			);
-		} 
+		}
+        
+        // load watermark settings
+        $albumObj = $albumsHandler->get($this->claims->cat);
+        $wmId = $albumObj->getVar('alb_wmid');
+        $wmTargetM = false;
+        $wmTargetL = false;
+        if ( 0 < $wmId) {
+            $watermarksObj = $watermarksHandler->get($wmId);
+            $wmTarget = $watermarksObj->getVar('wm_target');
+            if ( WGGALLERY_WATERMARK_TARGET_A === $wmTarget || WGGALLERY_WATERMARK_TARGET_M === $wmTarget) {$wmTargetM = true;}
+            if ( WGGALLERY_WATERMARK_TARGET_A === $wmTarget || WGGALLERY_WATERMARK_TARGET_L === $wmTarget) {$wmTargetL = true;}
+        }
+        
 		// create medium image
 		$ret = $this->resizeImage($this->pathUpload . '/medium/' . $this->imageName, $wggallery->getConfig('maxwidth_medium'), $wggallery->getConfig('maxheight_medium'));
         if(false === $ret) {
@@ -133,6 +146,7 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 		if ('copy' === $ret) {
 			copy($this->pathUpload . '/large/' . $this->imageNameLarge, $this->pathUpload . '/medium/' . $this->imageName);
 		}
+        
 		// create thumb
 		$ret = $this->resizeImage($this->pathUpload . '/thumbs/' . $this->imageName, $wggallery->getConfig('maxwidth_thumbs'), $wggallery->getConfig('maxheight_thumbs'));
 		if(false === $ret) {
@@ -141,6 +155,24 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 		if ('copy' === $ret) {
 			copy($this->pathUpload . '/large/' . $this->imageNameLarge, $this->pathUpload . '/thumbs/' . $this->imageName);
 		}
+        
+        // add watermark to large image
+        if ( true === $wmTargetL) {
+            $imgWm = $this->pathUpload . '/large/' . $this->imageNameLarge;
+            $resWm = $watermarksHandler->watermarkImage( $wmId, $imgWm, $imgWm );
+            if ( true !== $resWm) {
+                return array('error' => sprintf(_MA_WGGALLERY_FAILSAVEWM_LARGE, $this->imageNicename, $resWm));
+            }
+        }
+        // add watermark to medium image
+        if ( true === $wmTargetM) {
+            $imgWm = $this->pathUpload . '/medium/' . $this->imageName;
+            $resWm = $watermarksHandler->watermarkImage( $wmId, $imgWm, $imgWm );
+            if ( true !== $resWm) {
+                return array('error' => sprintf(_MA_WGGALLERY_FAILSAVEWM_MEDIUM, $this->imageNicename, $resWm));
+            }
+        }
+        
         return array('success'=> true, 'uuid' => $uuid);
     }
 	

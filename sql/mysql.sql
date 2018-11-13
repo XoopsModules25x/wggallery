@@ -23,6 +23,7 @@ CREATE TABLE `wggallery_albums` (
   `alb_imgid` INT(8) NOT NULL DEFAULT '0',
   `alb_state` INT(1) NOT NULL DEFAULT '0',
   `alb_allowdownload` INT(1) NOT NULL DEFAULT '0',
+  `alb_wmid` INT(8) NOT NULL DEFAULT '0',
   `alb_date` INT(8) NOT NULL DEFAULT '0',
   `alb_submitter` INT(8) NOT NULL DEFAULT '0',
   PRIMARY KEY (`alb_id`)
@@ -86,3 +87,27 @@ CREATE TABLE `wggallery_albumtypes` (
   PRIMARY KEY (`at_id`),
   UNIQUE KEY (`at_template`)
 ) ENGINE=InnoDB;
+
+#
+# Structure table for `wggallery_watermarks` 13
+#
+
+CREATE TABLE `wggallery_watermarks` (
+  `wm_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `wm_name` VARCHAR(100) NOT NULL DEFAULT '',
+  `wm_type` INT(8) NOT NULL DEFAULT '0',
+  `wm_position` INT(8) NOT NULL DEFAULT '0',
+  `wm_marginlr` INT(8) NOT NULL DEFAULT '0',
+  `wm_margintb` INT(8) NOT NULL DEFAULT '0',
+  `wm_image` VARCHAR(255) NOT NULL DEFAULT '',
+  `wm_text` VARCHAR(100) NOT NULL DEFAULT '',
+  `wm_font` VARCHAR(255) NOT NULL DEFAULT '',
+  `wm_fontsize` INT(8) NOT NULL DEFAULT '0',
+  `wm_color` VARCHAR(100) NOT NULL DEFAULT '',
+  `wm_usage` INT(1) NOT NULL DEFAULT '0',
+  `wm_target` INT(1) NOT NULL DEFAULT '0',
+  `wm_date` INT(8) NOT NULL DEFAULT '0',
+  `wm_submitter` INT(8) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`wm_id`)
+) ENGINE=InnoDB;
+

@@ -30,9 +30,11 @@ define('_AM_WGGALLERY_THEREARE_ALBUMS', "Es gibt <span class='bold'>%s</span> Al
 define('_AM_WGGALLERY_THEREARE_IMAGES', "Es gibt <span class='bold'>%s</span> Bilder in der Datenbank");
 define('_AM_WGGALLERY_THEREARE_GALLERYTYPES', "Es gibt <span class='bold'>%s</span> Galerietypen in der Datenbank");
 define('_AM_WGGALLERY_THEREARE_ALBUMTYPES', "Es gibt <span class='bold'>%s</span> Albumtypen in der Datenbank");
+define('_AM_WGGALLERY_THEREARE_WATERMARKS', "Es gibt <span class='bold'>%s</span> Wasserzeichen in der Datenbank");
 // There aren't
 define('_AM_WGGALLERY_THEREARENT_GALLERYTYPES', "Es gibt keine Galerietypen! Für eine Initialisierung bzw. Wiederherstellung gehen Sie bitte auf 'Wartung' => 'Wartung Galerietypen' und klicken Sie auf die Schaltfläche 'Nur alle wiederherstellen'");
 define('_AM_WGGALLERY_THEREARENT_ALBUMTYPES', "Es gibt keine Albumtypen! Für eine Initialisierung bzw. Wiederherstellung gehen Sie bitte auf 'Wartung' => 'Wartung Albumtypen' und klicken Sie auf die Schaltfläche 'Nur alle wiederherstellen'");
+define('_AM_WGGALLERY_THEREARENT_WATERMARKS', 'Derzeit sind keine Wasserzeichen definiert!');
 // ---------------- Admin Files ----------------
 // Buttons
 define('_AM_WGGALLERY_ADD_ALBUM', 'Neues Album hinzufügen');
@@ -44,6 +46,7 @@ define('_AM_WGGALLERY_ALBUMS_LIST', 'Liste der Alben');
 define('_AM_WGGALLERY_IMAGES_LIST', 'Liste der Bilder');
 define('_AM_WGGALLERY_GALLERYTYPES_LIST', 'Liste der Galerietypen');
 define('_AM_WGGALLERY_ALBUMTYPES_LIST', 'Liste der Albumtypen');
+define('_AM_WGGALLERY_WATERMARKS_LIST', 'Liste der Wasserzeichen');
 //Gallerytype/Albumtypes
 define('_AM_WGGALLERY_GT_AT_ID', 'Id');
 define('_AM_WGGALLERY_GT_AT_PRIMARY', 'Primär');
@@ -228,6 +231,17 @@ define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC', 'Alle derzeit nicht verwe
 </ul>');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_NONE', 'Es wurden keine nicht verwendeten Albumbilder gefunden');
 define('_AM_WGGALLERY_MAINTENANCE_DUI_SUREDELETE', 'Alle derzeit nicht verwendeten Albumbilder (nicht in einem Album enthalten) werden gelöscht! Wollen Sie wirklich fortsetzen?');
+define('_AM_WGGALLERY_MAINTENANCE_WATERMARK', 'Wasserzeichen zu Album nachträglich hinzufügen');
+define('_AM_WGGALLERY_MAINTENANCE_WATERMARK_DESC', 'Ein Wasserzeichen zu einem Album hinzufügen.<br>Achtung: bestehende Wasserzeichen werden nicht entfernt.<br>Wenn bereits ein Wasserzeichen vorhanden ist, wird den Bildern ein zusätzliches Wasserzeichen hinzugefügt.');
+define('_AM_WGGALLERY_MAINTENANCE_WATERMARK_SELECT', 'Album auswählen');
+define('_AM_WGGALLERY_MAINTENANCE_WATERMARK_SUCCESS', 'Erfolgreich');
+define('_AM_WGGALLERY_MAINTENANCE_IMGDIR', 'Fehlerhafte Einträge Bilder zu Verzeichnis');
+define('_AM_WGGALLERY_MAINTENANCE_IMGDIR_DESC', 'Es werden Einträge in der Tabelle Bilder gesucht, die im Uploadverzeichnis nicht gefunden werden.');
+define('_AM_WGGALLERY_MAINTENANCE_IMGALB', 'Fehlerhafte Einträge Bilder zu Album');
+define('_AM_WGGALLERY_MAINTENANCE_IMGALB_DESC', 'Es werden Einträge in der Tabelle Bilder gesucht, deren angegebenes Album nicht (mehr) existiert.');
+define('_AM_WGGALLERY_MAINTENANCE_IMG_SEARCH', 'Einträge suchen');
+define('_AM_WGGALLERY_MAINTENANCE_IMG_SEARCHOK', 'Keine fehlerhafte Einträge Bilder gefunden');
+define('_AM_WGGALLERY_MAINTENANCE_IMG_CLEAN', 'Fehlerhafte Einträge bereinigen');
 // ---------------- Admin Others ----------------
 define('_AM_WGGALLERY_MAINTAINEDBY', ' wird unterstützt von ');
 // ---------------- End ----------------

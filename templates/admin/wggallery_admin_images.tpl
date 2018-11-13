@@ -26,8 +26,8 @@
 				<th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_WEIGHT}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_ALBID}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_STATE}></th>
-				<th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_DATE}></th>
-				<th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_SUBMITTER}></th>
+				<th class='center'><{$smarty.const._CO_WGGALLERY_DATE}></th>
+				<th class='center'><{$smarty.const._CO_WGGALLERY_SUBMITTER}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_IP}></th>
 				<th class='center width5'><{$smarty.const._CO_WGGALLERY_FORM_ACTION}></th>
 			</tr>

@@ -33,9 +33,6 @@ find_parent = function (tag_name, el) {
     return el;
 };
 
-
-
-
 function wgshowImgSelected(imgId, selectId, imgDir, extra, xoopsUrl) {
     if (xoopsUrl == null) {
         xoopsUrl = "./";
@@ -48,4 +45,3 @@ function wgshowImgSelected(imgId, selectId, imgDir, extra, xoopsUrl) {
         imgDom.src = xoopsUrl + "/images/blank.gif";
     }
 }
-

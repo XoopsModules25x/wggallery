@@ -41,7 +41,7 @@ if (_CANCEL === Request::getString('cancel', 'none')) {
 
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet( $style, null );
-$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/css/style' . $wggallery->getConfig('style_index_image', true) . '.css' , null );
+$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/css/style.css' , null );
 // 
 // $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);

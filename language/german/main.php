@@ -53,6 +53,8 @@ define('_MA_WGGALLERY_COLORBOX_SLIDESHOWSTOP', 'Bildershow anhalten');
 // Admin link
 define('_MA_WGGALLERY_ADMIN', 'Admin');
 // ---------------- Errors ----------------
-define('_MA_WGGALLERY_FAILSAVEIMG_MEDIUM', 'Fehler beim Erstellen des mittelgroßen Bildes');
-define('_MA_WGGALLERY_FAILSAVEIMG_THUMBS', 'Fehler beim Erstellen des Vorschaubildes');
+define('_MA_WGGALLERY_FAILSAVEIMG_MEDIUM', 'Fehler beim Erstellen des mittelgroßen Bildes: %s');
+define('_MA_WGGALLERY_FAILSAVEIMG_THUMBS', 'Fehler beim Erstellen des Vorschaubildes: %s');
+define('_MA_WGGALLERY_FAILSAVEWM_MEDIUM', 'Fehler beim Hinzufügen Wasserzeichen zu mittelgroßem Bild: %s (Grund: %g)');
+define('_MA_WGGALLERY_FAILSAVEWM_LARGE', 'Fehler beim Hinzufügen Wasserzeichen zu großem Bild: %s (Grund: %g)');
 // ---------------- End ----------------

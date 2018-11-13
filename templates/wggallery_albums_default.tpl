@@ -8,7 +8,7 @@
 			<{foreach item=album from=$albums_list}>
 				<div class='row wgg-album-list'>
 					<div class='col-sm-4'>
-						<img class='img-responsive wgg-album-img' src='<{$album.image}>' alt='albums' style='max-width:200px'/>
+						<img class='img-responsive wgg-album-img' src='<{$album.image}>' alt='albums'/>
 					</div>
 					<div class='col-sm-4'>
 						<p class='wgg-album-name'><{$album.name}></p>

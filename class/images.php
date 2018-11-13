@@ -152,9 +152,9 @@ class WggalleryImages extends XoopsObject
 		$form->addElement($imgStateSelect, true);
 		// Form Text Date Select ImgDate
 		$imgDate = $this->isNew() ? 0 : $this->getVar('img_date');
-		$form->addElement(new XoopsFormTextDateSelect( _CO_WGGALLERY_IMAGE_DATE, 'img_date', '', $imgDate ));
+		$form->addElement(new XoopsFormTextDateSelect( _CO_WGGALLERY_DATE, 'img_date', '', $imgDate ));
 		// Form Select User ImgSubmitter
-		$form->addElement(new XoopsFormSelectUser( _CO_WGGALLERY_IMAGE_SUBMITTER, 'img_submitter', false, $this->getVar('img_submitter') ));
+		$form->addElement(new XoopsFormSelectUser( _CO_WGGALLERY_SUBMITTER, 'img_submitter', false, $this->getVar('img_submitter') ));
 		// Form Text ImgIp
 		$form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_IP, 'img_ip', 50, 255, $this->getVar('img_ip') ));
 		// To Save

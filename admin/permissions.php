@@ -36,7 +36,7 @@ $formSelect = new XoopsFormSelect('', 'op', $op);
 $formSelect->setExtra('onchange="document.fselperm.submit()"');
 $formSelect->addOption('global', _CO_WGGALLERY_PERMS_GLOBAL);
 $formSelect->addOption('view', _CO_WGGALLERY_PERMS_ALB_VIEW);
-$formSelect->addOption('dlfullalb', _CO_WGGALLERY_PERMS_ALB_DLFULLALB);
+// $formSelect->addOption('dlfullalb', _CO_WGGALLERY_PERMS_ALB_DLFULLALB);
 $formSelect->addOption('dlimage', _CO_WGGALLERY_PERMS_ALB_DLIMAGE);
 $permTableForm->addElement($formSelect);
 $permTableForm->display();

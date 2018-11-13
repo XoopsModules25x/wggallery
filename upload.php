@@ -52,7 +52,7 @@ if ($permissionsHandler->permGlobalSubmit()) {
 		
 		$albumObj = $albumsHandler->get($albId);
 		// get config for file type/extenstion
-		$fileextions = $wggallery->getConfig('fileext');
+		$fileextions = $wggallery->getConfig('mimetypes');
 		$mimetypes = array();
 		foreach ($fileextions as $fe) {
 			switch ($fe) {
@@ -101,7 +101,7 @@ if ($permissionsHandler->permGlobalSubmit()) {
 		// Define Breadcrumb and tips
 		$xoopsTpl->assign('multiupload', true);
 		// echo $wggallery->getConfig('mimetypes');
-		$xoopsTpl->assign('img_maxsize', $wggallery->getConfig('maxsize', true));
+		$xoopsTpl->assign('img_maxsize', $wggallery->getConfig('maxsize'));
 		$xoopsTpl->assign('img_maxwidth', $wggallery->getConfig('maxwidth'));
 		$xoopsTpl->assign('img_maxheight', $wggallery->getConfig('maxheight'));
 		$xoopsTpl->assign('img_albname', $albumObj->getVar('alb_name'));

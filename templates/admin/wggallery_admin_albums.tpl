@@ -13,9 +13,10 @@
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_IMAGE}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_STATE}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_ALLOWDOWNLOAD}></th>
+                <th class='center'><{$smarty.const._CO_WGGALLERY_WATERMARKS}></th>
                 <th class='center'><{$smarty.const._CO_WGGALLERY_IMAGES}></th>
-				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_DATE}></th>
-				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_SUBMITTER}></th>
+				<th class='center'><{$smarty.const._CO_WGGALLERY_DATE}></th>
+				<th class='center'><{$smarty.const._CO_WGGALLERY_SUBMITTER}></th>
 				<th class='center width5'><{$smarty.const._CO_WGGALLERY_FORM_ACTION}></th>
 			</tr>
 		</thead>
@@ -38,6 +39,11 @@
 						</td>
 						<td class='center'><{$album.state_text}></td>
 						<td class='center'><{$album.allowdownload}></td>
+                        <td class='center'>
+                            <a href='watermarks.php?op=edit&amp;wm_id=<{$album.wmid}>' title='<{$album.wmname}>'>
+								<{$album.wmname}>
+							</a>
+                        </td>
                         <td class='center'><{$album.nb_images}></td>
 						<td class='center'><{$album.date}></td>
 						<td class='center'><{$album.submitter}></td>

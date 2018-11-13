@@ -34,6 +34,7 @@ define('_MI_WGGALLERY_ADMENU4', 'Gallery types');
 define('_MI_WGGALLERY_ADMENU5', 'Album types');
 define('_MI_WGGALLERY_ADMENU7', 'Permissions');
 define('_MI_WGGALLERY_ADMENU8', 'Maintenance');
+define('_MI_WGGALLERY_ADMENU9', 'Watermarks');
 define('_MI_WGGALLERY_ABOUT', 'About');
 // ---------------- Admin Nav ----------------
 define('_MI_WGGALLERY_ADMIN_PAGER', 'Admin pager');

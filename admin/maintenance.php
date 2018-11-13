@@ -24,9 +24,7 @@
 use Xmf\Request;
 
 include __DIR__ . '/header.php';
-// It recovered the value of argument op in URL$
-$op = Request::getString('op', 'list');
-// Request alb_id
+$op    = Request::getString('op', 'list');
 $albId = Request::getInt('alb_id');
 
 // add scripts 
@@ -46,7 +44,7 @@ switch($op) {
 				redirect_header('maintenance.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
 			}
             $success = array();
-            $errors = array();
+            $errors  = array();
             if ('delete_reset_gt' === $op) {
                 // delete all existing gallerytypes
                 $gallerytypesAll = $gallerytypesHandler->getAll();
@@ -61,70 +59,26 @@ switch($op) {
                 }	
 			}
 			// create new gallerytypes if not existing
-			$gallerytypesObj = $gallerytypesHandler->create();
-			$template = 'none';
-			$gallerytypesObj->setVar('gt_name', $template);
-			$gallerytypesObj->setVar('gt_template', $template);
-			if($gallerytypesHandler->insert($gallerytypesObj) && 'delete_reset_gt' === $op) {
-                $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE . $template;
-            } else if('delete_reset_gt' === $op) {
-                $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $template;
+            $templates = array('none', 'lightbox2', 'justifiedgallery', 'viewerjs', 'jssor', 'lclightboxlite');
+            foreach($templates as $template) {
+                $gtCount = 0;
+                $crGallerytypes = new CriteriaCompo();
+                $crGallerytypes->add(new Criteria('gt_template', $template));
+                $crGallerytypes->setLimit( 1 );
+                $gtCount = $gallerytypesHandler->getCount($crGallerytypes);
+                if (1 > $gtCount) {           
+                    $gallerytypesObj = $gallerytypesHandler->create();
+                    $gallerytypesObj->setVar('gt_name', $template);
+                    $gallerytypesObj->setVar('gt_template', $template);
+                    if($gallerytypesHandler->insert($gallerytypesObj)) {
+                        $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE . $template;
+                    } else {
+                        $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $template;
+                    }
+                }
+                unset($gallerytypeObj);
+                unset($crGallerytypes);
             }
-			unset($gallerytypeObj);
-			$template = 'lightbox2';
-			$gallerytypesObj->setVar('gt_name', $template);
-			$gallerytypesObj->setVar('gt_template', $template);
-			if($gallerytypesHandler->insert($gallerytypesObj) && 'delete_reset_gt' === $op) {
-                $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE . $template;
-            } else if('delete_reset_gt' === $op) {
-                $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $template;
-            }
-			unset($gallerytypeObj);
-			$template = 'justifiedgallery';
-			$gallerytypesObj->setVar('gt_name', $template);
-			$gallerytypesObj->setVar('gt_template', $template);
-			if($gallerytypesHandler->insert($gallerytypesObj) && 'delete_reset_gt' === $op) {
-                $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE . $template;
-            } else if('delete_reset_gt' === $op) {
-                $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $template;
-            }
-			unset($gallerytypeObj);
-/* 			$template = 'blueimpgallery';
-			$gallerytypesObj->setVar('gt_name', $template);
-			$gallerytypesObj->setVar('gt_template', $template);
-			if($gallerytypesHandler->insert($gallerytypesObj) && 'delete_reset_gt' === $op) {
-                $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE . $template;
-            } else if('delete_reset_gt' === $op) {
-                $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $template;
-            }
-			unset($gallerytypeObj); */
-			$template = 'viewerjs';
-			$gallerytypesObj->setVar('gt_name', $template);
-			$gallerytypesObj->setVar('gt_template', $template);
-			if($gallerytypesHandler->insert($gallerytypesObj) && 'delete_reset_gt' === $op) {
-                $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE . $template;
-            } else if('delete_reset_gt' === $op) {
-                $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $template;
-            }
-			unset($gallerytypeObj);
-			$template = 'jssor';
-			$gallerytypesObj->setVar('gt_name', $template);
-			$gallerytypesObj->setVar('gt_template', $template);
-			if($gallerytypesHandler->insert($gallerytypesObj) && 'delete_reset_gt' === $op) {
-                $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE . $template;
-            } else if('delete_reset_gt' === $op) {
-                $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $template;
-            }
-			unset($gallerytypeObj);
-			$template = 'lclightboxlite';
-			$gallerytypesObj->setVar('gt_name', $template);
-			$gallerytypesObj->setVar('gt_template', $template);
-			if($gallerytypesHandler->insert($gallerytypesObj) && 'delete_reset_gt' === $op) {
-                $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE . $template;
-            } else if('delete_reset_gt' === $op) {
-                $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $template;
-            }
-			unset($gallerytypeObj);
 			
 			// reset all gallerytypes
 			$count_pr = 0;
@@ -158,7 +112,6 @@ switch($op) {
 			$templateMain = 'wggallery_admin_maintenance.tpl';
 			$err_text = '';
 			if (count($errors) > 0) {
-				$err_text = '';
 				foreach($errors as $error) {
 					$err_text .= '<br>' . $error;
 				}
@@ -187,7 +140,7 @@ switch($op) {
 				redirect_header('maintenance.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
 			}
             $success = array();
-            $errors = array();
+            $errors  = array();
 			if ('delete_reset_at' === $op) {
                 // delete all existing albumtypes
                 $albumtypesAll = $albumtypesHandler->getAll();
@@ -203,50 +156,27 @@ switch($op) {
             }
 				
 			// create new albumtypes if not existing
-			$albumtypesObj = $albumtypesHandler->create();
-			$template = 'default';
-			$albumtypesObj->setVar('at_name', $template);
-			$albumtypesObj->setVar('at_template', $template);
-            if($albumtypesHandler->insert($albumtypesObj) && 'delete_reset_at' === $op) {
-                $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE . $template;
-            } else if('delete_reset_at' === $op) {
-                $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $template;
+            $templates = array('default', 'simple', 'hovereffectideas', 'bcards');
+            foreach($templates as $template) {
+                $gtCount = 0;
+                $crAlbumtypes = new CriteriaCompo();
+                $crAlbumtypes->add(new Criteria('at_template', $template));
+                $crAlbumtypes->setLimit( 1 );
+                $gtCount = $albumtypesHandler->getCount($crAlbumtypes);
+                if (1 > $gtCount) {           
+                    $albumtypesObj = $albumtypesHandler->create();
+                    $albumtypesObj->setVar('at_name', $template);
+                    $albumtypesObj->setVar('at_template', $template);
+                    if($albumtypesHandler->insert($albumtypesObj)) {
+                        $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE . $template;
+                    } else {
+                        $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $template;
+                    }
+                }
+                unset($albumtypesObj);
+                unset($crAlbumtypes);
             }
-			unset($albumtypeObj);
-            // create new albumtypes if not existing
-			$albumtypesObj = $albumtypesHandler->create();
-			$template = 'simple';
-			$albumtypesObj->setVar('at_name', $template);
-			$albumtypesObj->setVar('at_template', $template);
-            if($albumtypesHandler->insert($albumtypesObj) && 'delete_reset_at' === $op) {
-                $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE . $template;
-            } else if('delete_reset_at' === $op) {
-                $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $template;
-            }
-			unset($albumtypeObj);
-            // create new albumtypes if not existing
-			$albumtypesObj = $albumtypesHandler->create();
-			$template = 'hovereffectideas';
-			$albumtypesObj->setVar('at_name', $template);
-			$albumtypesObj->setVar('at_template', $template);
-            if($albumtypesHandler->insert($albumtypesObj) && 'delete_reset_at' === $op) {
-                $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET . $template;
-            } else if('delete_reset_at' === $op) {
-                $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $template;
-            }
-			unset($albumtypeObj);
-            // create new albumtypes if not existing
-			$albumtypesObj = $albumtypesHandler->create();
-			$template = 'bcards';
-			$albumtypesObj->setVar('at_name', $template);
-			$albumtypesObj->setVar('at_template', $template);
-            if($albumtypesHandler->insert($albumtypesObj) && 'delete_reset_at' === $op) {
-                $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET . $template;
-            } else if('delete_reset_at' === $op) {
-                $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $template;
-            }
-			unset($albumtypeObj);
-            
+
             // reset all albumtypes
 			$count_pr = 0;
             $crAlbumtypes = new CriteriaCompo();
@@ -279,7 +209,6 @@ switch($op) {
 			$templateMain = 'wggallery_admin_maintenance.tpl';
 			$err_text = '';
 			if (count($errors) > 0) {
-				$err_text = '';
 				foreach($errors as $error) {
 					$err_text .= '<br>' . $error;
 				}
@@ -340,7 +269,6 @@ switch($op) {
 		$templateMain = 'wggallery_admin_maintenance.tpl';
 		$err_text = '';
 		if (count($errors) > 0) {
-			$err_text = '';
 			foreach($errors as $error) {
 				$err_text .= '<br>' . $error;
 			}
@@ -375,7 +303,6 @@ switch($op) {
 		$unused_text = '';
 		$err_text = '';
 		if (count($errors) > 0) {
-			$err_text = '';
 			foreach($errors as $error) {
 				$err_text .= '<br>' . $error;
 			}
@@ -395,15 +322,14 @@ switch($op) {
 		
 	break;
 	
-	
 	case 'delete_unused_images':
 		if(isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
 			if(!$GLOBALS['xoopsSecurity']->check()) {
 				redirect_header('maintenance.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
 			}
             $success = array();
-            $errors = array();
-			$unused = array();
+            $errors  = array();
+			$unused  = array();
 		
 			$directory = WGGALLERY_UPLOAD_IMAGE_PATH . '/large';
 			if (false === getUnusedImages($unused, $directory)) {
@@ -432,7 +358,6 @@ switch($op) {
 			$templateMain = 'wggallery_admin_maintenance.tpl';
 			$err_text = '';
 			if (count($errors) > 0) {
-				$err_text = '';
 				foreach($errors as $error) {
 					$err_text .= '<br>' . $error;
 				}
@@ -451,6 +376,278 @@ switch($op) {
 			xoops_confirm(array('ok' => 1, 'op' => 'delete_unused_images'), $_SERVER['REQUEST_URI'], _AM_WGGALLERY_MAINTENANCE_DUI_SUREDELETE);
 		}
 	break;
+    
+    case 'watermark_select':
+        // Get Theme Form
+		xoops_load('XoopsFormLoader');
+		$form = new XoopsThemeForm(_AM_WGGALLERY_MAINTENANCE_WATERMARK, 'form', 'maintenance.php', 'post', true);
+		$form->setExtra('enctype="multipart/form-data"');
+		// Form Select Parent Album
+		$albumsHandler = $wggallery->getHandler('albums');
+		$wmAlbid = new XoopsFormSelect( _AM_WGGALLERY_MAINTENANCE_WATERMARK_SELECT, 'wm_albid', 0 );
+		$wmAlbid->addOption('', '&nbsp;');
+        $albumsAll = $albumsHandler->getAll();
+        foreach(array_keys($albumsAll) as $i) {
+			$albName = $albumsAll[$i]->getVar('alb_name');
+			$albAlbPid = $albumsAll[$i]->getVar('alb_pid');
+			if ( 0 < $albAlbPid ) {
+				$albumsObj = $albumsHandler->get($albAlbPid);
+				$albName .= ' (' . $albumsObj->getVar('alb_name') . ')';
+			}
+			$wmAlbid->addOption($albumsAll[$i]->getVar('alb_id'), $albName);
+		}
+		$form->addElement($wmAlbid, true);
+		unset($criteria);
+        // Form Select Album watermark
+        $watermarksHandler = $wggallery->getHandler('watermarks');
+        $criteria = new CriteriaCompo();
+		$criteria->add(new Criteria('wm_usage', WGGALLERY_WATERMARK_USAGENONE, '>'));
+        $countWm = $watermarksHandler->getCount($criteria);
+        if ( 0 < $countWm ) {
+            $albWidSelect = new XoopsFormSelect( _CO_WGGALLERY_WATERMARK, 'wm_id', 0);
+            $albWidSelect->addOption('', '&nbsp;');
+            $criteria = new CriteriaCompo();
+            $criteria->add(new Criteria('wm_usage', WGGALLERY_WATERMARK_USAGENONE, '>'));
+            $albWidSelect->addOptionArray($watermarksHandler->getList($criteria));
+            $form->addElement($albWidSelect, true);
+        }
+        unset($criteria);
+        $wmTargetSelect = new XoopsFormRadio( _CO_WGGALLERY_WATERMARK_TARGET, 'wm_target', 0 );
+		$wmTargetSelect->addOption(WGGALLERY_WATERMARK_TARGET_A, _CO_WGGALLERY_WATERMARK_TARGET_A);
+        $wmTargetSelect->addOption(WGGALLERY_WATERMARK_TARGET_M, _CO_WGGALLERY_WATERMARK_TARGET_M);
+        $wmTargetSelect->addOption(WGGALLERY_WATERMARK_TARGET_L, _CO_WGGALLERY_WATERMARK_TARGET_L);
+		$form->addElement($wmTargetSelect, true);
+        $form->addElement(new XoopsFormHidden('op', 'watermark_add'));
+		$form->addElement(new XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+        $form->display();
+    break;
+    
+    case 'watermark_add':
+        $wmAlbid  = Request::getInt('wm_albid');
+        $wmId     = Request::getInt('wm_id');
+        $wmTarget = Request::getInt('wm_target');
+        $success  = array();
+        $errors   = array();
+        $crImages = new CriteriaCompo();
+        $crImages->add(new Criteria('img_albid', $wmAlbid));
+        $imagesCount = $imagesHandler->getCount($crImages);
+        if($imagesCount > 0) {
+            $imagesAll = $imagesHandler->getAll($crImages);
+            foreach(array_keys($imagesAll) as $i) {
+                $image = $imagesAll[$i]->getValuesImages();
+                if ( WGGALLERY_WATERMARK_TARGET_A === $wmTarget || WGGALLERY_WATERMARK_TARGET_M === $wmTarget) {
+                    $imgWm = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $image['img_name'];
+                    $resWm = $watermarksHandler->watermarkImage( $wmId, $imgWm, $imgWm );
+                    if ( true === $resWm) {
+                        $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE . $imgWm;
+                    } else {
+                        $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $imgWm . ' - ' . $resWm;
+                    }
+                }
+                if ( WGGALLERY_WATERMARK_TARGET_A === $wmTarget || WGGALLERY_WATERMARK_TARGET_L === $wmTarget) {
+                    $imgWm = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $image['img_namelarge'];
+                    $resWm = $watermarksHandler->watermarkImage( $wmId, $imgWm, $imgWm );
+                    if ( true === $resWm) {
+                        $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE . $imgWm;
+                    } else {
+                        $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $imgWm . ' - ' . $resWm;
+                    }
+                }
+                unset($image);
+            }
+        } else {
+            $errors[] = _CO_WGGALLERY_THEREARENT_IMAGES;
+        }
+        $templateMain = 'wggallery_admin_maintenance.tpl';
+        $err_text = '';
+        if (count($errors) > 0) {
+            $err_text = '<ul>';
+            foreach($errors as $error) {
+                $err_text .= '<li>' . $error . '</li>';
+            }
+            $err_text .= '</ul>';
+            $GLOBALS['xoopsTpl']->assign('error', $err_text);
+        }
+        $success_text = '<ul>';
+        foreach($success as $s) {
+            $success_text .= '<li>' . $s . '</li>';  
+        }
+        $success_text .= '</ul>';
+        $GLOBALS['xoopsTpl']->assign('result5', $success_text . $err_text);
+        
+    break;
+    
+    case 'broken_imgdir_search':
+        $success = array();
+        $errors  = array();
+        $imagesCount = $imagesHandler->getCount();
+        if($imagesCount > 0) {
+            $imagesAll = $imagesHandler->getAll();
+            foreach(array_keys($imagesAll) as $i) {
+                $image = $imagesAll[$i]->getValuesImages();
+                $imgWm = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $image['img_name'];
+                if (!file_exists($imgWm)) {
+                    $success[] = $imgWm;
+                }
+                unset($image);
+            }
+        } else {
+            $errors[] = _CO_WGGALLERY_THEREARENT_IMAGES;
+        }
+        $templateMain = 'wggallery_admin_maintenance.tpl';
+        $err_text = '';
+        if (count($errors) > 0) {
+            $err_text = '<ul>';
+            foreach($errors as $error) {
+                $err_text .= '<li>' . $error . '</li>';
+            }
+            $err_text .= '</ul>';
+            $GLOBALS['xoopsTpl']->assign('error', $err_text);
+        }
+        if (count($success) > 0) {
+            $success_text = '<ul>';
+            foreach($success as $s) {
+                $success_text .= '<li>' . $s . '</li>';  
+            }
+            $success_text .= '</ul>';
+        } else {
+            $success_text = _AM_WGGALLERY_MAINTENANCE_IMG_SEARCHOK;
+        }
+        $GLOBALS['xoopsTpl']->assign('result6', $success_text . $err_text);
+    break;
+        
+    case 'broken_imgdir_clean':
+        $success = array();
+        $errors  = array();
+        $imagesCount = $imagesHandler->getCount();
+        if($imagesCount > 0) {
+            $imagesAll = $imagesHandler->getAll();
+            foreach(array_keys($imagesAll) as $i) {
+                $image = $imagesAll[$i]->getValuesImages();
+                $imgWm = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $image['img_name'];
+                if (!file_exists($imgWm)) {
+                    $imagesObj = $imagesHandler->get($image['img_id']);
+                    if($imagesHandler->delete($imagesObj, true)) {
+                        $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_DELETE . $image['img_name'];
+                    } else {
+                        $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_DELETE . $image['img_name'];
+                    }
+                }
+                unset($image);
+            }
+        } else {
+            $errors[] = _CO_WGGALLERY_THEREARENT_IMAGES;
+        }
+        $templateMain = 'wggallery_admin_maintenance.tpl';
+        $err_text = '';
+        if (count($errors) > 0) {
+            $err_text = '<ul>';
+            foreach($errors as $error) {
+                $err_text .= '<li>' . $error . '</li>';
+            }
+            $err_text .= '</ul>';
+            $GLOBALS['xoopsTpl']->assign('error', $err_text);
+        }
+        if (count($success) > 0) {
+            $success_text = '<ul>';
+            foreach($success as $s) {
+                $success_text .= '<li>' . $s . '</li>';  
+            }
+            $success_text .= '</ul>';
+        } else {
+            $success_text = '<ul>';
+        }
+        $GLOBALS['xoopsTpl']->assign('result6', $success_text . $err_text);
+    break;
+    
+    case 'broken_imgalb_search':
+        $success = array();
+        $errors  = array();
+        $imagesCount = $imagesHandler->getCount();
+        if($imagesCount > 0) {
+            $imagesAll = $imagesHandler->getAll();
+            foreach(array_keys($imagesAll) as $i) {
+                $image = $imagesAll[$i]->getValuesImages();
+                
+                $crAlbums = new CriteriaCompo();
+                $crAlbums->add(new Criteria('alb_id', $image['img_albid']));
+                $albumsCount = $albumsHandler->getCount($crAlbums);
+                if( 0 == $albumsCount) {
+                    $success[] = $image['img_name'];
+                }
+                unset($image);
+            }
+        } else {
+            $errors[] = _CO_WGGALLERY_THEREARENT_IMAGES;
+        }
+        $templateMain = 'wggallery_admin_maintenance.tpl';
+        $err_text = '';
+        if (count($errors) > 0) {
+            $err_text = '<ul>';
+            foreach($errors as $error) {
+                $err_text .= '<li>' . $error . '</li>';
+            }
+            $err_text .= '</ul>';
+            $GLOBALS['xoopsTpl']->assign('error', $err_text);
+        }
+        if (count($success) > 0) {
+            $success_text = '<ul>';
+            foreach($success as $s) {
+                $success_text .= '<li>' . $s . '</li>';  
+            }
+            $success_text .= '</ul>';
+        } else {
+            $success_text = _AM_WGGALLERY_MAINTENANCE_IMG_SEARCHOK;
+        }
+        $GLOBALS['xoopsTpl']->assign('result7', $success_text . $err_text);
+    break;
+
+    case 'broken_imgalb_clean':
+        $success = array();
+        $errors  = array();
+        $imagesCount = $imagesHandler->getCount();
+        if($imagesCount > 0) {
+            $imagesAll = $imagesHandler->getAll();
+            foreach(array_keys($imagesAll) as $i) {
+                $image = $imagesAll[$i]->getValuesImages();
+                
+                $crAlbums = new CriteriaCompo();
+                $crAlbums->add(new Criteria('alb_id', $image['img_albid']));
+                $albumsCount = $albumsHandler->getCount($crAlbums);
+                if( 0 == $albumsCount) {
+                    $imagesObj = $imagesHandler->get($image['img_id']);
+                    if($imagesHandler->delete($imagesObj, true)) {
+                        $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_DELETE . $image['img_name'];
+                    } else {
+                        $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_DELETE . $image['img_name'];
+                    }                    
+                }
+                unset($image);
+            }
+        } else {
+            $errors[] = _CO_WGGALLERY_THEREARENT_IMAGES;
+        }
+        $templateMain = 'wggallery_admin_maintenance.tpl';
+        $err_text = '';
+        if (count($errors) > 0) {
+            $err_text = '<ul>';
+            foreach($errors as $error) {
+                $err_text .= '<li>' . $error . '</li>';
+            }
+            $err_text .= '</ul>';
+            $GLOBALS['xoopsTpl']->assign('error', $err_text);
+        }
+        if (count($success) > 0) {
+            $success_text = '<ul>';
+            foreach($success as $s) {
+                $success_text .= '<li>' . $s . '</li>';  
+            }
+            $success_text .= '</ul>';
+        } else {
+            $success_text = _AM_WGGALLERY_MAINTENANCE_IMG_SEARCHOK;
+        }
+        $GLOBALS['xoopsTpl']->assign('result7', $success_text . $err_text);
+    break;
 	
 	case 'list':
 	default:
@@ -465,6 +662,7 @@ switch($op) {
 		$GLOBALS['xoopsTpl']->assign('maintainance_dui_desc', $maintainance_dui_desc);
 		
 	break;
+    
 }
 
 /**

@@ -26,6 +26,7 @@ $countAlbums = $albumsHandler->getCount();
 $countImages = $imagesHandler->getCount();
 $countGallerytypes = $gallerytypesHandler->getCount();
 $countAlbumtypes = $albumtypesHandler->getCount();
+$countWatermarks = $watermarksHandler->getCount();
 // Template Index
 $templateMain = 'wggallery_admin_index.tpl';
 // InfoBox Statistics
@@ -35,6 +36,7 @@ $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_WGGALLERY_THEREARE_ALBUMS.'<
 $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_WGGALLERY_THEREARE_IMAGES.'</label>', $countImages));
 $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_WGGALLERY_THEREARE_GALLERYTYPES.'</label>', $countGallerytypes));
 $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_WGGALLERY_THEREARE_ALBUMTYPES.'</label>', $countAlbumtypes));
+$adminObject->addInfoBoxLine(sprintf( '<label>'._AM_WGGALLERY_THEREARE_WATERMARKS.'</label>', $countWatermarks));
 // Upload Folders
 $folder = array(
 	WGGALLERY_UPLOAD_PATH,
@@ -42,7 +44,8 @@ $folder = array(
 	WGGALLERY_UPLOAD_PATH . '/images/albums/',
 	WGGALLERY_UPLOAD_PATH . '/images/large/',
 	WGGALLERY_UPLOAD_PATH . '/images/medium/',
-	WGGALLERY_UPLOAD_PATH . '/images/thumbs/'
+	WGGALLERY_UPLOAD_PATH . '/images/thumbs/',
+    WGGALLERY_UPLOAD_PATH . '/images/watermarks/',
 );
 // Uploads Folders Created
 foreach(array_keys($folder) as $i) {

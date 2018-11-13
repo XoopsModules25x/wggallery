@@ -45,6 +45,7 @@ class WggalleryAlbums extends XoopsObject
 		$this->initVar('alb_imgid', XOBJ_DTYPE_INT);
 		$this->initVar('alb_state', XOBJ_DTYPE_INT);
 		$this->initVar('alb_allowdownload', XOBJ_DTYPE_INT);
+        $this->initVar('alb_wmid', XOBJ_DTYPE_INT);
 		$this->initVar('alb_date', XOBJ_DTYPE_INT);
 		$this->initVar('alb_submitter', XOBJ_DTYPE_INT);
 		$this->initVar('dohtml', XOBJ_DTYPE_INT, 1, false);
@@ -78,7 +79,7 @@ class WggalleryAlbums extends XoopsObject
 	 * @param bool $action
 	 * @return XoopsThemeForm
 	 */
-	public function getFormAlbums($action = false)
+	public function getFormAlbums($action = false, $admin = false)
 	{
 		$wggallery = WggalleryHelper::getInstance();
 		if(false === $action) {
@@ -90,7 +91,9 @@ class WggalleryAlbums extends XoopsObject
 		xoops_load('XoopsFormLoader');
 		$form = new XoopsThemeForm($title, 'form', $action, 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
-		// Form Table Albums
+		// Form Text AlbName
+		$form->addElement(new XoopsFormText( _CO_WGGALLERY_ALBUM_NAME, 'alb_name', 50, 255, $this->getVar('alb_name') ), true);
+        // Form Select Parent Album
 		$albumsHandler = $wggallery->getHandler('albums');
 		$criteria = new CriteriaCompo();
 		$criteria->add(new Criteria('alb_id', $this->getVar('alb_id'), '<>'));
@@ -104,14 +107,16 @@ class WggalleryAlbums extends XoopsObject
 			$albAlbPid = $albumsAll[$i]->getVar('alb_pid');
 			if ( 0 < $albAlbPid ) {
 				$albumsObj = $albumsHandler->get($albAlbPid);
-				$albName .= ' (' . $albumsObj->getVar('alb_name') . ')';
+                if (is_object($albumObj)) {
+                    $albName .= ' (' . $albumsObj->getVar('alb_name') . ')';
+                } else {
+                    $albName .= ' (' . _CO_WGGALLERY_FORM_ERROR_ALBPID . ')';
+                }
 			}
 			$albPid->addOption($albumsAll[$i]->getVar('alb_id'), $albName);
 		}
 		$form->addElement($albPid);
 		unset($criteria);
-		// Form Text AlbName
-		$form->addElement(new XoopsFormText( _CO_WGGALLERY_ALBUM_NAME, 'alb_name', 50, 255, $this->getVar('alb_name') ), true);
 		// Form editor AlbDesc
 		$editorConfigs = array();
 		$editorConfigs['name'] = 'alb_desc';
@@ -128,13 +133,10 @@ class WggalleryAlbums extends XoopsObject
 
         // Form Select AlbImgcat
 		$albImgcat = $this->isNew() ? WGGALLERY_ALBUM_IMGCAT_USE_EXIST_VAL : $this->getVar('alb_imgcat');
-		$albImgcatSelect = new XoopsFormRadio( _CO_WGGALLERY_ALBUM_IMGCAT, 'alb_imgcat', $albImgcat);
+        $imageTrayAll = new XoopsFormElementTray(_CO_WGGALLERY_ALBUM_IMGCAT, '<br><br>' );
+        $albImgcatSelect = new XoopsFormRadio( '', 'alb_imgcat', $albImgcat);
 		$albImgcatSelect->addOption(WGGALLERY_ALBUM_IMGCAT_USE_EXIST_VAL, _CO_WGGALLERY_ALBUM_USE_EXIST);
-		$albImgcatSelect->addOption(WGGALLERY_ALBUM_IMGCAT_USE_UPLOADED, _CO_WGGALLERY_ALBUM_USE_UPLOADED);
-        // $albImgcatSelect->addOption(WGGALLERY_ALBUM_IMGCAT_USE_GRID, _CO_WGGALLERY_ALBUM_USE_GRID);
-		$form->addElement($albImgcatSelect);
-        
-		$form->addElement(new XoopsFormLabel('', '(' . WGGALLERY_ALBUM_IMGCAT_USE_EXIST_VAL . ') ' . _CO_WGGALLERY_ALBUM_USE_EXIST));
+		$imageTrayAll->addElement($albImgcatSelect);
 		// Form Table Images
 		$imagesHandler = $wggallery->getHandler('images');
 		$albImgid = $this->getVar('alb_imgid');
@@ -179,10 +181,12 @@ class WggalleryAlbums extends XoopsObject
 			$GLOBALS['xoopsTpl']->assign('images', $images);
         }
         $imageTray1->addElement(new XoopsFormLabel('', "<img src='".XOOPS_URL. '/' .$imageDirectory."/".$albImage1."' name='imagepreview1' id='imagepreview1' alt='' style='max-width:100px' />"));
-		$form->addElement($imageTray1);
+		$imageTrayAll->addElement($imageTray1);
 		
 		// Form Upload Image AlbImage
-        $form->addElement(new XoopsFormLabel('', '(' . WGGALLERY_ALBUM_IMGCAT_USE_UPLOADED . ') ' . _CO_WGGALLERY_ALBUM_USE_UPLOADED));
+        $albImgcatSelect = new XoopsFormRadio( '<br>', 'alb_imgcat', $albImgcat);
+		$albImgcatSelect->addOption(WGGALLERY_ALBUM_IMGCAT_USE_UPLOADED, _CO_WGGALLERY_ALBUM_USE_UPLOADED);
+		$imageTrayAll->addElement($albImgcatSelect);
         $albImage = $this->isNew() ? 'noimage.png' : $this->getVar('alb_image');
 		$imageDirectory = '/uploads/wggallery/images/albums';
 		$imageTray2 = new XoopsFormElementTray('', '<br>' );
@@ -196,10 +200,11 @@ class WggalleryAlbums extends XoopsObject
 		$imageTray2->addElement(new XoopsFormLabel('', "<br><img src='".XOOPS_URL.$imageDirectory."/".$albImage."' name='imagepreview2' id='imagepreview2' alt='' style='max-width:100px' />"));
 		// Form File AlbImage
 		$fileSelectTray = new XoopsFormElementTray('', '<br>' );
-		$fileSelectTray->addElement(new XoopsFormFile( _CO_WGGALLERY_ALBUM_FORM_UPLOAD_IMAGE, 'attachedfile', $wggallery->getConfig('maxsize', true) ));
-		
+		$fileSelectTray->addElement(new XoopsFormFile( _CO_WGGALLERY_ALBUM_FORM_UPLOAD_IMAGE, 'attachedfile', $wggallery->getConfig('maxsize') ));
 		$imageTray2->addElement($fileSelectTray);
-		$form->addElement($imageTray2);
+		$imageTrayAll->addElement($imageTray2);
+        $form->addElement($imageTrayAll);
+        
 		unset($criteria);
 		// Form Select Albstate
 		$albState = $this->isNew() ? 0 : $this->getVar('alb_state');
@@ -264,24 +269,54 @@ class WggalleryAlbums extends XoopsObject
 		$allowdownloadSelect->addOption(WGGALLERY_DOWNLOAD_MEDIUM, _CO_WGGALLERY_ALBUM_DOWNLOAD_MEDIUM);
 		$allowdownloadSelect->addOption(WGGALLERY_DOWNLOAD_LARGE, _CO_WGGALLERY_ALBUM_DOWNLOAD_LARGE);
 		$form->addElement($allowdownloadSelect);
+        // Form Select Album watermark
+        // is there a watermark for usage in all albums
+        $watermarksHandler = $wggallery->getHandler('watermarks');
+        $criteria = new CriteriaCompo();
+		$criteria->add(new Criteria('wm_usage', WGGALLERY_WATERMARK_USAGEALL));
+        $countWm = $watermarksHandler->getCount($criteria);
+        
+        $albWmid = $this->isNew() ? 0 : $this->getVar('alb_wmid');
+        if ( 0 < $countWm ) {
+            if ( 0 === $albWmid ) {
+                // load "usage for all" as default
+                $watermarksAll = $watermarksHandler->getAll($criteria);
+                foreach(array_keys($watermarksAll) as $wm) {
+                    $watermarkObj = $watermarksAll[$wm]->getValuesWatermarks();
+                    $albWmid      = $watermarkObj['wm_id'];
+                    $wmname       = $watermarkObj['wm_name'];
+                }
+            }
+            $form->addElement(new XoopsFormLabel(_CO_WGGALLERY_WATERMARK, $wmname));
+            $form->addElement(new XoopsFormHidden('alb_wmid', $albWmid));
+        } else {
+            $albWidSelect = new XoopsFormSelect( _CO_WGGALLERY_WATERMARK, 'alb_wmid', $albWmid);
+            $albWidSelect->addOption(0, '&nbsp;');
+            $criteria = new CriteriaCompo();
+            $criteria->add(new Criteria('wm_usage', WGGALLERY_WATERMARK_USAGENONE, '>'));
+            $albWidSelect->addOptionArray($watermarksHandler->getList($criteria));
+            $form->addElement($albWidSelect);
+        }
+        unset($criteria);
 		// Form Text Date Select AlbDate
 		$albDate = $this->isNew() ? 0 : $this->getVar('alb_date');
-		$form->addElement(new XoopsFormTextDateSelect( _CO_WGGALLERY_ALBUM_DATE, 'alb_date', '', $albDate ));
+		$form->addElement(new XoopsFormTextDateSelect( _CO_WGGALLERY_DATE, 'alb_date', '', $albDate ));
 		// Form Select User AlbSubmitter
         if ( $this->isNew() ) {
             $alb_submitter = (isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
         } else {
             $alb_submitter = $this->getVar('alb_submitter');
         }
-        
-		$form->addElement(new XoopsFormSelectUser( _CO_WGGALLERY_ALBUM_SUBMITTER, 'alb_submitter', false, $alb_submitter ));
+		$form->addElement(new XoopsFormSelectUser( _CO_WGGALLERY_SUBMITTER, 'alb_submitter', false, $alb_submitter ));
 		// To Save
 		$form->addElement(new XoopsFormHidden('op', 'save'));
 		$btnTray = new XoopsFormElementTray('', '&nbsp;' );
 		$btnTray->addElement(new XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
-		$btnSubmitUpload = new XoopsFormButton('', 'submit_upload',_CO_WGGALLERY_FORM_SUBMIT_SUBMITUPLOAD, 'submit');
-		$btnSubmitUpload->setClass('btn btn-primary');
-		$btnTray->addElement($btnSubmitUpload);
+        if ( false === $admin ) {
+            $btnSubmitUpload = new XoopsFormButton('', 'submit_upload',_CO_WGGALLERY_FORM_SUBMIT_SUBMITUPLOAD, 'submit');
+            $btnSubmitUpload->setClass('btn btn-primary');
+            $btnTray->addElement($btnSubmitUpload);
+        }
 		$form->addElement($btnTray);
 		return $form;
 	}
@@ -318,7 +353,11 @@ class WggalleryAlbums extends XoopsObject
 			$albPid = $albumsAll[$i]->getVar('alb_pid');
 			if ( 0 < $albPid ) {
 				$albumsObj = $albumsHandler->get($albPid);
-				$albName .= ' (' . $albumsObj->getVar('alb_name') . ')';
+                if (is_object($albumObj)) {
+                    $albName .= ' (' . $albumsObj->getVar('alb_name') . ')';
+                } else {
+                    $albName .= ' (' . _CO_WGGALLERY_FORM_ERROR_ALBPID . ')';
+                }
 			}
 			$albIdSelect->addOption($albumsAll[$i]->getVar('alb_id'), $albName);
 		}
@@ -391,6 +430,12 @@ class WggalleryAlbums extends XoopsObject
 		$ret['nb_images'] = $imagesHandler->getCountImages($this->getVar('alb_id'));
 		$ret['state'] = $this->getVar('alb_state');
 		$ret['allowdownload'] = $this->getVar('alb_allowdownload');
+        $alb_wmid = $this->getVar('alb_wmid');
+        $ret['wmid'] = $alb_wmid;
+        if ( 0 < $alb_wmid) {
+            $watermarksHandler = $wggallery->getHandler('watermarks');
+            $ret['wmname'] = $watermarksHandler->get($alb_wmid)->getVar('wm_name');
+        }
 		$ret['state_text'] = $wggallery->getStateText($this->getVar('alb_state'));
 		$ret['date'] = formatTimeStamp($this->getVar('alb_date'), 's');
 		$ret['submitter'] = XoopsUser::getUnameFromId($this->getVar('alb_submitter'));

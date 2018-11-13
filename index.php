@@ -48,7 +48,7 @@ foreach ($atoptions as $atoption) {
 	if ('number_cols_cat' === $atoption['name']) {$number_cols_cat = $atoption['value'];}
 }
 // assign gallery options
-$GLOBALS['xoopsTpl']->assign('gallery_target', $wggallery->getConfig('gallery_target', true));
+$GLOBALS['xoopsTpl']->assign('gallery_target', $wggallery->getConfig('gallery_target'));
 
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet( $style, null );

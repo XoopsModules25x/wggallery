@@ -79,7 +79,7 @@ switch($op) {
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 		// Get Form
 		$albumsObj = $albumsHandler->create();
-		$form = $albumsObj->getFormAlbums();
+		$form = $albumsObj->getFormAlbums(false, true);
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());
 
 	break;
@@ -104,7 +104,7 @@ switch($op) {
 		include_once XOOPS_ROOT_PATH .'/class/uploader.php';
 		$uploader = new XoopsMediaUploader(WGGALLERY_UPLOAD_IMAGE_PATH.'/albums/', 
 													$wggallery->getConfig('mimetypes'), 
-													$wggallery->getConfig('maxsize', true), null, null);
+													$wggallery->getConfig('maxsize'), null, null);
 		if($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
 			$extension = preg_replace('/^.+\.([^.]+)$/sU', '', $_FILES['attachedfile']['name']);
 			$imgName = str_replace(' ', '', $_POST['alb_name']).'.'.$extension;
@@ -196,7 +196,7 @@ switch($op) {
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 		// Get Form
 		$albumsObj = $albumsHandler->get($albId);
-		$form = $albumsObj->getFormAlbums();
+		$form = $albumsObj->getFormAlbums(false, true);
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());
 
 	break;

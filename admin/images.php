@@ -105,6 +105,7 @@ switch($op) {
 		$imagesObj->setVar('img_title', $_POST['img_title']);
 		$imagesObj->setVar('img_desc', $_POST['img_desc']);
 		$imagesObj->setVar('img_name', $_POST['img_name']);
+        $imagesObj->setVar('img_namelarge', $_POST['img_namelarge']);
 		$imagesObj->setVar('img_nameorig', $_POST['img_nameorig']);
 		$imagesObj->setVar('img_mimetype', isset($_POST['img_mimetype']) ? $_POST['img_mimetype'] : 0);
 		$imagesObj->setVar('img_size', isset($_POST['img_size']) ? $_POST['img_size'] : 0);

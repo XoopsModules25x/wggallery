@@ -23,8 +23,8 @@
 						<{/if}>
 						<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/rate.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_RATINGLIKES}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_RATINGLIKES}>' /><{$image.ratinglikes}> (<{$image.votes}> <{$smarty.const._CO_WGGALLERY_IMAGE_VOTES}>)</p>
 						<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/state<{$image.state}>.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_STATE}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_STATE}>' /><{$image.state_text}></p>
-						<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/date.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_DATE}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_DATE}>' /><{$image.date}></p>
-						<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/submitter.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_SUBMITTER}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_SUBMITTER}>' /><{$image.submitter}></p>
+						<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/date.png' alt='<{$smarty.const._CO_WGGALLERY_DATE}>' title='<{$smarty.const._CO_WGGALLERY_DATE}>' /><{$image.date}></p>
+						<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/submitter.png' alt='<{$smarty.const._CO_WGGALLERY_SUBMITTER}>' title='<{$smarty.const._CO_WGGALLERY_SUBMITTER}>' /><{$image.submitter}></p>
 					</div>
 					<{if $image.edit || $alb_allowdownload}>
 						<div class='wgg-img-panel-row col-sm-12 center'>

@@ -29,11 +29,12 @@ $modPathIcon16  = $GLOBALS['xoopsModule']->getInfo('modicons16');
 $modPathIcon32  = $GLOBALS['xoopsModule']->getInfo('modicons32');
 // Get instance of module
 $wggallery = WggalleryHelper::getInstance();
-$albumsHandler = $wggallery->getHandler('albums');
-$imagesHandler = $wggallery->getHandler('images');
+$albumsHandler       = $wggallery->getHandler('albums');
+$imagesHandler       = $wggallery->getHandler('images');
 $gallerytypesHandler = $wggallery->getHandler('gallerytypes');
-$albumtypesHandler = $wggallery->getHandler('albumtypes');
-$permissionsHandler = $wggallery->getHandler('permissions');
+$albumtypesHandler   = $wggallery->getHandler('albumtypes');
+$permissionsHandler  = $wggallery->getHandler('permissions');
+$watermarksHandler   = $wggallery->getHandler('watermarks');
 $myts = MyTextSanitizer::getInstance();
 // 
 if(!isset($xoopsTpl) || !is_object($xoopsTpl)) {

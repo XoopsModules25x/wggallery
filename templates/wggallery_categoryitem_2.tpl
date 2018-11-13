@@ -21,8 +21,8 @@
         </a>
     <{/if}>
     <{if $album_showsubmitter}>
-        <a class='btn btn-default wgg-btn' href='index.php?op=list&amp;subm_id=<{$category.alb_submitter}>' title='<{$smarty.const._CO_WGGALLERY_ALBUM_SUBMITTER}>'>
-            <span class = "wgg-btn-icon"><img class='' src='<{$wggallery_icon_url_16}>/submitter.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_SUBMITTER}>' /></span><{$category.submitter}>
+        <a class='btn btn-default wgg-btn' href='index.php?op=list&amp;subm_id=<{$category.alb_submitter}>' title='<{$smarty.const._CO_WGGALLERY_SUBMITTER}>'>
+            <span class = "wgg-btn-icon"><img class='' src='<{$wggallery_icon_url_16}>/submitter.png' alt='<{$smarty.const._CO_WGGALLERY_SUBMITTER}>' /></span><{$category.submitter}>
         </a>
     <{/if}>
 </div>

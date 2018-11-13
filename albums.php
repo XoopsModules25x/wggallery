@@ -50,7 +50,7 @@ $GLOBALS['xoTheme']->addScript( XOOPS_URL . '/modules/wggallery/assets/js/admin.
 // assign vars
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_32', WGGALLERY_ICONS_URL . '/32');
-$GLOBALS['xoopsTpl']->assign('gallery_target', $wggallery->getConfig('gallery_target', true));
+$GLOBALS['xoopsTpl']->assign('gallery_target', $wggallery->getConfig('gallery_target'));
 
 $keywords = array();
 
@@ -132,7 +132,7 @@ switch($op) {
 			$albumsObj = $albumsHandler->create();
 		}
 		// Set Vars
-		$albumsObj->setVar('alb_pid', $albPid);
+		$albumsObj->setVar('alb_pid', $albPid);             
 		$albIscat = Request::getInt('alb_iscat');
 		$albumsObj->setVar('alb_iscat', $albIscat);
 		$alb_name =  Request::getString('alb_name');
@@ -144,7 +144,7 @@ switch($op) {
 		include_once XOOPS_ROOT_PATH .'/class/uploader.php';
 		$uploader = new XoopsMediaUploader(WGGALLERY_UPLOAD_IMAGE_PATH.'/albums/', 
 													$wggallery->getConfig('mimetypes'), 
-													$wggallery->getConfig('maxsize', true), null, null);
+													$wggallery->getConfig('maxsize'), null, null);
 		if($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
 			$extension = preg_replace('/^.+\.([^.]+)$/sU', '', $_FILES['attachedfile']['name']);
 			$imgName = str_replace(' ', '', $alb_name).'.'.$extension;
@@ -173,6 +173,7 @@ switch($op) {
 		$albumsObj->setVar('alb_imgid', $albImgid);
 		$albumsObj->setVar('alb_state', Request::getInt('alb_state'));
 		$albumsObj->setVar('alb_allowdownload', Request::getInt('alb_allowdownload'));
+        $albumsObj->setVar('alb_wmid', Request::getInt('alb_wmid'));  
 		$albumDate = date_create_from_format(_SHORTDATESTRING, $_POST['alb_date']);
 		$albumsObj->setVar('alb_date', $albumDate->getTimestamp());
 		$albumsObj->setVar('alb_submitter', Request::getInt('alb_submitter'));

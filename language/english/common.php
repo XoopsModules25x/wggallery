@@ -12,13 +12,13 @@
 /**
  * wgGallery module for xoops
  *
- * @copyright      module for xoops
- * @license        GPL 2.0 or later
- * @package        wggallery
- * @since          1.0
- * @min_xoops      2.5.7
- * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
- * @version        $Id: 1.0 main.php 1 Mon 2018-03-19 10:04:56Z XOOPS Project (www.xoops.org) $
+ * @copyright module for xoops
+ * @license GPL 2.0 or later
+ * @package wggallery
+ * @since 1.0
+ * @min_xoops 2.5.7
+ * @author Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
+ * @version $Id: 1.0 main.php 1 Mon 2018-03-19 10:04:56Z XOOPS Project (www.xoops.org) $
  */
  
 // defines for state
@@ -40,6 +40,7 @@ define('_CO_WGGALLERY_FORM_EDIT', 'Modification');
 define('_CO_WGGALLERY_FORM_TOGGLE_SELECT', 'select/unselect all');
 define('_CO_WGGALLERY_FORM_IMAGEPICKER', 'Select an image');
 define('_CO_WGGALLERY_FORM_SUBMIT_SUBMITUPLOAD', 'Submit and goto images upload');
+define('_CO_WGGALLERY_FORM_SUBMIT_WMTEST', 'Submit and show test image');
 
 // Save/Delete
 define('_CO_WGGALLERY_FORM_OK', 'Successfully saved');
@@ -48,13 +49,18 @@ define('_CO_WGGALLERY_FORM_SURE_DELETE', "Are you sure to delete: <b><span style
 define('_CO_WGGALLERY_FORM_SURE_RENEW', "Are you sure to update: <b><span style='color : Red;'>%s </span></b>");
 define('_CO_WGGALLERY_FORM_DELETE', 'Delete'); //wggallery xoops confirm
 define('_CO_WGGALLERY_FORM_DELETE_SURE', 'Do you really want to delete?'); //wggallery xoops confirm
+define('_CO_WGGALLERY_FORM_ERROR_RESETUSAGE1', 'Error when reseting usage of a watermark');
+define('_CO_WGGALLERY_FORM_ERROR_RESETUSAGE2', 'Error when reseting watermark usage in albums');
+define('_CO_WGGALLERY_FORM_ERROR_ALBPID', 'Error: parent albums not found');
 // There aren't
 define('_CO_WGGALLERY_THEREARENT_ALBUMS', "There aren't albums");
 define('_CO_WGGALLERY_THEREARENT_IMAGES', "There aren't images");
 // Album buttons
 define('_CO_WGGALLERY_ALBUM_ADD', 'Add Album');
 define('_CO_WGGALLERY_ALBUM_EDIT', 'Edit Album'); 
-
+// general
+define('_CO_WGGALLERY_DATE', 'Date');
+define('_CO_WGGALLERY_SUBMITTER', 'Submitter'); 
 // Elements of categories
 define('_CO_WGGALLERY_CATS_TITLE', 'Available categories');
 define('_CO_WGGALLERY_CATS_ALBUMS', 'Show sub albums');
@@ -81,8 +87,6 @@ define('_CO_WGGALLERY_ALBUM_USE_UPLOADED', 'Use an uploaded image as album image
 // define('_CO_WGGALLERY_ALBUM_USE_GRID', 'Create a grid of top 4');
 define('_CO_WGGALLERY_ALBUM_FORM_UPLOAD_IMAGE', 'Upload a new image');
 define('_CO_WGGALLERY_ALBUM_STATE', 'State');
-define('_CO_WGGALLERY_ALBUM_DATE', 'Date');
-define('_CO_WGGALLERY_ALBUM_SUBMITTER', 'Submitter'); 
 define('_CO_WGGALLERY_ALBUM_DELETE_DESC', 'Attention: All images linked to this album will also be deleted');
 define('_CO_WGGALLERY_ALBUM_SELECT', 'Select album');
 define('_CO_WGGALLERY_ALBUM_SELECT_DESC', 'Please select album for uploading images');
@@ -119,9 +123,48 @@ define('_CO_WGGALLERY_IMAGE_VOTES', 'Votes');
 define('_CO_WGGALLERY_IMAGE_WEIGHT', 'Weight');
 define('_CO_WGGALLERY_IMAGE_ALBID', 'Albums');
 define('_CO_WGGALLERY_IMAGE_STATE', 'State');
-define('_CO_WGGALLERY_IMAGE_DATE', 'Date');
-define('_CO_WGGALLERY_IMAGE_SUBMITTER', 'Submitter');
 define('_CO_WGGALLERY_IMAGE_IP', 'Ip');
+// Watermark add/edit
+define('_CO_WGGALLERY_WATERMARK_ADD', 'Add Watermark');
+define('_CO_WGGALLERY_WATERMARK_EDIT', 'Edit Watermark');
+// Elements of Watermark
+define('_CO_WGGALLERY_WATERMARK', 'Watermark');
+define('_CO_WGGALLERY_WATERMARKS', 'Watermarks');
+define('_CO_WGGALLERY_WATERMARK_ID', 'Id');
+define('_CO_WGGALLERY_WATERMARK_PREVIEW', 'Preview');
+define('_CO_WGGALLERY_WATERMARK_NAME', 'Name');
+define('_CO_WGGALLERY_WATERMARK_TYPE', 'Type');
+define('_CO_WGGALLERY_WATERMARK_TYPETEXT', 'Use text');
+define('_CO_WGGALLERY_WATERMARK_TYPEIMAGE', 'Use an image');
+define('_CO_WGGALLERY_WATERMARK_POSITION', 'Position');
+define('_CO_WGGALLERY_WATERMARK_POSTOPLEFT', 'Top left');
+define('_CO_WGGALLERY_WATERMARK_POSTOPRIGHT', 'Top right');
+define('_CO_WGGALLERY_WATERMARK_POSTOPCENTER', 'Top center');
+define('_CO_WGGALLERY_WATERMARK_POSMIDDLELEFT', 'Middle left');
+define('_CO_WGGALLERY_WATERMARK_POSMIDDLERIGHT', 'Middle right');
+define('_CO_WGGALLERY_WATERMARK_POSMIDDLECENTER', 'Middle center');
+define('_CO_WGGALLERY_WATERMARK_POSBOTTOMLEFT', 'Bottom left');
+define('_CO_WGGALLERY_WATERMARK_POSBOTTOMRIGHT', 'Bottom right');
+define('_CO_WGGALLERY_WATERMARK_POSBOTTOMCENTER', 'Bottom center');
+define('_CO_WGGALLERY_WATERMARK_USAGENONE', 'Currently not used');
+define('_CO_WGGALLERY_WATERMARK_USAGEALL', 'Use in all albums');
+define('_CO_WGGALLERY_WATERMARK_USAGESINGLE', 'Defined in each album seperately');
+define('_CO_WGGALLERY_WATERMARK_MARGIN', 'Margin');
+define('_CO_WGGALLERY_WATERMARK_MARGINLR', 'Left/right');
+define('_CO_WGGALLERY_WATERMARK_MARGINTB', 'Top/bottom');
+define('_CO_WGGALLERY_WATERMARK_IMAGE', 'Image');
+define('_CO_WGGALLERY_FORM_UPLOAD_IMAGE_WATERMARKS', 'Image in uploads images');
+define('_CO_WGGALLERY_WATERMARK_TEXT', 'Text');
+define('_CO_WGGALLERY_WATERMARK_FONT', 'Font');
+define('_CO_WGGALLERY_WATERMARK_FONTFAMILY', 'Font-Family');
+define('_CO_WGGALLERY_WATERMARK_FONTSIZE', 'Fontsize');
+define('_CO_WGGALLERY_WATERMARK_COLOR', 'Color');
+define('_CO_WGGALLERY_WATERMARK_USAGE', 'Usage');
+define('_CO_WGGALLERY_WATERMARK_TARGET', 'Kind of images for adding watermark');
+define('_CO_WGGALLERY_WATERMARK_TARGET_A', 'Add to all');
+define('_CO_WGGALLERY_WATERMARK_TARGET_M', 'Add to medium');
+define('_CO_WGGALLERY_WATERMARK_TARGET_L', 'Add to large');
+
 // ---------------- Admin Permissions ----------------
 // Permissions
 define('_CO_WGGALLERY_PERMS_GLOBAL', 'Permissions global');
@@ -131,6 +174,8 @@ define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMIT', 'Permissions global to submit/edit o
 define('_CO_WGGALLERY_PERMS_GLOBAL_APPROVE_DESC', 'Groups which should have permissions to approve submitted albums');
 define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC', 'Groups which should have permissions to <ul><li>create albums</li><li>edit all albums</li><li>upload images to all albums</li></ul>');
 define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMIT_DESC', 'Groups which should have permissions to <ul><li>create albums</li><li>edit own albums</li><li>upload images to own albums</li></ul>');
+// define('_CO_WGGALLERY_PERMS_GLOBAL_WATERMARK', 'Permission to define global watermarks');
+// define('_CO_WGGALLERY_PERMS_GLOBAL_WATERMARK_DESC', 'Groups with this permisssion have he right to define watermarks, which are used in all albums, even if they are not creator of the album');
 define('_CO_WGGALLERY_PERMS_GLOBAL_DESC', '<ul>
 												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_APPROVE . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_APPROVE_DESC. '</li>
 												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC. '</li>

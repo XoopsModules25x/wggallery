@@ -26,11 +26,12 @@ include_once __DIR__ .'/include/common.php';
 $dirname = basename(__DIR__);
 // Get instance of module
 $wggallery = WggalleryHelper::getInstance();
-$albumsHandler = $wggallery->getHandler('albums');
-$imagesHandler = $wggallery->getHandler('images');
+$albumsHandler       = $wggallery->getHandler('albums');
+$imagesHandler       = $wggallery->getHandler('images');
 $gallerytypesHandler = $wggallery->getHandler('gallerytypes');
-$albumtypesHandler = $wggallery->getHandler('albumtypes');
-$permissionsHandler = $wggallery->getHandler('permissions');
+$albumtypesHandler   = $wggallery->getHandler('albumtypes');
+$permissionsHandler  = $wggallery->getHandler('permissions');
+$watermarksHandler   = $wggallery->getHandler('watermarks');
 // Permission
 include_once XOOPS_ROOT_PATH .'/class/xoopsform/grouppermform.php';
 $gpermHandler = xoops_gethandler('groupperm');

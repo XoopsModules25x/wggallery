@@ -30,9 +30,11 @@ define('_AM_WGGALLERY_THEREARE_ALBUMS', "There are <span class='bold'>%s</span> 
 define('_AM_WGGALLERY_THEREARE_IMAGES', "There are <span class='bold'>%s</span> images in the database");
 define('_AM_WGGALLERY_THEREARE_GALLERYTYPES', "There are <span class='bold'>%s</span> gallery types in the database");
 define('_AM_WGGALLERY_THEREARE_ALBUMTYPES', "There are <span class='bold'>%s</span> album types in the database");
+define('_AM_WGGALLERY_THEREARE_WATERMARKS', "There are <span class='bold'>%s</span> watermarks in the database");
 // There aren't
 define('_AM_WGGALLERY_THEREARENT_GALLERYTYPES', "There aren't gallery types! For initialization/reset goto 'Maintenance' => 'Maintain gallerytypes' and click on button 'Only reset all'");
 define('_AM_WGGALLERY_THEREARENT_ALBUMTYPES', "There aren't album types! For initialization/reset goto 'Maintenance' => 'Maintain albumtypes' and click on button 'Only reset all'");
+define('_AM_WGGALLERY_THEREARENT_WATERMARKS', 'Currently there are no watermarks defined!');
 // ---------------- Admin Files ----------------
 // Buttons
 define('_AM_WGGALLERY_ADD_ALBUM', 'Add New Album');
@@ -44,6 +46,7 @@ define('_AM_WGGALLERY_ALBUMS_LIST', 'List of Albums');
 define('_AM_WGGALLERY_IMAGES_LIST', 'List of Images');
 define('_AM_WGGALLERY_GALLERYTYPES_LIST', 'List of Gallery types');
 define('_AM_WGGALLERY_ALBUMTYPES_LIST', 'List of Album types');
+define('_AM_WGGALLERY_WATERMARKS_LIST', 'List of Watermarks');
 // Elements of Gallerytype
 define('_AM_WGGALLERY_GT_AT_ID', 'Id');
 define('_AM_WGGALLERY_GT_AT_PRIMARY', 'Primary');
@@ -228,6 +231,16 @@ define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC', 'All currently unused alb
 </ul>');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_NONE', 'No unused images found');
 define('_AM_WGGALLERY_MAINTENANCE_DUI_SUREDELETE', 'All currently unused album images (not included in any albums) will be deleted! Do you want to continue?');
+define('_AM_WGGALLERY_MAINTENANCE_WATERMARK', 'Add watermarks to an album later');
+define('_AM_WGGALLERY_MAINTENANCE_WATERMARK_DESC', 'Add watermarks to a selected album.<br>Attention: existing watermarks will be not removed.<br>If there are already watermarks on, an additional watermark will be added to images.');
+define('_AM_WGGALLERY_MAINTENANCE_WATERMARK_SELECT', 'Select album');
+define('_AM_WGGALLERY_MAINTENANCE_IMGDIR', 'Broken items image to directory');
+define('_AM_WGGALLERY_MAINTENANCE_IMGDIR_DESC', 'Items of table images are searched, where the image is not in the upload directory.');
+define('_AM_WGGALLERY_MAINTENANCE_IMGALB', 'Broken items image to albums');
+define('_AM_WGGALLERY_MAINTENANCE_IMGALB_DESC', 'Items of table images are searched, where the parent album is not existing (anymore).');
+define('_AM_WGGALLERY_MAINTENANCE_IMG_SEARCH', 'Search items');
+define('_AM_WGGALLERY_MAINTENANCE_IMG_SEARCHOK', 'No broken items image found');
+define('_AM_WGGALLERY_MAINTENANCE_IMG_CLEAN', 'Clean broken items');
 // ---------------- Admin Others ----------------
 define('_AM_WGGALLERY_MAINTAINEDBY', ' is maintained by ');
 // ---------------- End ----------------

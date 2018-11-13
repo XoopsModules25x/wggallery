@@ -12,13 +12,13 @@
 /**
  * wgGallery module for xoops
  *
- * @copyright      module for xoops
- * @license        GPL 2.0 or later
- * @package        wggallery
- * @since          1.0
- * @min_xoops      2.5.7
- * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
- * @version        $Id: 1.0 main.php 1 Mon 2018-03-19 10:04:56Z XOOPS Project (www.xoops.org) $
+ * @copyright module for xoops
+ * @license GPL 2.0 or later
+ * @package wggallery
+ * @since 1.0
+ * @min_xoops 2.5.7
+ * @author Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
+ * @version $Id: 1.0 main.php 1 Mon 2018-03-19 10:04:56Z XOOPS Project (www.xoops.org) $
  */
  
 // defines for state
@@ -40,6 +40,7 @@ define('_CO_WGGALLERY_FORM_EDIT', 'Anpassung');
 define('_CO_WGGALLERY_FORM_TOGGLE_SELECT', 'Alle aus-/abwählen');
 define('_CO_WGGALLERY_FORM_IMAGEPICKER', 'Ein Bild auswählen');
 define('_CO_WGGALLERY_FORM_SUBMIT_SUBMITUPLOAD', 'Absenden und zum Bilderupload wechseln');
+define('_CO_WGGALLERY_FORM_SUBMIT_WMTEST', 'Absenden und Testbildanzeigen');
 
 // Save/Delete
 define('_CO_WGGALLERY_FORM_OK', 'Erfolgreich gespeichert');
@@ -48,13 +49,18 @@ define('_CO_WGGALLERY_FORM_SURE_DELETE', "Wollen Sie wirklich löschen: <b><span
 define('_CO_WGGALLERY_FORM_SURE_RENEW', "Wollen Sie wirklich aktualisieren: <b><span style='color : Red;'>%s </span></b>");
 define('_CO_WGGALLERY_FORM_DELETE', 'Löschen'); //wggallery xoops confirm
 define('_CO_WGGALLERY_FORM_DELETE_SURE', 'Wollen Sie wirklich löschen?'); //wggallery xoops confirm
+define('_CO_WGGALLERY_FORM_ERROR_RESETUSAGE1', 'Fehler beim Zurücksetzen der Verwendung der Wasserzeichen');
+define('_CO_WGGALLERY_FORM_ERROR_RESETUSAGE2', 'Fehler beim Zurücksetzen der Wasserzeichenverwendung in den Alben');
+define('_CO_WGGALLERY_FORM_ERROR_ALBPID', 'Fehler: übergeordnetes Album nicht gefunden');
 // There aren't
 define('_CO_WGGALLERY_THEREARENT_ALBUMS', 'Es gibt keine Alben');
 define('_CO_WGGALLERY_THEREARENT_IMAGES', 'Es gibt keine Bilder');
 // Album buttons
 define('_CO_WGGALLERY_ALBUM_ADD', 'Album hinzufügen');
 define('_CO_WGGALLERY_ALBUM_EDIT', 'Album bearbeiten'); 
-
+// general
+define('_CO_WGGALLERY_DATE', 'Datum');
+define('_CO_WGGALLERY_SUBMITTER', 'Einsender'); 
 // Elements of categories
 define('_CO_WGGALLERY_CATS_TITLE', 'Verfügbare Kategorien');
 define('_CO_WGGALLERY_CATS_ALBUMS', 'Enthaltene Alben anzeigen');
@@ -81,8 +87,6 @@ define('_CO_WGGALLERY_ALBUM_USE_UPLOADED', 'Ein dafür hochgeladenes Bild verwen
 // define('_CO_WGGALLERY_ALBUM_USE_GRID', 'Create a grid of top 4');
 define('_CO_WGGALLERY_ALBUM_FORM_UPLOAD_IMAGE', 'Neues Bild hochladen');
 define('_CO_WGGALLERY_ALBUM_STATE', 'Status');
-define('_CO_WGGALLERY_ALBUM_DATE', 'Datum');
-define('_CO_WGGALLERY_ALBUM_SUBMITTER', 'Einsender'); 
 define('_CO_WGGALLERY_ALBUM_DELETE_DESC', 'Achtung: Alle mit diesem Album verknüpften Bilder werden auch gelöscht');
 define('_CO_WGGALLERY_ALBUM_SELECT', 'Album auswählen');
 define('_CO_WGGALLERY_ALBUM_SELECT_DESC', 'Bitte wählen Sie ein Album zum Hochladen der Bilder');
@@ -119,9 +123,47 @@ define('_CO_WGGALLERY_IMAGE_VOTES', 'Stimmen');
 define('_CO_WGGALLERY_IMAGE_WEIGHT', 'Reihung');
 define('_CO_WGGALLERY_IMAGE_ALBID', 'Album-ID');
 define('_CO_WGGALLERY_IMAGE_STATE', 'Status');
-define('_CO_WGGALLERY_IMAGE_DATE', 'Datum');
-define('_CO_WGGALLERY_IMAGE_SUBMITTER', 'Einsender');
 define('_CO_WGGALLERY_IMAGE_IP', 'Ip');
+// Watermark add/edit
+define('_CO_WGGALLERY_WATERMARK_ADD', 'Wasserzeichen hinzufügen');
+define('_CO_WGGALLERY_WATERMARK_EDIT', 'Wasserzeichen bearbeiten');
+// Elements of Watermark
+define('_CO_WGGALLERY_WATERMARK', 'Wasserzeichen');
+define('_CO_WGGALLERY_WATERMARKS', 'Wasserzeichen');
+define('_CO_WGGALLERY_WATERMARK_ID', 'Id');
+define('_CO_WGGALLERY_WATERMARK_PREVIEW', 'Vorschau');
+define('_CO_WGGALLERY_WATERMARK_NAME', 'Name');
+define('_CO_WGGALLERY_WATERMARK_TYPE', 'Typ');
+define('_CO_WGGALLERY_WATERMARK_TYPETEXT', 'Text verwenden');
+define('_CO_WGGALLERY_WATERMARK_TYPEIMAGE', 'Bild verwenden');
+define('_CO_WGGALLERY_WATERMARK_POSITION', 'Position');
+define('_CO_WGGALLERY_WATERMARK_POSTOPLEFT', 'Oben links');
+define('_CO_WGGALLERY_WATERMARK_POSTOPRIGHT', 'Oben rechts');
+define('_CO_WGGALLERY_WATERMARK_POSTOPCENTER', 'Oben mitte');
+define('_CO_WGGALLERY_WATERMARK_POSMIDDLELEFT', 'Mitte links');
+define('_CO_WGGALLERY_WATERMARK_POSMIDDLERIGHT', 'Mitte rechts');
+define('_CO_WGGALLERY_WATERMARK_POSMIDDLECENTER', 'Mitte mitte');
+define('_CO_WGGALLERY_WATERMARK_POSBOTTOMLEFT', 'Unten links');
+define('_CO_WGGALLERY_WATERMARK_POSBOTTOMRIGHT', 'Unten rechts');
+define('_CO_WGGALLERY_WATERMARK_POSBOTTOMCENTER', 'Unten mitte');
+define('_CO_WGGALLERY_WATERMARK_USAGENONE', 'Derzeit nicht verwenden');
+define('_CO_WGGALLERY_WATERMARK_USAGEALL', 'Verwendung in allen Alben');
+define('_CO_WGGALLERY_WATERMARK_USAGESINGLE', 'In jedem Album seperat definiert');
+define('_CO_WGGALLERY_WATERMARK_MARGIN', 'Rand');
+define('_CO_WGGALLERY_WATERMARK_MARGINLR', 'Links/rechts');
+define('_CO_WGGALLERY_WATERMARK_MARGINTB', 'Oben/unten');
+define('_CO_WGGALLERY_WATERMARK_IMAGE', 'Bild');
+define('_CO_WGGALLERY_FORM_UPLOAD_IMAGE_WATERMARKS', 'Bilder im Uploadverzeichnis');
+define('_CO_WGGALLERY_WATERMARK_TEXT', 'Text');
+define('_CO_WGGALLERY_WATERMARK_FONT', 'Schrift');
+define('_CO_WGGALLERY_WATERMARK_FONTFAMILY', 'Schriftart');
+define('_CO_WGGALLERY_WATERMARK_FONTSIZE', 'Schriftgröße');
+define('_CO_WGGALLERY_WATERMARK_COLOR', 'Farbe');
+define('_CO_WGGALLERY_WATERMARK_USAGE', 'Verwendung');
+define('_CO_WGGALLERY_WATERMARK_TARGET', 'Bildart für Hinzufügen Wasserzeichen');
+define('_CO_WGGALLERY_WATERMARK_TARGET_A', 'Bei allen hinzufügen');
+define('_CO_WGGALLERY_WATERMARK_TARGET_M', 'Nur bei mittleren Bildern hinzufügen');
+define('_CO_WGGALLERY_WATERMARK_TARGET_L', 'Nur bei großen Bildern hinzufügen');
 // ---------------- Admin Permissions ----------------
 // Permissions
 define('_CO_WGGALLERY_PERMS_GLOBAL', 'Globale Berechtigungen');
@@ -131,11 +173,13 @@ define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL', 'Globale Berechtigung zum Bearbei
 define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC', 'Gruppen mit der Berechtigung zum <ul><li>Erstellen von Alben</li><li>Bearbeiten aller Alben</li><li>Hochladen von Bildern in alle Alben</li></ul>');
 define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMIT', 'Globale Berechtigung zum Bearbeiten eigener Alben');
 define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMIT_DESC', 'Gruppen mit der Berechtigung zum <ul><li>Erstellen von Alben</li><li>Bearbeiten der eigenen Alben</li><li>Hochladen von Bildern in eigene Alben</li></ul>');
+// define('_CO_WGGALLERY_PERMS_GLOBAL_WATERMARK', 'Berechtigung zum Definieren globaler Wasserzeichen');
+// define('_CO_WGGALLERY_PERMS_GLOBAL_WATERMARK_DESC', 'Gruppen mit der Berechtigung zum Erstellen von Wasserzeichen, die in allen Alben verwendet werden, selbst wenn sie nicht Ersteller des Albums sind');
 define('_CO_WGGALLERY_PERMS_GLOBAL_DESC', '<ul>
 												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_APPROVE . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_APPROVE_DESC. '</li>
 												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC. '</li>
 												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMIT . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMIT_DESC. '</li>
-										   </ul>');
+                                           </ul>');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW', 'Berechtigung zum Ansehen');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW_DESC', 'Gruppen mit der Berechtigung zum Ansehen der Alben');
 define('_CO_WGGALLERY_PERMS_ALB_DLFULLALB', 'Berechtigung zum Download des gesamten Albums');

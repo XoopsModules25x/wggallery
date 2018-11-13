@@ -25,7 +25,7 @@
 $dirname  = basename(__DIR__);
 // ------------------- Informations ------------------- //
 $modversion['name'] = _MI_WGGALLERY_NAME;
-$modversion['version'] = 1.04;
+$modversion['version'] = 1.05;
 $modversion['description'] = _MI_WGGALLERY_DESC;
 $modversion['author'] = 'Wedega';
 $modversion['author_mail'] = 'webmaster@wedega.com';
@@ -40,8 +40,8 @@ $modversion['release_file'] = XOOPS_URL . '/modules/wggallery/docs/release_info 
 $modversion['release_date'] = '2018/03/19';
 $modversion['manual'] = 'link to manual file';
 $modversion['manual_file'] = XOOPS_URL . '/modules/wggallery/docs/install.txt';
-$modversion['min_php'] = '5.3';
-$modversion['min_xoops'] = '2.5.7';
+$modversion['min_php'] = '7.0';
+$modversion['min_xoops'] = '2.5.9';
 $modversion['min_admin'] = '1.1';
 $modversion['min_db'] = array('mysql' => '5.0.7', 'mysqli' => '5.0.7');
 $modversion['image'] = 'assets/images/wggallery_logo.png';
@@ -75,6 +75,7 @@ $modversion['templates'][] = array('file' => 'wggallery_admin_albums.tpl', 'desc
 $modversion['templates'][] = array('file' => 'wggallery_admin_images.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_gallerytypes.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_albumtypes.tpl', 'description' => '', 'type' => 'admin');
+$modversion['templates'][] = array('file' => 'wggallery_admin_watermarks.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_maintenance.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_footer.tpl', 'description' => '', 'type' => 'admin');
 // User
@@ -129,6 +130,7 @@ $modversion['tables'][1] = 'wggallery_albums';
 $modversion['tables'][2] = 'wggallery_images';
 $modversion['tables'][3] = 'wggallery_gallerytypes';
 $modversion['tables'][4] = 'wggallery_albumtypes';
+$modversion['tables'][5] = 'wggallery_watermarks';
 // ------------------- Search ------------------- //
 $modversion['hasSearch'] = 1;
 $modversion['search']['file'] = 'include/search.inc.php';
@@ -252,7 +254,7 @@ $modversion['config'][$c]['name'] = 'maxsize';
 $modversion['config'][$c]['title'] = '_MI_WGGALLERY_MAXSIZE';
 $modversion['config'][$c]['description'] = '_MI_WGGALLERY_MAXSIZE_DESC';
 $modversion['config'][$c]['formtype'] = 'select';
-$modversion['config'][$c]['valuetype'] = 'array';
+$modversion['config'][$c]['valuetype'] = 'text';
 $modversion['config'][$c]['default'] = 3145728;
 $modversion['config'][$c]['options'] = array('0.5 MB' => 524288,
 '1 MB' => 1048576,
@@ -277,7 +279,7 @@ $modversion['config'][$c]['options'] = array('0.5 MB' => 524288,
 );
 // Uploads : mimetypes of image
 ++$c;
-$modversion['config'][$c]['name'] = 'fileext';
+$modversion['config'][$c]['name'] = 'mimetypes';
 $modversion['config'][$c]['title'] = '_MI_WGGALLERY_FILEEXT';
 $modversion['config'][$c]['description'] = '_MI_WGGALLERY_FILEEXT_DESC';
 $modversion['config'][$c]['formtype'] = 'select_multi';
@@ -386,7 +388,7 @@ $modversion['config'][$c]['name'] = 'gallery_target';
 $modversion['config'][$c]['title'] = '_MI_WGGALLERY_GALLERY_TARGET';
 $modversion['config'][$c]['description'] = '_MI_WGGALLERY_GALLERY_TARGET_DESC';
 $modversion['config'][$c]['formtype'] = 'select';
-$modversion['config'][$c]['valuetype'] = 'array';
+$modversion['config'][$c]['valuetype'] = 'text';
 $modversion['config'][$c]['default'] = '_self';
 $modversion['config'][$c]['options'] = array('_MI_WGGALLERY_GALLERY_TARGET_SELF' => '_self', '_MI_WGGALLERY_GALLERY_TARGET_BLANK' => '_blank');
 ++$c;
