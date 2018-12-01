@@ -1,7 +1,7 @@
 <{include file='db:wggallery_header.tpl'}>
 
 <div class='panel panel-<{$panel_type}>'>
-	<div class='panel-heading wgg-imgindex-header'><{$smarty.const._MA_WGGALLERY_IMAGES_TITLE}> <{$alb_name}></div>
+	<div class='panel-heading wgg-imgindex-header'><{$smarty.const._CO_WGGALLERY_IMAGES_TITLE}> <{$alb_name}></div>
 	<div class=' panel-body'>
 		<{if $images}>
 			<{foreach item=image from=$images}>

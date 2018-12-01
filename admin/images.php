@@ -50,7 +50,7 @@ switch($op) {
 			$start = Request::getInt('start', 0);
 			$limit = Request::getInt('limit', $wggallery->getConfig('adminpager'));
 			$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('images.php'));
-			$adminObject->addItemButton(_AM_WGGALLERY_ADD_IMAGE, 'images.php?op=new', 'add');
+			$adminObject->addItemButton(_AM_WGGALLERY_ADD_IMAGE, '../upload.php?op=list&amp;alb_id=' . $albId, 'add');
 			$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 			$crImages = new CriteriaCompo();
 			$crImages->add(new Criteria('img_albid', $albId));

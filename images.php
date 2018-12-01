@@ -58,7 +58,7 @@ $albumsObj = $albumsHandler->get($albId);
 $xoBreadcrumbs[] = array('title' => $albumsObj->getVar('alb_name'));
 
 // Breadcrumbs
-$xoBreadcrumbs[] = array('title' => _MA_WGGALLERY_IMAGES);
+$xoBreadcrumbs[] = array('title' => _CO_WGGALLERY_IMAGES);
 
 switch($op) {
 	case 'save':
@@ -187,7 +187,7 @@ switch($op) {
 wggalleryMetaKeywords($wggallery->getConfig('keywords').', '. implode(',', $keywords));
 unset($keywords);
 // Description
-wggalleryMetaDescription(_MA_WGGALLERY_IMAGES_DESC);
+wggalleryMetaDescription(_CO_WGGALLERY_IMAGES_DESC);
 // $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGGALLERY_URL.'/images.php');
 $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
 include __DIR__ . '/footer.php';

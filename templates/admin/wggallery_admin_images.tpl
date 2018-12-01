@@ -56,10 +56,10 @@
 						<td class='center'><{$image.submitter}></td>
 						<td class='center'><{$image.ip}></td>
 						<td class='center  width5'>
-							<a href='<{$wggallery_url}>/images.php?op=edit&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>' title='<{$smarty.const._EDIT}>'>
+							<a href='<{$wggallery_url}>/admin/images.php?op=edit&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>' title='<{$smarty.const._EDIT}>'>
 								<img src='<{xoModuleIcons16 edit.png}>' alt='images' />
 							</a>
-							<a href='<{$wggallery_url}>/images.php?op=delete&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>' title='<{$smarty.const._DELETE}>'>
+							<a href='<{$wggallery_url}>/admin/images.php?op=delete&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>' title='<{$smarty.const._DELETE}>'>
 								<img src='<{xoModuleIcons16 delete.png}>' alt='images' />
 							</a>
 						</td>

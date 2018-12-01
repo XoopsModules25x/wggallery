@@ -99,7 +99,7 @@ define('_CO_WGGALLERY_ALBUM_SORT_SHOWHIDE', 'Zum Anzeigen/Verstecken der Listene
 
 define('_CO_WGGALLERY_IMAGE', 'Bild');
 define('_CO_WGGALLERY_IMAGES', 'Bilder');
-define('_CO_WGGALLERY_IMAGES_TITLE', 'Bildergalerie');
+define('_CO_WGGALLERY_IMAGES_TITLE', 'Bildergalerie von ');
 define('_CO_WGGALLERY_IMAGES_COUNT', 'Anzahl der Bilder');
 define('_CO_WGGALLERY_IMAGES_ALBUMSHOW', 'Album anzeigen');
 define('_CO_WGGALLERY_IMAGES_INDEX', 'Bilderindex anzeigen'); 

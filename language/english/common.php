@@ -99,7 +99,7 @@ define('_CO_WGGALLERY_ALBUM_SORT_SHOWHIDE', 'Click to show/hide the sub items');
 
 define('_CO_WGGALLERY_IMAGE', 'Image');
 define('_CO_WGGALLERY_IMAGES', 'Images');
-define('_CO_WGGALLERY_IMAGES_TITLE', 'Gallery of images');
+define('_CO_WGGALLERY_IMAGES_TITLE', 'Gallery of images of ');
 define('_CO_WGGALLERY_IMAGES_COUNT', 'Number of images');
 define('_CO_WGGALLERY_IMAGES_ALBUMSHOW', 'Show Album');
 define('_CO_WGGALLERY_IMAGES_INDEX', 'Show Images Index'); 

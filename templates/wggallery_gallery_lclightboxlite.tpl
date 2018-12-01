@@ -19,7 +19,7 @@
         
         var $instance = lc_lightbox(data, {
 			gallery:true,
-			slideshow:<{$slideshow}>,
+			slideshow:<{$lcl_slideshow}>,
             skin:'<{$lcl_skin}>',
 			open_close_time : <{$speedOpen}>,
 			fading_time:<{$transitionDuration}>,
