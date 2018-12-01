@@ -138,13 +138,10 @@ switch($op) {
         $albumsObj = $albums->get($albId);
         if (isset($albumsObj) && is_object($albumsObj)) {
             $albName = $albumsObj->getVar('alb_name');
-            $albAllowdownload = $albumsObj->getVar('alb_allowdownload');
             $albSubmitter = $albumsObj->getVar('alb_submitter');
         }
         $GLOBALS['xoopsTpl']->assign('alb_name', $albName);
-        if ($permissionsHandler->permAlbumDownload($albId)) {
-            $GLOBALS['xoopsTpl']->assign('alb_allowdownload', $albAllowdownload);
-        }
+        $GLOBALS['xoopsTpl']->assign('alb_allowdownload', $permissionsHandler->permAlbumDownload($albId));
         $GLOBALS['xoopsTpl']->assign('alb_pid', $albPid);
 
         $crImages = new CriteriaCompo();

@@ -188,7 +188,7 @@ define('_AM_WGGALLERY_OPTION_AT_SETINFO', 'The settings for album types will be 
 define('_AM_WGGALLERY_OPTION_AT_HOVER', 'Hover effect');
 define('_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB', 'Number of columns for album list');
 define('_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT', 'Number of columns for category list');
-// common ptions
+// common options
 define('_AM_WGGALLERY_OPTION_OPACITIY', 'Opacity');
 define('_AM_WGGALLERY_OPTION_SHOWTITLE', 'Show title');
 define('_AM_WGGALLERY_OPTION_SHOWDESCR', 'Show description');
@@ -241,6 +241,25 @@ define('_AM_WGGALLERY_MAINTENANCE_IMGALB_DESC', 'Items of table images are searc
 define('_AM_WGGALLERY_MAINTENANCE_IMG_SEARCH', 'Search items');
 define('_AM_WGGALLERY_MAINTENANCE_IMG_SEARCHOK', 'No broken items image found');
 define('_AM_WGGALLERY_MAINTENANCE_IMG_CLEAN', 'Clean broken items');
+// Albums
+define('_AM_WGGALLERY_ALBUMS_ERRNOTFOUND', 'Error: Image not found (Image-Id %s)');
+// Import
+define('_AM_WGGALLERY_IMPORT', 'Import data and files from other gallery modules');
+define('_AM_WGGALLERY_IMPORT_LIST', 'List of supported modules');
+define('_AM_WGGALLERY_IMPORT_SUPPORT', 'Supported modules for import');
+define('_AM_WGGALLERY_IMPORT_SUP_INSTALLED', 'module is installed');
+define('_AM_WGGALLERY_IMPORT_SUP_NOTINSTALLED', 'module is not installed');
+define('_AM_WGGALLERY_IMPORT_FOUND', 'Search result');
+define('_AM_WGGALLERY_IMPORT_READ', 'Read module data');
+define('_AM_WGGALLERY_IMPORT_EXEC', 'Import data and files');
+define('_AM_WGGALLERY_IMPORT_NUMALB', 'Number of albums');
+define('_AM_WGGALLERY_IMPORT_NUMIMG', 'Number of images');
+define('_AM_WGGALLERY_IMPORT_INFO_SIZE', 'Attention: the images will be not resized corrensponding modul preferences. If you want to resize then use "Maintenance" after import.');
+define('_AM_WGGALLERY_IMPORT_ERR', 'Import data is only possible when album and image tables are empty');
+define('_AM_WGGALLERY_IMPORT_ERR_ALBEXIST', 'There are already albums existing');
+define('_AM_WGGALLERY_IMPORT_ERR_IMGEXIST', 'There are already images existing');
+define('_AM_WGGALLERY_IMPORT_SUCCESS', '%a albums and %i images successfully imported');
+define('_AM_WGGALLERY_IMPORT_ERROR', 'An error occured during import');
 // ---------------- Admin Others ----------------
 define('_AM_WGGALLERY_MAINTAINEDBY', ' is maintained by ');
 // ---------------- End ----------------

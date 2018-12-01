@@ -196,7 +196,7 @@ class WggalleryImages extends XoopsObject
 		// }
 		$ret['state'] = $this->getVar('img_state');
 		$ret['state_text'] = $wggallery->getStateText($this->getVar('img_state'));
-		$ret['date'] = formatTimeStamp($this->getVar('img_date'), 's');
+		$ret['date'] = formatTimestamp($this->getVar('img_date'), 's');
 		$ret['submitter'] = XoopsUser::getUnameFromId($this->getVar('img_submitter'));
 		$ret['ip'] = $this->getVar('img_ip');
 		$ret['large'] = WGGALLERY_UPLOAD_IMAGE_URL . '/large/' .  $this->getVar('img_namelarge');

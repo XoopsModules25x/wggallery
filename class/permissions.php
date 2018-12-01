@@ -84,7 +84,6 @@ class WggalleryPermissionsHandler extends XoopsPersistableObjectHandler
 			$my_group_ids = $member_handler->getGroupsByUser( $currentuid ) ;
 		}
 		return $gperm_handler->checkRight( 'wggallery_global', '4', $my_group_ids, $mid  ) ;
-		
 	}
 
 	public function permGlobalSubmitAll() {

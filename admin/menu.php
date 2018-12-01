@@ -21,7 +21,7 @@
  * @version        $Id: 1.0 menu.php 1 Mon 2018-03-19 10:04:52Z XOOPS Project (www.xoops.org) $
  */
 $dirname = basename(dirname(__DIR__));
-$moduleHandler = xoops_gethandler('module');
+$moduleHandler = xoops_getHandler('module');
 $xoopsModule = XoopsModule::getByDirname($dirname);
 $moduleInfo = $moduleHandler->get($xoopsModule->getVar('mid'));
 $sysPathIcon32 = $moduleInfo->getInfo('sysicons32');
@@ -57,6 +57,10 @@ $adminmenu[$i]['icon'] = 'assets/icons/32//permissions.png';
 $adminmenu[$i]['title'] = _MI_WGGALLERY_ADMENU8;
 $adminmenu[$i]['link'] = 'admin/maintenance.php';
 $adminmenu[$i]['icon'] = 'assets/icons/32/maintenance.png';
+++$i;
+$adminmenu[$i]['title'] = _MI_WGGALLERY_ADMENU10;
+$adminmenu[$i]['link'] = 'admin/import.php';
+$adminmenu[$i]['icon'] = 'assets/icons/32/import.png';
 ++$i;
 $adminmenu[$i]['title'] = _MI_WGGALLERY_ABOUT;
 $adminmenu[$i]['link'] = 'admin/about.php';

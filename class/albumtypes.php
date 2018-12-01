@@ -246,7 +246,7 @@ class WggalleryAlbumtypes extends XoopsObject
             $options_text .= '</ul>';
         }
 		$ret['options_text'] = $options_text;
-		$ret['date'] = formatTimeStamp($this->getVar('at_date'), 's');
+		$ret['date'] = formatTimestamp($this->getVar('at_date'), 's');
 		return $ret;
 	}
 

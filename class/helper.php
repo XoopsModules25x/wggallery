@@ -207,7 +207,7 @@ class WggalleryHelper
 			break;  
         }
     }
-
+    
     /**
      * @public function getForm for delete
      * @param array $arrParams

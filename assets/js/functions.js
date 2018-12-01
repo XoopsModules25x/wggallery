@@ -49,7 +49,7 @@ function inArray(needle) {
   return false;
 }
 function addClass(theClass) {
-  if (this.className != '') {
+  if (this.className !== '') {
 	this.className += ' ' + theClass;
   } else {
 	this.className = theClass;
@@ -58,7 +58,7 @@ function addClass(theClass) {
 function lastChildContainingText() {
   var testChild = this.lastChild;
   var contentCntnr = ['p','li','dd'];
-  while (testChild.nodeType != 1) {
+  while (testChild.nodeType !== 1) {
 	testChild = testChild.previousSibling;
   }
   var tag = testChild.tagName.toLowerCase();

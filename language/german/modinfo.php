@@ -35,6 +35,7 @@ define('_MI_WGGALLERY_ADMENU5', 'Albumtypen');
 define('_MI_WGGALLERY_ADMENU7', 'Berechtigungen');
 define('_MI_WGGALLERY_ADMENU8', 'Wartung');
 define('_MI_WGGALLERY_ADMENU9', 'Wasserzeichen');
+define('_MI_WGGALLERY_ADMENU10', 'Import');
 define('_MI_WGGALLERY_ABOUT', 'Über');
 // ---------------- Admin Nav ----------------
 define('_MI_WGGALLERY_ADMIN_PAGER', 'Listenienträge Administrationsseite');

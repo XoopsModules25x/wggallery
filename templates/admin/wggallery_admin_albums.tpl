@@ -1,5 +1,17 @@
 <!-- Header -->
 <{include file='db:wggallery_admin_header.tpl'}>
+
+<style>
+ .state {
+	margin:0;
+	padding: 4px;
+ }
+ .active, .state:hover {
+	border:1px solid #aaa !important;
+	border-radius:5px;
+ }
+</style>
+
 <{if $albums_list}>
 	<table class='table table-bordered'>
 		<thead>
@@ -12,7 +24,6 @@
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_WEIGHT}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_IMAGE}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_STATE}></th>
-				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_ALLOWDOWNLOAD}></th>
                 <th class='center'><{$smarty.const._CO_WGGALLERY_WATERMARKS}></th>
                 <th class='center'><{$smarty.const._CO_WGGALLERY_IMAGES}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_DATE}></th>
@@ -32,13 +43,34 @@
 						<td class='center'><{$album.weight}></td>
 						<td class='center'>
 							<{if $album.image_err}>
-								<span style='color:#ff0000'><strong><{$album.image}></strong></span>
+								<span style='color:#ff0000'><strong><{$album.image_errtext}></strong></span>
 							<{else}>
 								<img src='<{$album.image}>' alt='<{$album.name}>' style='max-width:50px' />
 							<{/if}>
 						</td>
-						<td class='center'><{$album.state_text}></td>
-						<td class='center'><{$album.allowdownload}></td>
+						<td class='center'>
+                            <{if $album.state == 0}>
+                                <img class='state active' src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>' />
+                            <{else}>
+                                <a href='albums.php?op=change_state&amp;alb_state=0&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'>
+                                    <img class='state' src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._EDIT}>' />
+                                </a>
+                            <{/if}>
+                            <{if $album.state == 1}>
+                                <img class='state active' src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>' />
+                            <{else}>
+                                <a href='albums.php?op=change_state&amp;alb_state=1&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'>
+                                    <img class='state' src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>' />
+                                </a>
+                            <{/if}>
+                            <{if $album.state == 2}>
+                                <img class='state active' src='<{$wggallery_icon_url_16}>state2.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_APPROVAL}>' />
+                            <{else}>
+                                <a href='albums.php?op=change_state&amp;alb_state=2&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._CO_WGGALLERY_STATE_APPROVAL}>'>
+                                    <img class='state' src='<{$wggallery_icon_url_16}>state2.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_APPROVAL}>' />
+                                </a>
+                            <{/if}>
+                        </td>
                         <td class='center'>
                             <a href='watermarks.php?op=edit&amp;wm_id=<{$album.wmid}>' title='<{$album.wmname}>'>
 								<{$album.wmname}>
@@ -54,6 +86,11 @@
 							<a href='albums.php?op=delete&amp;alb_id=<{$album.id}>' title='<{$smarty.const._DELETE}>'>
 								<img src='<{xoModuleIcons16 delete.png}>' alt='<{$smarty.const._DELETE}>' />
 							</a>
+                            <{if $album.nb_images > 0}>
+                                <a href='images.php?op=list&amp;alb_id=<{$album.id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES}>'>
+                                    <img src='<{$wggallery_icon_url_16}>photos.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES}>' />
+                                </a>
+                            <{/if}>
 						</td>
 					</tr>
 				<{/foreach}>

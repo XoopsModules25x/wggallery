@@ -166,10 +166,8 @@ class WggalleryWatermarks extends XoopsObject
         $rep = WGGALLERY_UPLOAD_FONTS_PATH . '/';
         $dir = opendir($rep);
         while ($f = readdir($dir)) {
-            if (is_file($rep . $f)) {
-                if (preg_match('/.*ttf/', strtolower($f))) {
-                    $wmFontSelect->addOption($f, substr($f, 0, - 4));
-                }
+            if (is_file($rep . $f) && preg_match('/.*ttf/', strtolower($f))) {
+                $wmFontSelect->addOption($f, substr($f, 0, - 4));
             }
         }
 		$wmfontTray->addElement($wmFontSelect);
@@ -314,7 +312,7 @@ class WggalleryWatermarks extends XoopsObject
             break;
         }
         $ret['target_text'] = $target_text;
-		$ret['date'] = formatTimeStamp($this->getVar('wm_date'), 's');
+		$ret['date'] = formatTimestamp($this->getVar('wm_date'), 's');
 		$ret['submitter'] = XoopsUser::getUnameFromId($this->getVar('wm_submitter'));
 		return $ret;
 	}

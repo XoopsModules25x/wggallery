@@ -1066,7 +1066,7 @@ class WggalleryGallerytypes extends XoopsObject
             }
             $ret['options_text'] = $options_text;
         }
-		$ret['date'] = formatTimeStamp($this->getVar('gt_date'), 's');
+		$ret['date'] = formatTimestamp($this->getVar('gt_date'), 's');
 		return $ret;
 	}
     

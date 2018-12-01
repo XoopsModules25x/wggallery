@@ -77,6 +77,7 @@ $modversion['templates'][] = array('file' => 'wggallery_admin_gallerytypes.tpl',
 $modversion['templates'][] = array('file' => 'wggallery_admin_albumtypes.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_watermarks.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_maintenance.tpl', 'description' => '', 'type' => 'admin');
+$modversion['templates'][] = array('file' => 'wggallery_admin_import.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_footer.tpl', 'description' => '', 'type' => 'admin');
 // User
 $modversion['templates'][] = array('file' => 'wggallery_header.tpl', 'description' => '');
@@ -284,8 +285,8 @@ $modversion['config'][$c]['title'] = '_MI_WGGALLERY_FILEEXT';
 $modversion['config'][$c]['description'] = '_MI_WGGALLERY_FILEEXT_DESC';
 $modversion['config'][$c]['formtype'] = 'select_multi';
 $modversion['config'][$c]['valuetype'] = 'array';
-$modversion['config'][$c]['default'] = array('gif', 'jpg', 'jpeg', 'png');
-$modversion['config'][$c]['options'] = array('gif' => 'gif', 'jpeg' => 'jpeg','jpg' => 'jpg','jpe' => 'jpe', 'png' => 'png');
+$modversion['config'][$c]['default'] = array('image/gif', 'image/jpeg', 'image/png');
+$modversion['config'][$c]['options'] = array('gif' => 'image/gif', 'jpeg, jpg, jpe' => 'image/jpeg', 'png' => 'image/png');
 ++$c;
 // Uploads : max width of images for upload
 $modversion['config'][$c]['name'] = 'maxwidth';

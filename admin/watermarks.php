@@ -99,32 +99,28 @@ switch($op) {
         $watermarksObj->setVar('wm_margintb', Request::getInt('wm_margintb', 0));
 		// Set Var wm_image
 		include_once XOOPS_ROOT_PATH .'/class/uploader.php';
+        $fileName = $_FILES['attachedfile']['name'];
+        $uploaderErrors = '';
 		$uploader = new XoopsMediaUploader(WGGALLERY_UPLOAD_IMAGE_PATH.'/watermarks/', 
 													$wggallery->getConfig('mimetypes'), 
 													$wggallery->getConfig('maxsize'), null, null);
-		var_dump($_POST['xoops_upload_file']);
-        var_dump( $_FILES['attachedfile']);
-        echo "<br>WGGALLERY_UPLOAD_IMAGE_PATH:".WGGALLERY_UPLOAD_IMAGE_PATH.'/watermarks/';
-        echo "<br>mimetypes:".$wggallery->getConfig('mimetypes');
-        echo "<br>maxsize:".$wggallery->getConfig('maxsize');
-        
         if($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
-            echo "<br>fetchMedia:ok";
-			$extension = preg_replace('/^.+\.([^.]+)$/sU', '', $_FILES['attachedfile']['name']);
+			$extension = preg_replace('/^.+\.([^.]+)$/sU', '', $fileName);
 			$imgName = str_replace(' ', '', $wm_name).'.'.$extension;
 			$uploader->setPrefix($imgName);
 			$uploader->fetchMedia($_POST['xoops_upload_file'][0]);
 			if(!$uploader->upload()) {
-				$errors = $uploader->getErrors();
-				redirect_header('javascript:history.go(-1).php', 3, $errors);
+				$uploaderErrors = $uploader->getErrors();
 			} else {
 				$watermarksObj->setVar('wm_image', $uploader->getSavedFileName());
+                $watermarksObj->setVar('wm_type', WGGALLERY_WATERMARK_TYPEIMAGE);
 			}
 		} else {
-			echo "<br>fetchMedia:failed";
+			if ( '' < $fileName ) { 
+                $uploaderErrors = $uploader->getErrors();
+            }
             $watermarksObj->setVar('wm_image', Request::getString('wm_image', 'blank.gif'));
 		}
-        // die;
 		$watermarksObj->setVar('wm_text', Request::getString('wm_text'));
 		$watermarksObj->setVar('wm_font', Request::getString('wm_font'));
 		$watermarksObj->setVar('wm_fontsize', Request::getInt('wm_fontsize', 0));
@@ -162,6 +158,8 @@ switch($op) {
 		$watermarksObj->setVar('wm_submitter', Request::getInt('wm_submitter', 0));
 		// Insert Data
 		if($watermarksHandler->insert($watermarksObj)) {
+            $newWmId = $watermarksHandler->getNewInsertedIdWatermarks();
+            $wmId = 0 < $wmId ? $wmId : $newWmId;
             if ( 0 < $albumsHandler->getCount() ) {
                 // reset all albums when watermark isn't in use anymore
                 $sql = 'UPDATE `' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '` INNER JOIN ' . $GLOBALS['xoopsDB']->prefix('wggallery_watermarks') . ' ON ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '.alb_wmid = ' . $GLOBALS['xoopsDB']->prefix('wggallery_watermarks') . '.wm_id SET ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '.alb_wmid = 0 WHERE (((' . $GLOBALS['xoopsDB']->prefix('wggallery_watermarks') . '.wm_usage)=' . WGGALLERY_WATERMARK_USAGENONE . '));';
@@ -173,7 +171,12 @@ switch($op) {
             $imgTest = 'wmtest' . $wmId . '.jpg';
             unlink ( WGGALLERY_UPLOAD_IMAGE_PATH . '/watermarks-test/' . $imgTest );
             $watermarksHandler->watermarkImage( $wmId, WGGALLERY_IMAGE_PATH . '/wmtest.jpg', WGGALLERY_UPLOAD_IMAGE_PATH . '/watermarks-test/' . $imgTest );
-			redirect_header('watermarks.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
+            
+            if ( '' !== $uploaderErrors ) {
+                redirect_header('watermarks.php?op=edit&wm_id=' . $wmId, 4, $uploaderErrors);
+            } else {
+                redirect_header('watermarks.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
+            }
 		}
 		// Get Form
 		$GLOBALS['xoopsTpl']->assign('error', $watermarksObj->getHtmlErrors());

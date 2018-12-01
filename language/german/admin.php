@@ -242,6 +242,25 @@ define('_AM_WGGALLERY_MAINTENANCE_IMGALB_DESC', 'Es werden Einträge in der Tabe
 define('_AM_WGGALLERY_MAINTENANCE_IMG_SEARCH', 'Einträge suchen');
 define('_AM_WGGALLERY_MAINTENANCE_IMG_SEARCHOK', 'Keine fehlerhafte Einträge Bilder gefunden');
 define('_AM_WGGALLERY_MAINTENANCE_IMG_CLEAN', 'Fehlerhafte Einträge bereinigen');
+// Albums
+define('_AM_WGGALLERY_ALBUMS_ERRNOTFOUND', 'Fehler: Bild nicht gefunden (Bild-Id %s)');
+// Import
+define('_AM_WGGALLERY_IMPORT', 'Daten und Dateien aus anderen Galeriemodulen importieren');
+define('_AM_WGGALLERY_IMPORT_LIST', 'Liste der unterstützten Module');
+define('_AM_WGGALLERY_IMPORT_SUPPORT', 'Unterstützte Module für Import');
+define('_AM_WGGALLERY_IMPORT_SUP_INSTALLED', 'Modul ist installiert');
+define('_AM_WGGALLERY_IMPORT_SUP_NOTINSTALLED', 'Modul ist installiert');
+define('_AM_WGGALLERY_IMPORT_FOUND', 'Suchergebnis');
+define('_AM_WGGALLERY_IMPORT_READ', 'Moduldaten lesen');
+define('_AM_WGGALLERY_IMPORT_EXEC', 'Daten und Dateien importieren');
+define('_AM_WGGALLERY_IMPORT_NUMALB', 'Anzahl der Alben');
+define('_AM_WGGALLERY_IMPORT_NUMIMG', 'Anzahl der Bilder');
+define('_AM_WGGALLERY_IMPORT_INFO_SIZE', 'Achtung: die Bilder werden nicht an die Größeneinstellungen entsprechend den Moduleinstellungen angepasst. Wenn Sie die Größen anpassen wollen dann führen Sie nach dem Import "Wartung" aus.');
+define('_AM_WGGALLERY_IMPORT_ERR', 'Das Importieren von Daten ist nur möglich, wenn die Album- und Bildertabellen noch leer sind');
+define('_AM_WGGALLERY_IMPORT_ERR_ALBEXIST', 'Es gibt bereits Alben');
+define('_AM_WGGALLERY_IMPORT_ERR_IMGEXIST', 'Es gibt bereits Bilder');
+define('_AM_WGGALLERY_IMPORT_SUCCESS', '%a Alben und %i Bilder erfolgreich importiert');
+define('_AM_WGGALLERY_IMPORT_ERROR', 'Während des Imports ist ein Fehler aufgetreten');
 // ---------------- Admin Others ----------------
 define('_AM_WGGALLERY_MAINTAINEDBY', ' wird unterstützt von ');
 // ---------------- End ----------------

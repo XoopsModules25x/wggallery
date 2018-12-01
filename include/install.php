@@ -74,6 +74,7 @@ if(!is_dir($specimage)) {
 copy($indexFile, $specimage.'/index.html');
 copy($blankFile, $specimage.'/blank.gif');
 // Making of watermark images folder
+$imgwatermark = XOOPS_ROOT_PATH.'/modules/wggallery/assets/images/wedega_logo.png';
 $specimage = $images.'/watermarks';
 if(!is_dir($specimage)) {
 	mkdir($specimage, 0777);
@@ -82,7 +83,13 @@ if(!is_dir($specimage)) {
 copy($indexFile, $specimage.'/index.html');
 copy($blankFile, $specimage.'/blank.gif');
 copy($imgwatermark, $specimage.'/wedega_logo.png');
-
+// create folder watermarks-test in uploads
+$specimage    = XOOPS_UPLOAD_PATH.'/wggallery/images/watermarks-test';
+if(!is_dir($specimage)) {
+    mkdir($specimage, 0777);
+    chmod($specimage, 0777);
+}
+copy($indexFile, $specimage.'/index.html');
 // installing watermark fonts
 $specfonts = XOOPS_UPLOAD_PATH.'/wggallery/fonts';
 if(!is_dir($specfonts)) {

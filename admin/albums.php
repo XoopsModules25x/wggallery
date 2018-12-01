@@ -1,5 +1,4 @@
-<?php /** @noinspection PhpUndefinedClassInspection */
-/** @noinspection PhpIncludeInspection */
+<?php 
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -29,17 +28,18 @@ include __DIR__ . '/header.php';
 $op = Request::getString('op', 'list');
 // Request alb_id
 $albId = Request::getInt('alb_id');
+$start = Request::getInt('start', 0);
+$limit = Request::getInt('limit', $wggallery->getConfig('adminpager'));
 
 // add scripts 
 $GLOBALS['xoTheme']->addScript( XOOPS_URL . '/modules/wggallery/assets/js/admin.js' );
+$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16/');
 
 switch($op) {
 	case 'list':
 	default:
 		// Define Stylesheet
 		$GLOBALS['xoTheme']->addStylesheet( $style, null );
-		$start = Request::getInt('start', 0);
-		$limit = Request::getInt('limit', $wggallery->getConfig('adminpager'));
 		$templateMain = 'wggallery_admin_albums.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('albums.php'));
 		$adminObject->addItemButton(_AM_WGGALLERY_ADD_ALBUM, 'albums.php?op=new', 'add');
@@ -49,6 +49,8 @@ switch($op) {
 		$GLOBALS['xoopsTpl']->assign('albums_count', $albumsCount);
 		$GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
 		$GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
+        $GLOBALS['xoopsTpl']->assign('start', $start);
+        $GLOBALS['xoopsTpl']->assign('limit', $limit);
 		// Table view albums
 		if($albumsCount > 0) {
 			foreach(array_keys($albumsAll) as $i) {
@@ -102,22 +104,27 @@ switch($op) {
 		// Set Var alb_image
         $albumsObj->setVar('alb_imgcat', Request::getInt('alb_imgcat'));
 		include_once XOOPS_ROOT_PATH .'/class/uploader.php';
+        $fileName = $_FILES['attachedfile']['name'];
+        $uploaderErrors = '';
 		$uploader = new XoopsMediaUploader(WGGALLERY_UPLOAD_IMAGE_PATH.'/albums/', 
 													$wggallery->getConfig('mimetypes'), 
 													$wggallery->getConfig('maxsize'), null, null);
 		if($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
-			$extension = preg_replace('/^.+\.([^.]+)$/sU', '', $_FILES['attachedfile']['name']);
+			$extension = preg_replace('/^.+\.([^.]+)$/sU', '', $fileName);
 			$imgName = str_replace(' ', '', $_POST['alb_name']).'.'.$extension;
 			$uploader->setPrefix($imgName);
 			$uploader->fetchMedia($_POST['xoops_upload_file'][0]);
 			if(!$uploader->upload()) {
-				$errors = $uploader->getErrors();
-				redirect_header('javascript:history.go(-1).php', 3, $errors);
+				$uploaderErrors = $uploader->getErrors();
 			} else {
 				$albumsObj->setVar('alb_image', $uploader->getSavedFileName());
+                $albumsObj->setVar('alb_imgcat', WGGALLERY_ALBUM_IMGCAT_USE_UPLOADED);
 			}
 		} else {
-			$albumsObj->setVar('alb_image', Request::getString('alb_image'));
+			if ( '' < $fileName ) { 
+                $uploaderErrors = $uploader->getErrors();
+            }
+		    $albumsObj->setVar('alb_image', Request::getString('alb_image'));
 		}
         $imgName = Request::getString('alb_imgid', 'none');
         $albImgid = 0;
@@ -132,7 +139,7 @@ switch($op) {
         }
 		$albumsObj->setVar('alb_imgid', $albImgid);
 		$albumsObj->setVar('alb_state', Request::getInt('alb_state'));
-		$albumsObj->setVar('alb_allowdownload', Request::getInt('alb_allowdownload'));
+        $albumsObj->setVar('alb_wmid', Request::getInt('alb_wmid')); 
 		$albumDate = date_create_from_format(_SHORTDATESTRING, $_POST['alb_date']);
 		$albumsObj->setVar('alb_date', $albumDate->getTimestamp());
 		$albumsObj->setVar('alb_submitter', Request::getInt('alb_submitter'));
@@ -144,10 +151,10 @@ switch($op) {
 			$gpermHandler = xoops_getHandler('groupperm');
 			// remove all existing rights
 			$gpermHandler->deleteByModule($perm_modid, 'wggallery_view', $permId);
-			// $gpermHandler->deleteByModule($perm_modid, 'wggallery_submit', $permId);
-			// $gpermHandler->deleteByModule($perm_modid, 'wggallery_approve', $permId);
-			$gpermHandler->deleteByModule($perm_modid, 'wggallery_dlfullalb', $permId);
-			$gpermHandler->deleteByModule($perm_modid, 'wggallery_dlimage', $permId);
+			//TODO
+            // $gpermHandler->deleteByModule($perm_modid, 'wggallery_dlfullalb', $permId);
+			$gpermHandler->deleteByModule($perm_modid, 'wggallery_dlimage_large', $permId);
+            $gpermHandler->deleteByModule($perm_modid, 'wggallery_dlimage_medium', $permId);
 			// set selected rights new
 			// Permission to view
 			if(isset($_POST['groups_view'])) {
@@ -155,32 +162,32 @@ switch($op) {
 					$gpermHandler->addRight('wggallery_view', $permId, $onegroupId, $perm_modid);
 				}
 			}
-/* 			// Permission to submit
-			if(isset($_POST['groups_submit'])) {
-				foreach($_POST['groups_submit'] as $onegroupId) {
-					$gpermHandler->addRight('wggallery_submit', $permId, $onegroupId, $perm_modid);
-				}
-			}
-			// Permission to approve
-			if(isset($_POST['groups_approve'])) {
-				foreach($_POST['groups_approve'] as $onegroupId) {
-					$gpermHandler->addRight('wggallery_approve', $permId, $onegroupId, $perm_modid);
-				}
-			} */
+			//TODO
+            // Permission to download full album
+			// if(isset($_POST['groups_dlfullalb'])) {
+				// foreach($_POST['groups_dlfullalb'] as $onegroupId) {
+					// $gpermHandler->addRight('wggallery_dlfullalb', $permId, $onegroupId, $perm_modid);
+				// }
+			// }
 			// Permission to download large images
-			if(isset($_POST['groups_dlfullalb'])) {
-				foreach($_POST['groups_dlfullalb'] as $onegroupId) {
-					$gpermHandler->addRight('wggallery_dlfullalb', $permId, $onegroupId, $perm_modid);
-				}
-			}
-			// Permission to download medium images
-			if(isset($_POST['groups_dlimage'])) {
-				foreach($_POST['groups_dlimage'] as $onegroupId) {
-					$gpermHandler->addRight('wggallery_dlimage', $permId, $onegroupId, $perm_modid);
-				}
-			}
+            if(isset($_POST['groups_dlimage_large'])) {
+                foreach($_POST['groups_dlimage_large'] as $onegroupId) {
+                    $gpermHandler->addRight('wggallery_dlimage_large', $permId, $onegroupId, $perm_modid);
+                }
+            }
+            // Permission to download medium images
+            if(isset($_POST['groups_dlimage_medium'])) {
+                foreach($_POST['groups_dlimage_medium'] as $onegroupId) {
+                    $gpermHandler->addRight('wggallery_dlimage_medium', $permId, $onegroupId, $perm_modid);
+                }
+            }
 			$albumsHandler->setAlbumIsCat();
-			redirect_header('albums.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
+            if ( '' !== $uploaderErrors ) {
+                $redirAlbId = isset($_REQUEST['alb_id']) ? $albId : $newAlbId;
+                redirect_header('albums.php?op=edit&alb_id=' . $redirAlbId, 4, $uploaderErrors);
+            } else {
+                redirect_header('albums.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
+            }
 		}
 		// Get Form
 		$GLOBALS['xoopsTpl']->assign('error', $albumsObj->getHtmlErrors());
@@ -199,6 +206,19 @@ switch($op) {
 		$form = $albumsObj->getFormAlbums(false, true);
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());
 
+	break;
+    case 'change_state':
+		if(isset($albId)) {
+			$albumsObj = $albumsHandler->get($albId);
+		    // Set Vars
+            $albumsObj->setVar('alb_state', Request::getInt('alb_state'));
+            // Insert Data
+            if($albumsHandler->insert($albumsObj)) {
+                redirect_header('albums.php?op=list&amp;start=' . $start . '&amp;limit=' . $limit, 2, _CO_WGGALLERY_FORM_OK);
+            }
+            // Get Form
+            $GLOBALS['xoopsTpl']->assign('error', $albumsObj->getHtmlErrors());
+        }
 	break;
 	case 'delete':
 		$albumsObj = $albumsHandler->get($albId);

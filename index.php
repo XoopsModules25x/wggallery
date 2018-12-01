@@ -29,7 +29,7 @@ $GLOBALS['xoopsOption']['template_main'] = 'wggallery_index_' . $pr_album['templ
 include_once XOOPS_ROOT_PATH .'/header.php';
 $start       = Request::getInt('start', 0);
 $limit       = Request::getInt('limit', $wggallery->getConfig('userpager'));
-$albPid    = Request::getInt('alb_pid', 0);
+$albPid      = Request::getInt('alb_pid', 0);
 $submitterId = Request::getInt('subm_id', 0);
 
 // general template assigns
@@ -86,14 +86,15 @@ if ( 0 < $submitterId ) {
 
 // get all albums which are online
 $crAlbums = new CriteriaCompo();
-if ($permissionsHandler->permGlobalSubmit()) {
-    $crAlbums->add(new Criteria('alb_state', WGGALLERY_STATE_ONLINE_VAL));
-}
-if ( 0 < $submitterId ) {
-    $crAlbums->add(new Criteria('alb_submitter', $submitterId));
-}
+// if ($permissionsHandler->permGlobalSubmit()) {
+    // $crAlbums->add(new Criteria('alb_state', WGGALLERY_STATE_ONLINE_VAL));
+// }
+// if ( 0 < $submitterId ) {
+    // $crAlbums->add(new Criteria('alb_submitter', $submitterId));
+// }
 $crAlbums->add(new Criteria('alb_pid', $albPid));
 $crAlbums->add(new Criteria('alb_iscat', 0));
+$crAlbums->add(new Criteria('alb_state', 0, '>'));
 $crAlbums->setSort('alb_weight ASC, alb_date');
 $crAlbums->setOrder('DESC');
 $albumsCount = $albumsHandler->getCount($crAlbums);
@@ -156,22 +157,23 @@ if($albumsCount > 0) {
 
 // get all categories which contains albums
 $crAlbums = new CriteriaCompo();
-if (!$permissionsHandler->permGlobalSubmit()) {
-    $crAlbums->add(new Criteria('alb_state', WGGALLERY_STATE_ONLINE_VAL));
-}
-if ( 0 < $submitterId ) {
-    $crAlbums->add(new Criteria('alb_submitter', $submitterId));
-}
+// if (!$permissionsHandler->permGlobalSubmit()) {
+    // $crAlbums->add(new Criteria('alb_state', WGGALLERY_STATE_ONLINE_VAL));
+// }
+// if ( 0 < $submitterId ) {
+    // $crAlbums->add(new Criteria('alb_submitter', $submitterId));
+// }
 $crAlbums->add(new Criteria('alb_pid', $albPid));
 $crAlbums->add(new Criteria('alb_iscat', 1));
+$crAlbums->add(new Criteria('alb_state', 0, '>'));
 $crAlbums->setSort('alb_weight ASC, alb_date');
 $crAlbums->setOrder('DESC');
-$albumsCount = $albumsHandler->getCount($crAlbums);
+$catsCount = $albumsHandler->getCount($crAlbums);
 $crAlbums->setStart( $start );
 $crAlbums->setLimit( $limit );
 $albumsAll = $albumsHandler->getAll($crAlbums);
 
-if($albumsCount > 0) {
+if($catsCount > 0) {
 	$categories = array();
     $counter = 0;
 	// Get All Albums
@@ -207,11 +209,15 @@ if($albumsCount > 0) {
 		$GLOBALS['xoopsTpl']->assign('index_cats_title', _CO_WGGALLERY_CATS_TITLE);
 	}
 	// Display Navigation
-	if($albumsCount > $limit) {
+	if($catsCount > $limit) {
 		include_once XOOPS_ROOT_PATH .'/class/pagenav.php';
-		$pagenav = new XoopsPageNav($albumsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
+		$pagenav = new XoopsPageNav($catsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
 		$GLOBALS['xoopsTpl']->assign('pagenav_cats', $pagenav->renderNav(4));
 	}
+}
+
+if ( 0  == $catsCount + $albumsCount ) {
+    $GLOBALS['xoopsTpl']->assign('error', _CO_WGGALLERY_THEREARENT_ALBUMS);
 }
 	
 // Keywords

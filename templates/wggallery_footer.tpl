@@ -1,4 +1,6 @@
-
+<{if $error}>
+	<div class='errorMsg'><strong><{$error}></strong></div>
+<{/if}>
 <br>
 <{if $xoops_isadmin}>
    <div class="text-center bold"><a href="<{$admin}>"><{$smarty.const._MA_WGGALLERY_ADMIN}></a></div><br>

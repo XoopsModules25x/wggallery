@@ -150,7 +150,7 @@ function update_wggallery_v105(&$module)
     }
 
     // create new field
-    $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . "` ADD `alb_wmid` int(8) NOT NULL DEFAULT '0' AFTER `alb_allowdownload`;";
+    $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . "` ADD `alb_wmid` int(8) NOT NULL DEFAULT '0' AFTER `alb_state`;";
     if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
         xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
         $module->setErrors('error when adding new field alb_wmid to table wggallery_albums');
