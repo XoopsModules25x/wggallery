@@ -125,6 +125,10 @@ define('_CO_WGGALLERY_IMAGE_WEIGHT', 'Weight');
 define('_CO_WGGALLERY_IMAGE_ALBID', 'Albums');
 define('_CO_WGGALLERY_IMAGE_STATE', 'State');
 define('_CO_WGGALLERY_IMAGE_IP', 'Ip');
+define('_CO_WGGALLERY_IMAGE_RESIZE', 'Resize image to following size:');
+define('_CO_WGGALLERY_IMAGE_THUMB', 'Thumb image');
+define('_CO_WGGALLERY_IMAGE_MEDIUM', 'Medium image');
+define('_CO_WGGALLERY_IMAGE_LARGE', 'Large image');
 // Watermark add/edit
 define('_CO_WGGALLERY_WATERMARK_ADD', 'Add Watermark');
 define('_CO_WGGALLERY_WATERMARK_EDIT', 'Edit Watermark');

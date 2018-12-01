@@ -16,7 +16,7 @@
  * @license        GPL 2.0 or later
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.7
+ * @min_xoops      2.5.9
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 albums.php 1 Mon 2018-03-19 10:04:50Z XOOPS Project (www.xoops.org) $
  */
@@ -205,6 +205,11 @@ class WggalleryAlbums extends XoopsObject
 		$fileSelectTray->addElement(new XoopsFormFile( _CO_WGGALLERY_ALBUM_FORM_UPLOAD_IMAGE, 'attachedfile', $wggallery->getConfig('maxsize') ));
 		$imageTray2->addElement($fileSelectTray);
 		$imageTrayAll->addElement($imageTray2);
+        $fileSizeSelect = new XoopsFormRadio( _CO_WGGALLERY_IMAGE_RESIZE, 'alb_resize', 1);
+		$fileSizeSelect->addOption(WGGALLERY_IMAGE_THUMB, _CO_WGGALLERY_IMAGE_THUMB);
+        $fileSizeSelect->addOption(WGGALLERY_IMAGE_MEDIUM, _CO_WGGALLERY_IMAGE_MEDIUM);
+		$fileSizeSelect->addOption(WGGALLERY_IMAGE_LARGE, _CO_WGGALLERY_IMAGE_LARGE);
+		$imageTrayAll->addElement($fileSizeSelect);
         $form->addElement($imageTrayAll);
         
 		unset($criteria);
@@ -283,32 +288,36 @@ class WggalleryAlbums extends XoopsObject
         $groupsCanDlImageMTray->addElement($groupsCanDlImageMAll, false);
 		$form->addElement($groupsCanDlImageMTray);
         // Form Select Album watermark
+        $albWmid = $this->isNew() ? 0 : $this->getVar('alb_wmid');
         // is there a watermark for usage in all albums
         $watermarksHandler = $wggallery->getHandler('watermarks');
         $criteria = new CriteriaCompo();
-		$criteria->add(new Criteria('wm_usage', WGGALLERY_WATERMARK_USAGEALL));
-        $countWm = $watermarksHandler->getCount($criteria);
-        
-        $albWmid = $this->isNew() ? 0 : $this->getVar('alb_wmid');
-        if ( 0 < $countWm ) {
-            if ( 0 === $albWmid ) {
-                // load "usage for all" as default
-                $watermarksAll = $watermarksHandler->getAll($criteria);
-                foreach(array_keys($watermarksAll) as $wm) {
-                    $watermarkObj = $watermarksAll[$wm]->getValuesWatermarks();
-                    $albWmid      = $watermarkObj['wm_id'];
-                    $wmname       = $watermarkObj['wm_name'];
+        $countWmTotal = $watermarksHandler->getCount($criteria);
+        if ( 0 < $countWmTotal ) {
+            $criteria->add(new Criteria('wm_usage', WGGALLERY_WATERMARK_USAGEALL));
+            $countWm = $watermarksHandler->getCount($criteria);
+            if ( 0 < $countWm ) {
+                if ( 0 === $albWmid ) {
+                    // load "usage for all" as default
+                    $watermarksAll = $watermarksHandler->getAll($criteria);
+                    foreach(array_keys($watermarksAll) as $wm) {
+                        $watermarkObj = $watermarksAll[$wm]->getValuesWatermarks();
+                        $albWmid      = $watermarkObj['wm_id'];
+                        $wmname       = $watermarkObj['wm_name'];
+                    }
                 }
+                $form->addElement(new XoopsFormLabel(_CO_WGGALLERY_WATERMARK, $wmname));
+                $form->addElement(new XoopsFormHidden('alb_wmid', $albWmid));
+            } else {
+                $albWidSelect = new XoopsFormSelect( _CO_WGGALLERY_WATERMARK, 'alb_wmid', $albWmid);
+                $albWidSelect->addOption(0, '&nbsp;');
+                $criteria = new CriteriaCompo();
+                $criteria->add(new Criteria('wm_usage', WGGALLERY_WATERMARK_USAGENONE, '>'));
+                $albWidSelect->addOptionArray($watermarksHandler->getList($criteria));
+                $form->addElement($albWidSelect);
             }
-            $form->addElement(new XoopsFormLabel(_CO_WGGALLERY_WATERMARK, $wmname));
-            $form->addElement(new XoopsFormHidden('alb_wmid', $albWmid));
         } else {
-            $albWidSelect = new XoopsFormSelect( _CO_WGGALLERY_WATERMARK, 'alb_wmid', $albWmid);
-            $albWidSelect->addOption(0, '&nbsp;');
-            $criteria = new CriteriaCompo();
-            $criteria->add(new Criteria('wm_usage', WGGALLERY_WATERMARK_USAGENONE, '>'));
-            $albWidSelect->addOptionArray($watermarksHandler->getList($criteria));
-            $form->addElement($albWidSelect);
+            $form->addElement(new XoopsFormHidden('alb_wmid', 0));
         }
         unset($criteria);
 		// Form Text Date Select AlbDate

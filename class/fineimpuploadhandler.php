@@ -100,6 +100,7 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
     protected function storeUploadedFile($target, $mimeType, $uid)
     {
         include_once XOOPS_ROOT_PATH .'/modules/wggallery/header.php';
+        include_once XOOPS_ROOT_PATH .'/modules/wggallery/include/resizer.php';
 		$this->pathUpload = WGGALLERY_UPLOAD_IMAGE_PATH;
 
 		$this->permUseralbum = 1; //TODO: handle an option, whether images should be online immetiately or not
@@ -139,7 +140,8 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
         }
         
 		// create medium image
-		$ret = $this->resizeImage($this->pathUpload . '/medium/' . $this->imageName, $wggallery->getConfig('maxwidth_medium'), $wggallery->getConfig('maxheight_medium'));
+        // $ret = $this->resizeImage($this->pathUpload . '/medium/' . $this->imageName, $wggallery->getConfig('maxwidth_medium'), $wggallery->getConfig('maxheight_medium'));
+		$ret = resizeImage($this->imagePath, $this->pathUpload . '/medium/' . $this->imageName, $wggallery->getConfig('maxwidth_medium'), $wggallery->getConfig('maxheight_medium'), $this->imageMimetype);
         if(false === $ret) {
 			return array('error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_MEDIUM, $this->imageNicename));
 		} 
@@ -148,7 +150,8 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 		}
         
 		// create thumb
-		$ret = $this->resizeImage($this->pathUpload . '/thumbs/' . $this->imageName, $wggallery->getConfig('maxwidth_thumbs'), $wggallery->getConfig('maxheight_thumbs'));
+		// $ret = $this->resizeImage($this->pathUpload . '/thumbs/' . $this->imageName, $wggallery->getConfig('maxwidth_thumbs'), $wggallery->getConfig('maxheight_thumbs'));
+        $ret = resizeImage($this->imagePath, $this->pathUpload . '/thumbs/' . $this->imageName, $wggallery->getConfig('maxwidth_thumbs'), $wggallery->getConfig('maxheight_thumbs'), $this->imageMimetype);
 		if(false === $ret) {
 			return array('error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_THUMBS, $this->imageNicename));
 		} 
@@ -243,7 +246,7 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 	 * @param int    $max_height 
 	 * @return string|boolean
      */
-    private function resizeImage($endfile, $max_width, $max_height){
+/*     private function resizeImage_sav($endfile, $max_width, $max_height){
         // check file extension
         switch($this->imageMimetype){
             case'image/png':
@@ -289,7 +292,6 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
             // Copy and resize old image into new image.
             imagecopyresampled( $tmpimg, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 
-            // Save thumbnail into a file.
             //compressing the file
             switch($this->imageMimetype){
                 case'image/png':
@@ -310,6 +312,5 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 		}
         imagedestroy($img);
         return true;
-    }
-	
+    } */
 }

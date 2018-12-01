@@ -16,7 +16,7 @@
  * @license        GPL 2.0 or later
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.7
+ * @min_xoops      2.5.9
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 common.php 1 Mon 2018-03-19 10:04:56Z XOOPS Project (www.xoops.org) $
  */
@@ -51,9 +51,10 @@ include_once WGGALLERY_PATH .'/include/functions.php';
 define('WGGALLERY_STATE_OFFLINE_VAL',  0);
 define('WGGALLERY_STATE_ONLINE_VAL',   1);
 define('WGGALLERY_STATE_APPROVAL_VAL', 2);
-// constants for download
-define('WGGALLERY_DOWNLOAD_MEDIUM',  1);
-define('WGGALLERY_DOWNLOAD_LARGE',   2);
+// constants for image size
+define('WGGALLERY_IMAGE_THUMB',   0);
+define('WGGALLERY_IMAGE_MEDIUM',  1);
+define('WGGALLERY_IMAGE_LARGE',   2);
 // constants for album image cat
 define('WGGALLERY_ALBUM_IMGCAT_USE_EXIST_VAL',  1);
 define('WGGALLERY_ALBUM_IMGCAT_USE_UPLOADED',   2);

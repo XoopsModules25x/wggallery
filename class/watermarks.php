@@ -137,7 +137,7 @@ class WggalleryWatermarks extends XoopsObject
         
         // Form Upload Image WmImage
 		$getWmImage = $this->getVar('wm_image');
-		$wmImage = $getWmImage ? $getWmImage : 'blank.gif';
+		$wmImage = $getWmImage ?: 'blank.gif';
 		$imageDirectory = '/uploads/wggallery/images/watermarks';
 		$imageTray = new XoopsFormElementTray(_CO_WGGALLERY_WATERMARK_IMAGE, '<br>' );
 		$imageSelect = new XoopsFormSelect( sprintf(_CO_WGGALLERY_FORM_IMAGE_PATH, ".{$imageDirectory}/"), 'wm_image', $wmImage, 5);
@@ -145,9 +145,9 @@ class WggalleryWatermarks extends XoopsObject
 		foreach($imageArray as $image1) {
 			$imageSelect->addOption("{$image1}", $image1);
 		}
-		$imageSelect->setExtra("onchange='showImgSelected(\"image1\", \"wm_image\", \"".$imageDirectory."\", \"\", \"".XOOPS_URL."\")'");
+		$imageSelect->setExtra("onchange='showImgSelected(\"image1\", \"wm_image\", \"".$imageDirectory. '", "", "' .XOOPS_URL."\")'");
 		$imageTray->addElement($imageSelect, false);
-		$imageTray->addElement(new XoopsFormLabel('', "<br><img src='".XOOPS_URL."/".$imageDirectory."/".$wmImage."' name='image1' id='image1' alt='' style='max-width:100px' />"));
+		$imageTray->addElement(new XoopsFormLabel('', "<br><img src='".XOOPS_URL. '/' .$imageDirectory. '/' .$wmImage."' name='image1' id='image1' alt='' style='max-width:100px' />"));
 		// Form File WmImage
 		$fileSelectTray = new XoopsFormElementTray('', '<br>' );
 		$fileSelectTray->addElement(new XoopsFormFile( _CO_WGGALLERY_FORM_UPLOAD_IMAGE_WATERMARKS, 'attachedfile', $wggallery->getConfig('maxsize') ));
@@ -590,9 +590,9 @@ class WggalleryWatermarksHandler extends XoopsPersistableObjectHandler
                 imagettftext($stamp, $fontSizePoints, 0, $posStampX, $posStampY, $fontColor, $fontFamily, $wmText);
                 $imgFinal = $stamp;
             break;
-            case "default":
+            case 'default':
             default:
-                return "wrong wm_type";
+                return 'wrong wm_type';
             break;
         }
 

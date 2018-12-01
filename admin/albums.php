@@ -16,7 +16,7 @@
  * @license        GPL 2.0 or later
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.7
+ * @min_xoops      2.5.9
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 albums.php 1 Mon 2018-03-19 10:04:49Z XOOPS Project (www.xoops.org) $
  */
@@ -86,7 +86,7 @@ switch($op) {
 
 	break;
 	case 'save':
-		// Security Check
+        // Security Check
 		if(!$GLOBALS['xoopsSecurity']->check()) {
 			redirect_header('albums.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
 		}
@@ -105,6 +105,7 @@ switch($op) {
         $albumsObj->setVar('alb_imgcat', Request::getInt('alb_imgcat'));
 		include_once XOOPS_ROOT_PATH .'/class/uploader.php';
         $fileName = $_FILES['attachedfile']['name'];
+        $imageMimetype = $_FILES['attachedfile']['type'];
         $uploaderErrors = '';
 		$uploader = new XoopsMediaUploader(WGGALLERY_UPLOAD_IMAGE_PATH.'/albums/', 
 													$wggallery->getConfig('mimetypes'), 
@@ -117,7 +118,27 @@ switch($op) {
 			if(!$uploader->upload()) {
 				$uploaderErrors = $uploader->getErrors();
 			} else {
-				$albumsObj->setVar('alb_image', $uploader->getSavedFileName());
+				$savedFilename = $uploader->getSavedFileName();
+                $albumsObj->setVar('alb_image', $savedFilename);
+                // resize image 
+                include_once XOOPS_ROOT_PATH .'/modules/wggallery/include/resizer.php';
+                $alb_resize = Request::getInt('alb_resize');
+                switch ($alb_resize) {
+                    case WGGALLERY_IMAGE_THUMB:
+                        $maxwidth  = $wggallery->getConfig('maxwidth_thumbs');
+                        $maxheight = $wggallery->getConfig('maxheight_thumbs');
+                    break;
+                    case WGGALLERY_IMAGE_LARGE:
+                        $maxwidth  = $wggallery->getConfig('maxwidth_large');
+                        $maxheight = $wggallery->getConfig('maxheight_large');
+                    break;
+                    case WGGALLERY_IMAGE_MEDIUM:
+                    default:
+                        $maxwidth  = $wggallery->getConfig('maxwidth_medium');
+                        $maxheight = $wggallery->getConfig('maxheight_medium');
+                    break;
+                }
+                $ret = resizeImage(WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename, WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename, $maxwidth, $maxheight, $imageMimetype);
                 $albumsObj->setVar('alb_imgcat', WGGALLERY_ALBUM_IMGCAT_USE_UPLOADED);
 			}
 		} else {

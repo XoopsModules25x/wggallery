@@ -16,7 +16,7 @@
  * @license        GPL 2.0 or later
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.7
+ * @min_xoops      2.5.9
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 watermarks.php 1 Thu 2018-11-01 08:54:56Z XOOPS Project (www.xoops.org) $
  */
@@ -205,12 +205,12 @@ switch($op) {
 				redirect_header('watermarks.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
 			}
 			if($watermarksHandler->delete($watermarksObj)) {
-				redirect_header('watermarks.php', 3, _AM_WGGALLERY_FORM_DELETE_OK);
+				redirect_header('watermarks.php', 3, _CO_WGGALLERY_FORM_DELETE_OK);
 			} else {
 				$GLOBALS['xoopsTpl']->assign('error', $watermarksObj->getHtmlErrors());
 			}
 		} else {
-			xoops_confirm(array('ok' => 1, 'wm_id' => $wmId, 'op' => 'delete'), $_SERVER['REQUEST_URI'], sprintf(_AM_WGGALLERY_FORM_SURE_DELETE, $watermarksObj->getVar('wm_name')));
+			xoops_confirm(array('ok' => 1, 'wm_id' => $wmId, 'op' => 'delete'), $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $watermarksObj->getVar('wm_name')));
 		}
 
 	break;
