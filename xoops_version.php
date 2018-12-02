@@ -77,6 +77,7 @@ $modversion['templates'][] = array('file' => 'wggallery_admin_gallerytypes.tpl',
 $modversion['templates'][] = array('file' => 'wggallery_admin_albumtypes.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_watermarks.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_maintenance.tpl', 'description' => '', 'type' => 'admin');
+$modversion['templates'][] = array('file' => 'wggallery_admin_permission.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_import.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_footer.tpl', 'description' => '', 'type' => 'admin');
 // User
