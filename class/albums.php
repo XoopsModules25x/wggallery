@@ -407,7 +407,7 @@ class WggalleryAlbums extends XoopsObject
 		$ret['pid'] = $this->getVar('alb_pid');
         $ret['iscat'] = $this->getVar('alb_iscat');
 		$ret['name'] = $this->getVar('alb_name');
-		$ret['desc'] = $this->getVar('alb_desc', 'n');
+		$ret['desc'] = $this->getVar('alb_desc', 'show');
 		$ret['weight'] = $this->getVar('alb_weight');
 		$imagesHandler = $wggallery->getHandler('images');
 		if (WGGALLERY_ALBUM_IMGCAT_USE_EXIST_VAL === $this->getVar('alb_imgcat')) {

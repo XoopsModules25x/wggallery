@@ -41,6 +41,7 @@ class WggalleryGallerytypes extends XoopsObject
 		$this->initVar('gt_template', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('gt_options', XOBJ_DTYPE_TXTAREA);
 		$this->initVar('gt_date', XOBJ_DTYPE_INT);
+        $this->initVar('dohtml', XOBJ_DTYPE_INT, 1, false);
 	}
 
 	/**
@@ -1041,7 +1042,7 @@ class WggalleryGallerytypes extends XoopsObject
 		$ret['id'] = $this->getVar('gt_id');
 		$ret['primary'] = $this->getVar('gt_primary');
 		$ret['name'] = $this->getVar('gt_name');
-		$ret['credits'] = $this->getVar('gt_credits');
+		$ret['credits'] = $this->getVar('gt_credits', 'show');
 		$ret['template'] = $this->getVar('gt_template');
 		$ret['options'] = $this->getVar('gt_options');
         if ( $admin ) {
