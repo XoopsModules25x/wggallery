@@ -28,6 +28,11 @@ include __DIR__ . '/header.php';
 $op   = Request::getString('op', 'list');
 $atId = Request::getInt('at_id');
 
+$atCount = $albumtypesHandler->getCount();
+if (1 > $atCount) {
+	redirect_header('maintenance.php?op=list', 3, _AM_WGGALLERY_THEREARENT_ALBUMTYPES);
+}
+
 switch($op) {
 	case 'list':
 	default:
@@ -37,8 +42,6 @@ switch($op) {
 		$limit = Request::getInt('limit', $wggallery->getConfig('adminpager'));
 		$templateMain = 'wggallery_admin_albumtypes.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('albumtypes.php'));
-		$adminObject->addItemButton(_AM_WGGALLERY_ADD_ALBUMTYPE, 'albumtypes.php?op=new', 'add');
-		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 		$albumtypesCount = $albumtypesHandler->getCountAlbumtypes();
 		$albumtypesAll = $albumtypesHandler->getAllAlbumtypes($start, $limit);
 		$GLOBALS['xoopsTpl']->assign('albumtypes_count', $albumtypesCount);
@@ -187,7 +190,6 @@ switch($op) {
 	case 'edit':
 		$templateMain = 'wggallery_admin_albumtypes.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('albumtypes.php'));
-		$adminObject->addItemButton(_AM_WGGALLERY_ADD_ALBUMTYPE, 'albumtypes.php?op=new', 'add');
 		$adminObject->addItemButton(_AM_WGGALLERY_ALBUMTYPES_LIST, 'albumtypes.php', 'list');
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 		// Get Form

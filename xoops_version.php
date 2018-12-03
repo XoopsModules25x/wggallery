@@ -25,7 +25,7 @@
 $dirname  = basename(__DIR__);
 // ------------------- Informations ------------------- //
 $modversion['name'] = _MI_WGGALLERY_NAME;
-$modversion['version'] = 1.05;
+$modversion['version'] = 1.06;
 $modversion['description'] = _MI_WGGALLERY_DESC;
 $modversion['author'] = 'Wedega';
 $modversion['author_mail'] = 'webmaster@wedega.com';
@@ -77,7 +77,7 @@ $modversion['templates'][] = array('file' => 'wggallery_admin_gallerytypes.tpl',
 $modversion['templates'][] = array('file' => 'wggallery_admin_albumtypes.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_watermarks.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_maintenance.tpl', 'description' => '', 'type' => 'admin');
-$modversion['templates'][] = array('file' => 'wggallery_admin_permission.tpl', 'description' => '', 'type' => 'admin');
+$modversion['templates'][] = array('file' => 'wggallery_admin_permissions.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_import.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'wggallery_admin_footer.tpl', 'description' => '', 'type' => 'admin');
 // User

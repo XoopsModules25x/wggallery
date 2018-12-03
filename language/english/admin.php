@@ -32,8 +32,8 @@ define('_AM_WGGALLERY_THEREARE_GALLERYTYPES', "There are <span class='bold'>%s</
 define('_AM_WGGALLERY_THEREARE_ALBUMTYPES', "There are <span class='bold'>%s</span> album types in the database");
 define('_AM_WGGALLERY_THEREARE_WATERMARKS', "There are <span class='bold'>%s</span> watermarks in the database");
 // There aren't
-define('_AM_WGGALLERY_THEREARENT_GALLERYTYPES', "There aren't gallery types! For initialization/reset goto 'Maintenance' => 'Maintain gallerytypes' and click on button 'Only reset all'");
-define('_AM_WGGALLERY_THEREARENT_ALBUMTYPES', "There aren't album types! For initialization/reset goto 'Maintenance' => 'Maintain albumtypes' and click on button 'Only reset all'");
+define('_AM_WGGALLERY_THEREARENT_GALLERYTYPES', "There aren't gallery types! For initialization/reset goto 'Maintenance' => 'Maintain gallerytypes' and click on button 'Set default settings'");
+define('_AM_WGGALLERY_THEREARENT_ALBUMTYPES', "There aren't album types! For initialization/reset goto 'Maintenance' => 'Maintain albumtypes' and click on button 'Set default settings'");
 define('_AM_WGGALLERY_THEREARENT_WATERMARKS', 'Currently there are no watermarks defined!');
 // ---------------- Admin Files ----------------
 // Buttons

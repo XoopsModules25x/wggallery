@@ -39,9 +39,6 @@
 									<img src="<{$wggallery_icon_url_16}>/options.png" alt="<{$smarty.const._OPTIONS}>" />
 								</a>
 							<{/if}>
-							<a href="gallerytypes.php?op=edit&amp;gt_id=<{$gallerytype.id}>" title="<{$smarty.const._EDIT}>">
-								<img src="<{xoModuleIcons16 edit.png}>" alt="<{$smarty.const._EDIT}>" />
-							</a>
                             <a href="gallerytypes.php?op=reset&amp;gt_id=<{$gallerytype.id}>&amp;template=<{$gallerytype.template}>" title="<{$smarty.const._RESET}>">
 								<img src="<{$wggallery_icon_url_16}>/reset.png" alt="<{$smarty.const._RESET}>" />
 							</a>

@@ -32,8 +32,8 @@ define('_AM_WGGALLERY_THEREARE_GALLERYTYPES', "Es gibt <span class='bold'>%s</sp
 define('_AM_WGGALLERY_THEREARE_ALBUMTYPES', "Es gibt <span class='bold'>%s</span> Albumtypen in der Datenbank");
 define('_AM_WGGALLERY_THEREARE_WATERMARKS', "Es gibt <span class='bold'>%s</span> Wasserzeichen in der Datenbank");
 // There aren't
-define('_AM_WGGALLERY_THEREARENT_GALLERYTYPES', "Es gibt keine Galerietypen! Für eine Initialisierung bzw. Wiederherstellung gehen Sie bitte auf 'Wartung' => 'Wartung Galerietypen' und klicken Sie auf die Schaltfläche 'Nur alle wiederherstellen'");
-define('_AM_WGGALLERY_THEREARENT_ALBUMTYPES', "Es gibt keine Albumtypen! Für eine Initialisierung bzw. Wiederherstellung gehen Sie bitte auf 'Wartung' => 'Wartung Albumtypen' und klicken Sie auf die Schaltfläche 'Nur alle wiederherstellen'");
+define('_AM_WGGALLERY_THEREARENT_GALLERYTYPES', "Es gibt keine Galerietypen! Für eine Initialisierung bzw. Wiederherstellung gehen Sie bitte auf 'Wartung' => 'Wartung Galerietypen' und klicken Sie auf die Schaltfläche 'Standardeinstellungen wiederherstellen'");
+define('_AM_WGGALLERY_THEREARENT_ALBUMTYPES', "Es gibt keine Albumtypen! Für eine Initialisierung bzw. Wiederherstellung gehen Sie bitte auf 'Wartung' => 'Wartung Albumtypen' und klicken Sie auf die Schaltfläche 'Standardeinstellungen wiederherstellen''");
 define('_AM_WGGALLERY_THEREARENT_WATERMARKS', 'Derzeit sind keine Wasserzeichen definiert!');
 // ---------------- Admin Files ----------------
 // Buttons
@@ -196,7 +196,7 @@ define('_AM_WGGALLERY_OPTION_CSS', 'CSS für den Stil wählen');
 define('_AM_WGGALLERY_OPTION_SHOWSUBMITTER', 'Einsender anzeigen');
 // Maintenance
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_DR', 'Löschen und wiederherstellen');
-define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_R', 'Standardeinstellungen anwenden');
+define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_R', 'Standardeinstellungen wiederherstellen');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_RIM', 'Mittlere Bilder neu erstellen');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_RIT', 'Vorschaubilder neu erstellen');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_DUI', 'Nicht verwendete Bilder löschen');
