@@ -106,57 +106,8 @@ switch($op) {
 					unset($albumtypeObjDel);
                 }
             }
-				
-			// create new albumtypes if not existing
-            $templates = array('default', 'simple', 'hovereffectideas', 'bcards');
-            foreach($templates as $template) {
-                $gtCount = 0;
-                $crAlbumtypes = new CriteriaCompo();
-                $crAlbumtypes->add(new Criteria('at_template', $template));
-                $crAlbumtypes->setLimit( 1 );
-                $gtCount = $albumtypesHandler->getCount($crAlbumtypes);
-                if (1 > $gtCount) {           
-                    $albumtypesObj = $albumtypesHandler->create();
-                    $albumtypesObj->setVar('at_name', $template);
-                    $albumtypesObj->setVar('at_template', $template);
-                    if($albumtypesHandler->insert($albumtypesObj)) {
-                        $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE . $template;
-                    } else {
-                        $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $template;
-                    }
-                }
-                unset($albumtypesObj);
-                unset($crAlbumtypes);
-            }
-
-            // reset all albumtypes
-			$count_pr = 0;
-            $crAlbumtypes = new CriteriaCompo();
-            $crAlbumtypes->add(new Criteria('at_primary', 1));
-            $albumtypesAll = $albumtypesHandler->getAll($crAlbumtypes);
-            foreach(array_keys($albumtypesAll) as $i) {
-                if($albumtypesHandler->reset($albumtypesAll[$i]->getVar('at_id'), $albumtypesAll[$i]->getVar('at_template'), 1)) {
-                    $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET . $albumtypesAll[$i]->getVar('at_name');
-					$count_pr++;
-                } else {
-					$errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_RESET . $template;
-				}
-            }
-            unset($crAlbumtypes);
-            $crAlbumtypes = new CriteriaCompo();
-            $crAlbumtypes->add(new Criteria('at_primary', 0));
-            $albumtypesAll = $albumtypesHandler->getAll($crAlbumtypes);
-            foreach(array_keys($albumtypesAll) as $i) {
-				$primary = 0;
-				if ( 0 == $count_pr) {$primary = 1;}
-                if($albumtypesHandler->reset($albumtypesAll[$i]->getVar('at_id'), $albumtypesAll[$i]->getVar('at_template'), $primary)) {
-                    $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET . $albumtypesAll[$i]->getVar('at_name');
-					$count_pr++;
-                } else {
-					$errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_RESET . $template;
-				}
-            }
-            unset($crAlbumtypes);
+            
+            $albumtypesHandler->albumtypesCreateReset($success, $errors);
 			
 			$templateMain = 'wggallery_admin_maintenance.tpl';
 			$err_text = '';
