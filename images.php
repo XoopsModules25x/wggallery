@@ -115,18 +115,18 @@ switch($op) {
 			}
 			$img_name = $imagesObj->getVar('img_name');
 			if($imagesHandler->delete($imagesObj)) {
-				if($imagesHandler->unlinkImages($img_name, $imagesObj->getVar('img_namelarge'))) {
-					redirect_header('images.php', 3, _CO_WGGALLERY_FORM_DELETE_OK);
+                if($imagesHandler->unlinkImages($img_name, $imagesObj->getVar('img_namelarge'))) {
+					redirect_header('images.php?op=list&amp;alb_id=' . $albId, 3, _CO_WGGALLERY_FORM_DELETE_OK);
 				} else {
 					$GLOBALS['xoopsTpl']->assign('error', _CO_WGGALLERY_IMAGE_ERRORUNLINK);
 				}
-				redirect_header('images.php', 3, _CO_WGGALLERY_FORM_DELETE_OK);
+				redirect_header('images.php?op=list&amp;alb_id=' . $albId, 3, _CO_WGGALLERY_FORM_DELETE_OK);
 			} else {
 				$GLOBALS['xoopsTpl']->assign('error', $imagesObj->getHtmlErrors());
 			}
 		} else {
 			// xoops_confirm(array('ok' => 1, 'img_id' => $imgId, 'op' => 'delete'), $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $imagesObj->getVar('img_name')));
-			$form = $wggallery->getFormDelete(array('ok' => 1, 'img_id' => $imgId, 'op' => 'delete'), _CO_WGGALLERY_FORM_DELETE, $imagesObj->getVar('img_name'));
+			$form = $wggallery->getFormDelete(array('ok' => 1, 'img_id' => $imgId, 'op' => 'delete', 'alb_id=' . $albId), _CO_WGGALLERY_FORM_DELETE, $imagesObj->getVar('img_name'));
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
 		}
 	break;
@@ -142,16 +142,19 @@ switch($op) {
         }
         $GLOBALS['xoopsTpl']->assign('alb_name', $albName);
         $GLOBALS['xoopsTpl']->assign('alb_allowdownload', $permissionsHandler->permAlbumDownload($albId));
+        $GLOBALS['xoopsTpl']->assign('permAlbumEdit', $permissionsHandler->permAlbumEdit($images[$i]['img_submitter']));
+        $GLOBALS['xoopsTpl']->assign('alb_id', $albId);
         $GLOBALS['xoopsTpl']->assign('alb_pid', $albPid);
 
         $crImages = new CriteriaCompo();
         $crImages->add(new Criteria('img_albid', $albId));
         if (!$permissionsHandler->permAlbumEdit($albSubmitter)) {
-            $crImages->add(new Criteria('img_state', 1));
+            $crImages->add(new Criteria('img_state', WGGALLERY_STATE_ONLINE_VAL));
         }
         $crImages->setSort('img_weight');
         $crImages->setOrder('ASC');
         $imagesCount = $imagesHandler->getCount($crImages);
+        
         $crImages->setStart( $start );
         $crImages->setLimit( $limit );
         $imagesAll = $imagesHandler->getAll($crImages);
@@ -170,15 +173,13 @@ switch($op) {
             // Display Navigation
             if($imagesCount > $limit) {
                 include_once XOOPS_ROOT_PATH .'/class/pagenav.php';
-
-
-
                 $pagenav = new XoopsPageNav($imagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit . '&alb_id=' . $albId . '&alb_pid=' . $albPid . '&img_submitter=' . $imgSubm );
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
             $GLOBALS['xoopsTpl']->assign('type', $wggallery->getConfig('table_type'));
             $GLOBALS['xoopsTpl']->assign('divideby', $wggallery->getConfig('divideby'));
             $GLOBALS['xoopsTpl']->assign('numb_col', $wggallery->getConfig('numb_col'));
+            $GLOBALS['xoopsTpl']->assign('showlist', true);
         }
         break;
 }

@@ -660,9 +660,75 @@ switch($op) {
 		
 		$maintainance_dui_desc = str_replace('%p', WGGALLERY_UPLOAD_IMAGE_PATH, _AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC);
 		$GLOBALS['xoopsTpl']->assign('maintainance_dui_desc', $maintainance_dui_desc);
+        
+        $system_check = array();
+        // system checks
+        // file_uploads Bestimmt, ob Datei-Uploads per HTTP erlaubt sind
+        $type = str_replace('%s', 'file_uploads', _AM_WGGALLERY_MAINTENANCE_CHECK_TYPE);
+        $value_ini = ini_get('file_uploads');
+        $result1 = _AM_WGGALLERY_MAINTENANCE_CHECK_UPLOADDESC1;
+        $result2 = '';
+        if ( 0 < $value_ini ) {
+            $change = false;
+            $result1 .= _YES;
+            $solve = '';
+        } else {
+            $change = true;
+            $result1 .= _NO;
+            $solve = _AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR2;
+        }
+        $system_check[] = ['type' => $type, 'info' => _AM_WGGALLERY_MAINTENANCE_CHECK_UPLOAD, 'result1' => $result1, 'result2' => $result2, 'change' => $change, 'solve' => $solve];
+        
+        // post_max_size
+        $type = str_replace('%s', 'post_max_size', _AM_WGGALLERY_MAINTENANCE_CHECK_TYPE);
+        $value_ini = ini_get('post_max_size');
+        $value_php = return_bytes($value_ini);
+        $maxsize_module = $wggallery->getConfig('maxsize');
+        $result1 = str_replace(['%s', '%b'], [$value_ini, $value_php], _AM_WGGALLERY_MAINTENANCE_CHECK_MS_POSTDESC1);
+        $result2 = str_replace('%s', $maxsize_module, _AM_WGGALLERY_MAINTENANCE_CHECK_MS_MODULEDESC1);
+        $change = false;
+        $solve = '';
+        if ( $maxsize_module > $value_php ) {
+            $change = true;
+            $solve = _AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR1;
+        }
+        $system_check[] = ['type' => $type, 'info' => _AM_WGGALLERY_MAINTENANCE_CHECK_MS_POST, 'result1' => $result1, 'result2' => $result2, 'change' => $change, 'solve' => $solve];
+        
+
+        // upload_max_filesize
+        $type = str_replace('%s', 'upload_max_filesize', _AM_WGGALLERY_MAINTENANCE_CHECK_TYPE);
+        $value_ini = ini_get('upload_max_filesize');
+        $value_php = return_bytes($value_ini);
+        $result1 = str_replace(['%s', '%b'], [$value_ini, $value_php], _AM_WGGALLERY_MAINTENANCE_CHECK_MS_UPLOADDESC1);
+        $result2 = str_replace('%s', $maxsize_module, _AM_WGGALLERY_MAINTENANCE_CHECK_MS_MODULEDESC1);
+        $change = false;
+        $solve = '';
+        if ( $maxsize_module > $value_php ) {
+            $change = true;
+            $solve = _AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR1;
+        }
+        $system_check[] = ['type' => $type, 'info' => _AM_WGGALLERY_MAINTENANCE_CHECK_MS_UPLOAD, 'result1' => $result1, 'result2' => $result2, 'change' => $change, 'solve' => $solve];
+        // upload_max_filesize Maximale Größe, die eine hochgeladene Datei haben darf. 
 		
+        $GLOBALS['xoopsTpl']->assign('system_check', $system_check);
 	break;
     
+}
+
+function return_bytes($val) {
+    $val = trim($val);
+    $last = strtolower($val[strlen($val)-1]);
+    switch($last) {
+        // The 'G' modifier is available since PHP 5.1.0
+        case 'g':
+            $val *= 1024;
+        case 'm':
+            $val *= 1024;
+        case 'k':
+            $val *= 1024;
+    }
+
+    return $val;
 }
 
 /**

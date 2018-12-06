@@ -33,9 +33,9 @@ function xoops_module_update_wggallery(&$module, $prev_version = null)
     if ($prev_version < 10) {
         $ret = update_wggallery_v10($module);
     }
-    if ($prev_version < 106) {
-        $ret = update_wggallery_v105($module);
-    }
+    // if ($prev_version < 106) {
+        // $ret = update_wggallery_v106($module);
+    // }
     $errors = $module->getErrors();
     if (!empty($errors)) {
         print_r($errors);
@@ -110,75 +110,7 @@ function update_wggallery_v10(&$module)
  *
  * @return bool
  */
-function update_wggallery_v105(&$module)
-{
-    // create folder watermarks in uploads
-    $indexFile    = XOOPS_UPLOAD_PATH.'/index.html';
-    $blankFile    = XOOPS_UPLOAD_PATH.'/blank.gif';
-    $imgwatermark = XOOPS_ROOT_PATH.'/modules/wggallery/assets/images/wedega_logo.png';
-    $specimage    = XOOPS_UPLOAD_PATH.'/wggallery/images/watermarks';
-    if(!is_dir($specimage)) {
-        mkdir($specimage, 0777);
-        chmod($specimage, 0777);
-    }
-    copy($indexFile, $specimage.'/index.html');
-    copy($blankFile, $specimage.'/blank.gif');
-    copy($imgwatermark, $specimage.'/wedega_logo.png');
-    $specimage    = XOOPS_UPLOAD_PATH.'/wggallery/images/watermarks-test';
-    if(!is_dir($specimage)) {
-        mkdir($specimage, 0777);
-        chmod($specimage, 0777);
-    }
-    copy($indexFile, $specimage.'/index.html');
-    
-    // installing watermark fonts
-    $specfonts = XOOPS_UPLOAD_PATH.'/wggallery/fonts';
-    if(!is_dir($specfonts)) {
-        mkdir($specfonts, 0777);
-        chmod($specfonts, 0777);
-    }
-    copy($indexFile, $specfonts.'/index.html');
-
-    $rep = XOOPS_ROOT_PATH . '/modules/wggallery/assets/fonts/';
-    $dir = opendir($rep);
-    while ($f = readdir($dir)) {
-        if (is_file($rep . $f)) {
-            if (preg_match('/.*ttf/', strtolower($f))) {
-                copy($rep.$f, $specfonts.'/'.$f);
-            }
-        }
-    }
-
-    // create new field
-    $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . "` ADD `alb_wmid` int(8) NOT NULL DEFAULT '0' AFTER `alb_state`;";
-    if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
-        xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
-        $module->setErrors('error when adding new field alb_wmid to table wggallery_albums');
-        return false;
-    }
-    // create new table wggallery_watermarks
-    $sql = 'CREATE TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_watermarks') . "` (
-              `wm_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
-              `wm_name` VARCHAR(100) NOT NULL DEFAULT '',
-              `wm_type` INT(8) NOT NULL DEFAULT '0',
-              `wm_position` INT(8) NOT NULL DEFAULT '0',
-              `wm_marginlr` INT(8) NOT NULL DEFAULT '0',
-              `wm_margintb` INT(8) NOT NULL DEFAULT '0',
-              `wm_image` VARCHAR(255) NOT NULL DEFAULT '',
-              `wm_text` VARCHAR(100) NOT NULL DEFAULT '',
-              `wm_font` VARCHAR(255) NOT NULL DEFAULT '',
-              `wm_fontsize` INT(8) NOT NULL DEFAULT '0',
-              `wm_color` VARCHAR(10) NOT NULL DEFAULT '',
-              `wm_usage` INT(1) NOT NULL DEFAULT '0',
-              `wm_target` INT(1) NOT NULL DEFAULT '0',
-              `wm_date` INT(8) NOT NULL DEFAULT '0',
-              `wm_submitter` INT(8) NOT NULL DEFAULT '0',
-              PRIMARY KEY (`wm_id`)
-            ) ENGINE=InnoDB;";
-    if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
-        xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
-        $module->setErrors('error when creating new table wggallery_watermarks');
-        return false;
-    }    
-    return true;
-}
+// function update_wggallery_v105(&$module)
+// {
+    // return true;
+// }

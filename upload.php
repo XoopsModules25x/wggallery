@@ -35,10 +35,10 @@ include_once XOOPS_ROOT_PATH .'/header.php';
 
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
 
-
 // Form Create
 if(isset($albId)) {
     $albumsObj = $albumsHandler->get($albId);
+    $xoBreadcrumbs[] = array('title' => $albumsObj->getVar('alb_name'), 'link' => WGGALLERY_URL . '/images.php?op=list&amp;alb_id=' . $albId);
 } else {
     $albumsObj = $albumsHandler->create();
 }

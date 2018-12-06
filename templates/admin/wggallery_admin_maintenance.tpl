@@ -1,13 +1,39 @@
 <!-- Header -->
 <{include file='db:wggallery_admin_header.tpl'}>
 <style>
- .btn {
-	margin:0;
-	padding: 4px 10px;
-	border:1px solid #ccc;
-	border-radius:5px;
- }
+    .btn {
+        margin:0;
+        padding: 4px 10px;
+        border:1px solid #ccc;
+        border-radius:5px;
+        line-height:26px;
+    }
 </style>
+
+<table class='table table-bordered'>
+	<thead>
+		<tr class='head'>
+			<th class='center' style='width:50%'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECKTYP}></th>
+            <th class='center' style='width:50%' colspan='2'"><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECKRESULTS}></th>
+		</tr>
+	</thead>
+	<tbody>
+		<{foreach item=check from=$system_check}>
+            <tr class="<{cycle values='odd, even'}>">
+                <td class='left'><{$check.type}> (<{$check.info}>)</td>
+                <td class='left'><{$check.result1}><{if $check.result2}><br><{$check.result2}><{/if}></td>
+                <td class='left'>
+                    <{if $check.change}>
+                        <img src="<{$wggallery_icon_url_16}>/off.png" alt="_AM_WGGALLERY_MAINTENANCE_CHECKOK" /> <{$check.solve}> 
+                    <{else}>
+                        <img src="<{$wggallery_icon_url_16}>/on.png" alt="_AM_WGGALLERY_MAINTENANCE_CHECKOK" /> 
+                    <{/if}>
+                </td>
+            </tr>
+        <{/foreach}>
+    </tbody>
+</table>
+<br><br>
 <table class='table table-bordered'>
 	<thead>
 		<tr class='head'>
@@ -22,7 +48,7 @@
 			<td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_GT}></td>
 			<td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_GT_DESC}></td>
 			<td class='left'><{$result1}></td>
-            <td class='center'>
+            <td class='center '>
 				<p><a class='btn' href='maintenance.php?op=delete_reset_gt' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_DR}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_DR}></a></p>
 				<p><a class='btn' href='maintenance.php?op=reset_gt' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_R}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_R}></a></p>
 			</td>

@@ -43,7 +43,7 @@ if(is_object($xoopsUser)) {
 // Breadcrumbs
 $xoBreadcrumbs = array();
 if ($wggallery->getConfig('show_moduletitle')) {
-    $xoBreadcrumbs[] = array('title' => _MA_WGGALLERY_TITLE, 'link' => WGGALLERY_URL . '/');
+    $xoBreadcrumbs[] = array('title' => $GLOBALS['xoopsModule']->getVar('name'), 'link' => WGGALLERY_URL . '/');
 }
 // 
 $myts = MyTextSanitizer::getInstance();
