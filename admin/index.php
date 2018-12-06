@@ -25,7 +25,19 @@ include __DIR__ . '/header.php';
 $countAlbums = $albumsHandler->getCount();
 $countImages = $imagesHandler->getCount();
 $countGallerytypes = $gallerytypesHandler->getCount();
+if ( 0 == $countGallerytypes ) {
+    $success = array();
+    $errors  = array();
+    $gallerytypesHandler->gallerytypesCreateReset($success, $errors);
+    $countGallerytypes = $gallerytypesHandler->getCount();
+}
 $countAlbumtypes = $albumtypesHandler->getCount();
+if ( 0 == $countAlbumtypes ) {
+    $success = array();
+    $errors  = array();
+    $albumtypesHandler->albumtypesCreateReset($success, $errors);
+    $countAlbumtypes = $albumtypesHandler->getCount();
+}
 $countWatermarks = $watermarksHandler->getCount();
 // Template Index
 $templateMain = 'wggallery_admin_index.tpl';

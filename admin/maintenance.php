@@ -58,56 +58,8 @@ switch($op) {
                     } 
                 }	
 			}
-			// create new gallerytypes if not existing
-            $templates = array('none', 'lightbox2', 'justifiedgallery', 'viewerjs', 'jssor', 'lclightboxlite');
-            foreach($templates as $template) {
-                $gtCount = 0;
-                $crGallerytypes = new CriteriaCompo();
-                $crGallerytypes->add(new Criteria('gt_template', $template));
-                $crGallerytypes->setLimit( 1 );
-                $gtCount = $gallerytypesHandler->getCount($crGallerytypes);
-                if (1 > $gtCount) {           
-                    $gallerytypesObj = $gallerytypesHandler->create();
-                    $gallerytypesObj->setVar('gt_name', $template);
-                    $gallerytypesObj->setVar('gt_template', $template);
-                    if($gallerytypesHandler->insert($gallerytypesObj)) {
-                        $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE . $template;
-                    } else {
-                        $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $template;
-                    }
-                }
-                unset($gallerytypeObj);
-                unset($crGallerytypes);
-            }
-			
-			// reset all gallerytypes
-			$count_pr = 0;
-            $crGallerytypes = new CriteriaCompo();
-            $crGallerytypes->add(new Criteria('gt_primary', 1));
-            $gallerytypesAll = $gallerytypesHandler->getAll($crGallerytypes);
-            foreach(array_keys($gallerytypesAll) as $i) {
-                if($gallerytypesHandler->reset($gallerytypesAll[$i]->getVar('gt_id'), $gallerytypesAll[$i]->getVar('gt_template'), 1)) {
-                    $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET . $gallerytypesAll[$i]->getVar('gt_name');
-					$count_pr++;
-                } else {
-					$errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_RESET . $template;
-				}
-            }            
-            unset($crGallerytypes);
-            $crGallerytypes = new CriteriaCompo();
-            $crGallerytypes->add(new Criteria('gt_primary', 0));
-            $gallerytypesAll = $gallerytypesHandler->getAll($crGallerytypes);
-            foreach(array_keys($gallerytypesAll) as $i) {
-				$primary = 0;
-				if ( 0 == $count_pr) {$primary = 1;}
-                if($gallerytypesHandler->reset($gallerytypesAll[$i]->getVar('gt_id'), $gallerytypesAll[$i]->getVar('gt_template'), $primary)) {
-                    $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET . $gallerytypesAll[$i]->getVar('gt_name');
-					$count_pr++;
-                } else {
-					$errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_RESET . $gallerytypesAll[$i]->getVar('gt_template');
-				}
-            }
-            unset($crGallerytypes);
+            
+            $gallerytypesHandler->gallerytypesCreateReset($success, $errors);
 
 			$templateMain = 'wggallery_admin_maintenance.tpl';
 			$err_text = '';
