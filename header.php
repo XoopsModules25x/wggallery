@@ -43,7 +43,9 @@ if(is_object($xoopsUser)) {
 // Breadcrumbs
 $xoBreadcrumbs = array();
 if ($wggallery->getConfig('show_moduletitle')) {
-    $xoBreadcrumbs[] = array('title' => $GLOBALS['xoopsModule']->getVar('name'), 'link' => WGGALLERY_URL . '/');
+    if ( isset($GLOBALS['xoopsModule']) && is_object($GLOBALS['xoopsModule'])) { // necessary to check
+        $xoBreadcrumbs[] = array('title' => $GLOBALS['xoopsModule']->getVar('name'), 'link' => WGGALLERY_URL . '/');
+    }
 }
 // 
 $myts = MyTextSanitizer::getInstance();

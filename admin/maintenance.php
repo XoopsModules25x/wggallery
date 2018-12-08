@@ -568,10 +568,10 @@ switch($op) {
         // system checks
         // file_uploads Bestimmt, ob Datei-Uploads per HTTP erlaubt sind
         $type = str_replace('%s', 'file_uploads', _AM_WGGALLERY_MAINTENANCE_CHECK_TYPE);
-        $value_ini = ini_get('file_uploads');
-        $result1 = _AM_WGGALLERY_MAINTENANCE_CHECK_UPLOADDESC1;
+        $value_fu_ini = ini_get('file_uploads');
+        $result1 = _AM_WGGALLERY_MAINTENANCE_CHECK_FU_DESC;
         $result2 = '';
-        if ( 0 < $value_ini ) {
+        if ( 0 < $value_fu_ini ) {
             $change = false;
             $result1 .= _YES;
             $solve = '';
@@ -580,58 +580,70 @@ switch($op) {
             $result1 .= _NO;
             $solve = _AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR2;
         }
-        $system_check[] = ['type' => $type, 'info' => _AM_WGGALLERY_MAINTENANCE_CHECK_UPLOAD, 'result1' => $result1, 'result2' => $result2, 'change' => $change, 'solve' => $solve];
+        $system_check[] = ['type' => $type, 'info1' => _AM_WGGALLERY_MAINTENANCE_CHECK_FU_INFO, 'result1' => $result1, 'change' => $change, 'solve' => $solve];
         
         // post_max_size
         $type = str_replace('%s', 'post_max_size', _AM_WGGALLERY_MAINTENANCE_CHECK_TYPE);
         $value_ini = ini_get('post_max_size');
-        $value_php = return_bytes($value_ini);
+        $value_pms_php = returnBytes($value_ini);
         $maxsize_module = $wggallery->getConfig('maxsize');
-        $result1 = str_replace(['%s', '%b'], [$value_ini, $value_php], _AM_WGGALLERY_MAINTENANCE_CHECK_MS_POSTDESC1);
-        $result2 = str_replace('%s', $maxsize_module, _AM_WGGALLERY_MAINTENANCE_CHECK_MS_MODULEDESC1);
+        $result1 = str_replace(['%s', '%b'], [$value_ini, $value_pms_php], _AM_WGGALLERY_MAINTENANCE_CHECK_PMS_DESC);
+        $result2 = str_replace('%s', $maxsize_module, _AM_WGGALLERY_MAINTENANCE_CHECK_MS_DESC);
         $change = false;
         $solve = '';
-        if ( $maxsize_module > $value_php ) {
+        if ( $maxsize_module > $value_pms_php ) {
             $change = true;
             $solve = _AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR1;
         }
-        $system_check[] = ['type' => $type, 'info' => _AM_WGGALLERY_MAINTENANCE_CHECK_MS_POST, 'result1' => $result1, 'result2' => $result2, 'change' => $change, 'solve' => $solve];
-        
+        $system_check[] = ['type' => $type, 'info1' => _AM_WGGALLERY_MAINTENANCE_CHECK_PMS_INFO, 'result1' => $result1, 'result2' => $result2, 'change' => $change, 'solve' => $solve];
 
         // upload_max_filesize
         $type = str_replace('%s', 'upload_max_filesize', _AM_WGGALLERY_MAINTENANCE_CHECK_TYPE);
         $value_ini = ini_get('upload_max_filesize');
-        $value_php = return_bytes($value_ini);
-        $result1 = str_replace(['%s', '%b'], [$value_ini, $value_php], _AM_WGGALLERY_MAINTENANCE_CHECK_MS_UPLOADDESC1);
-        $result2 = str_replace('%s', $maxsize_module, _AM_WGGALLERY_MAINTENANCE_CHECK_MS_MODULEDESC1);
+        $value_umf_php = returnBytes($value_ini);
+        $result1 = str_replace(['%s', '%b'], [$value_ini, $value_umf_php], _AM_WGGALLERY_MAINTENANCE_CHECK_UMF_DESC);
+        $result2 = str_replace('%s', $maxsize_module, _AM_WGGALLERY_MAINTENANCE_CHECK_MS_DESC);
         $change = false;
         $solve = '';
-        if ( $maxsize_module > $value_php ) {
+        if ( $maxsize_module > $value_umf_php ) {
             $change = true;
             $solve = _AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR1;
         }
-        $system_check[] = ['type' => $type, 'info' => _AM_WGGALLERY_MAINTENANCE_CHECK_MS_UPLOAD, 'result1' => $result1, 'result2' => $result2, 'change' => $change, 'solve' => $solve];
-        // upload_max_filesize Maximale Größe, die eine hochgeladene Datei haben darf. 
-		
+        $system_check[] = ['type' => $type, 'info1' => _AM_WGGALLERY_MAINTENANCE_CHECK_UMF_INFO, 'result1' => $result1, 'result2' => $result2, 'change' => $change, 'solve' => $solve];
+        
+        // memory_limit 
+		$type = str_replace('%s', 'memory_limit', _AM_WGGALLERY_MAINTENANCE_CHECK_TYPE);
+        $value_ini = ini_get('memory_limit');
+        $value_ml_php = returnBytes($value_ini);
+        $result1 = str_replace(['%s', '%b'], [$value_ini, $value_ml_php], _AM_WGGALLERY_MAINTENANCE_CHECK_ML_DESC);
+        $result2 = '';
+        $change = false;
+        $solve = '';
+        if ( $value_pms_php > $value_ml_php ||  $value_umf_php > $value_ml_php ) {
+            $change = true;
+            $solve = _AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR3;
+        }
+        $system_check[] = ['type' => $type, 'info1' => _AM_WGGALLERY_MAINTENANCE_CHECK_ML_INFO1, 'info2' => _AM_WGGALLERY_MAINTENANCE_CHECK_ML_INFO2, 'result1' => $result1, 'change' => $change, 'solve' => $solve];
+        
         $GLOBALS['xoopsTpl']->assign('system_check', $system_check);
 	break;
     
 }
 
-function return_bytes($val) {
-    $val = trim($val);
-    $last = strtolower($val[strlen($val)-1]);
-    switch($last) {
-        // The 'G' modifier is available since PHP 5.1.0
-        case 'g':
-            $val *= 1024;
-        case 'm':
-            $val *= 1024;
+function returnBytes($val) {
+    switch (substr($val, -1)) {
+        case 'K':
         case 'k':
-            $val *= 1024;
+            return (int)$val * 1024;
+        case 'M':
+        case 'm':
+            return (int)$val * 1048576;
+        case 'G':
+        case 'g':
+            return (int)$val * 1073741824;
+        default:
+            return $val;
     }
-
-    return $val;
 }
 
 /**

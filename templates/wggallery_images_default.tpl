@@ -10,7 +10,7 @@
                     <div class='row wgg-img-panel wgg-image-list'>
                         <div class='wgg-img-panel-row col-sm-8'>
                             <{if $image.medium}>
-                                <div class='center'><img class='img-responsive wgg-img' src='<{$image.large}>' alt='<{$image.title}>' /></div>
+                                <div class='center'><img class='img-responsive wgg-img' src='<{$image.medium}>' alt='<{$image.title}>' /></div>
                             <{/if}>
                         </div>
                         <div class='wgg-img-panel-row col-sm-4'>
@@ -54,7 +54,7 @@
             <{/if}>
             <div class='clear'>&nbsp;</div>
             <div class='wgg-goback'>
-                <a class='btn btn-default wgg-btn' href='index.php?op=list&amp;alb_pid=<{$alb_pid}>' title='<{$smarty.const._CO_WGGALLERY_BACK}>'>
+                <a class='btn btn-default wgg-btn' href='albums.php?op=list&amp;alb_pid=<{$alb_pid}>' title='<{$smarty.const._CO_WGGALLERY_BACK}>'>
                     <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/back.png' alt='<{$smarty.const._CO_WGGALLERY_BACK}>' /><{$smarty.const._CO_WGGALLERY_BACK}>
                 </a>
                 <{if $permAlbumEdit}>

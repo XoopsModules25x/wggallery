@@ -245,14 +245,19 @@ define('_AM_WGGALLERY_MAINTENANCE_IMG_CLEAN', 'Fehlerhafte Einträge bereinigen'
 define('_AM_WGGALLERY_MAINTENANCE_CHECKTYP', 'Systemchecks');
 define('_AM_WGGALLERY_MAINTENANCE_CHECKRESULTS', 'Ergebnis Systemchecks');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_TYPE', "Überprüfung PHP-Einstellung '%s'");
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_MODULEDESC1', 'Die Moduleinstellung erlauben %s bytes');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_POST', 'Setzt die maximal erlaubte Größe von POST-Daten');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_POSTDESC1', 'Maximale Dateigröße für Upload: %s (%b Bytes)');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_UPLOAD', 'Bestimmt, ob ein Dateiupload über html erlaubt ist');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_UPLOADDESC1', 'Dateiupload erlaubt: ');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_UPLOAD', 'Setzt die maximal erlaubte Größe für Dateiuploads');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_UPLOADDESC1', 'Maximale Dateigröße für Upload: %s (%b Bytes)');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_DESC', 'Die Moduleinstellung erlauben %s bytes');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_PMS_INFO', 'Setzt die maximal erlaubte Größe von POST-Daten');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_PMS_DESC', 'Maximale Dateigröße für Upload: %s (%b Bytes)');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_FU_INFO', 'Bestimmt, ob ein Dateiupload über html erlaubt ist');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_FU_DESC', 'Dateiupload erlaubt: ');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_UMF_INFO', 'Setzt die maximal erlaubte Größe für Dateiuploads');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_UMF_DESC', 'Maximale Dateigröße für Upload: %s (%b Bytes)');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_ML_INFO1', 'Setzt den Maximalwert des Speichers in Byte, den ein Skript verbrauchen darf');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_ML_INFO2', 'Wenn Sie Probleme beim Upload großer Bilder haben, dann erhöhen Sie diesen Wert');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_ML_DESC', 'Maximaler Speicherbedarf: %s (%b Bytes)');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR1', 'Bitte reduzieren sie die Moduleinstellug oder erhöhen sie die PHP-Einstellung');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR2', 'Bitte in den PHP-Einstellungen einschalten');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR3', 'memory_limit muss höher sein als upload_max_filesize und muss höher sein als post_max_size');
 
 // Albums
 define('_AM_WGGALLERY_ALBUMS_ERRNOTFOUND', 'Fehler: Bild nicht gefunden (Bild-Id %s)');

@@ -62,6 +62,7 @@ switch($op) {
 		$GLOBALS['xoTheme']->addScript( XOOPS_URL . '/modules/wggallery/assets/js/sortable.js' );
 		$GLOBALS['xoTheme']->addScript( XOOPS_URL . '/modules/wggallery/assets/js/jquery.mjs.nestedSortable.js' );
 		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/css/nestedsortable.css' );
+        $GLOBALS['xoopsTpl']->assign('albpid', $albPid);
 
 		$start = Request::getInt('start', 0);
 		$limit = Request::getInt('limit', $wggallery->getConfig('adminpager'));
@@ -112,6 +113,7 @@ switch($op) {
 		// Get Form
 		if ($permissionsHandler->permGlobalSubmit()) {
 			$albumsObj = $albumsHandler->create();
+            $albumsObj->setVar('alb_pid', $albPid);
 			$form = $albumsObj->getFormAlbums();
 			$GLOBALS['xoopsTpl']->assign('form', $form->render());
 		} else {

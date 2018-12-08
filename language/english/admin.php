@@ -244,15 +244,19 @@ define('_AM_WGGALLERY_MAINTENANCE_IMG_CLEAN', 'Clean broken items');
 define('_AM_WGGALLERY_MAINTENANCE_CHECKTYP', 'System checks');
 define('_AM_WGGALLERY_MAINTENANCE_CHECKRESULTS', 'Result of system checks');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_TYPE', "Check PHP setting '%s'");
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_MODULEDESC1', 'Module setting allows %s Bytes');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_POST', 'Sets max size of post data allowed');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_POSTDESC1', 'Max file size for post: %s (%b Bytes)');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_UPLOAD', 'Whether or not to allow HTTP file uploads');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_UPLOADDESC1', 'File upload allowes: ');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_UPLOAD', 'Sets max size for file upload');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_UPLOADDESC1', 'Max file size for file upload: %s (%b Bytes)');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_DESC', 'Module setting allows %s Bytes');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_PMS_INFO', 'Sets max size of post data allowed');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_PMS_DESC', 'Max file size for post: %s (%b Bytes)');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_FU_INFO', 'Whether or not to allow HTTP file uploads');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_FU_DESC', 'File upload allowes: ');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_UMF_INFO', 'Sets max size for file upload');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_UMF_DESC', 'Max file size for file upload: %s (%b Bytes)');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_ML_INFO1', 'Sets the maximum amount of memory in bytes that a script is allowed to allocate');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_ML_INFO2', 'If you have problems with uploaded big pictures then increase this value');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_ML_DESC', 'Max memory limit: %s (%b Bytes)');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR1', 'Please reduce module setting or increase php setting');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR2', 'Please turn php setting on');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR3', 'memory_limit must be higher than upload_max_filesize and higher than post_max_size');
 // Albums
 define('_AM_WGGALLERY_ALBUMS_ERRNOTFOUND', 'Error: Image not found (Image-Id %s)');
 // Import
