@@ -121,7 +121,7 @@ switch($op) {
 				$savedFilename = $uploader->getSavedFileName();
                 $albumsObj->setVar('alb_image', $savedFilename);
                 // resize image 
-                include_once XOOPS_ROOT_PATH .'/modules/wggallery/include/resizer.php';
+                include_once XOOPS_ROOT_PATH .'/modules/wggallery/include/imagehandler.php';
                 $alb_resize = Request::getInt('alb_resize');
                 switch ($alb_resize) {
                     case WGGALLERY_IMAGE_THUMB:

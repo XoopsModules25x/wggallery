@@ -24,6 +24,8 @@
 use Xmf\Request;
 
 include __DIR__ . '/header.php';
+include_once XOOPS_ROOT_PATH .'/modules/wggallery/include/imagehandler.php';
+
 $op    = Request::getString('op', 'list');
 $albId = Request::getInt('alb_id');
 
@@ -154,7 +156,8 @@ switch($op) {
 				$sourcefile = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesAll[$i]->getVar('img_name');
 				$endfile = $target . $imagesAll[$i]->getVar('img_name');
 				$imageMimetype = $imagesAll[$i]->getVar('img_mimetype');
-				$result = resizeImage($sourcefile, $endfile, $imageMimetype, $maxwidth, $maxheight);
+                unlink($endfile);
+				$result = ResizeImage($sourcefile, $endfile, $maxwidth, $maxheight, $imageMimetype);
 				if ('copy' === $result) {
 					unlink($endfile);
 					copy ($sourcefile, $endfile);
@@ -689,82 +692,4 @@ function getUnusedImages( &$unused, $directory ){
 	return true;
 }
 
-/**
- * resize image if size exceed given width/height
- * @param $sourcefile
- * @param string $endfile
- * @param $imageMimetype
- * @param int $max_width
- * @param int $max_height
- * @return string|boolean
- */
-function resizeImage($sourcefile, $endfile, $imageMimetype, $max_width, $max_height){
-	// check file extension
-	switch($imageMimetype){
-		case'image/png':
-			$img = imagecreatefrompng($sourcefile);
-
-		break;
-		case'image/jpeg':
-			$img = imagecreatefromjpeg($sourcefile);
-		break;
-		case'image/gif':
-			$img = imagecreatefromgif($sourcefile);
-		break;
-        default:
-            return 'Unsupported format';
-	}
-
-	$width = imagesx( $img );
-	$height = imagesy( $img );
-	
-	if ( $width > $max_width || $height > $max_height) {
-		// recalc image size based on max_width/max_height
-		if ($width > $height) {
-			if($width < $max_width){
-				$new_width = $width;
-			} else {
-				$new_width = $max_width;
-				$divisor = $width / $new_width;
-				$new_height = floor( $height / $divisor);
-			}
-		} else if($height < $max_height){
-            $new_height = $height;
-        } else {
-            $new_height =  $max_height;
-            $divisor = $height / $new_height;
-            $new_width = floor( $width / $divisor );
-        }
-
-		// Create a new temporary image.
-		$tmpimg = imagecreatetruecolor( $new_width, $new_height );
-		imagealphablending($tmpimg, false);
-		imagesavealpha($tmpimg, true);
-
-		// Copy and resize old image into new image.
-		imagecopyresampled( $tmpimg, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-
-		unlink($endfile);
-		// Save thumbnail into a file.
-		//compressing the file
-		switch($imageMimetype){
-			case'image/png':
-				imagepng($tmpimg, $endfile, 0);
-			break;
-			case'image/jpeg':
-				imagejpeg($tmpimg, $endfile, 100);
-			break;
-			case'image/gif':
-				imagegif($tmpimg, $endfile);
-			break;
-		}
-					
-		// release the memory
-		imagedestroy($tmpimg);
-	} else {
-		return 'copy';
-	}
-	imagedestroy($img);
-	return true;
-}
 include __DIR__ . '/footer.php';

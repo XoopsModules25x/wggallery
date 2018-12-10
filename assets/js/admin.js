@@ -6,12 +6,11 @@ function toggleCheckboxGroupPerm (element) {
     var toggle_checked = false; 
     el = document.getElementById('all_'+element+'1'); 
     toggle_checked = el.checked;
-    el = document.getElementById(''+element+'[]1');
-    el.checked = toggle_checked;
-    el = document.getElementById(''+element+'[]2');
-    el.checked = toggle_checked;
-    el = document.getElementById(''+element+'[]3');
-    el.checked = toggle_checked;
+
+    for (var i = 1; i < 10; i++) {
+        el = document.getElementById(''+element+'[]'+i);
+        if ( el !== null ) { el.checked = toggle_checked;}
+    }
 };
 
 function wgshowImgSelected(imgId, selectId, imgDir, extra, xoopsUrl) {

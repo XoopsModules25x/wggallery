@@ -195,8 +195,9 @@ define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM', 'Berechtigung zum Download mitt
 define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM_DESC', 'Gruppen mit der Berechtigung zum Download der mittleren Bilder');
 define('_CO_WGGALLERY_PERMS_NOTSET', 'Keine Berechtigung gesetzt');
 
-// ---------------- Errors ----------------
+// ---------------- Misc ----------------
 define('_CO_WGGALLERY_ALBUM_IMAGE_ERRORNOTFOUND', 'Fehler: Albumbild wurde nicht gefundnen');
 define('_CO_WGGALLERY_IMAGE_ERRORUNLINK', 'Fehler beim Löschen des Bildes: das Bild wurde aus der Datenbank entfernt, jedoch ist beim Löschen des Bildes selbst ein Fehler aufgetreten');
-
+define('_CO_WGGALLERY_MAINTAINEDBY', 'Maintained By');
+define('_CO_WGGALLERY_MAINTAINEDBY_DESC', 'Allow url of support site or community');
 // ---------------- End ----------------

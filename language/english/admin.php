@@ -252,7 +252,7 @@ define('_AM_WGGALLERY_MAINTENANCE_CHECK_FU_DESC', 'File upload allowes: ');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_UMF_INFO', 'Sets max size for file upload');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_UMF_DESC', 'Max file size for file upload: %s (%b Bytes)');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_ML_INFO1', 'Sets the maximum amount of memory in bytes that a script is allowed to allocate');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_ML_INFO2', 'If you have problems with uploaded big pictures then increase this value');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_ML_INFO2', 'If you have problems with uploading big pictures then increase this value');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_ML_DESC', 'Max memory limit: %s (%b Bytes)');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR1', 'Please reduce module setting or increase php setting');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR2', 'Please turn php setting on');
@@ -277,5 +277,5 @@ define('_AM_WGGALLERY_IMPORT_ERR_IMGEXIST', 'There are already images existing')
 define('_AM_WGGALLERY_IMPORT_SUCCESS', '%a albums and %i images successfully imported');
 define('_AM_WGGALLERY_IMPORT_ERROR', 'An error occured during import');
 // ---------------- Admin Others ----------------
-define('_AM_WGGALLERY_MAINTAINEDBY', ' is maintained by ');
+
 // ---------------- End ----------------

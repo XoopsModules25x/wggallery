@@ -484,8 +484,8 @@ $modversion['config'][$c]['default'] = 1;
 ++$c;
 // Maintained by
 $modversion['config'][$c]['name'] = 'maintainedby';
-$modversion['config'][$c]['title'] = '_MI_WGGALLERY_MAINTAINEDBY';
-$modversion['config'][$c]['description'] = '_MI_WGGALLERY_MAINTAINEDBY_DESC';
+$modversion['config'][$c]['title'] = '_CO_WGGALLERY_MAINTAINEDBY';
+$modversion['config'][$c]['description'] = '_CO_WGGALLERY_MAINTAINEDBY_DESC';
 $modversion['config'][$c]['formtype'] = 'textbox';
 $modversion['config'][$c]['valuetype'] = 'text';
 $modversion['config'][$c]['default'] = 'https://xoops.wedega.com';

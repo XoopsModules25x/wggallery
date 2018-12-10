@@ -279,5 +279,4 @@ define('_AM_WGGALLERY_IMPORT_ERR_IMGEXIST', 'Es gibt bereits Bilder');
 define('_AM_WGGALLERY_IMPORT_SUCCESS', '%a Alben und %i Bilder erfolgreich importiert');
 define('_AM_WGGALLERY_IMPORT_ERROR', 'Während des Imports ist ein Fehler aufgetreten');
 // ---------------- Admin Others ----------------
-define('_AM_WGGALLERY_MAINTAINEDBY', ' wird unterstützt von ');
 // ---------------- End ----------------

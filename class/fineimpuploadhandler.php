@@ -100,7 +100,7 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
     protected function storeUploadedFile($target, $mimeType, $uid)
     {
         include_once XOOPS_ROOT_PATH .'/modules/wggallery/header.php';
-        include_once XOOPS_ROOT_PATH .'/modules/wggallery/include/resizer.php';
+        include_once XOOPS_ROOT_PATH .'/modules/wggallery/include/imagehandler.php';
 		$this->pathUpload = WGGALLERY_UPLOAD_IMAGE_PATH;
 
 		$this->permUseralbum = 1; //TODO: handle an option, whether images should be online immetiately or not

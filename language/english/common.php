@@ -196,8 +196,9 @@ define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM', 'Permissions to download medium
 define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM_DESC', 'Groups which should have permissions to download medium images');
 define('_CO_WGGALLERY_PERMS_NOTSET', 'No permission set');
 
-// ---------------- Errors ----------------
+// ---------------- Misc ----------------
 define('_CO_WGGALLERY_ALBUM_IMAGE_ERRORNOTFOUND', 'Error: album image not found');
 define('_CO_WGGALLERY_IMAGE_ERRORUNLINK', 'Error deleting image: the image was deleted in the database, but an error occured when deleting the image himself');
-
+define('_CO_WGGALLERY_MAINTAINEDBY', 'Maintained By');
+define('_CO_WGGALLERY_MAINTAINEDBY_DESC', 'Allow url of support site or community');
 // ---------------- End ----------------
