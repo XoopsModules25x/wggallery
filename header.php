@@ -42,8 +42,8 @@ if(is_object($xoopsUser)) {
 }
 // Breadcrumbs
 $xoBreadcrumbs = array();
-if ($wggallery->getConfig('show_moduletitle')) {
-    if ( isset($GLOBALS['xoopsModule']) && is_object($GLOBALS['xoopsModule'])) { // necessary to check
+if ($wggallery->getConfig('show_bcrumb_mname')) {
+    if ( isset($GLOBALS['xoopsModule']) && is_object($GLOBALS['xoopsModule'])) { // necessary to check, otherwise uploader runs into errors
         $xoBreadcrumbs[] = array('title' => $GLOBALS['xoopsModule']->getVar('name'), 'link' => WGGALLERY_URL . '/');
     }
 }

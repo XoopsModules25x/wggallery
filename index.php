@@ -39,6 +39,7 @@ $GLOBALS['xoopsTpl']->assign('panel_type', $wggallery->getConfig('panel_type'));
 // $GLOBALS['xoopsTpl']->assign('type', $wggallery->getConfig('table_type'));
 // $GLOBALS['xoopsTpl']->assign('divideby', $wggallery->getConfig('divideby'));
 // $GLOBALS['xoopsTpl']->assign('numb_col', $wggallery->getConfig('numb_col'));
+$GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $wggallery->getConfig('show_breadcrumbs'));
 
 // assign all album options
 $atoptions = unserialize($pr_album['options'], ['allowed_classes' => false]);
@@ -89,9 +90,9 @@ $crAlbums = new CriteriaCompo();
 // if ($permissionsHandler->permGlobalSubmit()) {
     // $crAlbums->add(new Criteria('alb_state', WGGALLERY_STATE_ONLINE_VAL));
 // }
-// if ( 0 < $submitterId ) {
-    // $crAlbums->add(new Criteria('alb_submitter', $submitterId));
-// }
+if ( 0 < $submitterId ) {
+    $crAlbums->add(new Criteria('alb_submitter', $submitterId));
+}
 $crAlbums->add(new Criteria('alb_pid', $albPid));
 $crAlbums->add(new Criteria('alb_iscat', 0));
 $crAlbums->add(new Criteria('alb_state', 0, '>'));
@@ -110,7 +111,7 @@ if($albumsCount > 0) {
 		$albums[$i] = $albumsAll[$i]->getValuesAlbums();
 		$submitter = $albumsAll[$i]->getVar('alb_submitter');
         //check permissions
-        $albums[$i]['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_submitter'));
+        $albums[$i]['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
         //set indicator for line break
         $counter++;
         if (1 === $counter) {
@@ -122,15 +123,16 @@ if($albumsCount > 0) {
         }
 		$keywords[] = $albumsAll[$i]->getVar('alb_name');
 		
-		// echo "<br>------------------------------------------------------------";
-		// echo "<br>alb_name:".$albumsAll[$i]->getVar('alb_name');
-		// echo "<br>permAlbumView:".$permissionsHandler->permAlbumView($albumsAll[$i]->getVar('alb_id'));
-		// echo "<br>permAlbumEdit:".$permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
-		// echo "<br>permAlbumDownload:".$permissionsHandler->permAlbumDownload($albumsAll[$i]->getVar('alb_id'));
-		// echo "<br>permGlobalSubmit:".$permissionsHandler->permGlobalSubmit();
-		// echo "<br>permGlobalSubmitAll:".$permissionsHandler->permGlobalSubmitAll();
-		// echo "<br>permGlobalApprove:".$permissionsHandler->permGlobalApprove();
-		
+		echo "<br>------------------------------------------------------------";
+		echo "<br>alb_name:".$albumsAll[$i]->getVar('alb_name');
+        echo "<br>alb_id:".$albumsAll[$i]->getVar('alb_id');
+        echo "<br>alb_submitter:".$albumsAll[$i]->getVar('alb_submitter');
+		echo "<br>permAlbumView:".$permissionsHandler->permAlbumView($albumsAll[$i]->getVar('alb_id'));
+		echo "<br>permAlbumEdit:".$permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
+		echo "<br>permAlbumDownload:".$permissionsHandler->permAlbumDownload($albumsAll[$i]->getVar('alb_id'));
+        echo "<br>permImageDownloadLarge:".$permissionsHandler->permImageDownloadLarge($albumsAll[$i]->getVar('alb_id'));
+        echo "<br>permImageDownloadMedium:".$permissionsHandler->permImageDownloadMedium($albumsAll[$i]->getVar('alb_id'));
+		echo "<br>permGlobalSubmit:".$permissionsHandler->permGlobalSubmit();
 	}
     // add linebreak to last album item
     $albums[$i]['linebreak'] = true;
@@ -150,7 +152,7 @@ if($albumsCount > 0) {
 	// Display Navigation
 	if($albumsCount > $limit) {
 		include_once XOOPS_ROOT_PATH .'/class/pagenav.php';
-		$pagenav = new XoopsPageNav($albumsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
+		$pagenav = new XoopsPageNav($albumsCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit . '&amp;alb_pid=' . $albPid);
 		$GLOBALS['xoopsTpl']->assign('pagenav_albums', $pagenav->renderNav(4));
 	}
 }
@@ -185,7 +187,7 @@ if($catsCount > 0) {
 		$nbAlbums = $albumsHandler->getCount($crSubAlbums);
 		$categories[$i]['nb_albums'] = $nbAlbums;
         //check permissions
-        $categories[$i]['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_submitter'));
+        $categories[$i]['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
         //set indicator for line break
         $counter++;
         if (1 === $counter) {

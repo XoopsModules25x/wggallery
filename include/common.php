@@ -51,6 +51,11 @@ include_once WGGALLERY_PATH .'/include/functions.php';
 define('WGGALLERY_STATE_OFFLINE_VAL',  0);
 define('WGGALLERY_STATE_ONLINE_VAL',   1);
 define('WGGALLERY_STATE_APPROVAL_VAL', 2);
+// constants for perms
+define('WGGALLERY_PERM_SUBMITNONE',  0);
+define('WGGALLERY_PERM_SUBMITALL',   1);
+define('WGGALLERY_PERM_SUBMITOWN',   2);
+define('WGGALLERY_PERM_SUBMITAPPR',  3);
 // constants for image size
 define('WGGALLERY_IMAGE_THUMB',   0);
 define('WGGALLERY_IMAGE_MEDIUM',  1);

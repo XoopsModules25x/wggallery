@@ -23,6 +23,39 @@
 
 include __DIR__ . '/header.php';
 include_once XOOPS_ROOT_PATH .'/modules/wggallery/include/imagehandler.php';
+
+
+
+
+
+
+
+echo "bild1.jpg:<br />\n";
+$exif = exif_read_data('bild1.jpg', 'IFD0');
+echo $exif===false ? "Keine Headerdaten gefunden.<br />\n" : "Bild beinhaltet Header<br />\n";
+
+$exif = exif_read_data('bild2.jpg', 0, true);
+echo "bild2.jpg:<br />\n";
+foreach ($exif as $key => $section) {
+    foreach ($section as $name => $val) {
+        echo "$key.$name: $val<br />\n";
+    }
+}
+
+
+include __DIR__ . '/footer.php';
+exit;
+
+
+
+
+
+
+
+
+
+
+
 echo WGGALLERY_UPLOAD_IMAGE_PATH;
 $images = [];
 $counter = 0;

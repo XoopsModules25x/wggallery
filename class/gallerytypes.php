@@ -1399,6 +1399,8 @@ class WggalleryGallerytypesHandler extends XoopsPersistableObjectHandler
                 $options[] = array('name' => 'fullscreen', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_FULLSCREEN');
                 $options[] = array('name' => 'loop', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_GT_PLAYOPTIONS');
                 $options[] = array('name' => 'slideshowSpeed', 'value'=> '3000', 'caption' => '_AM_WGGALLERY_OPTION_GT_SLIDESHOWSPEED');
+                $options[] = array('name' => 'open', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_AUTOOPEN');
+                $options[] = array('name' => 'slideshowAuto', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_AUTOPLAY');
             break;
             
             case 'default':

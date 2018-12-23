@@ -89,3 +89,22 @@
 	width:650px;
 }
 
+.wgg-img-sort, .wgg-img-sort-clear {
+	border:0px solid transparent !important;
+}
+.wgg-img-sort-clear {
+	height:0;
+    padding:0 !important;
+    margin:0;
+}
+.wgg-img-sort {
+    height:50px;
+}
+
+.wgg-img-sort img{
+    max-height:40px;
+}
+
+.wgg-img-sort-img{
+    width:200px;
+}

@@ -43,7 +43,9 @@ define('_AM_WGGALLERY_ADD_GALLERYTYPE', 'Add New Gallery Type');
 define('_AM_WGGALLERY_ADD_ALBUMTYPE', 'Add New Album Type');
 // Lists
 define('_AM_WGGALLERY_ALBUMS_LIST', 'List of Albums');
+define('_AM_WGGALLERY_ALBUMS_APPROVE', 'Albums waiting for approving');
 define('_AM_WGGALLERY_IMAGES_LIST', 'List of Images');
+define('_AM_WGGALLERY_IMAGES_APPROVE', 'Images waiting for approving');
 define('_AM_WGGALLERY_GALLERYTYPES_LIST', 'List of Gallery types');
 define('_AM_WGGALLERY_ALBUMTYPES_LIST', 'List of Album types');
 define('_AM_WGGALLERY_WATERMARKS_LIST', 'List of Watermarks');
@@ -118,7 +120,7 @@ define('_AM_WGGALLERY_OPTION_GT_SLIDESHOW_OPTIONS', 'Slideshow options (not all 
 define('_AM_WGGALLERY_OPTION_GT_COLORBOXSTYLE', 'Colorbox style');
 define('_AM_WGGALLERY_OPTION_GT_TRANSEFFECT', 'Transition effect');
 define('_AM_WGGALLERY_OPTION_GT_SPEEDOPEN', 'Speed for opening slideshow');
-define('_AM_WGGALLERY_OPTION_GT_AUTOOPEN', 'Open colorbox automatically');
+define('_AM_WGGALLERY_OPTION_GT_AUTOOPEN', 'Open slidehow modal automatically');
 define('_AM_WGGALLERY_OPTION_GT_SLIDESHOWTYPE', 'Slideshow type');
 define('_AM_WGGALLERY_OPTION_GT_BUTTTONCLOSE', 'Show close button');
 define('_AM_WGGALLERY_OPTION_GT_NAVBAR', 'Show navbar with thumbs');

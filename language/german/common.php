@@ -24,9 +24,7 @@
 // defines for state
 define('_CO_WGGALLERY_STATE_OFFLINE', 'Offline');
 define('_CO_WGGALLERY_STATE_ONLINE', 'Online');
-define('_CO_WGGALLERY_STATE_APPROVAL', 'Wartet auf Freigabe');
-// defines for download
-
+define('_CO_WGGALLERY_STATE_APPROVAL', 'Warten auf Freigabe');
 // General
 define('_CO_WGGALLERY_NONE', 'Keine');
 define('_CO_WGGALLERY_BACK', 'Zurück');
@@ -41,7 +39,6 @@ define('_CO_WGGALLERY_FORM_TOGGLE_SELECT', 'Alle aus-/abwählen');
 define('_CO_WGGALLERY_FORM_IMAGEPICKER', 'Ein Bild auswählen');
 define('_CO_WGGALLERY_FORM_SUBMIT_SUBMITUPLOAD', 'Absenden und zum Bilderupload wechseln');
 define('_CO_WGGALLERY_FORM_SUBMIT_WMTEST', 'Absenden und Testbildanzeigen');
-
 // Save/Delete
 define('_CO_WGGALLERY_FORM_OK', 'Erfolgreich gespeichert');
 define('_CO_WGGALLERY_FORM_DELETE_OK', 'Erfolgreich gelöscht');
@@ -52,15 +49,22 @@ define('_CO_WGGALLERY_FORM_DELETE_SURE', 'Wollen Sie wirklich löschen?'); //wgg
 define('_CO_WGGALLERY_FORM_ERROR_RESETUSAGE1', 'Fehler beim Zurücksetzen der Verwendung der Wasserzeichen');
 define('_CO_WGGALLERY_FORM_ERROR_RESETUSAGE2', 'Fehler beim Zurücksetzen der Wasserzeichenverwendung in den Alben');
 define('_CO_WGGALLERY_FORM_ERROR_ALBPID', 'Fehler: übergeordnetes Album nicht gefunden');
+define('_CO_WGGALLERY_FORM_OK_APPROVE', 'Änderungen Album erfolgreich gespeichert. Sie werden zur Freigabe der Bilder weitergeleitet');
 // There aren't
 define('_CO_WGGALLERY_THEREARENT_ALBUMS', 'Es gibt keine Alben');
 define('_CO_WGGALLERY_THEREARENT_IMAGES', 'Es gibt keine Bilder');
+// general
+define('_CO_WGGALLERY_DATE', 'Datum');
+define('_CO_WGGALLERY_SUBMITTER', 'Einsender');
+// fine uploader
+define('_CO_WGGALLERY_FU_SUBMIT', 'Einsenden Bild: ');
+define('_CO_WGGALLERY_FU_SUBMITTED', 'Bilder erfolgreich überprüft, bitte Hochladen');
+define('_CO_WGGALLERY_FU_UPLOAD', 'Hochladen Bild: ');
+define('_CO_WGGALLERY_FU_FAILED', 'Während des Hochladens der Bilder sind Fehler aufgetreten'); 
+define('_CO_WGGALLERY_FU_SUCCEEDED', 'Alle Bilder erfolgreich hochgeladen');
 // Album buttons
 define('_CO_WGGALLERY_ALBUM_ADD', 'Album hinzufügen');
 define('_CO_WGGALLERY_ALBUM_EDIT', 'Album bearbeiten'); 
-// general
-define('_CO_WGGALLERY_DATE', 'Datum');
-define('_CO_WGGALLERY_SUBMITTER', 'Einsender'); 
 // Elements of categories
 define('_CO_WGGALLERY_CATS_TITLE', 'Verfügbare Kategorien');
 define('_CO_WGGALLERY_CATS_ALBUMS', 'Enthaltene Alben anzeigen');
@@ -102,11 +106,14 @@ define('_CO_WGGALLERY_IMAGES', 'Bilder');
 define('_CO_WGGALLERY_IMAGES_TITLE', 'Bildergalerie von ');
 define('_CO_WGGALLERY_IMAGES_COUNT', 'Anzahl der Bilder');
 define('_CO_WGGALLERY_IMAGES_ALBUMSHOW', 'Album anzeigen');
-define('_CO_WGGALLERY_IMAGES_INDEX', 'Bilderindex anzeigen'); 
-define('_CO_WGGALLERY_IMAGES_UPLOAD', 'Bilder hochladen'); 
-// Image add/edit
+define('_CO_WGGALLERY_IMAGES_INDEX', 'Bilderindex anzeigen');
+define('_CO_WGGALLERY_IMAGES_UPLOAD', 'Bilder hochladen');
+define('_CO_WGGALLERY_IMAGE_MANAGE', 'Bildermanagement');
+define('_CO_WGGALLERY_IMAGE_MANAGE_DESC', 'Sortieren Sie Ihre Bilder durch Drag&Drop neu');
+// Image add/edit/show
 define('_CO_WGGALLERY_IMAGE_ADD', 'Bild hinzufügen');
 define('_CO_WGGALLERY_IMAGE_EDIT', 'Bild bearbeiten');
+define('_CO_WGGALLERY_IMAGE_SHOW', 'Bild anzeigen');
 // Elements of Image
 define('_CO_WGGALLERY_IMAGE_ID', 'Id');
 define('_CO_WGGALLERY_IMAGE_TITLE', 'Titel');
@@ -172,18 +179,16 @@ define('_CO_WGGALLERY_WATERMARK_TARGET_L', 'Nur bei großen Bildern hinzufügen'
 // ---------------- Admin Permissions ----------------
 // Permissions
 define('_CO_WGGALLERY_PERMS_GLOBAL', 'Globale Berechtigungen');
-define('_CO_WGGALLERY_PERMS_GLOBAL_APPROVE', 'Globale Berechtigung zum Freigeben');
-define('_CO_WGGALLERY_PERMS_GLOBAL_APPROVE_DESC', 'Gruppen mit der Berechtigung zum Freigeben eingesendeter Alben');
 define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL', 'Globale Berechtigung zum Bearbeiten aller Alben');
-define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC', 'Gruppen mit der Berechtigung zum <ul><li>Erstellen von Alben</li><li>Bearbeiten aller Alben</li><li>Hochladen von Bildern in alle Alben</li></ul>');
-define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMIT', 'Globale Berechtigung zum Bearbeiten eigener Alben');
-define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMIT_DESC', 'Gruppen mit der Berechtigung zum <ul><li>Erstellen von Alben</li><li>Bearbeiten der eigenen Alben</li><li>Hochladen von Bildern in eigene Alben</li></ul>');
-// define('_CO_WGGALLERY_PERMS_GLOBAL_WATERMARK', 'Berechtigung zum Definieren globaler Wasserzeichen');
-// define('_CO_WGGALLERY_PERMS_GLOBAL_WATERMARK_DESC', 'Gruppen mit der Berechtigung zum Erstellen von Wasserzeichen, die in allen Alben verwendet werden, selbst wenn sie nicht Ersteller des Albums sind');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC', '<ul><li>Erstellen von Alben</li><li>Bearbeiten aller Alben</li><li>Freigabe aller Alben</li><li>Hochladen von Bildern in alle Alben</li><li>Freigabe aller Bilder</li></ul>');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN', 'Globale Berechtigung zum Bearbeiten eigener Alben ohne Freigabe');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN_DESC', '<ul><li>Erstellen von Alben</li><li>Bearbeiten der eigenen Alben</li><li>Hochladen von Bildern in eigene Alben</li></ul>');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR', 'Globale Berechtigung zum Bearbeiten eigener Alben, jedoch ist eine Freigabe erforderlich');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR_DESC', "<ul><li>Erstellen von Alben (Freigabe erforderlich)</li><li>Bearbeiten der eigenen Alben (Freigabe erforderlich)</li><li>Hochladen von Bildern in eigene Alben (Freigabe erforderlich)</li></ul>");
 define('_CO_WGGALLERY_PERMS_GLOBAL_DESC', '<ul>
-												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_APPROVE . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_APPROVE_DESC. '</li>
 												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC. '</li>
-												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMIT . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMIT_DESC. '</li>
+												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN_DESC. '</li>
+                                                <li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR_DESC. '</li>
                                            </ul>');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW', 'Berechtigung zum Ansehen');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW_DESC', 'Gruppen mit der Berechtigung zum Ansehen der Alben');
@@ -194,10 +199,10 @@ define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE_DESC', 'Gruppen mit der Berechtigu
 define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM', 'Berechtigung zum Download mittlerer Bildern');
 define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM_DESC', 'Gruppen mit der Berechtigung zum Download der mittleren Bilder');
 define('_CO_WGGALLERY_PERMS_NOTSET', 'Keine Berechtigung gesetzt');
-
+define('_CO_WGGALLERY_PERMS_NODOWNLOAD', 'Sie haben keine Berechtigung zum Download');
 // ---------------- Misc ----------------
 define('_CO_WGGALLERY_ALBUM_IMAGE_ERRORNOTFOUND', 'Fehler: Albumbild wurde nicht gefundnen');
 define('_CO_WGGALLERY_IMAGE_ERRORUNLINK', 'Fehler beim Löschen des Bildes: das Bild wurde aus der Datenbank entfernt, jedoch ist beim Löschen des Bildes selbst ein Fehler aufgetreten');
-define('_CO_WGGALLERY_MAINTAINEDBY', 'Maintained By');
-define('_CO_WGGALLERY_MAINTAINEDBY_DESC', 'Allow url of support site or community');
+define('_CO_WGGALLERY_MAINTAINEDBY', 'Unterstützt von');
+define('_CO_WGGALLERY_MAINTAINEDBY_DESC', 'Erlaubt den Url zur Supportseite oder Community');
 // ---------------- End ----------------

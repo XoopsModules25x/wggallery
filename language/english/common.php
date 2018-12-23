@@ -25,7 +25,6 @@
 define('_CO_WGGALLERY_STATE_OFFLINE', 'Offline');
 define('_CO_WGGALLERY_STATE_ONLINE', 'Online');
 define('_CO_WGGALLERY_STATE_APPROVAL', 'Waiting for approval');
-// defines for download
 
 // General
 define('_CO_WGGALLERY_NONE', 'None');
@@ -52,15 +51,22 @@ define('_CO_WGGALLERY_FORM_DELETE_SURE', 'Do you really want to delete?'); //wgg
 define('_CO_WGGALLERY_FORM_ERROR_RESETUSAGE1', 'Error when reseting usage of a watermark');
 define('_CO_WGGALLERY_FORM_ERROR_RESETUSAGE2', 'Error when reseting watermark usage in albums');
 define('_CO_WGGALLERY_FORM_ERROR_ALBPID', 'Error: parent albums not found');
+define('_CO_WGGALLERY_FORM_OK_APPROVE', 'Successfully saved album. You will be forwarded to approve the images');
 // There aren't
 define('_CO_WGGALLERY_THEREARENT_ALBUMS', "There aren't albums");
 define('_CO_WGGALLERY_THEREARENT_IMAGES', "There aren't images");
-// Album buttons
-define('_CO_WGGALLERY_ALBUM_ADD', 'Add Album');
-define('_CO_WGGALLERY_ALBUM_EDIT', 'Edit Album'); 
 // general
 define('_CO_WGGALLERY_DATE', 'Date');
 define('_CO_WGGALLERY_SUBMITTER', 'Submitter'); 
+// fine uploader
+define('_CO_WGGALLERY_FU_SUBMIT', 'Submitting image: ');
+define('_CO_WGGALLERY_FU_SUBMITTED', 'Image successfully checked, please upload');
+define('_CO_WGGALLERY_FU_UPLOAD', 'Upload image: ');
+define('_CO_WGGALLERY_FU_FAILED', 'Errors occured during uploading the images'); 
+define('_CO_WGGALLERY_FU_SUCCEEDED', 'Successfully uploaded all images');
+// Album buttons
+define('_CO_WGGALLERY_ALBUM_ADD', 'Add Album');
+define('_CO_WGGALLERY_ALBUM_EDIT', 'Edit Album'); 
 // Elements of categories
 define('_CO_WGGALLERY_CATS_TITLE', 'Available categories');
 define('_CO_WGGALLERY_CATS_ALBUMS', 'Show sub albums');
@@ -104,9 +110,12 @@ define('_CO_WGGALLERY_IMAGES_COUNT', 'Number of images');
 define('_CO_WGGALLERY_IMAGES_ALBUMSHOW', 'Show Album');
 define('_CO_WGGALLERY_IMAGES_INDEX', 'Show Images Index'); 
 define('_CO_WGGALLERY_IMAGES_UPLOAD', 'Upload Images'); 
-// Image add/edit
-define('_CO_WGGALLERY_IMAGE_ADD', 'Add Image');
-define('_CO_WGGALLERY_IMAGE_EDIT', 'Edit Image');
+define('_CO_WGGALLERY_IMAGE_MANAGE', 'Image management');
+define('_CO_WGGALLERY_IMAGE_MANAGE_DESC', 'Resort your images by drag & drop');
+// Image add/edit/show
+define('_CO_WGGALLERY_IMAGE_ADD', 'Add image');
+define('_CO_WGGALLERY_IMAGE_EDIT', 'Edit image');
+define('_CO_WGGALLERY_IMAGE_SHOW', 'Show image');
 // Elements of Image
 define('_CO_WGGALLERY_IMAGE_ID', 'Id');
 define('_CO_WGGALLERY_IMAGE_TITLE', 'Title');
@@ -173,18 +182,16 @@ define('_CO_WGGALLERY_WATERMARK_TARGET_L', 'Add to large');
 // ---------------- Admin Permissions ----------------
 // Permissions
 define('_CO_WGGALLERY_PERMS_GLOBAL', 'Permissions global');
-define('_CO_WGGALLERY_PERMS_GLOBAL_APPROVE', 'Permissions global to approve');
 define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL', 'Permissions global to submit/edit all albums');
-define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMIT', 'Permissions global to submit/edit own albums');
-define('_CO_WGGALLERY_PERMS_GLOBAL_APPROVE_DESC', 'Groups which should have permissions to approve submitted albums');
-define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC', 'Groups which should have permissions to <ul><li>create albums</li><li>edit all albums</li><li>upload images to all albums</li></ul>');
-define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMIT_DESC', 'Groups which should have permissions to <ul><li>create albums</li><li>edit own albums</li><li>upload images to own albums</li></ul>');
-// define('_CO_WGGALLERY_PERMS_GLOBAL_WATERMARK', 'Permission to define global watermarks');
-// define('_CO_WGGALLERY_PERMS_GLOBAL_WATERMARK_DESC', 'Groups with this permisssion have he right to define watermarks, which are used in all albums, even if they are not creator of the album');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC', 'Groups which should have permissions to <ul><li>create albums</li><li>edit all albums</li><li>approve all albums</li><li>upload images to all albums</li><li>approve all images</li></ul>');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN', 'Permissions global to submit/edit own albums without approvement');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN_DESC', 'Groups which should have permissions to <ul><li>create albums</li><li>edit own albums</li><li>upload images to own albums</li></ul>');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR', 'Permissions global to submit/edit own albums only with approvement');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR_DESC', 'Groups which should have permissions to <ul><li>create albums</li><li>edit own albums</li><li>upload images to own albums</li></ul>');
 define('_CO_WGGALLERY_PERMS_GLOBAL_DESC', '<ul>
-												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_APPROVE . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_APPROVE_DESC. '</li>
 												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC. '</li>
-												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMIT . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMIT_DESC. '</li>
+												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN_DESC. '</li>
+                                                <li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR_DESC. '</li>
 										   </ul>');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW', 'Permissions to view');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW_DESC', 'Groups which should have permissions to view an album');
@@ -195,7 +202,7 @@ define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE_DESC', 'Groups which should have p
 define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM', 'Permissions to download medium images');
 define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM_DESC', 'Groups which should have permissions to download medium images');
 define('_CO_WGGALLERY_PERMS_NOTSET', 'No permission set');
-
+define('_CO_WGGALLERY_PERMS_NODOWNLOAD', 'You have no permission to download');
 // ---------------- Misc ----------------
 define('_CO_WGGALLERY_ALBUM_IMAGE_ERRORNOTFOUND', 'Error: album image not found');
 define('_CO_WGGALLERY_IMAGE_ERRORUNLINK', 'Error deleting image: the image was deleted in the database, but an error occured when deleting the image himself');

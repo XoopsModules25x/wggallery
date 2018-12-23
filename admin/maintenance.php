@@ -153,7 +153,7 @@ switch($op) {
 		}
 		if($imagesCount > 0) {
 			foreach(array_keys($imagesAll) as $i) {
-				$sourcefile = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesAll[$i]->getVar('img_name');
+				$sourcefile = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesAll[$i]->getVar('img_namelarge');
 				$endfile = $target . $imagesAll[$i]->getVar('img_name');
 				$imageMimetype = $imagesAll[$i]->getVar('img_mimetype');
                 unlink($endfile);

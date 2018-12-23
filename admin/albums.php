@@ -43,9 +43,26 @@ switch($op) {
 		$templateMain = 'wggallery_admin_albums.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('albums.php'));
 		$adminObject->addItemButton(_AM_WGGALLERY_ADD_ALBUM, 'albums.php?op=new', 'add');
+        if ( 'approve' === $op ) {
+            $adminObject->addItemButton(_AM_WGGALLERY_ALBUMS_LIST, 'albums.php', 'list');
+        } else {
+            $crAlbums = new CriteriaCompo();
+            $crAlbums->add(new Criteria('alb_state', WGGALLERY_STATE_APPROVAL_VAL));
+            $albumsCount = $albumsHandler->getCount($crAlbums);
+            if ( 0 < $albumsCount ) {
+                $adminObject->addItemButton(_AM_WGGALLERY_ALBUMS_APPROVE, 'albums.php?op=approve', 'alert');
+            }
+            unset($crAlbums);
+        }
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
-		$albumsCount = $albumsHandler->getCountAlbums();
-		$albumsAll = $albumsHandler->getAllAlbums($start, $limit);
+        $crAlbums = new CriteriaCompo();
+        if ( 'approve' === $op ) {
+            $crAlbums->add(new Criteria('alb_state', WGGALLERY_STATE_APPROVAL_VAL));
+        }
+        $crAlbums->setStart( $start );
+        $crAlbums->setLimit( $limit );
+		$albumsCount = $albumsHandler->getCount($crAlbums);
+		$albumsAll = $albumsHandler->getAll($crAlbums);
 		$GLOBALS['xoopsTpl']->assign('albums_count', $albumsCount);
 		$GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
 		$GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
@@ -231,10 +248,21 @@ switch($op) {
     case 'change_state':
 		if(isset($albId)) {
 			$albumsObj = $albumsHandler->get($albId);
+            $stateOld = $albumsObj->getVar('alb_state');
+            $stateNew = Request::getInt('alb_state');
 		    // Set Vars
             $albumsObj->setVar('alb_state', Request::getInt('alb_state'));
             // Insert Data
             if($albumsHandler->insert($albumsObj)) {
+                if ( WGGALLERY_STATE_APPROVAL_VAL === $stateOld && WGGALLERY_STATE_ONLINE_VAL === $stateNew ) {
+                    $crImages = new CriteriaCompo();
+                    $crImages->add(new Criteria('img_albid', $albId));
+                    $crImages->add(new Criteria('img_state', WGGALLERY_STATE_APPROVAL_VAL));
+                    $imgApprove = $imagesHandler->getCount($crImages);
+                    if ( 0 < $imgApprove ) {
+                        redirect_header('images.php?op=approve&amp;alb_id=' . $albId, 2, _CO_WGGALLERY_FORM_OK_APPROVE); 
+                    }
+                }
                 redirect_header('albums.php?op=list&amp;start=' . $start . '&amp;limit=' . $limit, 2, _CO_WGGALLERY_FORM_OK);
             }
             // Get Form

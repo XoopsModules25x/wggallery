@@ -38,10 +38,10 @@ define('_MI_WGGALLERY_ADMENU9', 'Wasserzeichen');
 define('_MI_WGGALLERY_ADMENU10', 'Import');
 define('_MI_WGGALLERY_ABOUT', 'Über');
 // ---------------- Admin Nav ----------------
-define('_MI_WGGALLERY_ADMIN_PAGER', 'Listenienträge Administrationsseite');
-define('_MI_WGGALLERY_ADMIN_PAGER_DESC', 'Definieren Sie die Anzahl der Einträge pro Liste im Admin-Bereich');
+define('_MI_WGGALLERY_ADMIN_PAGER', 'Listeneinträge Adminseite');
+define('_MI_WGGALLERY_ADMIN_PAGER_DESC', 'Definieren Sie die Anzahl der Einträge pro Liste im Administrations-Bereich');
 // User
-define('_MI_WGGALLERY_USER_PAGER', 'Benutzerseite');
+define('_MI_WGGALLERY_USER_PAGER', 'Listeneinträge Benutzerseite');
 define('_MI_WGGALLERY_USER_PAGER_DESC', 'Definieren Sie die Anzahl der Einträge pro Liste im Benutzer-Bereich');
 // Submenu
 define('_MI_WGGALLERY_SMNAME1', 'Indexseite');
@@ -84,8 +84,6 @@ define('_MI_WGGALLERY_MAXHEIGHT_THUMBS', 'Maximale Höhe für Vorschaubilder');
 define('_MI_WGGALLERY_MAXHEIGHT_THUMBS_DESC', 'Definieren Sie die maximale Höhe, auf die die hochgeladenen Bilder für Format "Vorschaubilder" automatisch verkleinert werden sollen (in pixel)');
 define('_MI_WGGALLERY_IMAGE_SHOWSUBMITTER', 'Einsender des Bildes anzeigen');
 define('_MI_WGGALLERY_IMAGE_SHOWSUBMITTER_DESC', 'Definieren Sie, ob die Einsender der Bilder beim jeweiligen  Bild angezeigt werden sollen');
-define('_MI_WGGALLERY_ALLOW_DOWNLOAD', 'Downloads erlauben');
-define('_MI_WGGALLERY_ALLOW_DOWNLOAD_DESC', 'Bitte entscheiden Sie, welche Bilder heruntergeladen werden dürfen');
 define('_MI_WGGALLERY_GALLERY_TARGET', 'Ziel für Galerien');
 define('_MI_WGGALLERY_GALLERY_TARGET_DESC', 'Bitte legen Sie fest, wo eine Bildergalerie (Slideshow) geöffnet werden soll');
 define('_MI_WGGALLERY_GALLERY_TARGET_SELF', 'Gleiches Fenster/gleicher Tab');
@@ -94,8 +92,10 @@ define('_MI_WGGALLERY_ADDJQUERY', 'jquery library hinzufügen');
 define('_MI_WGGALLERY_ADDJQUERY_DESC', 'Wenn Sie bereits jquery implentiert haben (z.B. durch Ihr Theme), dann bitte "Nein" wählen');
 define('_MI_WGGALLERY_PANEL_TYPE', 'Panel Type');
 define('_MI_WGGALLERY_PANEL_TYPE_DESC', 'Panel Type is the bootstrap html div.');
-define('_MI_WGGALLERY_SHOW_MODULETITLE', 'Modultitel anzeigen');
-define('_MI_WGGALLERY_SHOW_MODULETITLE_DESC', 'Modultitel in Brotkrumen-Navigation anzeigen');
+define('_MI_WGGALLERY_SHOWBCRUMBS', 'Brotkrumen-Navigation (breadcrumbs) anzeigen');
+define('_MI_WGGALLERY_SHOWBCRUMBS_DESC', 'Eine Brotkrumen-Navigation zeigt den aktuellen Seitenstand innerhalb der Websitestruktur');
+define('_MI_WGGALLERY_SHOWBCRUMBS_MNAME', 'Modulnamen anzeigen');
+define('_MI_WGGALLERY_SHOWBCRUMBS_MNAME_DESC', 'Den Modulnamen in der Brotkrumen-Navigation anzeigen');
 // Notifications
 define('_MI_WGGALLERY_GLOBAL_NOTIFY', 'Global notify');
 define('_MI_WGGALLERY_GLOBAL_NOTIFY_DESC', 'Global notify desc');

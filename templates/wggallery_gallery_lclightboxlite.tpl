@@ -4,14 +4,13 @@
 
 <script type='text/javascript'>
     $(document).ready(function() {
-        
         var data = [<{if $images_nb > 0}><{foreach item=image from=$images}>                
 					{
 						type            : 'image',
 						src             : '<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>',
-						title            : '<{$image.title}>',
-						author            : '<{$image.submitter}>',
-						thumb            : '<{$image.thumb}>',
+						title           : '<{$image.title}>',
+						author          : '<{$image.submitter}>',
+						thumb           : '<{$image.thumb}>',
 						force_outer_cmd : true,
 						download        : '<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>'
 					},
@@ -58,6 +57,15 @@
 			on_close:function(){history.go(-1)} 
 		});
         lcl_open($instance, 0); // direct lightbox opening showing first element
+    });
+    $(document).on('click', '#lcl_downloadlink', function(){
+        var ele = document.getElementById("lcl_downloadlink"); 
+        $.ajax({
+            data: 'op=lclightbox&src=' + ele.download,
+            url: 'download.php',
+            method: 'POST',
+            success: function() {}
+        });
     });
 </script>
 

@@ -74,6 +74,12 @@
                 },
                 <{if $download}>
                     download: function() {
+                    $.ajax({
+                        data: 'op=viewerjs&src=' + viewer.image.src,
+                        url: 'download.php',
+                        method: 'POST',
+                        success: function() {}
+                    });
                     const a = document.createElement('a');
                     a.href = viewer.image.src;
                     a.download = viewer.image.alt;
@@ -89,6 +95,15 @@
                 toolbar: false,
             <{/if}>
         });
+        <{if $open}>
+            viewer.show(<{$slideshowAuto}>);
+            <{if $slideshowAuto}>
+                viewer.play(true);
+            <{/if}>
+            gallery.addEventListener('hidden', function () {
+                window.history.back();
+            });
+        <{/if}> 
     });
 </script>
 

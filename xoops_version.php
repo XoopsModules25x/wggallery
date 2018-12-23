@@ -25,7 +25,7 @@
 $dirname  = basename(__DIR__);
 // ------------------- Informations ------------------- //
 $modversion['name'] = _MI_WGGALLERY_NAME;
-$modversion['version'] = 1.06;
+$modversion['version'] = 1.07;
 $modversion['description'] = _MI_WGGALLERY_DESC;
 $modversion['author'] = 'Wedega';
 $modversion['author_mail'] = 'webmaster@wedega.com';
@@ -41,7 +41,7 @@ $modversion['release_date'] = '2018/03/19';
 $modversion['manual'] = 'link to manual file';
 $modversion['manual_file'] = XOOPS_URL . '/modules/wggallery/docs/install.txt';
 $modversion['min_php'] = '7.0';
-$modversion['min_xoops'] = '2.5.9';
+$modversion['min_xoops'] = '2.5.10';
 $modversion['min_admin'] = '1.1';
 $modversion['min_db'] = array('mysql' => '5.0.7', 'mysqli' => '5.0.7');
 $modversion['image'] = 'assets/images/wggallery_logo.png';
@@ -100,6 +100,7 @@ $modversion['templates'][] = array('file' => 'wggallery_categoryitem_bcards.tpl'
 
 $modversion['templates'][] = array('file' => 'wggallery_images_default.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_imageitem_2.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'wggallery_images_manage.tpl', 'description' => '');
 
 $modversion['templates'][] = array('file' => 'wggallery_gallery_jssor.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'wggallery_gallery_jssor_arrows.tpl', 'description' => '');
@@ -474,10 +475,18 @@ $modversion['config'][$c]['valuetype'] = 'text';
 $modversion['config'][$c]['default'] = 'default';
 $modversion['config'][$c]['options'] = array('default' => 'default', 'primary' => 'primary', 'success' => 'success', 'info' => 'info', 'warning' => 'warning', 'danger' => 'danger');
 ++$c;
+// Show breadcrumb
+$modversion['config'][$c]['name'] = 'show_breadcrumbs';
+$modversion['config'][$c]['title'] = '_MI_WGGALLERY_SHOWBCRUMBS';
+$modversion['config'][$c]['description'] = '_MI_WGGALLERY_SHOWBCRUMBS_DESC';
+$modversion['config'][$c]['formtype'] = 'yesno';
+$modversion['config'][$c]['valuetype'] = 'int';
+$modversion['config'][$c]['default'] = 1;
+++$c;
 // Show module name
-$modversion['config'][$c]['name'] = 'show_moduletitle';
-$modversion['config'][$c]['title'] = '_MI_WGGALLERY_SHOW_MODULETITLE';
-$modversion['config'][$c]['description'] = '_MI_WGGALLERY_SHOW_MODULETITLE_DESC';
+$modversion['config'][$c]['name'] = 'show_bcrumb_mname';
+$modversion['config'][$c]['title'] = '_MI_WGGALLERY_SHOWBCRUMBS_MNAME';
+$modversion['config'][$c]['description'] = '_MI_WGGALLERY_SHOWBCRUMBS_MNAME_DESC';
 $modversion['config'][$c]['formtype'] = 'yesno';
 $modversion['config'][$c]['valuetype'] = 'int';
 $modversion['config'][$c]['default'] = 1;

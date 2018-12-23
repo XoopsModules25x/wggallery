@@ -15,6 +15,7 @@
     <!-- Your code to create an instance of Fine Uploader and bind to the DOM/template
     ====================================================================== -->
     <script>
+        var filesTotal = 0;
         var manualUploader = new qq.FineUploader({
             element: document.getElementById('fine-uploader-manual-trigger'),
             template: 'qq-template-manual-trigger',
@@ -62,12 +63,36 @@
             },
             autoUpload: false,
             callbacks: {
-            onError: function(id, name, errorReason, xhrOrXdr) {
-                 console.log(qq.format("Error uploading {}.  Reason: {}", name, errorReason));
-             }
-         },
-        debug: <{$fineup_debug}>
+                onError: function(id, name, errorReason, xhrOrXdr) {
+                    console.log(qq.format("Error uploading {}.  Reason: {}", name, errorReason));
+                },
+                onStatusChange: function(id, oldStatus, newStatus) {
+                    document.getElementById("qq-uploader-status").classList.remove("qq-hide");
+                    if ( newStatus == "submitting" ) {
+                        filesTotal=id;
+                    }
+                },
+                onSubmitted: function(id, name) {
+                    if (id == filesTotal) {
+                        document.getElementById('qq-uploader-status-text').innerHTML = '<{$smarty.const._CO_WGGALLERY_FU_SUBMITTED}>';
+                    } else {
+                        document.getElementById('qq-uploader-status-text').innerHTML = '<{$smarty.const._CO_WGGALLERY_FU_SUBMIT}>' + (id + 1);
+                    }
+                },
+                onUpload: function(id, name) {
+                   document.getElementById('qq-uploader-status-text').innerHTML = '<{$smarty.const._CO_WGGALLERY_FU_UPLOAD}>' + id;
+                },
+                onAllComplete: function(succeeded, failed) {
+                    if ( failed.length > 0 ) {
+                        document.getElementById('qq-uploader-status-text').innerHTML = '<{$smarty.const._CO_WGGALLERY_FU_FAILED}>';
+                    } else {
+                        document.getElementById('qq-uploader-status-text').innerHTML = '<{$smarty.const._CO_WGGALLERY_FU_SUCCEEDED}>';
+                    }
+                }
+            },
+            debug: <{$fineup_debug}>
         });
+        
         qq(document.getElementById("trigger-upload")).attach("click", function() {
             manualUploader.uploadStoredFiles();
         });

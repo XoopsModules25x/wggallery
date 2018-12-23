@@ -43,7 +43,9 @@ define('_AM_WGGALLERY_ADD_GALLERYTYPE', 'Neuen Galerietyp hinzufügen');
 define('_AM_WGGALLERY_ADD_ALBUMTYPE', 'Neuen Albumtyp hinzufügen');
 // Lists
 define('_AM_WGGALLERY_ALBUMS_LIST', 'Liste der Alben');
+define('_AM_WGGALLERY_ALBUMS_APPROVE', 'Auf Freigabe wartende Alben');
 define('_AM_WGGALLERY_IMAGES_LIST', 'Liste der Bilder');
+define('_AM_WGGALLERY_IMAGES_APPROVE', 'Auf Freigabe wartende Bilder');
 define('_AM_WGGALLERY_GALLERYTYPES_LIST', 'Liste der Galerietypen');
 define('_AM_WGGALLERY_ALBUMTYPES_LIST', 'Liste der Albumtypen');
 define('_AM_WGGALLERY_WATERMARKS_LIST', 'Liste der Wasserzeichen');
@@ -118,7 +120,7 @@ define('_AM_WGGALLERY_OPTION_GT_SLIDESHOW_OPTIONS', 'Optionen für Bildershow (n
 define('_AM_WGGALLERY_OPTION_GT_COLORBOXSTYLE', 'Colorbox Style');
 define('_AM_WGGALLERY_OPTION_GT_TRANSEFFECT', 'Transition-Effekt');
 define('_AM_WGGALLERY_OPTION_GT_SPEEDOPEN', 'Geschwindigkeit zum Öffnen der Bildershow');
-define('_AM_WGGALLERY_OPTION_GT_AUTOOPEN', 'Colorbox automatisch öffnen');
+define('_AM_WGGALLERY_OPTION_GT_AUTOOPEN', 'Bildershowfenster automatisch öffnen');
 define('_AM_WGGALLERY_OPTION_GT_SLIDESHOWTYPE', 'Art der Bildershow');
 define('_AM_WGGALLERY_OPTION_GT_BUTTTONCLOSE', 'Schließen-Schaltfäche anzeigen');
 define('_AM_WGGALLERY_OPTION_GT_NAVBAR', 'Navigationsleiste mit Vorschaubildern anzeigen');

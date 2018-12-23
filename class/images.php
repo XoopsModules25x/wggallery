@@ -147,8 +147,9 @@ class WggalleryImages extends XoopsObject
 		$imagesHandler = $wggallery->getHandler('images');
 		// Form Select Images
 		$imgStateSelect = new XoopsFormSelect( _CO_WGGALLERY_IMAGE_STATE, 'img_state', $this->getVar('img_state'));
-		$imgStateSelect->addOption('Empty');
-		$imgStateSelect->addOptionArray($imagesHandler->getList());
+        $imgStateSelect->addOption(WGGALLERY_STATE_OFFLINE_VAL, _CO_WGGALLERY_STATE_OFFLINE);
+		$imgStateSelect->addOption(WGGALLERY_STATE_ONLINE_VAL, _CO_WGGALLERY_STATE_ONLINE);
+		$imgStateSelect->addOption(WGGALLERY_STATE_APPROVAL_VAL, _CO_WGGALLERY_STATE_APPROVAL);
 		$form->addElement($imgStateSelect, true);
 		// Form Text Date Select ImgDate
 		$imgDate = $this->isNew() ? 0 : $this->getVar('img_date');

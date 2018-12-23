@@ -999,7 +999,7 @@
 					
 					var arr = el.download.split('/');
 					var filename = arr[ (arr.length -1) ];
-					$('.lcl_download').html('<a href="'+ el.download +'" target="_blank" download="'+ filename +'"></a>');
+					$('.lcl_download').html('<a id="lcl_downloadlink" href="'+ el.download +'" target="_blank" download="'+ filename +'"></a>');
 				} else {
 					$('.lcl_download').hide();	
 				}

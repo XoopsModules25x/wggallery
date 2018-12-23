@@ -132,11 +132,14 @@ class WggalleryAlbums extends XoopsObject
 		$form->addElement(new XoopsFormHidden('alb_weight', $albWeight));
 
         // Form Select AlbImgcat
-		$albImgcat = $this->isNew() ? WGGALLERY_ALBUM_IMGCAT_USE_UPLOADED : $this->getVar('alb_imgcat');
-        $imageTrayAll = new XoopsFormElementTray(_CO_WGGALLERY_ALBUM_IMGCAT, '<br><br>' );
-        $albImgcatSelect = new XoopsFormRadio( '', 'alb_imgcat', $albImgcat);
+		$albImgcat = $this->isNew() ? WGGALLERY_ALBUM_IMGCAT_USE_UPLOADED :  intval( $this->getVar('alb_imgcat'));
+        echo "albImgcat:".$albImgcat;
+        $albImgcatSelect = new XoopsFormRadio( _CO_WGGALLERY_ALBUM_IMGCAT, 'alb_imgcat', $albImgcat );
 		$albImgcatSelect->addOption(WGGALLERY_ALBUM_IMGCAT_USE_EXIST_VAL, _CO_WGGALLERY_ALBUM_USE_EXIST);
-		$imageTrayAll->addElement($albImgcatSelect);
+        $albImgcatSelect->addOption(WGGALLERY_ALBUM_IMGCAT_USE_UPLOADED, _CO_WGGALLERY_ALBUM_USE_UPLOADED);
+        $albImgcatSelect->setExtra("onchange='wgshowAlbumImageSelect(this)'");
+		$form->addElement($albImgcatSelect);
+        
 		// Form Table Images
 		$imagesHandler = $wggallery->getHandler('images');
 		$albImgid = $this->getVar('alb_imgid');
@@ -148,69 +151,90 @@ class WggalleryAlbums extends XoopsObject
 			}
 		}
 		$imageDirectory = '/uploads/wggallery/images/medium';
-		$imageTray1 = new XoopsFormElementTray('', '&nbsp;' );
-		$albImgidSelect = new XoopsFormSelect( _CO_WGGALLERY_ALBUM_IMGID, 'alb_imgid', $albImage1);
+		$imageTray1 = new XoopsFormElementTray(_CO_WGGALLERY_ALBUM_IMGID, '&nbsp;' );
+		$albImgidSelect = new XoopsFormSelect( '', 'alb_imgid', $albImage1);
         // Get All Images of this album
+        $albumsChilds = [];
         if ( 0 < $this->getVar('alb_id') ) {
             $albumsChilds = explode( '|', $this->getVar('alb_id') . $albumsHandler->getChildsOfCategory($this->getVar('alb_id')));  
         }            
         $images = array();
         $albImgidSelect->addOption(0, '&nbsp;');
-        foreach ($albumsChilds as $child) {
-            $alb_name = '';
-            $crImages = new CriteriaCompo();
-            $crImages->add(new Criteria('img_albid', $child));
-            $crImages->setSort('img_weight');
-            $crImages->setOrder('DESC');
-            $imagesAll = $imagesHandler->getAll($crImages);
-            foreach(array_keys($imagesAll) as $i) {
-                $images[$i] = $imagesAll[$i]->getValuesImages();
-                if ($albImage1 === $images[$i]['img_name']) {$images[$i]['selected'] = 1;}
-                if ( '' === $alb_name ) {
-                    $albums = $wggallery->getHandler('albums');
-                    $alb_name = $albums->get($child)->getVar('alb_name');
-                    $images[$i]['alb_name'] = $alb_name;
-                } 
+        if ( 0 < count($albumsChilds)) {
+            foreach ($albumsChilds as $child) {
+                $alb_name = '';
+                $crImages = new CriteriaCompo();
+                $crImages->add(new Criteria('img_albid', $child));
+                $crImages->setSort('img_weight');
+                $crImages->setOrder('DESC');
+                $imagesAll = $imagesHandler->getAll($crImages);
+                foreach(array_keys($imagesAll) as $i) {
+                    $images[$i] = $imagesAll[$i]->getValuesImages();
+                    if ($albImage1 === $images[$i]['img_name']) {$images[$i]['selected'] = 1;}
+                    if ( '' === $alb_name ) {
+                        $albums = $wggallery->getHandler('albums');
+                        $alb_name = $albums->get($child)->getVar('alb_name');
+                        $images[$i]['alb_name'] = $alb_name;
+                    } 
+                }
             }
         }
-        foreach($images as $image) {
-            $albImgidSelect->addOption($image['img_name'],$image['img_title']);
-        }
-        $albImgidSelect->setExtra("onchange='wgshowImgSelected(\"imagepreview1\", \"alb_imgid\", \"".$imageDirectory. '", "", "' .XOOPS_URL."\")'");
-        $imageTray1->addElement($albImgidSelect);
         if ( 0 < count($images)) {
-            $imageTray1->addElement(new XoopsFormLabel('', "&nbsp;<button type='button' id='myModalImagePicker-btn' class='btn btn-primary' data-toggle='modal' data-target='#myModalImagePicker'>" . _CO_WGGALLERY_FORM_IMAGEPICKER . '</button>'));
+            foreach($images as $image) {
+                $albImgidSelect->addOption($image['img_name'],$image['img_title']);
+                $albImgidSelect->setExtra("onchange='wgshowImgSelected(\"imagepreview1\", \"alb_imgid\", \"".$imageDirectory. '", "", "' .XOOPS_URL."\")'");
+            }
+        } else {
+            $albImgidSelect->setExtra("disabled='disabled'");
+        }
+        if ( $albImgcat === 2 ) { $albImgidSelect->setExtra("disabled='disabled'");}
+        $imageTray1->addElement($albImgidSelect);
+        if ( 0 < count($images) ) {
+            if ( $albImgcat === 2 ) { 
+                $imageButtonStyle = 'display:none';
+            } else {
+                $imageButtonStyle = 'display:inline';
+            }
+            $imageButton = new XoopsFormLabel('', "&nbsp;<button type='button' id='myModalImagePicker-btn' class='btn btn-primary' style='" . $imageButtonStyle . "' data-toggle='modal' data-target='#myModalImagePicker'>" . _CO_WGGALLERY_FORM_IMAGEPICKER . '</button>');
             $GLOBALS['xoopsTpl']->assign('images', $images);
+            $imageTray1->addElement($imageButton);
         }
         $imageTray1->addElement(new XoopsFormLabel('', "<img src='".XOOPS_URL. '/' .$imageDirectory. '/' .$albImage1."' name='imagepreview1' id='imagepreview1' alt='' style='max-width:100px' />"));
-        $imageTrayAll->addElement($imageTray1);
+        $form->addElement($imageTray1);
         
-		// Form Upload Image AlbImage
-        $albImgcatSelect = new XoopsFormRadio( '<br>', 'alb_imgcat', $albImgcat);
-		$albImgcatSelect->addOption(WGGALLERY_ALBUM_IMGCAT_USE_UPLOADED, _CO_WGGALLERY_ALBUM_USE_UPLOADED);
-		$imageTrayAll->addElement($albImgcatSelect);
-        $albImage = $this->isNew() ? 'noimage.png' : $this->getVar('alb_image');
+        // Form File AlbImage
+		// uploaded images
+        $imageTray2 = new XoopsFormElementTray( _CO_WGGALLERY_ALBUM_USE_UPLOADED, '<br>' );
+        $albImage = $this->getVar('alb_image');
+        if ( $albImage == '' ) {  $albImage = 'blank.gif';}
 		$imageDirectory = '/uploads/wggallery/images/albums';
-		$imageTray2 = new XoopsFormElementTray('', '<br>' );
 		$imageSelect = new XoopsFormSelect( sprintf(_CO_WGGALLERY_FORM_IMAGE_PATH, ".{$imageDirectory}/"), 'alb_image', $albImage, 5);
 		$imageArray = XoopsLists::getImgListAsArray( XOOPS_ROOT_PATH . $imageDirectory );
 		foreach($imageArray as $imagepreview2) {
 			$imageSelect->addOption("{$imagepreview2}", $imagepreview2);
 		}
 		$imageSelect->setExtra("onchange='showImgSelected(\"imagepreview2\", \"alb_image\", \"".$imageDirectory. '", "", "' .XOOPS_URL."\")'");
+        if ( $albImgcat === 1 ) { $imageSelect->setExtra("disabled='disabled'");}
+        // $imageSelect->setExtra("onchange='wgshowAlbumImageSelect(\"imagepreview2\", \"alb_image\", \"".$imageDirectory. '", "", "' .XOOPS_URL."\")'");
 		$imageTray2->addElement($imageSelect, false);
+        // if ( $albImgcat === 2 ) {
 		$imageTray2->addElement(new XoopsFormLabel('', "<br><img src='".XOOPS_URL.$imageDirectory. '/' .$albImage."' name='imagepreview2' id='imagepreview2' alt='' style='max-width:100px' />"));
-		// Form File AlbImage
-		$fileSelectTray = new XoopsFormElementTray('', '<br>' );
-		$fileSelectTray->addElement(new XoopsFormFile( _CO_WGGALLERY_ALBUM_FORM_UPLOAD_IMAGE, 'attachedfile', $wggallery->getConfig('maxsize') ));
-		$imageTray2->addElement($fileSelectTray);
-		$imageTrayAll->addElement($imageTray2);
+        // }
+        $form->addElement($imageTray2);
+        
+        // upload new image
+        $imageTray3 = new XoopsFormElementTray( _CO_WGGALLERY_ALBUM_FORM_UPLOAD_IMAGE, '<br>' );
+		$imageFileSelect = new XoopsFormFile( '', 'attachedfile', $wggallery->getConfig('maxsize') );
+        if ( $albImgcat === 1 ) { $imageFileSelect->setExtra("disabled='disabled'");}
+        $imageTray3->addElement($imageFileSelect);
+		// resize options for uploading new image
         $fileSizeSelect = new XoopsFormRadio( _CO_WGGALLERY_IMAGE_RESIZE, 'alb_resize', 1);
 		$fileSizeSelect->addOption(WGGALLERY_IMAGE_THUMB, _CO_WGGALLERY_IMAGE_THUMB);
         $fileSizeSelect->addOption(WGGALLERY_IMAGE_MEDIUM, _CO_WGGALLERY_IMAGE_MEDIUM);
 		$fileSizeSelect->addOption(WGGALLERY_IMAGE_LARGE, _CO_WGGALLERY_IMAGE_LARGE);
-		$imageTrayAll->addElement($fileSizeSelect);
-        $form->addElement($imageTrayAll);
+        if ( $albImgcat === 1 ) { $fileSizeSelect->setExtra("disabled='disabled'"); }
+		$imageTray3->addElement($fileSizeSelect);
+        $form->addElement($imageTray3);
         
 		unset($criteria);
 		// Form Select Albstate
@@ -228,25 +252,25 @@ class WggalleryAlbums extends XoopsObject
 		if(!$this->isNew()) {
 			$groupsIdsView = $gpermHandler->getGroupIds('wggallery_view', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
 			$groupsIdsView[] = array_values($groupsIdsView);
-			$groupsCanViewCheckbox = new XoopsFormCheckBox( '', 'groups_view[]', $groupsIdsView);
+			$groupsCanViewCheckbox = new XoopsFormCheckBox( '', 'groups_view', $groupsIdsView);
 			
             // TODO
 			// $groupsIdsDlFullAlb = $gpermHandler->getGroupIds('wggallery_dlfullalb', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
 			// $groupsIdsDlFullAlb[] = array_values($groupsIdsDlFullAlb);
-			// $groupsCanDlFullAlbCheckbox = new XoopsFormCheckBox( '', 'groups_dlfullalb[]', $groupsIdsDlFullAlb);
+			// $groupsCanDlFullAlbCheckbox = new XoopsFormCheckBox( '', 'groups_dlfullalb', $groupsIdsDlFullAlb);
 			
 			$groupsIdsDlImageL = $gpermHandler->getGroupIds('wggallery_dlimage_large', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
 			$groupsIdsDlImageL[] = array_values($groupsIdsDlImageL);
-			$groupsCanDlImageLCheckbox = new XoopsFormCheckBox( '', 'groups_dlimage_large[]', $groupsIdsDlImageL);
+			$groupsCanDlImageLCheckbox = new XoopsFormCheckBox( '', 'groups_dlimage_large', $groupsIdsDlImageL);
             
             $groupsIdsDlImageM = $gpermHandler->getGroupIds('wggallery_dlimage_medium', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
 			$groupsIdsDlImageM[] = array_values($groupsIdsDlImageM);
-			$groupsCanDlImageMCheckbox = new XoopsFormCheckBox( '', 'groups_dlimage_medium[]', $groupsIdsDlImageM);
+			$groupsCanDlImageMCheckbox = new XoopsFormCheckBox( '', 'groups_dlimage_medium', $groupsIdsDlImageM);
 		} else {
-			$groupsCanViewCheckbox = new XoopsFormCheckBox( '', 'groups_view[]', $fullList);
-			$groupsCanDlFullAlbCheckbox = new XoopsFormCheckBox( '', 'groups_dlfullalb[]', $fullList);
-			$groupsCanDlImageLCheckbox = new XoopsFormCheckBox( '', 'groups_dlimage_large[]', $fullList);
-            $groupsCanDlImageMCheckbox = new XoopsFormCheckBox( '', 'groups_dlimage_medium[]', $fullList);
+			$groupsCanViewCheckbox = new XoopsFormCheckBox( '', 'groups_view', $fullList);
+			$groupsCanDlFullAlbCheckbox = new XoopsFormCheckBox( '', 'groups_dlfullalb', $fullList);
+			$groupsCanDlImageLCheckbox = new XoopsFormCheckBox( '', 'groups_dlimage_large', $fullList);
+            $groupsCanDlImageMCheckbox = new XoopsFormCheckBox( '', 'groups_dlimage_medium', $fullList);
 		}
 		// To View
         $groupsCanViewCheckbox->addOptionArray($groupList);
@@ -268,7 +292,7 @@ class WggalleryAlbums extends XoopsObject
         // $groupsCanDlFullAlbAll->addOption(1, _CO_WGGALLERY_ALL);
         // $groupsCanDlFullAlbTray->addElement($groupsCanDlFullAlbAll, false);
 		// $form->addElement($groupsCanDlFullAlbTray);
-		
+
          // To Download Large Images
         $groupsCanDlImageLCheckbox->addOptionArray($groupList);
         $groupsCanDlImageLTray = new XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE, '&nbsp;' );
@@ -356,7 +380,7 @@ class WggalleryAlbums extends XoopsObject
 		}
 		// Get Theme Form
 		xoops_load('XoopsFormLoader');
-		$form = new XoopsThemeForm(_CO_WGGALLERY_ALBUM_SELECT_DESC, 'formselalbum', $action, 'post', true);
+		$form = new XoopsThemeForm(_CO_WGGALLERY_ALBUM_SELECT, 'formselalbum', $action, 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
 		// Form Table Albums
 		$albumsHandler = $wggallery->getHandler('albums');
@@ -573,7 +597,7 @@ class WggalleryAlbumsHandler extends XoopsPersistableObjectHandler
 	 * @param string $order 
 	 * @return int
 	 */
-	public function getCountAlbums($start = 0, $limit = 0, $sort = 'alb_id ASC, alb_name', $order = 'ASC')
+	public function getCountAlbums($start = 0, $limit = 0, $sort = 'alb_weight ASC, alb_date', $order = 'DESC')
 	{
 		$crCountAlbums = new CriteriaCompo();
 		$crCountAlbums = $this->getAlbumsCriteria($crCountAlbums, $start, $limit, $sort, $order);
@@ -588,7 +612,7 @@ class WggalleryAlbumsHandler extends XoopsPersistableObjectHandler
 	 * @param string $order 
 	 * @return array
 	 */
-	public function getAllAlbums($start = 0, $limit = 0, $sort = 'alb_id ASC, alb_name', $order = 'ASC')
+	public function getAllAlbums($start = 0, $limit = 0, $sort = 'alb_weight ASC, alb_date', $order = 'DESC')
 	{
 		$crAllAlbums = new CriteriaCompo();
 		$crAllAlbums = $this->getAlbumsCriteria($crAllAlbums, $start, $limit, $sort, $order);

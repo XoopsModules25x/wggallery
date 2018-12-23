@@ -64,50 +64,6 @@ class WggalleryPermissionsHandler extends XoopsPersistableObjectHandler
 		// parent::__construct($db, 'wggallery_permissions', 'wggallerypermissions', 'gt_id', 'gt_name');
 	}
 
-	public function permGlobalApprove() {
-		
-		global $xoopsUser, $xoopsModule;
-		
-		$currentuid = 0;
-		if ( isset($xoopsUser) && is_object($xoopsUser) ) {
-			if ($xoopsUser->isAdmin()) {
-				return true;
-			}
-			$currentuid = $xoopsUser->uid();
-		}
-		$gperm_handler = xoops_getHandler('groupperm');
-		$mid = $xoopsModule->mid();
-		$member_handler = xoops_getHandler('member');
-		if ($currentuid == 0) {
-			$my_group_ids = array(XOOPS_GROUP_ANONYMOUS);
-		} else {
-			$my_group_ids = $member_handler->getGroupsByUser( $currentuid ) ;
-		}
-		return $gperm_handler->checkRight( 'wggallery_global', '4', $my_group_ids, $mid  ) ;
-	}
-
-	public function permGlobalSubmitAll() {
-
-		global $xoopsUser, $xoopsModule;
-		
-		$currentuid = 0;
-		if ( isset($xoopsUser) && is_object($xoopsUser) ) {
-			if ($xoopsUser->isAdmin()) {
-				return true;
-			}
-			$currentuid = $xoopsUser->uid();
-		}
-		$gperm_handler = xoops_getHandler('groupperm');
-		$mid = $xoopsModule->mid();
-		$member_handler = xoops_getHandler('member');
-		if ($currentuid == 0) {
-			$my_group_ids = array(XOOPS_GROUP_ANONYMOUS);
-		} else {
-			$my_group_ids = $member_handler->getGroupsByUser( $currentuid ) ;
-		}
-		return $gperm_handler->checkRight( 'wggallery_global', '8', $my_group_ids, $mid  ) ;
-	}
-
 	public function permGlobalSubmit() {
 
 		global $xoopsUser, $xoopsModule;
@@ -115,7 +71,7 @@ class WggalleryPermissionsHandler extends XoopsPersistableObjectHandler
 		$currentuid = 0;
 		if ( isset($xoopsUser) && is_object($xoopsUser) ) {
 			if ($xoopsUser->isAdmin()) {
-				return true;
+				return WGGALLERY_PERM_SUBMITALL;
 			}
 			$currentuid = $xoopsUser->uid();
 		}
@@ -127,10 +83,19 @@ class WggalleryPermissionsHandler extends XoopsPersistableObjectHandler
 		} else {
 			$my_group_ids = $member_handler->getGroupsByUser( $currentuid ) ;
 		}
-		return $gperm_handler->checkRight( 'wggallery_global', '16', $my_group_ids, $mid  ) ;
+        if ( $gperm_handler->checkRight( 'wggallery_global', '4', $my_group_ids, $mid  )) {
+            return WGGALLERY_PERM_SUBMITALL;
+        }
+        if ( $gperm_handler->checkRight( 'wggallery_global', '8', $my_group_ids, $mid  ) ) {
+            return WGGALLERY_PERM_SUBMITOWN;
+        }
+        if ( $gperm_handler->checkRight( 'wggallery_global', '16', $my_group_ids, $mid  ) ) {
+            return WGGALLERY_PERM_SUBMITAPPR;
+        }
+        return WGGALLERY_PERM_SUBMITNONE;
 	}
 
-	public function permAlbumEdit($submitterId = 0) {
+	public function permAlbumEdit($albId = 0, $albSubmitter = 0) {
 
 		global $xoopsUser;
 
@@ -141,10 +106,20 @@ class WggalleryPermissionsHandler extends XoopsPersistableObjectHandler
 			}
 			$currentuid = $xoopsUser->uid();
 		}
-		if ($this->permGlobalSubmitAll()) {
-			return true;
-		}
-        return $this->permGlobalSubmit() && $currentuid == $submitterId;
+        $right =  $this->permGlobalSubmit();
+        if ( WGGALLERY_PERM_SUBMITNONE === $right ) {
+            return false;
+        }
+        if ( WGGALLERY_PERM_SUBMITALL === $right ) {
+            return true;
+        }
+        if ( 0 === $albId && ( WGGALLERY_PERM_SUBMITOWN === $right || WGGALLERY_PERM_SUBMITAPPR === $right )) {
+            return true;
+        }
+        if ( $albSubmitter == $currentuid ) {
+            return true;
+        }
+        return false;
 	}
 
 	 /**
@@ -175,8 +150,6 @@ class WggalleryPermissionsHandler extends XoopsPersistableObjectHandler
 		return $gperm_handler->checkRight( 'wggallery_view', $albId, $my_group_ids, $mid  ) ;
 	}
 
-    
-    
 	public function permAlbumDownload($albId) {
 
 		global $xoopsUser, $xoopsModule;
@@ -199,7 +172,7 @@ class WggalleryPermissionsHandler extends XoopsPersistableObjectHandler
 		return $gperm_handler->checkRight( 'wggallery_dlfullalb', $albId, $my_group_ids, $mid  );
 	}
     
-    public function permImageDownload($albId) {
+    public function permImageDownloadLarge($albId) {
 
 		global $xoopsUser, $xoopsModule;
 		
@@ -218,6 +191,28 @@ class WggalleryPermissionsHandler extends XoopsPersistableObjectHandler
 		} else {
 			$my_group_ids = $member_handler->getGroupsByUser( $currentuid ) ;
 		}
-		return $gperm_handler->checkRight( 'wggallery_dlimage', $albId, $my_group_ids, $mid  );
+		return $gperm_handler->checkRight( 'wggallery_dlimage_large', $albId, $my_group_ids, $mid  );
+	}
+	
+	public function permImageDownloadMedium($albId) {
+
+		global $xoopsUser, $xoopsModule;
+		
+		$currentuid = 0;
+		if ( isset($xoopsUser) && is_object($xoopsUser) ) {
+			if ($xoopsUser->isAdmin()) {
+				return 1;
+			}
+			$currentuid = $xoopsUser->uid();
+		}
+		$gperm_handler = xoops_getHandler('groupperm');
+		$mid = $xoopsModule->mid();
+		$member_handler = xoops_getHandler('member');
+		if ($currentuid == 0) {
+			$my_group_ids = array(XOOPS_GROUP_ANONYMOUS);
+		} else {
+			$my_group_ids = $member_handler->getGroupsByUser( $currentuid ) ;
+		}
+		return $gperm_handler->checkRight( 'wggallery_dlimage_medium', $albId, $my_group_ids, $mid  );
 	}
 }

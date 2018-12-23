@@ -1,17 +1,6 @@
 <!-- Header -->
 <{include file='db:wggallery_admin_header.tpl'}>
 
-<style>
- .state {
-	margin:0;
-	padding: 4px;
- }
- .active, .state:hover {
-	border:1px solid #aaa !important;
-	border-radius:5px;
- }
-</style>
-
 <{if $albums_list}>
 	<table class='table table-bordered'>
 		<thead>
@@ -51,24 +40,12 @@
 						<td class='center'>
                             <{if $album.state == 0}>
                                 <img class='state active' src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>' />
-                            <{else}>
-                                <a href='albums.php?op=change_state&amp;alb_state=0&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'>
-                                    <img class='state' src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._EDIT}>' />
-                                </a>
                             <{/if}>
                             <{if $album.state == 1}>
                                 <img class='state active' src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>' />
-                            <{else}>
-                                <a href='albums.php?op=change_state&amp;alb_state=1&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'>
-                                    <img class='state' src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>' />
-                                </a>
                             <{/if}>
                             <{if $album.state == 2}>
                                 <img class='state active' src='<{$wggallery_icon_url_16}>state2.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_APPROVAL}>' />
-                            <{else}>
-                                <a href='albums.php?op=change_state&amp;alb_state=2&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._CO_WGGALLERY_STATE_APPROVAL}>'>
-                                    <img class='state' src='<{$wggallery_icon_url_16}>state2.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_APPROVAL}>' />
-                                </a>
                             <{/if}>
                         </td>
                         <td class='center'>
@@ -79,8 +56,26 @@
                         <td class='center'><{$album.nb_images}></td>
 						<td class='center'><{$album.date}></td>
 						<td class='center'><{$album.submitter}></td>
-						<td class='center  width5'>
-							<a href='albums.php?op=edit&amp;alb_id=<{$album.id}>' title='<{$smarty.const._EDIT}>'>
+						<td class='center  width10'>
+                            <{if $album.state == 0}>
+                                <a href='albums.php?op=change_state&amp;alb_state=1&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'>
+                                    <img src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>' />
+                                </a>
+                            <{/if}>
+                            <{if $album.state == 1}>
+                                <a href='albums.php?op=change_state&amp;alb_state=0&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'>
+                                    <img src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>' />
+                                </a>
+                            <{/if}>
+                            <{if $album.state == 2}>
+                                <a href='albums.php?op=change_state&amp;alb_state=1&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'>
+                                    <img src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>' />
+                                </a>
+                                <a href='albums.php?op=change_state&amp;alb_state=0&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'>
+                                    <img src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>' />
+                                </a>
+                            <{/if}>
+                            <a href='albums.php?op=edit&amp;alb_id=<{$album.id}>' title='<{$smarty.const._EDIT}>'>
 								<img src='<{xoModuleIcons16 edit.png}>' alt='<{$smarty.const._EDIT}>' />
 							</a>
 							<a href='albums.php?op=delete&amp;alb_id=<{$album.id}>' title='<{$smarty.const._DELETE}>'>
@@ -144,7 +139,7 @@
             }
             $(this).addClass("wgg-modal-selected");
             $('#alb_imgid').change();
-
+            
             return false;
         })
         window.onclick = function(event) {

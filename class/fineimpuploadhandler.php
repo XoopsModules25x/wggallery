@@ -104,6 +104,7 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 		$this->pathUpload = WGGALLERY_UPLOAD_IMAGE_PATH;
 
 		$this->permUseralbum = 1; //TODO: handle an option, whether images should be online immetiately or not
+        // $this->permUseralbum = $permissionsHandler->permAlbumEdit($uid);
 		
         $pathParts = pathinfo($this->getName());
 
@@ -205,7 +206,7 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 		$imagesObj->setVar('img_state',  $this->permUseralbum);
 		$imagesObj->setVar('img_date', time());
 		$imagesObj->setVar('img_submitter', $xoopsUser->id());
-        $imagesObj->setVar('img_ip',  '-');
+        $imagesObj->setVar('img_ip', $_SERVER['REMOTE_ADDR']);
 		// Insert Data
 		if($imagesHandler->insert($imagesObj)) {
 			$this->imageId = $imagesHandler->getInsertId;

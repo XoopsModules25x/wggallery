@@ -31,9 +31,11 @@ $imgId = Request::getInt('img_id');
 $albId = Request::getInt('alb_id');
 
 $templateMain = 'wggallery_admin_images.tpl';
+$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16/');
 	
 switch($op) {
 	case 'list':
+    case 'approve':
 	default:
 		// Form
 		if(isset($albId)) {
@@ -41,21 +43,39 @@ switch($op) {
 		} else {
 			$albumsObj = $albumsHandler->create();
 		}
-		$form = $albumsObj->getFormUploadToAlbum('images.php');
-		$GLOBALS['xoopsTpl']->assign('form', $form->render());
-		
-		if (0 < $albId) {
+        $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('images.php'));
+        if ( 'list' === $op ) {
+            $form = $albumsObj->getFormUploadToAlbum('images.php');
+            $GLOBALS['xoopsTpl']->assign('form', $form->render());
+            $crImages = new CriteriaCompo();
+            $crImages->add(new Criteria('img_state', WGGALLERY_STATE_APPROVAL_VAL));
+            $imagesCount = $imagesHandler->getCount($crImages);
+            if ( 0 < $imagesCount ) {
+                $adminObject->addItemButton(_AM_WGGALLERY_IMAGES_APPROVE, 'images.php?op=approve', 'alert');
+            }
+            unset($crImages);
+        }
+		if (0 < $albId || 'approve' === $op) {
 			// Define Stylesheet
 			$GLOBALS['xoTheme']->addStylesheet( $style, null );
 			$start = Request::getInt('start', 0);
 			$limit = Request::getInt('limit', $wggallery->getConfig('adminpager'));
-			$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('images.php'));
-			$adminObject->addItemButton(_AM_WGGALLERY_ADD_IMAGE, '../upload.php?op=list&amp;alb_id=' . $albId, 'add');
-			$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+			if ( 0 < $albId ) {
+                $adminObject->addItemButton(_AM_WGGALLERY_ADD_IMAGE, '../upload.php?op=list&amp;alb_id=' . $albId, 'add');
+            }
+            $adminObject->addItemButton(_AM_WGGALLERY_IMAGES_LIST, 'images.php?op=list', 'list');
+			
 			$crImages = new CriteriaCompo();
-			$crImages->add(new Criteria('img_albid', $albId));
-			$crImages->setSort('img_weight');
-			$crImages->setOrder('ASC');
+            if ( 0 < $albId ) {
+                $crImages->add(new Criteria('img_albid', $albId));
+                $crImages->setSort('img_weight');
+                $crImages->setOrder('ASC');
+            }
+            if ( 'approve' === $op ) {
+                $crImages->add(new Criteria('img_state', WGGALLERY_STATE_APPROVAL_VAL));
+                $crImages->setSort('img_albid');
+                $crImages->setOrder('ASC');
+            }
 			$imagesCount = $imagesHandler->getCount($crImages);
 			$crImages->setStart( $start );
 			$crImages->setLimit( $limit );
@@ -67,9 +87,20 @@ switch($op) {
 			if($imagesCount > 0) {
 				foreach(array_keys($imagesAll) as $i) {
 					$image = $imagesAll[$i]->getValuesImages();
-					$GLOBALS['xoopsTpl']->append('images_list', $image);
+                    if ( 'approve' === $op ) {
+                        $albumsHandler = $wggallery->getHandler('albums');
+                        $albumsObj = $albumsHandler->get($image['img_albid']);
+                        if (isset($albumsObj) && is_object($albumsObj)) {
+                            $image['alb_name'] = $albumsObj->getVar('alb_name');
+                        }
+                        unset ($albumsObj);
+                    }
+                    $GLOBALS['xoopsTpl']->append('images_list', $image);
 					unset($image);
 				}
+                if ( 'approve' === $op ) {
+                    $GLOBALS['xoopsTpl']->append('images_approve', true);
+                }
 				// Display Navigation
 				if($imagesCount > $limit) {
 					include_once XOOPS_ROOT_PATH .'/class/pagenav.php';
@@ -80,6 +111,7 @@ switch($op) {
 				$GLOBALS['xoopsTpl']->assign('error', _CO_WGGALLERY_THEREARENT_IMAGES);
 			}
 		}
+        $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 	break;
 	case 'new':
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('images.php'));
@@ -129,8 +161,8 @@ switch($op) {
 		$GLOBALS['xoopsTpl']->assign('error', $imagesObj->getHtmlErrors());
 		$form = $imagesObj->getFormImages();
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());
-
 	break;
+    
 	case 'edit':
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('images.php'));
 		$adminObject->addItemButton(_AM_WGGALLERY_ADD_IMAGE, 'images.php?op=new', 'add');
@@ -140,8 +172,29 @@ switch($op) {
 		$imagesObj = $imagesHandler->get($imgId);
 		$form = $imagesObj->getFormImages();
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());
-
 	break;
+    
+    case 'change_state':
+		if(isset($imgId)) {
+			$imagesObj = $imagesHandler->get($imgId);
+		    // Set Vars
+            $imagesObj->setVar('img_state', Request::getInt('img_state'));
+            // Insert Data
+            if($imagesHandler->insert($imagesObj)) {
+                $crImages = new CriteriaCompo();
+                $crImages->add(new Criteria('img_state', WGGALLERY_STATE_APPROVAL_VAL));
+                $imagesCount = $imagesHandler->getCount($crImages);
+                unset($crImages);
+                if ( 0 < $imagesCount ) {
+                    redirect_header('images.php?op=approve&amp;start=' . $start . '&amp;limit=' . $limit . '&amp;alb_id=' . $albId, 2, _CO_WGGALLERY_FORM_OK);
+                }
+                redirect_header('images.php?op=list&amp;start=' . $start . '&amp;limit=' . $limit . '&amp;alb_id=' . $albId, 2, _CO_WGGALLERY_FORM_OK);
+            }
+            // Get Form
+            $GLOBALS['xoopsTpl']->assign('error', $imagesObj->getHtmlErrors());
+        }
+	break;
+    
 	case 'delete':
 		$imagesObj = $imagesHandler->get($imgId);
 		if(isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
@@ -164,5 +217,6 @@ switch($op) {
 		}
 
 	break;
+    
 }
 include __DIR__ . '/footer.php';

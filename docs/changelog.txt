@@ -1,4 +1,15 @@
 ==============================================================
+Change Log for wgGallery - 2018/03/19 10:04:56 Version 1.07
+==============================================================
+ - added autoplay/autoopen to viewerjs (goffy)
+ - added show single image (goffy/altermann)
+ - added download script (goffy)
+ - added status message to fine uploader (goffy/altermann)
+ - added pagenav to imagelist tpl (goffy)
+ - updated permission system (goffy)
+ - added image sorting (goffy)
+
+==============================================================
 Change Log for wgGallery - 2018/03/19 10:04:56 Version 1.0
 ==============================================================
  - Original release wggallery (Wedega)

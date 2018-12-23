@@ -38,11 +38,11 @@ define('_MI_WGGALLERY_ADMENU9', 'Watermarks');
 define('_MI_WGGALLERY_ADMENU10', 'Import');
 define('_MI_WGGALLERY_ABOUT', 'About');
 // ---------------- Admin Nav ----------------
-define('_MI_WGGALLERY_ADMIN_PAGER', 'Admin pager');
-define('_MI_WGGALLERY_ADMIN_PAGER_DESC', 'Admin per page list');
+define('_MI_WGGALLERY_ADMIN_PAGER', 'List items admin pages');
+define('_MI_WGGALLERY_ADMIN_PAGER_DESC', 'Define the number of list items in the admin area');
 // User
-define('_MI_WGGALLERY_USER_PAGER', 'User pager');
-define('_MI_WGGALLERY_USER_PAGER_DESC', 'User per page list');
+define('_MI_WGGALLERY_USER_PAGER', 'List items user pages');
+define('_MI_WGGALLERY_USER_PAGER_DESC', 'Define the number of list items in the user area');
 // Submenu
 define('_MI_WGGALLERY_SMNAME1', 'Index page');
 define('_MI_WGGALLERY_SMNAME2', 'Albums management');
@@ -96,8 +96,10 @@ define('_MI_WGGALLERY_ADDJQUERY', 'Add jquery library');
 define('_MI_WGGALLERY_ADDJQUERY_DESC', 'If you use already jquery (e.g. in your theme) then set to NO');
 define('_MI_WGGALLERY_PANEL_TYPE', 'Panel Type');
 define('_MI_WGGALLERY_PANEL_TYPE_DESC', 'Panel Type is the bootstrap html div.');
-define('_MI_WGGALLERY_SHOW_MODULETITLE', 'Show module title');
-define('_MI_WGGALLERY_SHOW_MODULETITLE_DESC', 'Show module title in breadcrumbs');
+define('_MI_WGGALLERY_SHOWBCRUMBS', 'Show breadcrumb navigation');
+define('_MI_WGGALLERY_SHOWBCRUMBS_DESC', "Breadcrumb navigation displays the current page's context within the site structure.");
+define('_MI_WGGALLERY_SHOWBCRUMBS_MNAME', 'Show module name');
+define('_MI_WGGALLERY_SHOWBCRUMBS_MNAME_DESC', 'Show the module name in breadcrumb navigation');
 // Notifications
 define('_MI_WGGALLERY_GLOBAL_NOTIFY', 'Global notify');
 define('_MI_WGGALLERY_GLOBAL_NOTIFY_DESC', 'Global notify desc');

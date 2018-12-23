@@ -37,7 +37,7 @@ if ($wggallery->getConfig('addjquery')) {$GLOBALS['xoTheme']->addScript(WGGALLER
 // $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
-
+$GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $wggallery->getConfig('show_breadcrumbs'));
 
 // Breadcrumbs
 $xoBreadcrumbs[] = array('title' => _CO_WGGALLERY_ALBUMS, 'link' => WGGALLERY_URL . '/');
@@ -70,16 +70,16 @@ if (isset($albumsObj) && is_object($albumsObj)) {
 	$albSubmitter = $albumsObj->getVar('alb_submitter');
 }
 $GLOBALS['xoopsTpl']->assign('alb_name', $albName);
-$GLOBALS['xoopsTpl']->assign('alb_allowdownload', $permissionsHandler->permAlbumDownload($albId));
+// $GLOBALS['xoopsTpl']->assign('alb_allowdownload', $permissionsHandler->permAlbumDownload($albId));
 // $GLOBALS['xoopsTpl']->assign('alb_pid', $albPid);
 
 $crImages = new CriteriaCompo();
 $crImages->add(new Criteria('img_albid', $albId));
-if (!$permissionsHandler->permAlbumEdit($albSubmitter)) {
+if (!$permissionsHandler->permAlbumEdit($albId, $albSubmitter)) {
 	$crImages->add(new Criteria('img_state', 1));
 }
-$crImages->setSort('img_weight');
-$crImages->setOrder('ASC');
+$crImages->setSort('img_weight ASC, img_date');
+$crImages->setOrder('DESC');
 $imagesCount = $imagesHandler->getCount($crImages);
 $imagesAll = $imagesHandler->getAll($crImages);
 $GLOBALS['xoopsTpl']->assign('images_nb', $imagesCount);
