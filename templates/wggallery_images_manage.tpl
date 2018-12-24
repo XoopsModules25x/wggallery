@@ -27,7 +27,7 @@
             <{/if}>   
             <div class='clear'>&nbsp;</div>
             <div class='wgg-goback'>
-                <a class='btn btn-default wgg-btn' href='images.php?op=list&amp;alb_id=<{$alb_id}>&amp;alb_pid=<{$alb_pid}>' title='<{$smarty.const._CO_WGGALLERY_BACK}>'>
+                <a class='btn btn-default wgg-btn' href='<{if $ref}><{$ref}><{else}>images<{/if}>.php?op=list&amp;alb_id=<{$alb_id}>&amp;alb_pid=<{$alb_pid}>' title='<{$smarty.const._CO_WGGALLERY_BACK}>'>
                     <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/back.png' alt='<{$smarty.const._CO_WGGALLERY_BACK}>' /><{$smarty.const._CO_WGGALLERY_BACK}>
                 </a>
 

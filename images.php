@@ -189,6 +189,7 @@ switch($op) {
         $GLOBALS['xoopsTpl']->assign('alb_name', $albName);
         $GLOBALS['xoopsTpl']->assign('alb_id', $albId);
         $GLOBALS['xoopsTpl']->assign('alb_pid', $albPid);
+        $GLOBALS['xoopsTpl']->assign('ref', $ref);
 
         $crImages = new CriteriaCompo();
         $crImages->add(new Criteria('img_albid', $albId));

@@ -50,6 +50,17 @@ define('_MA_WGGALLERY_COLORBOX_PREVIOUS', 'previous');
 define('_MA_WGGALLERY_COLORBOX_NEXT', 'next');
 define('_MA_WGGALLERY_COLORBOX_SLIDESHOWSTART', 'start slideshow');
 define('_MA_WGGALLERY_COLORBOX_SLIDESHOWSTOP', 'stop slideshow');
+// LC_Lightbox lite
+define('_MA_WGGALLERY_LCL_CLOSE', 'close');
+define('_MA_WGGALLERY_LCL_PREVIOUS', 'previous');
+define('_MA_WGGALLERY_LCL_NEXT', 'next');
+define('_MA_WGGALLERY_LCL_PLAY', 'play');
+define('_MA_WGGALLERY_LCL_COUNTER', 'counter');
+define('_MA_WGGALLERY_LCL_FULLSCREEN', 'fullscreen');
+define('_MA_WGGALLERY_LCL_TXT_TOGGLE', 'toggle text');
+define('_MA_WGGALLERY_LCL_DOWNLOAD', 'download');
+define('_MA_WGGALLERY_LCL_THUMBS_TOGGLE', 'toggle thumbs');
+define('_MA_WGGALLERY_LCL_SOCIALS', 'socials');
 // Admin link
 define('_MA_WGGALLERY_ADMIN', 'Admin');
 // ---------------- Errors ----------------

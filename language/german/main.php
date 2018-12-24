@@ -50,6 +50,17 @@ define('_MA_WGGALLERY_COLORBOX_PREVIOUS', 'Vorheriges');
 define('_MA_WGGALLERY_COLORBOX_NEXT', 'Nächstes');
 define('_MA_WGGALLERY_COLORBOX_SLIDESHOWSTART', 'Bildershow starten');
 define('_MA_WGGALLERY_COLORBOX_SLIDESHOWSTOP', 'Bildershow anhalten');
+// LC_Lightbox lite
+define('_MA_WGGALLERY_LCL_CLOSE', 'Schließen');
+define('_MA_WGGALLERY_LCL_PREVIOUS', 'Vorheriges');
+define('_MA_WGGALLERY_LCL_NEXT', 'Nächstes');
+define('_MA_WGGALLERY_LCL_PLAY', 'Abspielen');
+define('_MA_WGGALLERY_LCL_COUNTER', 'Zähler');
+define('_MA_WGGALLERY_LCL_FULLSCREEN', 'Ganzer Bildschirm');
+define('_MA_WGGALLERY_LCL_TXT_TOGGLE', 'Text ein/ausschalten');
+define('_MA_WGGALLERY_LCL_DOWNLOAD', 'Herunterladen');
+define('_MA_WGGALLERY_LCL_THUMBS_TOGGLE', 'Vorschaubilder ein/ausschalten');
+define('_MA_WGGALLERY_LCL_SOCIALS', 'Teilen');
 // Admin link
 define('_MA_WGGALLERY_ADMIN', 'Admin');
 // ---------------- Errors ----------------

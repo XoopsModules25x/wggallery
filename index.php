@@ -123,16 +123,16 @@ if($albumsCount > 0) {
         }
 		$keywords[] = $albumsAll[$i]->getVar('alb_name');
 		
-		echo "<br>------------------------------------------------------------";
-		echo "<br>alb_name:".$albumsAll[$i]->getVar('alb_name');
-        echo "<br>alb_id:".$albumsAll[$i]->getVar('alb_id');
-        echo "<br>alb_submitter:".$albumsAll[$i]->getVar('alb_submitter');
-		echo "<br>permAlbumView:".$permissionsHandler->permAlbumView($albumsAll[$i]->getVar('alb_id'));
-		echo "<br>permAlbumEdit:".$permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
-		echo "<br>permAlbumDownload:".$permissionsHandler->permAlbumDownload($albumsAll[$i]->getVar('alb_id'));
-        echo "<br>permImageDownloadLarge:".$permissionsHandler->permImageDownloadLarge($albumsAll[$i]->getVar('alb_id'));
-        echo "<br>permImageDownloadMedium:".$permissionsHandler->permImageDownloadMedium($albumsAll[$i]->getVar('alb_id'));
-		echo "<br>permGlobalSubmit:".$permissionsHandler->permGlobalSubmit();
+		// echo "<br>------------------------------------------------------------";
+		// echo "<br>alb_name:".$albumsAll[$i]->getVar('alb_name');
+        // echo "<br>alb_id:".$albumsAll[$i]->getVar('alb_id');
+        // echo "<br>alb_submitter:".$albumsAll[$i]->getVar('alb_submitter');
+		// echo "<br>permAlbumView:".$permissionsHandler->permAlbumView($albumsAll[$i]->getVar('alb_id'));
+		// echo "<br>permAlbumEdit:".$permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
+		// echo "<br>permAlbumDownload:".$permissionsHandler->permAlbumDownload($albumsAll[$i]->getVar('alb_id'));
+        // echo "<br>permImageDownloadLarge:".$permissionsHandler->permImageDownloadLarge($albumsAll[$i]->getVar('alb_id'));
+        // echo "<br>permImageDownloadMedium:".$permissionsHandler->permImageDownloadMedium($albumsAll[$i]->getVar('alb_id'));
+		// echo "<br>permGlobalSubmit:".$permissionsHandler->permGlobalSubmit();
 	}
     // add linebreak to last album item
     $albums[$i]['linebreak'] = true;

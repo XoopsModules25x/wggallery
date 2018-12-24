@@ -89,6 +89,7 @@
 	width:650px;
 }
 
+/* image sorting */
 .wgg-img-sort, .wgg-img-sort-clear {
 	border:0px solid transparent !important;
 }
@@ -100,11 +101,6 @@
 .wgg-img-sort {
     height:50px;
 }
-
 .wgg-img-sort img{
     max-height:40px;
-}
-
-.wgg-img-sort-img{
-    width:200px;
 }

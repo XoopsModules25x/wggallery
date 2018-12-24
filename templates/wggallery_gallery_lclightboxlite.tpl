@@ -57,6 +57,19 @@
 			on_close:function(){history.go(-1)} 
 		});
         lcl_open($instance, 0); // direct lightbox opening showing first element
+
+        
+        lclSetAttribute("lcl_prev", "<{$smarty.const._MA_WGGALLERY_LCL_PREVIOUS}>");
+        lclSetAttribute("lcl_play", "<{$smarty.const._MA_WGGALLERY_LCL_PLAY}>");
+        lclSetAttribute("lcl_next", "<{$smarty.const._MA_WGGALLERY_LCL_NEXT}>");
+        lclSetAttribute("lcl_counter", "<{$smarty.const._MA_WGGALLERY_LCL_COUNTER}>");
+        lclSetAttribute("lcl_close", "<{$smarty.const._MA_WGGALLERY_LCL_CLOSE}>");
+        lclSetAttribute("lcl_fullscreen", "<{$smarty.const._MA_WGGALLERY_LCL_FULLSCREEN}>");
+        lclSetAttribute("lcl_txt_toggle", "<{$smarty.const._MA_WGGALLERY_LCL_TXT_TOGGLE}>");
+        lclSetAttribute("lcl_download", "<{$smarty.const._MA_WGGALLERY_LCL_DOWNLOAD}>");
+        lclSetAttribute("lcl_thumbs_toggle", "<{$smarty.const._MA_WGGALLERY_LCL_THUMBS_TOGGLE}>");
+        lclSetAttribute("lcl_socials", "<{$smarty.const._MA_WGGALLERY_LCL_SOCIALS}>");  
+        
     });
     $(document).on('click', '#lcl_downloadlink', function(){
         var ele = document.getElementById("lcl_downloadlink"); 
@@ -67,6 +80,14 @@
             success: function() {}
         });
     });
+    
+    lclSetAttribute = function(myclass, mytitle) {
+        var x = document.getElementsByClassName(myclass);
+        var i;
+        for (i = 0; i < x.length; i++) {
+          x[i].setAttribute("title", mytitle);
+        } 
+    };
 </script>
 
 <div style="height:<{$lcl_backgroundheight}>;">&nbsp;</div>
