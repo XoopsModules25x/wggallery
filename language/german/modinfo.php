@@ -96,6 +96,10 @@ define('_MI_WGGALLERY_SHOWBCRUMBS', 'Brotkrumen-Navigation (breadcrumbs) anzeige
 define('_MI_WGGALLERY_SHOWBCRUMBS_DESC', 'Eine Brotkrumen-Navigation zeigt den aktuellen Seitenstand innerhalb der Websitestruktur');
 define('_MI_WGGALLERY_SHOWBCRUMBS_MNAME', 'Modulnamen anzeigen');
 define('_MI_WGGALLERY_SHOWBCRUMBS_MNAME_DESC', 'Den Modulnamen in der Brotkrumen-Navigation anzeigen');
+define('_MI_WGGALLERY_SHOWCOPYRIGHT', 'Copyright anzeigen');
+define('_MI_WGGALLERY_SHOWCOPYRIGHT_DESC', 'Sie können das Copyright bei der Galerie entfernen, jedoch wird ersucht, an einer beliebigen Stelle einen Backlink auf www.wedega.com anzubringen');
+define('_MI_WGGALLERY_STOREEXIF', 'Metadaten (exif) speichern');
+define('_MI_WGGALLERY_STOREEXIF_DESC', 'Definieren sie, ob Sie die Metadaten der Bilder (exif-Daten) speichern wollen');
 // Notifications
 define('_MI_WGGALLERY_GLOBAL_NOTIFY', 'Global notify');
 define('_MI_WGGALLERY_GLOBAL_NOTIFY_DESC', 'Global notify desc');

@@ -66,6 +66,7 @@ define('_AM_WGGALLERY_GALLERYTYPE_EDIT', 'Edit Gallerytype');
 // Elements of Gallery options
 define('_AM_WGGALLERY_OPTION_GT_SET', 'Set options for selected gallerytype');
 define('_AM_WGGALLERY_OPTION_GT_SOURCE', 'Slideshow source');
+define('_AM_WGGALLERY_OPTION_GT_SOURCE_DESC', "Pay attention: if the user do not have to download large images the source will be automatically reduce to medium for this user in order to avoid unallowed download by right mouse click.<br>User with right to download large images will also see large images, if you have selected 'large'.");
 define('_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW', 'Preview source');
 define('_AM_WGGALLERY_OPTION_GT_SOURCE_LARGE', 'large images');
 define('_AM_WGGALLERY_OPTION_GT_SOURCE_MEDIUM', 'medium images');
@@ -224,13 +225,16 @@ define('_AM_WGGALLERY_MAINTENANCE_AT_DESC', 'Delete albumtypes not supported any
 define('_AM_WGGALLERY_MAINTENANCE_AT_SURERESET', 'All existing album settings will be updated to default albumtypes. Do you want to continue?');
 define('_AM_WGGALLERY_MAINTENANCE_AT_SUREDELETE', 'All existing albumtypes (settings included) will be deleted and replaced by current albumtypes. Do you want to continue?');
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE', 'Resize images');
-define('_AM_WGGALLERY_MAINTENANCE_RESIZE_DESC', 'Resize images or thumbs to max height corresponding preferences:<br>medium: max width %mw px / max height %mh px<br>thumb: max width %tw px / max height %th px');
+define('_AM_WGGALLERY_MAINTENANCE_RESIZE_DESC', 'Resize images or thumbs to max height corresponding module preferences.<br>Current settings:<br>a) medium: max width %mw px / max height %mh px<br>b) thumb: max width %tw px / max height %th px');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED', 'Cleanup image directory');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC', 'All currently unused album images (not included in any albums) from following directories will be deleted:<ul>
 <li>%p/large/</li>
 <li>%p/medium/</li>
 <li>%p/thumbs/</li>
 </ul>');
+define('_AM_WGGALLERY_MAINTENANCE_DELETE_INVALID', "Delete invalid items in table 'images'");
+define('_AM_WGGALLERY_MAINTENANCE_DELETE_INVALID_DESC', "Delete invalid items in table 'images', e.g. item was created, but something went wrong during upload");
+define('_AM_WGGALLERY_MAINTENANCE_DELETE_INVALID_IMG', "Invalid item: img_id ");
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_NONE', 'No unused images found');
 define('_AM_WGGALLERY_MAINTENANCE_DUI_SUREDELETE', 'All currently unused album images (not included in any albums) will be deleted! Do you want to continue?');
 define('_AM_WGGALLERY_MAINTENANCE_WATERMARK', 'Add watermarks to an album later');
@@ -244,6 +248,7 @@ define('_AM_WGGALLERY_MAINTENANCE_IMG_SEARCH', 'Search items');
 define('_AM_WGGALLERY_MAINTENANCE_IMG_SEARCHOK', 'No broken items image found');
 define('_AM_WGGALLERY_MAINTENANCE_IMG_CLEAN', 'Clean broken items');
 define('_AM_WGGALLERY_MAINTENANCE_CHECKTYP', 'System checks');
+define('_AM_WGGALLERY_MAINTENANCE_CHECKDESC', 'Checks whether php settings are compatibe with your module settings');
 define('_AM_WGGALLERY_MAINTENANCE_CHECKRESULTS', 'Result of system checks');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_TYPE', "Check PHP setting '%s'");
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_DESC', 'Module setting allows %s Bytes');
@@ -259,6 +264,12 @@ define('_AM_WGGALLERY_MAINTENANCE_CHECK_ML_DESC', 'Max memory limit: %s (%b Byte
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR1', 'Please reduce module setting or increase php setting');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR2', 'Please turn php setting on');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR3', 'memory_limit must be higher than upload_max_filesize and higher than post_max_size');
+define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF', "Read Exif-data");
+define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_DESC', "Read and save exif data for all images once again");
+define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_READ', "Read missing exif data");
+define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_READALL', "Read all exif data again");
+define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_SUCCESS', "Successfully read exif");
+define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_ERROR', "Error when reading exif");
 // Albums
 define('_AM_WGGALLERY_ALBUMS_ERRNOTFOUND', 'Error: Image not found (Image-Id %s)');
 // Import

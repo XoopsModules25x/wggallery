@@ -58,7 +58,7 @@
 		});
         lcl_open($instance, 0); // direct lightbox opening showing first element
 
-        
+        //using language variables
         lclSetAttribute("lcl_prev", "<{$smarty.const._MA_WGGALLERY_LCL_PREVIOUS}>");
         lclSetAttribute("lcl_play", "<{$smarty.const._MA_WGGALLERY_LCL_PLAY}>");
         lclSetAttribute("lcl_next", "<{$smarty.const._MA_WGGALLERY_LCL_NEXT}>");
@@ -74,7 +74,7 @@
     $(document).on('click', '#lcl_downloadlink', function(){
         var ele = document.getElementById("lcl_downloadlink"); 
         $.ajax({
-            data: 'op=lclightbox&src=' + ele.download,
+            data: 'op=lclightboxlite&src=' + ele.download,
             url: 'download.php',
             method: 'POST',
             success: function() {}

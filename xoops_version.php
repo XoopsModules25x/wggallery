@@ -25,7 +25,7 @@
 $dirname  = basename(__DIR__);
 // ------------------- Informations ------------------- //
 $modversion['name'] = _MI_WGGALLERY_NAME;
-$modversion['version'] = 1.07;
+$modversion['version'] = 1.08;
 $modversion['description'] = _MI_WGGALLERY_DESC;
 $modversion['author'] = 'Wedega';
 $modversion['author_mail'] = 'webmaster@wedega.com';
@@ -456,16 +456,15 @@ $modversion['config'][$c]['formtype'] = 'select';
 $modversion['config'][$c]['valuetype'] = 'int';
 $modversion['config'][$c]['default'] = 1;
 $modversion['config'][$c]['options'] = array(1 => '1', 2 => '2', 3 => '3', 4 => '4');
-++$c;
-// Table type
-$modversion['config'][$c]['name'] = 'table_type';
-$modversion['config'][$c]['title'] = '_MI_WGGALLERY_TABLE_TYPE';
-$modversion['config'][$c]['description'] = '_MI_WGGALLERY_DIVIDEBY_DESC';
-$modversion['config'][$c]['formtype'] = 'select';
+++$c;*/
+// Store exif 
+$modversion['config'][$c]['name'] = 'store_exif';
+$modversion['config'][$c]['title'] = '_MI_WGGALLERY_STOREEXIF';
+$modversion['config'][$c]['description'] = '_MI_WGGALLERY_STOREEXIF_DESC';
+$modversion['config'][$c]['formtype'] = 'yesno';
 $modversion['config'][$c]['valuetype'] = 'int';
-$modversion['config'][$c]['default'] = 'bordered';
-$modversion['config'][$c]['options'] = array('bordered' => 'bordered', 'striped' => 'striped', 'hover' => 'hover', 'condensed' => 'condensed');
-++$c; */
+$modversion['config'][$c]['default'] = 1;
+++$c; 
 // Panel by
 $modversion['config'][$c]['name'] = 'panel_type';
 $modversion['config'][$c]['title'] = '_MI_WGGALLERY_PANEL_TYPE';
@@ -498,6 +497,15 @@ $modversion['config'][$c]['description'] = '_CO_WGGALLERY_MAINTAINEDBY_DESC';
 $modversion['config'][$c]['formtype'] = 'textbox';
 $modversion['config'][$c]['valuetype'] = 'text';
 $modversion['config'][$c]['default'] = 'https://xoops.wedega.com';
+++$c;
+// Show copyright
+$modversion['config'][$c]['name'] = 'show_copyright';
+$modversion['config'][$c]['title'] = '_MI_WGGALLERY_SHOWCOPYRIGHT';
+$modversion['config'][$c]['description'] = '_MI_WGGALLERY_SHOWCOPYRIGHT_DESC';
+$modversion['config'][$c]['formtype'] = 'yesno';
+$modversion['config'][$c]['valuetype'] = 'int';
+$modversion['config'][$c]['default'] = 1;
+++$c;
 unset($c);
 // ------------------- Notifications ------------------- //
 $modversion['hasNotification'] = 1;

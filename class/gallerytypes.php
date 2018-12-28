@@ -150,7 +150,7 @@ class WggalleryGallerytypes extends XoopsObject
 			// echo '<br>name'.$option['name'];
             switch ($option['name']) {
                 case 'source':
-					$source = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_SOURCE, 'source', $option['value']);
+					$source = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_SOURCE  . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_SOURCE_DESC . '</span>', 'source', $option['value']);
 					$source->addOption('medium', _AM_WGGALLERY_OPTION_GT_SOURCE_MEDIUM);
 					$source->addOption('large', _AM_WGGALLERY_OPTION_GT_SOURCE_LARGE);
 					$form->addElement($source);
@@ -1343,7 +1343,7 @@ class WggalleryGallerytypesHandler extends XoopsPersistableObjectHandler
 				$gt_name = 'Lightbox2';
 				$gt_credits = 'https://lokeshdhakar.com';
                 $options[] = array('name' => 'source', 'value' => 'large', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE');
-                $options[] = array('name' => 'source_preview', 'value' => 'medium', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW');
+                $options[] = array('name' => 'source_preview', 'value' => 'thumb', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW');
                 $options[] = array('name' => 'showTitle', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE');
                 $options[] = array('name' => 'showDescr', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_SHOWDESCR');
                 $options[] = array('name' => 'showAlbumlabel', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_SHOWLABEL');
@@ -1356,7 +1356,7 @@ class WggalleryGallerytypesHandler extends XoopsPersistableObjectHandler
 				$gt_name = 'Justified Gallery with Colorbox';
 				$gt_credits = 'http://miromannino.com/';
                 $options[] = array('name' => 'source', 'value' => 'large', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE');
-                $options[] = array('name' => 'source_preview', 'value' => 'medium', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW');
+                $options[] = array('name' => 'source_preview', 'value' => 'thumb', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW');
                 $options[] = array('name' => 'showTitle', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE');
                 $options[] = array('name' => 'rowHeight', 'value' => '150', 'caption' => '_AM_WGGALLERY_OPTION_GT_ROWHEIGHT');
                 $options[] = array('name' => 'lastRow', 'value' => 'nojustify', 'caption' => '_AM_WGGALLERY_OPTION_GT_LASTROW');
@@ -1377,7 +1377,7 @@ class WggalleryGallerytypesHandler extends XoopsPersistableObjectHandler
 				$gt_credits = 'Sebastian Tschan, https://blueimp.net';
 				$gt_primary = $primary;
                 $options[] = array('name' => 'source', 'value' => 'large', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE');
-                $options[] = array('name' => 'source_preview', 'value' => 'medium', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW');
+                $options[] = array('name' => 'source_preview', 'value' => 'thumb', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW');
                 $options[] = array('name' => 'slideshowtype', 'value' => 'lightbox', 'caption' => '_AM_WGGALLERY_OPTION_GT_SLIDESHOWTYPE');
                 $options[] = array('name' => 'slideshowSpeed', 'value'=> '3000', 'caption' => '_AM_WGGALLERY_OPTION_GT_SLIDESHOWSPEED');
                 $options[] = array('name' => 'transitionDuration', 'value' => '500', 'caption' => '_AM_WGGALLERY_OPTION_GT_TRANSDURATION');
@@ -1389,7 +1389,7 @@ class WggalleryGallerytypesHandler extends XoopsPersistableObjectHandler
 				$gt_name = 'ViewerJs';
 				$gt_credits = 'http://chenfengyuan.com';
                 $options[] = array('name' => 'source', 'value' => 'large', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE');
-                $options[] = array('name' => 'source_preview', 'value' => 'medium', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW');
+                $options[] = array('name' => 'source_preview', 'value' => 'thumb', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW');
                 $options[] = array('name' => 'button_close', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_BUTTTONCLOSE');
                 $options[] = array('name' => 'navbar', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_GT_NAVBAR');
                 $options[] = array('name' => 'viewerjs_title', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE');

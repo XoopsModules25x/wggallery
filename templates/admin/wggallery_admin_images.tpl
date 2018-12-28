@@ -95,6 +95,7 @@
                     <th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_WEIGHT}></th>
                     <th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_STATE}></th>
                     <th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_IP}></th>
+                    <{if $show_exif}><th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_EXIF}></th><{/if}>
                     <th class='center'><{$smarty.const._CO_WGGALLERY_DATE}></th>
                     <th class='center'><{$smarty.const._CO_WGGALLERY_SUBMITTER}></th>
                     <th class='center width5'><{$smarty.const._CO_WGGALLERY_FORM_ACTION}></th>
@@ -130,6 +131,7 @@
                                 <{/if}>
                             </td>
                             <td class='center'><{$image.ip}></td>
+                            <{if $show_exif}><td class='left'><{$image.exif}></td><{/if}>
                             <td class='center'><{$image.date}></td>
                             <td class='center'><{$image.submitter}></td>
                             <td class='center  width10'>

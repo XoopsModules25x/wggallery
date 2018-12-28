@@ -49,6 +49,7 @@ CREATE TABLE `wggallery_images` (
   `img_weight`      INT(8)          NOT NULL DEFAULT '0',
   `img_albid`       INT(8)          NOT NULL DEFAULT '0',
   `img_state`       INT(8)          NOT NULL DEFAULT '0',
+  `img_exif`        TEXT            NULL ,
   `img_date`        INT(8)          NOT NULL DEFAULT '0',
   `img_submitter`   INT(8)          NOT NULL DEFAULT '0',
   `img_ip`          VARCHAR(50)     NOT NULL DEFAULT '',

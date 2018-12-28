@@ -82,7 +82,7 @@
                     });
                     const a = document.createElement('a');
                     a.href = viewer.image.src;
-                    a.download = viewer.image.alt;
+                    a.download = viewer.image.name;
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);

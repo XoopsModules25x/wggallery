@@ -107,6 +107,7 @@ switch($op) {
 					$pagenav = new XoopsPageNav($imagesCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit . '&amp;alb_id=' . $albId);
 					$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
 				}
+                $GLOBALS['xoopsTpl']->assign('show_exif', $wggallery->getConfig('store_exif'));
 			} else {
 				$GLOBALS['xoopsTpl']->assign('error', _CO_WGGALLERY_THEREARENT_IMAGES);
 			}

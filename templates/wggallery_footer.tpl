@@ -18,4 +18,6 @@
 <br>
 <{include file='db:system_notification_select.tpl'}>
 <div class='clear spacer'></div>
+<{if $copyright}>
 <div class="pull-left"><{$copyright}></div>
+<{/if}>

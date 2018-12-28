@@ -100,6 +100,10 @@ define('_MI_WGGALLERY_SHOWBCRUMBS', 'Show breadcrumb navigation');
 define('_MI_WGGALLERY_SHOWBCRUMBS_DESC', "Breadcrumb navigation displays the current page's context within the site structure.");
 define('_MI_WGGALLERY_SHOWBCRUMBS_MNAME', 'Show module name');
 define('_MI_WGGALLERY_SHOWBCRUMBS_MNAME_DESC', 'Show the module name in breadcrumb navigation');
+define('_MI_WGGALLERY_SHOWCOPYRIGHT', 'Show copyright');
+define('_MI_WGGALLERY_SHOWCOPYRIGHT_DESC', 'You can remove the copyright from the gallery, but a backlinks to www.wedega.com is expected, anywhere on your site');
+define('_MI_WGGALLERY_STOREEXIF', 'Save meta data (exif)');
+define('_MI_WGGALLERY_STOREEXIF_DESC', 'Define whether you want to save the meta data (exif) of the images');
 // Notifications
 define('_MI_WGGALLERY_GLOBAL_NOTIFY', 'Global notify');
 define('_MI_WGGALLERY_GLOBAL_NOTIFY_DESC', 'Global notify desc');

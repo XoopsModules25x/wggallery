@@ -50,6 +50,7 @@ class WggalleryImages extends XoopsObject
 		$this->initVar('img_weight', XOBJ_DTYPE_INT);
 		$this->initVar('img_albid', XOBJ_DTYPE_INT);
 		$this->initVar('img_state', XOBJ_DTYPE_INT);
+        $this->initVar('img_exif', XOBJ_DTYPE_TXTAREA);
 		$this->initVar('img_date', XOBJ_DTYPE_INT);
 		$this->initVar('img_submitter', XOBJ_DTYPE_INT);
 		$this->initVar('img_ip', XOBJ_DTYPE_TXTAREA);
@@ -200,6 +201,21 @@ class WggalleryImages extends XoopsObject
 		$ret['date'] = formatTimestamp($this->getVar('img_date'), 's');
 		$ret['submitter'] = XoopsUser::getUnameFromId($this->getVar('img_submitter'));
 		$ret['ip'] = $this->getVar('img_ip');
+        $exif_text = '';
+        if ( $wggallery->getConfig('store_exif') ) {
+            $exifs = unserialize ( $this->getVar('img_exif'), ['allowed_classes' => false]);
+            foreach ( $exifs as $key => $value) {
+                if (is_array ( $value )) {
+                    $exif_text .= $key . ': <br>';
+                    foreach ( $value as $skey => $svalue) {
+                        $exif_text .= ' - ' . $skey . ': ' . $svalue . '<br>';
+                    }
+                } else {
+                    $exif_text .= $key . ': ' . $value . '<br>';
+                }
+            }
+        }
+        $ret['exif'] =  $exif_text;
 		$ret['large'] = WGGALLERY_UPLOAD_IMAGE_URL . '/large/' .  $this->getVar('img_namelarge');
 		$ret['medium'] = WGGALLERY_UPLOAD_IMAGE_URL . '/medium/' .  $this->getVar('img_name');
 		$ret['thumb'] = WGGALLERY_UPLOAD_IMAGE_URL . '/thumbs/' .  $this->getVar('img_name');

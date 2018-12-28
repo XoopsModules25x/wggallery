@@ -60,6 +60,12 @@ foreach ($options as $option) {
     }
 	// echo "<br>".$option['name'].":".$option['value'].'#'.$optionValue;
 }
+// check permission and overwrite gallery settings corresponding download perms, because otherwise user can download large images even if group doesn't have the right by using right mouse click
+$source = 'medium';
+if ( $permissionsHandler->permImageDownloadLarge($albId) ) {
+    $source = 'large';
+}
+$GLOBALS['xoopsTpl']->assign('source', $source);
 
 // echo '<br>template:wggallery_gallery_' . $pr_gallery['template'] . '.tpl';
 // echo '<br>isdir template: ' . is_dir(WGGALLERY_URL . '/assets/wggallery_gallery_' . $pr_gallery['template'] . '.tpl');
@@ -100,7 +106,7 @@ switch($pr_gallery['template']) {
 	case 'lclightboxlite':
 		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/gallerytypes/lclightboxlite/css/lc_lightbox.min.css', null );
         $GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/gallerytypes/lclightboxlite/skins/' . $lcl_skin . '.css', null );
-		$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/lclightboxlite/js/lc_lightbox.lite.min.js');			
+		$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/lclightboxlite/js/lc_lightbox.lite.min.js');
 	break;
 	case 'jssor':	
 		$GLOBALS['xoopsTpl']->assign('uniqid', preg_replace('/[^a-zA-Z0-9]+/', '_', uniqid('', true)));
@@ -126,7 +132,7 @@ switch($pr_gallery['template']) {
 	break;
 	case 'viewerjs':
 		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/gallerytypes/viewerjs/dist/viewer.min.css', null );
-		$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/viewerjs/dist/viewer.min.js');			
+		$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/viewerjs/dist/viewer.min.js');   
 	break;
 	case 'lightbox2':
 		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/gallerytypes/lightbox2/dist/css/lightbox.min.css', null );
@@ -146,31 +152,26 @@ switch($pr_gallery['template']) {
 		$GLOBALS['xoopsTpl']->assign('colorbox_slideshowstart', _MA_WGGALLERY_COLORBOX_SLIDESHOWSTART);
 		$GLOBALS['xoopsTpl']->assign('colorbox_slideshowstop', _MA_WGGALLERY_COLORBOX_SLIDESHOWSTOP);
 	break;
-	case 'blueimpgallery':
-		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/css/blueimp-gallery.min.css', null );
-        $GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/css/blueimp-gallery-indicator.css', null );
+	// case 'blueimpgallery':
+		// $GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/css/blueimp-gallery.min.css', null );
+        // $GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/css/blueimp-gallery-indicator.css', null );
         // $GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/css/blueimp-gallery-video.css', null );
         // $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-gallery-fullscreen.js');
 	
         
         // $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-gallery.js');
-/*         $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-helper.js');
+        /*         $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-helper.js');
 
-$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-gallery-fullscreen.js');
-$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-gallery-indicator.js');
-$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-gallery-video.js');
-$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-gallery-vimeo.js');
-$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-gallery-youtube.js');
-$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/vendor/jquery.js');
-$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/jquery.blueimp-gallery.js');
-$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/demo/demo.js');
- */
-
-
-	break;    
- 
-    
-
+        $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-gallery-fullscreen.js');
+        $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-gallery-indicator.js');
+        $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-gallery-video.js');
+        $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-gallery-vimeo.js');
+        $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/blueimp-gallery-youtube.js');
+        $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/vendor/jquery.js');
+        $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/jquery.blueimp-gallery.js');
+        $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/blueimpgallery/js/demo/demo.js');
+         */
+	// break;    
   
 }
 

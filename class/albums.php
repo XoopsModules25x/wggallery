@@ -248,12 +248,15 @@ class WggalleryAlbums extends XoopsObject
 		$memberHandler = xoops_getHandler('member');
 		$groupList = $memberHandler->getGroupList();
 		$gpermHandler = xoops_getHandler('groupperm');
-		$fullList[] = array_keys($groupList);
+		$listNone[] = array_keys($groupList);
+		foreach (array_keys($groupList) as $i) {
+            $listSelected[] = $i;
+        }
 		if(!$this->isNew()) {
 			$groupsIdsView = $gpermHandler->getGroupIds('wggallery_view', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
 			$groupsIdsView[] = array_values($groupsIdsView);
 			$groupsCanViewCheckbox = new XoopsFormCheckBox( '', 'groups_view', $groupsIdsView);
-			
+
             // TODO
 			// $groupsIdsDlFullAlb = $gpermHandler->getGroupIds('wggallery_dlfullalb', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
 			// $groupsIdsDlFullAlb[] = array_values($groupsIdsDlFullAlb);
@@ -267,10 +270,10 @@ class WggalleryAlbums extends XoopsObject
 			$groupsIdsDlImageM[] = array_values($groupsIdsDlImageM);
 			$groupsCanDlImageMCheckbox = new XoopsFormCheckBox( '', 'groups_dlimage_medium', $groupsIdsDlImageM);
 		} else {
-			$groupsCanViewCheckbox = new XoopsFormCheckBox( '', 'groups_view', $fullList);
-			$groupsCanDlFullAlbCheckbox = new XoopsFormCheckBox( '', 'groups_dlfullalb', $fullList);
-			$groupsCanDlImageLCheckbox = new XoopsFormCheckBox( '', 'groups_dlimage_large', $fullList);
-            $groupsCanDlImageMCheckbox = new XoopsFormCheckBox( '', 'groups_dlimage_medium', $fullList);
+			$groupsCanViewCheckbox = new XoopsFormCheckBox( '', 'groups_view', $listSelected);
+			// $groupsCanDlFullAlbCheckbox = new XoopsFormCheckBox( '', 'groups_dlfullalb', $listNone);
+			$groupsCanDlImageLCheckbox = new XoopsFormCheckBox( '', 'groups_dlimage_large', $listNone);
+            $groupsCanDlImageMCheckbox = new XoopsFormCheckBox( '', 'groups_dlimage_medium', $listSelected);
 		}
 		// To View
         $groupsCanViewCheckbox->addOptionArray($groupList);

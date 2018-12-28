@@ -24,15 +24,13 @@
 use Xmf\Request;
 
 include __DIR__ . '/header.php';
-$GLOBALS['xoopsOption']['template_main'] = 'wggallery_images_default.tpl';
-include_once XOOPS_ROOT_PATH .'/header.php';
 
 $op       = Request::getString('op', 'list');
 $imgId    = Request::getInt('img_id');
  
 switch($op) {
-	case 'viewerjs': //src: provided by viewer.js 
-    case 'lclightbox': //src: provided by wggallery_lclightboxlite.tpl
+	case 'viewerjs': 
+        //src: provided by viewer.js
         $file = Request::getString('src', 'none'); 
         $filename = basename($file);
         
@@ -48,7 +46,7 @@ switch($op) {
 		// check permissions
 		$file = '';
 		if ( $permissionsHandler->permImageDownloadMedium($albId) ) {
-			$file = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' .  $image['medium'];
+			$file = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' .  $image['img_name'];
 		}
 		if ( $permissionsHandler->permImageDownloadLarge($albId) ) {
 			$file = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' .  $image['img_namelarge'];
@@ -61,10 +59,42 @@ switch($op) {
 		$imagesObj->setVar('img_downloads', $image['downloads'] + 1);
 		$imagesHandler->insert($imagesObj, true); 
         
-        // provide download is made by js/tpl
-        
+        // provide download is made by tpl
 	break;
-    
+
+    case 'lclightboxlite': 
+        //src: provided by wggallery_lclightboxlite.tpl
+        $file = Request::getString('src', 'none');
+        $filename = basename($file);
+
+        $crImages = new CriteriaCompo();
+        $crImages->add(new Criteria('img_name', $filename), 'OR');
+        $crImages->add(new Criteria('img_namelarge', $filename), 'OR');
+        $imagesAll = $imagesHandler->getAll($crImages);
+        // Get All Images
+        foreach(array_keys($imagesAll) as $i) {
+            $image = $imagesAll[$i]->getValuesImages();
+        }
+        $albId = $image['albid'];
+        // check permissions
+        $file = '';
+        if ( $permissionsHandler->permImageDownloadMedium($albId) ) {
+            $file = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' .  $image['img_name'];
+        }
+        if ( $permissionsHandler->permImageDownloadLarge($albId) ) {
+            $file = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' .  $image['img_namelarge'];
+        }
+        if ( '' === $file ) {
+            redirect_header('images.php?op=list&amp;alb_id=' . $albId, 3, _CO_WGGALLERY_PERMS_NODOWNLOAD);
+        }
+        // count downloads
+        $imagesObj = $imagesHandler->get($image['id']);
+        $imagesObj->setVar('img_downloads', $image['downloads'] + 1);
+        $imagesHandler->insert($imagesObj, true);
+
+        // provide download is made by js
+        break;
+        
 	case 'download':
 	default:
 		// download image and save download rate
@@ -74,7 +104,7 @@ switch($op) {
 		// check permissions
 		$file = '';
 		if ( $permissionsHandler->permImageDownloadMedium($albId) ) {
-			$file = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' .  $image['medium'];
+			$file = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' .  $image['img_name'];
 		}
 		if ( $permissionsHandler->permImageDownloadLarge($albId) ) {
 			$file = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' .  $image['img_namelarge'];
@@ -86,22 +116,13 @@ switch($op) {
 		$imagesObj->setVar('img_downloads', $image['downloads'] + 1);
 		$imagesHandler->insert($imagesObj, true);
         
-        // provide download
-        header('Content-Description: File Transfer');
-        header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename="' . basename($file) . '"');
+        $fp   = fopen($file, "rb");
+        header("Content-type: " . $image['img_mimetype']);
+        header("Content-Length: " .filesize($file));
+        header("Content-Disposition: attachment; filename=" . basename($file));
         header('Content-Transfer-Encoding: binary');
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate');
-        header('Pragma: public');
-        header('Content-Length: ' . filesize($file));
-        ob_clean();
-        flush();
-        readfile($file);
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        fpassthru($fp);
 	
 	break;
 }
-
-
-
-include __DIR__ . '/footer.php';

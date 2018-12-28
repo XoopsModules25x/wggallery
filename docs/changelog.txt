@@ -8,7 +8,12 @@ Change Log for wgGallery - 2018/03/19 10:04:56 Version 1.07
  - added pagenav to imagelist tpl (goffy)
  - updated permission system (goffy)
  - added image sorting (goffy)
-
+ - added language support for lc_lightbox_lite (goffy)
+ - added preference "show_copyright" (goffy)
+ - added preselection for group perms when creating album (goffy)
+ - rebuilt maintenance (goffy)
+ - added exif read (goffy/altermann)
+ 
 ==============================================================
 Change Log for wgGallery - 2018/03/19 10:04:56 Version 1.0
 ==============================================================

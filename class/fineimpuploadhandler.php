@@ -103,8 +103,11 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
         include_once XOOPS_ROOT_PATH .'/modules/wggallery/include/imagehandler.php';
 		$this->pathUpload = WGGALLERY_UPLOAD_IMAGE_PATH;
 
-		$this->permUseralbum = 1; //TODO: handle an option, whether images should be online immetiately or not
-        // $this->permUseralbum = $permissionsHandler->permAlbumEdit($uid);
+        if ( WGGALLERY_PERM_SUBMITAPPR === $permissionsHandler->permGlobalSubmit()) {
+            $this->permUseralbum = WGGALLERY_STATE_APPROVAL_VAL;
+        } else {
+            $this->permUseralbum = WGGALLERY_STATE_ONLINE_VAL;
+        }
 		
         $pathParts = pathinfo($this->getName());
 

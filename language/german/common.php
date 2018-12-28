@@ -30,6 +30,7 @@ define('_CO_WGGALLERY_NONE', 'Keine');
 define('_CO_WGGALLERY_BACK', 'Zurück');
 define('_CO_WGGALLERY_ALL', 'Alle');
 define('_CO_WGGALLERY_UPDATE', 'Aktualisieren');
+define('_CO_WGGALLERY_EXEC', 'Ausführen');
 define('_CO_WGGALLERY_DOWNLOAD', 'Download');
 define('_CO_WGGALLERY_FORM_UPLOAD', 'Dateien hochladen');
 define('_CO_WGGALLERY_FORM_IMAGE_PATH', 'Dateien in %s ');
@@ -77,6 +78,7 @@ define('_CO_WGGALLERY_ALBUMS_DESC', 'wgGallery ist ein XOOPS-Modul für die Prä
 define('_CO_WGGALLERY_ALBUM_CAT', 'Kategorie');
 define('_CO_WGGALLERY_ALBUM_NB_CATS', 'Alben in dieser Kategorie');
 define('_CO_WGGALLERY_ALBUM_NB_IMAGES', 'Bilder in diesem Album');
+define('_CO_WGGALLERY_ALBUM_NO_IMAGES', 'Album enthält keine Bilder');
 define('_CO_WGGALLERY_ALBUM_ID', 'Id');
 define('_CO_WGGALLERY_ALBUM_PID', 'Übergeordnetes Album');
 define('_CO_WGGALLERY_ALBUM_ISCAT', 'Album ist Kategorie');
@@ -136,6 +138,7 @@ define('_CO_WGGALLERY_IMAGE_RESIZE', 'Bild auf folgende Größe ändern:');
 define('_CO_WGGALLERY_IMAGE_THUMB', 'Vorschaubild');
 define('_CO_WGGALLERY_IMAGE_MEDIUM', 'Mittleres Bild');
 define('_CO_WGGALLERY_IMAGE_LARGE', 'Großes Bild');
+define('_CO_WGGALLERY_IMAGE_EXIF', 'Exif-Daten');
 // Watermark add/edit
 define('_CO_WGGALLERY_WATERMARK_ADD', 'Wasserzeichen hinzufügen');
 define('_CO_WGGALLERY_WATERMARK_EDIT', 'Wasserzeichen bearbeiten');

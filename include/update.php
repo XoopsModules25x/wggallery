@@ -33,9 +33,9 @@ function xoops_module_update_wggallery(&$module, $prev_version = null)
     if ($prev_version < 10) {
         $ret = update_wggallery_v10($module);
     }
-    // if ($prev_version < 106) {
-        // $ret = update_wggallery_v106($module);
-    // }
+    if ($prev_version < 108) {
+        $ret = update_wggallery_v108($module);
+    }
     $errors = $module->getErrors();
     if (!empty($errors)) {
         print_r($errors);
@@ -110,7 +110,15 @@ function update_wggallery_v10(&$module)
  *
  * @return bool
  */
-// function update_wggallery_v105(&$module)
-// {
-    // return true;
-// }
+function update_wggallery_v108(&$module)
+{
+	$sql = 'ALTER TABLE `' . $GLOBALS["xoopsDB"]->prefix('wggallery_images') . '` ADD `img_exif` TEXT NULL AFTER `img_state` ;';
+    if (!$result = $GLOBALS["xoopsDB"]->queryF($sql)) {
+        xoops_error($GLOBALS["xoopsDB"]->error() . '<br>' . $sql);
+        $module->setErrors(
+            "Error when adding 'img_exif' to table 'wggallery_images'."
+        );
+        return false;
+    }
+	return true;
+}
