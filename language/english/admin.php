@@ -247,9 +247,9 @@ define('_AM_WGGALLERY_MAINTENANCE_IMGALB_DESC', 'Items of table images are searc
 define('_AM_WGGALLERY_MAINTENANCE_IMG_SEARCH', 'Search items');
 define('_AM_WGGALLERY_MAINTENANCE_IMG_SEARCHOK', 'No broken items image found');
 define('_AM_WGGALLERY_MAINTENANCE_IMG_CLEAN', 'Clean broken items');
-define('_AM_WGGALLERY_MAINTENANCE_CHECKTYP', 'System checks');
-define('_AM_WGGALLERY_MAINTENANCE_CHECKDESC', 'Checks whether php settings are compatibe with your module settings');
-define('_AM_WGGALLERY_MAINTENANCE_CHECKRESULTS', 'Result of system checks');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_SYSTEM', 'System checks');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_SYSTEMDESC', 'Checks whether php settings are compatibe with your module settings');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_RESULTS', 'Result of system checks');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_TYPE', "Check PHP setting '%s'");
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_DESC', 'Module setting allows %s Bytes');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_PMS_INFO', 'Sets max size of post data allowed');

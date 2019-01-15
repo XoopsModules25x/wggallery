@@ -49,22 +49,22 @@ function wggallery_notify_iteminfo($category, $item_id)
             $item['url'] = '';
             return $item;
         break;
-        case 'category':
-            // Assume we have a valid category id
-            $sql = 'SELECT img_name FROM ' . $xoopsDB->prefix('wggallery_images') . ' WHERE img_id = '. $item_id;
+        case 'albums':
+            // Assume we have a valid album id
+            $sql = 'SELECT alb_name FROM ' . $xoopsDB->prefix('wggallery_albums') . ' WHERE alb_id = '. $item_id;
             $result = $xoopsDB->query($sql); // TODO: error check
             $result_array = $xoopsDB->fetchArray($result);
-            $item['name'] = $result_array['img_name'];
-            $item['url'] = WGGALLERY_URL . '/images.php?img_id=' . $item_id;
+            $item['name'] = $result_array['alb_name'];
+            $item['url'] = WGGALLERY_URL . '/albums.php?alb_id=' . $item_id;
             return $item;
         break;
         case 'image':
-            // Assume we have a valid link id
-            $sql = 'SELECT img_id, img_name FROM '.$xoopsDB->prefix('wggallery_images') . ' WHERE img_id = ' . $item_id;
+            // Assume we have a valid image id
+            $sql = 'SELECT img_name FROM '.$xoopsDB->prefix('wggallery_images') . ' WHERE img_id = ' . $item_id;
             $result = $xoopsDB->query($sql); // TODO: error check
             $result_array = $xoopsDB->fetchArray($result);
             $item['name'] = $result_array['img_name'];
-			$item['url'] = WGGALLERY_URL . '/single.php?cid=' . $result_array['cid'] . '&amp;img_id=' . $item_id;
+			$item['url'] = WGGALLERY_URL . '/images.php?op=show&amp;img_id=' . $item_id . '&amp;alb_id=' . $result_array['img_albid'];
 			return $item;
         break;
     }

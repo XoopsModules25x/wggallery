@@ -512,84 +512,91 @@ $modversion['hasNotification'] = 1;
 $modversion['notification']['lookup_file'] = 'include/notification.inc.php';
 $modversion['notification']['lookup_func'] = 'wggallery_notify_iteminfo';
 // Global Notify
-$modversion['notification']['category'][1]['name'] = 'global';
-$modversion['notification']['category'][1]['title'] = _MI_WGGALLERY_GLOBAL_NOTIFY;
-$modversion['notification']['category'][1]['description'] = _MI_WGGALLERY_GLOBAL_NOTIFY_DESC;
-$modversion['notification']['category'][1]['subscribe_from'] = array('index.php', 'albums.php', 'images.php');
-// Category Notify
-$modversion['notification']['category'][2]['name'] = 'category';
-$modversion['notification']['category'][2]['title'] = _MI_WGGALLERY_CATEGORY_NOTIFY;
-$modversion['notification']['category'][2]['description'] = _MI_WGGALLERY_CATEGORY_NOTIFY_DESC;
-$modversion['notification']['category'][2]['subscribe_from'] = array('albums.php', 'images.php');
-$modversion['notification']['category'][2]['item_name'] = 'img_albid';
-$modversion['notification']['category'][2]['allow_bookmark'] = 1;
-// Image Notify
-$modversion['notification']['category'][3]['name'] = 'image';
-$modversion['notification']['category'][3]['title'] = _MI_WGGALLERY_IMAGE_NOTIFY;
-$modversion['notification']['category'][3]['description'] = _MI_WGGALLERY_IMAGE_NOTIFY_DESC;
-$modversion['notification']['category'][3]['subscribe_from'] = 'images.php';
-$modversion['notification']['category'][3]['item_name'] = 'img_id';
-$modversion['notification']['category'][3]['allow_bookmark'] = 1;
-// GLOBAL Notify
-$modversion['notification']['event'][1]['name'] = 'new_category';
-$modversion['notification']['event'][1]['category'] = 'global';
-$modversion['notification']['event'][1]['admin_only'] = 0;
-$modversion['notification']['event'][1]['title'] = _MI_WGGALLERY_GLOBAL_NEWCATEGORY_NOTIFY;
-$modversion['notification']['event'][1]['caption'] = _MI_WGGALLERY_GLOBAL_NEWCATEGORY_NOTIFY_CAPTION;
-$modversion['notification']['event'][1]['description'] = _MI_WGGALLERY_GLOBAL_NEWCATEGORY_NOTIFY_DESC;
-$modversion['notification']['event'][1]['mail_template'] = 'global_newcategory_notify';
-$modversion['notification']['event'][1]['mail_subject'] = _MI_WGGALLERY_GLOBAL_NEWCATEGORY_NOTIFY_SUBJECT;
-// GLOBAL Notify
-$modversion['notification']['event'][2]['name'] = 'image_modify';
-$modversion['notification']['event'][2]['category'] = 'global';
-$modversion['notification']['event'][2]['admin_only'] = 1;
-$modversion['notification']['event'][2]['title'] = _MI_WGGALLERY_GLOBAL_IMAGEMODIFY_NOTIFY;
-$modversion['notification']['event'][2]['caption'] = _MI_WGGALLERY_GLOBAL_IMAGEMODIFY_NOTIFY_CAPTION;
-$modversion['notification']['event'][2]['description'] = _MI_WGGALLERY_GLOBAL_IMAGEMODIFY_NOTIFY_DESC;
-$modversion['notification']['event'][2]['mail_template'] = 'global_imagemodify_notify';
-$modversion['notification']['event'][2]['mail_subject'] = _MI_WGGALLERY_GLOBAL_IMAGEMODIFY_NOTIFY_SUBJECT;
-// GLOBAL Notify
-$modversion['notification']['event'][3]['name'] = 'image_submit';
-$modversion['notification']['event'][3]['category'] = 'global';
-$modversion['notification']['event'][3]['admin_only'] = 1;
-$modversion['notification']['event'][3]['title'] = _MI_WGGALLERY_GLOBAL_IMAGESUBMIT_NOTIFY;
-$modversion['notification']['event'][3]['caption'] = _MI_WGGALLERY_GLOBAL_IMAGESUBMIT_NOTIFY_CAPTION;
-$modversion['notification']['event'][3]['description'] = _MI_WGGALLERY_GLOBAL_IMAGESUBMIT_NOTIFY_DESC;
-$modversion['notification']['event'][3]['mail_template'] = 'global_imagesubmit_notify';
-$modversion['notification']['event'][3]['mail_subject'] = _MI_WGGALLERY_GLOBAL_IMAGESUBMIT_NOTIFY_SUBJECT;
-// GLOBAL Notify
-$modversion['notification']['event'][4]['name'] = 'new_image';
-$modversion['notification']['event'][4]['category'] = 'global';
-$modversion['notification']['event'][4]['admin_only'] = 0;
-$modversion['notification']['event'][4]['title'] = _MI_WGGALLERY_GLOBAL_NEWIMAGE_NOTIFY;
-$modversion['notification']['event'][4]['caption'] = _MI_WGGALLERY_GLOBAL_NEWIMAGE_NOTIFY_CAPTION;
-$modversion['notification']['event'][4]['description'] = _MI_WGGALLERY_GLOBAL_NEWIMAGE_NOTIFY_DESC;
-$modversion['notification']['event'][4]['mail_template'] = 'global_newimage_notify';
-$modversion['notification']['event'][4]['mail_subject'] = _MI_WGGALLERY_GLOBAL_NEWIMAGE_NOTIFY_SUBJECT;
-// CATEGORY Notify
-$modversion['notification']['event'][5]['name'] = 'image_submit';
-$modversion['notification']['event'][5]['category'] = 'category';
-$modversion['notification']['event'][5]['admin_only'] = 1;
-$modversion['notification']['event'][5]['title'] = _MI_WGGALLERY_CATEGORY_IMAGESUBMIT_NOTIFY;
-$modversion['notification']['event'][5]['caption'] = _MI_WGGALLERY_CATEGORY_IMAGESUBMIT_NOTIFY_CAPTION;
-$modversion['notification']['event'][5]['description'] = _MI_WGGALLERY_CATEGORY_IMAGESUBMIT_NOTIFY_DESC;
-$modversion['notification']['event'][5]['mail_template'] = 'category_imagesubmit_notify';
-$modversion['notification']['event'][5]['mail_subject'] = _MI_WGGALLERY_CATEGORY_IMAGESUBMIT_NOTIFY_SUBJECT;
-// CATEGORY Notify
-$modversion['notification']['event'][6]['name'] = 'new_image';
-$modversion['notification']['event'][6]['category'] = 'category';
-$modversion['notification']['event'][6]['admin_only'] = 0;
-$modversion['notification']['event'][6]['title'] = _MI_WGGALLERY_CATEGORY_NEWIMAGE_NOTIFY;
-$modversion['notification']['event'][6]['caption'] = _MI_WGGALLERY_CATEGORY_NEWIMAGE_NOTIFY_CAPTION;
-$modversion['notification']['event'][6]['description'] = _MI_WGGALLERY_CATEGORY_NEWIMAGE_NOTIFY_DESC;
-$modversion['notification']['event'][6]['mail_template'] = 'category_newimage_notify';
-$modversion['notification']['event'][6]['mail_subject'] = _MI_WGGALLERY_CATEGORY_NEWIMAGE_NOTIFY_SUBJECT;
-// IMAGE Notify
-$modversion['notification']['event'][7]['name'] = 'approve';
-$modversion['notification']['event'][7]['category'] = 'image';
-$modversion['notification']['event'][7]['admin_only'] = 1;
-$modversion['notification']['event'][7]['title'] = _MI_WGGALLERY_IMAGE_APPROVE_NOTIFY;
-$modversion['notification']['event'][7]['caption'] = _MI_WGGALLERY_IMAGE_APPROVE_NOTIFY_CAPTION;
-$modversion['notification']['event'][7]['description'] = _MI_WGGALLERY_IMAGE_APPROVE_NOTIFY_DESC;
-$modversion['notification']['event'][7]['mail_template'] = 'image_approve_notify';
-$modversion['notification']['event'][7]['mail_subject'] = _MI_WGGALLERY_IMAGE_APPROVE_NOTIFY_SUBJECT;
+$modversion['notification']['category'][] = [
+    'name' => 'global',
+    'title' => _MI_WGGALLERY_GLOBAL_NOTIFY,
+    'description' => _MI_WGGALLERY_GLOBAL_NOTIFY_DESC,
+    'subscribe_from' => ['index.php', 'albums.php', 'images.php'],
+];
+$modversion['notification']['category'][] = [
+    'name' => 'albums',
+    'title' => _MI_WGGALLERY_ALBUMS_NOTIFY,
+    'description' => _MI_WGGALLERY_ALBUMS_NOTIFY_DESC,
+    'subscribe_from' => ['index.php', 'albums.php'],
+    'item_name' => 'alb_id',
+    'allow_bookmark' => 1,
+];
+/* $modversion['notification']['category'][] = [
+    'name' => 'images',
+    'title' => _MI_WGGALLERY_IMAGES_NOTIFY,
+    'description' => _MI_WGGALLERY_IMAGES_NOTIFY_DESC,
+    'subscribe_from' => ['index.php', 'images.php'],
+    'item_name' => 'img_id',
+    'allow_bookmark' => 1,
+]; */
+// GLOBAL Events Album Notify
+$modversion['notification']['event'][]= [
+	'name' => 'album_new',
+	'category' => 'global',
+	'admin_only' => 0,
+	'title' => _MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY,
+	'caption' => _MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY_CAPTION,
+	'description' => _MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY_DESC,
+	'mail_template' => 'global_alb_new_notify',
+	'mail_subject' => _MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY_SUBJECT
+];
+// GLOBAL Events Album Notify
+$modversion['notification']['event'][]= [
+	'name' => 'album_approve',
+	'category' => 'global',
+	'admin_only' => 0,
+	'title' => _MI_WGGALLERY_GLOBAL_ALB_APPROVE_NOTIFY,
+	'caption' => _MI_WGGALLERY_GLOBAL_ALB_APPROVE_NOTIFY_CAPTION,
+	'description' => _MI_WGGALLERY_GLOBAL_ALB_APPROVE_NOTIFY_DESC,
+	'mail_template' => 'global_alb_approve_notify',
+	'mail_subject' => _MI_WGGALLERY_GLOBAL_ALB_APPROVE_NOTIFY_SUBJECT
+];
+// GLOBAL Events Album Notify
+$modversion['notification']['event'][]= [
+	'name' => 'album_delete',
+	'category' => 'global',
+	'admin_only' => 0,
+	'title' => _MI_WGGALLERY_GLOBAL_ALB_DELETE_NOTIFY,
+	'caption' => _MI_WGGALLERY_GLOBAL_ALB_DELETE_NOTIFY_CAPTION,
+	'description' => _MI_WGGALLERY_GLOBAL_ALB_DELETE_NOTIFY_DESC,
+	'mail_template' => 'global_alb_delete_notify',
+	'mail_subject' => _MI_WGGALLERY_GLOBAL_ALB_DELETE_NOTIFY_SUBJECT
+];
+// GLOBAL Events Image Notify
+$modversion['notification']['event'][]= [
+	'name' => 'image_new',
+	'category' => 'albums',
+	'admin_only' => 0,
+	'title' => _MI_WGGALLERY_GLOBAL_IMG_NEW_NOTIFY,
+	'caption' => _MI_WGGALLERY_GLOBAL_IMG_NEW_NOTIFY_CAPTION,
+	'description' => _MI_WGGALLERY_GLOBAL_IMG_NEW_NOTIFY_DESC,
+	'mail_template' => 'global_img_new_notify',
+	'mail_subject' => _MI_WGGALLERY_GLOBAL_IMG_NEW_NOTIFY_SUBJECT
+];
+// GLOBAL Events Image Notify
+$modversion['notification']['event'][]= [
+	'name' => 'image_approve',
+	'category' => 'albums',
+	'admin_only' => 0,
+	'title' => _MI_WGGALLERY_GLOBAL_IMG_APPROVE_NOTIFY,
+	'caption' => _MI_WGGALLERY_GLOBAL_IMG_APPROVE_NOTIFY_CAPTION,
+	'description' => _MI_WGGALLERY_GLOBAL_IMG_APPROVE_NOTIFY_DESC,
+	'mail_template' => 'global_img_approve_notify',
+	'mail_subject' => _MI_WGGALLERY_GLOBAL_IMG_APPROVE_NOTIFY_SUBJECT
+];
+// GLOBAL Events Image Notify
+$modversion['notification']['event'][]= [
+	'name' => 'image_delete',
+	'category' => 'albums',
+	'admin_only' => 0,
+	'title' => _MI_WGGALLERY_GLOBAL_IMG_DELETE_NOTIFY,
+	'caption' => _MI_WGGALLERY_GLOBAL_IMG_DELETE_NOTIFY_CAPTION,
+	'description' => _MI_WGGALLERY_GLOBAL_IMG_DELETE_NOTIFY_DESC,
+	'mail_template' => 'global_img_delete_notify',
+	'mail_subject' => _MI_WGGALLERY_GLOBAL_IMG_DELETE_NOTIFY_SUBJECT
+];

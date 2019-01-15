@@ -1,5 +1,13 @@
 ==============================================================
-Change Log for wgGallery - 2018/03/19 10:04:56 Version 1.07
+Change Log for wgGallery - 2018/12/28 19:55:00 Version 1.08
+==============================================================
+ - added preference "show_copyright" (goffy)
+ - added preselection for group perms when creating album (goffy)
+ - rebuilt maintenance (goffy)
+ - added exif read (goffy/altermann)
+
+==============================================================
+Change Log for wgGallery - 2018/12/20 14:00:00 Version 1.07
 ==============================================================
  - added autoplay/autoopen to viewerjs (goffy)
  - added show single image (goffy/altermann)
@@ -9,10 +17,7 @@ Change Log for wgGallery - 2018/03/19 10:04:56 Version 1.07
  - updated permission system (goffy)
  - added image sorting (goffy)
  - added language support for lc_lightbox_lite (goffy)
- - added preference "show_copyright" (goffy)
- - added preselection for group perms when creating album (goffy)
- - rebuilt maintenance (goffy)
- - added exif read (goffy/altermann)
+
  
 ==============================================================
 Change Log for wgGallery - 2018/03/19 10:04:56 Version 1.0

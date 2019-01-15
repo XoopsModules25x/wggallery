@@ -14,8 +14,8 @@
 	<table class='table table-bordered'>
 		<thead>
 			<tr class='head'>
-				<th class='center' style='width:50%'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECKTYP}></th>
-				<th class='center' style='width:50%' colspan='2'"><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECKRESULTS}></th>
+				<th class='center' style='width:50%'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECK_SYSTEM}></th>
+				<th class='center' style='width:50%' colspan='2'"><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECK_RESULTS}></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -50,8 +50,8 @@
         <tbody>
             <{if $show_check}>
                 <tr class="<{cycle values='odd, even'}>">
-                    <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECKTYP}></td>
-                    <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECKDESC}></td>
+                    <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECK_SYSTEM}></td>
+                    <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECK_SYSTEMDESC}></td>
                     <td class='center '>
                         <p><a class='btn' href='maintenance.php?op=system_check' title='<{$smarty.const._CO_WGGALLERY_EXEC}>'><{$smarty.const._CO_WGGALLERY_EXEC}></a></p>
                     </td>
