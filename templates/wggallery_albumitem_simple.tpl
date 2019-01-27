@@ -1,3 +1,4 @@
+
 <{if $number_cols_album == 6}>
 	<div class='col-xs-12 col-sm-2'>
 <{elseif $number_cols_album == 4}>
@@ -7,7 +8,7 @@
 <{elseif $number_cols_album == 2}>
 	<div class='col-xs-12 col-sm-6'>
 <{else}>
-	<div class='col-xs-12 col-sm-6'>
+	<div class='col-xs-12 col-sm-12'>
 <{/if}>           
 	<div class='center'>
 		<{if $album.nb_images}>

@@ -45,8 +45,15 @@ function wggallery_notify_iteminfo($category, $item_id)
     //
     switch($category) {
         case 'global':
-            $item['name'] = '';
-            $item['url'] = '';
+            // $item['name'] = '';
+            // $item['url'] = '';
+            // return $item;
+            // Assume we have a valid album id
+            $sql = 'SELECT alb_name FROM ' . $xoopsDB->prefix('wggallery_albums') . ' WHERE alb_id = '. $item_id;
+            $result = $xoopsDB->query($sql); // TODO: error check
+            $result_array = $xoopsDB->fetchArray($result);
+            $item['name'] = $result_array['alb_name'];
+            $item['url'] = WGGALLERY_URL . '/albums.php?alb_id=' . $item_id;
             return $item;
         break;
         case 'albums':

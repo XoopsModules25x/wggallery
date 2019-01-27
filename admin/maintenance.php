@@ -161,7 +161,14 @@ switch($op) {
 				$endfile = $target . $imagesAll[$i]->getVar('img_name');
 				$imageMimetype = $imagesAll[$i]->getVar('img_mimetype');
                 unlink($endfile);
-				$result = ResizeImage($sourcefile, $endfile, $maxwidth, $maxheight, $imageMimetype);
+				
+				$imgHandler = new wgImagehandler;
+				$imgHandler->sourceFile = $sourcefile;
+				$imgHandler->endFile = $endfile;
+				$imgHandler->imageMimetype = $imageMimetype;
+				$imgHandler->maxWidth = $maxwidth;
+				$imgHandler->maxHeight = $maxheight;
+				$result = $imgHandler->ResizeImage();
 				if ('copy' === $result) {
 					unlink($endfile);
 					copy ($sourcefile, $endfile);
@@ -206,6 +213,10 @@ switch($op) {
 			$errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_READDIR . $directory;
 		}
 		$directory = WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs';
+		if (false === getUnusedImages($unused, $directory)) {
+			$errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_READDIR . $directory;
+		}
+        $directory = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums';
 		if (false === getUnusedImages($unused, $directory)) {
 			$errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_READDIR . $directory;
 		}
@@ -255,6 +266,10 @@ switch($op) {
 			if (false === getUnusedImages($unused, $directory)) {
 				$errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_READDIR . $directory;
 			}
+            $directory = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums';
+            if (false === getUnusedImages($unused, $directory)) {
+                $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_READDIR . $directory;
+            }
 
 			if (count($unused) > 0) {
 				foreach($unused as $image) {
@@ -733,7 +748,7 @@ switch($op) {
         // post_max_size
         $type = str_replace('%s', 'post_max_size', _AM_WGGALLERY_MAINTENANCE_CHECK_TYPE);
         $value_ini = ini_get('post_max_size');
-        $value_pms_php = returnBytes($value_ini);
+        $value_pms_php = returnCleanBytes($value_ini);
         $maxsize_module = $wggallery->getConfig('maxsize');
         $result1 = str_replace(['%s', '%b'], [$value_ini, $value_pms_php], _AM_WGGALLERY_MAINTENANCE_CHECK_PMS_DESC);
         $result2 = str_replace('%s', $maxsize_module, _AM_WGGALLERY_MAINTENANCE_CHECK_MS_DESC);
@@ -748,7 +763,7 @@ switch($op) {
         // upload_max_filesize
         $type = str_replace('%s', 'upload_max_filesize', _AM_WGGALLERY_MAINTENANCE_CHECK_TYPE);
         $value_ini = ini_get('upload_max_filesize');
-        $value_umf_php = returnBytes($value_ini);
+        $value_umf_php = returnCleanBytes($value_ini);
         $result1 = str_replace(['%s', '%b'], [$value_ini, $value_umf_php], _AM_WGGALLERY_MAINTENANCE_CHECK_UMF_DESC);
         $result2 = str_replace('%s', $maxsize_module, _AM_WGGALLERY_MAINTENANCE_CHECK_MS_DESC);
         $change = false;
@@ -762,7 +777,7 @@ switch($op) {
         // memory_limit 
 		$type = str_replace('%s', 'memory_limit', _AM_WGGALLERY_MAINTENANCE_CHECK_TYPE);
         $value_ini = ini_get('memory_limit');
-        $value_ml_php = returnBytes($value_ini);
+        $value_ml_php = returnCleanBytes($value_ini);
         $result1 = str_replace(['%s', '%b'], [$value_ini, $value_ml_php], _AM_WGGALLERY_MAINTENANCE_CHECK_ML_DESC);
         $result2 = '';
         $change = false;
@@ -804,7 +819,7 @@ switch($op) {
     
 }
 
-function returnBytes($val) {
+function returnCleanBytes($val) {
     switch (substr($val, -1)) {
         case 'K':
         case 'k':
@@ -830,6 +845,7 @@ function getUnusedImages( &$unused, $directory ){
 	// Get instance of module
 	$wggallery = WggalleryHelper::getInstance();
 	$imagesHandler = $wggallery->getHandler('images');
+    $albumsHandler = $wggallery->getHandler('images');
 	
 	if(is_dir($directory)){
 		if ($handle = opendir($directory)) {
@@ -837,6 +853,7 @@ function getUnusedImages( &$unused, $directory ){
 				switch ($entry) {
 					case 'blank.gif':
 					case 'index.html':
+                    case 'noimage.png':
 					case '..':
 					case '.':
 					break;
@@ -846,10 +863,14 @@ function getUnusedImages( &$unused, $directory ){
 						$crImages->add(new Criteria('img_name', $entry));
 						$crImages->add(new Criteria('img_namelarge', $entry), 'OR');
 						$imagesCount = $imagesHandler->getCount($crImages);
+                        $crAlbums = new CriteriaCompo();
+						$crAlbums->add(new Criteria('alb_image', $entry));
+						$imagesCount += $albumsHandler->getCount($crAlbums);
 						if(0 == $imagesCount) {
 							$unused[] = array( 'name' => $entry, 'path' => $directory . '/' . $entry);
 						}
 						unset($crImages);
+                        unset($crAlbums);
 					break;
 				}
 			}

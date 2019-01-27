@@ -382,23 +382,19 @@ class WggalleryAlbumtypesHandler extends XoopsPersistableObjectHandler
 	}
 	
 	/**
-	 * Get primary Albumtype
+	 * Get options albumtype
 	 * @return array
 	 */
-/* 	public function getAlbumOptions()
+	public function getAlbumtypeOptions($atId)
 	{
-		$at_options = array();
-		$crAlbumtypes = new CriteriaCompo();
-		$crAlbumtypes->add(new Criteria('at_primary', 1));
-		$crAlbumtypes->setLimit( 1 );
-		$albumtypesAll = $this->getAll($crAlbumtypes);
-		foreach(array_keys($albumtypesAll) as $i) {
-			$at_options = $albumtypesAll[$i]->getVar('at_options');
-		}
-		$optionsTmp = explode('|', at_options);
-		
+		$albumtype = array();
+		$albumtypesObj = $this->get($atId);
+        $albumtype['name'] = $albumtypesObj->getVar('at_name');
+        $albumtype['template'] = $albumtypesObj->getVar('at_template');
+        $albumtype['options'] = $albumtypesObj->getVar('at_options', 'N');
+
 		return $albumtype;
-	} */
+	}
 
     
     /**

@@ -73,6 +73,14 @@ if(!is_dir($specimage)) {
 }
 copy($indexFile, $specimage.'/index.html');
 copy($blankFile, $specimage.'/blank.gif');
+// Making of temp images folder
+$specimage = $images.'/temp';
+if(!is_dir($specimage)) {
+	mkdir($specimage, 0777);
+	chmod($specimage, 0777);
+}
+copy($indexFile, $specimage.'/index.html');
+copy($blankFile, $specimage.'/blank.gif');
 // Making of watermark images folder
 $imgwatermark = XOOPS_ROOT_PATH.'/modules/wggallery/assets/images/wedega_logo.png';
 $specimage = $images.'/watermarks';

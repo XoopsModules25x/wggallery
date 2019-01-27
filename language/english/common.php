@@ -41,7 +41,7 @@ define('_CO_WGGALLERY_FORM_TOGGLE_SELECT', 'select/unselect all');
 define('_CO_WGGALLERY_FORM_IMAGEPICKER', 'Select an image');
 define('_CO_WGGALLERY_FORM_SUBMIT_SUBMITUPLOAD', 'Submit and goto images upload');
 define('_CO_WGGALLERY_FORM_SUBMIT_WMTEST', 'Submit and show test image');
-
+define('_CO_WGGALLERY_FORM_ERROR_INVALIDID', 'Invalid Id');
 // Save/Delete
 define('_CO_WGGALLERY_FORM_OK', 'Successfully saved');
 define('_CO_WGGALLERY_FORM_DELETE_OK', 'Successfully deleted');
@@ -92,7 +92,8 @@ define('_CO_WGGALLERY_ALBUM_IMGCAT', 'Source for album image');
 define('_CO_WGGALLERY_ALBUM_USE_EXIST', 'Use an image of album as album image');
 define('_CO_WGGALLERY_ALBUM_IMGID', 'Existing images in this album');
 define('_CO_WGGALLERY_ALBUM_USE_UPLOADED', 'Use an uploaded image as album image');
-// define('_CO_WGGALLERY_ALBUM_USE_GRID', 'Create a grid of top 4');
+define('_CO_WGGALLERY_ALBUM_CREATE_GRID', 'Create a grid');
+define('_CO_WGGALLERY_ALBUM_CROP_IMAGE', 'Crop image');
 define('_CO_WGGALLERY_ALBUM_FORM_UPLOAD_IMAGE', 'Upload a new image');
 define('_CO_WGGALLERY_ALBUM_STATE', 'State');
 define('_CO_WGGALLERY_ALBUM_DELETE_DESC', 'Attention: All images linked to this album will also be deleted');
@@ -104,6 +105,33 @@ define('_CO_WGGALLERY_ALBUM_SELECT_DESC', 'Please select album for uploading ima
 define('_CO_WGGALLERY_ALBUMS_SHOW', 'Show all albums');
 define('_CO_WGGALLERY_ALBUMS_SORT', 'Sorting of albums');
 define('_CO_WGGALLERY_ALBUM_SORT_SHOWHIDE', 'Click to show/hide the sub items');
+// album image handler
+define('_CO_WGGALLERY_ALBUM_IH_APPLY', 'Apply');
+define('_CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT', 'Edsit album image');
+define('_CO_WGGALLERY_ALBUM_IH_CURRENT', 'Current');
+define('_CO_WGGALLERY_ALBUM_IH_GRID4', 'Use 4 images');
+define('_CO_WGGALLERY_ALBUM_IH_GRID6', 'Use 6 images');
+define('_CO_WGGALLERY_ALBUM_IH_GRID_SRC1', 'Select image 1');
+define('_CO_WGGALLERY_ALBUM_IH_GRID_SRC2', 'Select image 2');
+define('_CO_WGGALLERY_ALBUM_IH_GRID_SRC3', 'Select image 3');
+define('_CO_WGGALLERY_ALBUM_IH_GRID_SRC4', 'Select image 4');
+define('_CO_WGGALLERY_ALBUM_IH_GRID_SRC5', 'Select image 5');
+define('_CO_WGGALLERY_ALBUM_IH_GRID_SRC6', 'Select image 6');
+define('_CO_WGGALLERY_ALBUM_IH_GRID_CREATE', 'Create grid');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_CREATE', 'Create image');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_MOVE', 'Move');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_ZOOMIN', 'Zoom in');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_ZOOMOUT', 'Zomm out');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_MOVE_LEFT', 'Move left');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_MOVE_RIGHT', 'Move right');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_MOVE_UP', 'Move up');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_MOVE_DOWN', 'Move down');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_ROTATE_LEFT', 'Rotate left');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_ROTATE_RIGHT', 'Rotate right');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_FLIP_HORIZONTAL', 'Flip horizontal');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_FLIP_VERTICAL', 'Flip vertical');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_ASPECTRATIO', 'Aspect ratio');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_ASPECTRATIO_FREE', 'Free');
 
 define('_CO_WGGALLERY_IMAGE', 'Image');
 define('_CO_WGGALLERY_IMAGES', 'Images');

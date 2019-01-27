@@ -147,16 +147,26 @@ switch($op) {
                     break;
                     case WGGALLERY_IMAGE_LARGE:
                         $maxwidth  = $wggallery->getConfig('maxwidth_large');
+                        if ( 0 === intval($maxwidth) ) { $maxwidth  = $wggallery->getConfig('maxwidth');}
                         $maxheight = $wggallery->getConfig('maxheight_large');
+                        if ( 0 === intval($maxheight) ) { $maxheight  = $wggallery->getConfig('maxheight');}
                     break;
                     case WGGALLERY_IMAGE_MEDIUM:
                     default:
                         $maxwidth  = $wggallery->getConfig('maxwidth_medium');
-                        $maxheight = $wggallery->getConfig('maxheight_medium');
+                        if ( 0 === intval($maxwidth) ) { $maxwidth  = $wggallery->getConfig('maxwidth');}
+                        $maxheight = $wggallery->getConfig('maxheight');
+                        if ( 0 === intval($maxheight) ) { $maxheight  = $wggallery->getConfig('maxheight');}
                     break;
                 }
-                $ret = resizeImage(WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename, WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename, $maxwidth, $maxheight, $imageMimetype);
-                $albumsObj->setVar('alb_imgcat', WGGALLERY_ALBUM_IMGCAT_USE_UPLOADED);
+				$imgHandler = new wgImagehandler;
+				$imgHandler->sourceFile = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename;
+				$imgHandler->endFile = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename;
+				$imgHandler->imageMimetype = $imageMimetype;
+				$imgHandler->maxWidth = $maxwidth;
+				$imgHandler->maxHeight = $maxheight;
+				$result = $imgHandler->ResizeImage();
+                $albumsObj->setVar('alb_imgcat', WGGALLERY_ALBUM_IMGCAT_USE_UPLOADED_VAL);
 			}
 		} else {
 			if ( '' < $fileName ) { 

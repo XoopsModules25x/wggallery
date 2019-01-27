@@ -171,7 +171,7 @@ switch($op) {
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 		// Get Form
 		$imagesObj = $imagesHandler->get($imgId);
-		$form = $imagesObj->getFormImages();
+		$form = $imagesObj->getFormImages(true);
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());
 	break;
     

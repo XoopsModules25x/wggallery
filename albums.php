@@ -31,7 +31,8 @@ $op       = Request::getString('op', 'list');
 $albId    = Request::getInt('alb_id', 0);
 $albPid   = Request::getInt('alb_pid');
 $albSubm  = Request::getInt('alb_submitter');
-$albPid   = Request::getInt('alb_pid');
+$start    = Request::getInt('start', 0);
+$limit    = Request::getInt('limit', $wggallery->getConfig('adminpager'));
 
 if (_CANCEL === Request::getString('cancel', 'none')) {
 	$op = 'list';
@@ -39,6 +40,8 @@ if (_CANCEL === Request::getString('cancel', 'none')) {
 if (_CO_WGGALLERY_FORM_SUBMIT_SUBMITUPLOAD === Request::getString('submit_upload', 'none')) {
 	$redir = 'upload';
 }
+
+$uid = $xoopsUser instanceof \XoopsUser ? $xoopsUser->id() : 0;
 
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet( $style, null );
@@ -50,6 +53,8 @@ $GLOBALS['xoTheme']->addScript( XOOPS_URL . '/modules/wggallery/assets/js/admin.
 // assign vars
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_32', WGGALLERY_ICONS_URL . '/32');
+$GLOBALS['xoopsTpl']->assign('wggallery_upload_image_url', WGGALLERY_UPLOAD_IMAGE_URL);
+$GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
 $GLOBALS['xoopsTpl']->assign('gallery_target', $wggallery->getConfig('gallery_target'));
 $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $wggallery->getConfig('show_breadcrumbs'));
 
@@ -65,8 +70,6 @@ switch($op) {
 		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/css/nestedsortable.css' );
         $GLOBALS['xoopsTpl']->assign('albpid', $albPid);
 
-		$start = Request::getInt('start', 0);
-		$limit = Request::getInt('limit', $wggallery->getConfig('adminpager'));
         $crAlbums = new CriteriaCompo();
         if ( !$permissionsHandler->permGlobalSubmit() ) {
             $crAlbums->add(new Criteria('alb_state', WGGALLERY_STATE_ONLINE_VAL));
@@ -79,7 +82,6 @@ switch($op) {
 		$albumsCount = $albumsHandler->getCount($crAlbums);
 		$albumsAll = $albumsHandler->getAll($crAlbums);
 		$GLOBALS['xoopsTpl']->assign('albums_count', $albumsCount);
-		$GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
 		$GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
 		// Table view albums
 		if($albumsCount > 0) {
@@ -108,6 +110,7 @@ switch($op) {
 		$pr_gallery = $gallerytypesHandler->getPrimaryGallery();
 		$GLOBALS['xoopsTpl']->assign('gallery', 'none' !== $pr_gallery['template']);
 		$GLOBALS['xoopsTpl']->assign('goback', 0 < $albPid);
+        $GLOBALS['xoopsTpl']->assign('force', time());
 	break;
 	case 'new':
 		// Get Form
@@ -120,6 +123,7 @@ switch($op) {
 			redirect_header('albums.php', 3, _NOPERM);
 		}
 	break;
+	
 	case 'save':
         // Security Check
 		if(!$GLOBALS['xoopsSecurity']->check()) {
@@ -128,6 +132,7 @@ switch($op) {
 		if (!$permissionsHandler->permGlobalSubmit()) {
 			redirect_header('albums.php', 3, _NOPERM);
 		}
+        $albNew = 0;
 		if( 0 < $albId) {
 			$albumsObj = $albumsHandler->get($albId);
             if ( !$permissionsHandler->permAlbumEdit($albId, $albumsObj->getVar('alb_submitter')) ) {
@@ -135,6 +140,7 @@ switch($op) {
             }
 		} else {
 			$albumsObj = $albumsHandler->create();
+            $albNew = 1;
 		}
 		// Set Vars
 		$albumsObj->setVar('alb_pid', $albPid);             
@@ -144,64 +150,9 @@ switch($op) {
 		$albumsObj->setVar('alb_name', $alb_name);
 		$albumsObj->setVar('alb_desc', Request::getString('alb_desc'));
 		$albumsObj->setVar('alb_weight', Request::getInt('alb_weight'));
-		// Set Var alb_image
         $albumsObj->setVar('alb_imgcat', Request::getInt('alb_imgcat'));
-		include_once XOOPS_ROOT_PATH .'/class/uploader.php';
-        $fileName = $_FILES['attachedfile']['name'];
-        $imageMimetype = $_FILES['attachedfile']['type'];
-        $uploaderErrors = '';
-		$uploader = new XoopsMediaUploader(WGGALLERY_UPLOAD_IMAGE_PATH.'/albums/', 
-													$wggallery->getConfig('mimetypes'), 
-													$wggallery->getConfig('maxsize'), null, null);
-		if($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
-			$extension = preg_replace('/^.+\.([^.]+)$/sU', '', $fileName);
-			$imgName = str_replace(' ', '', $alb_name).'.'.$extension;
-			$uploader->setPrefix($imgName);
-			$uploader->fetchMedia($_POST['xoops_upload_file'][0]);
-			if(!$uploader->upload()) {
-				$uploaderErrors = $uploader->getErrors();
-			} else {
-				$savedFilename = $uploader->getSavedFileName();
-                $albumsObj->setVar('alb_image', $savedFilename);
-                // resize image 
-                include_once XOOPS_ROOT_PATH .'/modules/wggallery/include/imagehandler.php';
-                $alb_resize = Request::getInt('alb_resize');
-                switch ($alb_resize) {
-                    case WGGALLERY_IMAGE_THUMB:
-                        $maxwidth  = $wggallery->getConfig('maxwidth_thumbs');
-                        $maxheight = $wggallery->getConfig('maxheight_thumbs');
-                    break;
-                    case WGGALLERY_IMAGE_LARGE:
-                        $maxwidth  = $wggallery->getConfig('maxwidth_large');
-                        $maxheight = $wggallery->getConfig('maxheight_large');
-                    break;
-                    case WGGALLERY_IMAGE_MEDIUM:
-                    default:
-                        $maxwidth  = $wggallery->getConfig('maxwidth_medium');
-                        $maxheight = $wggallery->getConfig('maxheight_medium');
-                    break;
-                }
-                $ret = resizeImage(WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename, WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename, $maxwidth, $maxheight, $imageMimetype);
-                $albumsObj->setVar('alb_imgcat', WGGALLERY_ALBUM_IMGCAT_USE_UPLOADED);
-			}
-		} else {
-			if ( '' < $fileName ) { 
-                $uploaderErrors = $uploader->getErrors();
-            }
-            $albumsObj->setVar('alb_image', Request::getString('alb_image'));
-		}
-        $imgName = Request::getString('alb_imgid', 'none');
-        $albImgid = 0;
-        if ('none' !== $imgName) {
-            $crImages = new CriteriaCompo();
-            $crImages->add(new Criteria('img_name', $imgName));
-            $imagesAll = $imagesHandler->getAll($crImages);
-			// Get All Images
-			foreach(array_keys($imagesAll) as $i) {
-				$albImgid = $imagesAll[$i]->getVar('img_id');
-			}
-        }
-		$albumsObj->setVar('alb_imgid', $albImgid);
+		$albumsObj->setVar('alb_image', Request::getString('alb_image'));
+		$albumsObj->setVar('alb_imgid', Request::getInt('alb_imgid'));
         $albState = Request::getInt('alb_state');
         if ( WGGALLERY_PERM_SUBMITAPPR === $permissionsHandler->permGlobalSubmit() && WGGALLERY_STATE_ONLINE_VAL === $albState) {
             $albumsObj->setVar('alb_state', WGGALLERY_STATE_APPROVAL_VAL);
@@ -250,17 +201,20 @@ switch($op) {
                     $gpermHandler->addRight('wggallery_dlimage_medium', $permId, $onegroupId, $perm_modid);
                 }
             }
-			$albumsHandler->setAlbumIsCat();
-            if ( '' !== $uploaderErrors ) {
-                redirect_header('albums.php?op=edit&alb_id=' . $permId, 4, $uploaderErrors);
+            if ( $albNew ) {
+                $notificationHandler = xoops_getHandler('notification');
+                $notificationHandler->triggerEvent('global', $newAlbId, 'album_new');
             } else {
-                if ( 'upload' === $redir ) {
-                    redirect_header('upload.php?alb_id=' . $permId, 2, _CO_WGGALLERY_FORM_OK);
-                } else {
-                    redirect_header('albums.php?op=list' . '&amp;alb_pid=' .$albPid, 2, _CO_WGGALLERY_FORM_OK);
-                }
+                $notificationHandler = xoops_getHandler('notification');
+                $notificationHandler->triggerEvent('global', $albId, 'album_modify');
             }
-			
+			$albumsHandler->setAlbumIsCat();
+			if ( 'upload' === $redir ) {
+				
+				redirect_header('upload.php?alb_id=' . $permId, 2, _CO_WGGALLERY_FORM_OK);
+			} else {
+				redirect_header('albums.php?op=list' . '&amp;alb_pid=' .$albPid, 2, _CO_WGGALLERY_FORM_OK);
+			}			
 		}
 		// Get Form
 		$GLOBALS['xoopsTpl']->assign('error', $albumsObj->getHtmlErrors());
@@ -313,9 +267,7 @@ switch($op) {
 			$form = $wggallery->getFormDelete(array('ok' => 1, 'alb_id' => $albId, 'op' => 'delete'), _CO_WGGALLERY_FORM_DELETE, $albumsObj->getVar('alb_name'), _CO_WGGALLERY_ALBUM_DELETE_DESC);
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
 		}
-
 	break;
-    
     case 'order':
         $aorder = $_POST['menuItem'];
 		$i = 0;

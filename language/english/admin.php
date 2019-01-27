@@ -227,7 +227,8 @@ define('_AM_WGGALLERY_MAINTENANCE_AT_SUREDELETE', 'All existing albumtypes (sett
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE', 'Resize images');
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE_DESC', 'Resize images or thumbs to max height corresponding module preferences.<br>Current settings:<br>a) medium: max width %mw px / max height %mh px<br>b) thumb: max width %tw px / max height %th px');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED', 'Cleanup image directory');
-define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC', 'All currently unused album images (not included in any albums) from following directories will be deleted:<ul>
+define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC', 'All currently unused album images from following directories will be deleted:<ul>
+<li>%p/albums/</li>
 <li>%p/large/</li>
 <li>%p/medium/</li>
 <li>%p/thumbs/</li>
@@ -236,7 +237,7 @@ define('_AM_WGGALLERY_MAINTENANCE_DELETE_INVALID', "Delete invalid items in tabl
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_INVALID_DESC', "Delete invalid items in table 'images', e.g. item was created, but something went wrong during upload");
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_INVALID_IMG', "Invalid item: img_id ");
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_NONE', 'No unused images found');
-define('_AM_WGGALLERY_MAINTENANCE_DUI_SUREDELETE', 'All currently unused album images (not included in any albums) will be deleted! Do you want to continue?');
+define('_AM_WGGALLERY_MAINTENANCE_DUI_SUREDELETE', 'All currently unused album images will be deleted! Do you want to continue?');
 define('_AM_WGGALLERY_MAINTENANCE_WATERMARK', 'Add watermarks to an album later');
 define('_AM_WGGALLERY_MAINTENANCE_WATERMARK_DESC', 'Add watermarks to a selected album.<br>Attention: existing watermarks will be not removed.<br>If there are already watermarks on, an additional watermark will be added to images.');
 define('_AM_WGGALLERY_MAINTENANCE_WATERMARK_SELECT', 'Select album');

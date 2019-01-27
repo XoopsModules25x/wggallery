@@ -131,7 +131,7 @@
                                 <{/if}>
                             </td>
                             <td class='center'><{$image.ip}></td>
-                            <{if $show_exif}><td class='left'><{$image.exif}></td><{/if}>
+                            <{if $show_exif}><td class='left'><{$image.exif_short}></td><{/if}>
                             <td class='center'><{$image.date}></td>
                             <td class='center'><{$image.submitter}></td>
                             <td class='center  width10'>

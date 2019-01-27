@@ -8,7 +8,7 @@
 			<{foreach item=album from=$albums_list}>
 				<div class='row wgg-album-list'>
 					<div class='col-sm-4'>
-						<img class='img-responsive wgg-album-img' src='<{$album.image}>' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_IMAGE}> <{$album.name}>'/>
+						<img class='img-responsive wgg-album-img' src='<{$album.image}>?<{$force}>' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_IMAGE}> <{$album.name}>'/>
 					</div>
 					<div class='col-sm-4'>
 						<p class='wgg-album-name'><{$album.name}></p>
@@ -41,20 +41,23 @@
 							<span class = 'btn btn-default wgg-btn'><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/photos.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>' /><{$album.nb_images}></span>
 						<{/if}>
 						<{if $album.edit}>
-                            <a class='btn btn-default wgg-btn' href='albums.php?op=edit&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$album.pid}>' title='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>'>
+                            <a class='btn btn-default wgg-btn' href='images.php?op=manage&amp;ref=albums&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$album.pid}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}>'>
+                                <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/images.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}>' /><{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}>
+                            </a>
+							<{if 0 == $album.iscat}>
+								<a class='btn btn-default wgg-btn' href='upload.php?op=list&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$album.pid}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}>'>
+									<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/upload.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}>' /><{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}>
+								</a>
+                            <{/if}>
+							<a class='btn btn-default wgg-btn' href='albums.php?op=edit&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$album.pid}>' title='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>'>
                                 <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/edit.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>' /><{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>
                             </a>
-                            <a class='btn btn-default wgg-btn' href='images.php?op=manage&amp;ref=albums&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$album.pid}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}>'>
-                                <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/edit.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}>' /><{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}>
+                            <a class='btn btn-default wgg-btn' href='album_images.php?op=imghandler&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$album.pid}>' title='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}>'>
+                                <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/album_images.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}>' /><{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}>
                             </a>
                             <a class='btn btn-default wgg-btn' href='albums.php?op=delete&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$album.pid}>' title='<{$smarty.const._DELETE}>'>
                                 <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/delete.png' alt='<{$smarty.const._DELETE}>' /><{$smarty.const._DELETE}>
                             </a>
-                            <{if 0 == $album.iscat}>
-                            <a class='btn btn-default wgg-btn' href='upload.php?op=list&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$album.pid}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}>'>
-                                <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/upload.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}>' /><{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}>
-                            </a>
-                            <{/if}>
                         <{/if}>
 						
 						<{if $album.nb_subalbums}>

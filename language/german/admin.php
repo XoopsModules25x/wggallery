@@ -227,7 +227,8 @@ define('_AM_WGGALLERY_MAINTENANCE_AT_SUREDELETE', 'Alle derzeit bestehenden Albu
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE', 'Größenänderung Bilder');
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE_DESC', 'Erneute Größenänderung der mittleren Bilder oder Vorschaubilder entsprechend der vorgegeben Höhe in den Moduleinstellungen.<br>Aktuelle Einstellungen:<br>a) Mittlere Bilder: maximale Breite %mw px / maximale Höhe %mh px<br>b) Vorschaubilder: maximale Breite %tw px / maximale Höhe %th px');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED', 'Bilderverzeichnis bereinigen');
-define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC', 'Alle derzeit nicht verwendeten Albumbilder (nicht in einem Album enthalten) in folgenden Verzeichissen werden gelöscht:<ul>
+define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC', 'Alle derzeit nicht verwendeten Albumbilder in folgenden Verzeichissen werden gelöscht:<ul>
+<li>%p/albums/</li>
 <li>%p/large/</li>
 <li>%p/medium/</li>
 <li>%p/thumbs/</li>
@@ -236,7 +237,7 @@ define('_AM_WGGALLERY_MAINTENANCE_DELETE_INVALID', "Löschen von ungültigen Ein
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_INVALID_DESC', "Löschen von ungültigen Einträge in Tabelle 'Bilder', z.B. wenn zwar ein Eintrag im der Tabelle erstellt wurde, jedoch beim Upload etwas fehlgeschlagen ist");
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_INVALID_IMG', "Ungültigen Eintrag: img_id ");
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_NONE', 'Es wurden keine nicht verwendeten Albumbilder gefunden');
-define('_AM_WGGALLERY_MAINTENANCE_DUI_SUREDELETE', 'Alle derzeit nicht verwendeten Albumbilder (nicht in einem Album enthalten) werden gelöscht! Wollen Sie wirklich fortsetzen?');
+define('_AM_WGGALLERY_MAINTENANCE_DUI_SUREDELETE', 'Alle derzeit nicht verwendeten Albumbilder werden gelöscht! Wollen Sie wirklich fortsetzen?');
 define('_AM_WGGALLERY_MAINTENANCE_WATERMARK', 'Wasserzeichen zu Album nachträglich hinzufügen');
 define('_AM_WGGALLERY_MAINTENANCE_WATERMARK_DESC', 'Ein Wasserzeichen zu einem Album hinzufügen.<br>Achtung: bestehende Wasserzeichen werden nicht entfernt.<br>Wenn bereits ein Wasserzeichen vorhanden ist, wird den Bildern ein zusätzliches Wasserzeichen hinzugefügt.');
 define('_AM_WGGALLERY_MAINTENANCE_WATERMARK_SELECT', 'Album auswählen');

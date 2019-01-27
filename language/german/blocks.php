@@ -21,16 +21,19 @@
  * @version        $Id: 1.0 blocks.php 1 Mon 2018-03-19 10:04:53Z XOOPS Project (www.xoops.org) $
  */
 // Admin Edit
+define('_MB_WGGALLERY_TITLE_SHOW', 'Titel anzeigen');
 define('_MB_WGGALLERY_TITLE_LENGTH', 'Länge des Titels (0 bedeutet ohne Limit)');
+define('_MB_WGGALLERY_DESC_SHOW', 'Beschreibung anzeigen');
+define('_MB_WGGALLERY_DESC_LENGTH', 'Länge der Beschreibung (0 bedeutet ohne Limit)');
 define('_MB_WGGALLERY_SHOW', 'Aktion nach Klick auf ein Album');
-define('_MB_WGGALLERY_SHOW_GALLERY', 'Bildershow anzeigen');
+define('_MB_WGGALLERY_SHOW_GALLERY', 'Bildershow anzeigen (sofern ein Galerietyp ausgewählt wurde)');
 define('_MB_WGGALLERY_SHOW_INDEX', 'Bildindexseite anzeigen');
-define('_MB_WGGALLERY_NUMB_ALBUMS', 'Anzahl der Alben für Anzeige');
-define('_MB_WGGALLERY_TYPE', 'Block Typ');
-define('_MB_WGGALLERY_TYPE_BLOCK', 'Als Standardblock anzeigen');
-define('_MB_WGGALLERY_TYPE_CONTAINER', 'In eigenem Container anzeigen');
-define('_MB_WGGALLERY_TYPE_CONTAINER_WIDTH', 'Breite des Containers in px (wenn ausgewählt)');
+define('_MB_WGGALLERY_NUMB_ALBUMS', 'Anzahl der Alben für Anzeige pro Reihe');
 define('_MB_WGGALLERY_ALBUMS_DISPLAYLIST', 'Wieviele Alben sollen für die Anzeigeliste geladen werden');
 define('_MB_WGGALLERY_ALBUMS_TO_DISPLAY', 'Anzuzeigende Alben');
 define('_MB_WGGALLERY_ALL_ALBUMS', "Alle Alben mit Status 'online'");
 define('_MB_WGGALLERY_IMAGES_DISPLAYLIST', 'Wieviele Bilder sollen für die Anzeigeliste geladen werdent');
+define('_MB_WGGALLERY_ALBUMTYPES', 'Folgenden Albumtyp für Anzeige verwenden');
+define('_MB_WGGALLERY_ALBUMTYPES_PRIMARY', 'Primären Albumtyp verwenden');
+define('_MB_WGGALLERY_ALBUMTYPES_OTHER', "Unabhängig vom primären Albumtyp '%s' verwenden");
+define('_MB_WGGALLERY_NUMB_IMAGES', 'Anzahl der Bilder für Anzeige pro Reihe');

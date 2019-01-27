@@ -25,15 +25,20 @@ include_once XOOPS_ROOT_PATH.'/modules/wggallery/include/common.php';
 function b_wggallery_albums_show($options)
 {
     include_once XOOPS_ROOT_PATH.'/modules/wggallery/class/albums.php';
-    $block           = array();
-    $typeBlock       = $options[0];
-    $limit           = $options[1];
-    $lenghtTitle     = $options[2];
-    $numb_albums     = $options[3];
-    $gallery         = $options[4];
-    $container       = $options[5];
-	$container_width = $options[6];
-	array_shift($options);
+    $block        = array();
+    $typeBlock    = $options[0];
+    $bnbAlbums    = $options[1];
+    $bshowTitle   = $options[2];
+    $blenghtTitle = $options[3];
+    $bshowDesc    = $options[4];
+    $blenghtDesc  = $options[5];
+    $bnbAlbumsRow = $options[6];
+    $bgallery     = $options[7];
+    $bAlbumType   = $options[8];
+    
+    array_shift($options);
+    array_shift($options);
+    array_shift($options);
     array_shift($options);
     array_shift($options);
     array_shift($options);
@@ -42,48 +47,59 @@ function b_wggallery_albums_show($options)
     array_shift($options);
 
     $wggallery = WggalleryHelper::getInstance();
-	$albumtypesHandler = $wggallery->getHandler('albumtypes');
-	$pr_album = $albumtypesHandler->getPrimaryAlbum();
-
-	$template = $pr_album['template'];
-	// assign all album options
-	$atoptions = unserialize($pr_album['options'], ['allowed_classes' => false]);
-	foreach ($atoptions as $atoption) {
-		$GLOBALS['xoopsTpl']->assign($atoption['name'], $atoption['value']);
-	}
+    
+    // assign block options
+    $GLOBALS['xoopsTpl']->assign('ba_showTitle', $bshowTitle);
+    $GLOBALS['xoopsTpl']->assign('ba_showDesc', $bshowDesc);
+    $GLOBALS['xoopsTpl']->assign('bnbAlbumsRow', $bnbAlbumsRow);
+    
+    
+    $albumtypesHandler = $wggallery->getHandler('albumtypes');
+    $gallerytypesHandler = $wggallery->getHandler('gallerytypes');
+    if ( 0 === intval($bAlbumType) ) {
+        $useAlbumType = $albumtypesHandler->getPrimaryAlbum();
+    } else {
+        $useAlbumType = $albumtypesHandler->getAlbumtypeOptions($bAlbumType);
+    }
+    
+    $template = $useAlbumType['template'];
+    // assign all album options
+    $atoptions = unserialize($useAlbumType['options'], ['allowed_classes' => false]);
+    foreach ($atoptions as $atoption) {
+        $GLOBALS['xoopsTpl']->assign($atoption['name'], $atoption['value']);
+    }
 	
-    // $GLOBALS['xoopsTpl']->assign('album_showsubmitter', $wggallery->getConfig('album_showsubmitter'));
-    $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
-	$GLOBALS['xoopsTpl']->assign('template', $template);
-    $GLOBALS['xoopsTpl']->assign('gallery', true);
-    $GLOBALS['xoopsTpl']->assign('container', true);
-    $GLOBALS['xoopsTpl']->assign('numb_albums', $numb_albums);
-    $GLOBALS['xoopsTpl']->assign('container', $container);
-	$GLOBALS['xoopsTpl']->assign('container_width', $container_width);
+	$GLOBALS['xoopsTpl']->assign('ba_template', $template);
+    // assign gallery options
+    $GLOBALS['xoopsTpl']->assign('ba_gallery_target', $wggallery->getConfig('gallery_target'));
+    $pr_gallery = $gallerytypesHandler->getPrimaryGallery();
+	$GLOBALS['xoopsTpl']->assign('ba_gallery', 'none' != $pr_gallery['template'] && 1 === intval($bgallery));
+    
     $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
+    $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+    
+    $GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/css/blocks/blocks.css', null );
     switch ($template) { 
         case 'hovereffectideas':
-			$GLOBALS['xoopsTpl']->assign('number_cols_album', $numb_albums);
+			$GLOBALS['xoopsTpl']->assign('number_cols_album', $bnbAlbumsRow);
 			$GLOBALS['xoopsTpl']->assign('inblock', '_block');
 			$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/albumtypes/hovereffectideas/style.css', null );
 			$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/albumtypes/hovereffectideas/fonts/font-awesome-4.2.0/css/font-awesome.min.css', null );
         break;
 		case 'simple':
-			$GLOBALS['xoopsTpl']->assign('number_cols_album', $numb_albums);
+			$GLOBALS['xoopsTpl']->assign('number_cols_album', $bnbAlbumsRow);
 			$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/albumtypes/simple/style.css' , null );
 		break;
         case 'bcards':
-			$GLOBALS['xoopsTpl']->assign('number_cols_album', $numb_albums);
+			$GLOBALS['xoopsTpl']->assign('number_cols_album', $bnbAlbumsRow);
 			$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/albumtypes/bcards/style.css' , null );
 		break;
         case 'default':
         default:
             $GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/albumtypes/default/albums_default.css', null );
-            
         break;
     }
 
-    
     $wggallery = WggalleryHelper::getInstance();
     $albumsHandler = $wggallery->getHandler('albums');
     $criteria = new CriteriaCompo();
@@ -112,11 +128,6 @@ function b_wggallery_albums_show($options)
             $criteria->setSort('alb_hits');
             $criteria->setOrder('DESC');
         break;
-		// For the block: albums top
-		case 'top':
-            $criteria->setSort('alb_top');
-            $criteria->setOrder('ASC');
-        break; 
         */
 		// For the block: albums random
 		case 'random':
@@ -130,36 +141,39 @@ function b_wggallery_albums_show($options)
 	}
     $albumsCount = $albumsHandler->getCount($criteria);
     
-    $criteria->setLimit($limit);
+    $criteria->setLimit($bnbAlbums);
     $albumsAll = $albumsHandler->getAll($criteria);
 	unset($criteria);
     $GLOBALS['xoopsTpl']->assign('albums_count', count($albumsAll));
     if ( count($albumsAll) < $albumsCount ) {
         $GLOBALS['xoopsTpl']->assign('show_more_albums', true);
     }
-    $GLOBALS['xoopsTpl']->assign('show_more_albums', true);
 	
-	$counter = 0;
+
+    $counter = 0;
     foreach(array_keys($albumsAll) as $i)
     {
         $block[$i] = $albumsAll[$i]->getValuesAlbums();
-        if ( 0 < $lenghtTitle && $lenghtTitle < strlen($block[$i]['name'])) {
-            $block[$i]['name_limited'] = substr($block[$i]['name'], 0, $lenghtTitle) . '...';
+        if ( 0 < $bshowTitle && 0 < $blenghtTitle && $blenghtTitle < strlen($block[$i]['name'])) {
+            $block[$i]['name_limited'] = substr($block[$i]['name'], 0, $blenghtTitle) . '...';
+        }
+        if ( 0 < $bshowDesc && 0 < $blenghtDesc && $blenghtDesc < strlen($block[$i]['desc'])) {
+            $block[$i]['desc_limited'] = substr($block[$i]['desc'], 0, $blenghtDesc) . '...';
         }
 		//set indicator for line break
         $counter++;
         if (1 === $counter) {
             $block[$i]['newrow'] = true;
         }
-        if ($numb_albums === $counter) {
+        if ($bnbAlbumsRow === $counter) {
             $block[$i]['linebreak'] = true;
             $counter = 0;
         }
     }
 	// add linebreak to last album item
     $block[$i]['linebreak'] = true;
-	// var_dump($block);
-    $GLOBALS['xoopsTpl']->assign('albums_list', $block);
+
+    $GLOBALS['xoopsTpl']->assign('balbums_list', $block);
     return $block;
 }
 
@@ -169,43 +183,57 @@ function b_wggallery_albums_edit($options)
     include_once XOOPS_ROOT_PATH.'/modules/wggallery/class/albums.php';
     $wggallery = WggalleryHelper::getInstance();
     $albumsHandler = $wggallery->getHandler('albums');
-    $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
-    $form  = "<input type='hidden' name='options[0]' value='".$options[0]."' />";
-    $form .= _MB_WGGALLERY_ALBUMS_DISPLAYLIST;
-    $form .= "<input type='text' name='options[1]' size='5' maxlength='255' value='" . $options[1] . "' />&nbsp;<br>";
-    $form .= _MB_WGGALLERY_TITLE_LENGTH." : <input type='text' name='options[2]' size='5' maxlength='255' value='" . $options[2] . "' /><br>";
-    $form .= _MB_WGGALLERY_NUMB_ALBUMS.": <select name='options[3]' size='4'>";
-    $form .= "<option value='1' " . (1 === intval($options[3]) ? "selected='selected'" : '') . '>1</option>';
-    $form .= "<option value='2' " . (2 === intval($options[3]) ? "selected='selected'" : '') . '>2</option>';
-    $form .= "<option value='3' " . (3 === intval($options[3]) ? "selected='selected'" : '') . '>3</option>';
-    $form .= "<option value='4' " . (4 === intval($options[3]) ? "selected='selected'" : '') . '>4</option>';
-    $form .= "<option value='6' " . (6 === intval($options[3]) ? "selected='selected'" : '') . '>6</option>';
-    $form .= '</select><br>';
-    $form .= _MB_WGGALLERY_SHOW.": <select name='options[4]' size='2'>";
-    $form .= "<option value='0' " . (0 === intval($options[4]) ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_SHOW_INDEX . '</option>';
-    $form .= "<option value='1' " . (1 === intval($options[4]) ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_SHOW_GALLERY . '</option>';
-    $form .= '</select><br>';
-    $form .= _MB_WGGALLERY_TYPE.": <select name='options[5]' size='2'>";
-    $form .= "<option value='0' " . (0 === intval($options[5]) ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_TYPE_BLOCK . '</option>';
-    $form .= "<option value='1' " . (1 === intval($options[5]) ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_TYPE_CONTAINER . '</option>';
-    $form .= '</select>&nbsp;';
-	$form .= _MB_WGGALLERY_TYPE_CONTAINER_WIDTH." : <input type='text' name='options[6]' size='5' maxlength='255' value='" . $options[6] . "' /><br>";
-    // $form .= _MB_WGGALLERY_STYLE.": <select name='options[6]' size='3'>";
-    // $form .= "<option value='0' " . (0 == $options[6] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_STYLE_DEFAULT . '</option>';
-    // $form .= "<option value='1' " . (1 == $options[6] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_STYLE_SLIDER . '</option>';
-    // $form .= '</select><br>';
-    array_shift($options);
-    array_shift($options);
-    array_shift($options);
-    array_shift($options);
-    array_shift($options);
-    array_shift($options);
     $criteria = new CriteriaCompo();
-    $criteria->add(new Criteria('alb_id', 0, '!='));
+    // $criteria->add(new Criteria('alb_id', 0, '!='));
     $criteria->setSort('alb_id');
     $criteria->setOrder('ASC');
     $albumsAll = $albumsHandler->getAll($criteria);
     unset($criteria);
+    $albumtypesHandler = $wggallery->getHandler('albumtypes');
+    $albumtypesAll = $albumtypesHandler->getAll();
+    unset($criteria);
+    
+    $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
+    $form  = "<input type='hidden' name='options[0]' value='".$options[0]."' />";
+    $form .= _MB_WGGALLERY_ALBUMS_DISPLAYLIST;
+    $form .= "<input type='text' name='options[1]' size='5' maxlength='255' value='" . $options[1] . "' />&nbsp;<br>";
+    $form .= _MB_WGGALLERY_TITLE_SHOW.": <select name='options[2]' size='2'>";
+    $form .= "<option value='0' " . (0 === intval($options[2]) ? "selected='selected'" : '') . '>' . _NO . '</option>';
+    $form .= "<option value='1' " . (1 === intval($options[2]) ? "selected='selected'" : '') . '>' . _YES . '</option>';
+    $form .= '</select><br>';
+    $form .= _MB_WGGALLERY_TITLE_LENGTH." : <input type='text' name='options[3]' size='5' maxlength='255' value='" . $options[3] . "' /><br>";
+    $form .= _MB_WGGALLERY_DESC_SHOW.": <select name='options[4]' size='2'>";
+    $form .= "<option value='0' " . (0 === intval($options[4]) ? "selected='selected'" : '') . '>' . _NO . '</option>';
+    $form .= "<option value='1' " . (1 === intval($options[4]) ? "selected='selected'" : '') . '>' . _YES . '</option>';
+    $form .= '</select><br>';
+    $form .= _MB_WGGALLERY_DESC_LENGTH." : <input type='text' name='options[5]' size='5' maxlength='255' value='" . $options[5] . "' /><br>";
+    $form .= _MB_WGGALLERY_NUMB_ALBUMS.": <select name='options[6]' size='4'>";
+    $form .= "<option value='1' " . (1 === intval($options[6]) ? "selected='selected'" : '') . '>1</option>';
+    $form .= "<option value='2' " . (2 === intval($options[6]) ? "selected='selected'" : '') . '>2</option>';
+    $form .= "<option value='3' " . (3 === intval($options[6]) ? "selected='selected'" : '') . '>3</option>';
+    $form .= "<option value='4' " . (4 === intval($options[6]) ? "selected='selected'" : '') . '>4</option>';
+    $form .= "<option value='6' " . (6 === intval($options[6]) ? "selected='selected'" : '') . '>6</option>';
+    $form .= '</select><br>';
+    $form .= _MB_WGGALLERY_SHOW.": <select name='options[7]' size='2'>";
+    $form .= "<option value='0' " . (0 === intval($options[7]) ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_SHOW_INDEX . '</option>';
+    $form .= "<option value='1' " . (1 === intval($options[7]) ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_SHOW_GALLERY . '</option>';
+    $form .= '</select><br>';
+    $form .= _MB_WGGALLERY_ALBUMTYPES.": <select name='options[8]' size='2'>";
+    $form .= "<option value='0' " . (0 === intval($options[8]) ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_ALBUMTYPES_PRIMARY . '</option>';
+    foreach (array_keys($albumtypesAll) as $i) {
+        $at_id = $albumtypesAll[$i]->getVar('at_id');
+        $form .= "<option value='" . $at_id . "' " . ($at_id == $options[8] ? "selected='selected'" : '' ) . '>' . str_replace( '%s', $albumtypesAll[$i]->getVar('at_name'), _MB_WGGALLERY_ALBUMTYPES_OTHER ) . '</option>';
+    }
+    $form .= '</select><br>';
+    array_shift($options);
+    array_shift($options);
+    array_shift($options);
+    array_shift($options);
+    array_shift($options);
+    array_shift($options);
+    array_shift($options);
+    array_shift($options);
+    
     $form .= _MB_WGGALLERY_ALBUMS_TO_DISPLAY."<br><select name='options[]' multiple='multiple' size='5'>";
     $form .= "<option value='0' " . (in_array(0, $options) === false ? '' : "selected='selected'") . '>' . _MB_WGGALLERY_ALL_ALBUMS . '</option>';
     foreach (array_keys($albumsAll) as $i) {

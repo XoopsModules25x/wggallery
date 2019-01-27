@@ -85,7 +85,7 @@ class WggalleryImages extends XoopsObject
 	 * @param bool $action
 	 * @return XoopsThemeForm
 	 */
-	public function getFormImages($action = false)
+	public function getFormImages($adminarea = false, $action = false)
 	{
 		$wggallery = WggalleryHelper::getInstance();
 		if(false === $action) {
@@ -109,37 +109,52 @@ class WggalleryImages extends XoopsObject
 		$editorConfigs['height'] = '400px';
 		$editorConfigs['editor'] = $wggallery->getConfig('editor');
 		$form->addElement(new XoopsFormEditor( _CO_WGGALLERY_IMAGE_DESC, 'img_desc', $editorConfigs));
-		// Form Text ImgName
-		$form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_NAME, 'img_name', 50, 255, $this->getVar('img_name') ), true);
-        // Form Text ImgNameLarge
-		$form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_NAMELARGE, 'img_namelarge', 50, 255, $this->getVar('img_namelarge') ), true);
-		// Form Text ImgOrigname
-		$form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_NAMEORIG, 'img_nameorig', 50, 255, $this->getVar('img_nameorig') ), true);
-		// Form Text ImgMimetype
-		$imgMimetype = $this->isNew() ? '0' : $this->getVar('img_mimetype');
-		$form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_MIMETYPE, 'img_mimetype', 20, 150, $imgMimetype ));
-		// Form Text ImgSize
-		$imgSize = $this->isNew() ? '0' : $this->getVar('img_size');
-		$form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_SIZE, 'img_size', 20, 150, $imgSize ));
-		// Form Text ImgResx
-		$imgResx = $this->isNew() ? '0' : $this->getVar('img_resx');
-		$form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_RESX, 'img_resx', 20, 150, $imgResx ));
-		// Form Text ImgResy
-		$imgResy = $this->isNew() ? '0' : $this->getVar('img_resy');
-		$form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_RESY, 'img_resy', 20, 150, $imgResy ));
+        $imgMimetype = $this->isNew() ? '0' : $this->getVar('img_mimetype');
+        $imgSize = $this->isNew() ? '0' : $this->getVar('img_size');
+        $imgResx = $this->isNew() ? '0' : $this->getVar('img_resx');
+        $imgResy = $this->isNew() ? '0' : $this->getVar('img_resy');
+        if ( $adminarea ) {
+            $form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_NAME, 'img_name', 50, 255, $this->getVar('img_name') ), true);
+            $form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_NAMELARGE, 'img_namelarge', 50, 255, $this->getVar('img_namelarge') ), true);
+            $form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_NAMEORIG, 'img_nameorig', 50, 255, $this->getVar('img_nameorig') ), true);
+            $form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_MIMETYPE, 'img_mimetype', 20, 150, $imgMimetype ));
+            $form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_SIZE, 'img_size', 20, 150, $imgSize ));
+            $form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_RESX, 'img_resx', 20, 150, $imgResx ));
+            $form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_RESY, 'img_resy', 20, 150, $imgResy ));
+        } else {
+            $form->addElement(new XoopsFormLabel( _CO_WGGALLERY_IMAGE_NAME, $this->getVar('img_name') ));
+            $form->addElement(new XoopsFormLabel( _CO_WGGALLERY_IMAGE_NAMELARGE, $this->getVar('img_namelarge') ));
+            $form->addElement(new XoopsFormLabel( _CO_WGGALLERY_IMAGE_NAMEORIG, $this->getVar('img_nameorig') ));
+            $form->addElement(new XoopsFormLabel( _CO_WGGALLERY_IMAGE_MIMETYPE, $imgMimetype ));
+            $form->addElement(new XoopsFormLabel( _CO_WGGALLERY_IMAGE_SIZE, $imgSize ));
+            $form->addElement(new XoopsFormLabel( _CO_WGGALLERY_IMAGE_RESX, $imgResx ));
+            $form->addElement(new XoopsFormLabel( _CO_WGGALLERY_IMAGE_RESY, $imgResy ));
+            $form->addElement(new XoopsFormHidden('img_name', $this->getVar('img_name')));
+            $form->addElement(new XoopsFormHidden('img_namelarge', $this->getVar('img_namelarge')));
+            $form->addElement(new XoopsFormHidden('img_nameorig', $this->getVar('img_nameorig')));
+            $form->addElement(new XoopsFormHidden('img_mimetype', $imgMimetype));
+            $form->addElement(new XoopsFormHidden('img_size', $imgSize));
+            $form->addElement(new XoopsFormHidden('img_resx', $imgResx));
+            $form->addElement(new XoopsFormHidden('img_resy', $imgResy));
+        }
+		
 		// Form Text ImgDownloads
 		$imgDownloads = $this->isNew() ? '0' : $this->getVar('img_downloads');
 		$form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_DOWNLOADS, 'img_downloads', 20, 150, $imgDownloads ));
-		// Form Text ImgRatinglikes
-		$imgRatinglikes = $this->isNew() ? '0' : $this->getVar('img_ratinglikes');
-		$form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_RATINGLIKES, 'img_ratinglikes', 20, 150, $imgRatinglikes ));
-		// Form Text ImgVotes
-		$imgVotes = $this->isNew() ? '0' : $this->getVar('img_votes');
-		$form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_VOTES, 'img_votes', 20, 150, $imgVotes ));
+		// Form Text ImgRatinglikes TODO
+		// $imgRatinglikes = $this->isNew() ? '0' : $this->getVar('img_ratinglikes');
+		// $form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_RATINGLIKES, 'img_ratinglikes', 20, 150, $imgRatinglikes ));
+		// Form Text ImgVotes TODO
+		// $imgVotes = $this->isNew() ? '0' : $this->getVar('img_votes');
+		// $form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_VOTES, 'img_votes', 20, 150, $imgVotes ));
 		// Form Text ImgWeight
 		$imgWeight = $this->isNew() ? '0' : $this->getVar('img_weight');
-		$form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_WEIGHT, 'img_weight', 20, 150, $imgWeight ));
-		// Form Table albums
+        if ( $adminarea ) {
+            $form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_WEIGHT, 'img_weight', 20, 150, $imgWeight ));
+		} else {
+            $form->addElement(new XoopsFormHidden('img_weight', $imgWeight));
+        }
+        // Form Table albums
 		$albumsHandler = $wggallery->getHandler('albums');
 		$imgAlbidSelect = new XoopsFormSelect( _CO_WGGALLERY_IMAGE_ALBID, 'img_albid', $this->getVar('img_albid'));
 		$imgAlbidSelect->addOptionArray($albumsHandler->getList());
@@ -204,18 +219,21 @@ class WggalleryImages extends XoopsObject
         $exif_text = '';
         if ( $wggallery->getConfig('store_exif') ) {
             $exifs = unserialize ( $this->getVar('img_exif'), ['allowed_classes' => false]);
-            foreach ( $exifs as $key => $value) {
-                if (is_array ( $value )) {
-                    $exif_text .= $key . ': <br>';
-                    foreach ( $value as $skey => $svalue) {
-                        $exif_text .= ' - ' . $skey . ': ' . $svalue . '<br>';
-                    }
-                } else {
-                    $exif_text .= $key . ': ' . $value . '<br>';
-                }
-            }
+			if ( is_array( $exifs ) ) {
+				foreach ( $exifs as $key => $value) {
+					if (is_array ( $value )) {
+						$exif_text .= $key . ': <br>';
+						foreach ( $value as $skey => $svalue) {
+							$exif_text .= ' - ' . $skey . ': ' . $svalue . '<br>';
+						}
+					} else {
+						$exif_text .= $key . ': ' . $value . '<br>';
+					}
+				}
+			}
         }
         $ret['exif'] =  $exif_text;
+        $ret['exif_short'] =  substr($exif_text, 0, 100) . '...';
 		$ret['large'] = WGGALLERY_UPLOAD_IMAGE_URL . '/large/' .  $this->getVar('img_namelarge');
 		$ret['medium'] = WGGALLERY_UPLOAD_IMAGE_URL . '/medium/' .  $this->getVar('img_name');
 		$ret['thumb'] = WGGALLERY_UPLOAD_IMAGE_URL . '/thumbs/' .  $this->getVar('img_name');

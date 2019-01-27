@@ -36,6 +36,9 @@ function xoops_module_update_wggallery(&$module, $prev_version = null)
     if ($prev_version < 108) {
         $ret = update_wggallery_v108($module);
     }
+    if ($prev_version < 109) {
+        $ret = update_wggallery_v109($module);
+    }
     $errors = $module->getErrors();
     if (!empty($errors)) {
         print_r($errors);
@@ -122,3 +125,26 @@ function update_wggallery_v108(&$module)
     }
 	return true;
 }
+/**
+ * @param $module
+ *
+ * @return bool
+ */
+function update_wggallery_v109(&$module)
+{
+	// Making of temp images folder
+    $indexFile = XOOPS_UPLOAD_PATH.'/index.html';
+    $blankFile = XOOPS_UPLOAD_PATH.'/blank.gif';
+    $specimage = XOOPS_UPLOAD_PATH.'/wggallery/images/temp';
+    if(!is_dir($specimage)) {
+        mkdir($specimage, 0777);
+        chmod($specimage, 0777);
+    }
+    copy($indexFile, $specimage.'/index.html');
+    copy($blankFile, $specimage.'/blank.gif');
+	return true;
+}
+
+
+
+

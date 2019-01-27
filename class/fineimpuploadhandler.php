@@ -144,8 +144,14 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
         }
         
 		// create medium image
-        // $ret = $this->resizeImage($this->pathUpload . '/medium/' . $this->imageName, $wggallery->getConfig('maxwidth_medium'), $wggallery->getConfig('maxheight_medium'));
-		$ret = resizeImage($this->imagePath, $this->pathUpload . '/medium/' . $this->imageName, $wggallery->getConfig('maxwidth_medium'), $wggallery->getConfig('maxheight_medium'), $this->imageMimetype);
+        $imgHandler = new wgImagehandler;
+		$imgHandler->sourceFile = $this->imagePath;
+		$imgHandler->endFile = $this->pathUpload . '/medium/' . $this->imageName;
+		$imgHandler->imageMimetype = $this->imageMimetype;
+		$imgHandler->maxWidth = $wggallery->getConfig('maxwidth_medium');
+		$imgHandler->maxHeight = $wggallery->getConfig('maxheight_medium');
+		$ret = $imgHandler->ResizeImage();	
+		// $ret = resizeImage($this->imagePath, $this->pathUpload . '/medium/' . $this->imageName, $wggallery->getConfig('maxwidth_medium'), $wggallery->getConfig('maxheight_medium'), $this->imageMimetype);
         if(false === $ret) {
 			return array('error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_MEDIUM, $this->imageNicename));
 		} 
@@ -154,8 +160,13 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 		}
         
 		// create thumb
-		// $ret = $this->resizeImage($this->pathUpload . '/thumbs/' . $this->imageName, $wggallery->getConfig('maxwidth_thumbs'), $wggallery->getConfig('maxheight_thumbs'));
-        $ret = resizeImage($this->imagePath, $this->pathUpload . '/thumbs/' . $this->imageName, $wggallery->getConfig('maxwidth_thumbs'), $wggallery->getConfig('maxheight_thumbs'), $this->imageMimetype);
+		$imgHandler->sourceFile = $this->imagePath;
+		$imgHandler->endFile = $this->pathUpload . '/thumbs/' . $this->imageName;
+		$imgHandler->imageMimetype = $this->imageMimetype;
+		$imgHandler->maxWidth = $wggallery->getConfig('maxwidth_thumbs');
+		$imgHandler->maxHeight = $wggallery->getConfig('maxheight_thumbs');
+		$ret = $imgHandler->ResizeImage();	
+        // $ret = resizeImage($this->imagePath, $this->pathUpload . '/thumbs/' . $this->imageName, $wggallery->getConfig('maxwidth_thumbs'), $wggallery->getConfig('maxheight_thumbs'), $this->imageMimetype);
 		if(false === $ret) {
 			return array('error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_THUMBS, $this->imageNicename));
 		} 
