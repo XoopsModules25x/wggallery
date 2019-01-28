@@ -34,6 +34,8 @@ $albSubm  = Request::getInt('alb_submitter');
 $start    = Request::getInt('start', 0);
 $limit    = Request::getInt('limit', $wggallery->getConfig('adminpager'));
 
+$redir = '';
+
 if (_CANCEL === Request::getString('cancel', 'none')) {
 	$op = 'list';
 }
@@ -203,10 +205,10 @@ switch($op) {
             }
             if ( $albNew ) {
                 $notificationHandler = xoops_getHandler('notification');
-                $notificationHandler->triggerEvent('global', $newAlbId, 'album_new');
+                $notificationHandler->triggerEvent('global', 0, 'album_new');
             } else {
                 $notificationHandler = xoops_getHandler('notification');
-                $notificationHandler->triggerEvent('global', $albId, 'album_modify');
+                $notificationHandler->triggerEvent('global', 0, 'album_modify');
             }
 			$albumsHandler->setAlbumIsCat();
 			if ( 'upload' === $redir ) {
