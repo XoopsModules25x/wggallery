@@ -257,7 +257,7 @@ class WggalleryAlbumtypes extends XoopsObject
 	 */
 	public function toArrayAlbumtypes()
 	{
-		$ret = array();
+		$ret = [];
 		$vars = $this->getVars();
 		foreach(array_keys($vars) as $var) {
 			$ret[$var] = $this->getVar('"{$var}"');
@@ -368,7 +368,7 @@ class WggalleryAlbumtypesHandler extends XoopsPersistableObjectHandler
      */
 	public function getPrimaryAlbum()
 	{
-		$albumtype = array();
+		$albumtype = [];
 		$crAlbumtypes = new CriteriaCompo();
 		$crAlbumtypes->add(new Criteria('at_primary', 1));
 		$crAlbumtypes->setLimit( 1 );
@@ -380,14 +380,15 @@ class WggalleryAlbumtypesHandler extends XoopsPersistableObjectHandler
 		}
 		return $albumtype;
 	}
-	
-	/**
-	 * Get options albumtype
-	 * @return array
-	 */
+
+    /**
+     * Get options albumtype
+     * @param $atId
+     * @return array
+     */
 	public function getAlbumtypeOptions($atId)
 	{
-		$albumtype = array();
+		$albumtype = [];
 		$albumtypesObj = $this->get($atId);
         $albumtype['name'] = $albumtypesObj->getVar('at_name');
         $albumtype['template'] = $albumtypesObj->getVar('at_template');
@@ -396,18 +397,16 @@ class WggalleryAlbumtypesHandler extends XoopsPersistableObjectHandler
 		return $albumtype;
 	}
 
-    
     /**
      * Create Gallerytypes
-     * @param int $gtId
-     * @param $template
-     * @param $primary
-     * @return boolean
+     * @param $success
+     * @param $errors
+     * @return void
      */
  	public function albumtypesCreateReset( &$success, &$errors )
 	{
         // create new albumtypes if not existing
-        $templates = array('default', 'simple', 'hovereffectideas', 'bcards');
+        $templates = ['default', 'simple', 'hovereffectideas', 'bcards'];
         foreach($templates as $template) {
             $gtCount = 0;
             $crAlbumtypes = new CriteriaCompo();
@@ -467,38 +466,38 @@ class WggalleryAlbumtypesHandler extends XoopsPersistableObjectHandler
      */
  	public function reset($atId, $template, $primary)
 	{
-		$options = array();
+		$options = [];
         switch ($template) {
             case 'default':
                 $at_name = 'Default album style';
 				$at_credits = 'https://xoops.wedega.com';
-                $options[] = array('name' => 'number_cols_album', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB');
-				$options[] = array('name' => 'number_cols_cat', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT');      
-				$options[] = array('name' => 'album_showsubmitter', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_SHOWSUBMITTER');				
+                $options[] = ['name' => 'number_cols_album', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB'];
+				$options[] = ['name' => 'number_cols_cat', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT'];
+				$options[] = ['name' => 'album_showsubmitter', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_SHOWSUBMITTER'];
             break;
             case 'simple':
                 $at_name = 'Simple Album';
 				$at_credits = 'https://xoops.wedega.com';
-                $options[] = array('name' => 'number_cols_album', 'value' => '3', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB');
-				$options[] = array('name' => 'number_cols_cat', 'value' => '3', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT');
-                $options[] = array('name' => 'showTitle', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE');
-				$options[] = array('name' => 'showDesc', 'value' => '0', 'caption' => '_AM_WGGALLERY_OPTION_SHOWDESCR');                
+                $options[] = ['name' => 'number_cols_album', 'value' => '3', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB'];
+				$options[] = ['name' => 'number_cols_cat', 'value' => '3', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT'];
+                $options[] = ['name' => 'showTitle', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE'];
+				$options[] = ['name' => 'showDesc', 'value' => '0', 'caption' => '_AM_WGGALLERY_OPTION_SHOWDESCR'];
             break;
             case 'hovereffectideas':
                 $at_name = 'Hover Effect Ideas';
 				$at_credits = 'Codrops (http://tympanus.net/codrops, http://tympanus.net/Development/HoverEffectIdeas/)';
-                $options[] = array('name' => 'number_cols_album', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB');
-				$options[] = array('name' => 'number_cols_cat', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT');
-				$options[] = array('name' => 'hovereffect', 'value' => 'duke', 'caption' => '_AM_WGGALLERY_OPTION_AT_HOVER');
+                $options[] = ['name' => 'number_cols_album', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB'];
+				$options[] = ['name' => 'number_cols_cat', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT'];
+				$options[] = ['name' => 'hovereffect', 'value' => 'duke', 'caption' => '_AM_WGGALLERY_OPTION_AT_HOVER'];
             break;
             case 'bcards':
                 $at_name = 'Bootstrap Cards';
 				$at_credits = 'https://getbootstrap.com/';
-                $options[] = array('name' => 'number_cols_album', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB');
-				$options[] = array('name' => 'number_cols_cat', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT');
-				$options[] = array('name' => 'album_showsubmitter', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_SHOWSUBMITTER');
-                $options[] = array('name' => 'showTitle', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE');
-				$options[] = array('name' => 'showDesc', 'value' => '0', 'caption' => '_AM_WGGALLERY_OPTION_SHOWDESCR');
+                $options[] = ['name' => 'number_cols_album', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB'];
+				$options[] = ['name' => 'number_cols_cat', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT'];
+				$options[] = ['name' => 'album_showsubmitter', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_SHOWSUBMITTER'];
+                $options[] = ['name' => 'showTitle', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE'];
+				$options[] = ['name' => 'showDesc', 'value' => '0', 'caption' => '_AM_WGGALLERY_OPTION_SHOWDESCR'];
             break;
             case 'none':
             default:
@@ -512,7 +511,7 @@ class WggalleryAlbumtypesHandler extends XoopsPersistableObjectHandler
 			if ('' !== $option_sort) {$option_sort .= '|';}
 			$option_sort .= $option['name'];
 		}
-		$options[] = array('name' => 'option_sort', 'value'=> $option_sort);
+		$options[] = ['name' => 'option_sort', 'value' => $option_sort];
         
         if($atId !== null) {
 			$albumtypesObj = $this->get($atId);	

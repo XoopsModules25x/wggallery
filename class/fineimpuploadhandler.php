@@ -93,8 +93,8 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
     public function __construct(\stdClass $claims)
     {
         parent::__construct($claims);
-        $this->allowedMimeTypes = array('image/gif', 'image/jpeg', 'image/png');
-        $this->allowedExtensions = array('gif', 'jpeg', 'jpg', 'png');
+        $this->allowedMimeTypes = ['image/gif', 'image/jpeg', 'image/png'];
+        $this->allowedExtensions = ['gif', 'jpeg', 'jpg', 'png'];
     }
 
     protected function storeUploadedFile($target, $mimeType, $uid)
@@ -112,7 +112,7 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
         $pathParts = pathinfo($this->getName());
 
         $this->imageName      = uniqid('img', true) . '.' . strtolower($pathParts['extension']);
-        $this->imageNicename  = str_replace(array('_','-'), ' ', $pathParts['filename']);
+        $this->imageNicename  = str_replace(['_', '-'], ' ', $pathParts['filename']);
         $this->imageNameLarge = uniqid('imgl', true) . '.' . strtolower($pathParts['extension']);
 		$this->imagePath      = $this->pathUpload . '/large/' . $this->imageNameLarge;
 		
@@ -126,9 +126,9 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 		
 		$ret = $this->handleImageDB();
 		if(false === $ret) {
-			return array(
+			return [
 				'error' => sprintf(_FAILSAVEIMG, $this->imageNicename)
-			);
+            ];
 		}
         
         // load watermark settings
@@ -144,7 +144,7 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
         }
         
 		// create medium image
-        $imgHandler = new wgImagehandler;
+        $imgHandler = new wgImageHandler;
 		$imgHandler->sourceFile = $this->imagePath;
 		$imgHandler->endFile = $this->pathUpload . '/medium/' . $this->imageName;
 		$imgHandler->imageMimetype = $this->imageMimetype;
@@ -153,7 +153,7 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 		$ret = $imgHandler->ResizeImage();	
 		// $ret = resizeImage($this->imagePath, $this->pathUpload . '/medium/' . $this->imageName, $wggallery->getConfig('maxwidth_medium'), $wggallery->getConfig('maxheight_medium'), $this->imageMimetype);
         if(false === $ret) {
-			return array('error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_MEDIUM, $this->imageNicename));
+			return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_MEDIUM, $this->imageNicename)];
 		} 
 		if ('copy' === $ret) {
 			copy($this->pathUpload . '/large/' . $this->imageNameLarge, $this->pathUpload . '/medium/' . $this->imageName);
@@ -168,7 +168,7 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 		$ret = $imgHandler->ResizeImage();	
         // $ret = resizeImage($this->imagePath, $this->pathUpload . '/thumbs/' . $this->imageName, $wggallery->getConfig('maxwidth_thumbs'), $wggallery->getConfig('maxheight_thumbs'), $this->imageMimetype);
 		if(false === $ret) {
-			return array('error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_THUMBS, $this->imageNicename));
+			return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_THUMBS, $this->imageNicename)];
 		} 
 		if ('copy' === $ret) {
 			copy($this->pathUpload . '/large/' . $this->imageNameLarge, $this->pathUpload . '/thumbs/' . $this->imageName);
@@ -179,7 +179,7 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
             $imgWm = $this->pathUpload . '/large/' . $this->imageNameLarge;
             $resWm = $watermarksHandler->watermarkImage( $wmId, $imgWm, $imgWm );
             if ( true !== $resWm) {
-                return array('error' => sprintf(_MA_WGGALLERY_FAILSAVEWM_LARGE, $this->imageNicename, $resWm));
+                return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEWM_LARGE, $this->imageNicename, $resWm)];
             }
         }
         // add watermark to medium image
@@ -187,11 +187,11 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
             $imgWm = $this->pathUpload . '/medium/' . $this->imageName;
             $resWm = $watermarksHandler->watermarkImage( $wmId, $imgWm, $imgWm );
             if ( true !== $resWm) {
-                return array('error' => sprintf(_MA_WGGALLERY_FAILSAVEWM_MEDIUM, $this->imageNicename, $resWm));
+                return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEWM_MEDIUM, $this->imageNicename, $resWm)];
             }
         }
         
-        return array('success'=> true, 'uuid' => $uuid);
+        return ['success' => true, 'uuid' => $uuid];
     }
 	
 	

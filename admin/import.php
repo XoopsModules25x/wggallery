@@ -41,9 +41,9 @@ $GLOBALS['xoTheme']->addStylesheet( $style, null );
 $templateMain = 'wggallery_admin_import.tpl';	
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('import.php'));
 
-$sup_modules = array();
-$sup_modules['extgallery'] = array('name' => 'eXtGallery', 'dir' => 'extgallery');
-$sup_modules['tdmpicture'] = array('name' => 'TDMPicture', 'dir' => 'tdmpicture');		
+$sup_modules = [];
+$sup_modules['extgallery'] = ['name' => 'eXtGallery', 'dir' => 'extgallery'];
+$sup_modules['tdmpicture'] = ['name' => 'TDMPicture', 'dir' => 'tdmpicture'];
 
 $albumsCount = $albumsHandler->getCount();
 $imagesCount = $imagesHandler->getCount();
@@ -107,11 +107,11 @@ switch($op) {
     
 	case 'list':
 	default:
-		$import_modules = array();
+		$import_modules = [];
         $moduleHandler = xoops_getHandler('module');
 		foreach ( $sup_modules as $s ) {
 			$im_found = is_object($moduleHandler->getByDirname($s['dir']))? 1 : 0;
-			$import_modules[] = array('name' => $s['name'], 'dir' => $s['dir'], 'found' => $im_found);
+			$import_modules[] = ['name' => $s['name'], 'dir' => $s['dir'], 'found' => $im_found];
 		}
 		$GLOBALS['xoopsTpl']->assign('import_modules', $import_modules);
 

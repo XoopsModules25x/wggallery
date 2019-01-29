@@ -115,25 +115,25 @@ switch($op) {
 		} else {
 			redirect_header('albumtypes.php', 3, 'invalid at_id at saveoptions');
 		}
-		$options = array();
+		$options = [];
 
-		if (isset($_POST['number_cols_album'])) {$options[] = array('name' => 'number_cols_album', 'value' => $_POST['number_cols_album'], 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB');}
-		if (isset($_POST['number_cols_cat'])) {$options[] = array('name' => 'number_cols_cat', 'value' => $_POST['number_cols_cat'], 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT');}
-		if (isset($_POST['hovereffect'])) {$options[] = array('name' => 'hovereffect', 'value' => $_POST['hovereffect'], 'caption' => '_AM_WGGALLERY_OPTION_AT_HOVER');}
-        if (isset($_POST['showTitle'])) {$options[] = array('name' => 'showTitle', 'value' => $_POST['showTitle'], 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE');}
-        if (isset($_POST['showDesc'])) {$options[] = array('name' => 'showDesc', 'value' => $_POST['showDesc'], 'caption' => '_AM_WGGALLERY_OPTION_SHOWDESCR');}
-		if (isset($_POST['album_showsubmitter'])) {$options[] = array('name' => 'album_showsubmitter', 'value' => $_POST['album_showsubmitter'], 'caption' => '_AM_WGGALLERY_OPTION_SHOWSUBMITTER');}
+		if (isset($_POST['number_cols_album'])) {$options[] = ['name' => 'number_cols_album', 'value' => $_POST['number_cols_album'], 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB'];}
+		if (isset($_POST['number_cols_cat'])) {$options[] = ['name' => 'number_cols_cat', 'value' => $_POST['number_cols_cat'], 'caption' => '_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT'];}
+		if (isset($_POST['hovereffect'])) {$options[] = ['name' => 'hovereffect', 'value' => $_POST['hovereffect'], 'caption' => '_AM_WGGALLERY_OPTION_AT_HOVER'];}
+        if (isset($_POST['showTitle'])) {$options[] = ['name' => 'showTitle', 'value' => $_POST['showTitle'], 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE'];}
+        if (isset($_POST['showDesc'])) {$options[] = ['name' => 'showDesc', 'value' => $_POST['showDesc'], 'caption' => '_AM_WGGALLERY_OPTION_SHOWDESCR'];}
+		if (isset($_POST['album_showsubmitter'])) {$options[] = ['name' => 'album_showsubmitter', 'value' => $_POST['album_showsubmitter'], 'caption' => '_AM_WGGALLERY_OPTION_SHOWSUBMITTER'];}
         
         // apply sort order
 		$option_sort = Request::getString('option_sort', '');
 		$sort_arr = explode('|', $option_sort);
-		$options_final = array(); // result array
+		$options_final = []; // result array
 		foreach($sort_arr as $val){ // loop
 			foreach ($options as $option) {
-				if ($val == $option['name']) {$options_final[] = array('name' => $option['name'], 'value' => $option['value'], 'caption' =>$option['caption'] );} // adding values
+				if ($val == $option['name']) {$options_final[] = ['name' => $option['name'], 'value' => $option['value'], 'caption' => $option['caption']];} // adding values
 			}
 		}
-		$options_final[] = array('name' => 'option_sort', 'value' => $option_sort);
+		$options_final[] = ['name' => 'option_sort', 'value' => $option_sort];
         
 		// Set Vars
 		$albumtypesObj->setVar('at_options', serialize($options_final));
@@ -210,7 +210,7 @@ switch($op) {
 				$GLOBALS['xoopsTpl']->assign('error', $albumtypesObj->getHtmlErrors());
 			}
 		} else {
-			xoops_confirm(array('ok' => 1, 'at_id' => $atId, 'op' => 'delete'), $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $albumtypesObj->getVar('at_name')));
+			xoops_confirm(['ok' => 1, 'at_id' => $atId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $albumtypesObj->getVar('at_name')));
 		}
 
 	break;

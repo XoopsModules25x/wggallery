@@ -143,7 +143,7 @@ class WggalleryWatermarks extends XoopsObject
 		$imageSelect = new XoopsFormSelect( sprintf(_CO_WGGALLERY_FORM_IMAGE_PATH, ".{$imageDirectory}/"), 'wm_image', $wmImage, 5);
 		$imageArray = XoopsLists::getImgListAsArray( XOOPS_ROOT_PATH . $imageDirectory );
 		foreach($imageArray as $image1) {
-			$imageSelect->addOption("{$image1}", $image1);
+			$imageSelect->addOption((string)($image1), $image1);
 		}
 		$imageSelect->setExtra("onchange='showImgSelected(\"image1\", \"wm_image\", \"".$imageDirectory. '", "", "' .XOOPS_URL."\")'");
 		$imageTray->addElement($imageSelect, false);
@@ -324,7 +324,7 @@ class WggalleryWatermarks extends XoopsObject
 	 */
 	public function toArrayWatermarks()
 	{
-		$ret = array();
+		$ret = [];
 		$vars = $this->getVars();
 		foreach(array_keys($vars) as $var) {
 			$ret[$var] = $this->getVar('"{$var}"');

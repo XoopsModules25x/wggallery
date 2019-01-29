@@ -79,7 +79,7 @@ class WggalleryPermissionsHandler extends XoopsPersistableObjectHandler
 		$mid = $xoopsModule->mid();
 		$member_handler = xoops_getHandler('member');
 		if ($currentuid == 0) {
-			$my_group_ids = array(XOOPS_GROUP_ANONYMOUS);
+			$my_group_ids = [XOOPS_GROUP_ANONYMOUS];
 		} else {
 			$my_group_ids = $member_handler->getGroupsByUser( $currentuid ) ;
 		}
@@ -143,7 +143,7 @@ class WggalleryPermissionsHandler extends XoopsPersistableObjectHandler
 		$mid = $xoopsModule->mid();
 		$member_handler = xoops_getHandler('member');
 		if ($currentuid == 0) {
-			$my_group_ids = array(XOOPS_GROUP_ANONYMOUS);
+			$my_group_ids = [XOOPS_GROUP_ANONYMOUS];
 		} else {
 			$my_group_ids = $member_handler->getGroupsByUser( $currentuid ) ;
 		}
@@ -165,7 +165,7 @@ class WggalleryPermissionsHandler extends XoopsPersistableObjectHandler
 		$mid = $xoopsModule->mid();
 		$member_handler = xoops_getHandler('member');
 		if ($currentuid == 0) {
-			$my_group_ids = array(XOOPS_GROUP_ANONYMOUS);
+			$my_group_ids = [XOOPS_GROUP_ANONYMOUS];
 		} else {
 			$my_group_ids = $member_handler->getGroupsByUser( $currentuid ) ;
 		}
@@ -187,7 +187,7 @@ class WggalleryPermissionsHandler extends XoopsPersistableObjectHandler
 		$mid = $xoopsModule->mid();
 		$member_handler = xoops_getHandler('member');
 		if ($currentuid == 0) {
-			$my_group_ids = array(XOOPS_GROUP_ANONYMOUS);
+			$my_group_ids = [XOOPS_GROUP_ANONYMOUS];
 		} else {
 			$my_group_ids = $member_handler->getGroupsByUser( $currentuid ) ;
 		}
@@ -209,7 +209,7 @@ class WggalleryPermissionsHandler extends XoopsPersistableObjectHandler
 		$mid = $xoopsModule->mid();
 		$member_handler = xoops_getHandler('member');
 		if ($currentuid == 0) {
-			$my_group_ids = array(XOOPS_GROUP_ANONYMOUS);
+			$my_group_ids = [XOOPS_GROUP_ANONYMOUS];
 		} else {
 			$my_group_ids = $member_handler->getGroupsByUser( $currentuid ) ;
 		}

@@ -147,19 +147,19 @@ switch($op) {
                     break;
                     case WGGALLERY_IMAGE_LARGE:
                         $maxwidth  = $wggallery->getConfig('maxwidth_large');
-                        if ( 0 === intval($maxwidth) ) { $maxwidth  = $wggallery->getConfig('maxwidth');}
+                        if (0 === (int)$maxwidth) { $maxwidth = $wggallery->getConfig('maxwidth');}
                         $maxheight = $wggallery->getConfig('maxheight_large');
-                        if ( 0 === intval($maxheight) ) { $maxheight  = $wggallery->getConfig('maxheight');}
+                        if (0 === (int)$maxheight) { $maxheight = $wggallery->getConfig('maxheight');}
                     break;
                     case WGGALLERY_IMAGE_MEDIUM:
                     default:
                         $maxwidth  = $wggallery->getConfig('maxwidth_medium');
-                        if ( 0 === intval($maxwidth) ) { $maxwidth  = $wggallery->getConfig('maxwidth');}
+                        if (0 === (int)$maxwidth) { $maxwidth = $wggallery->getConfig('maxwidth');}
                         $maxheight = $wggallery->getConfig('maxheight');
-                        if ( 0 === intval($maxheight) ) { $maxheight  = $wggallery->getConfig('maxheight');}
+                        if (0 === (int)$maxheight) { $maxheight = $wggallery->getConfig('maxheight');}
                     break;
                 }
-				$imgHandler = new wgImagehandler;
+				$imgHandler = new wgImageHandler;
 				$imgHandler->sourceFile = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename;
 				$imgHandler->endFile = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename;
 				$imgHandler->imageMimetype = $imageMimetype;
@@ -291,7 +291,7 @@ switch($op) {
 				$GLOBALS['xoopsTpl']->assign('error', $albumsObj->getHtmlErrors());
 			}
 		} else {
-			xoops_confirm(array('ok' => 1, 'alb_id' => $albId, 'op' => 'delete'), $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $albumsObj->getVar('alb_name')));
+			xoops_confirm(['ok' => 1, 'alb_id' => $albId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $albumsObj->getVar('alb_name')));
 		}
 
 	break;

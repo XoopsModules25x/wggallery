@@ -47,7 +47,7 @@ switch($op) {
 		$formTitle = _CO_WGGALLERY_PERMS_GLOBAL;
 		$permName = 'wggallery_global';
 		$permDesc = _CO_WGGALLERY_PERMS_GLOBAL_DESC;
-		$globalPerms = array( '4' => _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL, '8' => _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN, '16' => _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR );
+		$globalPerms = ['4' => _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL, '8' => _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN, '16' => _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR];
 	break;
 	case 'view':
 		$formTitle = _CO_WGGALLERY_PERMS_ALB_VIEW;
@@ -85,7 +85,8 @@ if($op === 'global') {
 	if($albumsCount > 0) {
 		$albumsAll = $albumsHandler->getAllAlbums(0, 'alb_name');
 		foreach(array_keys($albumsAll) as $i) {
-			$permform->addItem($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_name'));		}
+			$permform->addItem($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_name'));
+		}
 		$GLOBALS['xoopsTpl']->assign('form', $permform->render());
 	} else {
 		$GLOBALS['xoopsTpl']->assign('error', _CO_WGGALLERY_THEREARENT_ALBUMS);
