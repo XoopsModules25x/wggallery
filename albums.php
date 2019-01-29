@@ -209,12 +209,12 @@ switch($op) {
             $tags['ALBUM_NAME'] = $alb_name;
 
             if ( $albNew ) {
-                $notificationHandler = xoops_getHandler('notification');
                 $tags['ALBUM_URL']  = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/images.php?op=list&alb_id={$newAlbId}&amp;alb_pid={$albPid}";
+                $notificationHandler = xoops_getHandler('notification');
                 $notificationHandler->triggerEvent('global', 0, 'album_new',  $tags );
             } else {
-                $notificationHandler = xoops_getHandler('notification');
                 $tags['ALBUM_URL']  = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/images.php?op=list&alb_id={$albId}&amp;alb_pid={$albPid}";
+                $notificationHandler = xoops_getHandler('notification');
                 $notificationHandler->triggerEvent('global', 0, 'album_modify',  $tags );
             }
 			$albumsHandler->setAlbumIsCat();
