@@ -110,17 +110,12 @@ function b_wggallery_albums_show($options)
     $criteria->add(new Criteria('alb_state', WGGALLERY_STATE_ONLINE_VAL));
 	switch($typeBlock)
 	{
-		// For the block: albums last
-		case 'last':
-			$criteria->setSort('alb_date');
-			$criteria->setOrder('DESC');
-		break;
-		// For the block: albums new
-		case 'new':
+		// For the block: albums recent
+		case 'recent':
 			$criteria->add(new Criteria('alb_date', strtotime(date(_SHORTDATESTRING)), '>='));
 			$criteria->add(new Criteria('alb_date', strtotime(date(_SHORTDATESTRING))+86400, '<='));
 			$criteria->setSort('alb_date');
-			$criteria->setOrder('ASC');
+			$criteria->setOrder('DESC');
 		break;
         /*
  		// For the block: albums hits
@@ -135,7 +130,7 @@ function b_wggallery_albums_show($options)
 		break;
         case 'default':
         default:
-			$criteria->setSort('alb_weight ASC, alb_date');
+			$criteria->setSort('alb_date');
 			$criteria->setOrder('DESC');
 		break;
 	}
@@ -194,7 +189,12 @@ function b_wggallery_albums_edit($options)
     unset($criteria);
     
     $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
-    $form  = "<input type='hidden' name='options[0]' value='".$options[0]."' />";
+
+	$form = _MB_WGGALLERY_BLOCKTYPE.": <select name='options[0]' size='3'>";
+    $form .= "<option value='default' " . ('default' === $options[0] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_BLOCKTYPE_DEFAULT . '</option>';
+    $form .= "<option value='recent' " . ('recent' === $options[0] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_BLOCKTYPE_RECENT . '</option>';
+	$form .= "<option value='random' " . ('random' === $options[0] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_BLOCKTYPE_RANDOM . '</option>';
+    $form .= '</select><br>';
     $form .= _MB_WGGALLERY_ALBUMS_DISPLAYLIST;
     $form .= "<input type='text' name='options[1]' size='5' maxlength='255' value='" . $options[1] . "' />&nbsp;<br>";
     $form .= _MB_WGGALLERY_TITLE_SHOW.": <select name='options[2]' size='2'>";

@@ -34,11 +34,11 @@ $albSubm  = Request::getInt('alb_submitter');
 $start    = Request::getInt('start', 0);
 $limit    = Request::getInt('limit', $wggallery->getConfig('adminpager'));
 
-$redir = '';
-
 if (_CANCEL === Request::getString('cancel', 'none')) {
 	$op = 'list';
 }
+
+$redir = '';
 if (_CO_WGGALLERY_FORM_SUBMIT_SUBMITUPLOAD === Request::getString('submit_upload', 'none')) {
 	$redir = 'upload';
 }

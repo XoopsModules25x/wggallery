@@ -171,26 +171,14 @@ if ($moduleDirName == $currdirname) {
 		$modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME4;
 		$modversion['sub'][$subcount]['url'] = 'upload.php';
 	}
-		
-	
-
 }
-// Sub albums
-// $modversion['sub'][1]['name'] = _MI_WGGALLERY_SMNAME1;
-// $modversion['sub'][1]['url'] = 'albums.php';
-// Sub images
-// $modversion['sub'][2]['name'] = _MI_WGGALLERY_SMNAME2;
-// $modversion['sub'][2]['url'] = 'images.php';
-// Sub Submit
-// $modversion['sub'][3]['name'] = _MI_WGGALLERY_SMNAME3;
-// $modversion['sub'][3]['url'] = 'upload.php';
 // ------------------- Blocks ------------------- //
 
 // Albums default block
 $modversion['blocks'][] = [
     'file'        => 'albums.php',
-    'name'        => _MI_WGGALLERY_ALBUMS_BLOCKDEFAULT,
-    'description' => _MI_WGGALLERY_ALBUMS_BLOCKDEFAULT_DESC,
+    'name'        => _MI_WGGALLERY_ALBUMS_BLOCK,
+    'description' => _MI_WGGALLERY_ALBUMS_BLOCK_DESC,
     'show_func'   => 'b_wggallery_albums_show',
     'edit_func'   => 'b_wggallery_albums_edit',
 	'template'    => $moduleDirName . '_block_albums_default.tpl',
@@ -199,8 +187,8 @@ $modversion['blocks'][] = [
 // Images
 $modversion['blocks'][] = [
     'file'        => 'images.php',
-    'name'        => _MI_WGGALLERY_IMAGES_BLOCKDEFAULT,
-    'description' => _MI_WGGALLERY_IMAGES_BLOCKDEFAULT_DESC,
+    'name'        => _MI_WGGALLERY_IMAGES_BLOCK,
+    'description' => _MI_WGGALLERY_IMAGES_BLOCK_DESC,
     'show_func'   => 'b_wggallery_images_show',
     'edit_func'   => 'b_wggallery_images_edit',
 	'template'    => $moduleDirName . '_block_images_default.tpl',
@@ -220,36 +208,6 @@ $modversion['config'][$c]['valuetype'] = 'text';
 $modversion['config'][$c]['default'] = 'dhtml';
 $modversion['config'][$c]['options'] = array_flip($editorHandlerDesc->getList());
 ++$c;
-/* // Get groups
-$memberHandler  = xoops_gethandler('member');
-$xoopsGroups  = $memberHandler->getGroupList();
-foreach($xoopsGroups as $key => $group) {
-	$groups[$group]  = $key;
-}
-$modversion['config'][$c]['name'] = 'groups';
-$modversion['config'][$c]['title'] = '_MI_WGGALLERY_GROUPS';
-$modversion['config'][$c]['description'] = '_MI_WGGALLERY_GROUPS_DESC';
-$modversion['config'][$c]['formtype'] = 'select_multi';
-$modversion['config'][$c]['valuetype'] = 'array';
-$modversion['config'][$c]['default'] = $groups;
-$modversion['config'][$c]['options'] = $groups;
-++$c;
-// Get Admin groups
-$criteria  = new CriteriaCompo();
-$criteria->add( new Criteria( 'group_type', 'Admin' ) );
-$memberHandler  = xoops_gethandler('member');
-$adminXoopsGroups  = $memberHandler->getGroupList($criteria);
-foreach($adminXoopsGroups as $key => $adminGroup) {
-	$adminGroups[$adminGroup]  = $key;
-}
-$modversion['config'][$c]['name'] = 'admin_groups';
-$modversion['config'][$c]['title'] = '_MI_WGGALLERY_GROUPS';
-$modversion['config'][$c]['description'] = '_MI_WGGALLERY_GROUPS_DESC';
-$modversion['config'][$c]['formtype'] = 'select_multi';
-$modversion['config'][$c]['valuetype'] = 'array';
-$modversion['config'][$c]['default'] = $adminGroups;
-$modversion['config'][$c]['options'] = $adminGroups;
-++$c; */
 // Keywords
 $modversion['config'][$c]['name'] = 'keywords';
 $modversion['config'][$c]['title'] = '_MI_WGGALLERY_KEYWORDS';
@@ -409,52 +367,6 @@ $modversion['config'][$c]['formtype'] = 'yesno';
 $modversion['config'][$c]['valuetype'] = 'int';
 $modversion['config'][$c]['default'] = 0;
 ++$c;
-/* // style of album items on index page
-$modversion['config'][$c]['name'] = 'index_album_numbcola';
-$modversion['config'][$c]['title'] = '_MI_WGGALLERY_INDEX_ALBUM_NUMBCOLA';
-$modversion['config'][$c]['description'] = '_MI_WGGALLERY_INDEX_ALBUM_NUMBCOLA_DESC';
-$modversion['config'][$c]['formtype'] = 'select';
-$modversion['config'][$c]['valuetype'] = 'array';
-$modversion['config'][$c]['default'] = 1;
-$modversion['config'][$c]['options'] = array(1 => 1, 2 => 2, 3 => 3, 4 => 4);
-++$c;
-// style of album items on index page
-$modversion['config'][$c]['name'] = 'index_album_numbcolc';
-$modversion['config'][$c]['title'] = '_MI_WGGALLERY_INDEX_ALBUM_NUMBCOLC';
-$modversion['config'][$c]['description'] = '_MI_WGGALLERY_INDEX_ALBUM_NUMBCOLC_DESC';
-$modversion['config'][$c]['formtype'] = 'select';
-$modversion['config'][$c]['valuetype'] = 'array';
-$modversion['config'][$c]['default'] = 1;
-$modversion['config'][$c]['options'] = array(1 => 1, 2 => 2, 3 => 3, 4 => 4);
-++$c;
-++$c; */
-/* // type of gallery
-$modversion['config'][$c]['name'] = 'gallery_type';
-$modversion['config'][$c]['title'] = '_MI_WGGALLERY_GALLERY_TYPE';
-$modversion['config'][$c]['description'] = '_MI_WGGALLERY_GALLERY_TYPE_DESC';
-$modversion['config'][$c]['formtype'] = 'select';
-$modversion['config'][$c]['valuetype'] = 'array';
-$modversion['config'][$c]['default'] = 'none';
-$modversion['config'][$c]['options'] = array('none' => 'none', 'PwgSlideshow' => 'pwgslideshow');
-++$c; */
-/* // Number column
-$modversion['config'][$c]['name'] = 'numb_col';
-$modversion['config'][$c]['title'] = '_MI_WGGALLERY_NUMB_COL';
-$modversion['config'][$c]['description'] = '_MI_WGGALLERY_NUMB_COL_DESC';
-$modversion['config'][$c]['formtype'] = 'select';
-$modversion['config'][$c]['valuetype'] = 'int';
-$modversion['config'][$c]['default'] = 1;
-$modversion['config'][$c]['options'] = array(1 => '1', 2 => '2', 3 => '3', 4 => '4');
-++$c;
-// Divide by
-$modversion['config'][$c]['name'] = 'divideby';
-$modversion['config'][$c]['title'] = '_MI_WGGALLERY_DIVIDEBY';
-$modversion['config'][$c]['description'] = '_MI_WGGALLERY_DIVIDEBY_DESC';
-$modversion['config'][$c]['formtype'] = 'select';
-$modversion['config'][$c]['valuetype'] = 'int';
-$modversion['config'][$c]['default'] = 1;
-$modversion['config'][$c]['options'] = array(1 => '1', 2 => '2', 3 => '3', 4 => '4');
-++$c;*/
 // Store exif 
 $modversion['config'][$c]['name'] = 'store_exif';
 $modversion['config'][$c]['title'] = '_MI_WGGALLERY_STOREEXIF';
@@ -520,7 +432,7 @@ $modversion['notification']['category'][] = [
     'name' => 'albums',
     'title' => _MI_WGGALLERY_ALBUMS_NOTIFY,
     'description' => '',
-    'subscribe_from' => ['albums.php', 'images.php'],
+    'subscribe_from' => ['index.php', 'albums.php'],
     'item_name' => 'alb_id',
     'allow_bookmark' => 1,
 ];

@@ -36,6 +36,7 @@ define('_MI_WGGALLERY_ADMENU7', 'Permissions');
 define('_MI_WGGALLERY_ADMENU8', 'Maintenance');
 define('_MI_WGGALLERY_ADMENU9', 'Watermarks');
 define('_MI_WGGALLERY_ADMENU10', 'Import');
+define('_MI_WGGALLERY_FEEDBACK', 'Feedback');
 define('_MI_WGGALLERY_ABOUT', 'About');
 // ---------------- Admin Nav ----------------
 define('_MI_WGGALLERY_ADMIN_PAGER', 'List items admin pages');
@@ -49,14 +50,10 @@ define('_MI_WGGALLERY_SMNAME2', 'Albums management');
 define('_MI_WGGALLERY_SMNAME3', 'Create new album');
 define('_MI_WGGALLERY_SMNAME4', 'Upload images');
 // Blocks
-define('_MI_WGGALLERY_ALBUMS_BLOCKDEFAULT', 'Albums block');
-define('_MI_WGGALLERY_ALBUMS_BLOCKDEFAULT_DESC', 'Show a block with albums (sorted by weight and date)');
-// define('_MI_WGGALLERY_ALBUMS_BLOCKDEFAULT_LAST', 'Last albums block');
-// define('_MI_WGGALLERY_ALBUMS_BLOCKDEFAULT_LAST_DESC', 'Show a block with last albums');
-// define('_MI_WGGALLERY_IMAGES_BLOCKDEFAULT', 'Images block');
-// define('_MI_WGGALLERY_IMAGES_BLOCKDEFAULT_DESC', 'Images block description');
-define('_MI_WGGALLERY_IMAGES_BLOCKDEFAULT', 'Images block');
-define('_MI_WGGALLERY_IMAGES_BLOCKDEFAULT_DESC', 'Show a block with albums (sorted by weight and date)');
+define('_MI_WGGALLERY_ALBUMS_BLOCK', 'Albums block');
+define('_MI_WGGALLERY_ALBUMS_BLOCK_DESC', 'Show a block with albums (sorting can be selected)');
+define('_MI_WGGALLERY_IMAGES_BLOCK', 'Images block');
+define('_MI_WGGALLERY_IMAGES_BLOCK_DESC', 'Show a block with images (sorting can be selected)');
 // Config
 define('_MI_WGGALLERY_EDITOR', 'Editor');
 define('_MI_WGGALLERY_EDITOR_DESC', 'Select the Editor Desc to use');

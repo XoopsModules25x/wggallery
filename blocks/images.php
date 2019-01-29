@@ -65,26 +65,26 @@ function b_wggallery_images_show($options)
     
 	switch($typeBlock)
 	{
-		// For the block: images last
-		case 'last':
-			$criteria->setSort('img_created');
+		// For the block: images new
+		case 'recent':
+			$criteria->add(new Criteria('img_date', strtotime(date(_SHORTDATESTRING)), '>='));
+			$criteria->add(new Criteria('img_date', strtotime(date(_SHORTDATESTRING))+86400, '<='));
+			$criteria->setSort('img_date');
 			$criteria->setOrder('DESC');
 		break;
-		// For the block: images new
-		case 'new':
-			$criteria->add(new Criteria('img_created', strtotime(date(_SHORTDATESTRING)), '>='));
-			$criteria->add(new Criteria('img_created', strtotime(date(_SHORTDATESTRING))+86400, '<='));
-			$criteria->setSort('img_created');
-			$criteria->setOrder('ASC');
-		break;
 		// For the block: images hits
-		case 'hits':
-            $criteria->setSort('img_hits');
-            $criteria->setOrder('DESC');
-        break;
+		// case 'hits':
+            // $criteria->setSort('img_hits');
+            // $criteria->setOrder('DESC');
+        // break;
 		// For the block: images random
 		case 'random':
 			$criteria->setSort('RAND()');
+		break;
+		case 'default':
+		default:
+			$criteria->setSort('img_date');
+			$criteria->setOrder('DESC');
 		break;
 	}
     $criteria->setLimit($bnbImages);
@@ -115,7 +115,12 @@ function b_wggallery_images_edit($options)
     $wggallery = WggalleryHelper::getInstance();
     $albumsHandler = $wggallery->getHandler('albums');
     $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
-    $form = "<input type='hidden' name='options[0]' value='".$options[0]."' />";
+    
+	$form = _MB_WGGALLERY_BLOCKTYPE.": <select name='options[0]' size='3'>";
+    $form .= "<option value='default' " . ('default' === $options[0] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_BLOCKTYPE_DEFAULT . '</option>';
+    $form .= "<option value='recent' " . ('recent' === $options[0] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_BLOCKTYPE_RECENT . '</option>';
+	$form .= "<option value='random' " . ('random' === $options[0] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_BLOCKTYPE_RANDOM . '</option>';
+    $form .= '</select><br>';
     $form .= _MB_WGGALLERY_IMAGES_DISPLAYLIST . "<input type='text' name='options[1]' size='5' maxlength='255' value='" . $options[1] . "' />&nbsp;<br>";
     $form .= _MB_WGGALLERY_TITLE_SHOW.": <select name='options[2]' size='2'>";
     $form .= "<option value='0' " . (0 === intval($options[2]) ? "selected='selected'" : '') . '>' . _NO . '</option>';
