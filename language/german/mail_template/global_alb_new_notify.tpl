@@ -1,10 +1,10 @@
 // ---------- Templates Mail Content Dummy ---------- //
 Hello {X_UNAME},
 
-A new album "{STORY_NAME}" has been added at {X_SITENAME}.
+A new album "{ALBUM_NAME}" has been added at {X_SITENAME}.
 
-You can view this story here:
-{STORY_URL}
+You can view this album here:
+{ALBUM_URL}
 
 -----------
 
