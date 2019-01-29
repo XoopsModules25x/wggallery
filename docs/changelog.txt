@@ -9,6 +9,7 @@ Change Log for wgGallery - 2019/01/22 19:55:00 Version 1.09
 	- upload image
  - adapting block albums (goffy)
  - adapting block images (goffy)
+ - added different kind of blocks (default, recent, random) (goffy)
  
 ==============================================================
 Change Log for wgGallery - 2018/12/28 19:55:00 Version 1.08
