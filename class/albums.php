@@ -321,13 +321,12 @@ class WggalleryAlbums extends XoopsObject
 
 		return $form;
 	}
-	
-	/**
-	 * @public function getFormUploadAlbumimage:
-	 * provide form for uploading a new album image
-	 * @param bool $action
-	 * @return XoopsThemeForm
-	 */
+
+    /**
+     * @public function getFormUploadAlbumimage:
+     * provide form for uploading a new album image
+     * @return XoopsThemeForm
+     */
 	public function getFormUploadAlbumimage()
 	{
 		$wggallery = WggalleryHelper::getInstance();

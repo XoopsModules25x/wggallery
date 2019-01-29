@@ -1201,13 +1201,12 @@ class WggalleryGallerytypesHandler extends XoopsPersistableObjectHandler
 		}
 		return $gallerytype;
 	}
-    
+
     /**
      * Create Gallerytypes
-     * @param int $gtId
-     * @param $template
-     * @param $primary
-     * @return boolean
+     * @param $success
+     * @param $errors
+     * @return void
      */
  	public function gallerytypesCreateReset( &$success, &$errors )
 	{

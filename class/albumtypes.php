@@ -380,11 +380,12 @@ class WggalleryAlbumtypesHandler extends XoopsPersistableObjectHandler
 		}
 		return $albumtype;
 	}
-	
-	/**
-	 * Get options albumtype
-	 * @return array
-	 */
+
+    /**
+     * Get options albumtype
+     * @param $atId
+     * @return array
+     */
 	public function getAlbumtypeOptions($atId)
 	{
 		$albumtype = [];
@@ -396,13 +397,11 @@ class WggalleryAlbumtypesHandler extends XoopsPersistableObjectHandler
 		return $albumtype;
 	}
 
-    
     /**
      * Create Gallerytypes
-     * @param int $gtId
-     * @param $template
-     * @param $primary
-     * @return boolean
+     * @param $success
+     * @param $errors
+     * @return void
      */
  	public function albumtypesCreateReset( &$success, &$errors )
 	{

@@ -80,11 +80,12 @@ class WggalleryImages extends XoopsObject
 		return $newInsertedId;
 	}
 
-	/**
-	 * @public function getForm
-	 * @param bool $action
-	 * @return XoopsThemeForm
-	 */
+    /**
+     * @public function getForm
+     * @param bool $adminarea
+     * @param bool $action
+     * @return XoopsThemeForm
+     */
 	public function getFormImages($adminarea = false, $action = false)
 	{
 		$wggallery = WggalleryHelper::getInstance();
