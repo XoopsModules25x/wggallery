@@ -75,7 +75,7 @@ switch($op) {
         $xoopsMailer->setBody($body);
         $ret = $xoopsMailer->send();
 		if ( $ret ) {
-			
+			redirect_header('index.php', 3, _FB_SEND_SUCCESS);
 		}
 		
 		// show form with content again

@@ -57,7 +57,7 @@ class ModuleFeedbacks extends XoopsObject
     
     /**
 	 * @public function getFormFeedback:
-	 * provide form for uploading a new album image
+	 * provide form for sending a feedback to module author
 	 * @param bool $action
 	 * @return XoopsThemeForm
 	 */
