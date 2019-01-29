@@ -203,12 +203,19 @@ switch($op) {
                     $gpermHandler->addRight('wggallery_dlimage_medium', $permId, $onegroupId, $perm_modid);
                 }
             }
+
+
+            $tags              = [];
+            $tags['ALBUM_NAME'] = $alb_name;
+
             if ( $albNew ) {
+                $tags['ALBUM_URL']  = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/images.php?op=list&alb_id={$newAlbId}&amp;alb_pid={$albPid}";
                 $notificationHandler = xoops_getHandler('notification');
-                $notificationHandler->triggerEvent('global', 0, 'album_new');
+                $notificationHandler->triggerEvent('global', 0, 'album_new',  $tags );
             } else {
+                $tags['ALBUM_URL']  = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/images.php?op=list&alb_id={$albId}&amp;alb_pid={$albPid}";
                 $notificationHandler = xoops_getHandler('notification');
-                $notificationHandler->triggerEvent('global', 0, 'album_modify');
+                $notificationHandler->triggerEvent('global', 0, 'album_modify',  $tags );
             }
 			$albumsHandler->setAlbumIsCat();
 			if ( 'upload' === $redir ) {
