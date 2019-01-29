@@ -34,7 +34,7 @@ $GLOBALS['xoTheme']->addScript( XOOPS_URL . '/modules/wggallery/assets/js/admin.
 
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
 
-$maintainance_resize_desc = str_replace(['%mw', '%mh', '%tw', '%th'], [$wggallery->getConfig('maxwidth_medium'), $wggallery->getConfig('maxheight_medium'), $wggallery->getConfig('maxwidth_thumbs'), $wggallery->getConfig('maxheight_thumbs')], _AM_WGGALLERY_MAINTENANCE_RESIZE_DESC);
+$maintainance_resize_desc = str_replace(['%mw', '%mh', '%tw', '%th'], [$helper->getConfig('maxwidth_medium'), $helper->getConfig('maxheight_medium'), $helper->getConfig('maxwidth_thumbs'), $helper->getConfig('maxheight_thumbs')], _AM_WGGALLERY_MAINTENANCE_RESIZE_DESC);
 
 $maintainance_dui_desc = str_replace('%p', WGGALLERY_UPLOAD_IMAGE_PATH, _AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC);
 
@@ -143,16 +143,16 @@ switch($op) {
 	case 'resize_thumb':
 		$counter = 0;
 		$errors = [];
-		$crImages = new CriteriaCompo();
+		$crImages = new \CriteriaCompo();
         $imagesCount = $imagesHandler->getCount($crImages);
 		$imagesAll = $imagesHandler->getAll($crImages);
 		if ('resize_medium' === $op) {
-			$maxwidth = $wggallery->getConfig('maxwidth_medium');
-			$maxheight = $wggallery->getConfig('maxheight_medium');
+			$maxwidth = $helper->getConfig('maxwidth_medium');
+			$maxheight = $helper->getConfig('maxheight_medium');
 			$target = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/';
 		} else {
-			$maxwidth = $wggallery->getConfig('maxwidth_thumbs');
-			$maxheight = $wggallery->getConfig('maxheight_thumbs');
+			$maxwidth = $helper->getConfig('maxwidth_thumbs');
+			$maxheight = $helper->getConfig('maxheight_thumbs');
 			$target = WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/';
 		}
 		if($imagesCount > 0) {
@@ -309,8 +309,8 @@ switch($op) {
         $success = [];
         $errors  = [];
 
-        $crImages = new CriteriaCompo();
-        $crImages->add(new Criteria('img_name', ''));
+        $crImages = new \CriteriaCompo();
+        $crImages->add(new \Criteria('img_name', ''));
         $imagesCount = $imagesHandler->getCount($crImages);
         if($imagesCount > 0) {
             $imagesAll = $imagesHandler->getAll($crImages);
@@ -346,8 +346,8 @@ switch($op) {
         $success = [];
         $errors  = [];
 
-        $crImages = new CriteriaCompo();
-        $crImages->add(new Criteria('img_name', '')); //TODO have to be checked in case of invalid items
+        $crImages = new \CriteriaCompo();
+        $crImages->add(new \Criteria('img_name', '')); //TODO have to be checked in case of invalid items
         $imagesCount = $imagesHandler->getCount($crImages);
         if($imagesCount > 0) {
             $imagesAll = $imagesHandler->getAll($crImages);
@@ -388,11 +388,11 @@ switch($op) {
     case 'watermark_select':
         // Get Theme Form
 		xoops_load('XoopsFormLoader');
-		$form = new XoopsThemeForm(_AM_WGGALLERY_MAINTENANCE_WATERMARK, 'form', 'maintenance.php', 'post', true);
+		$form = new \XoopsThemeForm(_AM_WGGALLERY_MAINTENANCE_WATERMARK, 'form', 'maintenance.php', 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
 		// Form Select Parent Album
-		$albumsHandler = $wggallery->getHandler('albums');
-		$wmAlbid = new XoopsFormSelect( _AM_WGGALLERY_MAINTENANCE_WATERMARK_SELECT, 'wm_albid', 0 );
+		$albumsHandler = $helper->getHandler('albums');
+		$wmAlbid = new \XoopsFormSelect( _AM_WGGALLERY_MAINTENANCE_WATERMARK_SELECT, 'wm_albid', 0 );
 		$wmAlbid->addOption('', '&nbsp;');
         $albumsAll = $albumsHandler->getAll();
         foreach(array_keys($albumsAll) as $i) {
@@ -407,24 +407,24 @@ switch($op) {
 		$form->addElement($wmAlbid, true);
 		unset($criteria);
         // Form Select Album watermark
-        $watermarksHandler = $wggallery->getHandler('watermarks');
-        $albWidSelect = new XoopsFormSelect( _CO_WGGALLERY_WATERMARK, 'wm_id', 0);
+        $watermarksHandler = $helper->getHandler('Watermarks');
+        $albWidSelect = new \XoopsFormSelect( _CO_WGGALLERY_WATERMARK, 'wm_id', 0);
         $albWidSelect->addOption('', '&nbsp;');
-        $criteria = new CriteriaCompo();
-		$criteria->add(new Criteria('wm_usage', WGGALLERY_WATERMARK_USAGENONE, '>'));
+        $criteria = new \CriteriaCompo();
+		$criteria->add(new \Criteria('wm_usage', WGGALLERY_WATERMARK_USAGENONE, '>'));
         $countWm = $watermarksHandler->getCount($criteria);
         if ( 0 < $countWm ) {
             $albWidSelect->addOptionArray($watermarksHandler->getList($criteria));
         }
         $form->addElement($albWidSelect, true);
         unset($criteria);
-        $wmTargetSelect = new XoopsFormRadio( _CO_WGGALLERY_WATERMARK_TARGET, 'wm_target', 0 );
+        $wmTargetSelect = new \XoopsFormRadio( _CO_WGGALLERY_WATERMARK_TARGET, 'wm_target', 0 );
 		$wmTargetSelect->addOption(WGGALLERY_WATERMARK_TARGET_A, _CO_WGGALLERY_WATERMARK_TARGET_A);
         $wmTargetSelect->addOption(WGGALLERY_WATERMARK_TARGET_M, _CO_WGGALLERY_WATERMARK_TARGET_M);
         $wmTargetSelect->addOption(WGGALLERY_WATERMARK_TARGET_L, _CO_WGGALLERY_WATERMARK_TARGET_L);
 		$form->addElement($wmTargetSelect, true);
-        $form->addElement(new XoopsFormHidden('op', 'watermark_add'));
-		$form->addElement(new XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+        $form->addElement(new \XoopsFormHidden('op', 'watermark_add'));
+		$form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
         $form->display();
     break;
     
@@ -434,8 +434,8 @@ switch($op) {
         $wmTarget = Request::getInt('wm_target');
         $success  = [];
         $errors   = [];
-        $crImages = new CriteriaCompo();
-        $crImages->add(new Criteria('img_albid', $wmAlbid));
+        $crImages = new \CriteriaCompo();
+        $crImages->add(new \Criteria('img_albid', $wmAlbid));
         $imagesCount = $imagesHandler->getCount($crImages);
         if($imagesCount > 0) {
             $imagesAll = $imagesHandler->getAll($crImages);
@@ -583,8 +583,8 @@ switch($op) {
             foreach(array_keys($imagesAll) as $i) {
                 $image = $imagesAll[$i]->getValuesImages();
                 
-                $crAlbums = new CriteriaCompo();
-                $crAlbums->add(new Criteria('alb_id', $image['img_albid']));
+                $crAlbums = new \CriteriaCompo();
+                $crAlbums->add(new \Criteria('alb_id', $image['img_albid']));
                 $albumsCount = $albumsHandler->getCount($crAlbums);
                 if( 0 == $albumsCount) {
                     $success[] = $image['img_name'];
@@ -629,8 +629,8 @@ switch($op) {
             foreach(array_keys($imagesAll) as $i) {
                 $image = $imagesAll[$i]->getValuesImages();
                 
-                $crAlbums = new CriteriaCompo();
-                $crAlbums->add(new Criteria('alb_id', $image['img_albid']));
+                $crAlbums = new \CriteriaCompo();
+                $crAlbums->add(new \Criteria('alb_id', $image['img_albid']));
                 $albumsCount = $albumsHandler->getCount($crAlbums);
                 if( 0 == $albumsCount) {
                     $imagesObj = $imagesHandler->get($image['img_id']);
@@ -749,7 +749,7 @@ switch($op) {
         $type = str_replace('%s', 'post_max_size', _AM_WGGALLERY_MAINTENANCE_CHECK_TYPE);
         $value_ini = ini_get('post_max_size');
         $value_pms_php = returnCleanBytes($value_ini);
-        $maxsize_module = $wggallery->getConfig('maxsize');
+        $maxsize_module = $helper->getConfig('maxsize');
         $result1 = str_replace(['%s', '%b'], [$value_ini, $value_pms_php], _AM_WGGALLERY_MAINTENANCE_CHECK_PMS_DESC);
         $result2 = str_replace('%s', $maxsize_module, _AM_WGGALLERY_MAINTENANCE_CHECK_MS_DESC);
         $change = false;
@@ -798,7 +798,7 @@ switch($op) {
 		$GLOBALS['xoTheme']->addStylesheet( $style, null );
 		$templateMain = 'wggallery_admin_maintenance.tpl';
 
-        $maintainance_resize_desc = str_replace(['%mw', '%mh', '%tw', '%th'], [$wggallery->getConfig('maxwidth_medium'), $wggallery->getConfig('maxheight_medium'), $wggallery->getConfig('maxwidth_thumbs'), $wggallery->getConfig('maxheight_thumbs')], _AM_WGGALLERY_MAINTENANCE_RESIZE_DESC);
+        $maintainance_resize_desc = str_replace(['%mw', '%mh', '%tw', '%th'], [$helper->getConfig('maxwidth_medium'), $helper->getConfig('maxheight_medium'), $helper->getConfig('maxwidth_thumbs'), $helper->getConfig('maxheight_thumbs')], _AM_WGGALLERY_MAINTENANCE_RESIZE_DESC);
 		$GLOBALS['xoopsTpl']->assign('maintainance_resize_desc', $maintainance_resize_desc);
 		
 		$maintainance_dui_desc = str_replace('%p', WGGALLERY_UPLOAD_IMAGE_PATH, _AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC);
@@ -843,9 +843,9 @@ function returnCleanBytes($val) {
  */
 function getUnusedImages( &$unused, $directory ){
 	// Get instance of module
-	$wggallery = WggalleryHelper::getInstance();
-	$imagesHandler = $wggallery->getHandler('images');
-    $albumsHandler = $wggallery->getHandler('images');
+	$helper = Wggallery\Helper::getInstance();
+	$imagesHandler = $helper->getHandler('images');
+    $albumsHandler = $helper->getHandler('images');
 	
 	if(is_dir($directory)){
 		if ($handle = opendir($directory)) {
@@ -859,12 +859,12 @@ function getUnusedImages( &$unused, $directory ){
 					break;
 					case 'delete':
 					default:
-						$crImages = new CriteriaCompo();
-						$crImages->add(new Criteria('img_name', $entry));
-						$crImages->add(new Criteria('img_namelarge', $entry), 'OR');
+						$crImages = new \CriteriaCompo();
+						$crImages->add(new \Criteria('img_name', $entry));
+						$crImages->add(new \Criteria('img_namelarge', $entry), 'OR');
 						$imagesCount = $imagesHandler->getCount($crImages);
-                        $crAlbums = new CriteriaCompo();
-						$crAlbums->add(new Criteria('alb_image', $entry));
+                        $crAlbums = new \CriteriaCompo();
+						$crAlbums->add(new \Criteria('alb_image', $entry));
 						$imagesCount += $albumsHandler->getCount($crAlbums);
 						if(0 == $imagesCount) {
 							$unused[] = ['name' => $entry, 'path' => $directory . '/' . $entry];

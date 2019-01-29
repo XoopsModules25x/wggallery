@@ -1,4 +1,4 @@
-<?php
+<?php namespace XoopsModules\Wggallery;
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -18,32 +18,34 @@
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
- * @version        $Id: 1.0 comment_functions.php 1 Mon 2018-03-19 10:04:54Z XOOPS Project (www.xoops.org) $
+ * @version        $Id: 1.0 permissions.php 1 Sat 2018-03-31 11:31:09Z XOOPS Project (www.xoops.org) $
  */
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
- * CommentsUpdate
- *
- * @param mixed $itemId
- * @param mixed $itemNumb
- * @return bool
+ * Class Object Permissions
  */
-function wggalleryCommentsUpdate($itemId, $itemNumb) {
-    $itemId = (int) ($itemId);
-    $itemNumb = (int) ($itemNumb);
-    $article = new Images($itemId);
-    if (!$article->updateComments($itemNumb)) {
-        return false;
-    }
-    return true;
-}
+class Permissions extends \XoopsObject
+{
+	/**
+	 * Constructor 
+	 *
+	 * @param null
+	 */
+	public function __construct()
+	{
+	}
 
-/**
- * CommentsApprove
- *
- * @param string  $comment
- * @return void
- */
-function wggalleryCommentsApprove(&$comment){
-    // notification mail here
+	/**
+	 * @static function &getInstance
+	 *
+	 * @param null
+	 */
+	public static function getInstance()
+	{
+		static $instance = false;
+		if(!$instance) {
+			$instance = new self();
+		}
+	}
 }

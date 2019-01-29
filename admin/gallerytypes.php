@@ -39,7 +39,7 @@ switch($op) {
 		// Define Stylesheet
 		$GLOBALS['xoTheme']->addStylesheet( $style, null );
 		$start = Request::getInt('start', 0);
-		$limit = Request::getInt('limit', $wggallery->getConfig('adminpager'));
+		$limit = Request::getInt('limit', $helper->getConfig('adminpager'));
 		$templateMain = 'wggallery_admin_gallerytypes.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('gallerytypes.php'));
 		$gallerytypesCount = $gallerytypesHandler->getCountGallerytypes();
@@ -58,7 +58,7 @@ switch($op) {
 			// Display Navigation
 			if($gallerytypesCount > $limit) {
 				include_once XOOPS_ROOT_PATH .'/class/pagenav.php';
-				$pagenav = new XoopsPageNav($gallerytypesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
+				$pagenav = new \XoopsPageNav($gallerytypesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
 				$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
 			}
 		} else {

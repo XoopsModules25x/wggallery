@@ -20,26 +20,35 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 header.php 1 Mon 2018-03-19 10:04:52Z XOOPS Project (www.xoops.org) $
  */
+
+use XoopsModules\Wggallery;
+
 include dirname(dirname(dirname(__DIR__))) .'/include/cp_header.php';
-include_once dirname(__DIR__) .'/include/common.php';
+require dirname(__DIR__) . '/include/common.php';
+
+$moduleDirName = basename(dirname(__DIR__));
+/** @var \XoopsModules\Wggallery\Helper $helper */
+$helper = \XoopsModules\Wggallery\Helper::getInstance();
+$utility = new \XoopsModules\Wggallery\Utility();
+
+
 $sysPathIcon16  = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons16');
 $sysPathIcon32  = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons32');
 $pathModuleAdmin  = $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin');
 $modPathIcon16  = $GLOBALS['xoopsModule']->getInfo('modicons16');
 $modPathIcon32  = $GLOBALS['xoopsModule']->getInfo('modicons32');
 // Get instance of module
-$wggallery = WggalleryHelper::getInstance();
-$albumsHandler       = $wggallery->getHandler('albums');
-$imagesHandler       = $wggallery->getHandler('images');
-$gallerytypesHandler = $wggallery->getHandler('gallerytypes');
-$albumtypesHandler   = $wggallery->getHandler('albumtypes');
-$permissionsHandler  = $wggallery->getHandler('permissions');
-$watermarksHandler   = $wggallery->getHandler('watermarks');
+$albumsHandler       = $helper->getHandler('Albums');
+$imagesHandler       = $helper->getHandler('Images');
+$gallerytypesHandler = $helper->getHandler('Gallerytypes');
+$albumtypesHandler   = $helper->getHandler('Albumtypes');
+$permissionsHandler  = $helper->getHandler('Permissions');
+$watermarksHandler   = $helper->getHandler('Watermarks');
 $myts = MyTextSanitizer::getInstance();
 // 
 if(!isset($xoopsTpl) || !is_object($xoopsTpl)) {
-	include_once XOOPS_ROOT_PATH .'/class/template.php';
-	$xoopsTpl = new XoopsTpl();
+    require_once XOOPS_ROOT_PATH . '/class/template.php';
+	$xoopsTpl = new \XoopsTpl();
 }
 // System icons path
 $GLOBALS['xoopsTpl']->assign('sysPathIcon16', $sysPathIcon16);
@@ -47,14 +56,10 @@ $GLOBALS['xoopsTpl']->assign('sysPathIcon32', $sysPathIcon32);
 $GLOBALS['xoopsTpl']->assign('modPathIcon16', $modPathIcon16);
 $GLOBALS['xoopsTpl']->assign('modPathIcon32', $modPathIcon32);
 // Load languages
-xoops_loadLanguage('admin');
-xoops_loadLanguage('modinfo');
-// Local admin menu class
-if(file_exists($GLOBALS['xoops']->path($pathModuleAdmin.'/moduleadmin.php'))) {
-	include_once $GLOBALS['xoops']->path($pathModuleAdmin.'/moduleadmin.php');
-} else {
-	redirect_header('../../../admin.php', 5, _AM_MODULEADMIN_MISSING);
-}
+$helper->loadLanguage('admin');
+$helper->loadLanguage('modinfo');
+$helper->loadLanguage('common');
+
 xoops_cp_header();
 $adminObject = \Xmf\Module\Admin::getInstance();
 $style = WGGALLERY_URL . '/assets/css/admin/style.css';

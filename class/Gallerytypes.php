@@ -1,4 +1,4 @@
-<?php
+<?php namespace XoopsModules\Wggallery;
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -23,9 +23,9 @@
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
- * Class Object WggalleryGallerytypes
+ * Class Object Gallerytypes
  */
-class WggalleryGallerytypes extends XoopsObject
+class Gallerytypes extends \XoopsObject
 {
 	/**
 	 * Constructor 
@@ -73,7 +73,7 @@ class WggalleryGallerytypes extends XoopsObject
 	 */
 	public function getFormGallerytypes($action = false)
 	{
-		//$wggallery = WggalleryHelper::getInstance();
+		//$helper = Wggallery\Helper::getInstance();
 		if(false === $action) {
 			$action = $_SERVER['REQUEST_URI'];
 		}
@@ -81,25 +81,25 @@ class WggalleryGallerytypes extends XoopsObject
 		$title = $this->isNew() ? sprintf(_AM_WGGALLERY_GALLERYTYPE_ADD) : sprintf(_AM_WGGALLERY_GALLERYTYPE_EDIT);
 		// Get Theme Form
 		xoops_load('XoopsFormLoader');
-		$form = new XoopsThemeForm($title, 'form', $action, 'post', true);
+		$form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
 		// Form Text GtPrimary
 		$gtCat = $this->isNew() ? 0 : $this->getVar('gt_primary');
-		$form->addElement(new XoopsFormRadioYN( _AM_WGGALLERY_GT_AT_PRIMARY, 'gt_primary', $gtCat ), true);
+		$form->addElement(new \XoopsFormRadioYN( _AM_WGGALLERY_GT_AT_PRIMARY, 'gt_primary', $gtCat ), true);
 		// Form Text GtName
-		$form->addElement(new XoopsFormText( _AM_WGGALLERY_GT_AT_NAME, 'gt_name', 50, 255, $this->getVar('gt_name') ), true);
+		$form->addElement(new \XoopsFormText( _AM_WGGALLERY_GT_AT_NAME, 'gt_name', 50, 255, $this->getVar('gt_name') ), true);
 		// Form Text GtCredits
-		$form->addElement(new XoopsFormText( _AM_WGGALLERY_GT_AT_CREDITS, 'gt_credits', 50, 255, $this->getVar('gt_credits') ));
+		$form->addElement(new \XoopsFormText( _AM_WGGALLERY_GT_AT_CREDITS, 'gt_credits', 50, 255, $this->getVar('gt_credits') ));
 		// Form Text GtTemplate
-		$form->addElement(new XoopsFormText( _AM_WGGALLERY_GT_AT_TEMPLATE, 'gt_template', 50, 255, $this->getVar('gt_template') ));
+		$form->addElement(new \XoopsFormText( _AM_WGGALLERY_GT_AT_TEMPLATE, 'gt_template', 50, 255, $this->getVar('gt_template') ));
 		// Form Text Area GtOption
-		$form->addElement(new XoopsFormTextArea( _AM_WGGALLERY_GT_AT_OPTIONS, 'gt_options', $this->getVar('gt_options'), 4, 47 ));
+		$form->addElement(new \XoopsFormTextArea( _AM_WGGALLERY_GT_AT_OPTIONS, 'gt_options', $this->getVar('gt_options'), 4, 47 ));
 		// Form Text Date Select GtDate
 		$gtDate = $this->isNew() ? 0 : $this->getVar('gt_date');
-		$form->addElement(new XoopsFormTextDateSelect( _AM_WGGALLERY_GT_AT_DATE, 'gt_date', '', $gtDate ));
+		$form->addElement(new \XoopsFormTextDateSelect( _AM_WGGALLERY_GT_AT_DATE, 'gt_date', '', $gtDate ));
 		// To Save
-		$form->addElement(new XoopsFormHidden('op', 'save'));
-		$form->addElement(new XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+		$form->addElement(new \XoopsFormHidden('op', 'save'));
+		$form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
 		return $form;
 	}
 
@@ -110,13 +110,13 @@ class WggalleryGallerytypes extends XoopsObject
 	 */
 	public function getFormGallerytypeOptions($action = false)
 	{
-		//$wggallery = WggalleryHelper::getInstance();
+		//$helper = Wggallery\Helper::getInstance();
 		if(false === $action) {
 			$action = $_SERVER['REQUEST_URI'];
 		}
 		// Get Theme Form
 		xoops_load('XoopsFormLoader');
-		$form = new XoopsThemeForm(_AM_WGGALLERY_OPTION_GT_SET, 'form', $action, 'post', true);
+		$form = new \XoopsThemeForm(_AM_WGGALLERY_OPTION_GT_SET, 'form', $action, 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
 		// Form Text GtPrimary
 		
@@ -150,19 +150,19 @@ class WggalleryGallerytypes extends XoopsObject
 			// echo '<br>name'.$option['name'];
             switch ($option['name']) {
                 case 'source':
-					$source = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_SOURCE  . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_SOURCE_DESC . '</span>', 'source', $option['value']);
+					$source = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_SOURCE  . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_SOURCE_DESC . '</span>', 'source', $option['value']);
 					$source->addOption('medium', _AM_WGGALLERY_OPTION_GT_SOURCE_MEDIUM);
 					$source->addOption('large', _AM_WGGALLERY_OPTION_GT_SOURCE_LARGE);
 					$form->addElement($source);
 				break;
                 case 'source_preview':
-					$source_preview = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW, 'source_preview', $option['value']);
+					$source_preview = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW, 'source_preview', $option['value']);
 					$source_preview->addOption('medium', _AM_WGGALLERY_OPTION_GT_SOURCE_MEDIUM);
 					$source_preview->addOption('thumb', _AM_WGGALLERY_OPTION_GT_SOURCE_THUMB);
 					$form->addElement($source_preview);
 				break;
 				case 'jssor_arrows':
-					$arrows = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_ARROWS, 'jssor_arrows', $option['value']);
+					$arrows = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_ARROWS, 'jssor_arrows', $option['value']);
 					$arrows->addOption('none', _NONE);
 					$arrows->addOption('arrow-051');
 					$arrows->addOption('arrow-052');
@@ -183,7 +183,7 @@ class WggalleryGallerytypes extends XoopsObject
 					$form->addElement($arrows);
 				break;
 				case 'jssor_bullets':
-					$bullets = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_BULLETS . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_BULLETS_DESC . '</span>', 'jssor_bullets', $option['value']);
+					$bullets = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_BULLETS . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_BULLETS_DESC . '</span>', 'jssor_bullets', $option['value']);
 					$bullets->addOption('none', _NONE);
 					$bullets->addOption('bullet-031');
 					$bullets->addOption('bullet-032');
@@ -208,8 +208,8 @@ class WggalleryGallerytypes extends XoopsObject
 					$form->addElement($bullets);
 				break;
 				case 'jssor_thumbnails':
-					$thumbnails = new XoopsFormElementTray(_AM_WGGALLERY_OPTION_GT_THUMBNAILS, '&nbsp;' );
-					$thumbnailsSelect = new XoopsFormSelect('', 'jssor_thumbnails', $option['value']);
+					$thumbnails = new \XoopsFormElementTray(_AM_WGGALLERY_OPTION_GT_THUMBNAILS, '&nbsp;' );
+					$thumbnailsSelect = new \XoopsFormSelect('', 'jssor_thumbnails', $option['value']);
 					$thumbnailsSelect->addOption('none', _NONE);
 					$thumbnailsSelect->addOption('thumbnail-051');
 					$thumbnailsSelect->addOption('thumbnail-052');
@@ -221,7 +221,7 @@ class WggalleryGallerytypes extends XoopsObject
 					$thumbnailsSelect->addOption('thumbnail-111');
 					$thumbnailsSelect->addOption('thumbnail-121');
 					$thumbnails->addElement($thumbnailsSelect);
-					$orientation = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_ORIENTATION, 'jssor_thumborient', $jssor_thumborient);
+					$orientation = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_ORIENTATION, 'jssor_thumborient', $jssor_thumborient);
 					$orientation->addOption('1', _AM_WGGALLERY_OPTION_GT_ORIENTATION_H);
 					$orientation->addOption('2', _AM_WGGALLERY_OPTION_GT_ORIENTATION_V);
 					$thumbnails->addElement($orientation);
@@ -231,7 +231,7 @@ class WggalleryGallerytypes extends XoopsObject
 					// hide it, this is used under jssor_thumbnails
 				break;
 				case 'jssor_loadings':
-					$loadings = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_LOADINGS, 'jssor_loadings', $option['value']);
+					$loadings = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_LOADINGS, 'jssor_loadings', $option['value']);
 					$loadings->addOption('none', _NONE);
 					$loadings->addOption('loading-003-oval');
 					$loadings->addOption('loading-004-double-tail-spin');
@@ -242,7 +242,7 @@ class WggalleryGallerytypes extends XoopsObject
 					$form->addElement($loadings);
 				break;
                 case 'jssor_autoplay':
-                    $jssor_autoplay = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_PLAYOPTIONS, 'jssor_autoplay', $option['value']);
+                    $jssor_autoplay = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_PLAYOPTIONS, 'jssor_autoplay', $option['value']);
                     $jssor_autoplay->addOption('0', _NONE);
                     $jssor_autoplay->addOption('1', _AM_WGGALLERY_OPTION_GT_PLAYOPTION_1);
                     $jssor_autoplay->addOption('2', _AM_WGGALLERY_OPTION_GT_PLAYOPTION_2);
@@ -252,7 +252,7 @@ class WggalleryGallerytypes extends XoopsObject
                     $form->addElement($jssor_autoplay);
                 break;
                 case 'jssor_fillmode':
-					$jssor_fillmode = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_FILLMODE, 'jssor_fillmode', $option['value']);
+					$jssor_fillmode = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_FILLMODE, 'jssor_fillmode', $option['value']);
                     $jssor_fillmode->addOption('0', _AM_WGGALLERY_OPTION_GT_FILLMODE_0);
                     $jssor_fillmode->addOption('1', _AM_WGGALLERY_OPTION_GT_FILLMODE_1);
                     $jssor_fillmode->addOption('2', _AM_WGGALLERY_OPTION_GT_FILLMODE_2);
@@ -261,22 +261,22 @@ class WggalleryGallerytypes extends XoopsObject
 					$form->addElement($jssor_fillmode);
 				break;
 				case 'jssor_slidertype':
-					$jssor_slidertype = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_SLIDERTYPE, 'jssor_slidertype', $option['value']);
+					$jssor_slidertype = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_SLIDERTYPE, 'jssor_slidertype', $option['value']);
                     $jssor_slidertype->addOption(WGGALLERY_OPTION_GT_SLIDERTYPE_1_VAL, _AM_WGGALLERY_OPTION_GT_SLIDERTYPE_1);
                     $jssor_slidertype->addOption(WGGALLERY_OPTION_GT_SLIDERTYPE_2_VAL, _AM_WGGALLERY_OPTION_GT_SLIDERTYPE_2);
                     // $jssor_slidertype->addOption(WGGALLERY_OPTION_GT_SLIDERTYPE_3_VAL, _AM_WGGALLERY_OPTION_GT_SLIDERTYPE_3);
 					$form->addElement($jssor_slidertype);
 				break;
 				case 'jssor_maxwidth':
-					$form->addElement(new XoopsFormText( _AM_WGGALLERY_OPTION_GT_MAXWIDTH . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_MAXWIDTH_DESC . '</span>', 'jssor_maxwidth', 50, 255, $option['value']));
+					$form->addElement(new \XoopsFormText( _AM_WGGALLERY_OPTION_GT_MAXWIDTH . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_MAXWIDTH_DESC . '</span>', 'jssor_maxwidth', 50, 255, $option['value']));
 				break;
 				case 'jssor_maxheight':
-					$form->addElement(new XoopsFormText( _AM_WGGALLERY_OPTION_GT_MAXHEIGHT . '<br><span style="font-size:80%">' ._AM_WGGALLERY_OPTION_GT_MAXHEIGHT_DESC . '</span>', 'jssor_maxheight', 50, 255, $option['value']));
+					$form->addElement(new \XoopsFormText( _AM_WGGALLERY_OPTION_GT_MAXHEIGHT . '<br><span style="font-size:80%">' ._AM_WGGALLERY_OPTION_GT_MAXHEIGHT_DESC . '</span>', 'jssor_maxheight', 50, 255, $option['value']));
 				break;
                 case 'jssor_transition':
                     $optionValue = explode('|', $option['value']);
-					$transitions = new XoopsFormElementTray(_AM_WGGALLERY_OPTION_GT_TRANSEFFECT, '&nbsp;' );
-					$jssor_transition = new XoopsFormSelect('', 'jssor_transition', $optionValue, 5, true);
+					$transitions = new \XoopsFormElementTray(_AM_WGGALLERY_OPTION_GT_TRANSEFFECT, '&nbsp;' );
+					$jssor_transition = new \XoopsFormSelect('', 'jssor_transition', $optionValue, 5, true);
                     $jssor_transition->addOption('{$Duration:800,$Opacity:2}', 'Fade');
                     $jssor_transition->addOption('{$Duration:800,x:0.3,$During:{$Left:[0.3,0.7]},$Easing:{$Left:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2}', 'Fade in L');
                     $jssor_transition->addOption('{$Duration:800,x:-0.3,$During:{$Left:[0.3,0.7]},$Easing:{$Left:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2}', 'Fade in R');
@@ -615,7 +615,7 @@ class WggalleryGallerytypes extends XoopsObject
                     $jssor_transition->addOption('{$Duration:1000,x:1,$Opacity:2,$Easing:$Jease$.$InBounce}', 'Bounce Right');
 					$transitions->addElement($jssor_transition, true);
 					
-					$jssor_transitionorder = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_TRANSORDER, 'jssor_transitionorder', $jssor_transitionorder);
+					$jssor_transitionorder = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_TRANSORDER, 'jssor_transitionorder', $jssor_transitionorder);
 					$jssor_transitionorder->addOption('0', _AM_WGGALLERY_OPTION_GT_TRANSORDER_RANDOM);
 					$jssor_transitionorder->addOption('1', _AM_WGGALLERY_OPTION_GT_TRANSORDER_INORDER);
 					$transitions->addElement($jssor_transitionorder);
@@ -625,25 +625,25 @@ class WggalleryGallerytypes extends XoopsObject
 					// hide it, this is used under jssor_transition
 				break;
                 case 'showThumbs':
-					$showThumbs = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_SHOWTHUMBSDOTS, 'showThumbs', $option['value']);
+					$showThumbs = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_SHOWTHUMBSDOTS, 'showThumbs', $option['value']);
 					$showThumbs->addOption('true', _AM_WGGALLERY_OPTION_GT_SHOWTHUMBS);
 					$showThumbs->addOption('false', _AM_WGGALLERY_OPTION_GT_SHOWDOTS);
 					$form->addElement($showThumbs);
 				break;
                 case 'showTitle':
-					$showTitle = new XoopsFormRadio(_AM_WGGALLERY_OPTION_SHOWTITLE, 'showTitle', $option['value']);
+					$showTitle = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_SHOWTITLE, 'showTitle', $option['value']);
 					$showTitle->addOption('true', _YES);
 					$showTitle->addOption('false', _NO);
 					$form->addElement($showTitle);
 				break;
                 case 'showDescr':
-					$showDescr = new XoopsFormRadio(_AM_WGGALLERY_OPTION_SHOWDESCR, 'showDescr', $option['value']);
+					$showDescr = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_SHOWDESCR, 'showDescr', $option['value']);
 					$showDescr->addOption('true', _YES);
 					$showDescr->addOption('false', _NO);
 					$form->addElement($showDescr);
 				break;
 				case 'viewerjs_title':
-					$viewerjs_title = new XoopsFormSelect(_AM_WGGALLERY_OPTION_SHOWTITLE, 'viewerjs_title', $option['value']);
+					$viewerjs_title = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_SHOWTITLE, 'viewerjs_title', $option['value']);
 					$viewerjs_title->addOption(0, _NO);
                     $viewerjs_title->addOption(1, _AM_WGGALLERY_OPTION_GT_SHOW_1);
 					$viewerjs_title->addOption(2, _AM_WGGALLERY_OPTION_GT_SHOW_2);
@@ -652,32 +652,32 @@ class WggalleryGallerytypes extends XoopsObject
 					$form->addElement($viewerjs_title);
 				break;
 				case 'showAlbumlabel':
-					$showAlbumlabel = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_SHOWLABEL, 'showAlbumlabel', $option['value']);
+					$showAlbumlabel = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_SHOWLABEL, 'showAlbumlabel', $option['value']);
 					$showAlbumlabel->addOption('true', _YES);
 					$showAlbumlabel->addOption('false', _NO);
 					$form->addElement($showAlbumlabel);
 				break;
                 case 'slideshowAuto':
-					$slideshowAuto = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_AUTOPLAY . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_PLAYOPTION_DESC . '</span>', 'slideshowAuto', $option['value']);
+					$slideshowAuto = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_AUTOPLAY . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_PLAYOPTION_DESC . '</span>', 'slideshowAuto', $option['value']);
 					$slideshowAuto->addOption('true', _YES);
 					$slideshowAuto->addOption('false', _NO);
 					$form->addElement($slideshowAuto);
 				break;
 				case 'slideshowSpeed':
-					$slideshowSpeed = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_SLIDESHOWSPEED . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_SLIDESHOWSPEED_DESC . '</span>', 'slideshowSpeed', $option['value']);
+					$slideshowSpeed = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_SLIDESHOWSPEED . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_SLIDESHOWSPEED_DESC . '</span>', 'slideshowSpeed', $option['value']);
 					for ($i = 5; $i <= 70; $i+=5) {
 						$slideshowSpeed->addOption( $i . '00', $i . '00');
 					}
 					$form->addElement($slideshowSpeed);
 				break;
                 case 'slideshow':
-					$randomize = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_SLIDESHOW, 'slideshow', $option['value']);
+					$randomize = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_SLIDESHOW, 'slideshow', $option['value']);
 					$randomize->addOption('true', _YES);
 					$randomize->addOption('false', _NO);
 					$form->addElement($randomize);
 				break;
 				case 'colorboxstyle':
-					$colorboxstyle = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_COLORBOXSTYLE, 'colorboxstyle', $option['value']);
+					$colorboxstyle = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_COLORBOXSTYLE, 'colorboxstyle', $option['value']);
 					$colorboxstyle->addOption('style1', 'style1');
 					$colorboxstyle->addOption('style2', 'style2');
 					$colorboxstyle->addOption('style3', 'style3');
@@ -686,95 +686,95 @@ class WggalleryGallerytypes extends XoopsObject
 					$form->addElement($colorboxstyle);
 				break;
                 case 'transition':
-					$transition = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_TRANSEFFECT, 'transition', $option['value']);
+					$transition = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_TRANSEFFECT, 'transition', $option['value']);
 					$transition->addOption('elastic', 'elastic');
 					$transition->addOption('fade', 'fade');
 					$transition->addOption('none', 'none');
 					$form->addElement($transition);
 				break;
 				case 'speedOpen':
-					$speedOpen = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_SPEEDOPEN, 'speedOpen', $option['value']);
+					$speedOpen = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_SPEEDOPEN, 'speedOpen', $option['value']);
 					for ($i = 1; $i <= 10; $i++) {
 						$speedOpen->addOption( $i . '00', $i . '00');
 					}
 					$form->addElement($speedOpen);
 				break;
                 case 'lcl_animationtime':
-                    $animtime = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_ANIMTIME . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_ANIMTIME_DESC . '</span>', 'lcl_animationtime', $option['value']);
+                    $animtime = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_ANIMTIME . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_ANIMTIME_DESC . '</span>', 'lcl_animationtime', $option['value']);
                     for ($i = 1; $i <= 10; $i++) {
 						$animtime->addOption( $i . '00', $i . '00');
 					}
                     $form->addElement($animtime);
                 break;
                 case 'lcl_counter':
-                    $lcl_counter = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_LCLCOUNTER, 'lcl_counter', $option['value']);
+                    $lcl_counter = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_LCLCOUNTER, 'lcl_counter', $option['value']);
                     $lcl_counter->addOption('true', _YES);
                     $lcl_counter->addOption('false', _NO);
                     $form->addElement($lcl_counter);
                 break;
                 case 'lcl_fullscreen':
-                    $lcl_fullscreen = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_LCLFULLSCREEN, 'lcl_fullscreen', $option['value']);
+                    $lcl_fullscreen = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_LCLFULLSCREEN, 'lcl_fullscreen', $option['value']);
                     $lcl_fullscreen->addOption('true', _YES);
                     $lcl_fullscreen->addOption('false', _NO);
                     $form->addElement($lcl_fullscreen);
                 break;
                 case 'lcl_progressbar':
-                    $lcl_progressbar = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_LCLPROGRESSBAR, 'lcl_progressbar', $option['value']);
+                    $lcl_progressbar = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_LCLPROGRESSBAR, 'lcl_progressbar', $option['value']);
                     $lcl_progressbar->addOption('true', _YES);
                     $lcl_progressbar->addOption('false', _NO);
                     $form->addElement($lcl_progressbar);
                 break;
                 case 'lcl_carousel':
-                    $lcl_carousel = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_PLAYOPTIONS, 'lcl_carousel', $option['value']);
+                    $lcl_carousel = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_PLAYOPTIONS, 'lcl_carousel', $option['value']);
                     $lcl_carousel->addOption('true', _AM_WGGALLERY_OPTION_GT_PLAYOPTION_1);
                     $lcl_carousel->addOption('false', _AM_WGGALLERY_OPTION_GT_PLAYOPTION_2);
                     $form->addElement($lcl_carousel);
                 break;
 				case 'lcl_slideshow':
-                    $lcl_slideshow = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_LCLSLIDESHOW, 'lcl_slideshow', $option['value']);
+                    $lcl_slideshow = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_LCLSLIDESHOW, 'lcl_slideshow', $option['value']);
                     $lcl_slideshow->addOption('true', _YES);
                     $lcl_slideshow->addOption('false', _NO);
                     $form->addElement($lcl_slideshow);
                 break;
                 case 'lcl_maxwidth':
-					$lcl_maxwidth = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_LCLMAXWIDTH, 'lcl_maxwidth', $option['value']);
+					$lcl_maxwidth = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_LCLMAXWIDTH, 'lcl_maxwidth', $option['value']);
 					for ($i = 50; $i <= 100; $i++) {
 						$lcl_maxwidth->addOption( $i, $i);
 					}
 					$form->addElement($lcl_maxwidth);
 				break;
                 case 'lcl_maxheight':
-					$lcl_maxheight = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_LCLMAXHEIGTH, 'lcl_maxheight', $option['value']);
+					$lcl_maxheight = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_LCLMAXHEIGTH, 'lcl_maxheight', $option['value']);
 					for ($i = 50; $i <= 100; $i++) {
 						$lcl_maxheight->addOption( $i, $i);
 					}
 					$form->addElement($lcl_maxheight);
 				break;
                 case 'lcl_backgroundcolor':
-					$form->addElement(new XoopsFormColorPicker(_AM_WGGALLERY_OPTION_GT_BACKGROUND, 'lcl_backgroundcolor', $option['value']));
+					$form->addElement(new \XoopsFormColorPicker(_AM_WGGALLERY_OPTION_GT_BACKGROUND, 'lcl_backgroundcolor', $option['value']));
 				break;
 				case 'lcl_backgroundheight':
-					$lcl_backgroundheight = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_BACKHEIGHT, 'lcl_backgroundheight', $option['value']);
+					$lcl_backgroundheight = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_BACKHEIGHT, 'lcl_backgroundheight', $option['value']);
 					for ($i = 50; $i <= 100; $i+=5) {
 						$lcl_backgroundheight->addOption( $i . 'vh', $i . 'vh');
 					}
 					$form->addElement($lcl_backgroundheight);
 				break;
                 case 'lcl_borderwidth':
-					$lcl_border = new XoopsFormElementTray(_AM_WGGALLERY_OPTION_GT_BORDER, '&nbsp;' );
-					$lcl_borderwidth = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_BORDERWIDTH, 'lcl_borderwidth', $option['value']);
+					$lcl_border = new \XoopsFormElementTray(_AM_WGGALLERY_OPTION_GT_BORDER, '&nbsp;' );
+					$lcl_borderwidth = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_BORDERWIDTH, 'lcl_borderwidth', $option['value']);
 					for ($i = 0; $i <= 10; $i++) {
 						$lcl_borderwidth->addOption( $i, $i);
 					}
 					$lcl_border->addElement($lcl_borderwidth);
-					$lcl_bordercolor = new XoopsFormColorPicker(_AM_WGGALLERY_OPTION_GT_BORDERCOLOR, 'lcl_bordercolor', $lcl_bordercolor);
+					$lcl_bordercolor = new \XoopsFormColorPicker(_AM_WGGALLERY_OPTION_GT_BORDERCOLOR, 'lcl_bordercolor', $lcl_bordercolor);
 					$lcl_border->addElement($lcl_bordercolor);
-                    $lcl_borderpadding = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_BORDERPADDING, 'lcl_borderpadding', $lcl_borderpadding);
+                    $lcl_borderpadding = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_BORDERPADDING, 'lcl_borderpadding', $lcl_borderpadding);
 					for ($i = 0; $i <= 10; $i++) {
 						$lcl_borderpadding->addOption( $i, $i);
 					}
 					$lcl_border->addElement($lcl_borderpadding);
-                    $lcl_borderradius = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_BORDERRADIUS, 'lcl_borderradius', $lcl_borderradius);
+                    $lcl_borderradius = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_BORDERRADIUS, 'lcl_borderradius', $lcl_borderradius);
 					for ($i = 0; $i <= 10; $i++) {
 						$lcl_borderradius->addOption( $i, $i);
 					}
@@ -787,13 +787,13 @@ class WggalleryGallerytypes extends XoopsObject
 					// hide this, used under lcl_borderwidth
 				break;
                 case 'lcl_shadow':
-                    $lcl_shadow = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_SHADOW, 'lcl_shadow', $option['value']);
+                    $lcl_shadow = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_SHADOW, 'lcl_shadow', $option['value']);
                     $lcl_shadow->addOption('true', _YES);
                     $lcl_shadow->addOption('false', _NO);
                     $form->addElement($lcl_shadow);
                 break;
                 case 'lcl_dataposition':
-                    $lcl_dataposition = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_DESC . '</span>', 'lcl_dataposition', $option['value']);
+                    $lcl_dataposition = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_DESC . '</span>', 'lcl_dataposition', $option['value']);
                     $lcl_dataposition->addOption('under', _AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_UNDER);
                     $lcl_dataposition->addOption('over', _AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_OVER);
                     $lcl_dataposition->addOption('lside', _AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_LSIDE);
@@ -801,69 +801,69 @@ class WggalleryGallerytypes extends XoopsObject
                     $form->addElement($lcl_dataposition);
                 break;
                 case 'lcl_skin':
-					$lcl_skin = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_LCLSKIN, 'lcl_skin', $option['value']);
+					$lcl_skin = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_LCLSKIN, 'lcl_skin', $option['value']);
 					$lcl_skin->addOption('minimal');
 					$lcl_skin->addOption('light');
                     $lcl_skin->addOption('dark');
 					$form->addElement($lcl_skin);
 				break;
                 case 'lcl_cmdposition':
-                    $lcl_cmdposition = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION_DESC . '</span>', 'lcl_cmdposition', $option['value']);
+                    $lcl_cmdposition = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION_DESC . '</span>', 'lcl_cmdposition', $option['value']);
                     $lcl_cmdposition->addOption('inner', _AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION_INNER);
                     $lcl_cmdposition->addOption('outer', _AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION_OUTER);
                     $form->addElement($lcl_cmdposition);
                 break;
                 case 'showSubmitter':
-					$showSubmitter = new XoopsFormRadio(_AM_WGGALLERY_OPTION_SHOWSUBMITTER, 'showSubmitter', $option['value']);
+					$showSubmitter = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_SHOWSUBMITTER, 'showSubmitter', $option['value']);
 					$showSubmitter->addOption('true', _YES);
 					$showSubmitter->addOption('false', _NO);
 					$form->addElement($showSubmitter);
 				break;
                 case 'lcl_txttogglecmd':
-					$lcl_txttogglecmd = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_LCLTOGGLETXT, 'lcl_txttogglecmd', $option['value']);
+					$lcl_txttogglecmd = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_LCLTOGGLETXT, 'lcl_txttogglecmd', $option['value']);
 					$lcl_txttogglecmd->addOption('true', _YES);
 					$lcl_txttogglecmd->addOption('false', _NO);
 					$form->addElement($lcl_txttogglecmd);
 				break;
                 case 'lcl_socials':
-					$lcl_socials = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_LCLSOCIALS, 'lcl_socials', $option['value']);
+					$lcl_socials = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_LCLSOCIALS, 'lcl_socials', $option['value']);
 					$lcl_socials->addOption('true', _YES);
 					$lcl_socials->addOption('false', _NO);
 					$form->addElement($lcl_socials);
 				break;
                 case 'lcl_download':
-					$lcl_download = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_LCLDOWNLOAD, 'lcl_download', $option['value']);
+					$lcl_download = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_LCLDOWNLOAD, 'lcl_download', $option['value']);
 					$lcl_download->addOption('true', _YES);
 					$lcl_download->addOption('false', _NO);
 					$form->addElement($lcl_download);
 				break;
                 case 'lcl_navbtnpos':
-					$lcl_navbtnpos = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_LCLNAVBTNPOS, 'lcl_navbtnpos', $option['value']);
+					$lcl_navbtnpos = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_LCLNAVBTNPOS, 'lcl_navbtnpos', $option['value']);
 					$lcl_navbtnpos->addOption('normal', _AM_WGGALLERY_OPTION_GT_LCLNAVBTNPOS_N);
 					$lcl_navbtnpos->addOption('middle', _AM_WGGALLERY_OPTION_GT_LCLNAVBTNPOS_M);
 					$form->addElement($lcl_navbtnpos);
 				break;
                 case 'lcl_fsimgbehavior':
-                    $lcl_fsimgbehavior = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_LCLFSIMGBEHAVIOUR, 'lcl_fsimgbehavior', $option['value']);
+                    $lcl_fsimgbehavior = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_LCLFSIMGBEHAVIOUR, 'lcl_fsimgbehavior', $option['value']);
                     $lcl_fsimgbehavior->addOption('fit', _AM_WGGALLERY_OPTION_GT_LCLFSIMGBEHAVIOUR_FIT);
                     $lcl_fsimgbehavior->addOption('fill', _AM_WGGALLERY_OPTION_GT_LCLFSIMGBEHAVIOUR_FILL);
                     $lcl_fsimgbehavior->addOption('smart', _AM_WGGALLERY_OPTION_GT_LCLFSIMGBEHAVIOUR_SMART);
                     $form->addElement($lcl_fsimgbehavior);
                 break;
                 case 'lcl_rclickprevent':
-					$lcl_rclickprevent = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_LCLRCLICK, 'lcl_rclickprevent', $option['value']);
+					$lcl_rclickprevent = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_LCLRCLICK, 'lcl_rclickprevent', $option['value']);
 					$lcl_rclickprevent->addOption('true', _YES);
 					$lcl_rclickprevent->addOption('false', _NO);
 					$form->addElement($lcl_rclickprevent);
 				break;
 				case 'open':
-					$open = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_AUTOOPEN, 'open', $option['value']);
+					$open = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_AUTOOPEN, 'open', $option['value']);
 					$open->addOption('true', _YES);
 					$open->addOption('false', _NO);
 					$form->addElement($open);
 				break;
 				case 'opacity':
-					$opacity = new XoopsFormSelect(_AM_WGGALLERY_OPTION_OPACITIY, 'opacity', $option['value']);
+					$opacity = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_OPACITIY, 'opacity', $option['value']);
 					$opacity->addOption('0.1', '0.1');
 					$opacity->addOption('0.2', '0.2');
 					$opacity->addOption('0.3', '0.3');
@@ -877,19 +877,19 @@ class WggalleryGallerytypes extends XoopsObject
 					$form->addElement($opacity);
 				break;
                 case 'slideshowtype':
-					$slideshowtype = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_SLIDESHOWTYPE, 'slideshowtype', $option['value']);
+					$slideshowtype = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_SLIDESHOWTYPE, 'slideshowtype', $option['value']);
 					$slideshowtype->addOption('lightbox');
 					$slideshowtype->addOption('inline');
 					$form->addElement($slideshowtype);
 				break;
                 case 'button_close':
-					$button_close = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_BUTTTONCLOSE, 'button_close', $option['value']);
+					$button_close = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_BUTTTONCLOSE, 'button_close', $option['value']);
 					$button_close->addOption('true', _YES);
 					$button_close->addOption('false', _NO);
 					$form->addElement($button_close);
 				break;
                 case 'navbar':
-					$navbar = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_NAVBAR, 'navbar', $option['value']);
+					$navbar = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_NAVBAR, 'navbar', $option['value']);
 					$navbar->addOption(0, _NO);
                     $navbar->addOption(1, _AM_WGGALLERY_OPTION_GT_SHOW_1);
 					$navbar->addOption(2, _AM_WGGALLERY_OPTION_GT_SHOW_2);
@@ -898,7 +898,7 @@ class WggalleryGallerytypes extends XoopsObject
 					$form->addElement($navbar);
 				break;
                 case 'toolbar':
-					$toolbar = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_TOOLBAR, 'toolbar', $option['value']);
+					$toolbar = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_TOOLBAR, 'toolbar', $option['value']);
                     $toolbar->addOption(0, _NO);
                     $toolbar->addOption(1, _AM_WGGALLERY_OPTION_GT_SHOW_1);
 					$toolbar->addOption(2, _AM_WGGALLERY_OPTION_GT_SHOW_2);
@@ -907,65 +907,65 @@ class WggalleryGallerytypes extends XoopsObject
 					$form->addElement($toolbar);
 				break;
                 case 'download':
-					$download = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_TOOLBARDOWNLOAD, 'download', $option['value']);
+					$download = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_TOOLBARDOWNLOAD, 'download', $option['value']);
 					$download->addOption('true', _YES);
 					$download->addOption('false', _NO);
 					$form->addElement($download);
 				break;
                 case 'zoomable':
-					$zoomable = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_TOOLBARZOOM, 'zoomable', $option['value']);
+					$zoomable = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_TOOLBARZOOM, 'zoomable', $option['value']);
 					$zoomable->addOption('true', _YES);
 					$zoomable->addOption('false', _NO);
 					$form->addElement($zoomable);
 				break;
                 case 'fullscreen':
-					$fullscreen = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_FULLSCREEN, 'fullscreen', $option['value']);
+					$fullscreen = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_FULLSCREEN, 'fullscreen', $option['value']);
 					$fullscreen->addOption('true', _YES);
 					$fullscreen->addOption('false', _NO);
 					$form->addElement($fullscreen);
 				break;
                 case 'transitionDuration':
-					$dtrans = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_TRANSDURATION . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_TRANSDURATION_DESC . '</span>', 'transitionDuration', $option['value']);
+					$dtrans = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_TRANSDURATION . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_TRANSDURATION_DESC . '</span>', 'transitionDuration', $option['value']);
                     for ($i = 1; $i <= 20; $i++) {
 						$dtrans->addOption( $i . '00', $i . '00');
 					}
 					$form->addElement($dtrans);
 				break;
                 case 'loop':
-					$loop = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_PLAYOPTIONS, 'loop', $option['value']);
+					$loop = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_PLAYOPTIONS, 'loop', $option['value']);
                     $loop->addOption('1', _AM_WGGALLERY_OPTION_GT_PLAYOPTION_1);
                     $loop->addOption('2', _AM_WGGALLERY_OPTION_GT_PLAYOPTION_2);
 					$form->addElement($loop);
 				break;
                 case 'showThumbnails':
-					$showThumbnails = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_SHOWTHUMBS, 'showThumbnails', $option['value']);
+					$showThumbnails = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_SHOWTHUMBS, 'showThumbnails', $option['value']);
 					$showThumbnails->addOption('true', _YES);
 					$showThumbnails->addOption('false', _NO);
 					$form->addElement($showThumbnails);
 				break;
                 case 'thumbsWidth':
-					$thumbsWidth = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_LCLTHUMBSWIDTH, 'thumbsWidth', $option['value']);
+					$thumbsWidth = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_LCLTHUMBSWIDTH, 'thumbsWidth', $option['value']);
                     for ($i = 1; $i <= 30; $i++) {
 						$thumbsWidth->addOption( $i . '0', $i . '0');
 					}
 					$form->addElement($thumbsWidth);
 				break;
                 case 'thumbsHeight':
-					$thumbsHeight = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_LCLTHUMBSHEIGTH, 'thumbsHeight', $option['value']);
+					$thumbsHeight = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_LCLTHUMBSHEIGTH, 'thumbsHeight', $option['value']);
                     for ($i = 1; $i <= 30; $i++) {
 						$thumbsHeight->addOption( $i . '0', $i . '0');
 					}
 					$form->addElement($thumbsHeight);
 				break;
                 case 'indexImage':
-					$indexImage = new XoopsFormElementTray(_AM_WGGALLERY_OPTION_GT_INDEXIMG, '&nbsp;' );
-					$indexImage1 = new XoopsFormSelect('', 'indexImage', $option['value']);
+					$indexImage = new \XoopsFormElementTray(_AM_WGGALLERY_OPTION_GT_INDEXIMG, '&nbsp;' );
+					$indexImage1 = new \XoopsFormSelect('', 'indexImage', $option['value']);
 					$indexImage1->addOption('none', _NONE);
 					$indexImage1->addOption('fixedHeight', 'fixedHeight');
 					$indexImage1->addOption('squareSize', 'squareSize');
 					$indexImage1->addOption('simpleContainer', 'simpleContainer');
 					$indexImage->addElement($indexImage1);
-					$indexImage2 = new XoopsFormText( _AM_WGGALLERY_OPTION_GT_INDEXIMGHEIGHT, 'indexImageheight', 50, 255, $indexImageheight );
+					$indexImage2 = new \XoopsFormText( _AM_WGGALLERY_OPTION_GT_INDEXIMGHEIGHT, 'indexImageheight', 50, 255, $indexImageheight );
 					$indexImage->addElement($indexImage2);
 					$form->addElement($indexImage);
 				break;
@@ -973,60 +973,60 @@ class WggalleryGallerytypes extends XoopsObject
 					// hide it, this is used under indexImage
 				break;
 				case 'transitionEffect':
-					$transitionEffect = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_TRANSEFFECT, 'transitionEffect', $option['value']);
+					$transitionEffect = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_TRANSEFFECT, 'transitionEffect', $option['value']);
 					$transitionEffect->addOption('fading', 'fading');
 					$transitionEffect->addOption('sliding', 'sliding');
 					$form->addElement($transitionEffect);
 				break;
 				case 'rowHeight':
-					$rowHeight = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_ROWHEIGHT, 'rowHeight', $option['value']);
+					$rowHeight = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_ROWHEIGHT, 'rowHeight', $option['value']);
 					for ($i = 10; $i <= 50; $i++) {
 						$rowHeight->addOption( $i . '0', $i . '0');
 					}
 					$form->addElement($rowHeight);
 				break;
                 case 'lastRow':
-					$lastRow = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_LASTROW . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_LASTROW_DESC . '</span>', 'lastRow', $option['value']);
+					$lastRow = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_LASTROW . '<br><span style="font-size:80%">' . _AM_WGGALLERY_OPTION_GT_LASTROW_DESC . '</span>', 'lastRow', $option['value']);
 					$lastRow->addOption('justify', _YES);
 					$lastRow->addOption('nojustify', _NO);
 					$form->addElement($lastRow);
 				break;
                 case 'margins':
-					$margins = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_MARGINS, 'margins', $option['value']);
+					$margins = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_MARGINS, 'margins', $option['value']);
 					for ($i = 1; $i <= 30; $i++) {
 						$margins->addOption( $i, $i);
 					}
 					$form->addElement($margins);
 				break;
 				case 'outerborder':
-					$outerborder = new XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_OUTERBORDER, 'outerborder', $option['value']);
+					$outerborder = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_OUTERBORDER, 'outerborder', $option['value']);
 					for ($i = 1; $i <= 100; $i++) {
 						$outerborder->addOption( $i, $i);
 					}
 					$form->addElement($outerborder);
 				break;
 				case 'randomize':
-					$randomize = new XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_RANDOMIZE, 'randomize', $option['value']);
+					$randomize = new \XoopsFormRadio(_AM_WGGALLERY_OPTION_GT_RANDOMIZE, 'randomize', $option['value']);
 					$randomize->addOption('true', _YES);
 					$randomize->addOption('false', _NO);
 					$form->addElement($randomize);
 				break;
 				case 'option_sort':
-					// $form->addElement(new XoopsFormText('option_sort', 'option_sort',  100, 255, $option['value']));
-                    $form->addElement(new XoopsFormHidden('option_sort', $option['value']));
+					// $form->addElement(new \XoopsFormText('option_sort', 'option_sort',  100, 255, $option['value']));
+                    $form->addElement(new \XoopsFormHidden('option_sort', $option['value']));
 				break;
                 case 'default':
                 default:
-					$default = new XoopsFormRadio($option['name'], $option['name'], $option['value']);
+					$default = new \XoopsFormRadio($option['name'], $option['name'], $option['value']);
 					$default->addOption('none', _AM_WGGALLERY_NONE);
 					$form->addElement($default);
 				break;
             }
 		}
 		// To Save
-		$form->addElement(new XoopsFormHidden('op', 'saveoptions'));
-		$form->addElement(new XoopsFormHidden('gt_id', $this->getVar('gt_id')));
-		$form->addElement(new XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+		$form->addElement(new \XoopsFormHidden('op', 'saveoptions'));
+		$form->addElement(new \XoopsFormHidden('gt_id', $this->getVar('gt_id')));
+		$form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
 		return $form;
 	}
 
@@ -1037,7 +1037,7 @@ class WggalleryGallerytypes extends XoopsObject
      */
 	public function getValuesGallerytypes($admin = false)
 	{
-		// $wggallery = WggalleryHelper::getInstance();
+		// $helper = Wggallery\Helper::getInstance();
 		$ret = $this->getValues();
 		$ret['id'] = $this->getVar('gt_id');
 		$ret['primary'] = $this->getVar('gt_primary');
@@ -1085,351 +1085,4 @@ class WggalleryGallerytypes extends XoopsObject
 		}
 		return $ret;
 	}
-}
-
-/**
- * Class Object Handler WggalleryGallerytypes
- */
-class WggalleryGallerytypesHandler extends XoopsPersistableObjectHandler
-{
-	/**
-	 * Constructor 
-	 *
-	 * @param null|XoopsDatabase $db
-	 */
-	public function __construct(XoopsDatabase $db)
-	{
-		parent::__construct($db, 'wggallery_gallerytypes', 'wggallerygallerytypes', 'gt_id', 'gt_name');
-	}
-
-	/**
-	 * @param bool $isNew
-	 *
-	 * @return object
-	 */
-	public function create($isNew = true)
-	{
-		return parent::create($isNew);
-	}
-
-	/**
-	 * retrieve a field
-	 *
-	 * @param int $i field id
-	 * @param null fields
-	 * @return mixed reference to the {@link Get} object
-	 */
-	public function get($i = null, $fields = null)
-	{
-		return parent::get($i, $fields);
-	}
-
-	/**
-	 * get inserted id
-	 *
-	 * @param null
-	 * @return integer reference to the {@link Get} object
-	 */
-	public function getInsertId()
-	{
-		return $this->db->getInsertId();
-	}
-
-	/**
-	 * Get Count Gallerytypes in the database
-	 * @param int    $start 
-	 * @param int    $limit 
-	 * @param string $sort 
-	 * @param string $order 
-	 * @return int
-	 */
-	public function getCountGallerytypes($start = 0, $limit = 0, $sort = 'gt_id ASC, gt_name', $order = 'ASC')
-	{
-		$crCountGallerytypes = new CriteriaCompo();
-		$crCountGallerytypes = $this->getGallerytypesCriteria($crCountGallerytypes, $start, $limit, $sort, $order);
-		return parent::getCount($crCountGallerytypes);
-	}
-
-	/**
-	 * Get All Gallerytypes in the database
-	 * @param int    $start 
-	 * @param int    $limit 
-	 * @param string $sort 
-	 * @param string $order 
-	 * @return array
-	 */
-	public function getAllGallerytypes($start = 0, $limit = 0, $sort = 'gt_id ASC, gt_name', $order = 'ASC')
-	{
-		$crAllGallerytypes = new CriteriaCompo();
-		$crAllGallerytypes = $this->getGallerytypesCriteria($crAllGallerytypes, $start, $limit, $sort, $order);
-		return parent::getAll($crAllGallerytypes);
-	}
-
-	/**
-	 * Get Criteria Gallerytypes
-	 * @param        $crGallerytypes
-	 * @param int    $start 
-	 * @param int    $limit 
-	 * @param string $sort 
-	 * @param string $order 
-	 * @return int
-	 */
-	private function getGallerytypesCriteria($crGallerytypes, $start, $limit, $sort, $order)
-	{
-		$crGallerytypes->setStart( $start );
-		$crGallerytypes->setLimit( $limit );
-		$crGallerytypes->setSort( $sort );
-		$crGallerytypes->setOrder( $order );
-		return $crGallerytypes;
-	}
-
-    /**
-     * Get primary Gallerytype
-     * @return array
-     */
-	public function getPrimaryGallery()
-	{
-		$gallerytype = [];
-		$crGallerytypes = new CriteriaCompo();
-		$crGallerytypes->add(new Criteria('gt_primary', 1));
-		$crGallerytypes->setLimit( 1 );
-		$gallerytypesAll = $this->getAll($crGallerytypes);
-		foreach(array_keys($gallerytypesAll) as $i) {
-			$gallerytype['name'] = $gallerytypesAll[$i]->getVar('gt_name');
-            $gallerytype['template'] = $gallerytypesAll[$i]->getVar('gt_template');
-			$gallerytype['options'] = $gallerytypesAll[$i]->getVar('gt_options', 'N');
-		}
-		return $gallerytype;
-	}
-
-    /**
-     * Create Gallerytypes
-     * @param $success
-     * @param $errors
-     * @return void
-     */
- 	public function gallerytypesCreateReset( &$success, &$errors )
-	{
-        // create new gallerytypes if not existing
-        $templates = ['none', 'lightbox2', 'justifiedgallery', 'viewerjs', 'jssor', 'lclightboxlite'];
-        foreach($templates as $template) {
-            $gtCount = 0;
-            $crGallerytypes = new CriteriaCompo();
-            $crGallerytypes->add(new Criteria('gt_template', $template));
-            $crGallerytypes->setLimit( 1 );
-            $gtCount = $this->getCount($crGallerytypes);
-            if (1 > $gtCount) {           
-                $gallerytypesObj = $this->create();
-                $gallerytypesObj->setVar('gt_name', $template);
-                $gallerytypesObj->setVar('gt_template', $template);
-                if($this->insert($gallerytypesObj)) {
-                    $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE . $template;
-                } else {
-                    $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $template;
-                }
-            }
-            unset($gallerytypeObj);
-            unset($crGallerytypes);
-        }
-        
-        // reset all gallerytypes
-        $count_pr = 0;
-        $crGallerytypes = new CriteriaCompo();
-        $crGallerytypes->add(new Criteria('gt_primary', 1));
-        $gallerytypesAll = $this->getAll($crGallerytypes);
-        foreach(array_keys($gallerytypesAll) as $i) {
-            if($this->reset($gallerytypesAll[$i]->getVar('gt_id'), $gallerytypesAll[$i]->getVar('gt_template'), 1)) {
-                $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET . $gallerytypesAll[$i]->getVar('gt_name');
-                $count_pr++;
-            } else {
-                $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_RESET . $template;
-            }
-        }            
-        unset($crGallerytypes);
-        $crGallerytypes = new CriteriaCompo();
-        $crGallerytypes->add(new Criteria('gt_primary', 0));
-        $gallerytypesAll = $this->getAll($crGallerytypes);
-        foreach(array_keys($gallerytypesAll) as $i) {
-            $primary = 0;
-            if ( 0 == $count_pr) {$primary = 1;}
-            if($this->reset($gallerytypesAll[$i]->getVar('gt_id'), $gallerytypesAll[$i]->getVar('gt_template'), $primary)) {
-                $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET . $gallerytypesAll[$i]->getVar('gt_name');
-                $count_pr++;
-            } else {
-                $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_RESET . $gallerytypesAll[$i]->getVar('gt_template');
-            }
-        }
-        unset($crGallerytypes);
-    }
-    
-    /**
-     * Reset Gallerytype
-     * @param int $gtId
-     * @param $template
-     * @param $primary
-     * @return boolean
-     */
- 	public function reset($gtId, $template, $primary)
-	{
-		$options = [];
-        switch ($template) {
-			case 'none':
-				$gt_name = 'none';
-				$gt_credits = '';
-			break;			
-			case 'lclightboxlite':
-				$gt_name = 'LC Lightbox LITE';
-				$gt_credits = 'https://lcweb.it/<br>https://github.com/LCweb-ita/LC-Lightbox-LITE';
-                $options[] = ['name' => 'source', 'value' => 'large', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE'];
-                $options[] = ['name' => 'source_preview', 'value' => 'thumb', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW'];
-				$options[] = ['name' => 'lcl_maxwidth', 'value' => '93', 'caption' => '_AM_WGGALLERY_OPTION_GT_LCLMAXWIDTH'];
-                $options[] = ['name' => 'lcl_maxheight', 'value' => '93', 'caption' => '_AM_WGGALLERY_OPTION_GT_LCLMAXHEIGTH'];
-                $options[] = ['name' => 'lcl_backgroundcolor', 'value' => '#cccccc', 'caption' => '_AM_WGGALLERY_OPTION_GT_BACKGROUND'];
-				$options[] = ['name' => 'opacity', 'value' => '0.8', 'caption' => '_AM_WGGALLERY_OPTION_OPACITIY'];
-				$options[] = ['name' => 'lcl_backgroundheight', 'value' => '75vh', 'caption' => '_AM_WGGALLERY_OPTION_GT_BACKHEIGHT'];
-                $options[] = ['name' => 'lcl_borderwidth', 'value' => '2', 'caption' => '_AM_WGGALLERY_OPTION_GT_BORDERWIDTH'];
-                $options[] = ['name' => 'lcl_bordercolor', 'value' => '#cccccc', 'caption' => '_AM_WGGALLERY_OPTION_GT_BORDERCOLOR'];
-                $options[] = ['name' => 'lcl_borderpadding', 'value' => '5', 'caption' => '_AM_WGGALLERY_OPTION_GT_BORDERPADDING'];
-                $options[] = ['name' => 'lcl_borderradius', 'value' => '5', 'caption' => '_AM_WGGALLERY_OPTION_GT_BORDERRADIUS'];
-                $options[] = ['name' => 'lcl_shadow', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_SHADOW'];
-                $options[] = ['name' => 'lcl_dataposition', 'value' => 'over', 'caption' => '_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION'];
-                $options[] = ['name' => 'lcl_cmdposition', 'value' => 'inner', 'caption' => '_AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION'];
-                $options[] = ['name' => 'lcl_skin', 'value' => 'light', 'caption' => '_AM_WGGALLERY_OPTION_GT_LCLSKIN'];
-				$options[] = ['name' => 'lcl_navbtnpos', 'value' => 'normal', 'caption' => '_AM_WGGALLERY_OPTION_GT_LCLNAVBTNPOS'];
-				$options[] = ['name' => 'lcl_slideshow', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_LCLSLIDESHOW'];
-				$options[] = ['name' => 'lcl_counter', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_LCLCOUNTER'];
-                $options[] = ['name' => 'lcl_progressbar', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_LCLPROGRESSBAR'];
-				$options[] = ['name' => 'lcl_socials', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_LCLSOCIALS'];
-                $options[] = ['name' => 'lcl_download', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_LCLDOWNLOAD'];
-                $options[] = ['name' => 'lcl_txttogglecmd', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_LCLTOGGLETXT'];
-				$options[] = ['name' => 'lcl_fullscreen', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_LCLFULLSCREEN'];
-				$options[] = ['name' => 'showTitle', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE'];
-                $options[] = ['name' => 'showDescr', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_SHOWDESCR'];
-                $options[] = ['name' => 'showSubmitter', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_SHOWSUBMITTER'];
-				$options[] = ['name' => 'lcl_carousel', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_PLAYOPTIONS'];
-                $options[] = ['name' => 'speedOpen', 'value' => '500', 'caption' => '_AM_WGGALLERY_OPTION_GT_SPEEDOPEN'];
-                $options[] = ['name' => 'transitionDuration', 'value' => '200', 'caption' => '_AM_WGGALLERY_OPTION_GT_TRANSDURATION'];
-                $options[] = ['name' => 'lcl_animationtime', 'value' => '500', 'caption' => '_AM_WGGALLERY_OPTION_GT_ANIMTIME'];
-                $options[] = ['name' => 'slideshowSpeed', 'value' => '5000', 'caption' => '_AM_WGGALLERY_OPTION_GT_SLIDESHOWSPEED'];
-                $options[] = ['name' => 'slideshowAuto', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_AUTOPLAY'];
-                $options[] = ['name' => 'lcl_rclickprevent', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_LCLRCLICK'];
-                $options[] = ['name' => 'showThumbnails', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_SHOWTHUMBS'];
-                $options[] = ['name' => 'thumbsWidth', 'value' => '100', 'caption' => '_AM_WGGALLERY_OPTION_GT_LCLTHUMBSWIDTH'];
-                $options[] = ['name' => 'thumbsHeight', 'value' => '100', 'caption' => '_AM_WGGALLERY_OPTION_GT_LCLTHUMBSHEIGTH'];
-                $options[] = ['name' => 'lcl_fsimgbehavior', 'value' => 'smart', 'caption' => '_AM_WGGALLERY_OPTION_GT_LCLFSIMGBEHAVIOUR'];
-                
-            break; 
-            case 'jssor':
-				$gt_name = 'Jssor';
-				$gt_credits = 'https://www.jssor.com<br>https://www.jssor.com/development/index.html';
-                $options[] = ['name' => 'source', 'value' => 'large', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE'];
-                $options[] = ['name' => 'jssor_arrows', 'value' => 'arrow-051', 'caption' => '_AM_WGGALLERY_OPTION_GT_ARROWS'];
-                $options[] = ['name' => 'jssor_bullets', 'value' => 'none', 'caption' => '_AM_WGGALLERY_OPTION_GT_BULLETS'];
-                $options[] = ['name' => 'jssor_thumbnails', 'value' => 'thumbnail-051', 'caption' => '_AM_WGGALLERY_OPTION_GT_THUMBNAILS'];
-				$options[] = ['name' => 'jssor_thumborient', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_GT_ORIENTATION'];
-                $options[] = ['name' => 'jssor_loadings', 'value' => 'loading-003-oval', 'caption' => '_AM_WGGALLERY_OPTION_GT_LOADINGS'];
-                $options[] = ['name' => 'jssor_autoplay', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_GT_PLAYOPTIONS'];
-                $options[] = ['name' => 'slideshowSpeed', 'value' => '3000', 'caption' => '_AM_WGGALLERY_OPTION_GT_SLIDESHOWSPEED'];
-                $options[] = ['name' => 'transitionDuration', 'value' => '500', 'caption' => '_AM_WGGALLERY_OPTION_GT_TRANSDURATION'];
-                $options[] = ['name' => 'jssor_fillmode', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_GT_FILLMODE'];
-                $options[] = ['name' => 'jssor_transition', 'value' => '{$Duration:800,$Opacity:2}', 'caption' => '_AM_WGGALLERY_OPTION_GT_TRANSEFFECT'];
-				$options[] = ['name' => 'jssor_transitionorder', 'value' => '0', 'caption' => '_AM_WGGALLERY_OPTION_GT_TRANSORDER'];
-				$options[] = ['name' => 'jssor_slidertype', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_GT_SLIDERTYPE'];
-				$options[] = ['name' => 'jssor_maxwidth', 'value' => '900', 'caption' => '_AM_WGGALLERY_OPTION_GT_MAXWIDTH'];
-				$options[] = ['name' => 'jssor_maxheight', 'value' => '600', 'caption' => '_AM_WGGALLERY_OPTION_GT_MAXHEIGHT'];
-            break;
-            case 'lightbox2':
-				$gt_name = 'Lightbox2';
-				$gt_credits = 'https://lokeshdhakar.com';
-                $options[] = ['name' => 'source', 'value' => 'large', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE'];
-                $options[] = ['name' => 'source_preview', 'value' => 'thumb', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW'];
-                $options[] = ['name' => 'showTitle', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE'];
-                $options[] = ['name' => 'showDescr', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_SHOWDESCR'];
-                $options[] = ['name' => 'showAlbumlabel', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_SHOWLABEL'];
-                $options[] = ['name' => 'slideshowSpeed', 'value' => '1000', 'caption' => '_AM_WGGALLERY_OPTION_GT_SLIDESHOWSPEED'];
-				$options[] = ['name' => 'speedOpen', 'value' => '600', 'caption' => '_AM_WGGALLERY_OPTION_GT_SPEEDOPEN'];
-				$options[] = ['name' => 'indexImage', 'value' => 'fixedHeight', 'caption' => '_AM_WGGALLERY_OPTION_GT_INDEXIMG'];
-				$options[] = ['name' => 'indexImageheight', 'value' => '200', 'caption' => '_AM_WGGALLERY_OPTION_GT_INDEXIMGHEIGHT'];
-            break;            
-            case 'justifiedgallery':
-				$gt_name = 'Justified Gallery with Colorbox';
-				$gt_credits = 'http://miromannino.com/';
-                $options[] = ['name' => 'source', 'value' => 'large', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE'];
-                $options[] = ['name' => 'source_preview', 'value' => 'thumb', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW'];
-                $options[] = ['name' => 'showTitle', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE'];
-                $options[] = ['name' => 'rowHeight', 'value' => '150', 'caption' => '_AM_WGGALLERY_OPTION_GT_ROWHEIGHT'];
-                $options[] = ['name' => 'lastRow', 'value' => 'nojustify', 'caption' => '_AM_WGGALLERY_OPTION_GT_LASTROW'];
-                $options[] = ['name' => 'margins', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_GT_MARGINS'];
-                $options[] = ['name' => 'outerborder', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_GT_OUTERBORDER'];
-                $options[] = ['name' => 'randomize', 'value' => 'false', 'caption' => '_AM_WGGALLERY_OPTION_GT_RANDOMIZE'];
-                $options[] = ['name' => 'slideshow', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_SLIDESHOW'];
-                $options[] = ['name' => 'slideshowAuto', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_AUTOPLAY'];
-                $options[] = ['name' => 'transition', 'value' => 'elastic', 'caption' => '_AM_WGGALLERY_OPTION_GT_TRANSEFFECT'];
-                $options[] = ['name' => 'slideshowSpeed', 'value' => '3000', 'caption' => '_AM_WGGALLERY_OPTION_GT_SLIDESHOWSPEED'];
-                $options[] = ['name' => 'speedOpen', 'value' => '500', 'caption' => '_AM_WGGALLERY_OPTION_GT_SPEEDOPEN'];
-                $options[] = ['name' => 'open', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_AUTOOPEN'];
-                $options[] = ['name' => 'colorboxstyle', 'value' => 'style1', 'caption' => '_AM_WGGALLERY_OPTION_GT_COLORBOXSTYLE'];
-                $options[] = ['name' => 'opacity', 'value' => '0.8', 'caption' => '_AM_WGGALLERY_OPTION_OPACITIY'];
-            break;
-/*             case 'blueimpgallery':
-				$gt_name = 'Blueimp Gallery';
-				$gt_credits = 'Sebastian Tschan, https://blueimp.net';
-				$gt_primary = $primary;
-                $options[] = array('name' => 'source', 'value' => 'large', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE');
-                $options[] = array('name' => 'source_preview', 'value' => 'thumb', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW');
-                $options[] = array('name' => 'slideshowtype', 'value' => 'lightbox', 'caption' => '_AM_WGGALLERY_OPTION_GT_SLIDESHOWTYPE');
-                $options[] = array('name' => 'slideshowSpeed', 'value'=> '3000', 'caption' => '_AM_WGGALLERY_OPTION_GT_SLIDESHOWSPEED');
-                $options[] = array('name' => 'transitionDuration', 'value' => '500', 'caption' => '_AM_WGGALLERY_OPTION_GT_TRANSDURATION');
-                $options[] = array('name' => 'slideshowAuto', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_AUTOPLAY');
-                $options[] = array('name' => 'showThumbnails', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_SHOWTHUMBS');
-                $options[] = array('name' => 'showTitle', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE');
-            break; */
-            case 'viewerjs':
-				$gt_name = 'ViewerJs';
-				$gt_credits = 'http://chenfengyuan.com';
-                $options[] = ['name' => 'source', 'value' => 'large', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE'];
-                $options[] = ['name' => 'source_preview', 'value' => 'thumb', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW'];
-                $options[] = ['name' => 'button_close', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_BUTTTONCLOSE'];
-                $options[] = ['name' => 'navbar', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_GT_NAVBAR'];
-                $options[] = ['name' => 'viewerjs_title', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE'];
-                $options[] = ['name' => 'toolbar', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_GT_TOOLBAR'];
-                $options[] = ['name' => 'zoomable', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_TOOLBARZOOM'];
-                $options[] = ['name' => 'download', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_TOOLBARDOWNLOAD'];
-                $options[] = ['name' => 'fullscreen', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_FULLSCREEN'];
-                $options[] = ['name' => 'loop', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_GT_PLAYOPTIONS'];
-                $options[] = ['name' => 'slideshowSpeed', 'value' => '3000', 'caption' => '_AM_WGGALLERY_OPTION_GT_SLIDESHOWSPEED'];
-                $options[] = ['name' => 'open', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_AUTOOPEN'];
-                $options[] = ['name' => 'slideshowAuto', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_AUTOPLAY'];
-            break;
-            
-            case 'default':
-            default:
-                redirect_header('gallerytypes.php?op=list', 3, 'Invalid template name:' . $template);
-            break;
-        }
-		
-		// define sorting
-		$option_sort = '';
-		foreach ($options as $option) {     
-			if ('' !== $option_sort) {$option_sort .= '|';}
-			$option_sort .= $option['name'];
-		}
-		$options[] = ['name' => 'option_sort', 'value' => $option_sort];
-		
-        if($gtId !== null) {
-			$gallerytypesObj = $this->get($gtId);	
-            // Set Vars
-            $gallerytypesObj->setVar('gt_primary', $primary);
-            $gallerytypesObj->setVar('gt_name', $gt_name);
-            $gallerytypesObj->setVar('gt_credits', $gt_credits);
-            $gallerytypesObj->setVar('gt_template', $template);
-			$gallerytypesObj->setVar('gt_options', serialize($options));
-			$gallerytypesObj->setVar('gt_date', time());
-            // Insert Data
-            if($this->insert($gallerytypesObj)) {
-                return true;
-            }
-        }
-		return false;
-	} 
 }

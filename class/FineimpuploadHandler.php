@@ -1,5 +1,7 @@
 <?php
 
+namespace XoopsModules\Wggallery;
+
 /**
  * SystemFineImUploadHandler class to work with ajaxfineupload.php endpoint
  * to facilitate uploads for the system image manager
@@ -35,7 +37,10 @@
  * SOFTWARE.
  */
 
-class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
+use XoopsModules\Wggallery;
+
+//class FineImpUploadHandler extends \SystemFineUploadHandler
+class FineimpuploadHandler extends \SystemFineUploadHandler
 {
      /**
      * @var int
@@ -148,10 +153,10 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 		$imgHandler->sourceFile = $this->imagePath;
 		$imgHandler->endFile = $this->pathUpload . '/medium/' . $this->imageName;
 		$imgHandler->imageMimetype = $this->imageMimetype;
-		$imgHandler->maxWidth = $wggallery->getConfig('maxwidth_medium');
-		$imgHandler->maxHeight = $wggallery->getConfig('maxheight_medium');
+		$imgHandler->maxWidth = $helper->getConfig('maxwidth_medium');
+		$imgHandler->maxHeight = $helper->getConfig('maxheight_medium');
 		$ret = $imgHandler->ResizeImage();	
-		// $ret = resizeImage($this->imagePath, $this->pathUpload . '/medium/' . $this->imageName, $wggallery->getConfig('maxwidth_medium'), $wggallery->getConfig('maxheight_medium'), $this->imageMimetype);
+		// $ret = resizeImage($this->imagePath, $this->pathUpload . '/medium/' . $this->imageName, $helper->getConfig('maxwidth_medium'), $helper->getConfig('maxheight_medium'), $this->imageMimetype);
         if(false === $ret) {
 			return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_MEDIUM, $this->imageNicename)];
 		} 
@@ -163,10 +168,10 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 		$imgHandler->sourceFile = $this->imagePath;
 		$imgHandler->endFile = $this->pathUpload . '/thumbs/' . $this->imageName;
 		$imgHandler->imageMimetype = $this->imageMimetype;
-		$imgHandler->maxWidth = $wggallery->getConfig('maxwidth_thumbs');
-		$imgHandler->maxHeight = $wggallery->getConfig('maxheight_thumbs');
+		$imgHandler->maxWidth = $helper->getConfig('maxwidth_thumbs');
+		$imgHandler->maxHeight = $helper->getConfig('maxheight_thumbs');
 		$ret = $imgHandler->ResizeImage();	
-        // $ret = resizeImage($this->imagePath, $this->pathUpload . '/thumbs/' . $this->imageName, $wggallery->getConfig('maxwidth_thumbs'), $wggallery->getConfig('maxheight_thumbs'), $this->imageMimetype);
+        // $ret = resizeImage($this->imagePath, $this->pathUpload . '/thumbs/' . $this->imageName, $helper->getConfig('maxwidth_thumbs'), $helper->getConfig('maxheight_thumbs'), $this->imageMimetype);
 		if(false === $ret) {
 			return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_THUMBS, $this->imageNicename)];
 		} 
@@ -202,8 +207,8 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 		
 		$this->getImageDim();
 
-		$wggallery = WggalleryHelper::getInstance();
-		$imagesHandler = $wggallery->getHandler('images');
+		$helper = Wggallery\Helper::getInstance();
+		$imagesHandler = $helper->getHandler('images');
 
 		$imagesObj = $imagesHandler->create();
 		// Set Vars

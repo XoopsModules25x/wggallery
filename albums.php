@@ -32,7 +32,7 @@ $albId    = Request::getInt('alb_id', 0);
 $albPid   = Request::getInt('alb_pid');
 $albSubm  = Request::getInt('alb_submitter');
 $start    = Request::getInt('start', 0);
-$limit    = Request::getInt('limit', $wggallery->getConfig('adminpager'));
+$limit    = Request::getInt('limit', $helper->getConfig('adminpager'));
 
 $redir = '';
 
@@ -57,10 +57,10 @@ $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_32', WGGALLERY_ICONS_URL . '/32');
 $GLOBALS['xoopsTpl']->assign('wggallery_upload_image_url', WGGALLERY_UPLOAD_IMAGE_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
-$GLOBALS['xoopsTpl']->assign('gallery_target', $wggallery->getConfig('gallery_target'));
-$GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $wggallery->getConfig('show_breadcrumbs'));
+$GLOBALS['xoopsTpl']->assign('gallery_target', $helper->getConfig('gallery_target'));
+$GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
 
-$keywords = array();
+$keywords = [];
 
 switch($op) {
 	case 'list':
@@ -72,11 +72,11 @@ switch($op) {
 		$GLOBALS['xoTheme']->addStylesheet( WGGALLERY_URL . '/assets/css/nestedsortable.css' );
         $GLOBALS['xoopsTpl']->assign('albpid', $albPid);
 
-        $crAlbums = new CriteriaCompo();
+        $crAlbums = new \CriteriaCompo();
         if ( !$permissionsHandler->permGlobalSubmit() ) {
-            $crAlbums->add(new Criteria('alb_state', WGGALLERY_STATE_ONLINE_VAL));
+            $crAlbums->add(new \Criteria('alb_state', WGGALLERY_STATE_ONLINE_VAL));
         }
-		$crAlbums->add(new Criteria('alb_pid', $albPid));
+		$crAlbums->add(new \Criteria('alb_pid', $albPid));
         $crAlbums->setStart( $start );
 		$crAlbums->setLimit( $limit );
         $crAlbums->setSort('alb_weight ASC, alb_date');
@@ -98,7 +98,7 @@ switch($op) {
 			// Display Navigation
 			if($albumsCount > $limit) {
 				include_once XOOPS_ROOT_PATH .'/class/pagenav.php';
-				$pagenav = new XoopsPageNav($albumsCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit . '&amp;alb_id=' . $albId . '&amp;alb_pid=' . $albPid . '&amp;alb_submitter=' . $albSubm);
+				$pagenav = new \XoopsPageNav($albumsCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit . '&amp;alb_id=' . $albId . '&amp;alb_pid=' . $albPid . '&amp;alb_submitter=' . $albSubm);
 				$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
 			}
 		} else {
@@ -258,8 +258,8 @@ switch($op) {
 					unlink( WGGALLERY_UPLOAD_IMAGE_PATH. '/albums/' . $alb_image );
 				}
 				// delete all images linked to this album
-				$crit_img = new CriteriaCompo();
-				$crit_img->add(new Criteria('img_albid', $albId));
+				$crit_img = new \CriteriaCompo();
+				$crit_img->add(new \Criteria('img_albid', $albId));
 				$imagesAll = $imagesHandler->getAll($crit_img);
 				foreach(array_keys($imagesAll) as $i)
 				{
@@ -273,7 +273,7 @@ switch($op) {
 			}
 		} else {
 			// xoops_confirm(array('ok' => 1, 'alb_id' => $albId, 'op' => 'delete'), $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $albumsObj->getVar('alb_name')));
-			$form = $wggallery->getFormDelete(array('ok' => 1, 'alb_id' => $albId, 'op' => 'delete'), _CO_WGGALLERY_FORM_DELETE, $albumsObj->getVar('alb_name'), _CO_WGGALLERY_ALBUM_DELETE_DESC);
+			$form = $helper->getFormDelete(['ok' => 1, 'alb_id' => $albId, 'op' => 'delete'], _CO_WGGALLERY_FORM_DELETE, $albumsObj->getVar('alb_name'), _CO_WGGALLERY_ALBUM_DELETE_DESC);
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
 		}
 	break;
@@ -292,18 +292,18 @@ switch($op) {
 
 // Breadcrumbs
 if ( 0 < $albPid) {
-	$xoBreadcrumbs[] = array('title' => _CO_WGGALLERY_ALBUMS, 'link' => 'albums.php?op=list');
+	$xoBreadcrumbs[] = ['title' => _CO_WGGALLERY_ALBUMS, 'link' => 'albums.php?op=list'];
 	$albumsObjPid = $albumsHandler->get($albPid);
-	$xoBreadcrumbs[] = array('title' => $albumsObjPid->getVar('alb_name'));
+	$xoBreadcrumbs[] = ['title' => $albumsObjPid->getVar('alb_name')];
 	unset($albumsObjPid);
 } else {
-	$xoBreadcrumbs[] = array('title' => _CO_WGGALLERY_ALBUMS);
+	$xoBreadcrumbs[] = ['title' => _CO_WGGALLERY_ALBUMS];
 }
 
-$GLOBALS['xoopsTpl']->assign('panel_type', $wggallery->getConfig('panel_type'));
+$GLOBALS['xoopsTpl']->assign('panel_type', $helper->getConfig('panel_type'));
 
 // Keywords
-wggalleryMetaKeywords($wggallery->getConfig('keywords').', '. implode(',', $keywords));
+wggalleryMetaKeywords($helper->getConfig('keywords').', '. implode(',', $keywords));
 unset($keywords);
 // Description
 wggalleryMetaDescription(_CO_WGGALLERY_ALBUMS);

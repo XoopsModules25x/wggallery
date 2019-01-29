@@ -27,24 +27,24 @@ if (function_exists('mb_http_output')) {
     mb_http_output('pass');
 }
 //header ('Content-Type:text/xml; charset=UTF-8');
-$wggallery->geConfig('utf8') = false;
+$helper->geConfig('utf8') = false;
 
-$tpl = new XoopsTpl();
+$tpl = new \XoopsTpl();
 $tpl->xoops_setCaching(2); //1 = Cache global, 2 = Cache individual (for template)
-$tpl->xoops_setCacheTime($wggallery->geConfig('timecacherss')*60); // Time of the cache on seconds
+$tpl->xoops_setCacheTime($helper->geConfig('timecacherss')*60); // Time of the cache on seconds
 $categories = wggalleryMyGetItemIds('wggallery_view', 'wggallery');
-$criteria = new CriteriaCompo();
+$criteria = new \CriteriaCompo();
 
-$criteria->add(new Criteria('cat_status', 0, '!='));
-$criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')','IN'));
+$criteria->add(new \Criteria('cat_status', 0, '!='));
+$criteria->add(new \Criteria('cid', '(' . implode(',', $categories) . ')','IN'));
 if ($cid != 0){
-    $criteria->add(new Criteria('cid', $cid));
+    $criteria->add(new \Criteria('cid', $cid));
     $images = $imagesHandler->get($cid);
     $title = $xoopsConfig['sitename'] . ' - ' . $xoopsModule->getVar('name') . ' - ' . $images->getVar('img_ip');
 } else {
     $title = $xoopsConfig['sitename'] . ' - ' . $xoopsModule->getVar('name');
 }
-$criteria->setLimit($wggallery->geConfig('perpagerss'));
+$criteria->setLimit($helper->geConfig('perpagerss'));
 $criteria->setSort('date');
 $criteria->setOrder('DESC');
 $imagesArr = $imagesHandler->getAll($criteria);
@@ -87,11 +87,13 @@ if (!$tpl->is_cached('db:wggallery_rss.tpl', $cid)) {
         } else {
             $description_short = substr($description,0,strpos($description,'[pagebreak]'));
         }
-        $tpl->append('items', array('title' => htmlspecialchars($imagesArr[$i]->getVar('img_ip'), ENT_QUOTES),
-                                    'link' => XOOPS_URL . '/modules/wggallery/single.php?cid=' . $imagesArr[$i]->getVar('cid') . '&amp;img_id=' . $imagesArr[$i]->getVar('img_id'),
-                                    'guid' => XOOPS_URL . '/modules/wggallery/single.php?cid=' . $imagesArr[$i]->getVar('cid') . '&amp;img_id=' . $imagesArr[$i]->getVar('img_id'),
-                                    'pubdate' => formatTimestamp($imagesArr[$i]->getVar('date'), 'rss'),
-                                    'description' => htmlspecialchars($description_short, ENT_QUOTES)));
+        $tpl->append('items', [
+            'title'       => htmlspecialchars($imagesArr[$i]->getVar('img_ip'), ENT_QUOTES),
+            'link'        => XOOPS_URL . '/modules/wggallery/single.php?cid=' . $imagesArr[$i]->getVar('cid') . '&amp;img_id=' . $imagesArr[$i]->getVar('img_id'),
+            'guid'        => XOOPS_URL . '/modules/wggallery/single.php?cid=' . $imagesArr[$i]->getVar('cid') . '&amp;img_id=' . $imagesArr[$i]->getVar('img_id'),
+            'pubdate'     => formatTimestamp($imagesArr[$i]->getVar('date'), 'rss'),
+            'description' => htmlspecialchars($description_short, ENT_QUOTES)
+        ]);
     }
 }
 header('Content-Type:text/xml; charset=' . _CHARSET);

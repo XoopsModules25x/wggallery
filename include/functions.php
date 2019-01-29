@@ -51,7 +51,7 @@ function wggallery_block_addCatSelect($cats) {
 function wggalleryGetMyItemIds($permtype, $dirname)
 {
     global $xoopsUser;
-    static $permissions = array();
+    static $permissions = [];
     if(is_array($permissions) && array_key_exists($permtype, $permissions)) {
         return $permissions[$permtype];
     }
@@ -137,10 +137,10 @@ function wggalleryMetaDescription($content)
 function wggallery_RewriteUrl($module, $array, $type = 'content')
 {
     $comment = '';
-    $wggallery = WggalleryHelper::getInstance();
-    //$images = $wggallery->getHandler('images');
-    $lenght_id = $wggallery->getConfig('lenght_id');
-    $rewrite_url = $wggallery->getConfig('rewrite_url');
+    $helper = Wggallery\Helper::getInstance();
+    //$images = $helper->getHandler('images');
+    $lenght_id = $helper->getConfig('lenght_id');
+    $rewrite_url = $helper->getConfig('rewrite_url');
 
     if ($lenght_id != 0) {
         $id = $array['content_id'];
@@ -226,16 +226,16 @@ function wggallery_RewriteUrl($module, $array, $type = 'content')
 function wggallery_Filter($url, $type = '', $module = 'wggallery') {
 
     // Get regular expression from module setting. default setting is : `[^a-z0-9]`i
-    $wggallery = WggalleryHelper::getInstance();
-    //$images = $wggallery->getHandler('images');
-    $regular_expression = $wggallery->getConfig('regular_expression');
+    $helper = Wggallery\Helper::getInstance();
+    //$images = $helper->getHandler('images');
+    $regular_expression = $helper->getConfig('regular_expression');
 
     $url = strip_tags($url);
     $url = preg_replace("`\[.*\]`U", '', $url);
     $url = preg_replace('`&(amp;)?#?[a-z0-9]+;`i', '-', $url);
     $url = htmlentities($url, ENT_COMPAT, 'utf-8');
     $url = preg_replace("`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig);`i", "\1", $url);
-    $url = preg_replace(array($regular_expression, "`[-]+`"), '-', $url);
+    $url = preg_replace([$regular_expression, "`[-]+`"], '-', $url);
     $url = ($url == '') ? $type : strtolower(trim($url, '-'));
     return $url;
 }

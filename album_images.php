@@ -31,7 +31,7 @@ $op       = Request::getString('op', 'list');
 $albId    = Request::getInt('alb_id', 0);
 $albPid   = Request::getInt('alb_pid');
 $start    = Request::getInt('start', 0);
-$limit    = Request::getInt('limit', $wggallery->getConfig('adminpager'));
+$limit    = Request::getInt('limit', $helper->getConfig('adminpager'));
 
 if ( 0 == $permissionsHandler->permGlobalSubmit() ) {
 	redirect_header('albums.php', 3, _NOPERM);
@@ -64,14 +64,14 @@ $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_32', WGGALLERY_ICONS_URL . '/32');
 $GLOBALS['xoopsTpl']->assign('wggallery_upload_image_url', WGGALLERY_UPLOAD_IMAGE_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
-$GLOBALS['xoopsTpl']->assign('gallery_target', $wggallery->getConfig('gallery_target'));
-$GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $wggallery->getConfig('show_breadcrumbs'));
+$GLOBALS['xoopsTpl']->assign('gallery_target', $helper->getConfig('gallery_target'));
+$GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
 
 include_once XOOPS_ROOT_PATH .'/modules/wggallery/include/imagehandler.php';
-$maxwidth = $wggallery->getConfig('maxwidth_albimage');
-if ( 0 === intval( $maxwidth )) { $maxwidth = $wggallery->getConfig('maxwidth');}
-$maxheight = $wggallery->getConfig('maxheight_albimage');
-if ( 0 === intval( $maxheight )) { $maxheight = $wggallery->getConfig('maxheight');}
+$maxwidth = $helper->getConfig('maxwidth_albimage');
+if ( 0 === intval( $maxwidth )) { $maxwidth = $helper->getConfig('maxwidth');}
+$maxheight = $helper->getConfig('maxheight_albimage');
+if ( 0 === intval( $maxheight )) { $maxheight = $helper->getConfig('maxheight');}
 
 switch($op) {
     case 'creategrid':      
@@ -217,9 +217,9 @@ switch($op) {
         $fileName = $_FILES['attachedfile']['name'];
         $imageMimetype = $_FILES['attachedfile']['type'];
         $uploaderErrors = '';
-		$uploader = new XoopsMediaUploader(WGGALLERY_UPLOAD_IMAGE_PATH.'/albums/', 
-													$wggallery->getConfig('mimetypes'), 
-													$wggallery->getConfig('maxsize'), null, null);
+		$uploader = new \XoopsMediaUploader(WGGALLERY_UPLOAD_IMAGE_PATH.'/albums/',
+													$helper->getConfig('mimetypes'),
+													$helper->getConfig('maxsize'), null, null);
 		if($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
 			$extension = preg_replace('/^.+\.([^.]+)$/sU', '', $fileName);
 			$imgName = 'album' . $albId . '.' . $extension;
@@ -232,10 +232,10 @@ switch($op) {
                 $albumsObj->setVar('alb_image', $savedFilename);
                 // resize image 
                 include_once XOOPS_ROOT_PATH .'/modules/wggallery/include/imagehandler.php';
-				$maxwidth  = intval($wggallery->getConfig('maxwidth_albimage'));
-				if ( 0 === $maxwidth ) { $maxwidth  = $wggallery->getConfig('maxwidth');}
-				$maxheight = intval($wggallery->getConfig('maxheight_albimage'));
-				if ( 0 === $maxheight ) { $maxheight  = $wggallery->getConfig('maxheight');}
+				$maxwidth  = intval($helper->getConfig('maxwidth_albimage'));
+				if ( 0 === $maxwidth ) { $maxwidth  = $helper->getConfig('maxwidth');}
+				$maxheight = intval($helper->getConfig('maxheight_albimage'));
+				if ( 0 === $maxheight ) { $maxheight  = $helper->getConfig('maxheight');}
                 $imgHandler = new wgImagehandler;
 				$imgHandler->sourceFile = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename;
 				$imgHandler->endFile = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename;
@@ -295,12 +295,12 @@ switch($op) {
         // Get All Images of this album
         $albumsChilds = [];
         $albumsChilds = explode( '|', $albId . $albumsHandler->getChildsOfCategory($albId));           
-        $images = array();
+        $images = [];
         if ( 0 < count($albumsChilds)) {
             foreach ($albumsChilds as $child) {
                 $alb_name = '';
-                $crImages = new CriteriaCompo();
-                $crImages->add(new Criteria('img_albid', $child));
+                $crImages = new \CriteriaCompo();
+                $crImages->add(new \Criteria('img_albid', $child));
                 $crImages->setSort('img_weight');
                 $crImages->setOrder('DESC');
                 $imagesAll = $imagesHandler->getAll($crImages);
@@ -308,7 +308,7 @@ switch($op) {
                     $images[$i] = $imagesAll[$i]->getValuesImages();
                     if ($albImage1 === $images[$i]['img_name']) {$images[$i]['selected'] = 1;}
                     if ( '' === $alb_name ) {
-                        $albums = $wggallery->getHandler('albums');
+                        $albums = $helper->getHandler('albums');
                         $alb_name = $albums->get($child)->getVar('alb_name');
                         $images[$i]['alb_name'] = $alb_name;
                     } 
@@ -335,15 +335,15 @@ switch($op) {
 
 // Breadcrumbs
 if ( 0 < $albPid) {
-	$xoBreadcrumbs[] = array('title' => _CO_WGGALLERY_ALBUMS, 'link' => 'albums.php?op=list');
+	$xoBreadcrumbs[] = ['title' => _CO_WGGALLERY_ALBUMS, 'link' => 'albums.php?op=list'];
 	$albumsObjPid = $albumsHandler->get($albPid);
-	$xoBreadcrumbs[] = array('title' => $albumsObjPid->getVar('alb_name'));
+	$xoBreadcrumbs[] = ['title' => $albumsObjPid->getVar('alb_name')];
 	unset($albumsObjPid);
 } else {
-	$xoBreadcrumbs[] = array('title' => _CO_WGGALLERY_ALBUMS);
+	$xoBreadcrumbs[] = ['title' => _CO_WGGALLERY_ALBUMS];
 }
 
-$GLOBALS['xoopsTpl']->assign('panel_type', $wggallery->getConfig('panel_type'));
+$GLOBALS['xoopsTpl']->assign('panel_type', $helper->getConfig('panel_type'));
 
 
 // Description
