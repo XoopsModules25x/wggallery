@@ -159,7 +159,7 @@ switch($op) {
                         if ( 0 === intval($maxheight) ) { $maxheight  = $wggallery->getConfig('maxheight');}
                     break;
                 }
-				$imgHandler = new wgImagehandler;
+				$imgHandler = new wgImageHandler;
 				$imgHandler->sourceFile = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename;
 				$imgHandler->endFile = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename;
 				$imgHandler->imageMimetype = $imageMimetype;

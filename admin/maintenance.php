@@ -162,7 +162,7 @@ switch($op) {
 				$imageMimetype = $imagesAll[$i]->getVar('img_mimetype');
                 unlink($endfile);
 				
-				$imgHandler = new wgImagehandler;
+				$imgHandler = new wgImageHandler;
 				$imgHandler->sourceFile = $sourcefile;
 				$imgHandler->endFile = $endfile;
 				$imgHandler->imageMimetype = $imageMimetype;

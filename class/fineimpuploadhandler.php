@@ -144,7 +144,7 @@ class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
         }
         
 		// create medium image
-        $imgHandler = new wgImagehandler;
+        $imgHandler = new wgImageHandler;
 		$imgHandler->sourceFile = $this->imagePath;
 		$imgHandler->endFile = $this->pathUpload . '/medium/' . $this->imageName;
 		$imgHandler->imageMimetype = $this->imageMimetype;
