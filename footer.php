@@ -24,7 +24,7 @@ if(count($xoBreadcrumbs) > 0) {
 	$GLOBALS['xoopsTpl']->assign('xoBreadcrumbs', $xoBreadcrumbs);
 }
 $GLOBALS['xoopsTpl']->assign('admin', WGGALLERY_ADMIN);
-if ( $wggallery->getConfig('show_copyright') ) {
+if ( $helper->getConfig('show_copyright') ) {
     $GLOBALS['xoopsTpl']->assign('copyright', $copyright);
 }
 include_once XOOPS_ROOT_PATH .'/footer.php';

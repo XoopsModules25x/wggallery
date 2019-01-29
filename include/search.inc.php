@@ -49,7 +49,7 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
     }
     $sql .= " ORDER BY 'img_id' DESC";
     $result = $xoopsDB->query($sql,$limit,$offset);
-    $ret = array();
+    $ret = [];
     $i = 0;
     while($myrow = $xoopsDB->fetchArray($result))
     {

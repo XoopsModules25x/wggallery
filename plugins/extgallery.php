@@ -37,7 +37,7 @@ function wggalleryPluginGetDataExtgallery() {
     $sql = 'SELECT `photo_id` FROM '.$GLOBALS['xoopsDB']->prefix('extgallery_publicphoto');
     $result = $GLOBALS['xoopsDB']->query($sql) or die ('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());  
     $num_images = $GLOBALS['xoopsDB']->getRowsNum( $result );
-    return array($num_albums, $num_images);
+    return [$num_albums, $num_images];
 }
 
 /**
@@ -47,21 +47,21 @@ function wggalleryPluginGetDataExtgallery() {
  */
 function wggalleryPluginGetFormExtgallery($im_name, $num_albums, $num_images)
 {
-    $wggallery = WggalleryHelper::getInstance();
+    $helper = Wggallery\Helper::getInstance();
     $action = $_SERVER['REQUEST_URI'];
 
     // Get Theme Form
     xoops_load('XoopsFormLoader');
-    $form = new XoopsThemeForm(_AM_WGGALLERY_IMPORT, 'form', $action, 'post', true);
+    $form = new \XoopsThemeForm(_AM_WGGALLERY_IMPORT, 'form', $action, 'post', true);
     $form->setExtra('enctype="multipart/form-data"');
     // Form Text 
-    $form->addElement(new XoopsFormLabel( _AM_WGGALLERY_IMPORT_SUPPORT, $im_name));
+    $form->addElement(new \XoopsFormLabel( _AM_WGGALLERY_IMPORT_SUPPORT, $im_name));
     // Form Text 
-    $form->addElement(new XoopsFormLabel( _AM_WGGALLERY_IMPORT_NUMALB, $num_albums));
+    $form->addElement(new \XoopsFormLabel( _AM_WGGALLERY_IMPORT_NUMALB, $num_albums));
     // Form Text 
-    $form->addElement(new XoopsFormLabel( _AM_WGGALLERY_IMPORT_NUMIMG, $num_images));
+    $form->addElement(new \XoopsFormLabel( _AM_WGGALLERY_IMPORT_NUMIMG, $num_images));
     // Form Select Albstate
-    $albStateSelect = new XoopsFormRadio( _CO_WGGALLERY_ALBUM_STATE, 'alb_state', WGGALLERY_STATE_OFFLINE_VAL);
+    $albStateSelect = new \XoopsFormRadio( _CO_WGGALLERY_ALBUM_STATE, 'alb_state', WGGALLERY_STATE_OFFLINE_VAL);
     $albStateSelect->addOption(WGGALLERY_STATE_OFFLINE_VAL, _CO_WGGALLERY_STATE_OFFLINE);
     $albStateSelect->addOption(WGGALLERY_STATE_ONLINE_VAL, _CO_WGGALLERY_STATE_ONLINE);
     $albStateSelect->addOption(WGGALLERY_STATE_APPROVAL_VAL, _CO_WGGALLERY_STATE_APPROVAL);
@@ -71,15 +71,15 @@ function wggalleryPluginGetFormExtgallery($im_name, $num_albums, $num_images)
     $groupList = $memberHandler->getGroupList();
     $gpermHandler = xoops_gethandler('groupperm');
     $fullList[] = array_keys($groupList);
-    $groupsCanViewCheckbox = new XoopsFormCheckBox( '', 'groups_view[]', $fullList);
-    $groupsCanDlFullAlbCheckbox = new XoopsFormCheckBox( '', 'groups_dlfullalb[]', $fullList);
-    $groupsCanDlImageLCheckbox = new XoopsFormCheckBox( '', 'groups_dlimage_large[]', $fullList);
-    $groupsCanDlImageMCheckbox = new XoopsFormCheckBox( '', 'groups_dlimage_medium[]', $fullList);
+    $groupsCanViewCheckbox = new \XoopsFormCheckBox( '', 'groups_view[]', $fullList);
+    $groupsCanDlFullAlbCheckbox = new \XoopsFormCheckBox( '', 'groups_dlfullalb[]', $fullList);
+    $groupsCanDlImageLCheckbox = new \XoopsFormCheckBox( '', 'groups_dlimage_large[]', $fullList);
+    $groupsCanDlImageMCheckbox = new \XoopsFormCheckBox( '', 'groups_dlimage_medium[]', $fullList);
     // To View
     $groupsCanViewCheckbox->addOptionArray($groupList);
-    $groupsCanViewTray = new XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_VIEW, '&nbsp;' );
+    $groupsCanViewTray = new \XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_VIEW, '&nbsp;' );
     $groupsCanViewTray->addElement($groupsCanViewCheckbox, false);
-    $groupsCanViewAll = new XoopsFormCheckBox( '', 'all_groups_view', 0);
+    $groupsCanViewAll = new \XoopsFormCheckBox( '', 'all_groups_view', 0);
     $groupsCanViewAll->setExtra('onclick="javascript:toggleCheckboxGroupPerm(' . "'groups_view'" . ')"');
     $groupsCanViewAll->addOption(1, _CO_WGGALLERY_ALL);
     $groupsCanViewTray->addElement($groupsCanViewAll, false);
@@ -88,9 +88,9 @@ function wggalleryPluginGetFormExtgallery($im_name, $num_albums, $num_images)
     // TODO
     // To Download full album
     // $groupsCanDlFullAlbCheckbox->addOptionArray($groupList);
-    // $groupsCanDlFullAlbTray = new XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_DLFULLALB, '&nbsp;' );
+    // $groupsCanDlFullAlbTray = new \XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_DLFULLALB, '&nbsp;' );
     // $groupsCanDlFullAlbTray->addElement($groupsCanDlFullAlbCheckbox, false);
-    // $groupsCanDlFullAlbAll = new XoopsFormCheckBox( '', 'all_groups_dlfullalb', 0);
+    // $groupsCanDlFullAlbAll = new \XoopsFormCheckBox( '', 'all_groups_dlfullalb', 0);
     // $groupsCanDlFullAlbAll->setExtra('onclick="javascript:toggleCheckboxGroupPerm(' . "'groups_dlfullalb'" . ')"');
     // $groupsCanDlFullAlbAll->addOption(1, _CO_WGGALLERY_ALL);
     // $groupsCanDlFullAlbTray->addElement($groupsCanDlFullAlbAll, false);
@@ -98,18 +98,18 @@ function wggalleryPluginGetFormExtgallery($im_name, $num_albums, $num_images)
     
      // To Download Large Images
     $groupsCanDlImageLCheckbox->addOptionArray($groupList);
-    $groupsCanDlImageLTray = new XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE, '&nbsp;' );
+    $groupsCanDlImageLTray = new \XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE, '&nbsp;' );
     $groupsCanDlImageLTray->addElement($groupsCanDlImageLCheckbox, false);
-    $groupsCanDlImageLAll = new XoopsFormCheckBox( '', 'all_groups_dlimage_large', 0);
+    $groupsCanDlImageLAll = new \XoopsFormCheckBox( '', 'all_groups_dlimage_large', 0);
     $groupsCanDlImageLAll->setExtra('onclick="javascript:toggleCheckboxGroupPerm(' . "'groups_dlimage_large'" . ')"');
     $groupsCanDlImageLAll->addOption(1, _CO_WGGALLERY_ALL);
     $groupsCanDlImageLTray->addElement($groupsCanDlImageLAll, false);
     $form->addElement($groupsCanDlImageLTray);
     // To Download Medium Images
     $groupsCanDlImageMCheckbox->addOptionArray($groupList);
-    $groupsCanDlImageMTray = new XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM, '&nbsp;' );
+    $groupsCanDlImageMTray = new \XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM, '&nbsp;' );
     $groupsCanDlImageMTray->addElement($groupsCanDlImageMCheckbox, false);
-    $groupsCanDlImageMAll = new XoopsFormCheckBox( '', 'all_groups_dlimage_medium', 0);
+    $groupsCanDlImageMAll = new \XoopsFormCheckBox( '', 'all_groups_dlimage_medium', 0);
     $groupsCanDlImageMAll->setExtra('onclick="javascript:toggleCheckboxGroupPerm(' . "'groups_dlimage_medium'" . ')"');
     $groupsCanDlImageMAll->addOption(1, _CO_WGGALLERY_ALL);
     $groupsCanDlImageMTray->addElement($groupsCanDlImageMAll, false);
@@ -117,10 +117,10 @@ function wggalleryPluginGetFormExtgallery($im_name, $num_albums, $num_images)
 
     // Form Select User AlbSubmitter
     $alb_submitter = (isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
-    $form->addElement(new XoopsFormSelectUser( _CO_WGGALLERY_SUBMITTER, 'alb_submitter', false, $alb_submitter ));
+    $form->addElement(new \XoopsFormSelectUser( _CO_WGGALLERY_SUBMITTER, 'alb_submitter', false, $alb_submitter ));
     // To Save
-    $form->addElement(new XoopsFormHidden('op', 'import_' . $im_name));
-    $form->addElement(new XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+    $form->addElement(new \XoopsFormHidden('op', 'import_' . $im_name));
+    $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
     return $form;
 }
 

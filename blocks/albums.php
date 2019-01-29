@@ -25,7 +25,7 @@ include_once XOOPS_ROOT_PATH.'/modules/wggallery/include/common.php';
 function b_wggallery_albums_show($options)
 {
     include_once XOOPS_ROOT_PATH.'/modules/wggallery/class/albums.php';
-    $block        = array();
+    $block        = [];
     $typeBlock    = $options[0];
     $bnbAlbums    = $options[1];
     $bshowTitle   = $options[2];
@@ -46,7 +46,7 @@ function b_wggallery_albums_show($options)
     array_shift($options);
     array_shift($options);
 
-    $wggallery = WggalleryHelper::getInstance();
+    $helper = Wggallery\Helper::getInstance();
     
     // assign block options
     $GLOBALS['xoopsTpl']->assign('ba_showTitle', $bshowTitle);
@@ -54,8 +54,8 @@ function b_wggallery_albums_show($options)
     $GLOBALS['xoopsTpl']->assign('bnbAlbumsRow', $bnbAlbumsRow);
     
     
-    $albumtypesHandler = $wggallery->getHandler('albumtypes');
-    $gallerytypesHandler = $wggallery->getHandler('gallerytypes');
+    $albumtypesHandler = $helper->getHandler('albumtypes');
+    $gallerytypesHandler = $helper->getHandler('gallerytypes');
     if ( 0 === intval($bAlbumType) ) {
         $useAlbumType = $albumtypesHandler->getPrimaryAlbum();
     } else {
@@ -71,7 +71,7 @@ function b_wggallery_albums_show($options)
 	
 	$GLOBALS['xoopsTpl']->assign('ba_template', $template);
     // assign gallery options
-    $GLOBALS['xoopsTpl']->assign('ba_gallery_target', $wggallery->getConfig('gallery_target'));
+    $GLOBALS['xoopsTpl']->assign('ba_gallery_target', $helper->getConfig('gallery_target'));
     $pr_gallery = $gallerytypesHandler->getPrimaryGallery();
 	$GLOBALS['xoopsTpl']->assign('ba_gallery', 'none' != $pr_gallery['template'] && 1 === intval($bgallery));
     
@@ -100,20 +100,20 @@ function b_wggallery_albums_show($options)
         break;
     }
 
-    $wggallery = WggalleryHelper::getInstance();
-    $albumsHandler = $wggallery->getHandler('albums');
-    $criteria = new CriteriaCompo();
+    $helper = Wggallery\Helper::getInstance();
+    $albumsHandler = $helper->getHandler('albums');
+    $criteria = new \CriteriaCompo();
     $album_ids = implode(',', $options);
     if ( '0' !== substr($album_ids, 0, 1)) {
-        $criteria->add(new Criteria('alb_id', '(' . $album_ids . ')', 'IN'));
+        $criteria->add(new \Criteria('alb_id', '(' . $album_ids . ')', 'IN'));
     }
-    $criteria->add(new Criteria('alb_state', WGGALLERY_STATE_ONLINE_VAL));
+    $criteria->add(new \Criteria('alb_state', WGGALLERY_STATE_ONLINE_VAL));
 	switch($typeBlock)
 	{
 		// For the block: albums recent
 		case 'recent':
-			$criteria->add(new Criteria('alb_date', strtotime(date(_SHORTDATESTRING)), '>='));
-			$criteria->add(new Criteria('alb_date', strtotime(date(_SHORTDATESTRING))+86400, '<='));
+			$criteria->add(new \Criteria('alb_date', strtotime(date(_SHORTDATESTRING)), '>='));
+			$criteria->add(new \Criteria('alb_date', strtotime(date(_SHORTDATESTRING))+86400, '<='));
 			$criteria->setSort('alb_date');
 			$criteria->setOrder('DESC');
 		break;
@@ -176,15 +176,15 @@ function b_wggallery_albums_show($options)
 function b_wggallery_albums_edit($options)
 {
     include_once XOOPS_ROOT_PATH.'/modules/wggallery/class/albums.php';
-    $wggallery = WggalleryHelper::getInstance();
-    $albumsHandler = $wggallery->getHandler('albums');
-    $criteria = new CriteriaCompo();
-    // $criteria->add(new Criteria('alb_id', 0, '!='));
+    $helper = Wggallery\Helper::getInstance();
+    $albumsHandler = $helper->getHandler('albums');
+    $criteria = new \CriteriaCompo();
+    // $criteria->add(new \Criteria('alb_id', 0, '!='));
     $criteria->setSort('alb_id');
     $criteria->setOrder('ASC');
     $albumsAll = $albumsHandler->getAll($criteria);
     unset($criteria);
-    $albumtypesHandler = $wggallery->getHandler('albumtypes');
+    $albumtypesHandler = $helper->getHandler('albumtypes');
     $albumtypesAll = $albumtypesHandler->getAll();
     unset($criteria);
     

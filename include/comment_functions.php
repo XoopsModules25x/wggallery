@@ -31,7 +31,7 @@
 function wggalleryCommentsUpdate($itemId, $itemNumb) {
     $itemId = (int) ($itemId);
     $itemNumb = (int) ($itemNumb);
-    $article = new WggalleryImages($itemId);
+    $article = new Images($itemId);
     if (!$article->updateComments($itemNumb)) {
         return false;
     }

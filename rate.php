@@ -84,5 +84,5 @@ $imagesObj->setVar('img_date', $imageDate->getTimestamp());
 	break;
 }
 // Breadcrumbs
-$xoBreadcrumbs[] = array('title' => RATE_MA_WGGALLERY_);
+$xoBreadcrumbs[] = ['title' => RATE_MA_WGGALLERY_];
 include __DIR__ . '/footer.php';

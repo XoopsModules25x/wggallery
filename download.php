@@ -34,9 +34,9 @@ switch($op) {
         $file = Request::getString('src', 'none'); 
         $filename = basename($file);
         
-        $crImages = new CriteriaCompo();
-        $crImages->add(new Criteria('img_name', $filename), 'OR');
-        $crImages->add(new Criteria('img_namelarge', $filename), 'OR');
+        $crImages = new \CriteriaCompo();
+        $crImages->add(new \Criteria('img_name', $filename), 'OR');
+        $crImages->add(new \Criteria('img_namelarge', $filename), 'OR');
         $imagesAll = $imagesHandler->getAll($crImages);
         // Get All Images
         foreach(array_keys($imagesAll) as $i) {
@@ -67,9 +67,9 @@ switch($op) {
         $file = Request::getString('src', 'none');
         $filename = basename($file);
 
-        $crImages = new CriteriaCompo();
-        $crImages->add(new Criteria('img_name', $filename), 'OR');
-        $crImages->add(new Criteria('img_namelarge', $filename), 'OR');
+        $crImages = new \CriteriaCompo();
+        $crImages->add(new \Criteria('img_name', $filename), 'OR');
+        $crImages->add(new \Criteria('img_namelarge', $filename), 'OR');
         $imagesAll = $imagesHandler->getAll($crImages);
         // Get All Images
         foreach(array_keys($imagesAll) as $i) {

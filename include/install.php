@@ -26,14 +26,14 @@ $blankFile    = XOOPS_UPLOAD_PATH.'/blank.gif';
 $noimage      = XOOPS_ROOT_PATH.'/modules/wggallery/assets/images/noimage.png';
 $imgwatermark = XOOPS_ROOT_PATH.'/modules/wggallery/assets/images/wedega_logo.png';
 // Making of uploads/wggallery folder
-$wggallery = XOOPS_UPLOAD_PATH.'/wggallery';
-if(!is_dir($wggallery)) {
-	mkdir($wggallery, 0777);
-	chmod($wggallery, 0777);
+$helper = XOOPS_UPLOAD_PATH.'/wggallery';
+if(!is_dir($helper)) {
+	mkdir($helper, 0777);
+	chmod($helper, 0777);
 }
-copy($indexFile, $wggallery.'/index.html');
+copy($indexFile, $helper.'/index.html');
 // Making of images folder
-$images = $wggallery.'/images';
+$images = $helper.'/images';
 if(!is_dir($images)) {
 	mkdir($images, 0777);
 	chmod($images, 0777);

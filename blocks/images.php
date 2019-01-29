@@ -27,7 +27,7 @@ function b_wggallery_images_show($options)
     include_once XOOPS_ROOT_PATH.'/modules/wggallery/class/images.php';
     //$myts = MyTextSanitizer::getInstance();
     $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
-    $block        = array();
+    $block        = [];
     $typeBlock    = $options[0];
     $bnbImages    = $options[1];
     $bshowTitle   = $options[2];
@@ -44,8 +44,8 @@ function b_wggallery_images_show($options)
     array_shift($options);
     array_shift($options);
 
-    $wggallery = WggalleryHelper::getInstance();
-    $albumsHandler = $wggallery->getHandler('albums');
+    $helper = Wggallery\Helper::getInstance();
+    $albumsHandler = $helper->getHandler('albums');
 
     $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
     $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
@@ -53,15 +53,15 @@ function b_wggallery_images_show($options)
     $GLOBALS['xoopsTpl']->assign('bi_showTitle', $bshowTitle);
 	$GLOBALS['xoopsTpl']->assign('bi_showDesc', $bshowDesc);
     
-    $wggallery = WggalleryHelper::getInstance();
-    $imagesHandler = $wggallery->getHandler('images');
-    $criteria = new CriteriaCompo();
+    $helper = Wggallery\Helper::getInstance();
+    $imagesHandler = $helper->getHandler('images');
+    $criteria = new \CriteriaCompo();
     $album_ids = implode(',', $options);
     // echo "options;".$album_ids;
     if ( '0' !== substr($album_ids, 0, 1)) {
-        $criteria->add(new Criteria('img_albid', '(' . $album_ids . ')', 'IN'));
+        $criteria->add(new \Criteria('img_albid', '(' . $album_ids . ')', 'IN'));
     }
-    $criteria->add(new Criteria('img_state', WGGALLERY_STATE_ONLINE_VAL));
+    $criteria->add(new \Criteria('img_state', WGGALLERY_STATE_ONLINE_VAL));
     
 	switch($typeBlock)
 	{
@@ -71,7 +71,7 @@ function b_wggallery_images_show($options)
 			$criteria->add(new Criteria('img_date', strtotime(date(_SHORTDATESTRING))+86400, '<='));
 			$criteria->setSort('img_date');
 			$criteria->setOrder('DESC');
-		break;
+        break;
 		// For the block: images hits
 		// case 'hits':
             // $criteria->setSort('img_hits');
@@ -112,8 +112,8 @@ function b_wggallery_images_show($options)
 function b_wggallery_images_edit($options)
 {
     // include_once XOOPS_ROOT_PATH.'/modules/wggallery/class/images.php';
-    $wggallery = WggalleryHelper::getInstance();
-    $albumsHandler = $wggallery->getHandler('albums');
+    $helper = Wggallery\Helper::getInstance();
+    $albumsHandler = $helper->getHandler('albums');
     $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
     
 	$form = _MB_WGGALLERY_BLOCKTYPE.": <select name='options[0]' size='3'>";
@@ -152,8 +152,8 @@ function b_wggallery_images_edit($options)
     array_shift($options);
     array_shift($options);
 
-    $criteria = new CriteriaCompo();
-    $criteria->add(new Criteria('alb_id', 0, '!='));
+    $criteria = new \CriteriaCompo();
+    $criteria->add(new \Criteria('alb_id', 0, '!='));
     $criteria->setSort('alb_id');
     $criteria->setOrder('ASC');
     $albumsAll = $albumsHandler->getAll($criteria);

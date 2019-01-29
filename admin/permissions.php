@@ -25,14 +25,14 @@ use Xmf\Request;
 
 include __DIR__ . '/header.php';
 include_once XOOPS_ROOT_PATH .'/class/xoopsform/grouppermform.php';
-$imagesHandler = $wggallery->getHandler('images');
+$imagesHandler = $helper->getHandler('images');
 // Check admin have access to this page
 $templateMain = 'wggallery_admin_permissions.tpl';
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('permissions.php'));
 $op = Request::getString('op', 'global');
 xoops_load('XoopsFormLoader');
-$permTableForm = new XoopsSimpleForm('', 'fselperm', 'permissions.php', 'post');
-$formSelect = new XoopsFormSelect('', 'op', $op);
+$permTableForm = new \XoopsSimpleForm('', 'fselperm', 'permissions.php', 'post');
+$formSelect = new \XoopsFormSelect('', 'op', $op);
 $formSelect->setExtra('onchange="document.fselperm.submit()"');
 $formSelect->addOption('global', _CO_WGGALLERY_PERMS_GLOBAL);
 $formSelect->addOption('view', _CO_WGGALLERY_PERMS_ALB_VIEW);
@@ -74,13 +74,13 @@ switch($op) {
 $moduleId = $xoopsModule->getVar('mid');
 
 if($op === 'global') {
-    $permform = new XoopsGroupPermForm($formTitle, $moduleId, $permName, $permDesc, 'admin/permissions.php', false);
+    $permform = new \XoopsGroupPermForm($formTitle, $moduleId, $permName, $permDesc, 'admin/permissions.php', false);
 	foreach($globalPerms as $gPermId => $gPermName) {
 		$permform->addItem($gPermId, $gPermName);
 	}
 	$GLOBALS['xoopsTpl']->assign('form', $permform->render());
 } else {
-    $permform = new XoopsGroupPermForm($formTitle, $moduleId, $permName, $permDesc, 'admin/permissions.php');
+    $permform = new \XoopsGroupPermForm($formTitle, $moduleId, $permName, $permDesc, 'admin/permissions.php');
 	$albumsCount = $albumsHandler->getCountAlbums();
 	if($albumsCount > 0) {
 		$albumsAll = $albumsHandler->getAllAlbums(0, 'alb_name');

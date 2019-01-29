@@ -34,7 +34,7 @@ $GLOBALS['xoopsOption']['template_main'] = 'wggallery_upload.tpl';
 include_once XOOPS_ROOT_PATH .'/header.php';
 
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
-$GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $wggallery->getConfig('show_breadcrumbs'));
+$GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
 
 // Form Create
 if(isset($albId)) {
@@ -42,7 +42,7 @@ if(isset($albId)) {
     if ( !$permissionsHandler->permAlbumEdit($albId, $albumsObj->getVar('alb_submitter')) ) {
         redirect_header('albums.php', 3, _NOPERM);
     }
-    $xoBreadcrumbs[] = array('title' => $albumsObj->getVar('alb_name'), 'link' => WGGALLERY_URL . '/images.php?op=list&amp;alb_id=' . $albId);
+    $xoBreadcrumbs[] = ['title' => $albumsObj->getVar('alb_name'), 'link' => WGGALLERY_URL . '/images.php?op=list&amp;alb_id=' . $albId];
 } else {
     $albumsObj = $albumsHandler->create();
     if (!$permissionsHandler->permGlobalSubmit()) {
@@ -58,8 +58,8 @@ if (0 < $albId) {
     
     $albumObj = $albumsHandler->get($albId);
     // get config for file type/extenstion
-    $fileextions = $wggallery->getConfig('mimetypes');
-    $mimetypes = array();
+    $fileextions = $helper->getConfig('mimetypes');
+    $mimetypes = [];
     foreach ($fileextions as $fe) {
         switch ($fe) {
             case 'jpg':
@@ -106,20 +106,20 @@ if (0 < $albId) {
     $xoTheme->addScript('media/fine-uploader/fine-uploader.js');
     // Define Breadcrumb and tips
     $xoopsTpl->assign('multiupload', true);
-    // echo $wggallery->getConfig('mimetypes');
-    $xoopsTpl->assign('img_maxsize', $wggallery->getConfig('maxsize'));
-    $xoopsTpl->assign('img_maxwidth', $wggallery->getConfig('maxwidth'));
-    $xoopsTpl->assign('img_maxheight', $wggallery->getConfig('maxheight'));
+    // echo $helper->getConfig('mimetypes');
+    $xoopsTpl->assign('img_maxsize', $helper->getConfig('maxsize'));
+    $xoopsTpl->assign('img_maxwidth', $helper->getConfig('maxwidth'));
+    $xoopsTpl->assign('img_maxheight', $helper->getConfig('maxheight'));
     $xoopsTpl->assign('img_albname', $albumObj->getVar('alb_name'));
     $xoopsTpl->assign('allowedfileext', $albumObj->getVar('allowedfileext'));
     $xoopsTpl->assign('allowedmimetypes', $albumObj->getVar('allowedmimetypes'));
-    $payload = array(
+    $payload = [
         'aud' => 'ajaxfineupload.php',
         'cat' => $albId,
         'uid' => $xoopsUser instanceof \XoopsUser ? $xoopsUser->id() : 0,
         'handler' => 'fineimpuploadhandler',
         'moddir' => 'wggallery',
-    );
+    ];
     $jwt = \Xmf\Jwt\TokenFactory::build('fineuploader', $payload, 60*30); // token good for 30 minutes
     $xoopsTpl->assign('jwt', $jwt);
     setcookie ( 'jwt', $jwt );
@@ -133,5 +133,5 @@ if (0 < $albId) {
 }
 
 // Breadcrumbs
-$xoBreadcrumbs[] = array('title' => _CO_WGGALLERY_IMAGES_UPLOAD);
+$xoBreadcrumbs[] = ['title' => _CO_WGGALLERY_IMAGES_UPLOAD];
 include __DIR__ . '/footer.php';

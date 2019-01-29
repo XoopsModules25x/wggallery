@@ -1,4 +1,4 @@
-<?php
+<?php namespace XoopsModules\Wggallery;
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -22,46 +22,20 @@
  */
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
-/**
- * Class Object WggalleryPermissions
- */
-class WggalleryPermissions extends XoopsObject
-{
-	/**
-	 * Constructor 
-	 *
-	 * @param null
-	 */
-	public function __construct()
-	{
-	}
 
-	/**
-	 * @static function &getInstance
-	 *
-	 * @param null
-	 */
-	public static function getInstance()
-	{
-		static $instance = false;
-		if(!$instance) {
-			$instance = new self();
-		}
-	}
-}
 /**
- * Class Object Handler WggalleryPermissions
+ * Class Object Handler Permissions
  */
-class WggalleryPermissionsHandler extends XoopsPersistableObjectHandler
+class PermissionsHandler extends \XoopsPersistableObjectHandler
 {
 	/**
 	 * Constructor 
 	 *
-	 * @param null|XoopsDatabase $db
+	 * @param null|\XoopsDatabase $db
 	 */
-	public function __construct(XoopsDatabase $db)
+	public function __construct(\XoopsDatabase $db)
 	{
-		// parent::__construct($db, 'wggallery_permissions', 'wggallerypermissions', 'gt_id', 'gt_name');
+		// parent::__construct($db, 'wggallery_permissions', Permissions::class, 'gt_id', 'gt_name');
 	}
 
 	public function permGlobalSubmit() {

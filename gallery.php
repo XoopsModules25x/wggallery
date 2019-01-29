@@ -32,15 +32,15 @@ $albId = Request::getInt('alb_id');
 
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet( $style, null );
-if ($wggallery->getConfig('addjquery')) {$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/js/jquery-1.9.1.min.js');}
+if ($helper->getConfig('addjquery')) {$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/js/jquery-1.9.1.min.js');}
 
 // $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
-$GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $wggallery->getConfig('show_breadcrumbs'));
+$GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
 
 // Breadcrumbs
-$xoBreadcrumbs[] = array('title' => _CO_WGGALLERY_ALBUMS, 'link' => WGGALLERY_URL . '/');
+$xoBreadcrumbs[] = ['title' => _CO_WGGALLERY_ALBUMS, 'link' => WGGALLERY_URL . '/'];
 
 // assign all gallery options
 $options = unserialize($pr_gallery['options'], ['allowed_classes' => false]);
@@ -79,10 +79,10 @@ $GLOBALS['xoopsTpl']->assign('alb_name', $albName);
 // $GLOBALS['xoopsTpl']->assign('alb_allowdownload', $permissionsHandler->permAlbumDownload($albId));
 // $GLOBALS['xoopsTpl']->assign('alb_pid', $albPid);
 
-$crImages = new CriteriaCompo();
-$crImages->add(new Criteria('img_albid', $albId));
+$crImages = new \CriteriaCompo();
+$crImages->add(new \Criteria('img_albid', $albId));
 if (!$permissionsHandler->permAlbumEdit($albId, $albSubmitter)) {
-	$crImages->add(new Criteria('img_state', 1));
+	$crImages->add(new \Criteria('img_state', 1));
 }
 $crImages->setSort('img_weight ASC, img_date');
 $crImages->setOrder('DESC');
@@ -90,7 +90,7 @@ $imagesCount = $imagesHandler->getCount($crImages);
 $imagesAll = $imagesHandler->getAll($crImages);
 $GLOBALS['xoopsTpl']->assign('images_nb', $imagesCount);
 if($imagesCount > 0) {
-	$images = array();
+	$images = [];
 	// Get All Images
 	foreach(array_keys($imagesAll) as $i) {
 		$images[$i] = $imagesAll[$i]->getValuesImages();

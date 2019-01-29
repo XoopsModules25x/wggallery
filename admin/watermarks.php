@@ -41,7 +41,7 @@ switch($op) {
 		// Define Stylesheet
 		$GLOBALS['xoTheme']->addStylesheet( $style, null );
 		$start = Request::getInt('start', 0);
-		$limit = Request::getInt('limit', $wggallery->getConfig('adminpager'));
+		$limit = Request::getInt('limit', $helper->getConfig('adminpager'));
 		$templateMain = 'wggallery_admin_watermarks.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('watermarks.php'));
 		$adminObject->addItemButton(_CO_WGGALLERY_WATERMARK_ADD, 'watermarks.php?op=new', 'add');
@@ -61,7 +61,7 @@ switch($op) {
 			// Display Navigation
 			if($watermarksCount > $limit) {
 				include_once XOOPS_ROOT_PATH .'/class/pagenav.php';
-				$pagenav = new XoopsPageNav($watermarksCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
+				$pagenav = new \XoopsPageNav($watermarksCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
 				$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
 			}
 		} else {
@@ -101,9 +101,9 @@ switch($op) {
 		include_once XOOPS_ROOT_PATH .'/class/uploader.php';
         $fileName = $_FILES['attachedfile']['name'];
         $uploaderErrors = '';
-		$uploader = new XoopsMediaUploader(WGGALLERY_UPLOAD_IMAGE_PATH.'/watermarks/', 
-													$wggallery->getConfig('mimetypes'), 
-													$wggallery->getConfig('maxsize'), null, null);
+		$uploader = new \XoopsMediaUploader(WGGALLERY_UPLOAD_IMAGE_PATH.'/watermarks/',
+													$helper->getConfig('mimetypes'),
+													$helper->getConfig('maxsize'), null, null);
         if($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
 			$extension = preg_replace('/^.+\.([^.]+)$/sU', '', $fileName);
 			$imgName = str_replace(' ', '', $wm_name).'.'.$extension;

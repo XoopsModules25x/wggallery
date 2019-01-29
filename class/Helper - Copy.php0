@@ -1,4 +1,4 @@
-<?php
+<?php namespace XoopsModules\Wggallery;
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -22,7 +22,7 @@
  */
 
 
-class WggalleryHelper
+class Helper
 {
     /**
      * @var string
@@ -60,7 +60,7 @@ class WggalleryHelper
     /**
     *  @static function getInstance
     *  @param mixed $debug
-    *  @return WggalleryHelper
+    *  @return Wggallery\Helper
     */
     public static function getInstance($debug = false)
     {
@@ -218,26 +218,26 @@ class WggalleryHelper
      */
 	public function getFormDelete($arrParams, $title = '', $text, $descr = '')
 	{
-		//$wggallery = WggalleryHelper::getInstance();
+		//$helper = Wggallery\Helper::getInstance();
 		$action = $_SERVER['REQUEST_URI'];
 
 		// Get Theme Form
 		xoops_load('XoopsFormLoader');
-		$form = new XoopsThemeForm(_CO_WGGALLERY_FORM_DELETE_SURE, 'xoopsform-delete', $action, 'post', true);
+		$form = new \XoopsThemeForm(_CO_WGGALLERY_FORM_DELETE_SURE, 'xoopsform-delete', $action, 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
 		// Form Text AlbName
-		$label = new XoopsFormLabel( $title, $text );
+		$label = new \XoopsFormLabel( $title, $text );
 		if ('' !== $descr) {
 			$label->setDescription($descr);
 		}
 		$form->addElement($label);
 		foreach ($arrParams as $key => $param) {
-			$form->addElement(new XoopsFormHidden($key, $param));
+			$form->addElement(new \XoopsFormHidden($key, $param));
 		}
 		// To Save
-		$btnTray = new XoopsFormElementTray('', '&nbsp;' );
-		$btnTray->addElement(new XoopsFormButton('',  'cancel',_CANCEL, 'submit'));
-		$btnTray->addElement(new XoopsFormButton('',  'submit',_DELETE, 'submit'));
+		$btnTray = new \XoopsFormElementTray('', '&nbsp;' );
+		$btnTray->addElement(new \XoopsFormButton('',  'cancel',_CANCEL, 'submit'));
+		$btnTray->addElement(new \XoopsFormButton('',  'submit',_DELETE, 'submit'));
 		$form->addElement($btnTray);
 
 		return $form;
