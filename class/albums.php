@@ -118,7 +118,7 @@ class WggalleryAlbums extends XoopsObject
 		$form->addElement($albPid);
 		unset($criteria);
 		// Form editor AlbDesc
-		$editorConfigs = array();
+		$editorConfigs = [];
 		$editorConfigs['name'] = 'alb_desc';
 		$editorConfigs['value'] = $this->getVar('alb_desc', 'e');
 		$editorConfigs['rows'] = 5;
@@ -482,7 +482,7 @@ class WggalleryAlbums extends XoopsObject
 	 */
 	public function toArrayAlbums()
 	{
-		$ret = array();
+		$ret = [];
 		$vars = $this->getVars();
 		foreach(array_keys($vars) as $var) {
 			$ret[$var] = $this->getVar('"{$var}"');

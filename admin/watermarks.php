@@ -210,7 +210,7 @@ switch($op) {
 				$GLOBALS['xoopsTpl']->assign('error', $watermarksObj->getHtmlErrors());
 			}
 		} else {
-			xoops_confirm(array('ok' => 1, 'wm_id' => $wmId, 'op' => 'delete'), $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $watermarksObj->getVar('wm_name')));
+			xoops_confirm(['ok' => 1, 'wm_id' => $wmId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $watermarksObj->getVar('wm_name')));
 		}
 
 	break;

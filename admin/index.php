@@ -26,15 +26,15 @@ $countAlbums = $albumsHandler->getCount();
 $countImages = $imagesHandler->getCount();
 $countGallerytypes = $gallerytypesHandler->getCount();
 if ( 0 == $countGallerytypes ) {
-    $success = array();
-    $errors  = array();
+    $success = [];
+    $errors  = [];
     $gallerytypesHandler->gallerytypesCreateReset($success, $errors);
     $countGallerytypes = $gallerytypesHandler->getCount();
 }
 $countAlbumtypes = $albumtypesHandler->getCount();
 if ( 0 == $countAlbumtypes ) {
-    $success = array();
-    $errors  = array();
+    $success = [];
+    $errors  = [];
     $albumtypesHandler->albumtypesCreateReset($success, $errors);
     $countAlbumtypes = $albumtypesHandler->getCount();
 }
@@ -50,7 +50,7 @@ $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_WGGALLERY_THEREARE_GALLERYTY
 $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_WGGALLERY_THEREARE_ALBUMTYPES.'</label>', $countAlbumtypes));
 $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_WGGALLERY_THEREARE_WATERMARKS.'</label>', $countWatermarks));
 // Upload Folders
-$folder = array(
+$folder = [
 	WGGALLERY_UPLOAD_PATH,
 	WGGALLERY_UPLOAD_PATH . '/images/',
 	WGGALLERY_UPLOAD_PATH . '/images/albums/',
@@ -58,11 +58,11 @@ $folder = array(
 	WGGALLERY_UPLOAD_PATH . '/images/medium/',
 	WGGALLERY_UPLOAD_PATH . '/images/thumbs/',
     WGGALLERY_UPLOAD_PATH . '/images/watermarks/',
-);
+];
 // Uploads Folders Created
 foreach(array_keys($folder) as $i) {
 	$adminObject->addConfigBoxLine($folder[$i], 'folder');
-	$adminObject->addConfigBoxLine(array($folder[$i], '777'), 'chmod');
+	$adminObject->addConfigBoxLine([$folder[$i], '777'], 'chmod');
 }
 
 // Render Index

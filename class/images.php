@@ -100,7 +100,7 @@ class WggalleryImages extends XoopsObject
 		// Form Text ImgTitle
 		$form->addElement(new XoopsFormText( _CO_WGGALLERY_IMAGE_TITLE, 'img_title', 50, 255, $this->getVar('img_title') ));
 		// Form editor ImgDesc
-		$editorConfigs = array();
+		$editorConfigs = [];
 		$editorConfigs['name'] = 'img_desc';
 		$editorConfigs['value'] = $this->getVar('img_desc', 'e');
 		$editorConfigs['rows'] = 5;
@@ -247,7 +247,7 @@ class WggalleryImages extends XoopsObject
 	 */
 	public function toArrayImages()
 	{
-		$ret = array();
+		$ret = [];
 		$vars = $this->getVars();
 		foreach(array_keys($vars) as $var) {
 			$ret[$var] = $this->getVar('"{$var}"');

@@ -324,7 +324,7 @@ class WggalleryWatermarks extends XoopsObject
 	 */
 	public function toArrayWatermarks()
 	{
-		$ret = array();
+		$ret = [];
 		$vars = $this->getVars();
 		foreach(array_keys($vars) as $var) {
 			$ret[$var] = $this->getVar('"{$var}"');

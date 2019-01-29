@@ -34,7 +34,7 @@ $GLOBALS['xoTheme']->addScript( XOOPS_URL . '/modules/wggallery/assets/js/admin.
 
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
 
-$maintainance_resize_desc = str_replace(array('%mw', '%mh', '%tw', '%th'), array($wggallery->getConfig('maxwidth_medium'), $wggallery->getConfig('maxheight_medium'), $wggallery->getConfig('maxwidth_thumbs'), $wggallery->getConfig('maxheight_thumbs')), _AM_WGGALLERY_MAINTENANCE_RESIZE_DESC);
+$maintainance_resize_desc = str_replace(['%mw', '%mh', '%tw', '%th'], [$wggallery->getConfig('maxwidth_medium'), $wggallery->getConfig('maxheight_medium'), $wggallery->getConfig('maxwidth_thumbs'), $wggallery->getConfig('maxheight_thumbs')], _AM_WGGALLERY_MAINTENANCE_RESIZE_DESC);
 
 $maintainance_dui_desc = str_replace('%p', WGGALLERY_UPLOAD_IMAGE_PATH, _AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC);
 
@@ -45,8 +45,8 @@ switch($op) {
 			if(!$GLOBALS['xoopsSecurity']->check()) {
 				redirect_header('maintenance.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
 			}
-            $success = array();
-            $errors  = array();
+            $success = [];
+            $errors  = [];
             if ('delete_reset_gt' === $op) {
                 // delete all existing gallerytypes
                 $gallerytypesAll = $gallerytypesHandler->getAll();
@@ -83,9 +83,9 @@ switch($op) {
 			$GLOBALS['xoopsTpl']->assign('show_gt', true);
 			$GLOBALS['xoopsTpl']->assign('show_result', true);
 		} else if('reset_gt' === $op) {
-            xoops_confirm(array('ok' => 1, 'op' => 'reset_gt'), $_SERVER['REQUEST_URI'], _AM_WGGALLERY_MAINTENANCE_GT_SURERESET);
+            xoops_confirm(['ok' => 1, 'op' => 'reset_gt'], $_SERVER['REQUEST_URI'], _AM_WGGALLERY_MAINTENANCE_GT_SURERESET);
         } else{
-            xoops_confirm(array('ok' => 1, 'op' => 'delete_reset_gt'), $_SERVER['REQUEST_URI'], _AM_WGGALLERY_MAINTENANCE_GT_SUREDELETE);
+            xoops_confirm(['ok' => 1, 'op' => 'delete_reset_gt'], $_SERVER['REQUEST_URI'], _AM_WGGALLERY_MAINTENANCE_GT_SUREDELETE);
         }
 	break;
 		
@@ -95,8 +95,8 @@ switch($op) {
 			if(!$GLOBALS['xoopsSecurity']->check()) {
 				redirect_header('maintenance.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
 			}
-            $success = array();
-            $errors  = array();
+            $success = [];
+            $errors  = [];
 			if ('delete_reset_at' === $op) {
                 // delete all existing albumtypes
                 $albumtypesAll = $albumtypesHandler->getAll();
@@ -132,9 +132,9 @@ switch($op) {
 			$GLOBALS['xoopsTpl']->assign('show_at', true);
 			$GLOBALS['xoopsTpl']->assign('show_result', true);
 		} else if('reset_at' === $op) {
-            xoops_confirm(array('ok' => 1, 'op' => 'reset_at'), $_SERVER['REQUEST_URI'], _AM_WGGALLERY_MAINTENANCE_AT_SURERESET);
+            xoops_confirm(['ok' => 1, 'op' => 'reset_at'], $_SERVER['REQUEST_URI'], _AM_WGGALLERY_MAINTENANCE_AT_SURERESET);
         } else{
-            xoops_confirm(array('ok' => 1, 'op' => 'delete_reset_at'), $_SERVER['REQUEST_URI'], _AM_WGGALLERY_MAINTENANCE_AT_SUREDELETE);
+            xoops_confirm(['ok' => 1, 'op' => 'delete_reset_at'], $_SERVER['REQUEST_URI'], _AM_WGGALLERY_MAINTENANCE_AT_SUREDELETE);
         }
 
 	break;
@@ -142,7 +142,7 @@ switch($op) {
 	case 'resize_medium':
 	case 'resize_thumb':
 		$counter = 0;
-		$errors = array();
+		$errors = [];
 		$crImages = new CriteriaCompo();
         $imagesCount = $imagesHandler->getCount($crImages);
 		$imagesAll = $imagesHandler->getAll($crImages);
@@ -191,7 +191,7 @@ switch($op) {
 			}
 			$GLOBALS['xoopsTpl']->assign('error', $err_text);
 		}
-        $success_text = str_replace(array('%s', '%t'), array($counter, $imagesCount), _AM_WGGALLERY_MAINTENANCE_SUCCESS_RESIZE);
+        $success_text = str_replace(['%s', '%t'], [$counter, $imagesCount], _AM_WGGALLERY_MAINTENANCE_SUCCESS_RESIZE);
 		
 		$GLOBALS['xoopsTpl']->assign('maintainance_resize_desc', $maintainance_resize_desc);
 		// $GLOBALS['xoopsTpl']->assign('maintainance_dui_desc', $maintainance_dui_desc);
@@ -201,8 +201,8 @@ switch($op) {
 	break;
 	
 	case 'delete_unused_images_show':
-		$unused = array();
-		$errors = array();
+		$unused = [];
+		$errors = [];
 		
 		$directory = WGGALLERY_UPLOAD_IMAGE_PATH . '/large';
 		if (false === getUnusedImages($unused, $directory)) {
@@ -250,9 +250,9 @@ switch($op) {
 			if(!$GLOBALS['xoopsSecurity']->check()) {
 				redirect_header('maintenance.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
 			}
-            $success = array();
-            $errors  = array();
-			$unused  = array();
+            $success = [];
+            $errors  = [];
+			$unused  = [];
 		
 			$directory = WGGALLERY_UPLOAD_IMAGE_PATH . '/large';
 			if (false === getUnusedImages($unused, $directory)) {
@@ -302,12 +302,12 @@ switch($op) {
 			$GLOBALS['xoopsTpl']->assign('show_unnused', true);
 			$GLOBALS['xoopsTpl']->assign('show_result', true);
 		} else {
-			xoops_confirm(array('ok' => 1, 'op' => 'delete_unused_images'), $_SERVER['REQUEST_URI'], _AM_WGGALLERY_MAINTENANCE_DUI_SUREDELETE);
+			xoops_confirm(['ok' => 1, 'op' => 'delete_unused_images'], $_SERVER['REQUEST_URI'], _AM_WGGALLERY_MAINTENANCE_DUI_SUREDELETE);
 		}
 	break;
     case 'invalid_images_search':
-        $success = array();
-        $errors  = array();  
+        $success = [];
+        $errors  = [];
 
         $crImages = new CriteriaCompo();
         $crImages->add(new Criteria('img_name', ''));
@@ -343,8 +343,8 @@ switch($op) {
 	break;
     
     case 'invalid_images_clean':
-        $success = array();
-        $errors  = array();  
+        $success = [];
+        $errors  = [];
 
         $crImages = new CriteriaCompo();
         $crImages->add(new Criteria('img_name', '')); //TODO have to be checked in case of invalid items
@@ -432,8 +432,8 @@ switch($op) {
         $wmAlbid  = Request::getInt('wm_albid');
         $wmId     = Request::getInt('wm_id');
         $wmTarget = Request::getInt('wm_target');
-        $success  = array();
-        $errors   = array();
+        $success  = [];
+        $errors   = [];
         $crImages = new CriteriaCompo();
         $crImages->add(new Criteria('img_albid', $wmAlbid));
         $imagesCount = $imagesHandler->getCount($crImages);
@@ -484,8 +484,8 @@ switch($op) {
     break;
     
     case 'broken_imgdir_search':
-        $success = array();
-        $errors  = array();
+        $success = [];
+        $errors  = [];
         $imagesCount = $imagesHandler->getCount();
         if($imagesCount > 0) {
             $imagesAll = $imagesHandler->getAll();
@@ -527,8 +527,8 @@ switch($op) {
     break;
         
     case 'broken_imgdir_clean':
-        $success = array();
-        $errors  = array();
+        $success = [];
+        $errors  = [];
         $imagesCount = $imagesHandler->getCount();
         if($imagesCount > 0) {
             $imagesAll = $imagesHandler->getAll();
@@ -575,8 +575,8 @@ switch($op) {
     break;
     
     case 'broken_imgalb_search':
-        $success = array();
-        $errors  = array();
+        $success = [];
+        $errors  = [];
         $imagesCount = $imagesHandler->getCount();
         if($imagesCount > 0) {
             $imagesAll = $imagesHandler->getAll();
@@ -621,8 +621,8 @@ switch($op) {
     break;
 
     case 'broken_imgalb_clean':
-        $success = array();
-        $errors  = array();
+        $success = [];
+        $errors  = [];
         $imagesCount = $imagesHandler->getCount();
         if($imagesCount > 0) {
             $imagesAll = $imagesHandler->getAll();
@@ -673,8 +673,8 @@ switch($op) {
     
     case 'read_exif':
     case 'read_exifall':
-        $success = array();
-        $errors  = array();
+        $success = [];
+        $errors  = [];
         $imagesCount = $imagesHandler->getCount();
         if($imagesCount > 0) {
             $imagesAll = $imagesHandler->getAll();
@@ -727,7 +727,7 @@ switch($op) {
 		$GLOBALS['xoTheme']->addStylesheet( $style, null );
 		$templateMain = 'wggallery_admin_maintenance.tpl';
 		
-	    $system_check = array();
+	    $system_check = [];
         // system checks
         // file_uploads Bestimmt, ob Datei-Uploads per HTTP erlaubt sind
         $type = str_replace('%s', 'file_uploads', _AM_WGGALLERY_MAINTENANCE_CHECK_TYPE);
@@ -798,7 +798,7 @@ switch($op) {
 		$GLOBALS['xoTheme']->addStylesheet( $style, null );
 		$templateMain = 'wggallery_admin_maintenance.tpl';
 
-        $maintainance_resize_desc = str_replace(array('%mw', '%mh', '%tw', '%th'), array($wggallery->getConfig('maxwidth_medium'), $wggallery->getConfig('maxheight_medium'), $wggallery->getConfig('maxwidth_thumbs'), $wggallery->getConfig('maxheight_thumbs')), _AM_WGGALLERY_MAINTENANCE_RESIZE_DESC);
+        $maintainance_resize_desc = str_replace(['%mw', '%mh', '%tw', '%th'], [$wggallery->getConfig('maxwidth_medium'), $wggallery->getConfig('maxheight_medium'), $wggallery->getConfig('maxwidth_thumbs'), $wggallery->getConfig('maxheight_thumbs')], _AM_WGGALLERY_MAINTENANCE_RESIZE_DESC);
 		$GLOBALS['xoopsTpl']->assign('maintainance_resize_desc', $maintainance_resize_desc);
 		
 		$maintainance_dui_desc = str_replace('%p', WGGALLERY_UPLOAD_IMAGE_PATH, _AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC);
@@ -867,7 +867,7 @@ function getUnusedImages( &$unused, $directory ){
 						$crAlbums->add(new Criteria('alb_image', $entry));
 						$imagesCount += $albumsHandler->getCount($crAlbums);
 						if(0 == $imagesCount) {
-							$unused[] = array( 'name' => $entry, 'path' => $directory . '/' . $entry);
+							$unused[] = ['name' => $entry, 'path' => $directory . '/' . $entry];
 						}
 						unset($crImages);
                         unset($crAlbums);

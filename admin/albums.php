@@ -291,7 +291,7 @@ switch($op) {
 				$GLOBALS['xoopsTpl']->assign('error', $albumsObj->getHtmlErrors());
 			}
 		} else {
-			xoops_confirm(array('ok' => 1, 'alb_id' => $albId, 'op' => 'delete'), $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $albumsObj->getVar('alb_name')));
+			xoops_confirm(['ok' => 1, 'alb_id' => $albId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $albumsObj->getVar('alb_name')));
 		}
 
 	break;

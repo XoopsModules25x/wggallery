@@ -214,7 +214,7 @@ switch($op) {
 				$GLOBALS['xoopsTpl']->assign('error', $imagesObj->getHtmlErrors());
 			}
 		} else {
-			xoops_confirm(array('ok' => 1, 'img_id' => $imgId, 'op' => 'delete', 'alb_id' => $albId,), $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $imagesObj->getVar('img_name')));
+			xoops_confirm(['ok' => 1, 'img_id' => $imgId, 'op' => 'delete', 'alb_id' => $albId,], $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $imagesObj->getVar('img_name')));
 		}
 
 	break;
