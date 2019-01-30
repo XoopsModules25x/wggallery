@@ -1,4 +1,7 @@
-<?php namespace XoopsModules\Wggallery\Common;
+<?php
+
+namespace XoopsModules\Wggallery\Common;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -30,12 +33,9 @@ defined('XOOPS_ROOT_PATH') || die('XOOPS Root Path not defined');
  */
 class Breadcrumb
 {
-    public $dirname;
+    public  $dirname;
     private $bread = [];
 
-    /**
-     *
-     */
     public function __construct()
     {
         $this->dirname = basename(dirname(__DIR__));
@@ -51,13 +51,12 @@ class Breadcrumb
     {
         $this->bread[] = [
             'link'  => $link,
-            'title' => $title
+            'title' => $title,
         ];
     }
 
     /**
      * Render Pedigree BreadCrumb
-     *
      */
     public function render()
     {

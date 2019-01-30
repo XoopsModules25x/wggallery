@@ -20,9 +20,8 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 admin.php 1 Mon 2018-03-19 10:04:52Z XOOPS Project (www.xoops.org) $
  */
+require_once __DIR__ . '/common.php';
 
-require_once __DIR__ . '/common.php'; 
- 
 // ---------------- Admin Index ----------------
 define('_AM_WGGALLERY_STATISTICS', 'Statistiken');
 // There are
@@ -66,7 +65,8 @@ define('_AM_WGGALLERY_GALLERYTYPE_EDIT', 'Galerietyp bearbeiten');
 // Elements of Gallery options
 define('_AM_WGGALLERY_OPTION_GT_SET', 'Optionen für ausgewählten Galerietyp definieren');
 define('_AM_WGGALLERY_OPTION_GT_SOURCE', 'Slideshow Quelle');
-define('_AM_WGGALLERY_OPTION_GT_SOURCE_DESC', "Achtung: wenn der Benutzer nicht das Recht zum Herunterladen eines großen Bildes hat wird die Quelle für diesen Benutzer automatisch auf 'mittlere Bilder' reduziert um den unerlaubten Download von großen Bildern durch das Klicken mit der rechten Maustaste zu verhindern.<br>Den Benutzern mit dem Recht zum Herunterladen großer Bilder werden diese auch angezeigt, wenn Sie 'große Bilder' ausgewählt haben.");
+define('_AM_WGGALLERY_OPTION_GT_SOURCE_DESC',
+       "Achtung: wenn der Benutzer nicht das Recht zum Herunterladen eines großen Bildes hat wird die Quelle für diesen Benutzer automatisch auf 'mittlere Bilder' reduziert um den unerlaubten Download von großen Bildern durch das Klicken mit der rechten Maustaste zu verhindern.<br>Den Benutzern mit dem Recht zum Herunterladen großer Bilder werden diese auch angezeigt, wenn Sie 'große Bilder' ausgewählt haben.");
 define('_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW', 'Quelle Vorschaubild');
 define('_AM_WGGALLERY_OPTION_GT_SOURCE_LARGE', 'große Bilder');
 define('_AM_WGGALLERY_OPTION_GT_SOURCE_MEDIUM', 'mittlere Bilder');
@@ -225,7 +225,8 @@ define('_AM_WGGALLERY_MAINTENANCE_AT_DESC', 'Nicht mehr unterstützte Albumtypen
 define('_AM_WGGALLERY_MAINTENANCE_AT_SURERESET', 'Alle derzeit bestehenden Albumeinstellungen werden durch die Standardeinstellungen ersetzt! Wollen Sie wirklich fortsetzen?');
 define('_AM_WGGALLERY_MAINTENANCE_AT_SUREDELETE', 'Alle derzeit bestehenden Albumtypen (inklusive deren Einstellungen) werden gelöscht bzw. durch die aktuellen Albumtypen/Einstellungen ersetzt! Wollen Sie wirklich fortsetzen?');
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE', 'Größenänderung Bilder');
-define('_AM_WGGALLERY_MAINTENANCE_RESIZE_DESC', 'Erneute Größenänderung der mittleren Bilder oder Vorschaubilder entsprechend der vorgegeben Höhe in den Moduleinstellungen.<br>Aktuelle Einstellungen:<br>a) Mittlere Bilder: maximale Breite %mw px / maximale Höhe %mh px<br>b) Vorschaubilder: maximale Breite %tw px / maximale Höhe %th px');
+define('_AM_WGGALLERY_MAINTENANCE_RESIZE_DESC',
+       'Erneute Größenänderung der mittleren Bilder oder Vorschaubilder entsprechend der vorgegeben Höhe in den Moduleinstellungen.<br>Aktuelle Einstellungen:<br>a) Mittlere Bilder: maximale Breite %mw px / maximale Höhe %mh px<br>b) Vorschaubilder: maximale Breite %tw px / maximale Höhe %th px');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED', 'Bilderverzeichnis bereinigen');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC', 'Alle derzeit nicht verwendeten Albumbilder in folgenden Verzeichissen werden gelöscht:<ul>
 <li>%p/albums/</li>
@@ -235,7 +236,7 @@ define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC', 'Alle derzeit nicht verwe
 </ul>');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_INVALID', "Löschen von ungültigen Einträge in Tabelle 'Bilder'");
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_INVALID_DESC', "Löschen von ungültigen Einträge in Tabelle 'Bilder', z.B. wenn zwar ein Eintrag im der Tabelle erstellt wurde, jedoch beim Upload etwas fehlgeschlagen ist");
-define('_AM_WGGALLERY_MAINTENANCE_DELETE_INVALID_IMG', "Ungültigen Eintrag: img_id ");
+define('_AM_WGGALLERY_MAINTENANCE_DELETE_INVALID_IMG', 'Ungültigen Eintrag: img_id ');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_NONE', 'Es wurden keine nicht verwendeten Albumbilder gefunden');
 define('_AM_WGGALLERY_MAINTENANCE_DUI_SUREDELETE', 'Alle derzeit nicht verwendeten Albumbilder werden gelöscht! Wollen Sie wirklich fortsetzen?');
 define('_AM_WGGALLERY_MAINTENANCE_WATERMARK', 'Wasserzeichen zu Album nachträglich hinzufügen');
@@ -266,12 +267,12 @@ define('_AM_WGGALLERY_MAINTENANCE_CHECK_ML_DESC', 'Maximaler Speicherbedarf: %s 
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR1', 'Bitte reduzieren sie die Moduleinstellug oder erhöhen sie die PHP-Einstellung');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR2', 'Bitte in den PHP-Einstellungen einschalten');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR3', 'memory_limit muss höher sein als upload_max_filesize und muss höher sein als post_max_size');
-define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF', "Lesen Exif-Daten");
-define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_DESC', "Erneutes Lesen und Speichern der Exif-Daten für alle Bilder");
-define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_READ', "Fehlende Exif-Daten einlesen");
-define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_READALL', "Alle Exif-Daten einlesen");
-define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_SUCCESS', "Exif erfolgreich eingelesen");
-define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_ERROR', "Fehler beim Lesen Exif-Daten");
+define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF', 'Lesen Exif-Daten');
+define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_DESC', 'Erneutes Lesen und Speichern der Exif-Daten für alle Bilder');
+define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_READ', 'Fehlende Exif-Daten einlesen');
+define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_READALL', 'Alle Exif-Daten einlesen');
+define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_SUCCESS', 'Exif erfolgreich eingelesen');
+define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_ERROR', 'Fehler beim Lesen Exif-Daten');
 // Albums
 define('_AM_WGGALLERY_ALBUMS_ERRNOTFOUND', 'Fehler: Bild nicht gefunden (Bild-Id %s)');
 // Import

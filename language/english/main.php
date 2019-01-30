@@ -20,7 +20,6 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 main.php 1 Mon 2018-03-19 10:04:56Z XOOPS Project (www.xoops.org) $
  */
-
 require_once __DIR__ . '/common.php';
 
 // ---------------- Main ----------------

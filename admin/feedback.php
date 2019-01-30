@@ -26,7 +26,7 @@ include __DIR__ . '/header.php';
 
 $adminObject = \Xmf\Module\Admin::getInstance();
 
-$feedback = new \XoopsModules\Wggallery\Common\ModuleFeedback;
+$feedback = new \XoopsModules\Wggallery\Common\ModuleFeedback();
 
 // It recovered the value of argument op in URL$
 $op            = Request::getString('op', 'list');
@@ -43,7 +43,6 @@ switch ($op) {
         $form            = $feedback->getFormFeedback();
         echo $form->display();
         break;
-
     case 'send':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
@@ -57,7 +56,7 @@ switch ($op) {
         $your_mail  = Request::getString('your_mail', '');
         $fb_type    = Request::getString('fb_type', '');
         $fb_content = Request::getText('fb_content', '');
-        $fb_content = str_replace(array("\r\n", "\n", "\r"), '<br>', $fb_content); //clean line break from dhtmltextarea
+        $fb_content = str_replace(["\r\n", "\n", "\r"], '<br>', $fb_content); //clean line break from dhtmltextarea
 
         $title       = _FB_SEND_FOR . $GLOBALS['xoopsModule']->getVar('dirname');
         $body        = _FB_NAME . ': ' . $your_name . '<br>';

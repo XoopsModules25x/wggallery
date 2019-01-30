@@ -20,7 +20,7 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 images.php 1 Mon 2018-03-19 10:04:51Z XOOPS Project (www.xoops.org) $
  */
-  
+
 use Xmf\Request;
 
 include __DIR__ . '/header.php';
@@ -32,161 +32,159 @@ $albId = Request::getInt('alb_id');
 
 $templateMain = 'wggallery_admin_images.tpl';
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16/');
-	
-switch($op) {
-	case 'list':
+
+switch ($op) {
+    case 'list':
     case 'approve':
-	default:
-		// Form
-		if(isset($albId)) {
-			$albumsObj = $albumsHandler->get($albId);
-		} else {
-			$albumsObj = $albumsHandler->create();
-		}
+    default:
+        // Form
+        if (isset($albId)) {
+            $albumsObj = $albumsHandler->get($albId);
+        } else {
+            $albumsObj = $albumsHandler->create();
+        }
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('images.php'));
-        if ( 'list' === $op ) {
+        if ('list' === $op) {
             $form = $albumsObj->getFormUploadToAlbum('images.php');
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
             $crImages = new \CriteriaCompo();
             $crImages->add(new \Criteria('img_state', WGGALLERY_STATE_APPROVAL_VAL));
             $imagesCount = $imagesHandler->getCount($crImages);
-            if ( 0 < $imagesCount ) {
+            if ($imagesCount > 0) {
                 $adminObject->addItemButton(_AM_WGGALLERY_IMAGES_APPROVE, 'images.php?op=approve', 'alert');
             }
             unset($crImages);
         }
-		if (0 < $albId || 'approve' === $op) {
-			// Define Stylesheet
-			$GLOBALS['xoTheme']->addStylesheet( $style, null );
-			$start = Request::getInt('start', 0);
-			$limit = Request::getInt('limit', $helper->getConfig('adminpager'));
-			if ( 0 < $albId ) {
+        if ($albId > 0 || 'approve' === $op) {
+            // Define Stylesheet
+            $GLOBALS['xoTheme']->addStylesheet($style, null);
+            $start = Request::getInt('start', 0);
+            $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
+            if ($albId > 0) {
                 $adminObject->addItemButton(_AM_WGGALLERY_ADD_IMAGE, '../upload.php?op=list&amp;alb_id=' . $albId, 'add');
             }
             $adminObject->addItemButton(_AM_WGGALLERY_IMAGES_LIST, 'images.php?op=list', 'list');
-			
-			$crImages = new \CriteriaCompo();
-            if ( 0 < $albId ) {
+
+            $crImages = new \CriteriaCompo();
+            if ($albId > 0) {
                 $crImages->add(new \Criteria('img_albid', $albId));
                 $crImages->setSort('img_weight');
                 $crImages->setOrder('ASC');
             }
-            if ( 'approve' === $op ) {
+            if ('approve' === $op) {
                 $crImages->add(new \Criteria('img_state', WGGALLERY_STATE_APPROVAL_VAL));
                 $crImages->setSort('img_albid');
                 $crImages->setOrder('ASC');
             }
-			$imagesCount = $imagesHandler->getCount($crImages);
-			$crImages->setStart( $start );
-			$crImages->setLimit( $limit );
-			$imagesAll = $imagesHandler->getAll($crImages);
-			$GLOBALS['xoopsTpl']->assign('images_count', $imagesCount);
-			$GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
-			$GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
-			// Table view images
-			if($imagesCount > 0) {
-				foreach(array_keys($imagesAll) as $i) {
-					$image = $imagesAll[$i]->getValuesImages();
-                    if ( 'approve' === $op ) {
+            $imagesCount = $imagesHandler->getCount($crImages);
+            $crImages->setStart($start);
+            $crImages->setLimit($limit);
+            $imagesAll = $imagesHandler->getAll($crImages);
+            $GLOBALS['xoopsTpl']->assign('images_count', $imagesCount);
+            $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
+            $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
+            // Table view images
+            if ($imagesCount > 0) {
+                foreach (array_keys($imagesAll) as $i) {
+                    $image = $imagesAll[$i]->getValuesImages();
+                    if ('approve' === $op) {
                         $albumsHandler = $helper->getHandler('albums');
-                        $albumsObj = $albumsHandler->get($image['img_albid']);
+                        $albumsObj     = $albumsHandler->get($image['img_albid']);
                         if (isset($albumsObj) && is_object($albumsObj)) {
                             $image['alb_name'] = $albumsObj->getVar('alb_name');
                         }
-                        unset ($albumsObj);
+                        unset($albumsObj);
                     }
                     $GLOBALS['xoopsTpl']->append('images_list', $image);
-					unset($image);
-				}
-                if ( 'approve' === $op ) {
+                    unset($image);
+                }
+                if ('approve' === $op) {
                     $GLOBALS['xoopsTpl']->append('images_approve', true);
                 }
-				// Display Navigation
-				if($imagesCount > $limit) {
-					require_once XOOPS_ROOT_PATH .'/class/pagenav.php';
-					$pagenav = new \XoopsPageNav($imagesCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit . '&amp;alb_id=' . $albId);
-					$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
-				}
+                // Display Navigation
+                if ($imagesCount > $limit) {
+                    require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                    $pagenav = new \XoopsPageNav($imagesCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit . '&amp;alb_id=' . $albId);
+                    $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+                }
                 $GLOBALS['xoopsTpl']->assign('show_exif', $helper->getConfig('store_exif'));
-			} else {
-				$GLOBALS['xoopsTpl']->assign('error', _CO_WGGALLERY_THEREARENT_IMAGES);
-			}
-		}
+            } else {
+                $GLOBALS['xoopsTpl']->assign('error', _CO_WGGALLERY_THEREARENT_IMAGES);
+            }
+        }
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
-	break;
-	case 'new':
-		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('images.php'));
-		$adminObject->addItemButton(_AM_WGGALLERY_IMAGES_LIST, 'images.php', 'list');
-		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
-		// Get Form
-		$imagesObj = $imagesHandler->create();
-		$form = $imagesObj->getFormImages();
-		$GLOBALS['xoopsTpl']->assign('form', $form->render());
+        break;
+    case 'new':
+        $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('images.php'));
+        $adminObject->addItemButton(_AM_WGGALLERY_IMAGES_LIST, 'images.php', 'list');
+        $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+        // Get Form
+        $imagesObj = $imagesHandler->create();
+        $form      = $imagesObj->getFormImages();
+        $GLOBALS['xoopsTpl']->assign('form', $form->render());
 
-	break;
-	case 'save':
-		// Security Check
-		if(!$GLOBALS['xoopsSecurity']->check()) {
-			redirect_header('images.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
-		}
-		if(isset($imgId)) {
-			$imagesObj = $imagesHandler->get($imgId);
-		} else {
-			$imagesObj = $imagesHandler->create();
-		}
-		// Set Vars
-		$imagesObj->setVar('img_title', $_POST['img_title']);
-		$imagesObj->setVar('img_desc', $_POST['img_desc']);
-		$imagesObj->setVar('img_name', $_POST['img_name']);
+        break;
+    case 'save':
+        // Security Check
+        if (!$GLOBALS['xoopsSecurity']->check()) {
+            redirect_header('images.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+        }
+        if (isset($imgId)) {
+            $imagesObj = $imagesHandler->get($imgId);
+        } else {
+            $imagesObj = $imagesHandler->create();
+        }
+        // Set Vars
+        $imagesObj->setVar('img_title', $_POST['img_title']);
+        $imagesObj->setVar('img_desc', $_POST['img_desc']);
+        $imagesObj->setVar('img_name', $_POST['img_name']);
         $imagesObj->setVar('img_namelarge', $_POST['img_namelarge']);
-		$imagesObj->setVar('img_nameorig', $_POST['img_nameorig']);
-		$imagesObj->setVar('img_mimetype', isset($_POST['img_mimetype']) ? $_POST['img_mimetype'] : 0);
-		$imagesObj->setVar('img_size', isset($_POST['img_size']) ? $_POST['img_size'] : 0);
-		$imagesObj->setVar('img_resx', isset($_POST['img_resx']) ? $_POST['img_resx'] : 0);
-		$imagesObj->setVar('img_resy', isset($_POST['img_resy']) ? $_POST['img_resy'] : 0);
-		$imagesObj->setVar('img_downloads', isset($_POST['img_downloads']) ? $_POST['img_downloads'] : 0);
-		$imagesObj->setVar('img_ratinglikes', isset($_POST['img_ratinglikes']) ? $_POST['img_ratinglikes'] : 0);
-		$imagesObj->setVar('img_votes', isset($_POST['img_votes']) ? $_POST['img_votes'] : 0);
-		$imagesObj->setVar('img_weight', isset($_POST['img_weight']) ? $_POST['img_weight'] : 0);
-		$imagesObj->setVar('img_albid', isset($_POST['img_albid']) ? $_POST['img_albid'] : 0);
-		$imagesObj->setVar('img_state', isset($_POST['img_state']) ? $_POST['img_state'] : 0);
-		$imageDate = date_create_from_format(_SHORTDATESTRING, $_POST['img_date']);
-		$imagesObj->setVar('img_date', $imageDate->getTimestamp());
-		$imagesObj->setVar('img_submitter', isset($_POST['img_submitter']) ? $_POST['img_submitter'] : 0);
-		$imagesObj->setVar('img_ip', $_SERVER['REMOTE_ADDR']);
-		// Insert Data
-		if($imagesHandler->insert($imagesObj)) {
-			redirect_header('images.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
-		}
-		// Get Form
-		$GLOBALS['xoopsTpl']->assign('error', $imagesObj->getHtmlErrors());
-		$form = $imagesObj->getFormImages();
-		$GLOBALS['xoopsTpl']->assign('form', $form->render());
-	break;
-    
-	case 'edit':
-		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('images.php'));
-		$adminObject->addItemButton(_AM_WGGALLERY_ADD_IMAGE, 'images.php?op=new', 'add');
-		$adminObject->addItemButton(_AM_WGGALLERY_IMAGES_LIST, 'images.php', 'list');
-		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
-		// Get Form
-		$imagesObj = $imagesHandler->get($imgId);
-		$form = $imagesObj->getFormImages(true);
-		$GLOBALS['xoopsTpl']->assign('form', $form->render());
-	break;
-    
+        $imagesObj->setVar('img_nameorig', $_POST['img_nameorig']);
+        $imagesObj->setVar('img_mimetype', isset($_POST['img_mimetype']) ? $_POST['img_mimetype'] : 0);
+        $imagesObj->setVar('img_size', isset($_POST['img_size']) ? $_POST['img_size'] : 0);
+        $imagesObj->setVar('img_resx', isset($_POST['img_resx']) ? $_POST['img_resx'] : 0);
+        $imagesObj->setVar('img_resy', isset($_POST['img_resy']) ? $_POST['img_resy'] : 0);
+        $imagesObj->setVar('img_downloads', isset($_POST['img_downloads']) ? $_POST['img_downloads'] : 0);
+        $imagesObj->setVar('img_ratinglikes', isset($_POST['img_ratinglikes']) ? $_POST['img_ratinglikes'] : 0);
+        $imagesObj->setVar('img_votes', isset($_POST['img_votes']) ? $_POST['img_votes'] : 0);
+        $imagesObj->setVar('img_weight', isset($_POST['img_weight']) ? $_POST['img_weight'] : 0);
+        $imagesObj->setVar('img_albid', isset($_POST['img_albid']) ? $_POST['img_albid'] : 0);
+        $imagesObj->setVar('img_state', isset($_POST['img_state']) ? $_POST['img_state'] : 0);
+        $imageDate = date_create_from_format(_SHORTDATESTRING, $_POST['img_date']);
+        $imagesObj->setVar('img_date', $imageDate->getTimestamp());
+        $imagesObj->setVar('img_submitter', isset($_POST['img_submitter']) ? $_POST['img_submitter'] : 0);
+        $imagesObj->setVar('img_ip', $_SERVER['REMOTE_ADDR']);
+        // Insert Data
+        if ($imagesHandler->insert($imagesObj)) {
+            redirect_header('images.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
+        }
+        // Get Form
+        $GLOBALS['xoopsTpl']->assign('error', $imagesObj->getHtmlErrors());
+        $form = $imagesObj->getFormImages();
+        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        break;
+    case 'edit':
+        $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('images.php'));
+        $adminObject->addItemButton(_AM_WGGALLERY_ADD_IMAGE, 'images.php?op=new', 'add');
+        $adminObject->addItemButton(_AM_WGGALLERY_IMAGES_LIST, 'images.php', 'list');
+        $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+        // Get Form
+        $imagesObj = $imagesHandler->get($imgId);
+        $form      = $imagesObj->getFormImages(true);
+        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        break;
     case 'change_state':
-		if(isset($imgId)) {
-			$imagesObj = $imagesHandler->get($imgId);
-		    // Set Vars
+        if (isset($imgId)) {
+            $imagesObj = $imagesHandler->get($imgId);
+            // Set Vars
             $imagesObj->setVar('img_state', Request::getInt('img_state'));
             // Insert Data
-            if($imagesHandler->insert($imagesObj)) {
+            if ($imagesHandler->insert($imagesObj)) {
                 $crImages = new \CriteriaCompo();
                 $crImages->add(new \Criteria('img_state', WGGALLERY_STATE_APPROVAL_VAL));
                 $imagesCount = $imagesHandler->getCount($crImages);
                 unset($crImages);
-                if ( 0 < $imagesCount ) {
+                if ($imagesCount > 0) {
                     redirect_header('images.php?op=approve&amp;start=' . $start . '&amp;limit=' . $limit . '&amp;alb_id=' . $albId, 2, _CO_WGGALLERY_FORM_OK);
                 }
                 redirect_header('images.php?op=list&amp;start=' . $start . '&amp;limit=' . $limit . '&amp;alb_id=' . $albId, 2, _CO_WGGALLERY_FORM_OK);
@@ -194,30 +192,28 @@ switch($op) {
             // Get Form
             $GLOBALS['xoopsTpl']->assign('error', $imagesObj->getHtmlErrors());
         }
-	break;
-    
-	case 'delete':
-		$imagesObj = $imagesHandler->get($imgId);
-		if(isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
-			if(!$GLOBALS['xoopsSecurity']->check()) {
-				redirect_header('images.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
-			}
-			$img_name = $imagesObj->getVar('img_name');
-			if($imagesHandler->delete($imagesObj)) {
-				if($imagesHandler->unlinkImages($img_name, $imagesObj->getVar('img_namelarge'))) {
-					redirect_header('images.php?alb_id=' . $albId, 3, _CO_WGGALLERY_FORM_DELETE_OK);
-				} else {
-					$GLOBALS['xoopsTpl']->assign('error', _CO_WGGALLERY_IMAGE_ERRORUNLINK);
-				}
-				redirect_header('images.php?alb_id=' . $albId, 3, _CO_WGGALLERY_FORM_DELETE_OK);
-			} else {
-				$GLOBALS['xoopsTpl']->assign('error', $imagesObj->getHtmlErrors());
-			}
-		} else {
-			xoops_confirm(['ok' => 1, 'img_id' => $imgId, 'op' => 'delete', 'alb_id' => $albId,], $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $imagesObj->getVar('img_name')));
-		}
+        break;
+    case 'delete':
+        $imagesObj = $imagesHandler->get($imgId);
+        if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
+            if (!$GLOBALS['xoopsSecurity']->check()) {
+                redirect_header('images.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+            }
+            $img_name = $imagesObj->getVar('img_name');
+            if ($imagesHandler->delete($imagesObj)) {
+                if ($imagesHandler->unlinkImages($img_name, $imagesObj->getVar('img_namelarge'))) {
+                    redirect_header('images.php?alb_id=' . $albId, 3, _CO_WGGALLERY_FORM_DELETE_OK);
+                } else {
+                    $GLOBALS['xoopsTpl']->assign('error', _CO_WGGALLERY_IMAGE_ERRORUNLINK);
+                }
+                redirect_header('images.php?alb_id=' . $albId, 3, _CO_WGGALLERY_FORM_DELETE_OK);
+            } else {
+                $GLOBALS['xoopsTpl']->assign('error', $imagesObj->getHtmlErrors());
+            }
+        } else {
+            xoops_confirm(['ok' => 1, 'img_id' => $imgId, 'op' => 'delete', 'alb_id' => $albId], $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $imagesObj->getVar('img_name')));
+        }
 
-	break;
-    
+        break;
 }
 include __DIR__ . '/footer.php';

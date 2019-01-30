@@ -20,9 +20,8 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 modinfo.php 1 Mon 2018-03-19 10:04:52Z XOOPS Project (www.xoops.org) $
  */
- 
-require_once __DIR__ . '/common.php'; 
- 
+require_once __DIR__ . '/common.php';
+
 // ---------------- Admin Main ----------------
 define('_MI_WGGALLERY_NAME', 'wgGallery');
 define('_MI_WGGALLERY_DESC', 'This module is a picture gallery for XOOPS');
