@@ -66,7 +66,7 @@ $adminmenu[] = [
 $adminmenu[] = [
     'title' => _MI_WGGALLERY_ADMENU7,
     'link'  => 'admin/permissions.php',
-    'icon'  => 'assets/icons/32//permissions.png',
+    'icon'  => 'assets/icons/32/permissions.png',
 ];
 
 $adminmenu[] = [

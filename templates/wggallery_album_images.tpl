@@ -283,7 +283,7 @@
 	$('#btnCreateGrid4').click(function () {
         document.getElementById('gridImg').src='<{$wggallery_url}>/assets/images/loading.gif';
 		$.ajax({
-            data: 'op=creategrid&type=4&src1=' + $('#imageGrid1').attr('src') + '&src2=' + $('#imageGrid2').attr('src') + '&src3=' + $('#imageGrid3').attr('src') + '&src4=' + $('#imageGrid4').attr('src') + '&target=album<{$album.id}>.jpg',
+            data: 'op=creategrid&type=4&alb_id=<{$album.id}>&src1=' + $('#imageGrid1').attr('src') + '&src2=' + $('#imageGrid2').attr('src') + '&src3=' + $('#imageGrid3').attr('src') + '&src4=' + $('#imageGrid4').attr('src') + '&target=album<{$album.id}>.jpg',
             url: 'album_images.php',
             method: 'POST',
             success: function() {
@@ -296,7 +296,7 @@
 	$('#btnCreateGrid6').click(function () {
         document.getElementById('gridImg').src='<{$wggallery_url}>/assets/images/loading.gif';
 		$.ajax({
-            data: 'op=creategrid&type=6&src1=' + $('#imageGrid1').attr('src') + '&src2=' + $('#imageGrid2').attr('src') + '&src3=' + $('#imageGrid3').attr('src') + '&src4=' + $('#imageGrid4').attr('src') + '&src5=' + $('#imageGrid5').attr('src') + '&src6=' + $('#imageGrid6').attr('src') + '&target=album<{$album.id}>.jpg',
+            data: 'op=creategrid&type=6&alb_id=<{$album.id}>&src1=' + $('#imageGrid1').attr('src') + '&src2=' + $('#imageGrid2').attr('src') + '&src3=' + $('#imageGrid3').attr('src') + '&src4=' + $('#imageGrid4').attr('src') + '&src5=' + $('#imageGrid5').attr('src') + '&src6=' + $('#imageGrid6').attr('src') + '&target=album<{$album.id}>.jpg',
             url: 'album_images.php',
             method: 'POST',
             success: function() {
