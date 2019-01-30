@@ -67,18 +67,21 @@ class ModuleFeedbacks extends XoopsObject
 			$action = $_SERVER['REQUEST_URI'];
 		}
 		// Get Theme Form
-		xoops_load('XoopsFormLoader');
+        xoops_load('XoopsFormLoader');
 		$form = new XoopsThemeForm(_FB_FORM_TITLE, 'formfeedback', 'feedbacks.php', 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
 
-		$your_name = new XoopsFormText( _FB_YOUR_NAME, 'your_name', 50, 255, $this->name );
-		$your_name->setExtra('placeholder="' . _FB_YOUR_NAME_PLACEHOLER . '"');
+        $recipient = new XoopsFormText( _FB_RECIPIENT, 'recipient', 50, 255, $GLOBALS['xoopsModule']->getInfo('author_mail') );
+		$recipient->setExtra('disabled="disabled"');
+		$form->addElement($recipient);
+		$your_name = new XoopsFormText( _FB_NAME, 'your_name', 50, 255, $this->name );
+		$your_name->setExtra('placeholder="' . _FB_NAME_PLACEHOLER . '"');
 		$form->addElement($your_name);
-		$your_site = new XoopsFormText( _FB_YOUR_SITE, 'your_site', 50, 255, $this->site );
-		$your_site->setExtra('placeholder="' . _FB_YOUR_SITE_PLACEHOLER . '"');
+		$your_site = new XoopsFormText( _FB_SITE, 'your_site', 50, 255, $this->site );
+		$your_site->setExtra('placeholder="' . _FB_SITE_PLACEHOLER . '"');
 		$form->addElement($your_site);
-		$your_mail = new XoopsFormText( _FB_YOUR_MAIL, 'your_mail', 50, 255, $this->email );
-		$your_mail->setExtra('placeholder="' . _FB_YOUR_MAIL_PLACEHOLER . '"');
+		$your_mail = new XoopsFormText( _FB_MAIL, 'your_mail', 50, 255, $this->email );
+		$your_mail->setExtra('placeholder="' . _FB_MAIL_PLACEHOLER . '"');
 		$form->addElement($your_mail);
 		
 		$fbtypeSelect = new XoopsFormSelect( _FB_TYPE, 'fb_type', $this->type );
