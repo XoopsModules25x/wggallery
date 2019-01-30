@@ -20,11 +20,16 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 albums.php 1 Mon 2018-03-19 10:04:50Z XOOPS Project (www.xoops.org) $
  */
-require_once XOOPS_ROOT_PATH . '/modules/wggallery/include/common.php';
+ 
+use XoopsModules\Wggallery;
+
+include_once XOOPS_ROOT_PATH.'/modules/wggallery/include/common.php';
 // Function show block
 function b_wggallery_albums_show($options)
 {
-    require_once XOOPS_ROOT_PATH . '/modules/wggallery/class/albums.php';
+    $helper = \XoopsModules\Wggallery\Helper::getInstance();
+    include_once XOOPS_ROOT_PATH.'/modules/wggallery/class/albums.php';
+
     $block        = [];
     $typeBlock    = $options[0];
     $bnbAlbums    = $options[1];
@@ -45,9 +50,7 @@ function b_wggallery_albums_show($options)
     array_shift($options);
     array_shift($options);
     array_shift($options);
-
-    $helper = Wggallery\Helper::getInstance();
-
+  
     // assign block options
     $GLOBALS['xoopsTpl']->assign('ba_showTitle', $bshowTitle);
     $GLOBALS['xoopsTpl']->assign('ba_showDesc', $bshowDesc);

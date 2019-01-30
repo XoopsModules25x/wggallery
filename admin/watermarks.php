@@ -93,7 +93,7 @@ switch ($op) {
         // Set Vars
         $wm_name = Request::getString('wm_name', 'missing_wm_name');
         $watermarksObj->setVar('wm_name', $wm_name);
-        $watermarksObj->setVar('wm_type', Request::getInt('wm_type', 0));
+        $watermarksObj->setVar('wm_type', Request::getInt('wm_type', WGGALLERY_WATERMARK_TYPETEXT));
         $watermarksObj->setVar('wm_position', Request::getInt('wm_position', 0));
         $watermarksObj->setVar('wm_marginlr', Request::getInt('wm_marginlr', 0));
         $watermarksObj->setVar('wm_margintb', Request::getInt('wm_margintb', 0));
@@ -151,12 +151,13 @@ switch ($op) {
             }
         }
         $watermarksObj->setVar('wm_target', Request::getInt('wm_target'));
+
         $watermarkDate = date_create_from_format(_SHORTDATESTRING, $_POST['wm_date']);
         $watermarksObj->setVar('wm_date', $watermarkDate->getTimestamp());
         $watermarksObj->setVar('wm_submitter', Request::getInt('wm_submitter', 0));
         // Insert Data
         if ($watermarksHandler->insert($watermarksObj)) {
-            $newWmId = $watermarksHandler->getNewInsertedIdWatermarks();
+            $newWmId = $watermarksHandler->getInsertId();
             $wmId    = $wmId > 0 ? $wmId : $newWmId;
             if ($albumsHandler->getCount() > 0) {
                 // reset all albums when watermark isn't in use anymore

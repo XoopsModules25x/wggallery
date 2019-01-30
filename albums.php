@@ -160,13 +160,14 @@ switch ($op) {
         } else {
             $albumsObj->setVar('alb_state', $albState);
         }
+
         $albumsObj->setVar('alb_wmid', Request::getInt('alb_wmid'));
         $albumDate = date_create_from_format(_SHORTDATESTRING, $_POST['alb_date']);
         $albumsObj->setVar('alb_date', $albumDate->getTimestamp());
         $albumsObj->setVar('alb_submitter', Request::getInt('alb_submitter'));
         // Insert Data
         if ($albumsHandler->insert($albumsObj)) {
-            $newAlbId     = $albumsObj->getNewInsertedIdAlbums();
+            $newAlbId     = $albumsHandler->getInsertId();
             $permId       = $albId > 0 ? $albId : $newAlbId;
             $gpermHandler = xoops_getHandler('groupperm');
             $perm_modid   = $GLOBALS['xoopsModule']->getVar('mid');

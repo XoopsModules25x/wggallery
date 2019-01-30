@@ -20,7 +20,11 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 albums.php 1 Mon 2018-03-19 10:04:49Z XOOPS Project (www.xoops.org) $
  */
-require_once dirname(__DIR__) . '/include/common.php';
+
+use Xmf\Request;
+use XoopsModules\Wggallery;
+
+include_once dirname(__DIR__) . '/include/common.php';
 
 /**
  * @param none

@@ -20,11 +20,17 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 images.php 1 Mon 2018-03-19 10:04:51Z XOOPS Project (www.xoops.org) $
  */
-require_once XOOPS_ROOT_PATH . '/modules/wggallery/include/common.php';
+
+use XoopsModules\Wggallery;
+use XoopsModules\Wggallery\Helper;
+
+include_once XOOPS_ROOT_PATH.'/modules/wggallery/include/common.php';
 // Function show block
 function b_wggallery_images_show($options)
 {
-    require_once XOOPS_ROOT_PATH . '/modules/wggallery/class/images.php';
+    $helper = \XoopsModules\Wggallery\Helper::getInstance();
+    include_once XOOPS_ROOT_PATH.'/modules/wggallery/class/images.php';
+
     //$myts = MyTextSanitizer::getInstance();
     $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
     $block        = [];
