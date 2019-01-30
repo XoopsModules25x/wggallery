@@ -217,7 +217,7 @@ class Watermarks extends \XoopsObject
      * Get Values
      * @param null $keys
      * @param null $format
-     * @param null $maxDepth
+     * @param int $maxDepth
      * @return array
      */
     public function getValuesWatermarks($keys = null, $format = null, $maxDepth = null)

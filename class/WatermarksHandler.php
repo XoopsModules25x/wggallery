@@ -54,8 +54,7 @@ class WatermarksHandler extends \XoopsPersistableObjectHandler
      * retrieve a field
      *
      * @param int        $i field id
-     * @param null fields
-     * @param null|mixed $fields
+     * @param array $fields
      * @return mixed reference to the {@link Get} object
      */
     public function get($i = null, $fields = null)

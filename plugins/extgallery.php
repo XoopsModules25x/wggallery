@@ -43,7 +43,6 @@ function wggalleryPluginGetDataExtgallery()
 
 /**
  * @function getForm
- * @param
  * @param mixed $im_name
  * @param mixed $num_albums
  * @param mixed $num_images

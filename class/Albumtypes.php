@@ -220,7 +220,7 @@ class Albumtypes extends \XoopsObject
      * Get Values
      * @param null $keys
      * @param null $format
-     * @param null $maxDepth
+     * @param int|null $maxDepth
      * @return array
      */
     public function getValuesAlbumtypes($keys = null, $format = null, $maxDepth = null)
