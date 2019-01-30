@@ -85,7 +85,7 @@ switch($op) {
 		if(!$GLOBALS['xoopsSecurity']->check()) {
 			redirect_header('watermarks.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
 		}
-		if(isset($wmId)) {
+		if( 0 < $wmId ) {
 			$watermarksObj = $watermarksHandler->get($wmId);
 		} else {
 			$watermarksObj = $watermarksHandler->create();
@@ -93,7 +93,7 @@ switch($op) {
 		// Set Vars
         $wm_name = Request::getString('wm_name', 'missing_wm_name');
 		$watermarksObj->setVar('wm_name', $wm_name);
-		$watermarksObj->setVar('wm_type', Request::getInt('wm_type', 0));
+		$watermarksObj->setVar('wm_type', Request::getInt('wm_type', WGGALLERY_WATERMARK_TYPETEXT));
 		$watermarksObj->setVar('wm_position', Request::getInt('wm_position', 0));
 		$watermarksObj->setVar('wm_marginlr', Request::getInt('wm_marginlr', 0));
         $watermarksObj->setVar('wm_margintb', Request::getInt('wm_margintb', 0));
@@ -158,7 +158,7 @@ switch($op) {
 		$watermarksObj->setVar('wm_submitter', Request::getInt('wm_submitter', 0));
 		// Insert Data
 		if($watermarksHandler->insert($watermarksObj)) {
-            $newWmId = $watermarksHandler->getNewInsertedIdWatermarks();
+            $newWmId = $watermarksHandler->getInsertId();
             $wmId = 0 < $wmId ? $wmId : $newWmId;
             if ( 0 < $albumsHandler->getCount() ) {
                 // reset all albums when watermark isn't in use anymore

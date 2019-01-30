@@ -21,6 +21,9 @@
  * @version        $Id: 1.0 albums.php 1 Mon 2018-03-19 10:04:49Z XOOPS Project (www.xoops.org) $
  */
 
+use Xmf\Request;
+use XoopsModules\Wggallery;
+
 include_once dirname(__DIR__) . '/include/common.php';
 
 /**

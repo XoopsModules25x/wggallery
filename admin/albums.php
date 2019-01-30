@@ -194,7 +194,7 @@ switch($op) {
 		$albumsObj->setVar('alb_submitter', Request::getInt('alb_submitter'));
 		// Insert Data
 		if($albumsHandler->insert($albumsObj)) {
-			$newAlbId = $albumsObj->getNewInsertedIdAlbums();
+			$newAlbId = $albumsHandler->getInsertId();
 			$permId = isset($_REQUEST['alb_id']) ? $albId : $newAlbId;
 			$perm_modid = $GLOBALS['xoopsModule']->getVar('mid');
 			$gpermHandler = xoops_getHandler('groupperm');
