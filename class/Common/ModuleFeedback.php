@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Wggallery\Common;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -23,9 +24,9 @@
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
- * Class Object ModuleFeedbacks
+ * Class Object ModuleFeedback
  */
-class ModuleFeedbacks extends XoopsObject
+class ModuleFeedback extends \XoopsObject
 {
 	public $name    = '';
 	public $email   = '';
@@ -68,23 +69,23 @@ class ModuleFeedbacks extends XoopsObject
 		}
 		// Get Theme Form
         xoops_load('XoopsFormLoader');
-		$form = new XoopsThemeForm(_FB_FORM_TITLE, 'formfeedback', 'feedbacks.php', 'post', true);
+		$form = new \XoopsThemeForm(_FB_FORM_TITLE, 'formfeedback', 'feedback.php', 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
 
-        $recipient = new XoopsFormText( _FB_RECIPIENT, 'recipient', 50, 255, $GLOBALS['xoopsModule']->getInfo('author_mail') );
+        $recipient = new \XoopsFormText( _FB_RECIPIENT, 'recipient', 50, 255, $GLOBALS['xoopsModule']->getInfo('author_mail') );
 		$recipient->setExtra('disabled="disabled"');
 		$form->addElement($recipient);
-		$your_name = new XoopsFormText( _FB_NAME, 'your_name', 50, 255, $this->name );
+		$your_name = new \XoopsFormText( _FB_NAME, 'your_name', 50, 255, $this->name );
 		$your_name->setExtra('placeholder="' . _FB_NAME_PLACEHOLER . '"');
 		$form->addElement($your_name);
-		$your_site = new XoopsFormText( _FB_SITE, 'your_site', 50, 255, $this->site );
+		$your_site = new \XoopsFormText( _FB_SITE, 'your_site', 50, 255, $this->site );
 		$your_site->setExtra('placeholder="' . _FB_SITE_PLACEHOLER . '"');
 		$form->addElement($your_site);
-		$your_mail = new XoopsFormText( _FB_MAIL, 'your_mail', 50, 255, $this->email );
+		$your_mail = new \XoopsFormText( _FB_MAIL, 'your_mail', 50, 255, $this->email );
 		$your_mail->setExtra('placeholder="' . _FB_MAIL_PLACEHOLER . '"');
 		$form->addElement($your_mail);
 		
-		$fbtypeSelect = new XoopsFormSelect( _FB_TYPE, 'fb_type', $this->type );
+		$fbtypeSelect = new \XoopsFormSelect( _FB_TYPE, 'fb_type', $this->type );
 		$fbtypeSelect->addOption('', '');
 		$fbtypeSelect->addOption(_FB_TYPE_SUGGESTION, _FB_TYPE_SUGGESTION);
 		$fbtypeSelect->addOption(_FB_TYPE_BUGS, _FB_TYPE_BUGS);
@@ -105,11 +106,11 @@ class ModuleFeedbacks extends XoopsObject
         $configHandler = xoops_getHandler('config');
         $config =& $configHandler->getConfigsByCat(0, $module->getVar('mid'));
 		$editorConfigs['editor'] = $config['general_editor'];	
-		$editor = new XoopsFormEditor( _FB_TYPE_CONTENT, 'fb_content', $editorConfigs );
+		$editor = new \XoopsFormEditor( _FB_TYPE_CONTENT, 'fb_content', $editorConfigs );
 		$form->addElement($editor, true);
 
-		$form->addElement(new XoopsFormHidden('op', 'send'));
-		$form->addElement(new XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+		$form->addElement(new \XoopsFormHidden('op', 'send'));
+		$form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
 
 		return $form;
 	}

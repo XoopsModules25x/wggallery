@@ -63,7 +63,7 @@ $adminmenu[$i]['link'] = 'admin/import.php';
 $adminmenu[$i]['icon'] = 'assets/icons/32/import.png';
 ++$i;
 $adminmenu[$i]['title'] = _MI_WGGALLERY_FEEDBACK;
-$adminmenu[$i]['link'] = 'admin/feedbacks.php';
+$adminmenu[$i]['link'] = 'admin/feedback.php';
 $adminmenu[$i]['icon'] = 'assets/icons/32/feedback.png';
 ++$i;
 $adminmenu[$i]['title'] = _MI_WGGALLERY_ABOUT;
