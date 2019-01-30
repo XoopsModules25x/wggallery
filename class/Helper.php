@@ -113,7 +113,7 @@ class Helper extends \Xmf\Module\Helper
      */
     public function getFormDelete($arrParams, $title, $text, $descr = '')
     {
-        $helper = Wggallery\Helper::getInstance();
+        $helper = Helper::getInstance();
         $action = $_SERVER['REQUEST_URI'];
 
         // Get Theme Form

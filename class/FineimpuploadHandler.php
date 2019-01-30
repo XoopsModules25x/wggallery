@@ -1,7 +1,5 @@
 <?php
 
-namespace XoopsModules\Wggallery;
-
 /**
  * SystemFineImUploadHandler class to work with ajaxfineupload.php endpoint
  * to facilitate uploads for the system image manager
@@ -37,20 +35,17 @@ namespace XoopsModules\Wggallery;
  * SOFTWARE.
  */
 
-use XoopsModules\Wggallery;
-
-//class FineImpUploadHandler extends \SystemFineUploadHandler
-class FineimpuploadHandler extends \SystemFineUploadHandler
+class WggalleryFineImpUploadHandler extends SystemFineUploadHandler
 {
-    /**
+     /**
      * @var int
      */
-    private $permUseralbum = 0;
-    /**
+	private $permUseralbum = 0;
+	/**
      * @var int
      */
-    private $imageId = 0;
-    /**
+	private $imageId = 0;
+	/**
      * @var string
      */
     private $imageName = null;
@@ -78,20 +73,20 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
      * @var int
      */
     private $imageSize = 0;
-    /**
+	/**
      * @var int
      */
     private $imageWidth = 0;
-    /**
+	/**
      * @var int
      */
     private $imageHeight = 0;
-    /**
+		/**
      * @var string
      */
     private $pathUpload = null;
-
-    /**
+	
+	/**
      * XoopsFineImUploadHandler constructor.
      * @param stdClass $claims claims passed in JWT header
      */
@@ -104,239 +99,165 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
 
     protected function storeUploadedFile($target, $mimeType, $uid)
     {
-        require_once XOOPS_ROOT_PATH . '/modules/wggallery/header.php';
-        require_once XOOPS_ROOT_PATH . '/modules/wggallery/include/imagehandler.php';
-        $this->pathUpload = WGGALLERY_UPLOAD_IMAGE_PATH;
+        include_once XOOPS_ROOT_PATH .'/modules/wggallery/header.php';
+        include_once XOOPS_ROOT_PATH .'/modules/wggallery/include/imagehandler.php';
 
-        if (WGGALLERY_PERM_SUBMITAPPR === $permissionsHandler->permGlobalSubmit()) {
+        $helper        = XoopsModules\Wggallery\Helper::getInstance();
+
+		$this->pathUpload = WGGALLERY_UPLOAD_IMAGE_PATH;
+
+        if ( WGGALLERY_PERM_SUBMITAPPR === $permissionsHandler->permGlobalSubmit()) {
             $this->permUseralbum = WGGALLERY_STATE_APPROVAL_VAL;
         } else {
             $this->permUseralbum = WGGALLERY_STATE_ONLINE_VAL;
         }
-
+		
         $pathParts = pathinfo($this->getName());
 
         $this->imageName      = uniqid('img', true) . '.' . mb_strtolower($pathParts['extension']);
         $this->imageNicename  = str_replace(['_', '-'], ' ', $pathParts['filename']);
         $this->imageNameLarge = uniqid('imgl', true) . '.' . mb_strtolower($pathParts['extension']);
-        $this->imagePath      = $this->pathUpload . '/large/' . $this->imageNameLarge;
-
+		$this->imagePath      = $this->pathUpload . '/large/' . $this->imageNameLarge;
+		
         if (false === move_uploaded_file($_FILES[$this->inputName]['tmp_name'], $this->imagePath)) {
             return false;
         }
-
-        $this->imageNameOrig = $_FILES[$this->inputName]['name'];
-        $this->imageMimetype = $_FILES[$this->inputName]['type'];
-        $this->imageSize     = $_FILES[$this->inputName]['size'];
-
-        $ret = $this->handleImageDB();
-        if (false === $ret) {
-            return [
-                'error' => sprintf(_FAILSAVEIMG, $this->imageNicename),
+		
+		$this->imageNameOrig = $_FILES[$this->inputName]['name'];
+ 		$this->imageMimetype = $_FILES[$this->inputName]['type'];
+		$this->imageSize     = $_FILES[$this->inputName]['size'];
+		
+		$ret = $this->handleImageDB();
+		if(false === $ret) {
+			return [
+				'error' => sprintf(_FAILSAVEIMG, $this->imageNicename)
             ];
-        }
-
+		}
+        
         // load watermark settings
         $albumObj  = $albumsHandler->get($this->claims->cat);
         $wmId      = $albumObj->getVar('alb_wmid');
         $wmTargetM = false;
         $wmTargetL = false;
-        if ($wmId > 0) {
+        if ( 0 < $wmId) {
             $watermarksObj = $watermarksHandler->get($wmId);
-            $wmTarget      = $watermarksObj->getVar('wm_target');
-            if (WGGALLERY_WATERMARK_TARGET_A === $wmTarget || WGGALLERY_WATERMARK_TARGET_M === $wmTarget) {
-                $wmTargetM = true;
-            }
-            if (WGGALLERY_WATERMARK_TARGET_A === $wmTarget || WGGALLERY_WATERMARK_TARGET_L === $wmTarget) {
-                $wmTargetL = true;
-            }
+            $wmTarget = $watermarksObj->getVar('wm_target');
+            if ( WGGALLERY_WATERMARK_TARGET_A === $wmTarget || WGGALLERY_WATERMARK_TARGET_M === $wmTarget) {$wmTargetM = true;}
+            if ( WGGALLERY_WATERMARK_TARGET_A === $wmTarget || WGGALLERY_WATERMARK_TARGET_L === $wmTarget) {$wmTargetL = true;}
         }
-
-        // create medium image
-        $imgHandler                = new wgImageHandler();
-        $imgHandler->sourceFile    = $this->imagePath;
-        $imgHandler->endFile       = $this->pathUpload . '/medium/' . $this->imageName;
-        $imgHandler->imageMimetype = $this->imageMimetype;
-        $imgHandler->maxWidth      = $helper->getConfig('maxwidth_medium');
-        $imgHandler->maxHeight     = $helper->getConfig('maxheight_medium');
-        $ret                       = $imgHandler->ResizeImage();
-        // $ret = resizeImage($this->imagePath, $this->pathUpload . '/medium/' . $this->imageName, $helper->getConfig('maxwidth_medium'), $helper->getConfig('maxheight_medium'), $this->imageMimetype);
-        if (false === $ret) {
-            return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_MEDIUM, $this->imageNicename)];
-        }
-        if ('copy' === $ret) {
-            copy($this->pathUpload . '/large/' . $this->imageNameLarge, $this->pathUpload . '/medium/' . $this->imageName);
-        }
-
-        // create thumb
-        $imgHandler->sourceFile    = $this->imagePath;
-        $imgHandler->endFile       = $this->pathUpload . '/thumbs/' . $this->imageName;
-        $imgHandler->imageMimetype = $this->imageMimetype;
-        $imgHandler->maxWidth      = $helper->getConfig('maxwidth_thumbs');
-        $imgHandler->maxHeight     = $helper->getConfig('maxheight_thumbs');
-        $ret                       = $imgHandler->ResizeImage();
-        // $ret = resizeImage($this->imagePath, $this->pathUpload . '/thumbs/' . $this->imageName, $helper->getConfig('maxwidth_thumbs'), $helper->getConfig('maxheight_thumbs'), $this->imageMimetype);
-        if (false === $ret) {
-            return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_THUMBS, $this->imageNicename)];
-        }
-        if ('copy' === $ret) {
-            copy($this->pathUpload . '/large/' . $this->imageNameLarge, $this->pathUpload . '/thumbs/' . $this->imageName);
-        }
-
+        
+		// create medium image
+        $imgHandler = new wgImageHandler;
+		$imgHandler->sourceFile    = $this->imagePath;
+		$imgHandler->endFile       = $this->pathUpload . '/medium/' . $this->imageName;
+		$imgHandler->imageMimetype = $this->imageMimetype;
+		$imgHandler->maxWidth      = $helper->getConfig('maxwidth_medium');
+		$imgHandler->maxHeight     = $helper->getConfig('maxheight_medium');
+		$ret = $imgHandler->ResizeImage();	
+		// $ret = resizeImage($this->imagePath, $this->pathUpload . '/medium/' . $this->imageName, $wggallery->getConfig('maxwidth_medium'), $wggallery->getConfig('maxheight_medium'), $this->imageMimetype);
+        if(false === $ret) {
+			return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_MEDIUM, $this->imageNicename)];
+		} 
+		if ('copy' === $ret) {
+			copy($this->pathUpload . '/large/' . $this->imageNameLarge, $this->pathUpload . '/medium/' . $this->imageName);
+		}
+        
+		// create thumb
+		$imgHandler->sourceFile    = $this->imagePath;
+		$imgHandler->endFile       = $this->pathUpload . '/thumbs/' . $this->imageName;
+		$imgHandler->imageMimetype = $this->imageMimetype;
+		$imgHandler->maxWidth      = $helper->getConfig('maxwidth_thumbs');
+		$imgHandler->maxHeight     = $helper->getConfig('maxheight_thumbs');
+		$ret = $imgHandler->ResizeImage();	
+        // $ret = resizeImage($this->imagePath, $this->pathUpload . '/thumbs/' . $this->imageName, $wggallery->getConfig('maxwidth_thumbs'), $wggallery->getConfig('maxheight_thumbs'), $this->imageMimetype);
+		if(false === $ret) {
+			return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_THUMBS, $this->imageNicename)];
+		} 
+		if ('copy' === $ret) {
+			copy($this->pathUpload . '/large/' . $this->imageNameLarge, $this->pathUpload . '/thumbs/' . $this->imageName);
+		}
+        
         // add watermark to large image
-        if (true === $wmTargetL) {
+        if ( true === $wmTargetL) {
             $imgWm = $this->pathUpload . '/large/' . $this->imageNameLarge;
             $resWm = $watermarksHandler->watermarkImage($wmId, $imgWm, $imgWm);
-            if (true !== $resWm) {
+            if ( true !== $resWm) {
                 return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEWM_LARGE, $this->imageNicename, $resWm)];
             }
         }
         // add watermark to medium image
-        if (true === $wmTargetM) {
+        if ( true === $wmTargetM) {
             $imgWm = $this->pathUpload . '/medium/' . $this->imageName;
             $resWm = $watermarksHandler->watermarkImage($wmId, $imgWm, $imgWm);
-            if (true !== $resWm) {
+            if ( true !== $resWm) {
                 return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEWM_MEDIUM, $this->imageNicename, $resWm)];
             }
         }
-
+        
         return ['success' => true, 'uuid' => $uuid];
     }
+	
+	
+	private function handleImageDB () {
+		
+		include_once XOOPS_ROOT_PATH .'/modules/wggallery/header.php';
 
-    private function handleImageDB()
-    {
-        require_once XOOPS_ROOT_PATH . '/modules/wggallery/header.php';
-        global $xoopsUser;
+        $helper = XoopsModules\Wggallery\Helper::getInstance();
 
-        $this->getImageDim();
+		global $xoopsUser;
+		
+		$this->getImageDim();
 
-        $helper        = Wggallery\Helper::getInstance();
-        $imagesHandler = $helper->getHandler('images');
+		$imagesHandler = $helper->getHandler('images');
 
-        $imagesObj = $imagesHandler->create();
-        // Set Vars
-        $imagesObj->setVar('img_title', $this->imageNicename);
-        $imagesObj->setVar('img_desc', '');
-        $imagesObj->setVar('img_name', $this->imageName);
+		$imagesObj = $imagesHandler->create();
+		// Set Vars
+     	$imagesObj->setVar('img_title', $this->imageNicename);
+		$imagesObj->setVar('img_desc', '');
+		$imagesObj->setVar('img_name', $this->imageName);
         $imagesObj->setVar('img_namelarge', $this->imageNameLarge);
-        $imagesObj->setVar('img_nameorig', $this->imageNameOrig);
-        $imagesObj->setVar('img_mimetype', $this->imageMimetype);
-        $imagesObj->setVar('img_size', $this->imageSize);
-        $imagesObj->setVar('img_resx', $this->imageWidth);
-        $imagesObj->setVar('img_resy', $this->imageHeight);
-        $imagesObj->setVar('img_albid', $this->claims->cat);
-        $imagesObj->setVar('img_state', $this->permUseralbum);
-        $imagesObj->setVar('img_date', time());
-        $imagesObj->setVar('img_submitter', $xoopsUser->id());
+		$imagesObj->setVar('img_nameorig', $this->imageNameOrig);
+        $imagesObj->setVar('img_mimetype',  $this->imageMimetype);
+		$imagesObj->setVar('img_size', $this->imageSize);
+		$imagesObj->setVar('img_resx', $this->imageWidth);
+		$imagesObj->setVar('img_resy', $this->imageHeight);
+		$imagesObj->setVar('img_albid',  $this->claims->cat);
+		$imagesObj->setVar('img_state',  $this->permUseralbum);
+		$imagesObj->setVar('img_date', time());
+		$imagesObj->setVar('img_submitter', $xoopsUser->id());
         $imagesObj->setVar('img_ip', $_SERVER['REMOTE_ADDR']);
-        // Insert Data
-        if ($imagesHandler->insert($imagesObj)) {
-            $this->imageId = $imagesHandler->getInsertId;
-
-            return true;
-        }
-
-        return false;
-    }
-
-    private function getImageDim()
-    {
-        switch ($this->imageMimetype) {
+		// Insert Data
+		if($imagesHandler->insert($imagesObj)) {
+			$this->imageId = $imagesHandler->getInsertId;
+			return true;
+ 		}
+		return false; 
+	}
+	
+	private function getImageDim () {
+		
+		switch($this->imageMimetype){
             case'image/png':
                 $img = imagecreatefrompng($this->imagePath);
-                break;
+            break;
             case'image/jpeg':
                 $img = imagecreatefromjpeg($this->imagePath);
-                break;
+            break;
             case'image/gif':
                 $img = imagecreatefromgif($this->imagePath);
-                break;
+            break;
             default:
-                $this->imageWidth  = 0;
-                $this->imageHeight = 0;
-
-                return 'Unsupported format';
+                $this->imageWidth = 0;
+				$this->imageHeight = 0;
+				return 'Unsupported format';
         }
-        $this->imageWidth  = imagesx($img);
-        $this->imageHeight = imagesy($img);
+		$this->imageWidth  = imagesx( $img );
+		$this->imageHeight = imagesy( $img );
+		
+		imagedestroy($img);
+		
+		return true;
+	}
+	
 
-        imagedestroy($img);
-
-        return true;
-    }
-
-    /**
-     * resize image if size exceed given width/height
-     * @param string $endfile
-     * @param int    $max_width
-     * @param int    $max_height
-     * @return string|boolean
-     */
-    /*     private function resizeImage_sav($endfile, $max_width, $max_height){
-            // check file extension
-            switch($this->imageMimetype){
-                case'image/png':
-                    $img = imagecreatefrompng($this->imagePath);
-    
-                break;
-                case'image/jpeg':
-                    $img = imagecreatefromjpeg($this->imagePath);
-                break;
-                case'image/gif':
-                    $img = imagecreatefromgif($this->imagePath);
-                break;
-                default:
-                    return 'Unsupported format';
-            }
-    
-            $width = imagesx( $img );
-            $height = imagesy( $img );
-            
-            if ( $width > $max_width || $height > $max_height) {
-                // recalc image size based on max_width/max_height
-                if ($width > $height) {
-                    if($width < $max_width){
-                        $new_width = $width;
-                    } else {
-                        $new_width = $max_width;
-                        $divisor = $width / $new_width;
-                        $new_height = floor( $height / $divisor);
-                    }
-                } else if($height < $max_height){
-                    $new_height = $height;
-                } else {
-                    $new_height =  $max_height;
-                    $divisor = $height / $new_height;
-                    $new_width = floor( $width / $divisor );
-                }
-    
-                // Create a new temporary image.
-                $tmpimg = imagecreatetruecolor( $new_width, $new_height );
-                imagealphablending($tmpimg, false);
-                imagesavealpha($tmpimg, true);
-    
-                // Copy and resize old image into new image.
-                imagecopyresampled( $tmpimg, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-    
-                //compressing the file
-                switch($this->imageMimetype){
-                    case'image/png':
-                        imagepng($tmpimg, $endfile, 0);
-                    break;
-                    case'image/jpeg':
-                        imagejpeg($tmpimg, $endfile, 100);
-                    break;
-                    case'image/gif':
-                        imagegif($tmpimg, $endfile);
-                    break;
-                }
-                            
-                // release the memory
-                imagedestroy($tmpimg);
-            } else {
-                return 'copy';
-            }
-            imagedestroy($img);
-            return true;
-        } */
 }

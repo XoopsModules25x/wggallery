@@ -52,6 +52,8 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
             $currentuid = $xoopsUser->uid();
         }
         $gpermHandler  = xoops_getHandler('groupperm');
+        $module_handler = xoops_getHandler('module');
+        $xoopsModule    = $module_handler->getByDirname('wggallery');
         $mid           = $xoopsModule->mid();
         $memberHandler = xoops_getHandler('member');
         if (0 == $currentuid) {
