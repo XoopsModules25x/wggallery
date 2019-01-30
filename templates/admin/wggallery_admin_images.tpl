@@ -33,7 +33,7 @@
                         <tr class="<{cycle values='odd, even'}>">
                             <td class='center'><{$image.alb_name}></td>
                             <td class='center'><{$image.id}></td>
-                            <td class='center'><img src='<{$image.thumb}>' style='max-height:50px' alt='<{$image.name}>' /></td>
+                            <td class='center'><img src='<{$image.thumb}>' style='max-height:50px' alt='<{$image.name}>'></td>
                             <td class='center'><{$image.title}></td>
                             <td class='center'><{$image.name}></td>
                             <td class='center'><{$image.mimetype}></td>
@@ -47,27 +47,27 @@
                             <td class='center  width10'>
                                 <{if $image.state == 0}>
                                     <a href='images.php?op=change_state&amp;img_state=1&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>' title='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'>
-                                        <img src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>' />
+                                        <img src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'>
                                     </a>
                                 <{/if}>
                                 <{if $image.state == 1}>
                                     <a href='images.php?op=change_state&amp;img_state=0&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>' title='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'>
-                                        <img src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>' />
+                                        <img src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'>
                                     </a>
                                 <{/if}>
                                 <{if $image.state == 2}>
                                     <a href='images.php?op=change_state&amp;img_state=1&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>' title='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'>
-                                        <img src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>' />
+                                        <img src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'>
                                     </a>
                                     <a href='images.php?op=change_state&amp;img_state=0&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>' title='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'>
-                                        <img src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>' />
+                                        <img src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'>
                                     </a>
                                 <{/if}>
                                 <a href='<{$wggallery_url}>/admin/images.php?op=edit&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>' title='<{$smarty.const._EDIT}>'>
-                                    <img src='<{xoModuleIcons16 edit.png}>' alt='images' />
+                                    <img src='<{xoModuleIcons16 edit.png}>' alt='images'>
                                 </a>
                                 <a href='<{$wggallery_url}>/admin/images.php?op=delete&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>' title='<{$smarty.const._DELETE}>'>
-                                    <img src='<{xoModuleIcons16 delete.png}>' alt='images' />
+                                    <img src='<{xoModuleIcons16 delete.png}>' alt='images'>
                                 </a>
                             </td>
                         </tr>
@@ -106,7 +106,7 @@
                     <{foreach item=image from=$images_list}>
                         <tr class="<{cycle values='odd, even'}>">
                             <td class='center'><{$image.id}></td>
-                            <td class='center'><img src='<{$image.thumb}>' style='max-height:50px' alt='<{$image.name}>' /></td>
+                            <td class='center'><img src='<{$image.thumb}>' style='max-height:50px' alt='<{$image.name}>'></td>
                             <td class='center'><{$image.title}></td>
                             <td class='center'><{$image.name}></td>
                             <td class='center'><{$image.namelarge}></td>
@@ -121,13 +121,13 @@
                             <td class='center'><{$image.weight}></td>
                             <td class='center'>
                                 <{if $image.state == 0}>
-                                    <img class='state active' src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>' />
+                                    <img class='state active' src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'>
                                 <{/if}>
                                 <{if $image.state == 1}>
-                                    <img class='state active' src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>' />
+                                    <img class='state active' src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'>
                                 <{/if}>
                                 <{if $image.state == 2}>
-                                    <img class='state active' src='<{$wggallery_icon_url_16}>state2.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_APPROVAL}>' />
+                                    <img class='state active' src='<{$wggallery_icon_url_16}>state2.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_APPROVAL}>'>
                                 <{/if}>
                             </td>
                             <td class='center'><{$image.ip}></td>
@@ -137,27 +137,27 @@
                             <td class='center  width10'>
                                 <{if $image.state == 0}>
                                     <a href='images.php?op=change_state&amp;img_state=1&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>' title='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'>
-                                        <img src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>' />
+                                        <img src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'>
                                     </a>
                                 <{/if}>
                                 <{if $image.state == 1}>
                                     <a href='images.php?op=change_state&amp;img_state=0&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>' title='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'>
-                                        <img src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>' />
+                                        <img src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'>
                                     </a>
                                 <{/if}>
                                 <{if $image.state == 2}>
                                     <a href='images.php?op=change_state&amp;img_state=1&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>' title='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'>
-                                        <img src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>' />
+                                        <img src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'>
                                     </a>
                                     <a href='images.php?op=change_state&amp;img_state=0&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>' title='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'>
-                                        <img src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>' />
+                                        <img src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'>
                                     </a>
                                 <{/if}>
                                 <a href='<{$wggallery_url}>/admin/images.php?op=edit&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>' title='<{$smarty.const._EDIT}>'>
-                                    <img src='<{xoModuleIcons16 edit.png}>' alt='images' />
+                                    <img src='<{xoModuleIcons16 edit.png}>' alt='images'>
                                 </a>
                                 <a href='<{$wggallery_url}>/admin/images.php?op=delete&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>' title='<{$smarty.const._DELETE}>'>
-                                    <img src='<{xoModuleIcons16 delete.png}>' alt='images' />
+                                    <img src='<{xoModuleIcons16 delete.png}>' alt='images'>
                                 </a>
                             </td>
                         </tr>

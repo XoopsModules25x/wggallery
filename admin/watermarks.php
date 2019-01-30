@@ -60,7 +60,7 @@ switch($op) {
 			}
 			// Display Navigation
 			if($watermarksCount > $limit) {
-				include_once XOOPS_ROOT_PATH .'/class/pagenav.php';
+				require_once XOOPS_ROOT_PATH .'/class/pagenav.php';
 				$pagenav = new \XoopsPageNav($watermarksCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
 				$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
 			}
@@ -98,7 +98,7 @@ switch($op) {
 		$watermarksObj->setVar('wm_marginlr', Request::getInt('wm_marginlr', 0));
         $watermarksObj->setVar('wm_margintb', Request::getInt('wm_margintb', 0));
 		// Set Var wm_image
-		include_once XOOPS_ROOT_PATH .'/class/uploader.php';
+		require_once XOOPS_ROOT_PATH .'/class/uploader.php';
         $fileName = $_FILES['attachedfile']['name'];
         $uploaderErrors = '';
 		$uploader = new \XoopsMediaUploader(WGGALLERY_UPLOAD_IMAGE_PATH.'/watermarks/',

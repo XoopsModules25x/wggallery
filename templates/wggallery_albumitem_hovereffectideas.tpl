@@ -1,6 +1,6 @@
 <{if $album.newrow}><div class="grid"><{/if}>
 <figure class="effect-<{$hovereffect}> figure<{$number_cols_album}><{$inblock}>">
-    <img class='' src='<{$album.image}>' alt='<{$album.name}>' />
+    <img class='' src='<{$album.image}>' alt='<{$album.name}>'>
     <figcaption>
         <div class="text_figure<{$number_cols_album}><{$inblock}>">
             <h3><{$album.name}></h3>

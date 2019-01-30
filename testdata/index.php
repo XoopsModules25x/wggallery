@@ -15,9 +15,9 @@
  * @author          Michael Beck (aka Mamba)
  */
 
-use XoopsModules\xxxxx;
-use XoopsModules\xxxxx\Common;
-require __DIR__ . '/../../../mainfile.php';
+use XoopsModules\Wggallery;
+use XoopsModules\Wggallery\Common;
+require  dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
 
 include dirname(__DIR__) . '/preloads/autoloader.php';
 

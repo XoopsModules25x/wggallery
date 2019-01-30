@@ -83,7 +83,7 @@ switch($op) {
 			}
 			// Display Navigation
 			if($albumsCount > $limit) {
-				include_once XOOPS_ROOT_PATH .'/class/pagenav.php';
+				require_once XOOPS_ROOT_PATH .'/class/pagenav.php';
 				$pagenav = new \XoopsPageNav($albumsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
 				$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
 			}
@@ -121,7 +121,7 @@ switch($op) {
 		$albumsObj->setVar('alb_weight', Request::getInt('alb_weight'));
 		// Set Var alb_image
         $albumsObj->setVar('alb_imgcat', Request::getInt('alb_imgcat'));
-		include_once XOOPS_ROOT_PATH .'/class/uploader.php';
+		require_once XOOPS_ROOT_PATH .'/class/uploader.php';
         $fileName = $_FILES['attachedfile']['name'];
         $imageMimetype = $_FILES['attachedfile']['type'];
         $uploaderErrors = '';
@@ -139,7 +139,7 @@ switch($op) {
 				$savedFilename = $uploader->getSavedFileName();
                 $albumsObj->setVar('alb_image', $savedFilename);
                 // resize image 
-                include_once XOOPS_ROOT_PATH .'/modules/wggallery/include/imagehandler.php';
+                require_once XOOPS_ROOT_PATH .'/modules/wggallery/include/imagehandler.php';
                 $alb_resize = Request::getInt('alb_resize');
                 switch ($alb_resize) {
                     case WGGALLERY_IMAGE_THUMB:

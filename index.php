@@ -26,7 +26,7 @@ use Xmf\Request;
 include __DIR__ . '/header.php';
 $pr_album = $albumtypesHandler->getPrimaryAlbum();
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_index_' . $pr_album['template'] . '.tpl';
-include_once XOOPS_ROOT_PATH .'/header.php';
+require_once XOOPS_ROOT_PATH .'/header.php';
 $start       = Request::getInt('start', 0);
 $limit       = Request::getInt('limit', $helper->getConfig('userpager'));
 $albPid      = Request::getInt('alb_pid', 0);
@@ -151,7 +151,7 @@ if($albumsCount > 0) {
 	unset($albums);
 	// Display Navigation
 	if($albumsCount > $limit) {
-		include_once XOOPS_ROOT_PATH .'/class/pagenav.php';
+		require_once XOOPS_ROOT_PATH .'/class/pagenav.php';
 		$pagenav = new \XoopsPageNav($albumsCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit . '&amp;alb_pid=' . $albPid);
 		$GLOBALS['xoopsTpl']->assign('pagenav_albums', $pagenav->renderNav(4));
 	}
@@ -212,7 +212,7 @@ if($catsCount > 0) {
 	}
 	// Display Navigation
 	if($catsCount > $limit) {
-		include_once XOOPS_ROOT_PATH .'/class/pagenav.php';
+		require_once XOOPS_ROOT_PATH .'/class/pagenav.php';
 		$pagenav = new \XoopsPageNav($catsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
 		$GLOBALS['xoopsTpl']->assign('pagenav_cats', $pagenav->renderNav(4));
 	}

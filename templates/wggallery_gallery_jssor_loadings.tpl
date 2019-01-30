@@ -18,7 +18,7 @@
 			}
 		</style>
         <div data-u="loading" class="jssorl-003-oval" style="position:absolute;top:0;left:0;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
-            <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="<{$wggallery_url}>/assets/gallerytypes/jssor/svg/loading/static-svg/oval.svg" />
+            <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="<{$wggallery_url}>/assets/gallerytypes/jssor/svg/loading/static-svg/oval.svg">
         </div>	
 <{/if}>
 
@@ -40,7 +40,7 @@
 			}
 		</style>
 		<div data-u="loading" class="jssorl-004-double-tail-spin" style="position:absolute;top:0;left:0;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
-            <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="<{$wggallery_url}>/assets/gallerytypes/jssor/svg/loading/static-svg/double-tail-spin.svg" />
+            <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="<{$wggallery_url}>/assets/gallerytypes/jssor/svg/loading/static-svg/double-tail-spin.svg">
         </div>		
 <{/if}>
 
@@ -62,7 +62,7 @@
 			}
 		</style>
 		<div data-u="loading" class="jssorl-005-circles" style="position:absolute;top:0;left:0;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
-            <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="<{$wggallery_url}>/assets/gallerytypes/jssor/svg/loading/static-svg/circles.svg" />
+            <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="<{$wggallery_url}>/assets/gallerytypes/jssor/svg/loading/static-svg/circles.svg">
         </div>
 <{/if}>
 
@@ -84,7 +84,7 @@
 			}
 		</style>
 		<div data-u="loading" class="jssorl-006-tail-spin" style="position:absolute;top:0;left:0;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
-            <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="<{$wggallery_url}>/assets/gallerytypes/jssor/svg/loading/static-svg/tail-spin.svg" />
+            <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="<{$wggallery_url}>/assets/gallerytypes/jssor/svg/loading/static-svg/tail-spin.svg">
         </div>
 <{/if}>
 
@@ -107,7 +107,7 @@
 			}
 		</style>
 		<div data-u="loading" class="jssorl-008-ball-triangle" style="position:absolute;top:0;left:0;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
-            <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="<{$wggallery_url}>/assets/gallerytypes/jssor/svg/loading/static-svg/ball-triangle.svg" />
+            <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="<{$wggallery_url}>/assets/gallerytypes/jssor/svg/loading/static-svg/ball-triangle.svg">
         </div>
 <{/if}>
 
@@ -129,7 +129,7 @@
 			}
 		</style>
 		<div data-u="loading" class="jssorl-009-spin" style="position:absolute;top:0;left:0;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
-            <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="<{$wggallery_url}>/assets/gallerytypes/jssor/svg/loading/static-svg/spin.svg" />
+            <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="<{$wggallery_url}>/assets/gallerytypes/jssor/svg/loading/static-svg/spin.svg">
         </div>
 <{/if}>
 

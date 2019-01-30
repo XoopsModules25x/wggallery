@@ -104,8 +104,8 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
 
     protected function storeUploadedFile($target, $mimeType, $uid)
     {
-        include_once XOOPS_ROOT_PATH .'/modules/wggallery/header.php';
-        include_once XOOPS_ROOT_PATH .'/modules/wggallery/include/imagehandler.php';
+        require_once XOOPS_ROOT_PATH .'/modules/wggallery/header.php';
+        require_once XOOPS_ROOT_PATH .'/modules/wggallery/include/imagehandler.php';
 		$this->pathUpload = WGGALLERY_UPLOAD_IMAGE_PATH;
 
         if ( WGGALLERY_PERM_SUBMITAPPR === $permissionsHandler->permGlobalSubmit()) {
@@ -202,7 +202,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
 	
 	private function handleImageDB () {
 		
-		include_once XOOPS_ROOT_PATH .'/modules/wggallery/header.php';
+		require_once XOOPS_ROOT_PATH .'/modules/wggallery/header.php';
 		global $xoopsUser;
 		
 		$this->getImageDim();

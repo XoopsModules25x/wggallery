@@ -31,7 +31,7 @@ if ( 'manage' === $op ) {
 } else {
     $GLOBALS['xoopsOption']['template_main'] = 'wggallery_images_default.tpl';
 }
-include_once XOOPS_ROOT_PATH .'/header.php';
+require_once XOOPS_ROOT_PATH .'/header.php';
 
 
 $imgId    = Request::getInt('img_id');
@@ -262,7 +262,7 @@ switch($op) {
             unset($images);
             // Display Navigation
             if($imagesCount > $limit) {
-                include_once XOOPS_ROOT_PATH .'/class/pagenav.php';
+                require_once XOOPS_ROOT_PATH .'/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($imagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit . '&alb_id=' . $albId . '&alb_pid=' . $albPid . '&img_submitter=' . $imgSubm );
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }

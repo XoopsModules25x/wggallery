@@ -351,7 +351,7 @@ class Albums extends \XoopsObject
 		}
 		$imageSelect->setExtra("onchange='showImgSelected(\"imagepreview2\", \"alb_image\", \"".$imageDirectory. '", "", "' .XOOPS_URL."\")'");
 		$imageTray2->addElement($imageSelect, false);
-		$imageTray2->addElement(new \XoopsFormLabel('', "<br><img src='".XOOPS_URL.$imageDirectory. '/' .$albImage."' name='imagepreview2' id='imagepreview2' alt='' style='max-width:100px' />"));
+		$imageTray2->addElement(new \XoopsFormLabel('', "<br><img src='".XOOPS_URL.$imageDirectory. '/' .$albImage."' name='imagepreview2' id='imagepreview2' alt='' style='max-width:100px'>"));
         $form->addElement($imageTray2);
         
         // upload new image

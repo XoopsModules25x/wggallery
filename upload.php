@@ -23,7 +23,7 @@
  
 use \XMF\Request;
 
-include_once __DIR__ . '/header.php';
+require_once __DIR__ . '/header.php';
 // xoops_loadLanguage('admin', 'wggallery');
 // It recovered the value of argument op in URL$
 $op     = Request::getString('op', 'form');
@@ -31,7 +31,7 @@ $albId  = Request::getInt('alb_id', 0);
 
 // Template
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_upload.tpl';
-include_once XOOPS_ROOT_PATH .'/header.php';
+require_once XOOPS_ROOT_PATH .'/header.php';
 
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
 $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));

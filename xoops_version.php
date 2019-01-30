@@ -161,7 +161,7 @@ $currdirname = isset($GLOBALS['xoopsModule']) && is_object($GLOBALS['xoopsModule
 if ($moduleDirName == $currdirname) {
     $subcount = 1;
     $pathname = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName;
-    include_once $pathname . '/include/common.php';
+    require_once $pathname . '/include/common.php';
     $helper = \XoopsModules\Wggallery\Helper::getInstance();
     $helper->loadLanguage('common');
     $permissionsHandler = $helper->getHandler('Permissions');

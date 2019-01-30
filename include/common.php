@@ -44,10 +44,10 @@ define('WGGALLERY_UPLOAD_FONTS_PATH', WGGALLERY_UPLOAD_PATH.'/fonts');
 define('WGGALLERY_ADMIN', WGGALLERY_URL . '/admin/index.php');
 $localLogo = WGGALLERY_IMAGE_URL . '/wedega_logo.png';
 // Module Information
-$copyright = "<a href='https://wedega.com' title='Wedega - Webdesign Gabor' target='_blank'><img src='".$localLogo."' alt='Wedega - Webdesign Gabor' /></a>";
-include_once XOOPS_ROOT_PATH .'/class/xoopsrequest.php';
-include_once WGGALLERY_PATH .'/class/helper.php';
-include_once WGGALLERY_PATH .'/include/functions.php';
+$copyright = "<a href='https://wedega.com' title='Wedega - Webdesign Gabor' target='_blank'><img src='".$localLogo."' alt='Wedega - Webdesign Gabor'></a>";
+require_once XOOPS_ROOT_PATH .'/class/xoopsrequest.php';
+require_once WGGALLERY_PATH .'/class/helper.php';
+require_once WGGALLERY_PATH .'/include/functions.php';
 
 // common constants
 // constants for state

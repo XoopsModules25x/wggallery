@@ -22,7 +22,7 @@
  */
 
 $cid = wggallery_CleanVars($_GET, 'cid', 0);
-include_once XOOPS_ROOT_PATH.'/class/template.php';
+require_once XOOPS_ROOT_PATH.'/class/template.php';
 if (function_exists('mb_http_output')) {
     mb_http_output('pass');
 }

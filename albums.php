@@ -25,7 +25,7 @@ use Xmf\Request;
 
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_albums_default.tpl';
-include_once XOOPS_ROOT_PATH .'/header.php';
+require_once XOOPS_ROOT_PATH .'/header.php';
 
 $op       = Request::getString('op', 'list');
 $albId    = Request::getInt('alb_id', 0);
@@ -97,7 +97,7 @@ switch($op) {
 			}
 			// Display Navigation
 			if($albumsCount > $limit) {
-				include_once XOOPS_ROOT_PATH .'/class/pagenav.php';
+				require_once XOOPS_ROOT_PATH .'/class/pagenav.php';
 				$pagenav = new \XoopsPageNav($albumsCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit . '&amp;alb_id=' . $albId . '&amp;alb_pid=' . $albPid . '&amp;alb_submitter=' . $albSubm);
 				$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
 			}
@@ -169,7 +169,7 @@ switch($op) {
 		if($albumsHandler->insert($albumsObj)) {
 			$newAlbId = $albumsObj->getNewInsertedIdAlbums();
 			$permId = 0 < $albId ? $albId : $newAlbId;
-			$gpermHandler = xoops_gethandler('groupperm');
+			$gpermHandler = xoops_getHandler('groupperm');
             $perm_modid = $GLOBALS['xoopsModule']->getVar('mid');
 			// remove all existing rights
 			$gpermHandler->deleteByModule($perm_modid, 'wggallery_view', $permId);

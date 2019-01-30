@@ -20,11 +20,11 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 albums.php 1 Mon 2018-03-19 10:04:50Z XOOPS Project (www.xoops.org) $
  */
-include_once XOOPS_ROOT_PATH.'/modules/wggallery/include/common.php';
+require_once XOOPS_ROOT_PATH.'/modules/wggallery/include/common.php';
 // Function show block
 function b_wggallery_albums_show($options)
 {
-    include_once XOOPS_ROOT_PATH.'/modules/wggallery/class/albums.php';
+    require_once XOOPS_ROOT_PATH.'/modules/wggallery/class/albums.php';
     $block        = [];
     $typeBlock    = $options[0];
     $bnbAlbums    = $options[1];
@@ -175,7 +175,7 @@ function b_wggallery_albums_show($options)
 // Function edit block
 function b_wggallery_albums_edit($options)
 {
-    include_once XOOPS_ROOT_PATH.'/modules/wggallery/class/albums.php';
+    require_once XOOPS_ROOT_PATH.'/modules/wggallery/class/albums.php';
     $helper = Wggallery\Helper::getInstance();
     $albumsHandler = $helper->getHandler('albums');
     $criteria = new \CriteriaCompo();
@@ -196,17 +196,17 @@ function b_wggallery_albums_edit($options)
 	$form .= "<option value='random' " . ('random' === $options[0] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_BLOCKTYPE_RANDOM . '</option>';
     $form .= '</select><br>';
     $form .= _MB_WGGALLERY_ALBUMS_DISPLAYLIST;
-    $form .= "<input type='text' name='options[1]' size='5' maxlength='255' value='" . $options[1] . "' />&nbsp;<br>";
+    $form .= "<input type='text' name='options[1]' size='5' maxlength='255' value='" . $options[1] . "'>&nbsp;<br>";
     $form .= _MB_WGGALLERY_TITLE_SHOW.": <select name='options[2]' size='2'>";
     $form .= "<option value='0' " . (0 === intval($options[2]) ? "selected='selected'" : '') . '>' . _NO . '</option>';
     $form .= "<option value='1' " . (1 === intval($options[2]) ? "selected='selected'" : '') . '>' . _YES . '</option>';
     $form .= '</select><br>';
-    $form .= _MB_WGGALLERY_TITLE_LENGTH." : <input type='text' name='options[3]' size='5' maxlength='255' value='" . $options[3] . "' /><br>";
+    $form .= _MB_WGGALLERY_TITLE_LENGTH." : <input type='text' name='options[3]' size='5' maxlength='255' value='" . $options[3] . "'><br>";
     $form .= _MB_WGGALLERY_DESC_SHOW.": <select name='options[4]' size='2'>";
     $form .= "<option value='0' " . (0 === intval($options[4]) ? "selected='selected'" : '') . '>' . _NO . '</option>';
     $form .= "<option value='1' " . (1 === intval($options[4]) ? "selected='selected'" : '') . '>' . _YES . '</option>';
     $form .= '</select><br>';
-    $form .= _MB_WGGALLERY_DESC_LENGTH." : <input type='text' name='options[5]' size='5' maxlength='255' value='" . $options[5] . "' /><br>";
+    $form .= _MB_WGGALLERY_DESC_LENGTH." : <input type='text' name='options[5]' size='5' maxlength='255' value='" . $options[5] . "'><br>";
     $form .= _MB_WGGALLERY_NUMB_ALBUMS.": <select name='options[6]' size='4'>";
     $form .= "<option value='1' " . (1 === intval($options[6]) ? "selected='selected'" : '') . '>1</option>';
     $form .= "<option value='2' " . (2 === intval($options[6]) ? "selected='selected'" : '') . '>2</option>';

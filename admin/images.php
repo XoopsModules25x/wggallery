@@ -103,7 +103,7 @@ switch($op) {
                 }
 				// Display Navigation
 				if($imagesCount > $limit) {
-					include_once XOOPS_ROOT_PATH .'/class/pagenav.php';
+					require_once XOOPS_ROOT_PATH .'/class/pagenav.php';
 					$pagenav = new \XoopsPageNav($imagesCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit . '&amp;alb_id=' . $albId);
 					$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
 				}

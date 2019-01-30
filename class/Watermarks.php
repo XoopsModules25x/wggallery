@@ -147,7 +147,7 @@ class Watermarks extends \XoopsObject
 		}
 		$imageSelect->setExtra("onchange='showImgSelected(\"image1\", \"wm_image\", \"".$imageDirectory. '", "", "' .XOOPS_URL."\")'");
 		$imageTray->addElement($imageSelect, false);
-		$imageTray->addElement(new \XoopsFormLabel('', "<br><img src='".XOOPS_URL. '/' .$imageDirectory. '/' .$wmImage."' name='image1' id='image1' alt='' style='max-width:100px' />"));
+		$imageTray->addElement(new \XoopsFormLabel('', "<br><img src='".XOOPS_URL. '/' .$imageDirectory. '/' .$wmImage."' name='image1' id='image1' alt='' style='max-width:100px'>"));
 		// Form File WmImage
 		$fileSelectTray = new \XoopsFormElementTray('', '<br>' );
 		$fileSelectTray->addElement(new \XoopsFormFile( _CO_WGGALLERY_FORM_UPLOAD_IMAGE_WATERMARKS, 'attachedfile', $helper->getConfig('maxsize') ));

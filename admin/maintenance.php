@@ -24,7 +24,7 @@
 use Xmf\Request;
 
 include __DIR__ . '/header.php';
-include_once XOOPS_ROOT_PATH .'/modules/wggallery/include/imagehandler.php';
+require_once XOOPS_ROOT_PATH .'/modules/wggallery/include/imagehandler.php';
 
 $op    = Request::getString('op', 'list');
 $albId = Request::getInt('alb_id');

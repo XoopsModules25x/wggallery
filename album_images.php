@@ -25,7 +25,7 @@ use Xmf\Request;
 
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_album_images.tpl';
-include_once XOOPS_ROOT_PATH .'/header.php';
+require_once XOOPS_ROOT_PATH .'/header.php';
 
 $op       = Request::getString('op', 'list');
 $albId    = Request::getInt('alb_id', 0);
@@ -67,7 +67,7 @@ $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
 $GLOBALS['xoopsTpl']->assign('gallery_target', $helper->getConfig('gallery_target'));
 $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
 
-include_once XOOPS_ROOT_PATH .'/modules/wggallery/include/imagehandler.php';
+require_once XOOPS_ROOT_PATH .'/modules/wggallery/include/imagehandler.php';
 $maxwidth = $helper->getConfig('maxwidth_albimage');
 if ( 0 === intval( $maxwidth )) { $maxwidth = $helper->getConfig('maxwidth');}
 $maxheight = $helper->getConfig('maxheight_albimage');
@@ -213,7 +213,7 @@ switch($op) {
 		}
 		// Set Vars
 		$albumsObj->setVar('alb_imgcat', WGGALLERY_ALBUM_IMGCAT_USE_UPLOADED_VAL);
-		include_once XOOPS_ROOT_PATH .'/class/uploader.php';
+		require_once XOOPS_ROOT_PATH .'/class/uploader.php';
         $fileName = $_FILES['attachedfile']['name'];
         $imageMimetype = $_FILES['attachedfile']['type'];
         $uploaderErrors = '';
@@ -231,7 +231,7 @@ switch($op) {
 				$savedFilename = $uploader->getSavedFileName();
                 $albumsObj->setVar('alb_image', $savedFilename);
                 // resize image 
-                include_once XOOPS_ROOT_PATH .'/modules/wggallery/include/imagehandler.php';
+                require_once XOOPS_ROOT_PATH .'/modules/wggallery/include/imagehandler.php';
 				$maxwidth  = intval($helper->getConfig('maxwidth_albimage'));
 				if ( 0 === $maxwidth ) { $maxwidth  = $helper->getConfig('maxwidth');}
 				$maxheight = intval($helper->getConfig('maxheight_albimage'));

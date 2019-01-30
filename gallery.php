@@ -26,7 +26,7 @@ use Xmf\Request;
 include __DIR__ . '/header.php';
 $pr_gallery = $gallerytypesHandler->getPrimaryGallery();
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_gallery_' . $pr_gallery['template'] . '.tpl';
-include_once XOOPS_ROOT_PATH .'/header.php';
+require_once XOOPS_ROOT_PATH .'/header.php';
 
 $albId = Request::getInt('alb_id');
 

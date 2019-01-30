@@ -27,7 +27,7 @@ include __DIR__ . '/header.php';
 $op = Request::getString('op', 'form');
 $lid = Request::getInt('lid');
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_images.tpl';
-include_once XOOPS_ROOT_PATH .'/header.php';
+require_once XOOPS_ROOT_PATH .'/header.php';
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet( $style, null );
 switch($op) {

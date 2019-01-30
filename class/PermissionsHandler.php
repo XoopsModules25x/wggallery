@@ -49,21 +49,21 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
 			}
 			$currentuid = $xoopsUser->uid();
 		}
-		$gperm_handler = xoops_getHandler('groupperm');
+		$gpermHandler = xoops_getHandler('groupperm');
 		$mid = $xoopsModule->mid();
-		$member_handler = xoops_getHandler('member');
+		$memberHandler = xoops_getHandler('member');
 		if ($currentuid == 0) {
 			$my_group_ids = [XOOPS_GROUP_ANONYMOUS];
 		} else {
-			$my_group_ids = $member_handler->getGroupsByUser( $currentuid ) ;
+			$my_group_ids = $memberHandler->getGroupsByUser( $currentuid ) ;
 		}
-        if ( $gperm_handler->checkRight( 'wggallery_global', '4', $my_group_ids, $mid  )) {
+        if ( $gpermHandler->checkRight( 'wggallery_global', '4', $my_group_ids, $mid  )) {
             return WGGALLERY_PERM_SUBMITALL;
         }
-        if ( $gperm_handler->checkRight( 'wggallery_global', '8', $my_group_ids, $mid  ) ) {
+        if ( $gpermHandler->checkRight( 'wggallery_global', '8', $my_group_ids, $mid  ) ) {
             return WGGALLERY_PERM_SUBMITOWN;
         }
-        if ( $gperm_handler->checkRight( 'wggallery_global', '16', $my_group_ids, $mid  ) ) {
+        if ( $gpermHandler->checkRight( 'wggallery_global', '16', $my_group_ids, $mid  ) ) {
             return WGGALLERY_PERM_SUBMITAPPR;
         }
         return WGGALLERY_PERM_SUBMITNONE;
@@ -113,15 +113,15 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
 			}
 			$currentuid = $xoopsUser->uid();
 		}
-		$gperm_handler = xoops_getHandler('groupperm');
+		$gpermHandler = xoops_getHandler('groupperm');
 		$mid = $xoopsModule->mid();
-		$member_handler = xoops_getHandler('member');
+		$memberHandler = xoops_getHandler('member');
 		if ($currentuid == 0) {
 			$my_group_ids = [XOOPS_GROUP_ANONYMOUS];
 		} else {
-			$my_group_ids = $member_handler->getGroupsByUser( $currentuid ) ;
+			$my_group_ids = $memberHandler->getGroupsByUser( $currentuid ) ;
 		}
-		return $gperm_handler->checkRight( 'wggallery_view', $albId, $my_group_ids, $mid  ) ;
+		return $gpermHandler->checkRight( 'wggallery_view', $albId, $my_group_ids, $mid  ) ;
 	}
 
 	public function permAlbumDownload($albId) {
@@ -135,15 +135,15 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
 			}
 			$currentuid = $xoopsUser->uid();
 		}
-		$gperm_handler = xoops_getHandler('groupperm');
+		$gpermHandler = xoops_getHandler('groupperm');
 		$mid = $xoopsModule->mid();
-		$member_handler = xoops_getHandler('member');
+		$memberHandler = xoops_getHandler('member');
 		if ($currentuid == 0) {
 			$my_group_ids = [XOOPS_GROUP_ANONYMOUS];
 		} else {
-			$my_group_ids = $member_handler->getGroupsByUser( $currentuid ) ;
+			$my_group_ids = $memberHandler->getGroupsByUser( $currentuid ) ;
 		}
-		return $gperm_handler->checkRight( 'wggallery_dlfullalb', $albId, $my_group_ids, $mid  );
+		return $gpermHandler->checkRight( 'wggallery_dlfullalb', $albId, $my_group_ids, $mid  );
 	}
     
     public function permImageDownloadLarge($albId) {
@@ -157,15 +157,15 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
 			}
 			$currentuid = $xoopsUser->uid();
 		}
-		$gperm_handler = xoops_getHandler('groupperm');
+		$gpermHandler = xoops_getHandler('groupperm');
 		$mid = $xoopsModule->mid();
-		$member_handler = xoops_getHandler('member');
+		$memberHandler = xoops_getHandler('member');
 		if ($currentuid == 0) {
 			$my_group_ids = [XOOPS_GROUP_ANONYMOUS];
 		} else {
-			$my_group_ids = $member_handler->getGroupsByUser( $currentuid ) ;
+			$my_group_ids = $memberHandler->getGroupsByUser( $currentuid ) ;
 		}
-		return $gperm_handler->checkRight( 'wggallery_dlimage_large', $albId, $my_group_ids, $mid  );
+		return $gpermHandler->checkRight( 'wggallery_dlimage_large', $albId, $my_group_ids, $mid  );
 	}
 	
 	public function permImageDownloadMedium($albId) {
@@ -179,14 +179,14 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
 			}
 			$currentuid = $xoopsUser->uid();
 		}
-		$gperm_handler = xoops_getHandler('groupperm');
+		$gpermHandler = xoops_getHandler('groupperm');
 		$mid = $xoopsModule->mid();
-		$member_handler = xoops_getHandler('member');
+		$memberHandler = xoops_getHandler('member');
 		if ($currentuid == 0) {
 			$my_group_ids = [XOOPS_GROUP_ANONYMOUS];
 		} else {
-			$my_group_ids = $member_handler->getGroupsByUser( $currentuid ) ;
+			$my_group_ids = $memberHandler->getGroupsByUser( $currentuid ) ;
 		}
-		return $gperm_handler->checkRight( 'wggallery_dlimage_medium', $albId, $my_group_ids, $mid  );
+		return $gpermHandler->checkRight( 'wggallery_dlimage_medium', $albId, $my_group_ids, $mid  );
 	}
 }

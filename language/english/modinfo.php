@@ -21,7 +21,7 @@
  * @version        $Id: 1.0 modinfo.php 1 Mon 2018-03-19 10:04:52Z XOOPS Project (www.xoops.org) $
  */
  
-include_once 'common.php'; 
+require_once __DIR__ . '/common.php'; 
  
 // ---------------- Admin Main ----------------
 define('_MI_WGGALLERY_NAME', 'wgGallery');
@@ -68,13 +68,13 @@ define('_MI_WGGALLERY_MAXWIDTH_DESC', 'Set the max width which is allowed for up
 define('_MI_WGGALLERY_MAXHEIGHT', 'Maximum height upload');
 define('_MI_WGGALLERY_MAXHEIGHT_DESC', 'Set the max height which is allowed for uploading images (in pixel)');
 define('_MI_WGGALLERY_MAXWIDTH_LARGE', 'Maximum width large image');
-define('_MI_WGGALLERY_MAXWIDTH_LARGE_DESC', 'Set the max width to which uploaded images should be scaled (in pixel)<br />0 means, that large images keeps the original size. <br />If an image is smaller than maximum value then the image will be not enlarge, it will be save in original size.');
+define('_MI_WGGALLERY_MAXWIDTH_LARGE_DESC', 'Set the max width to which uploaded images should be scaled (in pixel)<br>0 means, that large images keeps the original size. <br>If an image is smaller than maximum value then the image will be not enlarge, it will be save in original size.');
 define('_MI_WGGALLERY_MAXHEIGHT_LARGE', 'Maximum height large image');
-define('_MI_WGGALLERY_MAXHEIGHT_LARGE_DESC', 'Set the max height to which uploaded images should be scaled (in pixel)<br />0 means, that large images keeps the original size. <br />If an image is smaller than maximum value then the image will be not enlarge, it will be save in original size.');
+define('_MI_WGGALLERY_MAXHEIGHT_LARGE_DESC', 'Set the max height to which uploaded images should be scaled (in pixel)<br>0 means, that large images keeps the original size. <br>If an image is smaller than maximum value then the image will be not enlarge, it will be save in original size.');
 define('_MI_WGGALLERY_MAXWIDTH_MEDIUM', 'Maximum width medium image');
-define('_MI_WGGALLERY_MAXWIDTH_MEDIUM_DESC', 'Set the max width to which uploaded images will be scaled for medium image (in pixel)<br />If large/original image is smaller then image will be not enlarge (large image will be copied as medium)');
+define('_MI_WGGALLERY_MAXWIDTH_MEDIUM_DESC', 'Set the max width to which uploaded images will be scaled for medium image (in pixel)<br>If large/original image is smaller then image will be not enlarge (large image will be copied as medium)');
 define('_MI_WGGALLERY_MAXHEIGHT_MEDIUM', 'Maximum height medium image');
-define('_MI_WGGALLERY_MAXHEIGHT_MEDIUM_DESC', 'Set the max height to which uploaded images should be scaled for medium image (in pixel)<br />If large/original image is smaller then image will be not enlarge (large image will be copied as medium)');
+define('_MI_WGGALLERY_MAXHEIGHT_MEDIUM_DESC', 'Set the max height to which uploaded images should be scaled for medium image (in pixel)<br>If large/original image is smaller then image will be not enlarge (large image will be copied as medium)');
 define('_MI_WGGALLERY_MAXWIDTH_THUMBS', 'Maximum width thumbs');
 define('_MI_WGGALLERY_MAXWIDTH_THUMBS_DESC', 'Set the max width to which uploaded images will be scaled for thumbs (in pixel)');
 define('_MI_WGGALLERY_MAXHEIGHT_THUMBS', 'Maximum height thumbs');

@@ -64,7 +64,7 @@ switch($op) {
 		$im_name = 'eXtGallery';
 		$adminObject->addItemButton(_AM_WGGALLERY_IMPORT_LIST, 'import.php?op=list', 'list');
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
-        include_once WGGALLERY_PATH . '/plugins/extgallery.php';
+        require_once WGGALLERY_PATH . '/plugins/extgallery.php';
         $result = wggalleryPluginGetDataExtgallery();
 		$num_albums = $result[0];
 		$num_images = $result[1];
@@ -73,7 +73,7 @@ switch($op) {
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());
 	break;
 	case 'import_eXtGallery':  
-        include_once WGGALLERY_PATH . '/plugins/extgallery.php';
+        require_once WGGALLERY_PATH . '/plugins/extgallery.php';
         $albState         = Request::getInt('alb_state');
         $albSubmitter     = Request::getInt('alb_submitter');
         $result = wggalleryPluginExecImportExtgallery($albState, $albSubmitter);
@@ -87,7 +87,7 @@ switch($op) {
 		$im_name = 'TDMPicture';
 		$adminObject->addItemButton(_AM_WGGALLERY_IMPORT_LIST, 'import.php?op=list', 'list');
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
-		include_once WGGALLERY_PATH . '/plugins/tdmpicture.php';
+		require_once WGGALLERY_PATH . '/plugins/tdmpicture.php';
         $result = wggalleryPluginGetDataTdmpicture();
 		$num_albums = $result[0];
 		$num_images = $result[1];
@@ -96,7 +96,7 @@ switch($op) {
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());
 	break;
 	case 'import_TDMPicture':
-        include_once WGGALLERY_PATH . '/plugins/tdmpicture.php';
+        require_once WGGALLERY_PATH . '/plugins/tdmpicture.php';
         $result = wggalleryPluginExecImportTdmpicture();
         if ( $result ) {
             redirect_header('albums.php', 3, str_replace(['%a', '%i'],[$albumsHandler->getCount(), $imagesHandler->getCount()],_AM_WGGALLERY_IMPORT_SUCCESS));
