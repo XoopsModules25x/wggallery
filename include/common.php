@@ -20,6 +20,9 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 common.php 1 Mon 2018-03-19 10:04:56Z XOOPS Project (www.xoops.org) $
  */
+
+include dirname(__DIR__) . '/preloads/autoloader.php';
+
 if (!defined('XOOPS_ICONS32_PATH')) {
     define('XOOPS_ICONS32_PATH', XOOPS_ROOT_PATH . '/Frameworks/moduleclasses/icons/32');
 }
