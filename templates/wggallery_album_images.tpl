@@ -22,7 +22,7 @@
 		<div class='tab-content '>
 			<!-- *************** Basic Tab ***************-->
             <div class='tab-pane active center' id='1'>
-				<img id='currentImg' class='img-responsive wgg-album-img' src='<{$album.image}>' alt='<{$album.name}>' />
+				<img id='currentImg' class='img-responsive wgg-album-img' src='<{$album.image}>' alt='<{$album.name}>'>
                 <input type='button' class='btn <{$btn_style}>' value='<{$smarty.const._CANCEL}>' onclick='history.go(-1);return true;'>
 			</div>
             
@@ -38,7 +38,7 @@
                 </div>
                 <div class='col-xs-12 col-sm-6'>
                     <h5>&nbsp;</h5>
-                    <img id='albImgSelected' class='img-responsive wgg-album-img' src='<{$album.image}>' alt='<{$album.name}>' />
+                    <img id='albImgSelected' class='img-responsive wgg-album-img' src='<{$album.image}>' alt='<{$album.name}>'>
                 </div>
                 <div class='col-xs-12 col-sm-12 center'>
 					<form class='form-horizontal' name='form' id='form_selectalbimage' action='album_images.php' method='post' enctype='multipart/form-data'>
@@ -55,7 +55,7 @@
             <!-- *************** Tab for image grid ***************-->
 			<div class='tab-pane' id='3'>
 				<div class='col-xs-12 col-sm-12'>
-					<label class='radio-inline'><input type='radio' name='gridtype' id='alb_imgcat1' title='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID4}>' value='1' checked='checked' onchange='changeGridSetting(this)'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID4}>&nbsp;</label>
+					<label class='radio-inline'><input type='radio' name='gridtype' id='alb_imgcat1' title='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID4}>' value='1' checked onchange='changeGridSetting(this)'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID4}>&nbsp;</label>
 					<label class='radio-inline'><input type='radio' name='gridtype' id='alb_imgcat2' title='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID6}>' value='2' onchange='changeGridSetting(this)'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID6}>&nbsp;</label>
 				</div>
 				<div class='col-xs-12 col-sm-4'>
@@ -78,7 +78,7 @@
 					<img src='<{$wggallery_upload_image_url}>/medium/blank.gif' name='imageGrid6' id='imageGrid6' alt='imageGrid6' style='margin:5px;max-width:75px'>
 				</div>
                 <div class='col-xs-12 col-sm-8'>
-                    <img id='gridImg' class='img-responsive' src='<{$wggallery_upload_image_url}>/temp/blank.gif' alt='<{$album.name}>' />
+                    <img id='gridImg' class='img-responsive' src='<{$wggallery_upload_image_url}>/temp/blank.gif' alt='<{$album.name}>'>
                 </div>
 				<div class='col-xs-12 col-sm-12 center'>
 					<button id='btnCreateGrid4' type='button' class='btn <{$btn_style}>' style='display:inline;margin:5px'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID_CREATE}></button>

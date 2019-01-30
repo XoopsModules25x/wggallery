@@ -20,9 +20,6 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 xoops_version.php 1 Mon 2018-03-19 07:47:33Z XOOPS Project (www.xoops.org) $
  */
-
-// 
-
 $moduleDirName = basename(__DIR__);
 
 // ------------------- Informations ------------------- //
@@ -80,7 +77,7 @@ $modversion = [
 ];
 // ------------------- Templates ------------------- //
 $modversion['templates'] = [
-// Admin
+    // Admin
     ['file' => 'wggallery_admin_about.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wggallery_admin_header.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wggallery_admin_index.tpl', 'description' => '', 'type' => 'admin'],
@@ -93,7 +90,7 @@ $modversion['templates'] = [
     ['file' => 'wggallery_admin_permissions.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wggallery_admin_import.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wggallery_admin_footer.tpl', 'description' => '', 'type' => 'admin'],
-// User
+    // User
     ['file' => 'wggallery_header.tpl', 'description' => ''],
     ['file' => 'wggallery_index_default.tpl', 'description' => ''],
     ['file' => 'wggallery_index_hovereffectideas.tpl', 'description' => ''],
@@ -126,7 +123,7 @@ $modversion['templates'] = [
     ['file' => 'wggallery_gallery_justifiedgallery.tpl', 'description' => ''],
     ['file' => 'wggallery_gallery_lightbox2.tpl', 'description' => ''],
     ['file' => 'wggallery_gallery_lclightboxlite.tpl', 'description' => ''],
-// Blocks
+    // Blocks
     // array('file' => 'wggallery_block_albums_default.tpl', 'description' => 'blocks'),
     // array('file' => 'wggallery_block_albums_full.tpl', 'description' => ''),
     // array('file' => 'wggallery_block_albums_slider.tpl', 'description' => ''),
@@ -144,16 +141,16 @@ $modversion['templates'] = [
 ];
 
 // ------------------- Search ------------------- //
-$modversion['hasSearch'] = 1;
+$modversion['hasSearch']      = 1;
 $modversion['search']['file'] = 'include/search.inc.php';
 $modversion['search']['func'] = 'wggallery_search';
 // ------------------- Comments ------------------- //
 $modversion['comments']['pageName'] = 'comments.php';
 $modversion['comments']['itemName'] = 'com_id';
 // Comment callback functions
-$modversion['comments']['callbackFile'] = 'include/comment_functions.php';
+$modversion['comments']['callbackFile']        = 'include/comment_functions.php';
 $modversion['comments']['callback']['approve'] = 'wggalleryCommentsApprove';
-$modversion['comments']['callback']['update'] = 'wggalleryCommentsUpdate';
+$modversion['comments']['callback']['update']  = 'wggalleryCommentsUpdate';
 // ------------------- Submenu ------------------- //
 
 $currdirname = isset($GLOBALS['xoopsModule']) && is_object($GLOBALS['xoopsModule']) ? $GLOBALS['xoopsModule']->getVar('dirname') : 'system';
@@ -161,24 +158,24 @@ $currdirname = isset($GLOBALS['xoopsModule']) && is_object($GLOBALS['xoopsModule
 if ($moduleDirName == $currdirname) {
     $subcount = 1;
     $pathname = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName;
-    include_once $pathname . '/include/common.php';
+    require_once $pathname . '/include/common.php';
     $helper = \XoopsModules\Wggallery\Helper::getInstance();
     $helper->loadLanguage('common');
     $permissionsHandler = $helper->getHandler('Permissions');
-	
-	if (0 < $permissionsHandler->permGlobalSubmit()) {
-		$modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME1;
-		$modversion['sub'][$subcount]['url'] = 'index.php';
-		$subcount++;
-		$modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME2;
-		$modversion['sub'][$subcount]['url'] = 'albums.php';
-		$subcount++;
-		$modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME3;
-		$modversion['sub'][$subcount]['url'] = 'albums.php?op=new';
-		$subcount++;
-		$modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME4;
-		$modversion['sub'][$subcount]['url'] = 'upload.php';
-	}
+
+    if ($permissionsHandler->permGlobalSubmit() > 0) {
+        $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME1;
+        $modversion['sub'][$subcount]['url']  = 'index.php';
+        $subcount++;
+        $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME2;
+        $modversion['sub'][$subcount]['url']  = 'albums.php';
+        $subcount++;
+        $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME3;
+        $modversion['sub'][$subcount]['url']  = 'albums.php?op=new';
+        $subcount++;
+        $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME4;
+        $modversion['sub'][$subcount]['url']  = 'upload.php';
+    }
 }
 // ------------------- Blocks ------------------- //
 
@@ -189,8 +186,8 @@ $modversion['blocks'][] = [
     'description' => _MI_WGGALLERY_ALBUMS_BLOCK_DESC,
     'show_func'   => 'b_wggallery_albums_show',
     'edit_func'   => 'b_wggallery_albums_edit',
-	'template'    => $moduleDirName . '_block_albums_default.tpl',
-    'options'     => 'default|4|0|20|0|20|1|1|0|0'    
+    'template'    => $moduleDirName . '_block_albums_default.tpl',
+    'options'     => 'default|4|0|20|0|20|1|1|0|0',
 ];
 // Images
 $modversion['blocks'][] = [
@@ -199,8 +196,8 @@ $modversion['blocks'][] = [
     'description' => _MI_WGGALLERY_IMAGES_BLOCK_DESC,
     'show_func'   => 'b_wggallery_images_show',
     'edit_func'   => 'b_wggallery_images_edit',
-	'template'    => $moduleDirName . '_block_images_default.tpl',
-    'options'     => 'default|5|0|20|0|20|1|0'    
+    'template'    => $moduleDirName . '_block_images_default.tpl',
+    'options'     => 'default|5|0|20|0|20|1|0',
 ];
 
 // ------------------- Config ------------------- //
@@ -238,23 +235,23 @@ $modversion['config'][] = [
     'default'     => 3145728,
     'options'     => [
         '0.5 MB' => 524288,
-'1 MB' => 1048576,
-'1.5 MB' => 1572864,
-'2 MB' => 2097152,
-'2.5 MB' => 2621440,
-'3 MB' => 3145728,
-'3.5 MB' => 3670016,
-'4 MB' => 4194304,
-'4.5 MB' => 4718592,
-'5 MB' => 5242880,
-'6.5 MB' => 6815744,
-'7 MB' => 7340032,
-'7.5 MB' => 7864320,
-'8 MB' => 8388608,
-'8.5 MB' => 8912896,
-'9 MB' => 9437184,
-'9.5 MB' => 9961472,
-        '10 MB'  => 10485760
+        '1 MB'   => 1048576,
+        '1.5 MB' => 1572864,
+        '2 MB'   => 2097152,
+        '2.5 MB' => 2621440,
+        '3 MB'   => 3145728,
+        '3.5 MB' => 3670016,
+        '4 MB'   => 4194304,
+        '4.5 MB' => 4718592,
+        '5 MB'   => 5242880,
+        '6.5 MB' => 6815744,
+        '7 MB'   => 7340032,
+        '7.5 MB' => 7864320,
+        '8 MB'   => 8388608,
+        '8.5 MB' => 8912896,
+        '9 MB'   => 9437184,
+        '9.5 MB' => 9961472,
+        '10 MB'  => 10485760,
     ],
 ];
 
@@ -406,7 +403,7 @@ $modversion['config'][] = [
     'default'     => 0,
 ];
 
-// Store exif 
+// Store exif
 $modversion['config'][] = [
     'name'        => 'store_exif',
     'title'       => '_MI_WGGALLERY_STOREEXIF',
@@ -467,7 +464,6 @@ $modversion['config'][] = [
     'default'     => 1,
 ];
 
-
 // Make Sample button visible?
 $modversion['config'][] = [
     'name'        => 'displaySampleButton',
@@ -478,118 +474,118 @@ $modversion['config'][] = [
     'default'     => 0,
 ];
 // ------------------- Notifications ------------------- //
-$modversion['hasNotification'] = 1;
+$modversion['hasNotification']             = 1;
 $modversion['notification']['lookup_file'] = 'include/notification.inc.php';
 $modversion['notification']['lookup_func'] = 'wggallery_notify_iteminfo';
 // Global Notify
 $modversion['notification']['category'][] = [
-    'name' => 'global',
-    'title' => _MI_WGGALLERY_GLOBAL_NOTIFY,
-    'description' => '',
+    'name'           => 'global',
+    'title'          => _MI_WGGALLERY_GLOBAL_NOTIFY,
+    'description'    => '',
     'subscribe_from' => ['index.php', 'albums.php', 'images.php'],
 ];
 $modversion['notification']['category'][] = [
-    'name' => 'albums',
-    'title' => _MI_WGGALLERY_ALBUMS_NOTIFY,
-    'description' => '',
+    'name'           => 'albums',
+    'title'          => _MI_WGGALLERY_ALBUMS_NOTIFY,
+    'description'    => '',
     'subscribe_from' => ['index.php', 'albums.php'],
-    'item_name' => 'alb_id',
+    'item_name'      => 'alb_id',
     'allow_bookmark' => 1,
 ];
 // $modversion['notification']['category'][] = [
-    // 'name' => 'images',
-    // 'title' => _MI_WGGALLERY_IMAGES_NOTIFY,
-    // 'description' => '',
-    // 'subscribe_from' => ['index.php', 'albums.php', 'images.php'],
-    // 'item_name' => 'img_id',
-    // 'allow_bookmark' => 1,
+// 'name' => 'images',
+// 'title' => _MI_WGGALLERY_IMAGES_NOTIFY,
+// 'description' => '',
+// 'subscribe_from' => ['index.php', 'albums.php', 'images.php'],
+// 'item_name' => 'img_id',
+// 'allow_bookmark' => 1,
 // ];
 // GLOBAL Events Notify Album New
-$modversion['notification']['event'][]= [
-	'name' => 'album_new',
-	'category' => 'global',
-	'admin_only' => 0,
-	'title' => _MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY,
-	'caption' => _MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY_CAPTION,
-	'description' => _MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY_DESC,
-	'mail_template' => 'global_alb_new_notify',
-	'mail_subject' => _MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY_SUBJECT
+$modversion['notification']['event'][] = [
+    'name'          => 'album_new',
+    'category'      => 'global',
+    'admin_only'    => 0,
+    'title'         => _MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY,
+    'caption'       => _MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY_CAPTION,
+    'description'   => _MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY_DESC,
+    'mail_template' => 'global_alb_new_notify',
+    'mail_subject'  => _MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY_SUBJECT,
 ];
 // GLOBAL Events Notify Album New
-$modversion['notification']['event'][]= [
-	'name' => 'album_new',
-	'category' => 'albums',
-	'admin_only' => 0,
-	'title' => _MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY,
-	'caption' => _MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY_CAPTION,
-	'description' => _MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY_DESC,
-	'mail_template' => 'global_alb_new_notify',
-	'mail_subject' => _MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY_SUBJECT
+$modversion['notification']['event'][] = [
+    'name'          => 'album_new',
+    'category'      => 'albums',
+    'admin_only'    => 0,
+    'title'         => _MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY,
+    'caption'       => _MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY_CAPTION,
+    'description'   => _MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY_DESC,
+    'mail_template' => 'global_alb_new_notify',
+    'mail_subject'  => _MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY_SUBJECT,
 ];
 
 // GLOBAL Events Notify Album Modified
-$modversion['notification']['event'][]= [
-	'name' => 'album_modify',
-	'category' => 'global',
-	'admin_only' => 0,
-	'title' => _MI_WGGALLERY_GLOBAL_ALB_MODIFY_NOTIFY,
-	'caption' => _MI_WGGALLERY_GLOBAL_ALB_MODIFY_NOTIFY_CAPTION,
-	'description' => _MI_WGGALLERY_GLOBAL_ALB_MODIFY_NOTIFY_DESC,
-	'mail_template' => 'global_alb_modify_notify',
-	'mail_subject' => _MI_WGGALLERY_GLOBAL_ALB_MODIFY_NOTIFY_SUBJECT
+$modversion['notification']['event'][] = [
+    'name'          => 'album_modify',
+    'category'      => 'global',
+    'admin_only'    => 0,
+    'title'         => _MI_WGGALLERY_GLOBAL_ALB_MODIFY_NOTIFY,
+    'caption'       => _MI_WGGALLERY_GLOBAL_ALB_MODIFY_NOTIFY_CAPTION,
+    'description'   => _MI_WGGALLERY_GLOBAL_ALB_MODIFY_NOTIFY_DESC,
+    'mail_template' => 'global_alb_modify_notify',
+    'mail_subject'  => _MI_WGGALLERY_GLOBAL_ALB_MODIFY_NOTIFY_SUBJECT,
 ];
 // GLOBAL Events Notify Album Approved
-$modversion['notification']['event'][]= [
-	'name' => 'album_approve',
-	'category' => 'albums',
-	'admin_only' => 0,
-	'title' => _MI_WGGALLERY_GLOBAL_ALB_APPROVE_NOTIFY,
-	'caption' => _MI_WGGALLERY_GLOBAL_ALB_APPROVE_NOTIFY_CAPTION,
-	'description' => _MI_WGGALLERY_GLOBAL_ALB_APPROVE_NOTIFY_DESC,
-	'mail_template' => 'global_alb_approve_notify',
-	'mail_subject' => _MI_WGGALLERY_GLOBAL_ALB_APPROVE_NOTIFY_SUBJECT
+$modversion['notification']['event'][] = [
+    'name'          => 'album_approve',
+    'category'      => 'albums',
+    'admin_only'    => 0,
+    'title'         => _MI_WGGALLERY_GLOBAL_ALB_APPROVE_NOTIFY,
+    'caption'       => _MI_WGGALLERY_GLOBAL_ALB_APPROVE_NOTIFY_CAPTION,
+    'description'   => _MI_WGGALLERY_GLOBAL_ALB_APPROVE_NOTIFY_DESC,
+    'mail_template' => 'global_alb_approve_notify',
+    'mail_subject'  => _MI_WGGALLERY_GLOBAL_ALB_APPROVE_NOTIFY_SUBJECT,
 ];
 // GLOBAL Events Notify Album deleted
-$modversion['notification']['event'][]= [
-	'name' => 'album_delete',
-	'category' => 'albums',
-	'admin_only' => 0,
-	'title' => _MI_WGGALLERY_GLOBAL_ALB_DELETE_NOTIFY,
-	'caption' => _MI_WGGALLERY_GLOBAL_ALB_DELETE_NOTIFY_CAPTION,
-	'description' => _MI_WGGALLERY_GLOBAL_ALB_DELETE_NOTIFY_DESC,
-	'mail_template' => 'global_alb_delete_notify',
-	'mail_subject' => _MI_WGGALLERY_GLOBAL_ALB_DELETE_NOTIFY_SUBJECT
+$modversion['notification']['event'][] = [
+    'name'          => 'album_delete',
+    'category'      => 'albums',
+    'admin_only'    => 0,
+    'title'         => _MI_WGGALLERY_GLOBAL_ALB_DELETE_NOTIFY,
+    'caption'       => _MI_WGGALLERY_GLOBAL_ALB_DELETE_NOTIFY_CAPTION,
+    'description'   => _MI_WGGALLERY_GLOBAL_ALB_DELETE_NOTIFY_DESC,
+    'mail_template' => 'global_alb_delete_notify',
+    'mail_subject'  => _MI_WGGALLERY_GLOBAL_ALB_DELETE_NOTIFY_SUBJECT,
 ];
 // GLOBAL Events Image Notify
-$modversion['notification']['event'][]= [
-	'name' => 'image_new',
-	'category' => 'images',
-	'admin_only' => 0,
-	'title' => _MI_WGGALLERY_GLOBAL_IMG_NEW_NOTIFY,
-	'caption' => _MI_WGGALLERY_GLOBAL_IMG_NEW_NOTIFY_CAPTION,
-	'description' => _MI_WGGALLERY_GLOBAL_IMG_NEW_NOTIFY_DESC,
-	'mail_template' => 'global_img_new_notify',
-	'mail_subject' => _MI_WGGALLERY_GLOBAL_IMG_NEW_NOTIFY_SUBJECT
+$modversion['notification']['event'][] = [
+    'name'          => 'image_new',
+    'category'      => 'images',
+    'admin_only'    => 0,
+    'title'         => _MI_WGGALLERY_GLOBAL_IMG_NEW_NOTIFY,
+    'caption'       => _MI_WGGALLERY_GLOBAL_IMG_NEW_NOTIFY_CAPTION,
+    'description'   => _MI_WGGALLERY_GLOBAL_IMG_NEW_NOTIFY_DESC,
+    'mail_template' => 'global_img_new_notify',
+    'mail_subject'  => _MI_WGGALLERY_GLOBAL_IMG_NEW_NOTIFY_SUBJECT,
 ];
 // GLOBAL Events Image Notify
-$modversion['notification']['event'][]= [
-	'name' => 'image_approve',
-	'category' => 'images',
-	'admin_only' => 0,
-	'title' => _MI_WGGALLERY_GLOBAL_IMG_APPROVE_NOTIFY,
-	'caption' => _MI_WGGALLERY_GLOBAL_IMG_APPROVE_NOTIFY_CAPTION,
-	'description' => _MI_WGGALLERY_GLOBAL_IMG_APPROVE_NOTIFY_DESC,
-	'mail_template' => 'global_img_approve_notify',
-	'mail_subject' => _MI_WGGALLERY_GLOBAL_IMG_APPROVE_NOTIFY_SUBJECT
+$modversion['notification']['event'][] = [
+    'name'          => 'image_approve',
+    'category'      => 'images',
+    'admin_only'    => 0,
+    'title'         => _MI_WGGALLERY_GLOBAL_IMG_APPROVE_NOTIFY,
+    'caption'       => _MI_WGGALLERY_GLOBAL_IMG_APPROVE_NOTIFY_CAPTION,
+    'description'   => _MI_WGGALLERY_GLOBAL_IMG_APPROVE_NOTIFY_DESC,
+    'mail_template' => 'global_img_approve_notify',
+    'mail_subject'  => _MI_WGGALLERY_GLOBAL_IMG_APPROVE_NOTIFY_SUBJECT,
 ];
 // GLOBAL Events Image Notify
-$modversion['notification']['event'][]= [
-	'name' => 'image_delete',
-	'category' => 'images',
-	'admin_only' => 0,
-	'title' => _MI_WGGALLERY_GLOBAL_IMG_DELETE_NOTIFY,
-	'caption' => _MI_WGGALLERY_GLOBAL_IMG_DELETE_NOTIFY_CAPTION,
-	'description' => _MI_WGGALLERY_GLOBAL_IMG_DELETE_NOTIFY_DESC,
-	'mail_template' => 'global_img_delete_notify',
-	'mail_subject' => _MI_WGGALLERY_GLOBAL_IMG_DELETE_NOTIFY_SUBJECT
+$modversion['notification']['event'][] = [
+    'name'          => 'image_delete',
+    'category'      => 'images',
+    'admin_only'    => 0,
+    'title'         => _MI_WGGALLERY_GLOBAL_IMG_DELETE_NOTIFY,
+    'caption'       => _MI_WGGALLERY_GLOBAL_IMG_DELETE_NOTIFY_CAPTION,
+    'description'   => _MI_WGGALLERY_GLOBAL_IMG_DELETE_NOTIFY_DESC,
+    'mail_template' => 'global_img_delete_notify',
+    'mail_subject'  => _MI_WGGALLERY_GLOBAL_IMG_DELETE_NOTIFY_SUBJECT,
 ];

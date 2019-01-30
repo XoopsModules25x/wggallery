@@ -23,7 +23,7 @@
 
 use XoopsModules\Wggallery;
 
-include dirname(dirname(__DIR__)) .'/mainfile.php';
+include dirname(dirname(__DIR__)) . '/mainfile.php';
 include __DIR__ . '/include/common.php';
 $dirname = basename(__DIR__);
 // Get instance of module
@@ -37,31 +37,31 @@ $watermarksHandler   = $helper->getHandler('Watermarks');
 // Permission
 require XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
 $gpermHandler = xoops_getHandler('groupperm');
-if(is_object($xoopsUser)) {
-	$groups  = $xoopsUser->getGroups();
+if (is_object($xoopsUser)) {
+    $groups = $xoopsUser->getGroups();
 } else {
-	$groups  = XOOPS_GROUP_ANONYMOUS;
+    $groups = XOOPS_GROUP_ANONYMOUS;
 }
 // Breadcrumbs
 $xoBreadcrumbs = [];
 if ($helper->getConfig('show_bcrumb_mname')) {
-    if ( isset($GLOBALS['xoopsModule']) && is_object($GLOBALS['xoopsModule'])) { // necessary to check, otherwise uploader runs into errors
+    if (isset($GLOBALS['xoopsModule']) && is_object($GLOBALS['xoopsModule'])) { // necessary to check, otherwise uploader runs into errors
         $xoBreadcrumbs[] = ['title' => $GLOBALS['xoopsModule']->getVar('name'), 'link' => WGGALLERY_URL . '/'];
     }
 }
-// 
+
 $myts = MyTextSanitizer::getInstance();
 // Default Css Style
 $style = WGGALLERY_URL . '/assets/css/style.css';
-if(!file_exists($style)) {
-	return false;
+if (!file_exists($style)) {
+    return false;
 }
 // Smarty Default
-$sysPathIcon16 = $GLOBALS['xoopsModule']->getInfo('sysicons16');
-$sysPathIcon32 = $GLOBALS['xoopsModule']->getInfo('sysicons32');
+$sysPathIcon16   = $GLOBALS['xoopsModule']->getInfo('sysicons16');
+$sysPathIcon32   = $GLOBALS['xoopsModule']->getInfo('sysicons32');
 $pathModuleAdmin = $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin');
-$modPathIcon16 = $GLOBALS['xoopsModule']->getInfo('modicons16');
-$modPathIcon32 = $GLOBALS['xoopsModule']->getInfo('modicons16');
+$modPathIcon16   = $GLOBALS['xoopsModule']->getInfo('modicons16');
+$modPathIcon32   = $GLOBALS['xoopsModule']->getInfo('modicons16');
 // Load Languages
 xoops_loadLanguage('main');
 xoops_loadLanguage('modinfo');

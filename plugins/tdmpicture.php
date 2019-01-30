@@ -31,21 +31,25 @@ include_once dirname(__DIR__) . '/include/common.php';
  *
  * @return array
  */
-function wggalleryPluginGetDataTdmpicture() {
+function wggalleryPluginGetDataTdmpicture()
+{
     // get number of albums
-    $sql = "SELECT `cat_id` FROM ".$GLOBALS['xoopsDB']->prefix("tdmpicture_cat");
-    $result = $GLOBALS['xoopsDB']->query($sql) or die ("MySQL-Error: " . $GLOBALS['xoopsDB']->error());  
-    $num_albums = $GLOBALS['xoopsDB']->getRowsNum( $result );
+    $sql = 'SELECT `cat_id` FROM ' . $GLOBALS['xoopsDB']->prefix('tdmpicture_cat');
+    $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    $num_albums = $GLOBALS['xoopsDB']->getRowsNum($result);
     // get number of images
-    $sql = "SELECT `file_id` FROM ".$GLOBALS['xoopsDB']->prefix("tdmpicture_file");
-    $result = $GLOBALS['xoopsDB']->query($sql) or die ("MySQL-Error: " . $GLOBALS['xoopsDB']->error());  
-    $num_images = $GLOBALS['xoopsDB']->getRowsNum( $result );
+    $sql = 'SELECT `file_id` FROM ' . $GLOBALS['xoopsDB']->prefix('tdmpicture_file');
+    $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    $num_images = $GLOBALS['xoopsDB']->getRowsNum($result);
+
     return [$num_albums, $num_images];
 }
 
 /**
  * @function getForm
- * @param 
+ * @param mixed $im_name
+ * @param mixed $num_albums
+ * @param mixed $num_images
  * @return XoopsThemeForm
  */
 function wggalleryPluginGetFormTdmpicture($im_name, $num_albums, $num_images)
@@ -57,31 +61,31 @@ function wggalleryPluginGetFormTdmpicture($im_name, $num_albums, $num_images)
     xoops_load('XoopsFormLoader');
     $form = new \XoopsThemeForm(_AM_WGGALLERY_IMPORT, 'form', $action, 'post', true);
     $form->setExtra('enctype="multipart/form-data"');
-    // Form Text 
-    $form->addElement(new \XoopsFormLabel( _AM_WGGALLERY_IMPORT_SUPPORT, $im_name));
-    // Form Text 
-    $form->addElement(new \XoopsFormLabel( _AM_WGGALLERY_IMPORT_NUMALB, $num_albums));
-    // Form Text 
-    $form->addElement(new \XoopsFormLabel( _AM_WGGALLERY_IMPORT_NUMIMG, $num_images));
+    // Form Text
+    $form->addElement(new \XoopsFormLabel(_AM_WGGALLERY_IMPORT_SUPPORT, $im_name));
+    // Form Text
+    $form->addElement(new \XoopsFormLabel(_AM_WGGALLERY_IMPORT_NUMALB, $num_albums));
+    // Form Text
+    $form->addElement(new \XoopsFormLabel(_AM_WGGALLERY_IMPORT_NUMIMG, $num_images));
     // Permissions
-    $memberHandler = xoops_gethandler('member');
-    $groupList = $memberHandler->getGroupList();
-    $gpermHandler = xoops_gethandler('groupperm');
-    $fullList[] = array_keys($groupList);
-    $groupsCanViewCheckbox = new \XoopsFormCheckBox( '', 'groups_view[]', $fullList);
-    $groupsCanDlFullAlbCheckbox = new \XoopsFormCheckBox( '', 'groups_dlfullalb[]', $fullList);
-    $groupsCanDlImageLCheckbox = new \XoopsFormCheckBox( '', 'groups_dlimage_large[]', $fullList);
-    $groupsCanDlImageMCheckbox = new \XoopsFormCheckBox( '', 'groups_dlimage_medium[]', $fullList);
+    $memberHandler              = xoops_getHandler('member');
+    $groupList                  = $memberHandler->getGroupList();
+    $gpermHandler               = xoops_getHandler('groupperm');
+    $fullList[]                 = array_keys($groupList);
+    $groupsCanViewCheckbox      = new \XoopsFormCheckBox('', 'groups_view[]', $fullList);
+    $groupsCanDlFullAlbCheckbox = new \XoopsFormCheckBox('', 'groups_dlfullalb[]', $fullList);
+    $groupsCanDlImageLCheckbox  = new \XoopsFormCheckBox('', 'groups_dlimage_large[]', $fullList);
+    $groupsCanDlImageMCheckbox  = new \XoopsFormCheckBox('', 'groups_dlimage_medium[]', $fullList);
     // To View
     $groupsCanViewCheckbox->addOptionArray($groupList);
-    $groupsCanViewTray = new \XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_VIEW, '&nbsp;' );
+    $groupsCanViewTray = new \XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_VIEW, '&nbsp;');
     $groupsCanViewTray->addElement($groupsCanViewCheckbox, false);
-    $groupsCanViewAll = new \XoopsFormCheckBox( '', 'all_groups_view', 0);
+    $groupsCanViewAll = new \XoopsFormCheckBox('', 'all_groups_view', 0);
     $groupsCanViewAll->setExtra('onclick="javascript:toggleCheckboxGroupPerm(' . "'groups_view'" . ')"');
     $groupsCanViewAll->addOption(1, _CO_WGGALLERY_ALL);
     $groupsCanViewTray->addElement($groupsCanViewAll, false);
     $form->addElement($groupsCanViewTray);
-    
+
     // TODO
     // To Download full album
     // $groupsCanDlFullAlbCheckbox->addOptionArray($groupList);
@@ -92,21 +96,21 @@ function wggalleryPluginGetFormTdmpicture($im_name, $num_albums, $num_images)
     // $groupsCanDlFullAlbAll->addOption(1, _CO_WGGALLERY_ALL);
     // $groupsCanDlFullAlbTray->addElement($groupsCanDlFullAlbAll, false);
     // $form->addElement($groupsCanDlFullAlbTray);
-    
-     // To Download Large Images
+
+    // To Download Large Images
     $groupsCanDlImageLCheckbox->addOptionArray($groupList);
-    $groupsCanDlImageLTray = new \XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE, '&nbsp;' );
+    $groupsCanDlImageLTray = new \XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE, '&nbsp;');
     $groupsCanDlImageLTray->addElement($groupsCanDlImageLCheckbox, false);
-    $groupsCanDlImageLAll = new \XoopsFormCheckBox( '', 'all_groups_dlimage_large', 0);
+    $groupsCanDlImageLAll = new \XoopsFormCheckBox('', 'all_groups_dlimage_large', 0);
     $groupsCanDlImageLAll->setExtra('onclick="javascript:toggleCheckboxGroupPerm(' . "'groups_dlimage_large'" . ')"');
     $groupsCanDlImageLAll->addOption(1, _CO_WGGALLERY_ALL);
     $groupsCanDlImageLTray->addElement($groupsCanDlImageLAll, false);
     $form->addElement($groupsCanDlImageLTray);
     // To Download Medium Images
     $groupsCanDlImageMCheckbox->addOptionArray($groupList);
-    $groupsCanDlImageMTray = new \XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM, '&nbsp;' );
+    $groupsCanDlImageMTray = new \XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM, '&nbsp;');
     $groupsCanDlImageMTray->addElement($groupsCanDlImageMCheckbox, false);
-    $groupsCanDlImageMAll = new \XoopsFormCheckBox( '', 'all_groups_dlimage_medium', 0);
+    $groupsCanDlImageMAll = new \XoopsFormCheckBox('', 'all_groups_dlimage_medium', 0);
     $groupsCanDlImageMAll->setExtra('onclick="javascript:toggleCheckboxGroupPerm(' . "'groups_dlimage_medium'" . ')"');
     $groupsCanDlImageMAll->addOption(1, _CO_WGGALLERY_ALL);
     $groupsCanDlImageMTray->addElement($groupsCanDlImageMAll, false);
@@ -115,6 +119,7 @@ function wggalleryPluginGetFormTdmpicture($im_name, $num_albums, $num_images)
     // To Save
     $form->addElement(new \XoopsFormHidden('op', 'import_' . $im_name));
     $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+
     return $form;
 }
 
@@ -123,77 +128,78 @@ function wggalleryPluginGetFormTdmpicture($im_name, $num_albums, $num_images)
  *
  * @return array
  */
-function wggalleryPluginExecImportTdmpicture() {
+function wggalleryPluginExecImportTdmpicture()
+{
     // define source image path
     $dir_original = XOOPS_ROOT_PATH . '/uploads/extgallery/public-photo/original/';
     $dir_large    = XOOPS_ROOT_PATH . '/uploads/extgallery/public-photo/large/';
     $dir_medium   = XOOPS_ROOT_PATH . '/uploads/extgallery/public-photo/medium/';
     $dir_thumb    = XOOPS_ROOT_PATH . '/uploads/extgallery/public-photo/thumb/thumb_';
-    
+
     // copy album data and album images
-    // import all album data    
+    // import all album data
     $sql = 'INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums');
     $sql .= ' ( alb_id, alb_pid, alb_name, alb_date, alb_desc, alb_imgcat, alb_image, alb_weight, alb_state, alb_submitter ) ';
     $sql .= 'SELECT tc.cat_id, tc.cat_pid, tc.cat_title, tc.cat_date, tc.cat_text, 1, tc.cat_img, tc.cat_weight, If(tc.cat_display=1,' . WGGALLERY_STATE_ONLINE_VAL . ',' . WGGALLERY_STATE_OFFLINE_VAL . '), tc.cat_uid';
-    $sql .= ' FROM '. $GLOBALS['xoopsDB']->prefix('tdmpicture_cat') . ' as tc';
-    $result = $GLOBALS['xoopsDB']->queryF($sql) or die ('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());  
-    unset ($result);
-    
+    $sql .= ' FROM ' . $GLOBALS['xoopsDB']->prefix('tdmpicture_cat') . ' as tc';
+    $result = $GLOBALS['xoopsDB']->queryF($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    unset($result);
+
     $sql = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . " SET alb_image = 'blank.gif' WHERE (alb_image='blank.png')";
-    $result = $GLOBALS['xoopsDB']->queryF($sql) or die ('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());  
+    $result = $GLOBALS['xoopsDB']->queryF($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
 
     // copy album images
-    $sql = 'SELECT `cat_id`, `cat_img` FROM '.$GLOBALS['xoopsDB']->prefix('tdmpicture_cat');
-    $result = $GLOBALS['xoopsDB']->query($sql) or die ('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());  
-    while (list($cat_id, $cat_imgurl) = $GLOBALS['xoopsDB']->fetchRow($result)) {
+    $sql = 'SELECT `cat_id`, `cat_img` FROM ' . $GLOBALS['xoopsDB']->prefix('tdmpicture_cat');
+    $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    while (false !== (list($cat_id, $cat_imgurl) = $GLOBALS['xoopsDB']->fetchRow($result))) {
         $imageName = basename($cat_imgurl);
-        if ( '' !== $imageName ) {
+        if ('' !== $imageName) {
             $sql = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . ' SET alb_imgcat = 2 WHERE (alb_id=' . $cat_id . ')';
-            $result2 = $GLOBALS['xoopsDB']->queryF($sql) or die ('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());  
-            if ( 'blank.png' !== $imageName ) {
+            $result2 = $GLOBALS['xoopsDB']->queryF($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+            if ('blank.png' !== $imageName) {
                 copy(XOOPS_ROOT_PATH . '/uploads/tdmpicture/cat/' . $imageName, WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $imageName);
             }
         }
     }
-    unset ($result);
-    unset ($result2);
- 
+    unset($result);
+    unset($result2);
+
     // create perms for each album
-    $sql = 'SELECT `alb_id` FROM '.$GLOBALS['xoopsDB']->prefix('wggallery_albums');
-    $result = $GLOBALS['xoopsDB']->query($sql) or die ('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());  
-    while (list($albId) = $GLOBALS['xoopsDB']->fetchRow($result)) {
-        $permId = $albId;
-        $perm_modid = $GLOBALS['xoopsModule']->getVar('mid');
+    $sql = 'SELECT `alb_id` FROM ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums');
+    $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    while (false !== (list($albId) = $GLOBALS['xoopsDB']->fetchRow($result))) {
+        $permId       = $albId;
+        $perm_modid   = $GLOBALS['xoopsModule']->getVar('mid');
         $gpermHandler = xoops_getHandler('groupperm');
         // set selected rights
         // Permission to view
-        if(isset($_POST['groups_view'])) {
-            foreach($_POST['groups_view'] as $onegroupId) {
+        if (isset($_POST['groups_view'])) {
+            foreach ($_POST['groups_view'] as $onegroupId) {
                 $gpermHandler->addRight('wggallery_view', $permId, $onegroupId, $perm_modid);
             }
         }
         //TODO
         // Permission to download full album
         // if(isset($_POST['groups_dlfullalb'])) {
-            // foreach($_POST['groups_dlfullalb'] as $onegroupId) {
-                // $gpermHandler->addRight('wggallery_dlfullalb', $permId, $onegroupId, $perm_modid);
-            // }
+        // foreach($_POST['groups_dlfullalb'] as $onegroupId) {
+        // $gpermHandler->addRight('wggallery_dlfullalb', $permId, $onegroupId, $perm_modid);
+        // }
         // }
         // Permission to download large images
-        if(isset($_POST['groups_dlimage_large'])) {
-            foreach($_POST['groups_dlimage_large'] as $onegroupId) {
+        if (isset($_POST['groups_dlimage_large'])) {
+            foreach ($_POST['groups_dlimage_large'] as $onegroupId) {
                 $gpermHandler->addRight('wggallery_dlimage_large', $permId, $onegroupId, $perm_modid);
             }
         }
         // Permission to download medium images
-        if(isset($_POST['groups_dlimage_medium'])) {
-            foreach($_POST['groups_dlimage_medium'] as $onegroupId) {
+        if (isset($_POST['groups_dlimage_medium'])) {
+            foreach ($_POST['groups_dlimage_medium'] as $onegroupId) {
                 $gpermHandler->addRight('wggallery_dlimage_medium', $permId, $onegroupId, $perm_modid);
             }
         }
     }
-    unset ($result);
-    
+    unset($result);
+
     // copy images and image data
     // import all album data
     $sql = 'INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('wggallery_images');
@@ -201,17 +207,18 @@ function wggalleryPluginExecImportTdmpicture() {
     $sql .= 'img_submitter, img_size, img_resx, img_resy ) ';
     $sql .= 'SELECT tp.file_id, tp.file_cat, tp.file_file, tp.file_title, tp.file_text, tp.file_type, tp.file_display, tp.file_hits, tp.file_dl, tp.file_indate, ';
     $sql .= 'tp.file_uid, tp.file_size, tp.file_res_x, tp.file_res_y ';
-    $sql .= ' FROM '. $GLOBALS['xoopsDB']->prefix('tdmpicture_file') . ' as tp'; 
-    $result = $GLOBALS['xoopsDB']->queryF($sql) or die ('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());  
-    unset ($result);
-    
+    $sql .= ' FROM ' . $GLOBALS['xoopsDB']->prefix('tdmpicture_file') . ' as tp';
+    $result = $GLOBALS['xoopsDB']->queryF($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    unset($result);
+
     // copy all images
-    $sql = 'SELECT `file_id`, `file_file` FROM '.$GLOBALS['xoopsDB']->prefix('tdmpicture_file');
-    $result = $GLOBALS['xoopsDB']->query($sql) or die ('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());  
-    while (list($photo_id, $photo_name) = $GLOBALS['xoopsDB']->fetchRow($result)) {
+    $sql = 'SELECT `file_id`, `file_file` FROM ' . $GLOBALS['xoopsDB']->prefix('tdmpicture_file');
+    $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    while (false !== (list($photo_id, $photo_name) = $GLOBALS['xoopsDB']->fetchRow($result))) {
         copy(XOOPS_ROOT_PATH . '/uploads/tdmpicture/' . $photo_name, WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $photo_name);
-        copy( XOOPS_ROOT_PATH . '/uploads/tdmpicture/' . $photo_name, WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $photo_name );
-        copy( XOOPS_ROOT_PATH . '/uploads/tdmpicture/thumb/' . $photo_name, WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/' . $photo_name );
+        copy(XOOPS_ROOT_PATH . '/uploads/tdmpicture/' . $photo_name, WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $photo_name);
+        copy(XOOPS_ROOT_PATH . '/uploads/tdmpicture/thumb/' . $photo_name, WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/' . $photo_name);
     }
+
     return true;
 }

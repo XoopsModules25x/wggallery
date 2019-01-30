@@ -19,6 +19,8 @@
  * @min_xoops      2.5.9
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 comment_functions.php 1 Mon 2018-03-19 10:04:54Z XOOPS Project (www.xoops.org) $
+ * @param mixed $itemId
+ * @param mixed $itemNumb
  */
 
 /**
@@ -28,22 +30,25 @@
  * @param mixed $itemNumb
  * @return bool
  */
-function wggalleryCommentsUpdate($itemId, $itemNumb) {
-    $itemId = (int) ($itemId);
-    $itemNumb = (int) ($itemNumb);
-    $article = new Images($itemId);
+function wggalleryCommentsUpdate($itemId, $itemNumb)
+{
+    $itemId   = (int)($itemId);
+    $itemNumb = (int)($itemNumb);
+    $article  = new Images($itemId);
     if (!$article->updateComments($itemNumb)) {
         return false;
     }
+
     return true;
 }
 
 /**
  * CommentsApprove
  *
- * @param string  $comment
+ * @param string $comment
  * @return void
  */
-function wggalleryCommentsApprove(&$comment){
+function wggalleryCommentsApprove(&$comment)
+{
     // notification mail here
 }

@@ -20,6 +20,9 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 common.php 1 Mon 2018-03-19 10:04:56Z XOOPS Project (www.xoops.org) $
  */
+
+include dirname(__DIR__) . '/preloads/autoloader.php';
+
 if (!defined('XOOPS_ICONS32_PATH')) {
     define('XOOPS_ICONS32_PATH', XOOPS_ROOT_PATH . '/Frameworks/moduleclasses/icons/32');
 }
@@ -41,10 +44,10 @@ define('WGGALLERY_UPLOAD_FONTS_PATH', WGGALLERY_UPLOAD_PATH.'/fonts');
 define('WGGALLERY_ADMIN', WGGALLERY_URL . '/admin/index.php');
 $localLogo = WGGALLERY_IMAGE_URL . '/wedega_logo.png';
 // Module Information
-$copyright = "<a href='https://wedega.com' title='Wedega - Webdesign Gabor' target='_blank'><img src='".$localLogo."' alt='Wedega - Webdesign Gabor' /></a>";
-include_once XOOPS_ROOT_PATH .'/class/xoopsrequest.php';
-include_once WGGALLERY_PATH .'/class/helper.php';
-include_once WGGALLERY_PATH .'/include/functions.php';
+$copyright = "<a href='https://wedega.com' title='Wedega - Webdesign Gabor' target='_blank'><img src='".$localLogo."' alt='Wedega - Webdesign Gabor'></a>";
+require_once XOOPS_ROOT_PATH .'/class/xoopsrequest.php';
+require_once WGGALLERY_PATH .'/class/helper.php';
+require_once WGGALLERY_PATH .'/include/functions.php';
 
 // common constants
 // constants for state
