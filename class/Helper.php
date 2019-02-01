@@ -1,4 +1,7 @@
-<?php namespace XoopsModules\Wggallery;
+<?php
+
+namespace XoopsModules\Wggallery;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -20,8 +23,6 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 helper.php 1 Mon 2018-03-19 10:04:53Z XOOPS Project (www.xoops.org) $
  */
-
-use XoopsModules\Wggallery\Constants;
 
 /**
  * Class Helper
@@ -75,26 +76,27 @@ class Helper extends \Xmf\Module\Helper
     {
         $ret   = false;
         $db    = \XoopsDatabaseFactory::getDatabaseConnection();
-        $class = '\\XoopsModules\\' . ucfirst(strtolower(basename(dirname(__DIR__)))) . '\\' . $name . 'Handler';
+        $class = '\\XoopsModules\\' . ucfirst(mb_strtolower(basename(dirname(__DIR__)))) . '\\' . $name . 'Handler';
         $ret   = new $class($db);
+
         return $ret;
     }
 
     /**
      * @function getStateText
      * @param string $state
-	*  @return string text for state
+     * @return string text for state
      */
     public function getStateText($state)
     {
         switch ($state) {
-			case Constants::WGGALLERY_STATE_ONLINE_VAL:
+            case Constants::WGGALLERY_STATE_ONLINE_VAL:
                 return _CO_WGGALLERY_STATE_ONLINE;
                 break;
-			case Constants::WGGALLERY_STATE_APPROVAL_VAL:
+            case Constants::WGGALLERY_STATE_APPROVAL_VAL:
                 return _CO_WGGALLERY_STATE_APPROVAL;
                 break;
-			case Constants::WGGALLERY_STATE_OFFLINE_VAL:
+            case Constants::WGGALLERY_STATE_OFFLINE_VAL:
             default:
                 return _CO_WGGALLERY_STATE_OFFLINE;
                 break;
@@ -103,16 +105,16 @@ class Helper extends \Xmf\Module\Helper
 
     /**
      * @public function getForm for delete
-     * @param array $arrParams
+     * @param array  $arrParams
      * @param string $title
      * @param string $text
      * @param string $descr
      * @return XoopsThemeForm
      */
-    public function getFormDelete($arrParams, $title = '', $text, $descr = '')
+    public function getFormDelete($arrParams, $title, $text, $descr = '')
     {
-        $helper = Wggallery\Helper::getInstance();
-        $action    = $_SERVER['REQUEST_URI'];
+        $helper = Helper::getInstance();
+        $action = $_SERVER['REQUEST_URI'];
 
         // Get Theme Form
         xoops_load('XoopsFormLoader');

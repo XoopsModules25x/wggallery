@@ -20,9 +20,8 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 admin.php 1 Mon 2018-03-19 10:04:52Z XOOPS Project (www.xoops.org) $
  */
+require_once __DIR__ . '/common.php';
 
-include_once 'common.php'; 
- 
 // ---------------- Admin Index ----------------
 define('_AM_WGGALLERY_STATISTICS', 'Statistics');
 // There are
@@ -66,7 +65,8 @@ define('_AM_WGGALLERY_GALLERYTYPE_EDIT', 'Edit Gallerytype');
 // Elements of Gallery options
 define('_AM_WGGALLERY_OPTION_GT_SET', 'Set options for selected gallerytype');
 define('_AM_WGGALLERY_OPTION_GT_SOURCE', 'Slideshow source');
-define('_AM_WGGALLERY_OPTION_GT_SOURCE_DESC', "Pay attention: if the user do not have to download large images the source will be automatically reduce to medium for this user in order to avoid unallowed download by right mouse click.<br>User with right to download large images will also see large images, if you have selected 'large'.");
+define('_AM_WGGALLERY_OPTION_GT_SOURCE_DESC',
+       "Pay attention: if the user do not have to download large images the source will be automatically reduce to medium for this user in order to avoid unallowed download by right mouse click.<br>User with right to download large images will also see large images, if you have selected 'large'.");
 define('_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW', 'Preview source');
 define('_AM_WGGALLERY_OPTION_GT_SOURCE_LARGE', 'large images');
 define('_AM_WGGALLERY_OPTION_GT_SOURCE_MEDIUM', 'medium images');
@@ -235,7 +235,7 @@ define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC', 'All currently unused alb
 </ul>');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_INVALID', "Delete invalid items in table 'images'");
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_INVALID_DESC', "Delete invalid items in table 'images', e.g. item was created, but something went wrong during upload");
-define('_AM_WGGALLERY_MAINTENANCE_DELETE_INVALID_IMG', "Invalid item: img_id ");
+define('_AM_WGGALLERY_MAINTENANCE_DELETE_INVALID_IMG', 'Invalid item: img_id ');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_NONE', 'No unused images found');
 define('_AM_WGGALLERY_MAINTENANCE_DUI_SUREDELETE', 'All currently unused album images will be deleted! Do you want to continue?');
 define('_AM_WGGALLERY_MAINTENANCE_WATERMARK', 'Add watermarks to an album later');
@@ -265,12 +265,12 @@ define('_AM_WGGALLERY_MAINTENANCE_CHECK_ML_DESC', 'Max memory limit: %s (%b Byte
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR1', 'Please reduce module setting or increase php setting');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR2', 'Please turn php setting on');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR3', 'memory_limit must be higher than upload_max_filesize and higher than post_max_size');
-define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF', "Read Exif-data");
-define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_DESC', "Read and save exif data for all images once again");
-define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_READ', "Read missing exif data");
-define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_READALL', "Read all exif data again");
-define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_SUCCESS', "Successfully read exif");
-define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_ERROR', "Error when reading exif");
+define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF', 'Read Exif-data');
+define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_DESC', 'Read and save exif data for all images once again');
+define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_READ', 'Read missing exif data');
+define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_READALL', 'Read all exif data again');
+define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_SUCCESS', 'Successfully read exif');
+define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_ERROR', 'Error when reading exif');
 // Albums
 define('_AM_WGGALLERY_ALBUMS_ERRNOTFOUND', 'Error: Image not found (Image-Id %s)');
 // Import

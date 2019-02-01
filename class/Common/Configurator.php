@@ -1,4 +1,7 @@
-<?php namespace XoopsModules\Wggallery\Common;
+<?php
+
+namespace XoopsModules\Wggallery\Common;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -16,7 +19,6 @@
  * @author      XOOPS Development Team
  * @package     Publisher
  * @since       1.05
- *
  */
 
 // require_once dirname(dirname(__DIR__)) . '/include/common.php';
@@ -42,9 +44,9 @@ class Configurator
     public function __construct()
     {
         $moduleDirName = basename(dirname(__DIR__));
-        $capsDirName   = strtoupper($moduleDirName);
+        $capsDirName   = mb_strtoupper($moduleDirName);
 
-        require __DIR__ . '/../../include/config.php';
+        require dirname(dirname(__DIR__)) . '/include/config.php';
         $config = getConfig();
 
         $this->name            = $config->name;
@@ -56,6 +58,5 @@ class Configurator
         $this->oldFiles        = $config->oldFiles;
         $this->oldFolders      = $config->oldFolders;
         $this->modCopyright    = $config->modCopyright;
-
     }
 }

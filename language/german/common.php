@@ -13,14 +13,14 @@
  * wgGallery module for xoops
  *
  * @copyright module for xoops
- * @license GPL 2.0 or later
- * @package wggallery
- * @since 1.0
+ * @license   GPL 2.0 or later
+ * @package   wggallery
+ * @since     1.0
  * @min_xoops 2.5.7
- * @author Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
- * @version $Id: 1.0 main.php 1 Mon 2018-03-19 10:04:56Z XOOPS Project (www.xoops.org) $
+ * @author    Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
+ * @version   $Id: 1.0 main.php 1 Mon 2018-03-19 10:04:56Z XOOPS Project (www.xoops.org) $
  */
- 
+
 // defines for state
 define('_CO_WGGALLERY_STATE_OFFLINE', 'Offline');
 define('_CO_WGGALLERY_STATE_ONLINE', 'Online');
@@ -62,11 +62,11 @@ define('_CO_WGGALLERY_SUBMITTER', 'Einsender');
 define('_CO_WGGALLERY_FU_SUBMIT', 'Einsenden Bild: ');
 define('_CO_WGGALLERY_FU_SUBMITTED', 'Bilder erfolgreich überprüft, bitte Hochladen');
 define('_CO_WGGALLERY_FU_UPLOAD', 'Hochladen Bild: ');
-define('_CO_WGGALLERY_FU_FAILED', 'Während des Hochladens der Bilder sind Fehler aufgetreten'); 
+define('_CO_WGGALLERY_FU_FAILED', 'Während des Hochladens der Bilder sind Fehler aufgetreten');
 define('_CO_WGGALLERY_FU_SUCCEEDED', 'Alle Bilder erfolgreich hochgeladen');
 // Album buttons
 define('_CO_WGGALLERY_ALBUM_ADD', 'Album hinzufügen');
-define('_CO_WGGALLERY_ALBUM_EDIT', 'Album bearbeiten'); 
+define('_CO_WGGALLERY_ALBUM_EDIT', 'Album bearbeiten');
 // Elements of categories
 define('_CO_WGGALLERY_CATS_TITLE', 'Verfügbare Kategorien');
 define('_CO_WGGALLERY_CATS_ALBUMS', 'Enthaltene Alben anzeigen');
@@ -216,11 +216,11 @@ define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC', '<ul><li>Erstellen von Alben
 define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN', 'Globale Berechtigung zum Bearbeiten eigener Alben ohne Freigabe');
 define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN_DESC', '<ul><li>Erstellen von Alben</li><li>Bearbeiten der eigenen Alben</li><li>Hochladen von Bildern in eigene Alben</li></ul>');
 define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR', 'Globale Berechtigung zum Bearbeiten eigener Alben, jedoch ist eine Freigabe erforderlich');
-define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR_DESC', "<ul><li>Erstellen von Alben (Freigabe erforderlich)</li><li>Bearbeiten der eigenen Alben (Freigabe erforderlich)</li><li>Hochladen von Bildern in eigene Alben (Freigabe erforderlich)</li></ul>");
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR_DESC', '<ul><li>Erstellen von Alben (Freigabe erforderlich)</li><li>Bearbeiten der eigenen Alben (Freigabe erforderlich)</li><li>Hochladen von Bildern in eigene Alben (Freigabe erforderlich)</li></ul>');
 define('_CO_WGGALLERY_PERMS_GLOBAL_DESC', '<ul>
-												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC. '</li>
-												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN_DESC. '</li>
-                                                <li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR_DESC. '</li>
+                                                <li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC . '</li>
+                                                <li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN_DESC . '</li>
+                                                <li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR_DESC . '</li>
                                            </ul>');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW', 'Berechtigung zum Ansehen');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW_DESC', 'Gruppen mit der Berechtigung zum Ansehen der Alben');

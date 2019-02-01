@@ -10,6 +10,10 @@ Change Log for wgGallery - 2019/01/22 19:55:00 Version 1.09
  - adapting block albums (goffy)
  - adapting block images (goffy)
  - added different kind of blocks (default, recent, random) (goffy)
+ - code cleaning (mamba)
+ - added namespaces (mamba)
+ - added notification (mamba)
+ - added feedback (goffy/mamba)
  
 ==============================================================
 Change Log for wgGallery - 2018/12/28 19:55:00 Version 1.08

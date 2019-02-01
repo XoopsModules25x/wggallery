@@ -51,18 +51,18 @@ $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_WGGALLERY_THEREARE_ALBUMTYPE
 $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_WGGALLERY_THEREARE_WATERMARKS.'</label>', $countWatermarks));
 // Upload Folders
 $folder = [
-	WGGALLERY_UPLOAD_PATH,
-	WGGALLERY_UPLOAD_PATH . '/images/',
-	WGGALLERY_UPLOAD_PATH . '/images/albums/',
-	WGGALLERY_UPLOAD_PATH . '/images/large/',
-	WGGALLERY_UPLOAD_PATH . '/images/medium/',
-	WGGALLERY_UPLOAD_PATH . '/images/thumbs/',
+    WGGALLERY_UPLOAD_PATH,
+    WGGALLERY_UPLOAD_PATH . '/images/',
+    WGGALLERY_UPLOAD_PATH . '/images/albums/',
+    WGGALLERY_UPLOAD_PATH . '/images/large/',
+    WGGALLERY_UPLOAD_PATH . '/images/medium/',
+    WGGALLERY_UPLOAD_PATH . '/images/thumbs/',
     WGGALLERY_UPLOAD_PATH . '/images/watermarks/',
 ];
 // Uploads Folders Created
 foreach(array_keys($folder) as $i) {
-	$adminObject->addConfigBoxLine($folder[$i], 'folder');
-	$adminObject->addConfigBoxLine([$folder[$i], '777'], 'chmod');
+    $adminObject->addConfigBoxLine($folder[$i], 'folder');
+    $adminObject->addConfigBoxLine([$folder[$i], '777'], 'chmod');
 }
 
 // Render Index

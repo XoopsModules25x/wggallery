@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Wggallery\Common;
+<?php
+
+namespace XoopsModules\Wggallery\Common;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -22,8 +24,8 @@ trait FilesManagement
      *
      * @param string $folder The full path of the directory to check
      *
-     * @return void
      * @throws \RuntimeException
+     * @return void
      */
     public static function createFolder($folder)
     {
@@ -61,26 +63,26 @@ trait FilesManagement
         if (!mkdir($dst) && !is_dir($dst)) {
             throw new \RuntimeException(sprintf('Directory "%s" was not created', $dst));
         }
-            while (false !== ($file = readdir($dir))) {
-                if (('.' !== $file) && ('..' !== $file)) {
-                    if (is_dir($src . '/' . $file)) {
-                        self::recurseCopy($src . '/' . $file, $dst . '/' . $file);
-                    } else {
-                        copy($src . '/' . $file, $dst . '/' . $file);
-                    }
+        while (false !== ($file = readdir($dir))) {
+            if (('.' !== $file) && ('..' !== $file)) {
+                if (is_dir($src . '/' . $file)) {
+                    self::recurseCopy($src . '/' . $file, $dst . '/' . $file);
+                } else {
+                    copy($src . '/' . $file, $dst . '/' . $file);
                 }
             }
-        closedir($dir);
         }
+        closedir($dir);
+    }
 
     /**
      * Copy a file, or recursively copy a folder and its contents
      * @author      Aidan Lister <aidan@php.net>
      * @version     1.0.1
      * @link        http://aidanlister.com/2004/04/recursively-copying-directories-in-php/
-     * @param       string   $source    Source path
-     * @param       string   $dest      Destination path
-     * @param       int      $permissions New folder creation permissions
+     * @param       string $source      Source path
+     * @param       string $dest        Destination path
+     * @param       int    $permissions New folder creation permissions
      * @return      bool     Returns true on success, false on failure
      */
     public static function xcopy($source, $dest)
@@ -114,11 +116,11 @@ trait FilesManagement
             // Clean up
             $dir->close();
         }
+
         return true;
     }
 
     /**
-     *
      * Remove files and (sub)directories
      *
      * @param string $src source directory to delete
@@ -163,11 +165,11 @@ trait FilesManagement
             // input is not a valid directory
             $success = false;
         }
+
         return $success;
     }
 
     /**
-     *
      * Recursively remove directory
      *
      * @todo currently won't remove directories with hidden files, should it?
@@ -285,6 +287,7 @@ trait FilesManagement
                 self::rcopy($fObj->getPathname(), "{$dest}/" . $fObj->getFilename());
             }
         }
+
         return true;
     }
 }

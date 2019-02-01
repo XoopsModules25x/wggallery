@@ -1,4 +1,7 @@
-<?php namespace XoopsModules\Wggallery;
+<?php
+
+namespace XoopsModules\Wggallery;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -27,25 +30,25 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
  */
 class Permissions extends \XoopsObject
 {
-	/**
-	 * Constructor 
-	 *
-	 * @param null
-	 */
-	public function __construct()
-	{
-	}
+    /**
+     * Constructor
+     *
+     * @param null
+     */
+    public function __construct()
+    {
+    }
 
-	/**
-	 * @static function &getInstance
-	 *
-	 * @param null
-	 */
-	public static function getInstance()
-	{
-		static $instance = false;
-		if(!$instance) {
-			$instance = new self();
-		}
-	}
+    /**
+     * @static function &getInstance
+     *
+     * @param null
+     */
+    public static function getInstance()
+    {
+        static $instance = false;
+        if (!$instance) {
+            $instance = new self();
+        }
+    }
 }

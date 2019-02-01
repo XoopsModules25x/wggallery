@@ -11,8 +11,8 @@
                     <{foreach item=image from=$images}>
                         <li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-collapsed mjs-nestedSortable-leaf" id="menuItem_<{$image.id}>">
                             <div class="menuDiv ui-sortable-handle">
-                                <div class='col-xs-1 wgg-img-sort'><img src='<{$wggallery_icon_url_16}>/drag.png' alt='drag&drop' /></div>
-                                <div class='col-xs-2 wgg-img-sort'><img class='' src='<{$image.thumb}>' alt='<{$image.title}>' /></div>
+                                <div class='col-xs-1 wgg-img-sort'><img src='<{$wggallery_icon_url_16}>/drag.png' alt='drag&drop'></div>
+                                <div class='col-xs-2 wgg-img-sort'><img class='' src='<{$image.thumb}>' alt='<{$image.title}>'></div>
                                 <div class='col-xs-4 wgg-img-sort'><{$image.title}></div>
                                 <div class='col-xs-2 wgg-img-sort'><{$image.date}></div>
                                 <div class='clear wgg-img-sort-clear'></div>
@@ -28,7 +28,7 @@
             <div class='clear'>&nbsp;</div>
             <div class='wgg-goback'>
                 <a class='btn btn-default wgg-btn' href='<{if $ref}><{$ref}><{else}>images<{/if}>.php?op=list&amp;alb_id=<{$alb_id}>&amp;alb_pid=<{$alb_pid}>' title='<{$smarty.const._CO_WGGALLERY_BACK}>'>
-                    <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/back.png' alt='<{$smarty.const._CO_WGGALLERY_BACK}>' /><{$smarty.const._CO_WGGALLERY_BACK}>
+                    <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/back.png' alt='<{$smarty.const._CO_WGGALLERY_BACK}>'><{$smarty.const._CO_WGGALLERY_BACK}>
                 </a>
 
                 </div>
