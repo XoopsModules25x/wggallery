@@ -1,6 +1,6 @@
 <?php
 
-namespace XoopsModules\Wggallery;
+namespace XoopsModules\Wggallery\Common;
 
 /**
  * SystemFineImUploadHandler class to work with ajaxfineupload.php endpoint
@@ -37,9 +37,16 @@ namespace XoopsModules\Wggallery;
  * SOFTWARE.
  */
 
+use XoopsModules\Wggallery;
+use XoopsModules\Wggallery\Constants;
 
-//class FineImpUploadHandler extends \SystemFineUploadHandler
-class WggalleryFineImpUploadHandler extends \SystemFineUploadHandler
+//class FineimpuploadHandler extends \SystemFineUploadHandler
+
+/**
+ * Class FineimpuploadHandler
+ * @package XoopsModules\Wggallery
+ */
+class FineimpuploadHandler extends \SystemFineUploadHandler
 {
     /**
      * @var int
@@ -92,7 +99,7 @@ class WggalleryFineImpUploadHandler extends \SystemFineUploadHandler
 
     /**
      * XoopsFineImUploadHandler constructor.
-     * @param stdClass $claims claims passed in JWT header
+     * @param \stdClass $claims claims passed in JWT header
      */
     public function __construct(\stdClass $claims)
     {
@@ -100,17 +107,25 @@ class WggalleryFineImpUploadHandler extends \SystemFineUploadHandler
         $this->allowedMimeTypes  = ['image/gif', 'image/jpeg', 'image/png'];
         $this->allowedExtensions = ['gif', 'jpeg', 'jpg', 'png'];
     }
-/* 
+
+    /**
+     * @param $target
+     * @param $mimeType
+     * @param $uid
+     * @return array|bool
+     */
     protected function storeUploadedFile($target, $mimeType, $uid)
     {
         require_once XOOPS_ROOT_PATH . '/modules/wggallery/header.php';
-        require_once XOOPS_ROOT_PATH . '/modules/wggallery/include/imagehandler.php';
+        /** @var \XoopsModules\Wggallery\Helper $helper */
+        $helper           = \XoopsModules\Wggallery\Helper::getInstance();
         $this->pathUpload = WGGALLERY_UPLOAD_IMAGE_PATH;
 
-        if (WGGALLERY_PERM_SUBMITAPPR === $permissionsHandler->permGlobalSubmit()) {
-            $this->permUseralbum = WGGALLERY_STATE_APPROVAL_VAL;
+
+        if (Constants::PERM_SUBMITAPPR === $permissionsHandler->permGlobalSubmit()) {
+            $this->permUseralbum = Constants::STATE_APPROVAL_VAL;
         } else {
-            $this->permUseralbum = WGGALLERY_STATE_ONLINE_VAL;
+            $this->permUseralbum = Constants::STATE_OFFLINE_VAL;
         }
 
         $pathParts = pathinfo($this->getName());
@@ -143,22 +158,18 @@ class WggalleryFineImpUploadHandler extends \SystemFineUploadHandler
         if ($wmId > 0) {
             $watermarksObj = $watermarksHandler->get($wmId);
             $wmTarget      = $watermarksObj->getVar('wm_target');
-            if (WGGALLERY_WATERMARK_TARGET_A === $wmTarget || WGGALLERY_WATERMARK_TARGET_M === $wmTarget) {
-                $wmTargetM = true;
-            }
-            if (WGGALLERY_WATERMARK_TARGET_A === $wmTarget || WGGALLERY_WATERMARK_TARGET_L === $wmTarget) {
-                $wmTargetL = true;
-            }
+            if (Constants::WATERMARK_TARGET_A === $wmTarget || Constants::WATERMARK_TARGET_M === $wmTarget) {$wmTargetM = true;}
+            if (Constants::WATERMARK_TARGET_A === $wmTarget || Constants::WATERMARK_TARGET_L === $wmTarget) {$wmTargetL = true;}
         }
 
         // create medium image
-        $imgHandler                = new wgImageHandler();
+        $imgHandler                = new Wggallery\Resizer();
         $imgHandler->sourceFile    = $this->imagePath;
         $imgHandler->endFile       = $this->pathUpload . '/medium/' . $this->imageName;
         $imgHandler->imageMimetype = $this->imageMimetype;
         $imgHandler->maxWidth      = $helper->getConfig('maxwidth_medium');
         $imgHandler->maxHeight     = $helper->getConfig('maxheight_medium');
-        $ret                       = $imgHandler->ResizeImage();
+        $ret                       = $imgHandler->resizeImage();
         // $ret = resizeImage($this->imagePath, $this->pathUpload . '/medium/' . $this->imageName, $helper->getConfig('maxwidth_medium'), $helper->getConfig('maxheight_medium'), $this->imageMimetype);
         if (false === $ret) {
             return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_MEDIUM, $this->imageNicename)];
@@ -173,7 +184,7 @@ class WggalleryFineImpUploadHandler extends \SystemFineUploadHandler
         $imgHandler->imageMimetype = $this->imageMimetype;
         $imgHandler->maxWidth      = $helper->getConfig('maxwidth_thumbs');
         $imgHandler->maxHeight     = $helper->getConfig('maxheight_thumbs');
-        $ret                       = $imgHandler->ResizeImage();
+        $ret                       = $imgHandler->resizeImage();
         // $ret = resizeImage($this->imagePath, $this->pathUpload . '/thumbs/' . $this->imageName, $helper->getConfig('maxwidth_thumbs'), $helper->getConfig('maxheight_thumbs'), $this->imageMimetype);
         if (false === $ret) {
             return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_THUMBS, $this->imageNicename)];
@@ -202,17 +213,20 @@ class WggalleryFineImpUploadHandler extends \SystemFineUploadHandler
         return ['success' => true, 'uuid' => $uuid];
     }
 
-    private function handleImageDB()
-    {
+    /**
+     * @return bool
+     */
+    private function handleImageDB()    {
         require_once XOOPS_ROOT_PATH . '/modules/wggallery/header.php';
+
+        $helper        = \XoopsModules\Wggallery\Helper::getInstance();
+
         global $xoopsUser;
 
         $this->getImageDim();
 
-        $helper        = Wggallery\Helper::getInstance();
-        $imagesHandler = $helper->getHandler('images');
-
-        $imagesObj = $imagesHandler->create();
+        $imagesHandler = $helper->getHandler('Images');
+        $imagesObj     = $imagesHandler->create();
         // Set Vars
         $imagesObj->setVar('img_title', $this->imageNicename);
         $imagesObj->setVar('img_desc', '');
@@ -238,6 +252,9 @@ class WggalleryFineImpUploadHandler extends \SystemFineUploadHandler
         return false;
     }
 
+    /**
+     * @return bool|string
+     */
     private function getImageDim()
     {
         switch ($this->imageMimetype) {
@@ -263,5 +280,79 @@ class WggalleryFineImpUploadHandler extends \SystemFineUploadHandler
 
         return true;
     }
+
+    /**
+     * resize image if size exceed given width/height
+     * @param string $endfile
+     * @param int    $max_width
+     * @param int    $max_height
+     * @return string|boolean
      */
+    /*     private function resizeImage_sav($endfile, $max_width, $max_height){
+            // check file extension
+            switch($this->imageMimetype){
+                case'image/png':
+                    $img = imagecreatefrompng($this->imagePath);
+    
+                break;
+                case'image/jpeg':
+                    $img = imagecreatefromjpeg($this->imagePath);
+                break;
+                case'image/gif':
+                    $img = imagecreatefromgif($this->imagePath);
+                break;
+                default:
+                    return 'Unsupported format';
+            }
+    
+            $width = imagesx( $img );
+            $height = imagesy( $img );
+            
+            if ( $width > $max_width || $height > $max_height) {
+                // recalc image size based on max_width/max_height
+                if ($width > $height) {
+                    if($width < $max_width){
+                        $new_width = $width;
+                    } else {
+                        $new_width = $max_width;
+                        $divisor = $width / $new_width;
+                        $new_height = floor( $height / $divisor);
+                    }
+                } else if($height < $max_height){
+                    $new_height = $height;
+                } else {
+                    $new_height =  $max_height;
+                    $divisor = $height / $new_height;
+                    $new_width = floor( $width / $divisor );
+                }
+    
+                // Create a new temporary image.
+                $tmpimg = imagecreatetruecolor( $new_width, $new_height );
+                imagealphablending($tmpimg, false);
+                imagesavealpha($tmpimg, true);
+    
+                // Copy and resize old image into new image.
+                imagecopyresampled( $tmpimg, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+    
+                //compressing the file
+                switch($this->imageMimetype){
+                    case'image/png':
+                        imagepng($tmpimg, $endfile, 0);
+                    break;
+                    case'image/jpeg':
+                        imagejpeg($tmpimg, $endfile, 100);
+                    break;
+                    case'image/gif':
+                        imagegif($tmpimg, $endfile);
+                    break;
+                }
+                            
+                // release the memory
+                imagedestroy($tmpimg);
+            } else {
+                return 'copy';
+            }
+            imagedestroy($img);
+            return true;
+        } */
 }

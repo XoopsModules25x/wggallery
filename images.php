@@ -22,6 +22,7 @@
  */
 
 use Xmf\Request;
+use XoopsModules\Wggallery\Constants;
 
 include __DIR__ . '/header.php';
 
@@ -40,6 +41,7 @@ $ref     = Request::getString('ref');
 $imgSubm = Request::getInt('img_submitter');
 $start   = Request::getInt('start', 0);
 $limit   = Request::getInt('limit', $helper->getConfig('userpager'));
+$keywords  = [];
 
 if (_CANCEL === Request::getString('cancel', 'none')) {
     $op = 'list';
@@ -133,10 +135,10 @@ switch ($op) {
         // check permissions
         $file = '';
         if ($permissionsHandler->permImageDownloadMedium($albId)) {
-            $file = WGGALLERY_UPLOAD_IMAGE_URL . '/large/' . $image['medium'];
+            $file = WGGALLERY_UPLOAD_IMAGES_URL . '/large/' . $image['medium'];
         }
         if ($permissionsHandler->permImageDownloadLarge($albId)) {
-            $file = WGGALLERY_UPLOAD_IMAGE_URL . '/large/' . $image['img_namelarge'];
+            $file = WGGALLERY_UPLOAD_IMAGES_URL . '/large/' . $image['img_namelarge'];
         }
         $GLOBALS['xoopsTpl']->assign('showimage', true);
         $GLOBALS['xoopsTpl']->assign('file', $file);
@@ -145,7 +147,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('alb_pid', $albPid);
         $GLOBALS['xoopsTpl']->assign('start', $start);
         $GLOBALS['xoopsTpl']->assign('limit', $limit);
-        $GLOBALS['xoopsTpl']->assign('img_submitter', $$imgSubm);
+        $GLOBALS['xoopsTpl']->assign('img_submitter', $imgSubm);
 
         break;
     case 'delete':
@@ -218,7 +220,7 @@ switch ($op) {
     case 'list':
     default:
 
-        $albums    = $helper->getHandler('albums');
+        $albums    = $helper->getHandler('Albums');
         $albumsObj = $albums->get($albId);
         if (isset($albumsObj) && is_object($albumsObj)) {
             $albName      = $albumsObj->getVar('alb_name');
@@ -235,7 +237,7 @@ switch ($op) {
         $crImages = new \CriteriaCompo();
         $crImages->add(new \Criteria('img_albid', $albId));
         if (!$permAlbumEdit) {
-            $crImages->add(new \Criteria('img_state', WGGALLERY_STATE_ONLINE_VAL));
+            $crImages->add(new \Criteria('img_state', Constants::STATE_OFFLINE_VAL));
         }
         $crImages->setSort('img_weight ASC, img_date');
         $crImages->setOrder('DESC');
@@ -244,7 +246,6 @@ switch ($op) {
         $crImages->setStart($start);
         $crImages->setLimit($limit);
         $imagesAll = $imagesHandler->getAll($crImages);
-        $keywords  = [];
         if ($imagesCount > 0) {
             $images = [];
             // Get All Images
@@ -275,10 +276,10 @@ switch ($op) {
 }
 
 // Keywords
-wggalleryMetaKeywords($helper->getConfig('keywords') . ', ' . implode(',', $keywords));
+$utility::getMetaKeywords($helper->getConfig('keywords') . ', ' . implode(',', $keywords));
 unset($keywords);
 // Description
-wggalleryMetaDescription(_CO_WGGALLERY_IMAGES);
+$utility::getMetaDescription(_CO_WGGALLERY_IMAGES);
 // $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGGALLERY_URL.'/images.php');
 $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
 include __DIR__ . '/footer.php';

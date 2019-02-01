@@ -29,7 +29,7 @@ require dirname(__DIR__) . '/include/common.php';
 $moduleDirName = basename(dirname(__DIR__));
 /** @var \XoopsModules\Wggallery\Helper $helper */
 $helper = \XoopsModules\Wggallery\Helper::getInstance();
-/** @var \XoopsModules\Wggallery\Utility $helper */
+/** @var \XoopsModules\Wggallery\Utility $utility */
 $utility = new \XoopsModules\Wggallery\Utility();
 
 $sysPathIcon16   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons16');
@@ -44,7 +44,7 @@ $gallerytypesHandler = $helper->getHandler('Gallerytypes');
 $albumtypesHandler   = $helper->getHandler('Albumtypes');
 $permissionsHandler  = $helper->getHandler('Permissions');
 $watermarksHandler   = $helper->getHandler('Watermarks');
-$myts                = MyTextSanitizer::getInstance();
+$myts                = \MyTextSanitizer::getInstance();
 
 if (!isset($xoopsTpl) || !is_object($xoopsTpl)) {
     require_once XOOPS_ROOT_PATH . '/class/template.php';

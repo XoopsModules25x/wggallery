@@ -56,8 +56,7 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
     /**
      * retrieve a field
      *
-     * @param int        $i field id
-     * @param null fields
+     * @param int   $i field id
      * @param array $fields
      * @return mixed reference to the {@link Get} object
      */
@@ -158,9 +157,9 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
     public function getChildsOfCategory($albPid)
     {
         $childsAll = '';
-
-        $helper        = Wggallery\Helper::getInstance();
-        $albumsHandler = $helper->getHandler('albums');
+        /** @var \XoopsModules\Wggallery\Helper $helper */
+        $helper        = \XoopsModules\Wggallery\Helper::getInstance();
+        $albumsHandler = $helper->getHandler('Albums');
         $crAlbums      = new \CriteriaCompo();
         $crAlbums->add(new \Criteria('alb_pid', $albPid));
         $albumsCount = $albumsHandler->getCount($crAlbums);
@@ -191,8 +190,8 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
             $childrens = array();
             $firstAlbId = 0;
            
-            $helper = Wggallery\Helper::getInstance();
-            $albumsHandler = $helper->getHandler('albums');
+            $helper = \XoopsModules\Wggallery\Helper::getInstance();
+            $albumsHandler = $helper->getHandler('Albums');
             $crAlbums = new \CriteriaCompo();
             $crAlbums->add(new \Criteria('alb_pid', $albPid));
             $crAlbums->setSort('alb_weight ASC, alb_date');
@@ -231,8 +230,8 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
             $childsAll = '';
         }
 
-        $helper        = Wggallery\Helper::getInstance();
-        $albumsHandler = $helper->getHandler('albums');
+        $helper        = \XoopsModules\Wggallery\Helper::getInstance();
+        $albumsHandler = $helper->getHandler('Albums');
         $crAlbums      = new \CriteriaCompo();
         $crAlbums->add(new \Criteria('alb_pid', $albPid));
         $crAlbums->setSort('alb_weight ASC, alb_date');
@@ -253,9 +252,9 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
                 $childsAll .= '<span>';
                 $childsAll .= '<span data-id="' . $albumsAll[$i]->getVar('alb_id') . '" class="itemTitle">' . $albumsAll[$i]->getVar('alb_name') . '</span>';
                 $childsAll .= '<span class="pull-right">
-                                <a class="" href="albums.php?op=edit&amp;alb_id=' . $albumsAll[$i]->getVar('alb_id') . '" title="' . _CO_WGGALLERY_ALBUM_EDIT . '">
-                                    <img class="wgg-btn-icon" src="' . WGGALLERY_ICONS_URL . '/16/edit.png" alt="' . _CO_WGGALLERY_ALBUM_EDIT . '">
-                                </a></span>';
+								<a class="" href="albums.php?op=edit&amp;alb_id=' . $albumsAll[$i]->getVar('alb_id') . '" title="' . _CO_WGGALLERY_ALBUM_EDIT . '">
+									<img class="wgg-btn-icon" src="' . WGGALLERY_ICONS_URL . '/16/edit.png" alt="' . _CO_WGGALLERY_ALBUM_EDIT . '">
+								</a></span>';
                 $childsAll .= '</span>';
                 $childsAll .= '</div>';
 

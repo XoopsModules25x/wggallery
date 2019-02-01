@@ -25,6 +25,7 @@ namespace XoopsModules\Wggallery;
  */
 
 use XoopsModules\Wggallery;
+use XoopsModules\Wggallery\Constants;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
@@ -71,7 +72,7 @@ class Albums extends \XoopsObject
 
     /**
      * The new inserted $Id
-     * @return inserted id
+     * @return int inserted id
      */
     public function getNewInsertedIdAlbums()
     {
@@ -84,11 +85,12 @@ class Albums extends \XoopsObject
      * @public function getFormAlbums
      * @param bool $action
      * @param bool $admin
-     * @return XoopsThemeForm
+     * @return \XoopsThemeForm
      */
     public function getFormAlbums($action = false, $admin = false)
     {
-        $helper = Wggallery\Helper::getInstance();
+        /** @var \XoopsModules\Wggallery\Helper $helper */
+        $helper = \XoopsModules\Wggallery\Helper::getInstance();
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
@@ -139,7 +141,7 @@ class Albums extends \XoopsObject
         $form->addElement(new \XoopsFormHidden('alb_weight', $albWeight));
 
         // Form Select Album image
-        $albImgcat = $this->isNew() ? WGGALLERY_ALBUM_IMGCAT_USE_UPLOADED_VAL : $this->getVar('alb_imgcat');
+        $albImgcat = $this->isNew() ? Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL : $this->getVar('alb_imgcat');
         $form->addElement(new \XoopsFormHidden('alb_imgcat', $albImgcat));
         $albImage = $this->isNew() ? 'blank.gif' : $this->getVar('alb_image');
         $form->addElement(new \XoopsFormHidden('alb_image', $albImage));
@@ -149,9 +151,9 @@ class Albums extends \XoopsObject
         // Form Select Albstate
         $albState       = $this->isNew() ? 0 : $this->getVar('alb_state');
         $albStateSelect = new \XoopsFormRadio(_CO_WGGALLERY_ALBUM_STATE, 'alb_state', $albState);
-        $albStateSelect->addOption(WGGALLERY_STATE_OFFLINE_VAL, _CO_WGGALLERY_STATE_OFFLINE);
-        $albStateSelect->addOption(WGGALLERY_STATE_ONLINE_VAL, _CO_WGGALLERY_STATE_ONLINE);
-        $albStateSelect->addOption(WGGALLERY_STATE_APPROVAL_VAL, _CO_WGGALLERY_STATE_APPROVAL);
+        $albStateSelect->addOption(Constants::STATE_OFFLINE_VAL, _CO_WGGALLERY_STATE_OFFLINE);
+        $albStateSelect->addOption(Constants::STATE_OFFLINE_VAL, _CO_WGGALLERY_STATE_ONLINE);
+        $albStateSelect->addOption(Constants::STATE_APPROVAL_VAL, _CO_WGGALLERY_STATE_APPROVAL);
         $form->addElement($albStateSelect);
         // Permissions
         $memberHandler = xoops_getHandler('member');
@@ -230,8 +232,9 @@ class Albums extends \XoopsObject
         $criteria          = new \CriteriaCompo();
         $countWmTotal      = $watermarksHandler->getCount($criteria);
         if ($countWmTotal > 0) {
-            $criteria->add(new \Criteria('wm_usage', WGGALLERY_WATERMARK_USAGEALL));
+            $criteria->add(new \Criteria('wm_usage', Constants::WATERMARK_USAGEALL));
             $countWm = $watermarksHandler->getCount($criteria);
+            $wmname  = '';
             if ($countWm > 0) {
                 if (0 === $albWmid) {
                     // load "usage for all" as default
@@ -284,11 +287,11 @@ class Albums extends \XoopsObject
      * @public function getFormUploadToAlbum:
      * provide form with a dropdown select containing all existing albums
      * @param bool $action
-     * @return XoopsThemeForm
+     * @return \XoopsThemeForm
      */
     public function getFormUploadToAlbum($action = false)
     {
-        $helper = Wggallery\Helper::getInstance();
+        $helper = \XoopsModules\Wggallery\Helper::getInstance();
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
@@ -297,7 +300,7 @@ class Albums extends \XoopsObject
         $form = new \XoopsThemeForm(_CO_WGGALLERY_ALBUM_SELECT, 'formselalbum', $action, 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
         // Form Table Albums
-        $albumsHandler = $helper->getHandler('albums');
+        $albumsHandler = $helper->getHandler('Albums');
         $crAlbums      = new \CriteriaCompo();
         $crAlbums->add(new \Criteria('alb_iscat', 0));
         $crAlbums->setSort('alb_weight ASC, alb_date');
@@ -333,11 +336,11 @@ class Albums extends \XoopsObject
     /**
      * @public function getFormUploadAlbumimage:
      * provide form for uploading a new album image
-     * @return XoopsThemeForm
+     * @return \XoopsThemeForm
      */
     public function getFormUploadAlbumimage()
     {
-        $helper = Wggallery\Helper::getInstance();
+        $helper = \XoopsModules\Wggallery\Helper::getInstance();
         // Get Theme Form
         xoops_load('XoopsFormLoader');
         $form = new \XoopsThemeForm('', 'formalbumimmage', 'album_images.php', 'post', true);
@@ -377,14 +380,14 @@ class Albums extends \XoopsObject
 
     /**
      * Get Values
-     * @param null $keys
+     * @param null        $keys
      * @param string|null $format
-     * @param int|null $maxDepth
+     * @param int|null    $maxDepth
      * @return array
      */
     public function getValuesAlbums($keys = null, $format = null, $maxDepth = null)
     {
-        $helper        = Wggallery\Helper::getInstance();
+        $helper        = \XoopsModules\Wggallery\Helper::getInstance();
         $ret           = $this->getValues($keys, $format, $maxDepth);
         $ret['id']     = $this->getVar('alb_id');
         $ret['pid']    = $this->getVar('alb_pid');
@@ -392,23 +395,23 @@ class Albums extends \XoopsObject
         $ret['name']   = $this->getVar('alb_name');
         $ret['desc']   = $this->getVar('alb_desc', 'show');
         $ret['weight'] = $this->getVar('alb_weight');
-        $imagesHandler = $helper->getHandler('images');
-        if (WGGALLERY_ALBUM_IMGCAT_USE_EXIST_VAL === $this->getVar('alb_imgcat')) {
+        $imagesHandler = $helper->getHandler('Images');
+        if (Constants::ALBUM_IMGCAT_USE_EXIST_VAL === $this->getVar('alb_imgcat')) {
             if ($this->getVar('alb_imgid') > 0) {
                 $imagesObj = $imagesHandler->get($this->getVar('alb_imgid'));
                 if (null !== $imagesObj && is_object($imagesObj)) {
-                    $image = WGGALLERY_UPLOAD_IMAGE_URL . '/medium/' . $imagesObj->getVar('img_name');
+                    $image = WGGALLERY_UPLOAD_IMAGES_URL . '/medium/' . $imagesObj->getVar('img_name');
                 } else {
                     $ret['image_err']     = true;
                     $ret['image_errtext'] = str_replace('%s', $this->getVar('alb_imgid'), _AM_WGGALLERY_ALBUMS_ERRNOTFOUND);
-                    $image                = WGGALLERY_UPLOAD_IMAGE_URL . '/medium/blank.gif';
+                    $image                = WGGALLERY_UPLOAD_IMAGES_URL . '/medium/blank.gif';
                 }
             } else {
-                $image = WGGALLERY_UPLOAD_IMAGE_URL . '/albums/noimage.png';
+                $image = WGGALLERY_UPLOAD_IMAGES_URL . '/albums/noimage.png';
             }
 
             // TODO
-            /*         } else if (WGGALLERY_ALBUM_IMGCAT_USE_GRID === $this->getVar('alb_imgcat')) {
+            /* 		} else if (WGGALLERY_ALBUM_IMGCAT_USE_GRID === $this->getVar('alb_imgcat')) {
                         $crImages = new \CriteriaCompo();
                         $crImages->add(new \Criteria('img_albid', $this->getVar('alb_id')));
                         $crImages->add(new \Criteria('img_state', 1));
@@ -429,7 +432,7 @@ class Albums extends \XoopsObject
                         }
                         $image = ''; */
         } else {
-            $image = WGGALLERY_UPLOAD_IMAGE_URL . '/albums/' . $this->getVar('alb_image');
+            $image = WGGALLERY_UPLOAD_IMAGES_URL . '/albums/' . $this->getVar('alb_image');
         }
         $ret['image']     = $image;
         $ret['nb_images'] = $imagesHandler->getCountImages($this->getVar('alb_id'));
@@ -458,10 +461,10 @@ class Albums extends \XoopsObject
      * @param null $maxDepth
      * @return array
      */
-    /*     public function getSpecImagesAlbum ($albId, $limit)
+    /* 	public function getSpecImagesAlbum ($albId, $limit)
         {
-            $helper = Wggallery\Helper::getInstance();
-            $imagesHandler = $helper->getHandler('images');
+            $helper = \XoopsModules\Wggallery\Helper::getInstance();
+            $imagesHandler = $helper->getHandler('Images');
     
             $crImages = new \CriteriaCompo();
             $crImages->add(new \Criteria('img_albid', $albId));
@@ -480,7 +483,7 @@ class Albums extends \XoopsObject
                     $images[$i] = $imagesAll[$i]->getValuesImages();
                 }
                 return $images;
-                unset($images);            
+                unset($images);			
             }
             return false;
         } */

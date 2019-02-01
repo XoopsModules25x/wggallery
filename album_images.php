@@ -22,10 +22,15 @@
  */
 
 use Xmf\Request;
+use XoopsModules\Wggallery;
+use XoopsModules\Wggallery\Constants;
 
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_album_images.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
+
+/** @var \XoopsModules\Wggallery\Utility $utility */
+$utility = new \XoopsModules\Wggallery\Utility();
 
 $op     = Request::getString('op', 'list');
 $albId  = Request::getInt('alb_id', 0);
@@ -62,18 +67,18 @@ $GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/wggallery/assets/js/admin.j
 // assign vars
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_32', WGGALLERY_ICONS_URL . '/32');
-$GLOBALS['xoopsTpl']->assign('wggallery_upload_image_url', WGGALLERY_UPLOAD_IMAGE_URL);
+$GLOBALS['xoopsTpl']->assign('wggallery_upload_image_url', WGGALLERY_UPLOAD_IMAGES_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
 $GLOBALS['xoopsTpl']->assign('gallery_target', $helper->getConfig('gallery_target'));
 $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
 
-require_once XOOPS_ROOT_PATH . '/modules/wggallery/include/imagehandler.php';
+//require_once XOOPS_ROOT_PATH . '/modules/wggallery/include/imagehandler.php';
 $maxwidth = $helper->getConfig('maxwidth_albimage');
-if (0 === intval($maxwidth)) {
+if (0 === (int)$maxwidth) {
     $maxwidth = $helper->getConfig('maxwidth');
 }
 $maxheight = $helper->getConfig('maxheight_albimage');
-if (0 === intval($maxheight)) {
+if (0 === (int)$maxheight) {
     $maxheight = $helper->getConfig('maxheight');
 }
 
@@ -108,7 +113,7 @@ switch ($op) {
 
         $imgTemp = XOOPS_UPLOAD_PATH . '/wggallery/images/temp/' . $uid . 'imgTemp';
 
-        $imgHandler = new wgImagehandler();
+        $imgHandler = new Wggallery\Resizer();
         if (4 === $type) {
             for ($i = 1; $i <= 4; $i++) {
                 unlink($imgTemp . $i . '.jpg');
@@ -118,7 +123,7 @@ switch ($op) {
                 $imgHandler->maxWidth      = (int)round($maxwidth / 2 - 1);
                 $imgHandler->maxHeight     = (int)round($maxheight / 2 - 1);
                 $imgHandler->jpgQuality    = 90;
-                $imgHandler->ResizeAndCrop();
+                $imgHandler->resizeAndCrop();
             }
             $imgHandler->mergeType = 4;
             $imgHandler->endFile   = $final;
@@ -127,7 +132,7 @@ switch ($op) {
             for ($i = 1; $i <= 4; $i++) {
                 $imgHandler->sourceFile = $imgTemp . $i . '.jpg';
                 $imgHandler->mergePos   = $i;
-                $imgHandler->MergeImage();
+                $imgHandler->mergeImage();
                 unlink($imgTemp . $i . '.jpg');
             }
         }
@@ -138,7 +143,7 @@ switch ($op) {
                 $imgHandler->imageMimetype = $images[$i]['mimetype'];
                 $imgHandler->maxWidth      = (int)round($maxwidth / 3 - 1);
                 $imgHandler->maxHeight     = (int)round($maxheight / 2 - 1);
-                $imgHandler->ResizeAndCrop();
+                $imgHandler->resizeAndCrop();
             }
             $imgHandler->mergeType = 6;
             $imgHandler->endFile   = $final;
@@ -147,7 +152,7 @@ switch ($op) {
             for ($i = 1; $i <= 6; $i++) {
                 $imgHandler->sourceFile = $imgTemp . $i . '.jpg';
                 $imgHandler->mergePos   = $i;
-                $imgHandler->MergeImage();
+                $imgHandler->mergeImage();
                 unlink($imgTemp . $i . '.jpg');
             }
         }
@@ -165,13 +170,13 @@ switch ($op) {
             file_put_contents($imgTemp, base64_decode(str_replace($result[1], '', $base64_image_content), true));
         }
 
-        $imgHandler                = new wgImagehandler();
+        $imgHandler                = new Wggallery\Resizer();
         $imgHandler->sourceFile    = $imgTemp;
         $imgHandler->endFile       = $imgTemp;
         $imgHandler->imageMimetype = 'image/jpeg';
         $imgHandler->maxWidth      = $maxwidth;
         $imgHandler->maxHeight     = $maxheight;
-        $ret                       = $imgHandler->ResizeImage();
+        $ret                       = $imgHandler->resizeImage();
         $savedFilename             = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/album' . $albId . '.jpg';
         unlink($savedFilename);
         break;
@@ -185,17 +190,17 @@ switch ($op) {
             $ret     = rename($imgTemp, $final);
         }
         if ('saveAlbumImage' === $op) {
-            $albumsObj->setVar('alb_imgcat', WGGALLERY_ALBUM_IMGCAT_USE_EXIST_VAL);
+            $albumsObj->setVar('alb_imgcat', Constants::ALBUM_IMGCAT_USE_EXIST_VAL);
             $albumsObj->setVar('alb_imgid', Request::getInt('alb_imgid'));
             $albumsObj->setVar('alb_image', '');
         } else {
-            $albumsObj->setVar('alb_imgcat', WGGALLERY_ALBUM_IMGCAT_USE_UPLOADED_VAL);
+            $albumsObj->setVar('alb_imgcat', Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL);
             $albumsObj->setVar('alb_imgid', 0);
             $albumsObj->setVar('alb_image', 'album' . $albId . '.jpg');
         }
         $albState = Request::getInt('alb_state');
-        if (WGGALLERY_PERM_SUBMITAPPR === $permissionsHandler->permGlobalSubmit() && WGGALLERY_STATE_ONLINE_VAL === $albState) {
-            $albumsObj->setVar('alb_state', WGGALLERY_STATE_APPROVAL_VAL);
+        if (Constants::PERM_SUBMITAPPR === $permissionsHandler->permGlobalSubmit() && Constants::STATE_OFFLINE_VAL === $albState) {
+            $albumsObj->setVar('alb_state', Constants::STATE_APPROVAL_VAL);
         } else {
             $albumsObj->setVar('alb_state', $albState);
         }
@@ -216,7 +221,7 @@ switch ($op) {
             redirect_header('albums.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         // Set Vars
-        $albumsObj->setVar('alb_imgcat', WGGALLERY_ALBUM_IMGCAT_USE_UPLOADED_VAL);
+        $albumsObj->setVar('alb_imgcat', Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL);
         require_once XOOPS_ROOT_PATH . '/class/uploader.php';
         $fileName       = $_FILES['attachedfile']['name'];
         $imageMimetype  = $_FILES['attachedfile']['type'];
@@ -233,22 +238,22 @@ switch ($op) {
                 $savedFilename = $uploader->getSavedFileName();
                 $albumsObj->setVar('alb_image', $savedFilename);
                 // resize image
-                require_once XOOPS_ROOT_PATH . '/modules/wggallery/include/imagehandler.php';
-                $maxwidth = intval($helper->getConfig('maxwidth_albimage'));
+                //                require_once XOOPS_ROOT_PATH . '/modules/wggallery/include/imagehandler.php';
+                $maxwidth = (int)$helper->getConfig('maxwidth_albimage');
                 if (0 === $maxwidth) {
                     $maxwidth = $helper->getConfig('maxwidth');
                 }
-                $maxheight = intval($helper->getConfig('maxheight_albimage'));
+                $maxheight = (int)$helper->getConfig('maxheight_albimage');
                 if (0 === $maxheight) {
                     $maxheight = $helper->getConfig('maxheight');
                 }
-                $imgHandler                = new wgImagehandler();
+                $imgHandler                = new Wggallery\Resizer();
                 $imgHandler->sourceFile    = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename;
                 $imgHandler->endFile       = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename;
                 $imgHandler->imageMimetype = $imageMimetype;
                 $imgHandler->maxWidth      = $maxwidth;
                 $imgHandler->maxHeight     = $maxheight;
-                $result                    = $imgHandler->ResizeImage();
+                $result                    = $imgHandler->resizeImage();
                 $albumsObj->setVar('alb_image', $savedFilename);
             }
         } else {
@@ -259,8 +264,8 @@ switch ($op) {
         }
         $albumsObj->setVar('alb_imgid', 0);
         $albState = Request::getInt('alb_state');
-        if (WGGALLERY_PERM_SUBMITAPPR === $permissionsHandler->permGlobalSubmit() && WGGALLERY_STATE_ONLINE_VAL === $albState) {
-            $albumsObj->setVar('alb_state', WGGALLERY_STATE_APPROVAL_VAL);
+        if (Constants::PERM_SUBMITAPPR === $permissionsHandler->permGlobalSubmit() && Constants::STATE_OFFLINE_VAL === $albState) {
+            $albumsObj->setVar('alb_state', Constants::STATE_APPROVAL_VAL);
         } else {
             $albumsObj->setVar('alb_state', $albState);
         }
@@ -315,7 +320,7 @@ switch ($op) {
                         $images[$i]['selected'] = 1;
                     }
                     if ('' === $alb_name) {
-                        $albums                 = $helper->getHandler('albums');
+                        $albums                 = $helper->getHandler('Albums');
                         $alb_name               = $albums->get($child)->getVar('alb_name');
                         $images[$i]['alb_name'] = $alb_name;
                     }
@@ -351,6 +356,6 @@ if ($albPid > 0) {
 $GLOBALS['xoopsTpl']->assign('panel_type', $helper->getConfig('panel_type'));
 
 // Description
-wggalleryMetaDescription(_CO_WGGALLERY_ALBUMS);
+$utility::getMetaDescription(_CO_WGGALLERY_ALBUMS);
 $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
 include __DIR__ . '/footer.php';

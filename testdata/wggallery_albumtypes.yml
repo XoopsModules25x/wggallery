@@ -1,0 +1,32 @@
+-
+    at_id: '1'
+    at_primary: '1'
+    at_name: 'Default album style'
+    at_credits: 'https://xoops.wedega.com'
+    at_template: default
+    at_options: 'a:4:{i:0;a:3:{s:4:"name";s:17:"number_cols_album";s:5:"value";s:1:"2";s:7:"caption";s:35:"_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB";}i:1;a:3:{s:4:"name";s:15:"number_cols_cat";s:5:"value";s:1:"2";s:7:"caption";s:35:"_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT";}i:2;a:3:{s:4:"name";s:19:"album_showsubmitter";s:5:"value";s:1:"1";s:7:"caption";s:34:"_AM_WGGALLERY_OPTION_SHOWSUBMITTER";}i:3;a:2:{s:4:"name";s:11:"option_sort";s:5:"value";s:53:"number_cols_album|number_cols_cat|album_showsubmitter";}}'
+    at_date: '1549020143'
+-
+    at_id: '2'
+    at_primary: '0'
+    at_name: 'Simple Album'
+    at_credits: 'https://xoops.wedega.com'
+    at_template: simple
+    at_options: 'a:5:{i:0;a:3:{s:4:"name";s:17:"number_cols_album";s:5:"value";s:1:"3";s:7:"caption";s:35:"_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB";}i:1;a:3:{s:4:"name";s:15:"number_cols_cat";s:5:"value";s:1:"3";s:7:"caption";s:35:"_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT";}i:2;a:3:{s:4:"name";s:9:"showTitle";s:5:"value";s:1:"1";s:7:"caption";s:30:"_AM_WGGALLERY_OPTION_SHOWTITLE";}i:3;a:3:{s:4:"name";s:8:"showDesc";s:5:"value";s:1:"0";s:7:"caption";s:30:"_AM_WGGALLERY_OPTION_SHOWDESCR";}i:4;a:2:{s:4:"name";s:11:"option_sort";s:5:"value";s:52:"number_cols_album|number_cols_cat|showTitle|showDesc";}}'
+    at_date: '1549020143'
+-
+    at_id: '3'
+    at_primary: '0'
+    at_name: 'Hover Effect Ideas'
+    at_credits: 'Codrops (http://tympanus.net/codrops, http://tympanus.net/Development/HoverEffectIdeas/)'
+    at_template: hovereffectideas
+    at_options: 'a:4:{i:0;a:3:{s:4:"name";s:17:"number_cols_album";s:5:"value";s:1:"2";s:7:"caption";s:35:"_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB";}i:1;a:3:{s:4:"name";s:15:"number_cols_cat";s:5:"value";s:1:"2";s:7:"caption";s:35:"_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT";}i:2;a:3:{s:4:"name";s:11:"hovereffect";s:5:"value";s:4:"duke";s:7:"caption";s:29:"_AM_WGGALLERY_OPTION_AT_HOVER";}i:3;a:2:{s:4:"name";s:11:"option_sort";s:5:"value";s:45:"number_cols_album|number_cols_cat|hovereffect";}}'
+    at_date: '1549020143'
+-
+    at_id: '4'
+    at_primary: '0'
+    at_name: 'Bootstrap Cards'
+    at_credits: 'https://getbootstrap.com/'
+    at_template: bcards
+    at_options: 'a:6:{i:0;a:3:{s:4:"name";s:17:"number_cols_album";s:5:"value";s:1:"2";s:7:"caption";s:35:"_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB";}i:1;a:3:{s:4:"name";s:15:"number_cols_cat";s:5:"value";s:1:"2";s:7:"caption";s:35:"_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT";}i:2;a:3:{s:4:"name";s:19:"album_showsubmitter";s:5:"value";s:1:"1";s:7:"caption";s:34:"_AM_WGGALLERY_OPTION_SHOWSUBMITTER";}i:3;a:3:{s:4:"name";s:9:"showTitle";s:5:"value";s:1:"1";s:7:"caption";s:30:"_AM_WGGALLERY_OPTION_SHOWTITLE";}i:4;a:3:{s:4:"name";s:8:"showDesc";s:5:"value";s:1:"0";s:7:"caption";s:30:"_AM_WGGALLERY_OPTION_SHOWDESCR";}i:5;a:2:{s:4:"name";s:11:"option_sort";s:5:"value";s:72:"number_cols_album|number_cols_cat|album_showsubmitter|showTitle|showDesc";}}'
+    at_date: '1549020143'

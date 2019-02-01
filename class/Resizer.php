@@ -1,4 +1,7 @@
 <?php
+
+namespace XoopsModules\Wggallery;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -20,7 +23,7 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 imagehandler.php 1 Mon 2018-03-19 10:04:49Z XOOPS Project (www.xoops.org) $
  */
-class wgImageHandler
+class Resizer
 {
     public $sourceFile    = '';
     public $endFile       = '';
@@ -35,7 +38,7 @@ class wgImageHandler
      * resize image if size exceed given width/height
      * @return string|boolean
      */
-    public function ResizeImage()
+    public function resizeImage()
     {
         // check file extension
         switch ($this->imageMimetype) {
@@ -105,8 +108,12 @@ class wgImageHandler
         return true;
     }
 
-    // public function ResizeAndCrop($this->sourceFile, $this->imageMimetype, $this->endFile, $this->maxWidth, $this->maxHeight, $this->jpgQuality=90)
-    public function ResizeAndCrop()
+    // public function resizeAndCrop($this->sourceFile, $this->imageMimetype, $this->endFile, $this->maxWidth, $this->maxHeight, $this->jpgQuality=90)
+
+    /**
+     * @return bool
+     */
+    public function resizeAndCrop()
     {
         // check file extension
         switch ($this->imageMimetype) {
@@ -172,8 +179,8 @@ class wgImageHandler
         return true;
     }
 
-    // public function MergeImage($this->sourceFile, $this->endFile, $this->mergePos, $this->mergeType)
-    public function MergeImage()
+    // public function mergeImage($this->sourceFile, $this->endFile, $this->mergePos, $this->mergeType)
+    public function mergeImage()
     {
         $dest = imagecreatefromjpeg($this->endFile);
         $src  = imagecreatefromjpeg($this->sourceFile);

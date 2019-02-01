@@ -23,12 +23,11 @@
 
 use Xmf\Request;
 use XoopsModules\Wggallery;
+use XoopsModules\Wggallery\Constants;
 
-include_once dirname(__DIR__) . '/include/common.php';
+require_once dirname(__DIR__) . '/include/common.php';
 
 /**
- * @param none
- *
  * @return array
  */
 function wggalleryPluginGetDataTdmpicture()
@@ -54,7 +53,8 @@ function wggalleryPluginGetDataTdmpicture()
  */
 function wggalleryPluginGetFormTdmpicture($im_name, $num_albums, $num_images)
 {
-    $helper = Wggallery\Helper::getInstance();
+    /** @var \XoopsModules\Wggallery\Helper $helper */
+    $helper = \XoopsModules\Wggallery\Helper::getInstance();
     $action = $_SERVER['REQUEST_URI'];
 
     // Get Theme Form
@@ -124,9 +124,7 @@ function wggalleryPluginGetFormTdmpicture($im_name, $num_albums, $num_images)
 }
 
 /**
- * @param none
- *
- * @return array
+ * @return bool
  */
 function wggalleryPluginExecImportTdmpicture()
 {
@@ -140,7 +138,7 @@ function wggalleryPluginExecImportTdmpicture()
     // import all album data
     $sql = 'INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums');
     $sql .= ' ( alb_id, alb_pid, alb_name, alb_date, alb_desc, alb_imgcat, alb_image, alb_weight, alb_state, alb_submitter ) ';
-    $sql .= 'SELECT tc.cat_id, tc.cat_pid, tc.cat_title, tc.cat_date, tc.cat_text, 1, tc.cat_img, tc.cat_weight, If(tc.cat_display=1,' . WGGALLERY_STATE_ONLINE_VAL . ',' . WGGALLERY_STATE_OFFLINE_VAL . '), tc.cat_uid';
+    $sql .= 'SELECT tc.cat_id, tc.cat_pid, tc.cat_title, tc.cat_date, tc.cat_text, 1, tc.cat_img, tc.cat_weight, If(tc.cat_display=1,' . Constants::STATE_OFFLINE_VAL . ',' . Constants::STATE_OFFLINE_VAL . '), tc.cat_uid';
     $sql .= ' FROM ' . $GLOBALS['xoopsDB']->prefix('tdmpicture_cat') . ' as tc';
     $result = $GLOBALS['xoopsDB']->queryF($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
     unset($result);

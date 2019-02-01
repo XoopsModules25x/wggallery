@@ -61,7 +61,7 @@ class ModuleFeedback extends \XoopsObject
      * @public function getFormFeedback:
      * provide form for sending a feedback to module author
      * @param bool $action
-     * @return XoopsThemeForm
+     * @return \XoopsThemeForm
      */
     public function getFormFeedback($action = false)
     {

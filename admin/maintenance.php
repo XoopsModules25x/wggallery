@@ -22,9 +22,11 @@
  */
 
 use Xmf\Request;
+use XoopsModules\Wggallery;
+use XoopsModules\Wggallery\Constants;
 
 include __DIR__ . '/header.php';
-require_once XOOPS_ROOT_PATH . '/modules/wggallery/include/imagehandler.php';
+//require_once XOOPS_ROOT_PATH . '/modules/wggallery/include/imagehandler.php';
 
 $op    = Request::getString('op', 'list');
 $albId = Request::getInt('alb_id');
@@ -164,13 +166,13 @@ switch ($op) {
                 $imageMimetype = $imagesAll[$i]->getVar('img_mimetype');
                 unlink($endfile);
 
-                $imgHandler                = new wgImageHandler();
+                $imgHandler                = new Wggallery\Resizer();
                 $imgHandler->sourceFile    = $sourcefile;
                 $imgHandler->endFile       = $endfile;
                 $imgHandler->imageMimetype = $imageMimetype;
                 $imgHandler->maxWidth      = $maxwidth;
                 $imgHandler->maxHeight     = $maxheight;
-                $result                    = $imgHandler->ResizeImage();
+                $result                    = $imgHandler->resizeImage();
                 if ('copy' === $result) {
                     unlink($endfile);
                     copy($sourcefile, $endfile);
@@ -397,7 +399,7 @@ switch ($op) {
         $form = new \XoopsThemeForm(_AM_WGGALLERY_MAINTENANCE_WATERMARK, 'form', 'maintenance.php', 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
         // Form Select Parent Album
-        $albumsHandler = $helper->getHandler('albums');
+        $albumsHandler = $helper->getHandler('Albums');
         $wmAlbid       = new \XoopsFormSelect(_AM_WGGALLERY_MAINTENANCE_WATERMARK_SELECT, 'wm_albid', 0);
         $wmAlbid->addOption('', '&nbsp;');
         $albumsAll = $albumsHandler->getAll();
@@ -417,7 +419,7 @@ switch ($op) {
         $albWidSelect      = new \XoopsFormSelect(_CO_WGGALLERY_WATERMARK, 'wm_id', 0);
         $albWidSelect->addOption('', '&nbsp;');
         $criteria = new \CriteriaCompo();
-        $criteria->add(new \Criteria('wm_usage', WGGALLERY_WATERMARK_USAGENONE, '>'));
+        $criteria->add(new \Criteria('wm_usage', Constants::WATERMARK_USAGENONE, '>'));
         $countWm = $watermarksHandler->getCount($criteria);
         if ($countWm > 0) {
             $albWidSelect->addOptionArray($watermarksHandler->getList($criteria));
@@ -425,9 +427,9 @@ switch ($op) {
         $form->addElement($albWidSelect, true);
         unset($criteria);
         $wmTargetSelect = new \XoopsFormRadio(_CO_WGGALLERY_WATERMARK_TARGET, 'wm_target', 0);
-        $wmTargetSelect->addOption(WGGALLERY_WATERMARK_TARGET_A, _CO_WGGALLERY_WATERMARK_TARGET_A);
-        $wmTargetSelect->addOption(WGGALLERY_WATERMARK_TARGET_M, _CO_WGGALLERY_WATERMARK_TARGET_M);
-        $wmTargetSelect->addOption(WGGALLERY_WATERMARK_TARGET_L, _CO_WGGALLERY_WATERMARK_TARGET_L);
+        $wmTargetSelect->addOption(Constants::WATERMARK_TARGET_A, _CO_WGGALLERY_WATERMARK_TARGET_A);
+        $wmTargetSelect->addOption(Constants::WATERMARK_TARGET_M, _CO_WGGALLERY_WATERMARK_TARGET_M);
+        $wmTargetSelect->addOption(Constants::WATERMARK_TARGET_L, _CO_WGGALLERY_WATERMARK_TARGET_L);
         $form->addElement($wmTargetSelect, true);
         $form->addElement(new \XoopsFormHidden('op', 'watermark_add'));
         $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
@@ -446,7 +448,7 @@ switch ($op) {
             $imagesAll = $imagesHandler->getAll($crImages);
             foreach (array_keys($imagesAll) as $i) {
                 $image = $imagesAll[$i]->getValuesImages();
-                if (WGGALLERY_WATERMARK_TARGET_A === $wmTarget || WGGALLERY_WATERMARK_TARGET_M === $wmTarget) {
+                if (Constants::WATERMARK_TARGET_A === $wmTarget || Constants::WATERMARK_TARGET_M === $wmTarget) {
                     $imgWm = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $image['img_name'];
                     $resWm = $watermarksHandler->watermarkImage($wmId, $imgWm, $imgWm);
                     if (true === $resWm) {
@@ -455,7 +457,7 @@ switch ($op) {
                         $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $imgWm . ' - ' . $resWm;
                     }
                 }
-                if (WGGALLERY_WATERMARK_TARGET_A === $wmTarget || WGGALLERY_WATERMARK_TARGET_L === $wmTarget) {
+                if (Constants::WATERMARK_TARGET_A === $wmTarget || Constants::WATERMARK_TARGET_L === $wmTarget) {
                     $imgWm = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $image['img_namelarge'];
                     $resWm = $watermarksHandler->watermarkImage($wmId, $imgWm, $imgWm);
                     if (true === $resWm) {
@@ -816,6 +818,10 @@ switch ($op) {
         break;
 }
 
+/**
+ * @param $val
+ * @return float|int
+ */
 function returnCleanBytes($val)
 {
     switch (mb_substr($val, -1)) {
@@ -842,9 +848,10 @@ function returnCleanBytes($val)
 function getUnusedImages(&$unused, $directory)
 {
     // Get instance of module
-    $helper        = Wggallery\Helper::getInstance();
-    $imagesHandler = $helper->getHandler('images');
-    $albumsHandler = $helper->getHandler('images');
+    /** @var \XoopsModules\Wggallery\Helper $helper */
+    $helper        = \XoopsModules\Wggallery\Helper::getInstance();
+    $imagesHandler = $helper->getHandler('Images');
+    $albumsHandler = $helper->getHandler('Images');
 
     if (is_dir($directory)) {
         if ($handle = opendir($directory)) {

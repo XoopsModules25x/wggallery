@@ -195,10 +195,10 @@ class Helper
     public function getStateText($state)
     {
         switch ($state) {
-			case WGGALLERY_STATE_ONLINE_VAL:
+			case Constants::STATE_OFFLINE_VAL:
 				return _CO_WGGALLERY_STATE_ONLINE;
 			break;
-			case WGGALLERY_STATE_APPROVAL_VAL:
+			case Constants::STATE_APPROVAL_VAL:
 				return _CO_WGGALLERY_STATE_APPROVAL;
 			break;
 			case WGGALLERY_STATE_OFFLINE_VAL:
@@ -218,7 +218,7 @@ class Helper
      */
 	public function getFormDelete($arrParams, $title = '', $text, $descr = '')
 	{
-		//$helper = Wggallery\Helper::getInstance();
+		//$helper = \XoopsModules\Wggallery\Helper::getInstance();
 		$action = $_SERVER['REQUEST_URI'];
 
 		// Get Theme Form

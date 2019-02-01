@@ -23,6 +23,9 @@ namespace XoopsModules\Wggallery;
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 watermarks.php 1 Thu 2018-11-01 08:54:56Z XOOPS Project (www.xoops.org) $
  */
+
+use XoopsModules\Wggallery\Constants;
+
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
@@ -69,7 +72,7 @@ class Watermarks extends \XoopsObject
 
     /**
      * The new inserted $Id
-     * @return inserted id
+     * @return int inserted id
      */
     public function getNewInsertedIdWatermarks()
     {
@@ -81,10 +84,11 @@ class Watermarks extends \XoopsObject
     /**
      * @public function getForm
      * @param bool $action
-     * @return XoopsThemeForm
+     * @return \XoopsThemeForm
      */
     public function getFormWatermarks($action = false)
     {
+        /** @var \XoopsModules\Wggallery\Helper $helper */
         $helper = \XoopsModules\Wggallery\Helper::getInstance();
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
@@ -114,21 +118,21 @@ class Watermarks extends \XoopsObject
         // Form Select Watermarks
         $wmType       = $this->isNew() ? 1 : $this->getVar('wm_type');
         $wmTypeSelect = new \XoopsFormSelect(_CO_WGGALLERY_WATERMARK_TYPE, 'wm_type', $wmType);
-        $wmTypeSelect->addOption(WGGALLERY_WATERMARK_TYPETEXT, _CO_WGGALLERY_WATERMARK_TYPETEXT);
-        $wmTypeSelect->addOption(WGGALLERY_WATERMARK_TYPEIMAGE, _CO_WGGALLERY_WATERMARK_TYPEIMAGE);
+        $wmTypeSelect->addOption(Constants::WATERMARK_TYPETEXT, _CO_WGGALLERY_WATERMARK_TYPETEXT);
+        $wmTypeSelect->addOption(Constants::WATERMARK_TYPEIMAGE, _CO_WGGALLERY_WATERMARK_TYPEIMAGE);
         $form->addElement($wmTypeSelect);
         // Form Text WmPosition
         $wmPosition       = $this->isNew() ? 1 : $this->getVar('wm_position');
         $wmPositionSelect = new \XoopsFormSelect(_CO_WGGALLERY_WATERMARK_POSITION, 'wm_position', $wmPosition);
-        $wmPositionSelect->addOption(WGGALLERY_WATERMARK_POSTOPLEFT, _CO_WGGALLERY_WATERMARK_POSTOPLEFT);
-        $wmPositionSelect->addOption(WGGALLERY_WATERMARK_POSTOPRIGHT, _CO_WGGALLERY_WATERMARK_POSTOPRIGHT);
-        $wmPositionSelect->addOption(WGGALLERY_WATERMARK_POSTOPCENTER, _CO_WGGALLERY_WATERMARK_POSTOPCENTER);
-        $wmPositionSelect->addOption(WGGALLERY_WATERMARK_POSMIDDLELEFT, _CO_WGGALLERY_WATERMARK_POSMIDDLELEFT);
-        $wmPositionSelect->addOption(WGGALLERY_WATERMARK_POSMIDDLERIGHT, _CO_WGGALLERY_WATERMARK_POSMIDDLERIGHT);
-        $wmPositionSelect->addOption(WGGALLERY_WATERMARK_POSMIDDLECENTER, _CO_WGGALLERY_WATERMARK_POSMIDDLECENTER);
-        $wmPositionSelect->addOption(WGGALLERY_WATERMARK_POSBOTTOMLEFT, _CO_WGGALLERY_WATERMARK_POSBOTTOMLEFT);
-        $wmPositionSelect->addOption(WGGALLERY_WATERMARK_POSBOTTOMRIGHT, _CO_WGGALLERY_WATERMARK_POSBOTTOMRIGHT);
-        $wmPositionSelect->addOption(WGGALLERY_WATERMARK_POSBOTTOMCENTER, _CO_WGGALLERY_WATERMARK_POSBOTTOMCENTER);
+        $wmPositionSelect->addOption(Constants::WATERMARK_POSTOPLEFT, _CO_WGGALLERY_WATERMARK_POSTOPLEFT);
+        $wmPositionSelect->addOption(Constants::WATERMARK_POSTOPRIGHT, _CO_WGGALLERY_WATERMARK_POSTOPRIGHT);
+        $wmPositionSelect->addOption(Constants::WATERMARK_POSTOPCENTER, _CO_WGGALLERY_WATERMARK_POSTOPCENTER);
+        $wmPositionSelect->addOption(Constants::WATERMARK_POSMIDDLELEFT, _CO_WGGALLERY_WATERMARK_POSMIDDLELEFT);
+        $wmPositionSelect->addOption(Constants::WATERMARK_POSMIDDLERIGHT, _CO_WGGALLERY_WATERMARK_POSMIDDLERIGHT);
+        $wmPositionSelect->addOption(Constants::WATERMARK_POSMIDDLECENTER, _CO_WGGALLERY_WATERMARK_POSMIDDLECENTER);
+        $wmPositionSelect->addOption(Constants::WATERMARK_POSBOTTOMLEFT, _CO_WGGALLERY_WATERMARK_POSBOTTOMLEFT);
+        $wmPositionSelect->addOption(Constants::WATERMARK_POSBOTTOMRIGHT, _CO_WGGALLERY_WATERMARK_POSBOTTOMRIGHT);
+        $wmPositionSelect->addOption(Constants::WATERMARK_POSBOTTOMCENTER, _CO_WGGALLERY_WATERMARK_POSBOTTOMCENTER);
         $form->addElement($wmPositionSelect, true);
         // Form Text WmMargin
         $marginTray = new \XoopsFormElementTray(_CO_WGGALLERY_WATERMARK_MARGIN, '&nbsp;');
@@ -190,16 +194,16 @@ class Watermarks extends \XoopsObject
         // Form Select WmUsage
         $wmUsage       = $this->isNew() ? 2 : $this->getVar('wm_usage');
         $wmUsageSelect = new \XoopsFormSelect(_CO_WGGALLERY_WATERMARK_USAGE, 'wm_usage', $wmUsage);
-        $wmUsageSelect->addOption(WGGALLERY_WATERMARK_USAGENONE, _CO_WGGALLERY_WATERMARK_USAGENONE);
-        $wmUsageSelect->addOption(WGGALLERY_WATERMARK_USAGEALL, _CO_WGGALLERY_WATERMARK_USAGEALL);
-        $wmUsageSelect->addOption(WGGALLERY_WATERMARK_USAGESINGLE, _CO_WGGALLERY_WATERMARK_USAGESINGLE);
+        $wmUsageSelect->addOption(Constants::WATERMARK_USAGENONE, _CO_WGGALLERY_WATERMARK_USAGENONE);
+        $wmUsageSelect->addOption(Constants::WATERMARK_USAGEALL, _CO_WGGALLERY_WATERMARK_USAGEALL);
+        $wmUsageSelect->addOption(Constants::WATERMARK_USAGESINGLE, _CO_WGGALLERY_WATERMARK_USAGESINGLE);
         $form->addElement($wmUsageSelect);
         // Form Select WmTarget
         $wmTarget       = $this->isNew() ? 0 : $this->getVar('wm_target');
         $wmTargetSelect = new \XoopsFormRadio(_CO_WGGALLERY_WATERMARK_TARGET, 'wm_target', $wmTarget);
-        $wmTargetSelect->addOption(WGGALLERY_WATERMARK_TARGET_A, _CO_WGGALLERY_WATERMARK_TARGET_A);
-        $wmTargetSelect->addOption(WGGALLERY_WATERMARK_TARGET_M, _CO_WGGALLERY_WATERMARK_TARGET_M);
-        $wmTargetSelect->addOption(WGGALLERY_WATERMARK_TARGET_L, _CO_WGGALLERY_WATERMARK_TARGET_L);
+        $wmTargetSelect->addOption(Constants::WATERMARK_TARGET_A, _CO_WGGALLERY_WATERMARK_TARGET_A);
+        $wmTargetSelect->addOption(Constants::WATERMARK_TARGET_M, _CO_WGGALLERY_WATERMARK_TARGET_M);
+        $wmTargetSelect->addOption(Constants::WATERMARK_TARGET_L, _CO_WGGALLERY_WATERMARK_TARGET_L);
         $form->addElement($wmTargetSelect, true);
         // Form Text Date Select WmDate
         $wmDate = $this->isNew() ? 0 : $this->getVar('wm_date');
@@ -217,7 +221,7 @@ class Watermarks extends \XoopsObject
      * Get Values
      * @param null $keys
      * @param null $format
-     * @param int $maxDepth
+     * @param int  $maxDepth
      * @return array
      */
     public function getValuesWatermarks($keys = null, $format = null, $maxDepth = null)
@@ -228,10 +232,10 @@ class Watermarks extends \XoopsObject
         $ret['name'] = $this->getVar('wm_name');
         $ret['type'] = $this->getVar('wm_type');
         switch ($this->getVar('wm_type')) {
-            case WGGALLERY_WATERMARK_TYPETEXT:
+            case Constants::WATERMARK_TYPETEXT:
                 $type_text = _CO_WGGALLERY_WATERMARK_TYPETEXT;
                 break;
-            case WGGALLERY_WATERMARK_TYPEIMAGE:
+            case Constants::WATERMARK_TYPEIMAGE:
                 $type_text = _CO_WGGALLERY_WATERMARK_TYPEIMAGE;
                 break;
             case 'default':
@@ -242,31 +246,31 @@ class Watermarks extends \XoopsObject
         $ret['type_text'] = $type_text;
         $ret['position']  = $this->getVar('wm_position');
         switch ($this->getVar('wm_position')) {
-            case WGGALLERY_WATERMARK_POSTOPLEFT:
+            case Constants::WATERMARK_POSTOPLEFT:
                 $position_text = _CO_WGGALLERY_WATERMARK_POSTOPLEFT;
                 break;
-            case WGGALLERY_WATERMARK_POSTOPRIGHT:
+            case Constants::WATERMARK_POSTOPRIGHT:
                 $position_text = _CO_WGGALLERY_WATERMARK_POSTOPRIGHT;
                 break;
-            case WGGALLERY_WATERMARK_POSTOPCENTER:
+            case Constants::WATERMARK_POSTOPCENTER:
                 $position_text = _CO_WGGALLERY_WATERMARK_POSTOPCENTER;
                 break;
-            case WGGALLERY_WATERMARK_POSMIDDLELEFT:
+            case Constants::WATERMARK_POSMIDDLELEFT:
                 $position_text = _CO_WGGALLERY_WATERMARK_POSMIDDLELEFT;
                 break;
-            case WGGALLERY_WATERMARK_POSMIDDLERIGHT:
+            case Constants::WATERMARK_POSMIDDLERIGHT:
                 $position_text = _CO_WGGALLERY_WATERMARK_POSMIDDLERIGHT;
                 break;
-            case WGGALLERY_WATERMARK_POSMIDDLECENTER:
+            case Constants::WATERMARK_POSMIDDLECENTER:
                 $position_text = _CO_WGGALLERY_WATERMARK_POSMIDDLECENTER;
                 break;
-            case WGGALLERY_WATERMARK_POSBOTTOMLEFT:
+            case Constants::WATERMARK_POSBOTTOMLEFT:
                 $position_text = _CO_WGGALLERY_WATERMARK_POSBOTTOMLEFT;
                 break;
-            case WGGALLERY_WATERMARK_POSBOTTOMRIGHT:
+            case Constants::WATERMARK_POSBOTTOMRIGHT:
                 $position_text = _CO_WGGALLERY_WATERMARK_POSBOTTOMRIGHT;
                 break;
-            case WGGALLERY_WATERMARK_POSBOTTOMCENTER:
+            case Constants::WATERMARK_POSBOTTOMCENTER:
                 $position_text = _CO_WGGALLERY_WATERMARK_POSBOTTOMCENTER;
                 break;
             case 'default':
@@ -284,13 +288,13 @@ class Watermarks extends \XoopsObject
         $ret['color']         = $this->getVar('wm_color');
         $ret['usage']         = $this->getVar('wm_usage');
         switch ($this->getVar('wm_usage')) {
-            case WGGALLERY_WATERMARK_USAGESINGLE:
+            case Constants::WATERMARK_USAGESINGLE:
                 $usage_text = _CO_WGGALLERY_WATERMARK_USAGESINGLE;
                 break;
-            case WGGALLERY_WATERMARK_USAGEALL:
+            case Constants::WATERMARK_USAGEALL:
                 $usage_text = _CO_WGGALLERY_WATERMARK_USAGEALL;
                 break;
-            case WGGALLERY_WATERMARK_USAGENONE:
+            case Constants::WATERMARK_USAGENONE:
                 $usage_text = _CO_WGGALLERY_WATERMARK_USAGENONE;
                 break;
             case 'default':
@@ -301,13 +305,13 @@ class Watermarks extends \XoopsObject
         $ret['usage_text'] = $usage_text;
         $ret['target']     = $this->getVar('wm_target');
         switch ($this->getVar('wm_target')) {
-            case WGGALLERY_WATERMARK_TARGET_A:
+            case Constants::WATERMARK_TARGET_A:
                 $target_text = _CO_WGGALLERY_WATERMARK_TARGET_A;
                 break;
-            case WGGALLERY_WATERMARK_TARGET_M:
+            case Constants::WATERMARK_TARGET_M:
                 $target_text = _CO_WGGALLERY_WATERMARK_TARGET_M;
                 break;
-            case WGGALLERY_WATERMARK_TARGET_L:
+            case Constants::WATERMARK_TARGET_L:
                 $target_text = _CO_WGGALLERY_WATERMARK_TARGET_L;
                 break;
             case 'default':

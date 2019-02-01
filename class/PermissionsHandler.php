@@ -23,6 +23,9 @@ namespace XoopsModules\Wggallery;
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 permissions.php 1 Sat 2018-03-31 11:31:09Z XOOPS Project (www.xoops.org) $
  */
+
+use XoopsModules\Wggallery\Constants;
+
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
@@ -40,6 +43,9 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
         // parent::__construct($db, 'wggallery_permissions', Permissions::class, 'gt_id', 'gt_name');
     }
 
+    /**
+     * @return int
+     */
     public function permGlobalSubmit()
     {
         global $xoopsUser, $xoopsModule;
@@ -47,13 +53,11 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
         $currentuid = 0;
         if (isset($xoopsUser) && is_object($xoopsUser)) {
             if ($xoopsUser->isAdmin()) {
-                return WGGALLERY_PERM_SUBMITALL;
+                return Constants::PERM_SUBMITALL;
             }
             $currentuid = $xoopsUser->uid();
         }
         $gpermHandler  = xoops_getHandler('groupperm');
-        $module_handler = xoops_getHandler('module');
-        $xoopsModule    = $module_handler->getByDirname('wggallery');
         $mid           = $xoopsModule->mid();
         $memberHandler = xoops_getHandler('member');
         if (0 == $currentuid) {
@@ -62,18 +66,23 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
             $my_group_ids = $memberHandler->getGroupsByUser($currentuid);
         }
         if ($gpermHandler->checkRight('wggallery_global', '4', $my_group_ids, $mid)) {
-            return WGGALLERY_PERM_SUBMITALL;
+            return Constants::PERM_SUBMITALL;
         }
         if ($gpermHandler->checkRight('wggallery_global', '8', $my_group_ids, $mid)) {
-            return WGGALLERY_PERM_SUBMITOWN;
+            return Constants::PERM_SUBMITOWN;
         }
         if ($gpermHandler->checkRight('wggallery_global', '16', $my_group_ids, $mid)) {
-            return WGGALLERY_PERM_SUBMITAPPR;
+            return Constants::PERM_SUBMITAPPR;
         }
 
-        return WGGALLERY_PERM_SUBMITNONE;
+        return Constants::PERM_SUBMITNONE;
     }
 
+    /**
+     * @param int $albId
+     * @param int $albSubmitter
+     * @return bool
+     */
     public function permAlbumEdit($albId = 0, $albSubmitter = 0)
     {
         global $xoopsUser;
@@ -86,13 +95,13 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
             $currentuid = $xoopsUser->uid();
         }
         $right = $this->permGlobalSubmit();
-        if (WGGALLERY_PERM_SUBMITNONE === $right) {
+        if (Constants::PERM_SUBMITNONE === $right) {
             return false;
         }
-        if (WGGALLERY_PERM_SUBMITALL === $right) {
+        if (Constants::PERM_SUBMITALL === $right) {
             return true;
         }
-        if (0 === $albId && (WGGALLERY_PERM_SUBMITOWN === $right || WGGALLERY_PERM_SUBMITAPPR === $right)) {
+        if (0 === $albId && (Constants::PERM_SUBMITOWN === $right || Constants::PERM_SUBMITAPPR === $right)) {
             return true;
         }
         if ($albSubmitter == $currentuid) {
@@ -131,6 +140,10 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
         return $gpermHandler->checkRight('wggallery_view', $albId, $my_group_ids, $mid);
     }
 
+    /**
+     * @param $albId
+     * @return int
+     */
     public function permAlbumDownload($albId)
     {
         global $xoopsUser, $xoopsModule;
@@ -154,6 +167,10 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
         return $gpermHandler->checkRight('wggallery_dlfullalb', $albId, $my_group_ids, $mid);
     }
 
+    /**
+     * @param $albId
+     * @return int
+     */
     public function permImageDownloadLarge($albId)
     {
         global $xoopsUser, $xoopsModule;
@@ -177,6 +194,10 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
         return $gpermHandler->checkRight('wggallery_dlimage_large', $albId, $my_group_ids, $mid);
     }
 
+    /**
+     * @param $albId
+     * @return int
+     */
     public function permImageDownloadMedium($albId)
     {
         global $xoopsUser, $xoopsModule;
