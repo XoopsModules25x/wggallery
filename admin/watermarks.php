@@ -20,6 +20,9 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 watermarks.php 1 Thu 2018-11-01 08:54:56Z XOOPS Project (www.xoops.org) $
  */
+
+use XoopsModules\Wggallery\Constants;
+
 include __DIR__ . '/header.php';
 
 use Xmf\Request;
@@ -93,7 +96,7 @@ switch ($op) {
         // Set Vars
         $wm_name = Request::getString('wm_name', 'missing_wm_name');
         $watermarksObj->setVar('wm_name', $wm_name);
-        $watermarksObj->setVar('wm_type', Request::getInt('wm_type', WGGALLERY_WATERMARK_TYPETEXT));
+        $watermarksObj->setVar('wm_type', Request::getInt('wm_type', Constants::WATERMARK_TYPETEXT));
         $watermarksObj->setVar('wm_position', Request::getInt('wm_position', 0));
         $watermarksObj->setVar('wm_marginlr', Request::getInt('wm_marginlr', 0));
         $watermarksObj->setVar('wm_margintb', Request::getInt('wm_margintb', 0));
@@ -111,7 +114,7 @@ switch ($op) {
                 $uploaderErrors = $uploader->getErrors();
             } else {
                 $watermarksObj->setVar('wm_image', $uploader->getSavedFileName());
-                $watermarksObj->setVar('wm_type', WGGALLERY_WATERMARK_TYPEIMAGE);
+                $watermarksObj->setVar('wm_type', Constants::WATERMARK_TYPEIMAGE);
             }
         } else {
             if ($fileName > '') {
@@ -125,11 +128,11 @@ switch ($op) {
         $watermarksObj->setVar('wm_color', Request::getString('wm_color'));
         $wm_usage = Request::getInt('wm_usage', 0);
         $watermarksObj->setVar('wm_usage', $wm_usage);
-        if (WGGALLERY_WATERMARK_USAGEALL == $wm_usage) {
+        if (Constants::WATERMARK_USAGEALL == $wm_usage) {
             // one specific watermark should be used for all
             if ($watermarksHandler->getCount() > 0) {
                 // reset all other watermarks to usage none
-                $sql = 'UPDATE `' . $GLOBALS['xoopsDB']->prefix('wggallery_watermarks') . '` SET `wm_usage` = ' . WGGALLERY_WATERMARK_USAGENONE . ';';
+                $sql = 'UPDATE `' . $GLOBALS['xoopsDB']->prefix('wggallery_watermarks') . '` SET `wm_usage` = ' . Constants::WATERMARK_USAGENONE . ';';
                 if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
                     redirect_header('watermarks.php?op=list', 2, _CO_WGGALLERY_FORM_ERROR_RESETUSAGE1);
                 }
@@ -142,10 +145,10 @@ switch ($op) {
                 }
             }
         }
-        if (WGGALLERY_WATERMARK_USAGESINGLE == $wm_usage) {
+        if (Constants::WATERMARK_USAGESINGLE == $wm_usage) {
             // this watermark must be defined always in each single case
             // if there is a watermark with "usage for all" it must be reset to "single use"
-            $sql = 'UPDATE `' . $GLOBALS['xoopsDB']->prefix('wggallery_watermarks') . '` SET `wm_usage` = ' . WGGALLERY_WATERMARK_USAGESINGLE . ' WHERE `wm_usage` = ' . WGGALLERY_WATERMARK_USAGEALL . ';';
+            $sql = 'UPDATE `' . $GLOBALS['xoopsDB']->prefix('wggallery_watermarks') . '` SET `wm_usage` = ' . Constants::WATERMARK_USAGESINGLE . ' WHERE `wm_usage` = ' . Constants::WATERMARK_USAGEALL . ';';
             if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
                 redirect_header('watermarks.php?op=list', 2, _CO_WGGALLERY_FORM_ERROR_RESETUSAGE1);
             }
@@ -174,7 +177,7 @@ switch ($op) {
                        . '.alb_wmid = 0 WHERE ((('
                        . $GLOBALS['xoopsDB']->prefix('wggallery_watermarks')
                        . '.wm_usage)='
-                       . WGGALLERY_WATERMARK_USAGENONE
+                       . Constants::WATERMARK_USAGENONE
                        . '));';
                 if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
                     redirect_header('watermarks.php?op=list', 2, _CO_WGGALLERY_FORM_ERROR_RESETUSAGE2);

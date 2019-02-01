@@ -62,7 +62,7 @@ class Gallerytypes extends \XoopsObject
 
     /**
      * The new inserted $Id
-     * @return inserted id
+     * @return int inserted id
      */
     public function getNewInsertedIdGallerytypes()
     {
@@ -72,11 +72,11 @@ class Gallerytypes extends \XoopsObject
     /**
      * @public function getForm
      * @param bool $action
-     * @return XoopsThemeForm
+     * @return \XoopsThemeForm
      */
     public function getFormGallerytypes($action = false)
     {
-        //$helper = Wggallery\Helper::getInstance();
+        //$helper = \XoopsModules\Wggallery\Helper::getInstance();
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
@@ -110,11 +110,11 @@ class Gallerytypes extends \XoopsObject
     /**
      * @public function getForm
      * @param bool $action
-     * @return XoopsThemeForm
+     * @return \XoopsThemeForm
      */
     public function getFormGallerytypeOptions($action = false)
     {
-        //$helper = Wggallery\Helper::getInstance();
+        //$helper = \XoopsModules\Wggallery\Helper::getInstance();
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
@@ -1139,7 +1139,7 @@ class Gallerytypes extends \XoopsObject
      */
     public function getValuesGallerytypes($admin = false)
     {
-        // $helper = Wggallery\Helper::getInstance();
+        // $helper = \XoopsModules\Wggallery\Helper::getInstance();
         $ret             = $this->getValues();
         $ret['id']       = $this->getVar('gt_id');
         $ret['primary']  = $this->getVar('gt_primary');
@@ -1153,7 +1153,7 @@ class Gallerytypes extends \XoopsObject
                 $options      = unserialize($gt_options, ['allowed_classes' => false]);
                 $options_text = '<ul>';
                 foreach ($options as $option) {
-                    if ('option_sort' != $option['name']) {
+                    if ('option_sort' !== $option['name']) {
                         $options_text .= '<li>';
                         if ('' == $option['caption']) {
                             $options_text .= '"' . $option['name'] . '"';

@@ -34,7 +34,7 @@ function wggalleryCommentsUpdate($itemId, $itemNumb)
 {
     $itemId   = (int)($itemId);
     $itemNumb = (int)($itemNumb);
-    $article  = new Images($itemId);
+    $article  = new \XoopsModules\Wggallery\Images($itemId);
     if (!$article->updateComments($itemNumb)) {
         return false;
     }

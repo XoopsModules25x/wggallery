@@ -23,15 +23,20 @@
 
 use XoopsModules\Wggallery;
 use XoopsModules\Wggallery\Helper;
+use XoopsModules\Wggallery\Constants;
 
-include_once XOOPS_ROOT_PATH.'/modules/wggallery/include/common.php';
+require_once XOOPS_ROOT_PATH . '/modules/wggallery/include/common.php';
 // Function show block
+/**
+ * @param $options
+ * @return array
+ */
 function b_wggallery_images_show($options)
 {
+    /** @var \XoopsModules\Wggallery\Helper $helper */
     $helper = \XoopsModules\Wggallery\Helper::getInstance();
-    include_once XOOPS_ROOT_PATH.'/modules/wggallery/class/images.php';
-
-    //$myts = MyTextSanitizer::getInstance();
+    
+    //$myts = \MyTextSanitizer::getInstance();
     $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
     $block        = [];
     $typeBlock    = $options[0];
@@ -50,8 +55,7 @@ function b_wggallery_images_show($options)
     array_shift($options);
     array_shift($options);
 
-    $helper        = Wggallery\Helper::getInstance();
-    $albumsHandler = $helper->getHandler('albums');
+    $albumsHandler = $helper->getHandler('Albums');
 
     $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
     $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
@@ -59,15 +63,14 @@ function b_wggallery_images_show($options)
     $GLOBALS['xoopsTpl']->assign('bi_showTitle', $bshowTitle);
     $GLOBALS['xoopsTpl']->assign('bi_showDesc', $bshowDesc);
 
-    $helper        = Wggallery\Helper::getInstance();
-    $imagesHandler = $helper->getHandler('images');
+    $imagesHandler = $helper->getHandler('Images');
     $criteria      = new \CriteriaCompo();
     $album_ids     = implode(',', $options);
     // echo "options;".$album_ids;
     if ('0' !== mb_substr($album_ids, 0, 1)) {
         $criteria->add(new \Criteria('img_albid', '(' . $album_ids . ')', 'IN'));
     }
-    $criteria->add(new \Criteria('img_state', WGGALLERY_STATE_ONLINE_VAL));
+    $criteria->add(new \Criteria('img_state', Constants::STATE_OFFLINE_VAL));
 
     switch ($typeBlock) {
         // For the block: images new
@@ -114,11 +117,15 @@ function b_wggallery_images_show($options)
 }
 
 // Function edit block
+/**
+ * @param $options
+ * @return string
+ */
 function b_wggallery_images_edit($options)
 {
-    // require_once XOOPS_ROOT_PATH.'/modules/wggallery/class/images.php';
-    $helper        = Wggallery\Helper::getInstance();
-    $albumsHandler = $helper->getHandler('albums');
+    /** @var \XoopsModules\Wggallery\Helper $helper */
+    $helper        = \XoopsModules\Wggallery\Helper::getInstance();
+    $albumsHandler = $helper->getHandler('Albums');
     $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
 
     $form = _MB_WGGALLERY_BLOCKTYPE . ": <select name='options[0]' size='3'>";
@@ -128,21 +135,21 @@ function b_wggallery_images_edit($options)
     $form .= '</select><br>';
     $form .= _MB_WGGALLERY_IMAGES_DISPLAYLIST . "<input type='text' name='options[1]' size='5' maxlength='255' value='" . $options[1] . "'>&nbsp;<br>";
     $form .= _MB_WGGALLERY_TITLE_SHOW . ": <select name='options[2]' size='2'>";
-    $form .= "<option value='0' " . (0 === intval($options[2]) ? "selected='selected'" : '') . '>' . _NO . '</option>';
-    $form .= "<option value='1' " . (1 === intval($options[2]) ? "selected='selected'" : '') . '>' . _YES . '</option>';
+    $form .= "<option value='0' " . (0 === (int)$options[2] ? "selected='selected'" : '') . '>' . _NO . '</option>';
+    $form .= "<option value='1' " . (1 === (int)$options[2] ? "selected='selected'" : '') . '>' . _YES . '</option>';
     $form .= '</select><br>';
     $form .= _MB_WGGALLERY_TITLE_LENGTH . " : <input type='text' name='options[3]' size='5' maxlength='255' value='" . $options[3] . "'><br>";
     $form .= _MB_WGGALLERY_DESC_SHOW . ": <select name='options[4]' size='2'>";
-    $form .= "<option value='0' " . (0 === intval($options[4]) ? "selected='selected'" : '') . '>' . _NO . '</option>';
-    $form .= "<option value='1' " . (1 === intval($options[4]) ? "selected='selected'" : '') . '>' . _YES . '</option>';
+    $form .= "<option value='0' " . (0 === (int)$options[4] ? "selected='selected'" : '') . '>' . _NO . '</option>';
+    $form .= "<option value='1' " . (1 === (int)$options[4] ? "selected='selected'" : '') . '>' . _YES . '</option>';
     $form .= '</select><br>';
     $form .= _MB_WGGALLERY_DESC_LENGTH . " : <input type='text' name='options[5]' size='5' maxlength='255' value='" . $options[5] . "'><br>";
     $form .= _MB_WGGALLERY_NUMB_IMAGES . ": <select name='options[6]' size='4'>";
-    $form .= "<option value='1' " . (1 === intval($options[6]) ? "selected='selected'" : '') . '>1</option>';
-    $form .= "<option value='2' " . (2 === intval($options[6]) ? "selected='selected'" : '') . '>2</option>';
-    $form .= "<option value='3' " . (3 === intval($options[6]) ? "selected='selected'" : '') . '>3</option>';
-    $form .= "<option value='4' " . (4 === intval($options[6]) ? "selected='selected'" : '') . '>4</option>';
-    $form .= "<option value='6' " . (6 === intval($options[6]) ? "selected='selected'" : '') . '>6</option>';
+    $form .= "<option value='1' " . (1 === (int)$options[6] ? "selected='selected'" : '') . '>1</option>';
+    $form .= "<option value='2' " . (2 === (int)$options[6] ? "selected='selected'" : '') . '>2</option>';
+    $form .= "<option value='3' " . (3 === (int)$options[6] ? "selected='selected'" : '') . '>3</option>';
+    $form .= "<option value='4' " . (4 === (int)$options[6] ? "selected='selected'" : '') . '>4</option>';
+    $form .= "<option value='6' " . (6 === (int)$options[6] ? "selected='selected'" : '') . '>6</option>';
     $form .= '</select><br>';
     // $form .= _MB_WGGALLERY_SHOW.": <select name='options[4]' size='2'>";
     // $form .= "<option value='0' " . (0 == $options[4] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_SHOW_INDEX . '</option>';

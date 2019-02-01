@@ -107,7 +107,7 @@ define('_CO_WGGALLERY_ALBUMS_SORT', 'Sorting of albums');
 define('_CO_WGGALLERY_ALBUM_SORT_SHOWHIDE', 'Click to show/hide the sub items');
 // album image handler
 define('_CO_WGGALLERY_ALBUM_IH_APPLY', 'Apply');
-define('_CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT', 'Edsit album image');
+define('_CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT', 'Edit album image');
 define('_CO_WGGALLERY_ALBUM_IH_CURRENT', 'Current');
 define('_CO_WGGALLERY_ALBUM_IH_GRID4', 'Use 4 images');
 define('_CO_WGGALLERY_ALBUM_IH_GRID6', 'Use 6 images');
@@ -220,10 +220,10 @@ define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN_DESC', 'Groups which should have pe
 define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR', 'Permissions global to submit/edit own albums only with approvement');
 define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR_DESC', 'Groups which should have permissions to <ul><li>create albums</li><li>edit own albums</li><li>upload images to own albums</li></ul>');
 define('_CO_WGGALLERY_PERMS_GLOBAL_DESC', '<ul>
-                                                <li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC . '</li>
-                                                <li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN_DESC . '</li>
+												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC . '</li>
+												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN_DESC . '</li>
                                                 <li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR_DESC . '</li>
-                                           </ul>');
+										   </ul>');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW', 'Permissions to view');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW_DESC', 'Groups which should have permissions to view an album');
 define('_CO_WGGALLERY_PERMS_ALB_DLFULLALB', 'Permissions to download full album');
@@ -240,3 +240,26 @@ define('_CO_WGGALLERY_IMAGE_ERRORUNLINK', 'Error deleting image: the image was d
 define('_CO_WGGALLERY_MAINTAINEDBY', 'Maintained By');
 define('_CO_WGGALLERY_MAINTAINEDBY_DESC', 'Allow url of support site or community');
 // ---------------- End ----------------
+
+$moduleDirName = basename(dirname(dirname(__DIR__)));
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+
+//Sample Data
+define('CO_' . $moduleDirNameUpper . '_' . 'ADD_SAMPLEDATA', 'Import Sample Data (will delete ALL current data)');
+define('CO_' . $moduleDirNameUpper . '_' . 'SAMPLEDATA_SUCCESS', 'Sample Date uploaded successfully');
+define('CO_' . $moduleDirNameUpper . '_' . 'SAVE_SAMPLEDATA', 'Export Tables to YAML');
+define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLE_BUTTON', 'Show Sample Button?');
+define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLE_BUTTON_DESC', 'If yes, the "Add Sample Data" button will be visible to the Admin. It is Yes as a default for first installation.');
+define('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA', 'Export DB Schema to YAML');
+define('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_SUCCESS', 'Export DB Schema to YAML was a success');
+define('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_ERROR', 'ERROR: Export of DB Schema to YAML failed');
+
+//Menu
+define('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_MIGRATE', 'Migrate');
+define('CO_' . $moduleDirNameUpper . '_' . 'FOLDER_YES', 'Folder "%s" exist');
+define('CO_' . $moduleDirNameUpper . '_' . 'FOLDER_NO', 'Folder "%s" does not exist. Create the specified folder with CHMOD 777.');
+define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS', 'Show Development Tools Button?');
+define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS_DESC', 'If yes, the "Migrate" Tab and other Development tools will be visible to the Admin.');
+
+//Latest Version Check
+define('CO_' . $moduleDirNameUpper . '_' . 'NEW_VERSION', 'New Version: ');

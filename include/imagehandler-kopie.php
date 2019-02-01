@@ -105,6 +105,15 @@ function ResizeImage($sourcefile, $endfile, $max_width, $max_height, $imageMimet
     return true;
 }
 
+/**
+ * @param     $src_url
+ * @param     $src_mimetype
+ * @param     $dest_url
+ * @param     $dest_w
+ * @param     $dest_h
+ * @param int $quality
+ * @return bool
+ */
 function ResizeAndCrop($src_url, $src_mimetype, $dest_url, $dest_w, $dest_h, $quality = 90)
 {
     // check file extension
@@ -171,6 +180,12 @@ function ResizeAndCrop($src_url, $src_mimetype, $dest_url, $dest_w, $dest_h, $qu
     return true;
 }
 
+/**
+ * @param $src_url
+ * @param $dest_url
+ * @param $pos
+ * @param $of
+ */
 function MergeImage($src_url, $dest_url, $pos, $of)
 {
     $dest = imagecreatefromjpeg($dest_url);

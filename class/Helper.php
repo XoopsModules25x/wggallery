@@ -24,6 +24,8 @@ namespace XoopsModules\Wggallery;
  * @version        $Id: 1.0 helper.php 1 Mon 2018-03-19 10:04:53Z XOOPS Project (www.xoops.org) $
  */
 
+use XoopsModules\Wggallery\Constants;
+
 /**
  * Class Helper
  */
@@ -90,13 +92,13 @@ class Helper extends \Xmf\Module\Helper
     public function getStateText($state)
     {
         switch ($state) {
-            case Constants::WGGALLERY_STATE_ONLINE_VAL:
+            case Constants::STATE_ONLINE_VAL:
                 return _CO_WGGALLERY_STATE_ONLINE;
                 break;
-            case Constants::WGGALLERY_STATE_APPROVAL_VAL:
+            case Constants::STATE_APPROVAL_VAL:
                 return _CO_WGGALLERY_STATE_APPROVAL;
                 break;
-            case Constants::WGGALLERY_STATE_OFFLINE_VAL:
+            case Constants::STATE_OFFLINE_VAL:
             default:
                 return _CO_WGGALLERY_STATE_OFFLINE;
                 break;
@@ -109,11 +111,11 @@ class Helper extends \Xmf\Module\Helper
      * @param string $title
      * @param string $text
      * @param string $descr
-     * @return XoopsThemeForm
+     * @return \XoopsThemeForm
      */
     public function getFormDelete($arrParams, $title, $text, $descr = '')
     {
-        $helper = Helper::getInstance();
+        $helper = self::getInstance();
         $action = $_SERVER['REQUEST_URI'];
 
         // Get Theme Form

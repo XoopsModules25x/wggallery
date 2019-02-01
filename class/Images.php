@@ -25,6 +25,7 @@ namespace XoopsModules\Wggallery;
  */
 
 use XoopsModules\Wggallery;
+use XoopsModules\Wggallery\Constants;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
@@ -78,7 +79,7 @@ class Images extends \XoopsObject
 
     /**
      * The new inserted $Id
-     * @return inserted id
+     * @return int inserted id
      */
     public function getNewInsertedIdImages()
     {
@@ -91,11 +92,12 @@ class Images extends \XoopsObject
      * @public function getForm
      * @param bool $adminarea
      * @param bool $action
-     * @return XoopsThemeForm
+     * @return \XoopsThemeForm
      */
     public function getFormImages($adminarea = false, $action = false)
     {
-        $helper = Wggallery\Helper::getInstance();
+        /** @var \XoopsModules\Wggallery\Helper $helper */
+        $helper = \XoopsModules\Wggallery\Helper::getInstance();
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
@@ -163,17 +165,17 @@ class Images extends \XoopsObject
             $form->addElement(new \XoopsFormHidden('img_weight', $imgWeight));
         }
         // Form Table albums
-        $albumsHandler  = $helper->getHandler('albums');
+        $albumsHandler  = $helper->getHandler('Albums');
         $imgAlbidSelect = new \XoopsFormSelect(_CO_WGGALLERY_IMAGE_ALBID, 'img_albid', $this->getVar('img_albid'));
         $imgAlbidSelect->addOptionArray($albumsHandler->getList());
         $form->addElement($imgAlbidSelect, true);
         // Images handler
-        $imagesHandler = $helper->getHandler('images');
+        $imagesHandler = $helper->getHandler('Images');
         // Form Select Images
         $imgStateSelect = new \XoopsFormSelect(_CO_WGGALLERY_IMAGE_STATE, 'img_state', $this->getVar('img_state'));
-        $imgStateSelect->addOption(WGGALLERY_STATE_OFFLINE_VAL, _CO_WGGALLERY_STATE_OFFLINE);
-        $imgStateSelect->addOption(WGGALLERY_STATE_ONLINE_VAL, _CO_WGGALLERY_STATE_ONLINE);
-        $imgStateSelect->addOption(WGGALLERY_STATE_APPROVAL_VAL, _CO_WGGALLERY_STATE_APPROVAL);
+        $imgStateSelect->addOption(Constants::STATE_OFFLINE_VAL, _CO_WGGALLERY_STATE_OFFLINE);
+        $imgStateSelect->addOption(Constants::STATE_OFFLINE_VAL, _CO_WGGALLERY_STATE_ONLINE);
+        $imgStateSelect->addOption(Constants::STATE_APPROVAL_VAL, _CO_WGGALLERY_STATE_APPROVAL);
         $form->addElement($imgStateSelect, true);
         // Form Text Date Select ImgDate
         $imgDate = $this->isNew() ? 0 : $this->getVar('img_date');
@@ -193,12 +195,12 @@ class Images extends \XoopsObject
      * Get Values
      * @param null $keys
      * @param null $format
-     * @param int $maxDepth
+     * @param int  $maxDepth
      * @return array
      */
     public function getValuesImages($keys = null, $format = null, $maxDepth = null)
     {
-        $helper             = Wggallery\Helper::getInstance();
+        $helper             = \XoopsModules\Wggallery\Helper::getInstance();
         $ret                = $this->getValues($keys, $format, $maxDepth);
         $ret['id']          = $this->getVar('img_id');
         $ret['title']       = $this->getVar('img_title');
@@ -243,9 +245,9 @@ class Images extends \XoopsObject
         }
         $ret['exif']       = $exif_text;
         $ret['exif_short'] = mb_substr($exif_text, 0, 100) . '...';
-        $ret['large']      = WGGALLERY_UPLOAD_IMAGE_URL . '/large/' . $this->getVar('img_namelarge');
-        $ret['medium']     = WGGALLERY_UPLOAD_IMAGE_URL . '/medium/' . $this->getVar('img_name');
-        $ret['thumb']      = WGGALLERY_UPLOAD_IMAGE_URL . '/thumbs/' . $this->getVar('img_name');
+        $ret['large']      = WGGALLERY_UPLOAD_IMAGES_URL . '/large/' . $this->getVar('img_namelarge');
+        $ret['medium']     = WGGALLERY_UPLOAD_IMAGES_URL . '/medium/' . $this->getVar('img_name');
+        $ret['thumb']      = WGGALLERY_UPLOAD_IMAGES_URL . '/thumbs/' . $this->getVar('img_name');
 
         return $ret;
     }

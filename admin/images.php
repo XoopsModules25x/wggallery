@@ -22,6 +22,7 @@
  */
 
 use Xmf\Request;
+use XoopsModules\Wggallery\Constants;
 
 include __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
@@ -48,7 +49,7 @@ switch ($op) {
             $form = $albumsObj->getFormUploadToAlbum('images.php');
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
             $crImages = new \CriteriaCompo();
-            $crImages->add(new \Criteria('img_state', WGGALLERY_STATE_APPROVAL_VAL));
+            $crImages->add(new \Criteria('img_state', Constants::STATE_APPROVAL_VAL));
             $imagesCount = $imagesHandler->getCount($crImages);
             if ($imagesCount > 0) {
                 $adminObject->addItemButton(_AM_WGGALLERY_IMAGES_APPROVE, 'images.php?op=approve', 'alert');
@@ -72,7 +73,7 @@ switch ($op) {
                 $crImages->setOrder('ASC');
             }
             if ('approve' === $op) {
-                $crImages->add(new \Criteria('img_state', WGGALLERY_STATE_APPROVAL_VAL));
+                $crImages->add(new \Criteria('img_state', Constants::STATE_APPROVAL_VAL));
                 $crImages->setSort('img_albid');
                 $crImages->setOrder('ASC');
             }
@@ -88,7 +89,7 @@ switch ($op) {
                 foreach (array_keys($imagesAll) as $i) {
                     $image = $imagesAll[$i]->getValuesImages();
                     if ('approve' === $op) {
-                        $albumsHandler = $helper->getHandler('albums');
+                        $albumsHandler = $helper->getHandler('Albums');
                         $albumsObj     = $albumsHandler->get($image['img_albid']);
                         if (isset($albumsObj) && is_object($albumsObj)) {
                             $image['alb_name'] = $albumsObj->getVar('alb_name');
@@ -181,7 +182,7 @@ switch ($op) {
             // Insert Data
             if ($imagesHandler->insert($imagesObj)) {
                 $crImages = new \CriteriaCompo();
-                $crImages->add(new \Criteria('img_state', WGGALLERY_STATE_APPROVAL_VAL));
+                $crImages->add(new \Criteria('img_state', Constants::STATE_APPROVAL_VAL));
                 $imagesCount = $imagesHandler->getCount($crImages);
                 unset($crImages);
                 if ($imagesCount > 0) {

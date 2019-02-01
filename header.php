@@ -27,7 +27,11 @@ include dirname(dirname(__DIR__)) . '/mainfile.php';
 include __DIR__ . '/include/common.php';
 $dirname = basename(__DIR__);
 // Get instance of module
-$helper              = \XoopsModules\Wggallery\Helper::getInstance();
+/** @var \XoopsModules\Wggallery\Helper $helper */
+$helper = \XoopsModules\Wggallery\Helper::getInstance();
+/** @var \XoopsModules\Wggallery\Utility $utility */
+$utility = new \XoopsModules\Wggallery\Utility();
+
 $albumsHandler       = $helper->getHandler('Albums');
 $imagesHandler       = $helper->getHandler('Images');
 $gallerytypesHandler = $helper->getHandler('Gallerytypes');
@@ -50,7 +54,7 @@ if ($helper->getConfig('show_bcrumb_mname')) {
     }
 }
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 // Default Css Style
 $style = WGGALLERY_URL . '/assets/css/style.css';
 if (!file_exists($style)) {

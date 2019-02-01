@@ -34,7 +34,7 @@ function wggallery_notify_iteminfo($category, $item_id)
 {
     global $xoopsModule, $xoopsModuleConfig, $xoopsDB;
 
-    if (empty($xoopsModule) || 'wggallery' != $xoopsModule->getVar('dirname')) {
+    if (empty($xoopsModule) || 'wggallery' !== $xoopsModule->getVar('dirname')) {
         $moduleHandler = xoops_getHandler('module');
         $module        = $moduleHandler->getByDirname('wggallery');
         $configHandler = xoops_getHandler('config');

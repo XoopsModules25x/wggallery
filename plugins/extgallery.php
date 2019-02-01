@@ -21,14 +21,12 @@
  * @version        $Id: 1.0 albums.php 1 Mon 2018-03-19 10:04:49Z XOOPS Project (www.xoops.org) $
  */
 
-use Xmf\Request;
 use XoopsModules\Wggallery;
+use XoopsModules\Wggallery\Constants;
 
-include_once dirname(__DIR__) . '/include/common.php';
+require_once dirname(__DIR__) . '/include/common.php';
 
 /**
- * @param none
- *
  * @return array
  */
 function wggalleryPluginGetDataExtgallery()
@@ -54,7 +52,8 @@ function wggalleryPluginGetDataExtgallery()
  */
 function wggalleryPluginGetFormExtgallery($im_name, $num_albums, $num_images)
 {
-    $helper = Wggallery\Helper::getInstance();
+    /** @var \XoopsModules\Wggallery\Helper $helper */
+    $helper = \XoopsModules\Wggallery\Helper::getInstance();
     $action = $_SERVER['REQUEST_URI'];
 
     // Get Theme Form
@@ -68,10 +67,10 @@ function wggalleryPluginGetFormExtgallery($im_name, $num_albums, $num_images)
     // Form Text
     $form->addElement(new \XoopsFormLabel(_AM_WGGALLERY_IMPORT_NUMIMG, $num_images));
     // Form Select Albstate
-    $albStateSelect = new \XoopsFormRadio(_CO_WGGALLERY_ALBUM_STATE, 'alb_state', WGGALLERY_STATE_OFFLINE_VAL);
-    $albStateSelect->addOption(WGGALLERY_STATE_OFFLINE_VAL, _CO_WGGALLERY_STATE_OFFLINE);
-    $albStateSelect->addOption(WGGALLERY_STATE_ONLINE_VAL, _CO_WGGALLERY_STATE_ONLINE);
-    $albStateSelect->addOption(WGGALLERY_STATE_APPROVAL_VAL, _CO_WGGALLERY_STATE_APPROVAL);
+    $albStateSelect = new \XoopsFormRadio(_CO_WGGALLERY_ALBUM_STATE, 'alb_state', Constants::STATE_OFFLINE_VAL);
+    $albStateSelect->addOption(Constants::STATE_OFFLINE_VAL, _CO_WGGALLERY_STATE_OFFLINE);
+    $albStateSelect->addOption(Constants::STATE_OFFLINE_VAL, _CO_WGGALLERY_STATE_ONLINE);
+    $albStateSelect->addOption(Constants::STATE_APPROVAL_VAL, _CO_WGGALLERY_STATE_APPROVAL);
     $form->addElement($albStateSelect);
     // Permissions
     $memberHandler              = xoops_getHandler('member');
@@ -133,11 +132,10 @@ function wggalleryPluginGetFormExtgallery($im_name, $num_albums, $num_images)
 }
 
 /**
- * @param none
  * @param mixed $albState
  * @param mixed $albSubmitter
  *
- * @return array
+ * @return bool
  */
 function wggalleryPluginExecImportExtgallery($albState = 0, $albSubmitter = 0)
 {

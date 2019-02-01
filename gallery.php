@@ -29,6 +29,8 @@ $GLOBALS['xoopsOption']['template_main'] = 'wggallery_gallery_' . $pr_gallery['t
 require_once XOOPS_ROOT_PATH . '/header.php';
 
 $albId = Request::getInt('alb_id');
+/** @var \XoopsModules\Wggallery\Utility $utility */
+$utility = new \XoopsModules\Wggallery\Utility();
 
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet($style, null);
@@ -186,7 +188,7 @@ switch ($pr_gallery['template']) {
 unset($images);
 
 // Description
-wggalleryMetaDescription(_CO_WGGALLERY_ALBUMS_DESC);
+$utility::getMetaDescription(_CO_WGGALLERY_ALBUMS_DESC);
 // $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGGALLERY_URL.'/images.php');
 $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
 include __DIR__ . '/footer.php';

@@ -22,6 +22,7 @@
  */
 
 use Xmf\Request;
+use XoopsModules\Wggallery\Constants;
 
 include __DIR__ . '/header.php';
 $pr_album                                = $albumtypesHandler->getPrimaryAlbum();
@@ -92,7 +93,7 @@ if ($submitterId > 0) {
 // get all albums which are online
 $crAlbums = new \CriteriaCompo();
 // if ($permissionsHandler->permGlobalSubmit()) {
-// $crAlbums->add(new \Criteria('alb_state', WGGALLERY_STATE_ONLINE_VAL));
+// $crAlbums->add(new \Criteria('alb_state', Constants::STATE_OFFLINE_VAL));
 // }
 if ($submitterId > 0) {
     $crAlbums->add(new \Criteria('alb_submitter', $submitterId));
@@ -144,7 +145,7 @@ if ($albumsCount > 0) {
     $GLOBALS['xoopsTpl']->assign('albums', $albums);
     $GLOBALS['xoopsTpl']->assign('alb_pid', $albPid);
     $pr_gallery = $gallerytypesHandler->getPrimaryGallery();
-    $GLOBALS['xoopsTpl']->assign('gallery', 'none' != $pr_gallery['template']);
+    $GLOBALS['xoopsTpl']->assign('gallery', 'none' !== $pr_gallery['template']);
     // $GLOBALS['xoopsTpl']->assign('album_showsubmitter', $helper->getConfig('album_showsubmitter'));
     if ($submitterId > 0) {
         $GLOBALS['xoopsTpl']->assign('index_alb_title', _CO_WGGALLERY_ALBUMS_TITLE . ': ' . XoopsUser::getUnameFromId($submitter));
@@ -164,7 +165,7 @@ if ($albumsCount > 0) {
 // get all categories which contains albums
 $crAlbums = new \CriteriaCompo();
 // if (!$permissionsHandler->permGlobalSubmit()) {
-// $crAlbums->add(new \Criteria('alb_state', WGGALLERY_STATE_ONLINE_VAL));
+// $crAlbums->add(new \Criteria('alb_state', Constants::STATE_OFFLINE_VAL));
 // }
 // if ( 0 < $submitterId ) {
 // $crAlbums->add(new \Criteria('alb_submitter', $submitterId));
@@ -227,10 +228,10 @@ if (0 == $catsCount + $albumsCount) {
 }
 
 // Keywords
-wggalleryMetaKeywords($helper->getConfig('keywords') . ', ' . implode(',', $keywords));
+$utility::getMetaKeywords($helper->getConfig('keywords') . ', ' . implode(',', $keywords));
 unset($keywords);
 // Description
-wggalleryMetaDescription(_CO_WGGALLERY_ALBUMS_DESC);
+$utility::getMetaDescription(_CO_WGGALLERY_ALBUMS_DESC);
 // $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGGALLERY_URL.'/albums.php');
 $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
 include __DIR__ . '/footer.php';

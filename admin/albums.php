@@ -23,6 +23,7 @@
 
 use Xmf\Request;
 use XoopsModules\Wggallery;
+use XoopsModules\Wggallery\Constants;
 
 include __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
@@ -48,7 +49,7 @@ switch ($op) {
             $adminObject->addItemButton(_AM_WGGALLERY_ALBUMS_LIST, 'albums.php', 'list');
         } else {
             $crAlbums = new \CriteriaCompo();
-            $crAlbums->add(new \Criteria('alb_state', WGGALLERY_STATE_APPROVAL_VAL));
+            $crAlbums->add(new \Criteria('alb_state', Constants::STATE_APPROVAL_VAL));
             $albumsCount = $albumsHandler->getCount($crAlbums);
             if ($albumsCount > 0) {
                 $adminObject->addItemButton(_AM_WGGALLERY_ALBUMS_APPROVE, 'albums.php?op=approve', 'alert');
@@ -58,7 +59,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $crAlbums = new \CriteriaCompo();
         if ('approve' === $op) {
-            $crAlbums->add(new \Criteria('alb_state', WGGALLERY_STATE_APPROVAL_VAL));
+            $crAlbums->add(new \Criteria('alb_state', Constants::STATE_APPROVAL_VAL));
         }
         $crAlbums->setStart($start);
         $crAlbums->setLimit($limit);
@@ -137,14 +138,14 @@ switch ($op) {
                 $savedFilename = $uploader->getSavedFileName();
                 $albumsObj->setVar('alb_image', $savedFilename);
                 // resize image
-                require_once XOOPS_ROOT_PATH . '/modules/wggallery/include/imagehandler.php';
+                //                require_once XOOPS_ROOT_PATH . '/modules/wggallery/include/imagehandler.php';
                 $alb_resize = Request::getInt('alb_resize');
                 switch ($alb_resize) {
-                    case WGGALLERY_IMAGE_THUMB:
+                    case Constants::IMAGE_THUMB:
                         $maxwidth  = $helper->getConfig('maxwidth_thumbs');
                         $maxheight = $helper->getConfig('maxheight_thumbs');
                         break;
-                    case WGGALLERY_IMAGE_LARGE:
+                    case Constants::IMAGE_LARGE:
                         $maxwidth = $helper->getConfig('maxwidth_large');
                         if (0 === (int)$maxwidth) {
                             $maxwidth = $helper->getConfig('maxwidth');
@@ -154,7 +155,7 @@ switch ($op) {
                             $maxheight = $helper->getConfig('maxheight');
                         }
                         break;
-                    case WGGALLERY_IMAGE_MEDIUM:
+                    case Constants::IMAGE_MEDIUM:
                     default:
                         $maxwidth = $helper->getConfig('maxwidth_medium');
                         if (0 === (int)$maxwidth) {
@@ -166,14 +167,14 @@ switch ($op) {
                         }
                         break;
                 }
-                $imgHandler                = new wgImageHandler();
+                $imgHandler                = new Wggallery\Resizer();
                 $imgHandler->sourceFile    = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename;
                 $imgHandler->endFile       = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename;
                 $imgHandler->imageMimetype = $imageMimetype;
                 $imgHandler->maxWidth      = $maxwidth;
                 $imgHandler->maxHeight     = $maxheight;
-                $result                    = $imgHandler->ResizeImage();
-                $albumsObj->setVar('alb_imgcat', WGGALLERY_ALBUM_IMGCAT_USE_UPLOADED_VAL);
+                $result                    = $imgHandler->resizeImage();
+                $albumsObj->setVar('alb_imgcat', Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL);
             }
         } else {
             if ($fileName > '') {
@@ -272,10 +273,10 @@ switch ($op) {
             $albumsObj->setVar('alb_state', Request::getInt('alb_state'));
             // Insert Data
             if ($albumsHandler->insert($albumsObj)) {
-                if (WGGALLERY_STATE_APPROVAL_VAL === $stateOld && WGGALLERY_STATE_ONLINE_VAL === $stateNew) {
+                if (Constants::STATE_APPROVAL_VAL === $stateOld && Constants::STATE_OFFLINE_VAL === $stateNew) {
                     $crImages = new \CriteriaCompo();
                     $crImages->add(new \Criteria('img_albid', $albId));
-                    $crImages->add(new \Criteria('img_state', WGGALLERY_STATE_APPROVAL_VAL));
+                    $crImages->add(new \Criteria('img_state', Constants::STATE_APPROVAL_VAL));
                     $imgApprove = $imagesHandler->getCount($crImages);
                     if ($imgApprove > 0) {
                         redirect_header('images.php?op=approve&amp;alb_id=' . $albId, 2, _CO_WGGALLERY_FORM_OK_APPROVE);

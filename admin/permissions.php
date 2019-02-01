@@ -25,7 +25,7 @@ use Xmf\Request;
 
 include __DIR__ . '/header.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
-$imagesHandler = $helper->getHandler('images');
+$imagesHandler = $helper->getHandler('Images');
 // Check admin have access to this page
 $templateMain = 'wggallery_admin_permissions.tpl';
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('permissions.php'));

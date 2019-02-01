@@ -21,7 +21,9 @@
  * @version        $Id: 1.0 upload.php 1 Sat 2018-03-17 09:55:45Z XOOPS Project (www.xoops.org) $
  */
 
-use XMF\Request;
+use Xmf\Request;
+use XoopsModules\Wggallery;
+use XoopsModules\Wggallery\Constants;
 
 require_once __DIR__ . '/header.php';
 // xoops_loadLanguage('admin', 'wggallery');
@@ -58,7 +60,7 @@ if ($albId > 0) {
 
     $albumObj = $albumsHandler->get($albId);
     // get config for file type/extenstion
-    $fileextions = $helper->getConfig('mimetypes');
+    $fileextions = $helper->getConfig('fileext');
     $mimetypes   = [];
     foreach ($fileextions as $fe) {
         switch ($fe) {
@@ -117,7 +119,7 @@ if ($albId > 0) {
         'aud'     => 'ajaxfineupload.php',
         'cat'     => $albId,
         'uid'     => $xoopsUser instanceof \XoopsUser ? $xoopsUser->id() : 0,
-        'handler' => 'fineimpuploadhandler',
+        'handler' => '\XoopsModules\Wggallery\Common\FineimpuploadHandler',
         'moddir'  => 'wggallery',
     ];
     $jwt     = \Xmf\Jwt\TokenFactory::build('fineuploader', $payload, 60 * 30); // token good for 30 minutes

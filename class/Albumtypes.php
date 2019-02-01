@@ -62,7 +62,7 @@ class Albumtypes extends \XoopsObject
 
     /**
      * The new inserted $Id
-     * @return inserted id
+     * @return int inserted id
      */
     public function getNewInsertedIdAlbumtypes()
     {
@@ -74,11 +74,11 @@ class Albumtypes extends \XoopsObject
     /**
      * @public function getForm
      * @param bool $action
-     * @return XoopsThemeForm
+     * @return \XoopsThemeForm
      */
     public function getFormAlbumtypes($action = false)
     {
-        //$helper = Wggallery\Helper::getInstance();
+        //$helper = \XoopsModules\Wggallery\Helper::getInstance();
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
@@ -114,11 +114,11 @@ class Albumtypes extends \XoopsObject
     /**
      * @public function getForm
      * @param bool $action
-     * @return XoopsThemeForm
+     * @return \XoopsThemeForm
      */
     public function getFormAlbumtypeOptions($action = false)
     {
-        //$helper = Wggallery\Helper::getInstance();
+        //$helper = \XoopsModules\Wggallery\Helper::getInstance();
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
@@ -218,14 +218,14 @@ class Albumtypes extends \XoopsObject
 
     /**
      * Get Values
-     * @param null $keys
-     * @param null $format
+     * @param null     $keys
+     * @param null     $format
      * @param int|null $maxDepth
      * @return array
      */
     public function getValuesAlbumtypes($keys = null, $format = null, $maxDepth = null)
     {
-        // $helper = Wggallery\Helper::getInstance();
+        // $helper = \XoopsModules\Wggallery\Helper::getInstance();
         $ret             = $this->getValues($keys, $format, $maxDepth);
         $ret['id']       = $this->getVar('at_id');
         $ret['primary']  = $this->getVar('at_primary');
@@ -240,7 +240,7 @@ class Albumtypes extends \XoopsObject
             $options      = unserialize($at_options, ['allowed_classes' => false]);
             $options_text = '<ul>';
             foreach ($options as $option) {
-                if ('option_sort' != $option['name']) {
+                if ('option_sort' !== $option['name']) {
                     $options_text .= '<li>';
                     if ('' == $option['caption']) {
                         $options_text .= '"' . $option['name'] . '"';

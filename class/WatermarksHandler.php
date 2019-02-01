@@ -23,6 +23,9 @@ namespace XoopsModules\Wggallery;
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 watermarks.php 1 Thu 2018-11-01 08:54:56Z XOOPS Project (www.xoops.org) $
  */
+
+use XoopsModules\Wggallery\Constants;
+
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
@@ -53,7 +56,7 @@ class WatermarksHandler extends \XoopsPersistableObjectHandler
     /**
      * retrieve a field
      *
-     * @param int        $i field id
+     * @param int   $i field id
      * @param array $fields
      * @return mixed reference to the {@link Get} object
      */
@@ -124,6 +127,12 @@ class WatermarksHandler extends \XoopsPersistableObjectHandler
         return $crWatermarks;
     }
 
+    /**
+     * @param $wmId
+     * @param $SourceFile
+     * @param $DestinationFile
+     * @return bool|string
+     */
     public function watermarkImage($wmId, $SourceFile, $DestinationFile)
     {
         // check file exists
@@ -154,7 +163,7 @@ class WatermarksHandler extends \XoopsPersistableObjectHandler
         $marginTB      = $watermarksObj->getVar('wm_margintb');
         $position      = $watermarksObj->getVar('wm_position');
         switch ($wm_type) {
-            case WGGALLERY_WATERMARK_TYPEIMAGE:
+            case Constants::WATERMARK_TYPEIMAGE:
                 $imgStamp       = WGGALLERY_UPLOAD_IMAGE_PATH . '/watermarks/' . $watermarksObj->getVar('wm_image');
                 $mimetype_stamp = mime_content_type($imgStamp);
                 // create stamp
@@ -174,39 +183,39 @@ class WatermarksHandler extends \XoopsPersistableObjectHandler
 
                 // calculate position of stamp
                 switch ($position) {
-                    case WGGALLERY_WATERMARK_POSTOPLEFT:
+                    case Constants::WATERMARK_POSTOPLEFT:
                         $posStampX = $marginLR;
                         $posStampY = $marginTB;
                         break;
-                    case WGGALLERY_WATERMARK_POSTOPRIGHT:
+                    case Constants::WATERMARK_POSTOPRIGHT:
                         $posStampX = $sxFinal - imagesx($stamp) - $marginLR;
                         $posStampY = $marginTB;
                         break;
-                    case WGGALLERY_WATERMARK_POSTOPCENTER:
+                    case Constants::WATERMARK_POSTOPCENTER:
                         $posStampX = ($sxFinal - imagesx($stamp)) / 2;
                         $posStampY = $marginTB;
                         break;
-                    case WGGALLERY_WATERMARK_POSMIDDLELEFT:
+                    case Constants::WATERMARK_POSMIDDLELEFT:
                         $posStampX = $marginLR;
                         $posStampY = ($syFinal - imagesy($stamp)) / 2;
                         break;
-                    case WGGALLERY_WATERMARK_POSMIDDLERIGHT:
+                    case Constants::WATERMARK_POSMIDDLERIGHT:
                         $posStampX = $sxFinal - imagesx($stamp) - $marginLR;
                         $posStampY = ($syFinal - imagesy($stamp)) / 2;
                         break;
-                    case WGGALLERY_WATERMARK_POSMIDDLECENTER:
+                    case Constants::WATERMARK_POSMIDDLECENTER:
                         $posStampX = ($sxFinal - imagesx($stamp)) / 2;
                         $posStampY = ($syFinal - imagesy($stamp)) / 2;
                         break;
-                    case WGGALLERY_WATERMARK_POSBOTTOMLEFT:
+                    case Constants::WATERMARK_POSBOTTOMLEFT:
                         $posStampX = $marginLR;
                         $posStampY = $syFinal - imagesy($stamp) - $marginTB;
                         break;
-                    case WGGALLERY_WATERMARK_POSBOTTOMRIGHT:
+                    case Constants::WATERMARK_POSBOTTOMRIGHT:
                         $posStampX = $sxFinal - imagesx($stamp) - $marginLR;
                         $posStampY = $syFinal - imagesy($stamp) - $marginTB;
                         break;
-                    case WGGALLERY_WATERMARK_POSBOTTOMCENTER:
+                    case Constants::WATERMARK_POSBOTTOMCENTER:
                         $posStampX = ($sxFinal - imagesx($stamp)) / 2;
                         $posStampY = $syFinal - imagesy($stamp) - $marginTB;
                         break;
@@ -220,7 +229,7 @@ class WatermarksHandler extends \XoopsPersistableObjectHandler
                 imagecopy($imgToBeStamped, $stamp, $posStampX, $posStampY, 0, 0, imagesx($stamp), imagesy($stamp));
                 $imgFinal = $imgToBeStamped;
                 break;
-            case WGGALLERY_WATERMARK_TYPETEXT:
+            case Constants::WATERMARK_TYPETEXT:
                 $wmText = $watermarksObj->getVar('wm_text');
                 $stamp  = imagecreatetruecolor($sxFinal, $syFinal);
                 imagecopyresampled($stamp, $imgToBeStamped, 0, 0, 0, 0, $sxFinal, $syFinal, $sxFinal, $syFinal);
@@ -240,39 +249,39 @@ class WatermarksHandler extends \XoopsPersistableObjectHandler
                 // $text_height = $text_box[7]-$text_box[1];
                 // calculate position of stamp
                 switch ($position) {
-                    case WGGALLERY_WATERMARK_POSTOPLEFT:
+                    case Constants::WATERMARK_POSTOPLEFT:
                         $posStampX = $marginLR;
                         $posStampY = ($fontSize / 2) + $marginTB;
                         break;
-                    case WGGALLERY_WATERMARK_POSTOPRIGHT:
+                    case Constants::WATERMARK_POSTOPRIGHT:
                         $posStampX = $sxFinal - $text_width - $marginLR;
                         $posStampY = ($fontSize / 2) + $marginTB;
                         break;
-                    case WGGALLERY_WATERMARK_POSTOPCENTER:
+                    case Constants::WATERMARK_POSTOPCENTER:
                         $posStampX = ($sxFinal - $text_width) / 2;
                         $posStampY = ($fontSize / 2) + $marginTB;
                         break;
-                    case WGGALLERY_WATERMARK_POSMIDDLELEFT:
+                    case Constants::WATERMARK_POSMIDDLELEFT:
                         $posStampX = $marginLR;
                         $posStampY = $syFinal / 2;
                         break;
-                    case WGGALLERY_WATERMARK_POSMIDDLERIGHT:
+                    case Constants::WATERMARK_POSMIDDLERIGHT:
                         $posStampX = $sxFinal - $text_width - $marginLR;
                         $posStampY = $syFinal / 2;
                         break;
-                    case WGGALLERY_WATERMARK_POSMIDDLECENTER:
+                    case Constants::WATERMARK_POSMIDDLECENTER:
                         $posStampX = ($sxFinal - $text_width) / 2;
                         $posStampY = $syFinal / 2;
                         break;
-                    case WGGALLERY_WATERMARK_POSBOTTOMLEFT:
+                    case Constants::WATERMARK_POSBOTTOMLEFT:
                         $posStampX = $marginLR;
                         $posStampY = $syFinal - $marginTB;
                         break;
-                    case WGGALLERY_WATERMARK_POSBOTTOMRIGHT:
+                    case Constants::WATERMARK_POSBOTTOMRIGHT:
                         $posStampX = $sxFinal - $text_width - $marginLR;
                         $posStampY = $syFinal - $marginTB;
                         break;
-                    case WGGALLERY_WATERMARK_POSBOTTOMCENTER:
+                    case Constants::WATERMARK_POSBOTTOMCENTER:
                         $posStampX = ($sxFinal - $text_width) / 2;
                         $posStampY = $syFinal - $marginTB;
                         break;
