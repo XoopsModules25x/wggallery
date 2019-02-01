@@ -209,7 +209,19 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
                 return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEWM_MEDIUM, $this->imageNicename, $resWm)];
             }
         }
-
+        // send notifications
+        $tags                = [];
+        $tags['IMAGE_NAME']  = $this->imageNicename;
+        $tags['IMAGE_URL']   = XOOPS_URL . '/modules/wggallery/images.php?op=show&img_id=' . $this->imageId . '&amp;alb_id=' . $this->claims->cat;
+        $tags['ALBUM_URL']   = XOOPS_URL . '/modules/wggallery/albums.php?op=show&alb_id=' . $this->claims->cat;
+        $notificationHandler = xoops_getHandler('notification');
+        $mid = \XoopsModules\Wggallery\Helper::getMid();
+        if ( Constants::STATE_APPROVAL_VAL === $this->permUseralbum ) {
+            $notificationHandler->triggerEvent('global', 0, 'image_approve',  $tags, [], $mid);
+        } else {
+            $notificationHandler->triggerEvent('global', 0, 'image_new_all',  $tags, [], $mid);
+            $notificationHandler->triggerEvent('albums', $this->claims->cat, 'image_new',  $tags, [], $mid);
+        }
         return ['success' => true, 'uuid' => $uuid];
     }
 

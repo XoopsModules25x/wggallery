@@ -1,10 +1,13 @@
-// ---------- Templates Mail Content Dummy ---------- //
+
 Hallo {X_UNAME},
 
 Ein neues Bild "{IMAGE_NAME}" wurde zur Seite {X_SITENAME} hinzugefügt und wartet auf Freigabe.
 
 Das Bild können Sie hier ansehen:
 {IMAGE_URL}
+
+Das ganze Album sehen sie hier:
+{ALBUM_URL}
 
 -----------
 

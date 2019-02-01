@@ -66,6 +66,17 @@ class Helper extends \Xmf\Module\Helper
     {
         return $this->dirname;
     }
+    
+    /**
+     * @return int
+     */
+    public function getMid()
+    {
+        $module_handler = xoops_getHandler('module');
+        $xoopsModule    = $module_handler->getByDirname('wggallery');
+        $mid            = $xoopsModule->mid();
+        return $mid;
+    }
 
     /**
      * Get an Object Handler

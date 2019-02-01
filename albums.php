@@ -207,20 +207,24 @@ switch ($op) {
                     $gpermHandler->addRight('wggallery_dlimage_medium', $permId, $onegroupId, $perm_modid);
                 }
             }
-
-            $tags               = [];
-            $tags['ALBUM_NAME'] = $alb_name;
-
-            if ($albNew) {
-                $tags['ALBUM_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/images.php?op=list&alb_id={$newAlbId}&amp;alb_pid={$albPid}";
-                $notificationHandler = xoops_getHandler('notification');
-                $notificationHandler->triggerEvent('global', 0, 'album_new', $tags);
-            } else {
-                $tags['ALBUM_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/images.php?op=list&alb_id={$albId}&amp;alb_pid={$albPid}";
-                $notificationHandler = xoops_getHandler('notification');
-                $notificationHandler->triggerEvent('global', 0, 'album_modify', $tags);
-            }
+            // set category of album
             $albumsHandler->setAlbumIsCat();
+            // send notifications
+            $tags                = [];
+            $tags['ALBUM_NAME']  = $alb_name;
+            $tags['ALBUM_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/albums.php?op=show&alb_id={$albId}&amp;alb_pid={$albPid}";
+            $notificationHandler = xoops_getHandler('notification');
+            
+            if ( WGGALLERY_STATE_APPROVAL_VAL === $albState ) {
+                $notificationHandler->triggerEvent('global', 0, 'album_approve_all',  $tags );
+            } else {
+                if ( $albNew ) {
+                    $notificationHandler->triggerEvent('global', 0, 'album_new_all',  $tags );
+                } else {
+                    $notificationHandler->triggerEvent('global', 0, 'album_modify_all',  $tags );
+                    $notificationHandler->triggerEvent('albums', $albId, 'album_modify',  $tags );
+                }
+            }
             if ('upload' === $redir) {
                 redirect_header('upload.php?alb_id=' . $permId, 2, _CO_WGGALLERY_FORM_OK);
             } else {
@@ -254,6 +258,7 @@ switch ($op) {
                 redirect_header('albums.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             $alb_image = $albumsObj->getVar('alb_image');
+            $alb_name  = $albumsObj->getVar('alb_name');
             if ($albumsHandler->delete($albumsObj)) {
                 // delete albimage
                 if ('blank.gif' !== $alb_image) {
@@ -272,7 +277,10 @@ switch ($op) {
                 $tags                = [];
                 $tags['ALBUM_NAME']  = $alb_name;
                 $notificationHandler = xoops_getHandler('notification');
-                $notificationHandler->triggerEvent('global', 0, 'album_delete', $tags);
+                $notificationHandler->triggerEvent('global', 0, 'album_delete_all',  $tags );
+                $notificationHandler->triggerEvent('albums', $albId, 'album_delete',  $tags );
+                // delete all notifications linked to this album
+                $notificationHandler->unsubscribeByItem ($GLOBALS['xoopsModule']->getVar('mid'), 'albums', $albId);
 
                 redirect_header('albums.php', 3, _CO_WGGALLERY_FORM_DELETE_OK);
             } else {

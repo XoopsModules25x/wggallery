@@ -1,4 +1,4 @@
-// ---------- Templates Mail Content Dummy ---------- //
+
 Hello {X_UNAME},
 
 The album "{ALBUM_NAME}" has been deleted from {X_SITENAME}.

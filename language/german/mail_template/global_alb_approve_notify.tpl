@@ -1,4 +1,4 @@
-// ---------- Templates Mail Content Dummy ---------- //
+
 Hallo {X_UNAME},
 
 Ein Album "{ALBUM_NAME}" wurde auf {X_SITENAME} hinzugefügt/bearbeitet und wartet auf Freigabe.

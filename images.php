@@ -91,7 +91,8 @@ switch ($op) {
         // Set Vars
         $imagesObj->setVar('img_title', Request::getString('img_title', ''));
         $imagesObj->setVar('img_desc', Request::getString('img_desc', ''));
-        $imagesObj->setVar('img_name', Request::getString('img_name', ''));
+        $img_name = Request::getString('img_name', '');
+        $imagesObj->setVar('img_name', $img_name);
         $imagesObj->setVar('img_nameorig', Request::getString('img_nameorig', ''));
         $imagesObj->setVar('img_mimetype', Request::getInt('img_mimetype'));
         $imagesObj->setVar('img_size', Request::getInt('img_size'));
@@ -112,6 +113,21 @@ switch ($op) {
         $imagesObj->setVar('img_ip', $_SERVER['REMOTE_ADDR']);
         // Insert Data
         if ($imagesHandler->insert($imagesObj)) {
+             // send notifications
+            $tags                = [];
+            $tags['IMAGE_NAME']  = $img_name;
+            $tags['IMAGE_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/images.php?op=show&img_id={$imgId}&amp;alb_id={$albId}";
+            $tags['ALBUM_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/albums.php?op=show&alb_id={$albId}&amp;alb_pid={$imgAlbPid}";
+            $notificationHandler = xoops_getHandler('notification');
+            
+            if ( Constants::STATE_APPROVAL_VAL === $imgState ) {
+                $notificationHandler->triggerEvent('global', 0, 'image_approve',  $tags );
+            } else {
+                if ( $imgNew ) {
+                    $notificationHandler->triggerEvent('global', 0, 'image_new_all',  $tags );
+                    $notificationHandler->triggerEvent('albums', $albId, 'image_new',  $tags );
+                }
+            }
             redirect_header('images.php?op=list&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid, 2, _CO_WGGALLERY_FORM_OK);
         }
         // Get Form
@@ -163,11 +179,18 @@ switch ($op) {
             $img_name = $imagesObj->getVar('img_name');
             if ($imagesHandler->delete($imagesObj)) {
                 if ($imagesHandler->unlinkImages($img_name, $imagesObj->getVar('img_namelarge'))) {
+                    // send notifications
+                    $tags                = [];
+                    $tags['IMAGE_NAME']  = $img_name;
+                    $tags['IMAGE_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/images.php?op=show&img_id=' . $imgId . '&amp;alb_id=' . $albId;
+                    $tags['ALBUM_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/albums.php?op=show&alb_id=' . $albId;
+                    $notificationHandler = xoops_getHandler('notification');
+                    $notificationHandler->triggerEvent('albums', $albId, 'image_delete',  $tags );
+
                     redirect_header('images.php?op=list&amp;alb_id=' . $albId, 3, _CO_WGGALLERY_FORM_DELETE_OK);
                 } else {
                     $GLOBALS['xoopsTpl']->assign('error', _CO_WGGALLERY_IMAGE_ERRORUNLINK);
                 }
-                redirect_header('images.php?op=list&amp;alb_id=' . $albId, 3, _CO_WGGALLERY_FORM_DELETE_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $imagesObj->getHtmlErrors());
             }
