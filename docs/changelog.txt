@@ -16,6 +16,7 @@
  - moved Resizer to /class (mamba)
  - moved FineImUploader to /class/Common (mamba)
  - update changelog (mamba)
+ - added comments (mamba)
 
 
 
