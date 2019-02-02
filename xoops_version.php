@@ -20,7 +20,7 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 xoops_version.php 1 Mon 2018-03-19 07:47:33Z XOOPS Project (www.xoops.org) $
  */
-$moduleDirName = basename(__DIR__);
+$moduleDirName      = basename(__DIR__);
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 // ------------------- Informations ------------------- //
@@ -146,8 +146,12 @@ $modversion['hasSearch']      = 1;
 $modversion['search']['file'] = 'include/search.inc.php';
 $modversion['search']['func'] = 'wggallery_search';
 // ------------------- Comments ------------------- //
-$modversion['comments']['pageName'] = 'comments.php';
-$modversion['comments']['itemName'] = 'com_id';
+$modversion['hasComments']             = 1;
+$modversion['comments']['pageName']    = 'images.php';
+$modversion['comments']['itemName']    = 'img_id';
+$modversion['comments']['extraParams'] = ['alb_id'];
+
+
 // Comment callback functions
 $modversion['comments']['callbackFile']        = 'include/comment_functions.php';
 $modversion['comments']['callback']['approve'] = 'wggalleryCommentsApprove';
@@ -484,14 +488,13 @@ $modversion['config'][] = [
  * Show Developer Tools?
  */
 $modversion['config'][] = [
-    'name' => 'displayDeveloperTools',
-    'title' => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS',
+    'name'        => 'displayDeveloperTools',
+    'title'       => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS',
     'description' => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS_DESC',
-    'formtype' => 'yesno',
-    'valuetype' => 'int',
-    'default' => 0,
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 0,
 ];
-
 
 // ------------------- Notifications ------------------- //
 $modversion['hasNotification']             = 1;

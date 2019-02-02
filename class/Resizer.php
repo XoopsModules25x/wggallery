@@ -111,7 +111,7 @@ class Resizer
     // public function resizeAndCrop($this->sourceFile, $this->imageMimetype, $this->endFile, $this->maxWidth, $this->maxHeight, $this->jpgQuality=90)
 
     /**
-     * @return bool
+     * @return bool|string
      */
     public function resizeAndCrop()
     {
