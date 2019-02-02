@@ -53,7 +53,7 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
     $result = $xoopsDB->query($sql, $limit, $offset);
     $ret    = [];
     $i      = 0;
-    while ($myrow = $xoopsDB->fetchArray($result)) {
+    while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
         $ret[$i]['image'] = 'assets/icons/32/blank.gif';
         $ret[$i]['link']  = 'images.php?img_id=' . $myrow['img_id'];
         $ret[$i]['title'] = $myrow['img_name'];
