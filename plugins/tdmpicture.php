@@ -34,11 +34,11 @@ function wggalleryPluginGetDataTdmpicture()
 {
     // get number of albums
     $sql = 'SELECT `cat_id` FROM ' . $GLOBALS['xoopsDB']->prefix('tdmpicture_cat');
-    $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    $result = $GLOBALS['xoopsDB']->query($sql) || die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
     $num_albums = $GLOBALS['xoopsDB']->getRowsNum($result);
     // get number of images
     $sql = 'SELECT `file_id` FROM ' . $GLOBALS['xoopsDB']->prefix('tdmpicture_file');
-    $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    $result = $GLOBALS['xoopsDB']->query($sql) || die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
     $num_images = $GLOBALS['xoopsDB']->getRowsNum($result);
 
     return [$num_albums, $num_images];
@@ -140,20 +140,20 @@ function wggalleryPluginExecImportTdmpicture()
     $sql .= ' ( alb_id, alb_pid, alb_name, alb_date, alb_desc, alb_imgcat, alb_image, alb_weight, alb_state, alb_submitter ) ';
     $sql .= 'SELECT tc.cat_id, tc.cat_pid, tc.cat_title, tc.cat_date, tc.cat_text, 1, tc.cat_img, tc.cat_weight, If(tc.cat_display=1,' . Constants::STATE_OFFLINE_VAL . ',' . Constants::STATE_OFFLINE_VAL . '), tc.cat_uid';
     $sql .= ' FROM ' . $GLOBALS['xoopsDB']->prefix('tdmpicture_cat') . ' as tc';
-    $result = $GLOBALS['xoopsDB']->queryF($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    $result = $GLOBALS['xoopsDB']->queryF($sql) || die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
     unset($result);
 
     $sql = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . " SET alb_image = 'blank.gif' WHERE (alb_image='blank.png')";
-    $result = $GLOBALS['xoopsDB']->queryF($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    $result = $GLOBALS['xoopsDB']->queryF($sql) || die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
 
     // copy album images
     $sql = 'SELECT `cat_id`, `cat_img` FROM ' . $GLOBALS['xoopsDB']->prefix('tdmpicture_cat');
-    $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    $result = $GLOBALS['xoopsDB']->query($sql) || die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
     while (false !== (list($cat_id, $cat_imgurl) = $GLOBALS['xoopsDB']->fetchRow($result))) {
         $imageName = basename($cat_imgurl);
         if ('' !== $imageName) {
             $sql = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . ' SET alb_imgcat = 2 WHERE (alb_id=' . $cat_id . ')';
-            $result2 = $GLOBALS['xoopsDB']->queryF($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+            $result2 = $GLOBALS['xoopsDB']->queryF($sql) || die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
             if ('blank.png' !== $imageName) {
                 copy(XOOPS_ROOT_PATH . '/uploads/tdmpicture/cat/' . $imageName, WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $imageName);
             }
@@ -164,7 +164,7 @@ function wggalleryPluginExecImportTdmpicture()
 
     // create perms for each album
     $sql = 'SELECT `alb_id` FROM ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums');
-    $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    $result = $GLOBALS['xoopsDB']->query($sql) || die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
     while (false !== (list($albId) = $GLOBALS['xoopsDB']->fetchRow($result))) {
         $permId       = $albId;
         $perm_modid   = $GLOBALS['xoopsModule']->getVar('mid');
@@ -206,12 +206,12 @@ function wggalleryPluginExecImportTdmpicture()
     $sql .= 'SELECT tp.file_id, tp.file_cat, tp.file_file, tp.file_title, tp.file_text, tp.file_type, tp.file_display, tp.file_hits, tp.file_dl, tp.file_indate, ';
     $sql .= 'tp.file_uid, tp.file_size, tp.file_res_x, tp.file_res_y ';
     $sql .= ' FROM ' . $GLOBALS['xoopsDB']->prefix('tdmpicture_file') . ' as tp';
-    $result = $GLOBALS['xoopsDB']->queryF($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    $result = $GLOBALS['xoopsDB']->queryF($sql) || die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
     unset($result);
 
     // copy all images
     $sql = 'SELECT `file_id`, `file_file` FROM ' . $GLOBALS['xoopsDB']->prefix('tdmpicture_file');
-    $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    $result = $GLOBALS['xoopsDB']->query($sql) || die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
     while (false !== (list($photo_id, $photo_name) = $GLOBALS['xoopsDB']->fetchRow($result))) {
         copy(XOOPS_ROOT_PATH . '/uploads/tdmpicture/' . $photo_name, WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $photo_name);
         copy(XOOPS_ROOT_PATH . '/uploads/tdmpicture/' . $photo_name, WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $photo_name);

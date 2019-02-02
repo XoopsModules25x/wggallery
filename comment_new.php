@@ -26,7 +26,7 @@ use Xmf\Request;
 use XoopsModules\Wggallery;
 
 
-require __DIR__ . '/../../mainfile.php';
+require  dirname(dirname(__DIR__)) . '/mainfile.php';
 $com_itemid = Request::getInt('com_itemid', 0);
 if ($com_itemid > 0) {
 

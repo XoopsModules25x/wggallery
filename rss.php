@@ -82,7 +82,7 @@ if (!$tpl->is_cached('db:wggallery_rss.tpl', $cid)) {
     foreach (array_keys($imagesArr) as $i) {
         $description = $imagesArr[$i]->getVar('description');
         //permet d'afficher uniquement la description courte
-        if (false == mb_strpos($description, '[pagebreak]')) {
+        if (false === mb_strpos($description, '[pagebreak]')) {
             $description_short = $description;
         } else {
             $description_short = mb_substr($description, 0, mb_strpos($description, '[pagebreak]'));
