@@ -26,7 +26,7 @@ use XoopsModules\Wggallery\Constants;
 
 include __DIR__ . '/header.php';
 
-$op = Request::getString('op', '');
+$op = Request::getString('op', 'list');
 if ('manage' === $op) {
     $GLOBALS['xoopsOption']['template_main'] = 'wggallery_images_manage.tpl';
 } else {
@@ -35,7 +35,7 @@ if ('manage' === $op) {
 require_once XOOPS_ROOT_PATH . '/header.php';
 
 $imgId   = Request::getInt('img_id');
-$albId   = Request::getInt('alb_id');
+$albId   = Request::getInt('alb_id', 0);
 $albPid  = Request::getInt('alb_pid');
 $ref     = Request::getString('ref');
 $imgSubm = Request::getInt('img_submitter');
@@ -55,6 +55,12 @@ $GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/css/style.css', null
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
 $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
+
+if (0 < $imgId && 0 === $albId) {
+    // get album id
+    $imagesObj = $imagesHandler->get($imgId);
+    $albId     = $imagesObj->getVar('img_albid');
+}
 
 $albName   = '';
 $albumsObj = $albumsHandler->get($albId);
@@ -195,6 +201,7 @@ switch ($op) {
         }
         break;
     case 'list':
+    default:
         $albums    = $helper->getHandler('Albums');
         $albumsObj = $albums->get($albId);
         if (isset($albumsObj) && is_object($albumsObj)) {
@@ -249,11 +256,9 @@ switch ($op) {
         }
         break;
     case 'show':
-    default:
-
-    if (!$imgId) {
-        redirect_header('albums.php', 3, _MA_WGGALLERY_ERROR_NO_IMAGE_SET);
-    }
+        if (!$imgId) {
+            redirect_header('albums.php', 3, _MA_WGGALLERY_ERROR_NO_IMAGE_SET);
+        }
         // Get Form
         $imagesObj = $imagesHandler->get($imgId);
         $image     = $imagesObj->getValuesImages();
