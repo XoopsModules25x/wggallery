@@ -1,10 +1,13 @@
-// ---------- Templates Mail Content Dummy ---------- //
+
 Hello {X_UNAME},
 
 A new image "{IMAGE_NAME}" has been added at {X_SITENAME}.
 
 You can view this image here:
 {IMAGE_URL}
+
+You can view full album here:
+{ALBUM_URL}
 
 -----------
 

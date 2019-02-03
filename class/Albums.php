@@ -413,7 +413,7 @@ class Albums extends \XoopsObject
             }
 
             // TODO
-            /* 		} else if (WGGALLERY_ALBUM_IMGCAT_USE_GRID === $this->getVar('alb_imgcat')) {
+            /*         } else if (WGGALLERY_ALBUM_IMGCAT_USE_GRID === $this->getVar('alb_imgcat')) {
                         $crImages = new \CriteriaCompo();
                         $crImages->add(new \Criteria('img_albid', $this->getVar('alb_id')));
                         $crImages->add(new \Criteria('img_state', 1));
@@ -455,40 +455,6 @@ class Albums extends \XoopsObject
 
         return $ret;
     }
-
-    /**
-     * Get specified number of images from album
-     * @param null $keys
-     * @param null $format
-     * @param null $maxDepth
-     * @return array
-     */
-    /* 	public function getSpecImagesAlbum ($albId, $limit)
-        {
-            $helper = \XoopsModules\Wggallery\Helper::getInstance();
-            $imagesHandler = $helper->getHandler('Images');
-    
-            $crImages = new \CriteriaCompo();
-            $crImages->add(new \Criteria('img_albid', $albId));
-            if (!$permissionsHandler->permAlbumEdit($albId, $albSubmitter)) {
-                $crImages->add(new \Criteria('img_state', 1));
-            }
-            $crImages->setSort('img_weight');
-            $crImages->setOrder('ASC');
-            $crImages->setLimit( $limit );
-            $imagesCount = $imagesHandler->getCount($crImages);
-            $imagesAll = $imagesHandler->getAll($crImages);
-            if($imagesCount > 0) {
-                $images = array();
-                // Get All Images
-                foreach(array_keys($imagesAll) as $i) {
-                    $images[$i] = $imagesAll[$i]->getValuesImages();
-                }
-                return $images;
-                unset($images);			
-            }
-            return false;
-        } */
 
     /**
      * Returns an array representation of the object

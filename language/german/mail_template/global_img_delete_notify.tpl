@@ -1,4 +1,4 @@
-// ---------- Templates Mail Content Dummy ---------- //
+
 Hallo {X_UNAME},
 
 Das Bild "{IMAGE_NAME}" wurde von {X_SITENAME} gelöscht.

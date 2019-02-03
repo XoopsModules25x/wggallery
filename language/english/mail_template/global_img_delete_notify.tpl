@@ -1,9 +1,9 @@
-// ---------- Templates Mail Content Dummy ---------- //
+
 Hello {X_UNAME},
 
 The image "{IMAGE_NAME}" has been deleted from {X_SITENAME}.
 
-You can view this album here:
+You can view full album here:
 {ALBUM_URL}
 
 -----------

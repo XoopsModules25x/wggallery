@@ -91,8 +91,10 @@ switch ($op) {
         }
         if (isset($imgId)) {
             $imagesObj = $imagesHandler->get($imgId);
+            $imgNew = 0;
         } else {
             $imagesObj = $imagesHandler->create();
+            $imgNew = 1;
         }
         // Set Vars
         $imagesObj->setVar('img_title', Request::getString('img_title', ''));
@@ -111,13 +113,29 @@ switch ($op) {
         $albumsObj = $albumsHandler->get($albId);
         $imgAlbPid = $albumsObj->getVar('alb_pid');
         $imagesObj->setVar('img_albid', $imgAlbId);
-        $imagesObj->setVar('img_state', Request::getInt('img_state'));
+        $imgState = Request::getInt('img_state');
+        $imagesObj->setVar('img_state', $imgState);
         $imageDate = date_create_from_format(_SHORTDATESTRING, $_POST['img_date']);
         $imagesObj->setVar('img_date', $imageDate->getTimestamp());
         $imagesObj->setVar('img_submitter', Request::getInt('img_submitter'));
         $imagesObj->setVar('img_ip', $_SERVER['REMOTE_ADDR']);
         // Insert Data
         if ($imagesHandler->insert($imagesObj)) {
+            // send notifications
+            $tags                = [];
+            $tags['IMAGE_NAME']  = $img_name;
+            $tags['IMAGE_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/images.php?op=show&img_id={$imgId}&amp;alb_id={$albId}";
+            $tags['ALBUM_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/albums.php?op=show&alb_id={$albId}&amp;alb_pid={$imgAlbPid}";
+            $notificationHandler = xoops_getHandler('notification');
+            
+            if ( WGGALLERY_STATE_APPROVAL_VAL === $imgState ) {
+                $notificationHandler->triggerEvent('global', 0, 'image_approve',  $tags );
+            } else {
+                if ( $imgNew ) {
+                    $notificationHandler->triggerEvent('global', 0, 'image_new_all',  $tags );
+                    $notificationHandler->triggerEvent('albums', $albId, 'image_new',  $tags );
+                }
+            }
             redirect_header('images.php?op=list&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid, 2, _CO_WGGALLERY_FORM_OK);
         }
         // Get Form
@@ -145,11 +163,21 @@ switch ($op) {
             }
             $img_name = $imagesObj->getVar('img_name');
             if ($imagesHandler->delete($imagesObj)) {
-                if ($imagesHandler->unlinkImages($img_name, $imagesObj->getVar('img_namelarge'))) {
-                    redirect_header('images.php?op=list&amp;alb_id=' . $albId, 3, _CO_WGGALLERY_FORM_DELETE_OK);
-                } else {
+                if (!$imagesHandler->unlinkImages($img_name, $imagesObj->getVar('img_namelarge'))) {
                     $GLOBALS['xoopsTpl']->assign('error', _CO_WGGALLERY_IMAGE_ERRORUNLINK);
                 }
+                // send notifications
+                $tags                = [];
+                $tags['IMAGE_NAME']  = $img_name;
+                $tags['IMAGE_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/images.php?op=show&img_id=' . $imgId . '&amp;alb_id=' . $albId;
+                $tags['ALBUM_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/albums.php?op=show&alb_id=' . $albId;
+                $notificationHandler = xoops_getHandler('notification');
+                $notificationHandler->triggerEvent('albums', $albId, 'image_delete',  $tags );
+                // delete comments
+                $comment_handler = xoops_getHandler('comment');
+                $critComments = new CriteriaCompo(new Criteria('com_modid', $helper->getMid()));
+                $critComments->add(new Criteria('com_itemid', $imgId));
+                $comment_handler->deleteAll($critComments);
                 redirect_header('images.php?op=list&amp;alb_id=' . $albId, 3, _CO_WGGALLERY_FORM_DELETE_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $imagesObj->getHtmlErrors());
@@ -161,9 +189,9 @@ switch ($op) {
         }
         break;
     case 'manage':
-        $GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/wggallery/assets/js/jquery-ui.min.js');
-        $GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/wggallery/assets/js/sortable-images.js');
-        $GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/wggallery/assets/js/jquery.mjs.nestedSortable.js');
+        $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/js/jquery-ui.min.js');
+        $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/js/sortable-images.js');
+        $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/js/jquery.mjs.nestedSortable.js');
         $GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/css/nestedsortable.css');
         if (!$permAlbumEdit) {
             redirect_header('images.php', 3, _NOPERM);

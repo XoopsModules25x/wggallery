@@ -51,7 +51,7 @@ $GLOBALS['xoTheme']->addStylesheet($style, null);
 $GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/css/style_default.css');
 
 // add scripts
-$GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/wggallery/assets/js/admin.js');
+$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/js/admin.js');
 
 // assign vars
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
@@ -68,9 +68,9 @@ switch ($op) {
     case 'show':
     default:
         // add scripts
-        $GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/wggallery/assets/js/jquery-ui.min.js');
-        $GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/wggallery/assets/js/sortable.js');
-        $GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/wggallery/assets/js/jquery.mjs.nestedSortable.js');
+        $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/js/jquery-ui.min.js');
+        $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/js/sortable.js');
+        $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/js/jquery.mjs.nestedSortable.js');
         $GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/css/nestedsortable.css');
         $GLOBALS['xoopsTpl']->assign('albpid', $albPid);
 
@@ -121,7 +121,7 @@ switch ($op) {
         break;
     case 'new':
         // Get Form
-        if ($permissionsHandler->permGlobalSubmit() > 0) {
+        if (0 < $permissionsHandler->permGlobalSubmit()) {
             $albumsObj = $albumsHandler->create();
             $albumsObj->setVar('alb_pid', $albPid);
             $form = $albumsObj->getFormAlbums();
@@ -140,7 +140,7 @@ switch ($op) {
             redirect_header('albums.php', 3, _NOPERM);
         }
         $albNew = 0;
-        if ($albId > 0) {
+        if (0 < $albId) {
             $albumsObj = $albumsHandler->get($albId);
             if (!$permissionsHandler->permAlbumEdit($albId, $albumsObj->getVar('alb_submitter'))) {
                 redirect_header('albums.php', 3, _NOPERM);
@@ -171,56 +171,62 @@ switch ($op) {
         $albumsObj->setVar('alb_submitter', Request::getInt('alb_submitter'));
         // Insert Data
         if ($albumsHandler->insert($albumsObj)) {
-            $newAlbId     = $albumsObj->getNewInsertedIdAlbums();
-            $permId       = $albId > 0 ? $albId : $newAlbId;
-            $gpermHandler = xoops_getHandler('groupperm');
-            $perm_modid   = $GLOBALS['xoopsModule']->getVar('mid');
+            if ( $albNew ) $albId = $albumsHandler->getInsertId();
+            $gpermHandler = xoops_gethandler('groupperm');
+            $perm_modid = $GLOBALS['xoopsModule']->getVar('mid');
             // remove all existing rights
-            $gpermHandler->deleteByModule($perm_modid, 'wggallery_view', $permId);
+            $gpermHandler->deleteByModule($perm_modid, 'wggallery_view', $albId);
             //TODO
-            // $gpermHandler->deleteByModule($perm_modid, 'wggallery_dlfullalb', $permId);
-            $gpermHandler->deleteByModule($perm_modid, 'wggallery_dlimage_large', $permId);
-            $gpermHandler->deleteByModule($perm_modid, 'wggallery_dlimage_medium', $permId);
+            // $gpermHandler->deleteByModule($perm_modid, 'wggallery_dlfullalb', $albId);
+            $gpermHandler->deleteByModule($perm_modid, 'wggallery_dlimage_large', $albId);
+            $gpermHandler->deleteByModule($perm_modid, 'wggallery_dlimage_medium', $albId);
             // set selected rights new
             // Permission to view
-            if (isset($_POST['groups_view'])) {
-                foreach ($_POST['groups_view'] as $onegroupId) {
-                    $gpermHandler->addRight('wggallery_view', $permId, $onegroupId, $perm_modid);
+            if(isset($_POST['groups_view'])) {
+                foreach($_POST['groups_view'] as $onegroupId) {
+                    $gpermHandler->addRight('wggallery_view', $albId, $onegroupId,  $perm_modid);
                 }
             }
             //TODO
             // Permission to download full album
             // if(isset($_POST['groups_dlfullalb'])) {
-            // foreach($_POST['groups_dlfullalb'] as $onegroupId) {
-            // $gpermHandler->addRight('wggallery_dlfullalb', $permId, $onegroupId, $perm_modid);
-            // }
+                // foreach($_POST['groups_dlfullalb'] as $onegroupId) {
+                    // $gpermHandler->addRight('wggallery_dlfullalb', $albId, $onegroupId, $perm_modid);
+                // }
             // }
             // Permission to download large images
-            if (isset($_POST['groups_dlimage_large'])) {
-                foreach ($_POST['groups_dlimage_large'] as $onegroupId) {
-                    $gpermHandler->addRight('wggallery_dlimage_large', $permId, $onegroupId, $perm_modid);
+            if(isset($_POST['groups_dlimage_large'])) {
+                foreach($_POST['groups_dlimage_large'] as $onegroupId) {
+                    $gpermHandler->addRight('wggallery_dlimage_large', $albId, $onegroupId, $perm_modid);
                 }
             }
             // Permission to download medium images
-            if (isset($_POST['groups_dlimage_medium'])) {
-                foreach ($_POST['groups_dlimage_medium'] as $onegroupId) {
-                    $gpermHandler->addRight('wggallery_dlimage_medium', $permId, $onegroupId, $perm_modid);
+            if(isset($_POST['groups_dlimage_medium'])) {
+                foreach($_POST['groups_dlimage_medium'] as $onegroupId) {
+                    $gpermHandler->addRight('wggallery_dlimage_medium', $albId, $onegroupId, $perm_modid);
                 }
             }
 
-            $tags               = [];
-            $tags['ALBUM_NAME'] = $alb_name;
-
-            if ($albNew) {
-                $tags['ALBUM_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/images.php?op=list&alb_id={$newAlbId}&amp;alb_pid={$albPid}";
-                $notificationHandler = xoops_getHandler('notification');
-                $notificationHandler->triggerEvent('global', 0, 'album_new', $tags);
-            } else {
-                $tags['ALBUM_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/images.php?op=list&alb_id={$albId}&amp;alb_pid={$albPid}";
-                $notificationHandler = xoops_getHandler('notification');
-                $notificationHandler->triggerEvent('global', 0, 'album_modify', $tags);
-            }
+            // set category of album
             $albumsHandler->setAlbumIsCat();
+            
+            // send notifications
+            $tags                = [];
+            $tags['ALBUM_NAME']  = $alb_name;
+            $tags['ALBUM_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/albums.php?op=show&alb_id={$albId}&amp;alb_pid={$albPid}";
+            $notificationHandler = xoops_getHandler('notification');
+            
+            if ( WGGALLERY_STATE_APPROVAL_VAL === $albState ) {
+                $notificationHandler->triggerEvent('global', 0, 'album_approve_all',  $tags );
+            } else {
+                if ( $albNew ) {
+                    $notificationHandler->triggerEvent('global', 0, 'album_new_all',  $tags );
+                } else {
+                    $notificationHandler->triggerEvent('global', 0, 'album_modify_all',  $tags );
+                    $notificationHandler->triggerEvent('albums', $albId, 'album_modify',  $tags );
+                }
+            }
+            
             if ('upload' === $redir) {
                 redirect_header('upload.php?alb_id=' . $permId, 2, _CO_WGGALLERY_FORM_OK);
             } else {
@@ -272,7 +278,10 @@ switch ($op) {
                 $tags                = [];
                 $tags['ALBUM_NAME']  = $alb_name;
                 $notificationHandler = xoops_getHandler('notification');
-                $notificationHandler->triggerEvent('global', 0, 'album_delete', $tags);
+                $notificationHandler->triggerEvent('global', 0, 'album_delete_all',  $tags );
+                $notificationHandler->triggerEvent('albums', $albId, 'album_delete',  $tags );
+                // delete all notifications linked to this album
+                $notificationHandler->unsubscribeByItem ($GLOBALS['xoopsModule']->getVar('mid'), 'albums', $albId);
 
                 redirect_header('albums.php', 3, _CO_WGGALLERY_FORM_DELETE_OK);
             } else {
@@ -298,7 +307,7 @@ switch ($op) {
 }
 
 // Breadcrumbs
-if ($albPid > 0) {
+if (0 < $albPid) {
     $xoBreadcrumbs[] = ['title' => _CO_WGGALLERY_ALBUMS, 'link' => 'albums.php?op=list'];
     $albumsObjPid    = $albumsHandler->get($albPid);
     $xoBreadcrumbs[] = ['title' => $albumsObjPid->getVar('alb_name')];
