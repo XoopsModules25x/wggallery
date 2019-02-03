@@ -184,7 +184,6 @@ function b_wggallery_albums_show($options)
  */
 function b_wggallery_albums_edit($options)
 {
-    require_once XOOPS_ROOT_PATH . '/modules/wggallery/class/albums.php';
     $helper        = Wggallery\Helper::getInstance();
     $albumsHandler = $helper->getHandler('Albums');
     $criteria      = new \CriteriaCompo();

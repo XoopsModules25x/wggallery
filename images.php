@@ -26,7 +26,7 @@ use XoopsModules\Wggallery\Constants;
 
 include __DIR__ . '/header.php';
 
-$op = Request::getString('op', 'list');
+$op = Request::getString('op', '');
 if ('manage' === $op) {
     $GLOBALS['xoopsOption']['template_main'] = 'wggallery_images_manage.tpl';
 } else {
@@ -127,29 +127,6 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
 
         break;
-    case 'show':
-        // Get Form
-        $imagesObj = $imagesHandler->get($imgId);
-        $image     = $imagesObj->getValuesImages();
-        $albId     = $image['albid'];
-        // check permissions
-        $file = '';
-        if ($permissionsHandler->permImageDownloadMedium($albId)) {
-            $file = WGGALLERY_UPLOAD_IMAGES_URL . '/large/' . $image['medium'];
-        }
-        if ($permissionsHandler->permImageDownloadLarge($albId)) {
-            $file = WGGALLERY_UPLOAD_IMAGES_URL . '/large/' . $image['img_namelarge'];
-        }
-        $GLOBALS['xoopsTpl']->assign('showimage', true);
-        $GLOBALS['xoopsTpl']->assign('file', $file);
-        $GLOBALS['xoopsTpl']->assign('image', $image);
-        $GLOBALS['xoopsTpl']->assign('alb_id', $albId);
-        $GLOBALS['xoopsTpl']->assign('alb_pid', $albPid);
-        $GLOBALS['xoopsTpl']->assign('start', $start);
-        $GLOBALS['xoopsTpl']->assign('limit', $limit);
-        $GLOBALS['xoopsTpl']->assign('img_submitter', $imgSubm);
-
-        break;
     case 'delete':
         $imagesObj = $imagesHandler->get($imgId);
         $imgAlbId  = $imagesObj->getVar('img_albid');
@@ -218,8 +195,6 @@ switch ($op) {
         }
         break;
     case 'list':
-    default:
-
         $albums    = $helper->getHandler('Albums');
         $albumsObj = $albums->get($albId);
         if (isset($albumsObj) && is_object($albumsObj)) {
@@ -273,6 +248,34 @@ switch ($op) {
             $GLOBALS['xoopsTpl']->assign('img_submitter', $imgSubm);
         }
         break;
+    case 'show':
+    default:
+
+    if (!$imgId) {
+        redirect_header('albums.php', 3, _MA_WGGALLERY_ERROR_NO_IMAGE_SET);
+    }
+        // Get Form
+        $imagesObj = $imagesHandler->get($imgId);
+        $image     = $imagesObj->getValuesImages();
+        $albId     = $image['albid'];
+        // check permissions
+        $file = '';
+        if ($permissionsHandler->permImageDownloadMedium($albId)) {
+            $file = WGGALLERY_UPLOAD_IMAGES_URL . '/large/' . $image['medium'];
+        }
+        if ($permissionsHandler->permImageDownloadLarge($albId)) {
+            $file = WGGALLERY_UPLOAD_IMAGES_URL . '/large/' . $image['img_namelarge'];
+        }
+        $GLOBALS['xoopsTpl']->assign('showimage', true);
+        $GLOBALS['xoopsTpl']->assign('file', $file);
+        $GLOBALS['xoopsTpl']->assign('image', $image);
+        $GLOBALS['xoopsTpl']->assign('alb_id', $albId);
+        $GLOBALS['xoopsTpl']->assign('alb_pid', $albPid);
+        $GLOBALS['xoopsTpl']->assign('start', $start);
+        $GLOBALS['xoopsTpl']->assign('limit', $limit);
+        $GLOBALS['xoopsTpl']->assign('img_submitter', $imgSubm);
+
+        break;
 }
 
 // Keywords
@@ -282,4 +285,7 @@ unset($keywords);
 $utility::getMetaDescription(_CO_WGGALLERY_IMAGES);
 // $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGGALLERY_URL.'/images.php');
 $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
+//view comments
+require XOOPS_ROOT_PATH . '/include/comment_view.php';
+
 include __DIR__ . '/footer.php';

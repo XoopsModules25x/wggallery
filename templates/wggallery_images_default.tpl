@@ -105,6 +105,11 @@
                 <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/back.png' alt='<{$smarty.const._CO_WGGALLERY_BACK}>'><{$smarty.const._CO_WGGALLERY_BACK}>
             </a>
         </div>
+
+        <{$commentsnav}> <{$lang_notice}>
+        <{*<{if $comment_mode == "flat"}> <{include file="db:system_comments_flat.tpl"}> <{elseif $comment_mode == "thread"}> <{include file="db:system_comments_thread.tpl"}> <{elseif $comment_mode == "nest"}> <{include file="db:system_comments_nest.tpl"}> <{/if}>*}>
+
+
     <{/if}>
 </div>
 
@@ -114,5 +119,4 @@
 <{if $error}>
 	<div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
-
 <{include file='db:wggallery_footer.tpl'}>
