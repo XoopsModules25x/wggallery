@@ -266,10 +266,10 @@ switch ($op) {
         // check permissions
         $file = '';
         if ($permissionsHandler->permImageDownloadMedium($albId)) {
-            $file = WGGALLERY_UPLOAD_IMAGES_URL . '/large/' . $image['medium'];
+            $file = $image['medium'];
         }
         if ($permissionsHandler->permImageDownloadLarge($albId)) {
-            $file = WGGALLERY_UPLOAD_IMAGES_URL . '/large/' . $image['img_namelarge'];
+            $file = $image['large'];
         }
         $GLOBALS['xoopsTpl']->assign('showimage', true);
         $GLOBALS['xoopsTpl']->assign('file', $file);

@@ -17,7 +17,7 @@
  - moved FineImUploader to /class/Common (mamba)
  - update changelog (mamba)
  - added comments (mamba)
-
+ - updated search function (goffy)
 
 
 <h5>1.08</h5> [2018/12/28 19:55:00]
