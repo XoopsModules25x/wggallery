@@ -227,11 +227,12 @@ define('_AM_WGGALLERY_MAINTENANCE_AT_SUREDELETE', 'All existing albumtypes (sett
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE', 'Resize images');
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE_DESC', 'Resize images or thumbs to max height corresponding module preferences.<br>Current settings:<br>a) medium: max width %mw px / max height %mh px<br>b) thumb: max width %tw px / max height %th px');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED', 'Cleanup image directory');
-define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC', 'All currently unused album images from following directories will be deleted:<ul>
+define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC', 'All currently unused images from following directories will be deleted:<ul>
 <li>%p/albums/</li>
 <li>%p/large/</li>
 <li>%p/medium/</li>
 <li>%p/thumbs/</li>
+<li>%p/temp/</li>
 </ul>');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_INVALID', "Delete invalid items in table 'images'");
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_INVALID_DESC', "Delete invalid items in table 'images', e.g. item was created, but something went wrong during upload");

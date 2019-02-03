@@ -1,13 +1,17 @@
 Read Me First
 =============
 
-Originally created by the TDM Team.
+Originally created by the Goffy - https://wedega.com.
 
-Modified by Timgno (http://www.txmodxoops.org)
+Main contributors: Mamba (https://xoops.org), Mage (https://xoops.org), geekwright (https://xoops.org)
 
-Contributors: Mamba (https://xoops.org), Goffy (German Xoops)
 
-Included ideas for Logo Generator from Trabis (Publisher module) and Suin (Koins module)
-
-alle gallerien
-croppie
+Code used from:
+---------------
+Codrops: http://tympanus.net/codrops, http://tympanus.net/Development/HoverEffectIdeas/
+LC Lightbox LITE from https://lcweb.it/ https://github.com/LCweb-ita/LC-Lightbox-LITE
+Jssor from https://www.jssor.com https://www.jssor.com/development/index.html
+Lightbox2 from https://lokeshdhakar.com
+Justified Gallery with Colorbox from http://miromannino.com/
+ViewerJs from http://chenfengyuan.com
+CropperJs from http://chenfengyuan.com

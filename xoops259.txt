@@ -1,5 +1,0 @@
-please open ajaxfineupload.php
-
-goto line 80
-
-replace '$claims = TokenReader::fromHeader('fineuploader', $assert);' by '$claims = TokenReader::fromRequest('fineuploader', 'Authorization', $assert);'

@@ -312,17 +312,19 @@ class Albums extends \XoopsObject
         $albumsAll = $albumsHandler->getAll($crAlbums);
 
         foreach (array_keys($albumsAll) as $i) {
-            $albName = $albumsAll[$i]->getVar('alb_name');
-            $albPid  = $albumsAll[$i]->getVar('alb_pid');
-            if ($albPid > 0) {
-                $albumsObj = $albumsHandler->get($albPid);
-                if (is_object($albumsObj)) {
-                    $albName .= ' (' . $albumsObj->getVar('alb_name') . ')';
-                } else {
-                    $albName .= ' (' . _CO_WGGALLERY_FORM_ERROR_ALBPID . ')';
+            if ($helper->getHandler('Permissions')->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'))) {
+                $albName = $albumsAll[$i]->getVar('alb_name');
+                $albPid  = $albumsAll[$i]->getVar('alb_pid');
+                if ($albPid > 0) {
+                    $albumsObj = $albumsHandler->get($albPid);
+                    if (is_object($albumsObj)) {
+                        $albName .= ' (' . $albumsObj->getVar('alb_name') . ')';
+                    } else {
+                        $albName .= ' (' . _CO_WGGALLERY_FORM_ERROR_ALBPID . ')';
+                    }
                 }
+                $albIdSelect->addOption($albumsAll[$i]->getVar('alb_id'), $albName);
             }
-            $albIdSelect->addOption($albumsAll[$i]->getVar('alb_id'), $albName);
         }
         $form->addElement($albIdSelect);
         unset($crAlbums);

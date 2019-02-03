@@ -38,7 +38,9 @@ function getConfig()
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/large',
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/medium',
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/thumbs',
+            XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/temp',
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/watermarks',
+            XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/watermarks-test',
             //XOOPS_UPLOAD_PATH . '/flags'
         ],
         'copyBlankFiles' => [
@@ -49,6 +51,11 @@ function getConfig()
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/medium',
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/thumbs',
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/watermarks',
+            //XOOPS_UPLOAD_PATH . '/flags'
+        ],
+        
+        'copyNoImageFiles' => [
+            XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/albums',
             //XOOPS_UPLOAD_PATH . '/flags'
         ],
 
