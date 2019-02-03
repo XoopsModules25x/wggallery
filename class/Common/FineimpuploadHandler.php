@@ -215,7 +215,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         $tags['IMAGE_URL']   = XOOPS_URL . '/modules/wggallery/images.php?op=show&img_id=' . $this->imageId . '&amp;alb_id=' . $this->claims->cat;
         $tags['ALBUM_URL']   = XOOPS_URL . '/modules/wggallery/albums.php?op=show&alb_id=' . $this->claims->cat;
         $notificationHandler = xoops_getHandler('notification');
-        $mid = XoopsModules\Wggallery\Helper::getMid();
+        $mid = \XoopsModules\Wggallery\Helper::getMid();
         if (Constants::STATE_APPROVAL_VAL === $this->permUseralbum) {
             $notificationHandler->triggerEvent('global', 0, 'image_approve',  $tags, [], $mid);
         } else {

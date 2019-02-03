@@ -228,7 +228,7 @@ switch ($op) {
             }
             
             if ('upload' === $redir) {
-                redirect_header('upload.php?alb_id=' . $permId, 2, _CO_WGGALLERY_FORM_OK);
+                redirect_header('upload.php?alb_id=' . $albId, 2, _CO_WGGALLERY_FORM_OK);
             } else {
                 redirect_header('albums.php?op=list' . '&amp;alb_pid=' . $albPid, 2, _CO_WGGALLERY_FORM_OK);
             }
