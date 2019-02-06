@@ -70,7 +70,7 @@ function b_wggallery_images_show($options)
     if ('0' !== mb_substr($album_ids, 0, 1)) {
         $criteria->add(new \Criteria('img_albid', '(' . $album_ids . ')', 'IN'));
     }
-    $criteria->add(new \Criteria('img_state', Constants::STATE_OFFLINE_VAL));
+    $criteria->add(new \Criteria('img_state', Constants::STATE_ONLINE_VAL));
 
     switch ($typeBlock) {
         // For the block: images new
