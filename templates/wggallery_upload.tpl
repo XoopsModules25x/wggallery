@@ -6,7 +6,7 @@
 
 <{if $multiupload}>
     <div class="clear">&nbsp;</div>
-    <{includeq file="db:wggallery_trigger_uploads.tpl"}>
+    <{include file="db:wggallery_trigger_uploads.tpl"}>
     <h2><{$img_albname}></h2>
     <div id="fine-uploader-manual-trigger"></div>
     <div><{$smarty.const._IMGMAXSIZE}> <{$img_maxsize}></div>

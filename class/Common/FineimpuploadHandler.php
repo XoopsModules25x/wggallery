@@ -238,6 +238,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
 
         $this->getImageDim();
 
+        /** @var \XoopsModules\Wggallery\ImagesHandler $imagesHandler */
         $imagesHandler = $helper->getHandler('Images');
         $imagesObj     = $imagesHandler->create();
         // Set Vars
@@ -257,7 +258,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         $imagesObj->setVar('img_ip', $_SERVER['REMOTE_ADDR']);
         // Insert Data
         if ($imagesHandler->insert($imagesObj)) {
-            $this->imageId = $imagesHandler->getInsertId;
+            $this->imageId = $imagesHandler->getInsertId();
 
             return true;
         }

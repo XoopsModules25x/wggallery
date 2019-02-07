@@ -28,14 +28,18 @@ $imgwatermark = XOOPS_ROOT_PATH . '/modules/wggallery/assets/images/wedega_logo.
 // Making of uploads/wggallery folder
 $helper = XOOPS_UPLOAD_PATH . '/wggallery';
 if (!is_dir($helper)) {
-    mkdir($helper, 0777);
+    if (!mkdir($helper, 0777) && !is_dir($helper)) {
+        throw new \RuntimeException(sprintf('Directory "%s" was not created', $helper));
+    }
     chmod($helper, 0777);
 }
 copy($indexFile, $helper . '/index.html');
 // Making of images folder
 $images = $helper . '/images';
 if (!is_dir($images)) {
-    mkdir($images, 0777);
+    if (!mkdir($images, 0777) && !is_dir($images)) {
+        throw new \RuntimeException(sprintf('Directory "%s" was not created', $images));
+    }
     chmod($images, 0777);
 }
 copy($indexFile, $images . '/index.html');
@@ -43,7 +47,9 @@ copy($blankFile, $images . '/blank.gif');
 // Making of album images folder
 $specimage = $images . '/albums';
 if (!is_dir($specimage)) {
-    mkdir($specimage, 0777);
+    if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
+        throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
+    }
     chmod($specimage, 0777);
 }
 copy($indexFile, $specimage . '/index.html');
@@ -52,7 +58,9 @@ copy($noimage, $specimage . '/noimage.png');
 // Making of large images folder
 $specimage = $images . '/large';
 if (!is_dir($specimage)) {
-    mkdir($specimage, 0777);
+    if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
+        throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
+    }
     chmod($specimage, 0777);
 }
 copy($indexFile, $specimage . '/index.html');
@@ -60,7 +68,9 @@ copy($blankFile, $specimage . '/blank.gif');
 // Making of medium images folder
 $specimage = $images . '/medium';
 if (!is_dir($specimage)) {
-    mkdir($specimage, 0777);
+    if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
+        throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
+    }
     chmod($specimage, 0777);
 }
 copy($indexFile, $specimage . '/index.html');
@@ -68,7 +78,9 @@ copy($blankFile, $specimage . '/blank.gif');
 // Making of thumbs images folder
 $specimage = $images . '/thumbs';
 if (!is_dir($specimage)) {
-    mkdir($specimage, 0777);
+    if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
+        throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
+    }
     chmod($specimage, 0777);
 }
 copy($indexFile, $specimage . '/index.html');
@@ -76,7 +88,9 @@ copy($blankFile, $specimage . '/blank.gif');
 // Making of temp images folder
 $specimage = $images . '/temp';
 if (!is_dir($specimage)) {
-    mkdir($specimage, 0777);
+    if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
+        throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
+    }
     chmod($specimage, 0777);
 }
 copy($indexFile, $specimage . '/index.html');
@@ -85,7 +99,9 @@ copy($blankFile, $specimage . '/blank.gif');
 $imgwatermark = XOOPS_ROOT_PATH . '/modules/wggallery/assets/images/wedega_logo.png';
 $specimage    = $images . '/watermarks';
 if (!is_dir($specimage)) {
-    mkdir($specimage, 0777);
+    if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
+        throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
+    }
     chmod($specimage, 0777);
 }
 copy($indexFile, $specimage . '/index.html');
@@ -94,14 +110,18 @@ copy($imgwatermark, $specimage . '/wedega_logo.png');
 // create folder watermarks-test in uploads
 $specimage = XOOPS_UPLOAD_PATH . '/wggallery/images/watermarks-test';
 if (!is_dir($specimage)) {
-    mkdir($specimage, 0777);
+    if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
+        throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
+    }
     chmod($specimage, 0777);
 }
 copy($indexFile, $specimage . '/index.html');
 // installing watermark fonts
 $specfonts = XOOPS_UPLOAD_PATH . '/wggallery/fonts';
 if (!is_dir($specfonts)) {
-    mkdir($specfonts, 0777);
+    if (!mkdir($specfonts, 0777) && !is_dir($specfonts)) {
+        throw new \RuntimeException(sprintf('Directory "%s" was not created', $specfonts));
+    }
     chmod($specfonts, 0777);
 }
 copy($indexFile, $specfonts . '/index.html');

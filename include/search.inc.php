@@ -32,6 +32,14 @@
  
 use XoopsModules\Wggallery;
 
+/**
+ * @param $queryarray
+ * @param $andor
+ * @param $limit
+ * @param $offset
+ * @param $userid
+ * @return array
+ */
 function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
 {
     
@@ -57,7 +65,7 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
             unset($criteriaKeyword);
         }
     }
-    if (is_array($userid) && count($userid) > 0) {
+    if ($userid && is_array($userid)) {
         $userid       = array_map('intval', $userid);
         $criteriaUser = new CriteriaCompo();
         $criteriaUser->add(new Criteria('img_submitter', '(' . implode(',', $userid) . ')', 'IN'), 'OR');
@@ -101,7 +109,7 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
             unset($criteriaKeyword);
         }
     }
-    if (is_array($userid) && count($userid) > 0) {
+    if ($userid && is_array($userid)) {
         $userid       = array_map('intval', $userid);
         $criteriaUser = new CriteriaCompo();
         $criteriaUser->add(new Criteria('alb_submitter', '(' . implode(',', $userid) . ')', 'IN'), 'OR');
