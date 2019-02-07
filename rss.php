@@ -20,7 +20,9 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 rss.php 1 Mon 2018-03-19 10:04:55Z XOOPS Project (www.xoops.org) $
  */
-$cid = wggallery_CleanVars($_GET, 'cid', 0);
+use Xmf\Request;
+
+$cid = Request::getInt('cid', 0, 'GET');
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 if (function_exists('mb_http_output')) {
     mb_http_output('pass');
