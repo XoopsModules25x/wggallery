@@ -1,9 +1,9 @@
 <{if $balbums_list}>
     <{foreach item=album from=$balbums_list}>
-        <{if $nbAlbumsRow == 2}><div class='col-xs-12 col-sm-6'>
-        <{elseif $nbAlbumsRow == 3}><div class='col-xs-12 col-sm-4'>
-        <{elseif $nbAlbumsRow == 4}><div class='col-xs-12 col-sm-3'>
-        <{elseif $nbAlbumsRow == 6}><div class='col-xs-12 col-sm-2'>
+        <{if $bnbAlbumsRow == 2}><div class='col-xs-12 col-sm-6'>
+        <{elseif $bnbAlbumsRow == 3}><div class='col-xs-12 col-sm-4'>
+        <{elseif $bnbAlbumsRow == 4}><div class='col-xs-12 col-sm-3'>
+        <{elseif $bnbAlbumsRow == 6}><div class='col-xs-12 col-sm-2'>
         <{else}><div class='col-xs-12 col-sm-12'>
         <{/if}>
             <{if $ba_template == 'hovereffectideas'}>
