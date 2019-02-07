@@ -238,6 +238,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
 
         $this->getImageDim();
 
+        /** @var \XoopsModules\Wggallery\ImagesHandler $imagesHandler */
         $imagesHandler = $helper->getHandler('Images');
         $imagesObj     = $imagesHandler->create();
         // Set Vars
