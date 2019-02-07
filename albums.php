@@ -172,7 +172,7 @@ switch ($op) {
         // Insert Data
         if ($albumsHandler->insert($albumsObj)) {
             if ( $albNew ) $albId = $albumsHandler->getInsertId();
-            $gpermHandler = xoops_gethandler('groupperm');
+            $gpermHandler = xoops_getHandler('groupperm');
             $perm_modid = $GLOBALS['xoopsModule']->getVar('mid');
             // remove all existing rights
             $gpermHandler->deleteByModule($perm_modid, 'wggallery_view', $albId);
