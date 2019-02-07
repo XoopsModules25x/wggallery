@@ -29,7 +29,7 @@ if (function_exists('mb_http_output')) {
 }
 //header ('Content-Type:text/xml; charset=UTF-8');
 //$helper->getConfig('utf8') = false;
-false === $xoopsModuleConfig['utf8'];
+$xoopsModuleConfig['utf8'] = false;
 
 $tpl = new \XoopsTpl();
 $tpl->xoops_setCaching(2); //1 = Cache global, 2 = Cache individual (for template)
