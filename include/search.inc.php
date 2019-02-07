@@ -19,11 +19,6 @@
  * @min_xoops      2.5.9
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 search.inc.php 1 Mon 2018-03-19 10:04:54Z XOOPS Project (www.xoops.org) $
- * @param mixed $queryarray
- * @param mixed $andor
- * @param mixed $limit
- * @param mixed $offset
- * @param mixed $userid
  */
 
 /**
@@ -34,30 +29,107 @@
  * @param $offset
  * @param $userid
  */
+ 
+use XoopsModules\Wggallery;
+
 function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
 {
-    global $xoopsDB;
-    $sql = "SELECT 'img_id', 'img_name' FROM " . $xoopsDB->prefix('wggallery_images') . ' WHERE img_id != 0';
-    if (0 != $userid) {
-        $sql .= ' AND img_submitter=' . (int)($userid);
-    }
-    if (is_array($queryarray) && $count = count($queryarray)) {
-        $sql .= " AND ((i LIKE %$queryarray[0]%)";
-        for ($i = 1; $i < $count; ++$i) {
-            $sql .= " $andor ";
-            $sql .= "(i LIKE %$queryarray[0]%)";
-        }
-        $sql .= ')';
-    }
-    $sql    .= " ORDER BY 'img_id' DESC";
-    $result = $xoopsDB->query($sql, $limit, $offset);
+    
     $ret    = [];
-    $i      = 0;
-    while ($myrow = $xoopsDB->fetchArray($result)) {
-        $ret[$i]['image'] = 'assets/icons/32/blank.gif';
-        $ret[$i]['link']  = 'images.php?img_id=' . $myrow['img_id'];
-        $ret[$i]['title'] = $myrow['img_name'];
-        ++$i;
+    $helper        = \XoopsModules\Wggallery\Helper::getInstance();
+    $imagesHandler = $helper->getHandler('Images');
+    $albumsHandler = $helper->getHandler('Albums');
+    include_once 'common.php';
+
+    // search in images table
+    if(is_array($queryarray)) {
+        $count = count($queryarray);
     }
-    unset($i);
+    if (is_array($queryarray) && $count > 0) {
+        $criteriaKeywords = new CriteriaCompo();
+        $elementCount     = count($queryarray);
+        for ($i = 0; $i < $elementCount; ++$i) {
+            $criteriaKeyword = new CriteriaCompo();
+            $criteriaKeyword->add(new Criteria('img_title', '%' . $queryarray[$i] . '%', 'LIKE'), 'OR');
+            $criteriaKeyword->add(new Criteria('img_desc', '%' . $queryarray[$i] . '%', 'LIKE'), 'OR');
+            $criteriaKeyword->add(new Criteria('img_name', '%' . $queryarray[$i] . '%', 'LIKE'), 'OR');
+            $criteriaKeywords->add($criteriaKeyword, $andor);
+            unset($criteriaKeyword);
+        }
+    }
+    if (is_array($userid) && count($userid) > 0) {
+        $userid       = array_map('intval', $userid);
+        $criteriaUser = new CriteriaCompo();
+        $criteriaUser->add(new Criteria('img_submitter', '(' . implode(',', $userid) . ')', 'IN'), 'OR');
+    } elseif (is_numeric($userid) && $userid > 0) {
+        $criteriaUser = new CriteriaCompo();
+        $criteriaUser->add(new Criteria('img_submitter', $userid), 'OR');
+    }
+    
+    $critSearch = new CriteriaCompo();
+    if (!empty($criteriaUser)) {
+        $critSearch->add($criteriaUser, 'AND');
+    }
+    if (!empty($criteriaKeywords)) {
+        $critSearch->add($criteriaKeywords, 'AND');
+    }
+    $critSearch->setLimit($limit);
+    $critSearch->setStart($offset);
+    $critSearch->setSort('img_date');
+    $critSearch->setOrder('DESC');
+    $imagesAll = $imagesHandler->getAll($critSearch);
+    foreach (array_keys($imagesAll) as $i) {
+        $images[$i] = $imagesAll[$i]->getValuesImages();
+        $ret[] = ['image' => 'assets/icons/16/images.png',
+                  'link' => 'images.php?op=show&amp;img_id=' . $images[$i]['img_id'] . '&amp;alb_id=' . $images[$i]['img_albid'],
+                  'title' => $images[$i]['img_title']
+                 ];
+    }
+    unset($imagesAll);
+    unset($critSearch);
+    unset($criteriaKeywords);
+
+    // search in albums table
+    if (is_array($queryarray) && $count > 0) {
+        $criteriaKeywords = new CriteriaCompo();
+        $elementCount     = count($queryarray);
+        for ($i = 0; $i < $elementCount; ++$i) {
+            $criteriaKeyword = new CriteriaCompo();
+            $criteriaKeyword->add(new Criteria('alb_name', '%' . $queryarray[$i] . '%', 'LIKE'), 'OR');
+            $criteriaKeyword->add(new Criteria('alb_desc', '%' . $queryarray[$i] . '%', 'LIKE'), 'OR');
+            $criteriaKeywords->add($criteriaKeyword, $andor);
+            unset($criteriaKeyword);
+        }
+    }
+    if (is_array($userid) && count($userid) > 0) {
+        $userid       = array_map('intval', $userid);
+        $criteriaUser = new CriteriaCompo();
+        $criteriaUser->add(new Criteria('alb_submitter', '(' . implode(',', $userid) . ')', 'IN'), 'OR');
+    } elseif (is_numeric($userid) && $userid > 0) {
+        $criteriaUser = new CriteriaCompo();
+        $criteriaUser->add(new Criteria('alb_submitter', $userid), 'OR');
+    }
+    
+    $critSearch = new CriteriaCompo();
+    if (!empty($criteriaUser)) {
+        $critSearch->add($criteriaUser, 'AND');
+    }
+    if (!empty($criteriaKeywords)) {
+        $critSearch->add($criteriaKeywords, 'AND');
+    }
+    $critSearch->setLimit($limit);
+    $critSearch->setStart($offset);
+    $critSearch->setSort('alb_date');
+    $critSearch->setOrder('DESC');
+    $albumsAll = $albumsHandler->getAll($critSearch);
+    foreach (array_keys($albumsAll) as $i) {
+        $ret[] = ['image' => 'assets/icons/16/albums.png',
+                  'link' => 'albums.php?op=show&amp;alb_id=' . $albumsAll[$i]->getVar('alb_id'),
+                  'title' => $albumsAll[$i]->getVar('alb_name')
+                 ];
+    }
+    unset($albumsAll);
+    
+    return $ret;
+
 }

@@ -1,4 +1,4 @@
-// ---------- Templates Mail Content Dummy ---------- //
+
 Hello {X_UNAME},
 
 A album "{ALBUM_NAME}" has been added/modified at {X_SITENAME} and is waiting for approval.

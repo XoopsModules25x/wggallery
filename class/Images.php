@@ -267,4 +267,5 @@ class Images extends \XoopsObject
 
         return $ret;
     }
+
 }

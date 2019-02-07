@@ -228,11 +228,12 @@ define('_AM_WGGALLERY_MAINTENANCE_RESIZE', 'Größenänderung Bilder');
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE_DESC',
        'Erneute Größenänderung der mittleren Bilder oder Vorschaubilder entsprechend der vorgegeben Höhe in den Moduleinstellungen.<br>Aktuelle Einstellungen:<br>a) Mittlere Bilder: maximale Breite %mw px / maximale Höhe %mh px<br>b) Vorschaubilder: maximale Breite %tw px / maximale Höhe %th px');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED', 'Bilderverzeichnis bereinigen');
-define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC', 'Alle derzeit nicht verwendeten Albumbilder in folgenden Verzeichissen werden gelöscht:<ul>
+define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC', 'Alle derzeit nicht verwendeten Bilder in folgenden Verzeichissen werden gelöscht:<ul>
 <li>%p/albums/</li>
 <li>%p/large/</li>
 <li>%p/medium/</li>
 <li>%p/thumbs/</li>
+<li>%p/temp/</li>
 </ul>');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_INVALID', "Löschen von ungültigen Einträge in Tabelle 'Bilder'");
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_INVALID_DESC', "Löschen von ungültigen Einträge in Tabelle 'Bilder', z.B. wenn zwar ein Eintrag im der Tabelle erstellt wurde, jedoch beim Upload etwas fehlgeschlagen ist");

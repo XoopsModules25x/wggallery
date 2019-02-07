@@ -33,11 +33,11 @@ function wggalleryPluginGetDataExtgallery()
 {
     // get number of albums
     $sql = 'SELECT `cat_id` FROM ' . $GLOBALS['xoopsDB']->prefix('extgallery_publiccat');
-    $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    $result = $GLOBALS['xoopsDB']->query($sql) || die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
     $num_albums = $GLOBALS['xoopsDB']->getRowsNum($result);
     // get number of images
     $sql = 'SELECT `photo_id` FROM ' . $GLOBALS['xoopsDB']->prefix('extgallery_publicphoto');
-    $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    $result = $GLOBALS['xoopsDB']->query($sql) || die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
     $num_images = $GLOBALS['xoopsDB']->getRowsNum($result);
 
     return [$num_albums, $num_images];
@@ -153,12 +153,12 @@ function wggalleryPluginExecImportExtgallery($albState = 0, $albSubmitter = 0)
     $sql .= "SELECT ec.cat_id, ec.cat_pid, ec.cat_name, ec.cat_desc, ec.cat_date, Not (ec.cat_isalbum) AS iscat, ec.cat_weight, ec.cat_imgurl, If(ec.cat_imgurl='', ec.photo_id, 0), If(ec.cat_imgurl='', 1, 2), ";
     $sql .= $albState . ', ' . $albSubmitter;
     $sql .= ' FROM ' . $GLOBALS['xoopsDB']->prefix('extgallery_publiccat') . ' as ec';
-    $result = $GLOBALS['xoopsDB']->queryF($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    $result = $GLOBALS['xoopsDB']->queryF($sql) || die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
     unset($result);
 
     // copy album images
     $sql = 'SELECT `cat_id`, `cat_imgurl`, `photo_id` FROM ' . $GLOBALS['xoopsDB']->prefix('extgallery_publiccat');
-    $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    $result = $GLOBALS['xoopsDB']->query($sql) || die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
     while (false !== (list($cat_id, $cat_imgurl, $photo_id) = $GLOBALS['xoopsDB']->fetchRow($result))) {
         if ('' !== $cat_imgurl) {
             $imageName = basename($cat_imgurl);
@@ -171,12 +171,12 @@ function wggalleryPluginExecImportExtgallery($albState = 0, $albSubmitter = 0)
     unset($result);
     unset($result2);
     $sql = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . " SET alb_image = 'noimage.png', alb_imgcat = 2 WHERE (alb_image='' and alb_imgid=0)";
-    $result = $GLOBALS['xoopsDB']->queryF($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    $result = $GLOBALS['xoopsDB']->queryF($sql) || die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
     unset($result);
 
     // create perms for each album
     $sql = 'SELECT `alb_id` FROM ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums');
-    $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    $result = $GLOBALS['xoopsDB']->query($sql) || die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
     while (false !== (list($albId) = $GLOBALS['xoopsDB']->fetchRow($result))) {
         $permId       = $albId;
         $perm_modid   = $GLOBALS['xoopsModule']->getVar('mid');
@@ -218,12 +218,12 @@ function wggalleryPluginExecImportExtgallery($albState = 0, $albSubmitter = 0)
     $sql .= 'SELECT ep.photo_id, ep.photo_title, ep.photo_desc, ep.photo_name, ep.photo_name, ep.photo_orig_name, ep.photo_size, ep.photo_res_x, ep.photo_res_y, ep.photo_rating, ';
     $sql .= 'ep.photo_download, ep.photo_weight, ep.cat_id, ep.uid, ' . time();
     $sql .= ' FROM ' . $GLOBALS['xoopsDB']->prefix('extgallery_publicphoto') . ' as ep';
-    $result = $GLOBALS['xoopsDB']->queryF($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    $result = $GLOBALS['xoopsDB']->queryF($sql) || die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
     unset($result);
 
     // copy all images
     $sql = 'SELECT `photo_id`, `photo_name` FROM ' . $GLOBALS['xoopsDB']->prefix('extgallery_publicphoto');
-    $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
+    $result = $GLOBALS['xoopsDB']->query($sql) || die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
     while (false !== (list($photo_id, $photo_name) = $GLOBALS['xoopsDB']->fetchRow($result))) {
         $imageEG      = basename($cat_imgurl);
         $largeExists  = file_exists($dir_large . $photo_name) ? 1 : 0;

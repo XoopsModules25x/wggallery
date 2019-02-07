@@ -14,7 +14,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '1'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020242'
     img_submitter: '1'
@@ -35,7 +35,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '1'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020242'
     img_submitter: '1'
@@ -56,7 +56,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '1'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020242'
     img_submitter: '1'
@@ -77,7 +77,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '1'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020243'
     img_submitter: '1'
@@ -98,7 +98,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '1'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020243'
     img_submitter: '1'
@@ -119,7 +119,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '1'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020243'
     img_submitter: '1'
@@ -140,7 +140,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '1'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020244'
     img_submitter: '1'
@@ -161,7 +161,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '1'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020244'
     img_submitter: '1'
@@ -182,7 +182,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '1'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020244'
     img_submitter: '1'
@@ -203,7 +203,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '2'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020336'
     img_submitter: '1'
@@ -224,7 +224,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '2'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020336'
     img_submitter: '1'
@@ -245,7 +245,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '2'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020336'
     img_submitter: '1'
@@ -266,7 +266,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '2'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020337'
     img_submitter: '1'
@@ -287,7 +287,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '2'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020337'
     img_submitter: '1'
@@ -308,7 +308,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '2'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020337'
     img_submitter: '1'
@@ -329,7 +329,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '2'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020338'
     img_submitter: '1'
@@ -350,7 +350,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '2'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020338'
     img_submitter: '1'
@@ -371,7 +371,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '2'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020338'
     img_submitter: '1'
@@ -392,7 +392,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '2'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020340'
     img_submitter: '1'
@@ -413,7 +413,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '2'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020340'
     img_submitter: '1'
@@ -434,7 +434,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '2'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020340'
     img_submitter: '1'
@@ -455,7 +455,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '2'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020341'
     img_submitter: '1'
@@ -476,7 +476,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '2'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020341'
     img_submitter: '1'
@@ -497,7 +497,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '2'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020341'
     img_submitter: '1'
@@ -518,7 +518,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '2'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020342'
     img_submitter: '1'
@@ -539,7 +539,7 @@
     img_votes: '0'
     img_weight: '0'
     img_albid: '2'
-    img_state: '0'
+    img_state: '1'
     img_exif: null
     img_date: '1549020342'
     img_submitter: '1'

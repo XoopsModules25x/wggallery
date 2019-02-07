@@ -70,7 +70,7 @@ function b_wggallery_images_show($options)
     if ('0' !== mb_substr($album_ids, 0, 1)) {
         $criteria->add(new \Criteria('img_albid', '(' . $album_ids . ')', 'IN'));
     }
-    $criteria->add(new \Criteria('img_state', Constants::STATE_OFFLINE_VAL));
+    $criteria->add(new \Criteria('img_state', Constants::STATE_ONLINE_VAL));
 
     switch ($typeBlock) {
         // For the block: images new
@@ -144,17 +144,13 @@ function b_wggallery_images_edit($options)
     $form .= "<option value='1' " . (1 === (int)$options[4] ? "selected='selected'" : '') . '>' . _YES . '</option>';
     $form .= '</select><br>';
     $form .= _MB_WGGALLERY_DESC_LENGTH . " : <input type='text' name='options[5]' size='5' maxlength='255' value='" . $options[5] . "'><br>";
-    $form .= _MB_WGGALLERY_NUMB_IMAGES . ": <select name='options[6]' size='4'>";
+    $form .= _MB_WGGALLERY_NUMB_IMAGES . ": <select name='options[6]' size='5'>";
     $form .= "<option value='1' " . (1 === (int)$options[6] ? "selected='selected'" : '') . '>1</option>';
     $form .= "<option value='2' " . (2 === (int)$options[6] ? "selected='selected'" : '') . '>2</option>';
     $form .= "<option value='3' " . (3 === (int)$options[6] ? "selected='selected'" : '') . '>3</option>';
     $form .= "<option value='4' " . (4 === (int)$options[6] ? "selected='selected'" : '') . '>4</option>';
     $form .= "<option value='6' " . (6 === (int)$options[6] ? "selected='selected'" : '') . '>6</option>';
     $form .= '</select><br>';
-    // $form .= _MB_WGGALLERY_SHOW.": <select name='options[4]' size='2'>";
-    // $form .= "<option value='0' " . (0 == $options[4] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_SHOW_INDEX . '</option>';
-    // $form .= "<option value='1' " . (1 == $options[4] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_SHOW_GALLERY . '</option>';
-    // $form .= '</select><br>';
 
     array_shift($options);
     array_shift($options);
@@ -171,10 +167,10 @@ function b_wggallery_images_edit($options)
     $albumsAll = $albumsHandler->getAll($criteria);
     unset($criteria);
     $form .= _MB_WGGALLERY_ALBUMS_TO_DISPLAY . "<br><select name='options[]' multiple='multiple' size='5'>";
-    $form .= "<option value='0' " . (false === in_array(0, $options, true) ? '' : "selected='selected'") . '>' . _MB_WGGALLERY_ALL_ALBUMS . '</option>';
+    $form .= "<option value='0' " . (in_array(0, $options, false) ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_ALL_ALBUMS . '</option>';
     foreach (array_keys($albumsAll) as $i) {
         $alb_id = $albumsAll[$i]->getVar('alb_id');
-        $form   .= "<option value='" . $alb_id . "' " . (false === in_array($alb_id, $options, true) || true === in_array(0, $options, true) ? '' : "selected='selected'") . '>' . $albumsAll[$i]->getVar('alb_name') . '</option>';
+        $form   .= "<option value='" . $alb_id . "' " . (in_array($alb_id, $options, false) && false == in_array(0, $options, false) ? "selected='selected'" : '') . '>' . $albumsAll[$i]->getVar('alb_name') . '</option>';
     }
     $form .= '</select>';
 

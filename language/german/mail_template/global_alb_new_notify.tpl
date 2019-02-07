@@ -1,4 +1,4 @@
-// ---------- Templates Mail Content Dummy ---------- //
+
 Hallo {X_UNAME},
 
 Ein neues Album "{ALBUM_NAME}" wurde zur Seite {X_SITENAME} hinzugefügt.

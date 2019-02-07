@@ -152,7 +152,7 @@ class Albums extends \XoopsObject
         $albState       = $this->isNew() ? 0 : $this->getVar('alb_state');
         $albStateSelect = new \XoopsFormRadio(_CO_WGGALLERY_ALBUM_STATE, 'alb_state', $albState);
         $albStateSelect->addOption(Constants::STATE_OFFLINE_VAL, _CO_WGGALLERY_STATE_OFFLINE);
-        $albStateSelect->addOption(Constants::STATE_OFFLINE_VAL, _CO_WGGALLERY_STATE_ONLINE);
+        $albStateSelect->addOption(Constants::STATE_ONLINE_VAL, _CO_WGGALLERY_STATE_ONLINE);
         $albStateSelect->addOption(Constants::STATE_APPROVAL_VAL, _CO_WGGALLERY_STATE_APPROVAL);
         $form->addElement($albStateSelect);
         // Permissions
@@ -312,17 +312,19 @@ class Albums extends \XoopsObject
         $albumsAll = $albumsHandler->getAll($crAlbums);
 
         foreach (array_keys($albumsAll) as $i) {
-            $albName = $albumsAll[$i]->getVar('alb_name');
-            $albPid  = $albumsAll[$i]->getVar('alb_pid');
-            if ($albPid > 0) {
-                $albumsObj = $albumsHandler->get($albPid);
-                if (is_object($albumsObj)) {
-                    $albName .= ' (' . $albumsObj->getVar('alb_name') . ')';
-                } else {
-                    $albName .= ' (' . _CO_WGGALLERY_FORM_ERROR_ALBPID . ')';
+            if ($helper->getHandler('Permissions')->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'))) {
+                $albName = $albumsAll[$i]->getVar('alb_name');
+                $albPid  = $albumsAll[$i]->getVar('alb_pid');
+                if ($albPid > 0) {
+                    $albumsObj = $albumsHandler->get($albPid);
+                    if (is_object($albumsObj)) {
+                        $albName .= ' (' . $albumsObj->getVar('alb_name') . ')';
+                    } else {
+                        $albName .= ' (' . _CO_WGGALLERY_FORM_ERROR_ALBPID . ')';
+                    }
                 }
+                $albIdSelect->addOption($albumsAll[$i]->getVar('alb_id'), $albName);
             }
-            $albIdSelect->addOption($albumsAll[$i]->getVar('alb_id'), $albName);
         }
         $form->addElement($albIdSelect);
         unset($crAlbums);
@@ -411,7 +413,7 @@ class Albums extends \XoopsObject
             }
 
             // TODO
-            /* 		} else if (WGGALLERY_ALBUM_IMGCAT_USE_GRID === $this->getVar('alb_imgcat')) {
+            /*         } else if (WGGALLERY_ALBUM_IMGCAT_USE_GRID === $this->getVar('alb_imgcat')) {
                         $crImages = new \CriteriaCompo();
                         $crImages->add(new \Criteria('img_albid', $this->getVar('alb_id')));
                         $crImages->add(new \Criteria('img_state', 1));
@@ -453,40 +455,6 @@ class Albums extends \XoopsObject
 
         return $ret;
     }
-
-    /**
-     * Get specified number of images from album
-     * @param null $keys
-     * @param null $format
-     * @param null $maxDepth
-     * @return array
-     */
-    /* 	public function getSpecImagesAlbum ($albId, $limit)
-        {
-            $helper = \XoopsModules\Wggallery\Helper::getInstance();
-            $imagesHandler = $helper->getHandler('Images');
-    
-            $crImages = new \CriteriaCompo();
-            $crImages->add(new \Criteria('img_albid', $albId));
-            if (!$permissionsHandler->permAlbumEdit($albId, $albSubmitter)) {
-                $crImages->add(new \Criteria('img_state', 1));
-            }
-            $crImages->setSort('img_weight');
-            $crImages->setOrder('ASC');
-            $crImages->setLimit( $limit );
-            $imagesCount = $imagesHandler->getCount($crImages);
-            $imagesAll = $imagesHandler->getAll($crImages);
-            if($imagesCount > 0) {
-                $images = array();
-                // Get All Images
-                foreach(array_keys($imagesAll) as $i) {
-                    $images[$i] = $imagesAll[$i]->getValuesImages();
-                }
-                return $images;
-                unset($images);			
-            }
-            return false;
-        } */
 
     /**
      * Returns an array representation of the object

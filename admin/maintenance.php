@@ -223,6 +223,10 @@ switch ($op) {
         if (false === getUnusedImages($unused, $directory)) {
             $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_READDIR . $directory;
         }
+        $directory = WGGALLERY_UPLOAD_IMAGE_PATH . '/temp';
+        if (false === getUnusedImages($unused, $directory)) {
+            $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_READDIR . $directory;
+        }
 
         $templateMain = 'wggallery_admin_maintenance.tpl';
         $unused_text  = '';
@@ -274,6 +278,10 @@ switch ($op) {
             if (false === getUnusedImages($unused, $directory)) {
                 $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_READDIR . $directory;
             }
+            $directory = WGGALLERY_UPLOAD_IMAGE_PATH . '/temp';
+        if (false === getUnusedImages($unused, $directory)) {
+            $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_READDIR . $directory;
+        }
 
             if (count($unused) > 0) {
                 foreach ($unused as $image) {
@@ -851,7 +859,7 @@ function getUnusedImages(&$unused, $directory)
     /** @var \XoopsModules\Wggallery\Helper $helper */
     $helper        = \XoopsModules\Wggallery\Helper::getInstance();
     $imagesHandler = $helper->getHandler('Images');
-    $albumsHandler = $helper->getHandler('Images');
+    $albumsHandler = $helper->getHandler('Albums');
 
     if (is_dir($directory)) {
         if ($handle = opendir($directory)) {
@@ -863,20 +871,24 @@ function getUnusedImages(&$unused, $directory)
                     case '..':
                     case '.':
                         break;
-                    case 'delete':
+                    case 'default':
                     default:
-                        $crImages = new \CriteriaCompo();
-                        $crImages->add(new \Criteria('img_name', $entry));
-                        $crImages->add(new \Criteria('img_namelarge', $entry), 'OR');
-                        $imagesCount = $imagesHandler->getCount($crImages);
-                        $crAlbums    = new \CriteriaCompo();
-                        $crAlbums->add(new \Criteria('alb_image', $entry));
-                        $imagesCount += $albumsHandler->getCount($crAlbums);
-                        if (0 == $imagesCount) {
+                        if ( WGGALLERY_UPLOAD_IMAGE_PATH . '/temp' === $directory ) {
                             $unused[] = ['name' => $entry, 'path' => $directory . '/' . $entry];
+                        } else {
+                            $crImages = new \CriteriaCompo();
+                            $crImages->add(new \Criteria('img_name', $entry));
+                            $crImages->add(new \Criteria('img_namelarge', $entry), 'OR');
+                            $imagesCount = $imagesHandler->getCount($crImages);
+                            $crAlbums    = new \CriteriaCompo();
+                            $crAlbums->add(new \Criteria('alb_image', $entry));
+                            $imagesCount += $albumsHandler->getCount($crAlbums);
+                            if (0 == $imagesCount) {
+                                $unused[] = ['name' => $entry, 'path' => $directory . '/' . $entry];
+                            }
+                            unset($crImages);
+                            unset($crAlbums);
                         }
-                        unset($crImages);
-                        unset($crAlbums);
                         break;
                 }
             }

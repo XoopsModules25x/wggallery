@@ -30,15 +30,13 @@
  * @param mixed $itemNumb
  * @return bool
  */
-function wggalleryCommentsUpdate($itemId, $itemNumb)
+function wggalleryCommentsUpdate($itemId, $commentCount)
 {
-    $itemId   = (int)($itemId);
-    $itemNumb = (int)($itemNumb);
-    $article  = new \XoopsModules\Wggallery\Images($itemId);
-    if (!$article->updateComments($itemNumb)) {
+    /** @var \XoopsModules\Wggallery\Helper $helper */
+    $helper = \XoopsModules\Wggallery\Helper::getInstance();
+    if (!$helper->getHandler('Images')->updateAll('comments', (int)$commentCount, new \Criteria('lid', (int)$itemId))){
         return false;
-    }
-
+         }
     return true;
 }
 

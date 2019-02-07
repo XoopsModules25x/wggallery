@@ -1,6 +1,6 @@
 -
     gt_id: '1'
-    gt_primary: '1'
+    gt_primary: '0'
     gt_name: none
     gt_credits: ''
     gt_template: none
@@ -40,7 +40,7 @@
     gt_date: '1549020143'
 -
     gt_id: '6'
-    gt_primary: '0'
+    gt_primary: '1'
     gt_name: 'LC Lightbox LITE'
     gt_credits: 'https://lcweb.it/<br>https://github.com/LCweb-ita/LC-Lightbox-LITE'
     gt_template: lclightboxlite
