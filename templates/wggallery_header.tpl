@@ -1,5 +1,5 @@
 <{if $show_breadcrumbs}>
-    <{includeq file='db:wggallery_breadcrumbs.tpl'}>
+    <{include file='db:wggallery_breadcrumbs.tpl'}>
 <{/if}>
 
 <{if $ads != ''}>
