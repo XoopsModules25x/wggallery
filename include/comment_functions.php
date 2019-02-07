@@ -27,7 +27,7 @@
  * CommentsUpdate
  *
  * @param mixed $itemId
- * @param mixed $itemNumb
+ * @param int   $commentCount
  * @return bool
  */
 function wggalleryCommentsUpdate($itemId, $commentCount)
