@@ -257,7 +257,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         $imagesObj->setVar('img_ip', $_SERVER['REMOTE_ADDR']);
         // Insert Data
         if ($imagesHandler->insert($imagesObj)) {
-            $this->imageId = $imagesHandler->getInsertId;
+            $this->imageId = $imagesHandler->getInsertId();
 
             return true;
         }
