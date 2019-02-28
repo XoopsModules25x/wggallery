@@ -115,7 +115,7 @@ define('_MI_WGGALLERY_GLOBAL_ALB_DELETE_ALL_NOTIFY_SUBJECT', 'Notification about
 define('_MI_WGGALLERY_GLOBAL_IMG_NEW_ALL_NOTIFY', 'Send notification when new image was uploaded');
 define('_MI_WGGALLERY_GLOBAL_IMG_NEW_ALL_NOTIFY_CAPTION', 'Notify me about any new image');
 define('_MI_WGGALLERY_GLOBAL_IMG_NEW_ALL_NOTIFY_SUBJECT', 'Notification about a new image');
-define('_MI_WGGALLERY_GLOBAL_IMG_DELETE_ALL_NOTIFY', 'Send notification when a new image was deleted from this album');
+define('_MI_WGGALLERY_GLOBAL_IMG_DELETE_ALL_NOTIFY', 'Send notification when an image was deleted from this album');
 define('_MI_WGGALLERY_GLOBAL_IMG_DELETE_ALL_NOTIFY_CAPTION', 'Notify me about deleting image from this album');
 define('_MI_WGGALLERY_GLOBAL_IMG_DELETE_ALL_NOTIFY_SUBJECT', 'Notification about deleted image');
 define('_MI_WGGALLERY_ALBUMS_NOTIFY', 'Albums notification');
