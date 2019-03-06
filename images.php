@@ -184,7 +184,7 @@ switch ($op) {
             }
         } else {
             // xoops_confirm(array('ok' => 1, 'img_id' => $imgId, 'op' => 'delete'), $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $imagesObj->getVar('img_name')));
-            $form = $helper->getFormDelete(['ok' => 1, 'img_id' => $imgId, 'op' => 'delete', 'alb_id=' . $albId], _CO_WGGALLERY_FORM_DELETE, $imagesObj->getVar('img_name'));
+            $form = $helper->getFormDelete(['ok' => 1, 'img_id' => $imgId, 'op' => 'delete', 'alb_id=' . $albId, 'alb_pid=' . $albPid], _CO_WGGALLERY_FORM_DELETE, $imagesObj->getVar('img_name'));
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
         }
         break;
