@@ -58,6 +58,7 @@ define('_MI_WGGALLERY_EDITOR', 'Editor');
 define('_MI_WGGALLERY_EDITOR_DESC', 'Bitte den zu verwendenden Editor wählen');
 define('_MI_WGGALLERY_KEYWORDS', 'Schlüsselworter');
 define('_MI_WGGALLERY_KEYWORDS_DESC', 'Bitte Schlüsselwörter angeben (getrennt durch ein Komma)');
+define('_MI_WGGALLERY_SIZE_MB', 'MB');
 define('_MI_WGGALLERY_MAXSIZE', 'Maximale Dateigröße');
 define('_MI_WGGALLERY_MAXSIZE_DESC', 'Bitte die für den Upload von Dateien maximal zulässige Dateigröße definieren');
 define('_MI_WGGALLERY_FILEEXT', 'Zulässige Dateierweiterungen');

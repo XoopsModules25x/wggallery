@@ -231,38 +231,52 @@ $modversion['config'][] = [
     'default'     => 'wggallery, albums, images',
 ];
 // Uploads : maxsize of image
-
+include_once 'include/xoops_version.inc.php';
+$iniPostMaxSize = wggalleryReturnBytes(ini_get('post_max_size'));
+$iniUploadMaxFileSize = wggalleryReturnBytes(ini_get('upload_max_filesize'));
+$maxSize = min($iniPostMaxSize, $iniUploadMaxFileSize);
+if ($maxSize > 10000 * 1048576) {
+    $increment = 500;
+}
+if ($maxSize <= 10000 * 1048576){
+    $increment = 200;
+}
+if ($maxSize <= 5000 * 1048576){
+    $increment = 100;
+}
+if ($maxSize <= 2500 * 1048576){
+    $increment = 50;
+}
+if ($maxSize <= 1000 * 1048576){
+    $increment = 20;
+}
+if ($maxSize <= 500 * 1048576){
+    $increment = 10;
+}
+if ($maxSize <= 100 * 1048576){
+    $increment = 2;
+}
+if ($maxSize <= 50 * 1048576){
+    $increment = 1;
+}
+if ($maxSize <= 25 * 1048576){
+    $increment = 0.5;
+}
+$optionMaxsize = [];
+$i = $increment;
+while ($i* 1048576 <= $maxSize) {
+    $optionMaxsize[$i . ' ' . _MI_WGGALLERY_SIZE_MB] = $i * 1048576;
+    $i += $increment;
+}
 $modversion['config'][] = [
-    'name'        => 'maxsize',
-    'title'       => '_MI_WGGALLERY_MAXSIZE',
+    'name' => 'maxsize',
+    'title' => '_MI_WGGALLERY_MAXSIZE',
     'description' => '_MI_WGGALLERY_MAXSIZE_DESC',
-    'formtype'    => 'select',
-    'valuetype'   => 'text',
-    'default'     => 3145728,
-    'options'     => [
-        '0.5 MB' => 524288,
-        '1 MB'   => 1048576,
-        '1.5 MB' => 1572864,
-        '2 MB'   => 2097152,
-        '2.5 MB' => 2621440,
-        '3 MB'   => 3145728,
-        '3.5 MB' => 3670016,
-        '4 MB'   => 4194304,
-        '4.5 MB' => 4718592,
-        '5 MB'   => 5242880,
-        '5.5 MB' => 5767168,
-        '6 MB'   => 6291456,
-        '6.5 MB' => 6815744,
-        '7 MB'   => 7340032,
-        '7.5 MB' => 7864320,
-        '8 MB'   => 8388608,
-        '8.5 MB' => 8912896,
-        '9 MB'   => 9437184,
-        '9.5 MB' => 9961472,
-        '10 MB'  => 10485760,
-    ],
+    'formtype' => 'select',
+    'valuetype' => 'int',
+    'default' => 3145728,
+    'options' => $optionMaxsize,
 ];
-
 // Uploads : mimetypes of image
 $modversion['config'][] = [
     'name'        => 'fileext',
