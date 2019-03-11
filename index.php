@@ -181,11 +181,11 @@ $crAlbums = new \CriteriaCompo();
 $crAlbums->add(new \Criteria('alb_pid', $albPid));
 $crAlbums->add(new \Criteria('alb_iscat', 1));
 $crAlbums->add(new \Criteria('alb_state', Constants::STATE_ONLINE_VAL));
-$albumsCount = $albumsHandler->getCount($crAlbums);
+$catsCount = $albumsHandler->getCount($crAlbums);
 // read all categories and check for perm to view
 $albumsAll = $albumsHandler->getAll($crAlbums);
 $permAlbView = [];
-if ($albumsCount > 0) {
+if ($catsCount > 0) {
     foreach (array_keys($albumsAll) as $i) {
         if (0 < $permissionsHandler->permAlbumView($albumsAll[$i]->getVar('alb_id'))){
             $permAlbView[] = $albumsAll[$i]->getVar('alb_id');
@@ -259,7 +259,7 @@ if (0 < $catsCount) {
     }
 }
 
-if (0 == $catsCount + $albumsCount) {
+if (0 == ($catsCount + $albumsCount)) {
     $GLOBALS['xoopsTpl']->assign('error', _CO_WGGALLERY_THEREARENT_ALBUMS);
 }
 
