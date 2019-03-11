@@ -134,14 +134,24 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         $this->imageNicename  = str_replace(['_', '-'], ' ', $pathParts['filename']);
         $this->imageNameLarge = uniqid('imgl', true) . '.' . mb_strtolower($pathParts['extension']);
         $this->imagePath      = $this->pathUpload . '/large/' . $this->imageNameLarge;
+        $this->imageNameOrig = $_FILES[$this->inputName]['name'];
+        $this->imageMimetype = $_FILES[$this->inputName]['type'];
+        $this->imageSize     = $_FILES[$this->inputName]['size'];
 
         if (false === move_uploaded_file($_FILES[$this->inputName]['tmp_name'], $this->imagePath)) {
             return false;
         }
-
-        $this->imageNameOrig = $_FILES[$this->inputName]['name'];
-        $this->imageMimetype = $_FILES[$this->inputName]['type'];
-        $this->imageSize     = $_FILES[$this->inputName]['size'];
+        // resize large image
+        $imgHandler                = new Wggallery\Resizer();
+        $imgHandler->sourceFile    = $this->imagePath;
+        $imgHandler->endFile       = $this->imagePath;
+        $imgHandler->imageMimetype = $this->imageMimetype;
+        $imgHandler->maxWidth      = $helper->getConfig('maxwidth_large');
+        $imgHandler->maxHeight     = $helper->getConfig('maxheight_large');
+        $ret                       = $imgHandler->resizeImage();
+        if (false === $ret) {
+            return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_LARGE, $this->imageNicename)];
+        }
 
         $ret = $this->handleImageDB();
         if (false === $ret) {
