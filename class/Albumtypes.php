@@ -179,7 +179,7 @@ class Albumtypes extends \XoopsObject
                     $form->addElement($number_cols_album);
                     break;
                 case 'number_cols_cat':
-                    $number_cols_cat = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_AT_NB_COLS_ALB, 'number_cols_cat', $option['value']);
+                    $number_cols_cat = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_AT_NB_COLS_CAT, 'number_cols_cat', $option['value']);
                     $number_cols_cat->addOption(1, 1);
                     $number_cols_cat->addOption(2, 2);
                     $number_cols_cat->addOption(3, 3);
