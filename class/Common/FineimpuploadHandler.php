@@ -125,7 +125,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         if (Constants::PERM_SUBMITAPPR === $permissionsHandler->permGlobalSubmit()) {
             $this->permUseralbum = Constants::STATE_APPROVAL_VAL;
         } else {
-            $this->permUseralbum = Constants::STATE_OFFLINE_VAL;
+            $this->permUseralbum = Constants::STATE_ONLINE_VAL;
         }
 
         $pathParts = pathinfo($this->getName());
