@@ -53,8 +53,8 @@ define('_CO_WGGALLERY_FORM_ERROR_RESETUSAGE2', 'Fehler beim Zurücksetzen der Wa
 define('_CO_WGGALLERY_FORM_ERROR_ALBPID', 'Fehler: übergeordnetes Album nicht gefunden');
 define('_CO_WGGALLERY_FORM_OK_APPROVE', 'Änderungen Album erfolgreich gespeichert. Sie werden zur Freigabe der Bilder weitergeleitet');
 // There aren't
-define('_CO_WGGALLERY_THEREARENT_ALBUMS', 'Es gibt keine Alben');
-define('_CO_WGGALLERY_THEREARENT_IMAGES', 'Es gibt keine Bilder');
+define('_CO_WGGALLERY_THEREARENT_ALBUMS', 'Derzeit sind keine Alben verfügbar');
+define('_CO_WGGALLERY_THEREARENT_IMAGES', 'Derzeit sind keine Bilder verfügbar');
 // general
 define('_CO_WGGALLERY_DATE', 'Datum');
 define('_CO_WGGALLERY_SUBMITTER', 'Einsender');

@@ -131,7 +131,7 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
         $gpermHandler  = xoops_getHandler('groupperm');
         $mid           = $xoopsModule->mid();
         $memberHandler = xoops_getHandler('member');
-        if (0 == $currentuid) {
+        if (0 === $currentuid) {
             $my_group_ids = [XOOPS_GROUP_ANONYMOUS];
         } else {
             $my_group_ids = $memberHandler->getGroupsByUser($currentuid);

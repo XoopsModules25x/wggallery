@@ -54,8 +54,8 @@ define('_CO_WGGALLERY_FORM_ERROR_RESETUSAGE2', 'Error when reseting watermark us
 define('_CO_WGGALLERY_FORM_ERROR_ALBPID', 'Error: parent albums not found');
 define('_CO_WGGALLERY_FORM_OK_APPROVE', 'Successfully saved album. You will be forwarded to approve the images');
 // There aren't
-define('_CO_WGGALLERY_THEREARENT_ALBUMS', "There aren't albums");
-define('_CO_WGGALLERY_THEREARENT_IMAGES', "There aren't images");
+define('_CO_WGGALLERY_THEREARENT_ALBUMS', 'Currently there are no albums available');
+define('_CO_WGGALLERY_THEREARENT_IMAGES', 'Currently there are no images available');
 // general
 define('_CO_WGGALLERY_DATE', 'Date');
 define('_CO_WGGALLERY_SUBMITTER', 'Submitter');

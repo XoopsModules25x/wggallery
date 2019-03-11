@@ -120,81 +120,6 @@ switch ($op) {
         $albumsObj->setVar('alb_name', Request::getString('alb_name'));
         $albumsObj->setVar('alb_desc', Request::getString('alb_desc'));
         $albumsObj->setVar('alb_weight', Request::getInt('alb_weight'));
-        // Set Var alb_image
-        $albumsObj->setVar('alb_imgcat', Request::getInt('alb_imgcat'));
-        require_once XOOPS_ROOT_PATH . '/class/uploader.php';
-        $fileName       = $_FILES['attachedfile']['name'];
-        $imageMimetype  = $_FILES['attachedfile']['type'];
-        $uploaderErrors = '';
-        $uploader       = new \XoopsMediaUploader(WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/', $helper->getConfig('mimetypes'), $helper->getConfig('maxsize'), null, null);
-        if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
-            $extension = preg_replace('/^.+\.([^.]+)$/sU', '', $fileName);
-            $imgName   = str_replace(' ', '', $_POST['alb_name']) . '.' . $extension;
-            $uploader->setPrefix($imgName);
-            $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
-            if (!$uploader->upload()) {
-                $uploaderErrors = $uploader->getErrors();
-            } else {
-                $savedFilename = $uploader->getSavedFileName();
-                $albumsObj->setVar('alb_image', $savedFilename);
-                // resize image
-                //                require_once XOOPS_ROOT_PATH . '/modules/wggallery/include/imagehandler.php';
-                $alb_resize = Request::getInt('alb_resize');
-                switch ($alb_resize) {
-                    case Constants::IMAGE_THUMB:
-                        $maxwidth  = $helper->getConfig('maxwidth_thumbs');
-                        $maxheight = $helper->getConfig('maxheight_thumbs');
-                        break;
-                    case Constants::IMAGE_LARGE:
-                        $maxwidth = $helper->getConfig('maxwidth_large');
-                        if (0 === (int)$maxwidth) {
-                            $maxwidth = $helper->getConfig('maxwidth');
-                        }
-                        $maxheight = $helper->getConfig('maxheight_large');
-                        if (0 === (int)$maxheight) {
-                            $maxheight = $helper->getConfig('maxheight');
-                        }
-                        break;
-                    case Constants::IMAGE_MEDIUM:
-                    default:
-                        $maxwidth = $helper->getConfig('maxwidth_medium');
-                        if (0 === (int)$maxwidth) {
-                            $maxwidth = $helper->getConfig('maxwidth');
-                        }
-                        $maxheight = $helper->getConfig('maxheight');
-                        if (0 === (int)$maxheight) {
-                            $maxheight = $helper->getConfig('maxheight');
-                        }
-                        break;
-                }
-                $imgHandler                = new Wggallery\Resizer();
-                $imgHandler->sourceFile    = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename;
-                $imgHandler->endFile       = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename;
-                $imgHandler->imageMimetype = $imageMimetype;
-                $imgHandler->maxWidth      = $maxwidth;
-                $imgHandler->maxHeight     = $maxheight;
-                $result                    = $imgHandler->resizeImage();
-                $albumsObj->setVar('alb_imgcat', Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL);
-            }
-        } else {
-            if ($fileName > '') {
-                $uploaderErrors = $uploader->getErrors();
-            }
-            $albumsObj->setVar('alb_image', Request::getString('alb_image'));
-        }
-        $imgName  = Request::getString('alb_imgid', 'none');
-        $albImgid = 0;
-        if ('none' !== $imgName) {
-            $crImages = new \CriteriaCompo();
-            $crImages->add(new \Criteria('img_name', $imgName));
-            $imagesAll = $imagesHandler->getAll($crImages);
-            // Get All Images
-            foreach (array_keys($imagesAll) as $i) {
-                $albImgid = $imagesAll[$i]->getVar('img_id');
-            }
-        }
-
-        $albumsObj->setVar('alb_imgid', $albImgid);
         $albumsObj->setVar('alb_state', Request::getInt('alb_state'));
         $albumsObj->setVar('alb_wmid', Request::getInt('alb_wmid'));
         $albumDate = date_create_from_format(_SHORTDATESTRING, $_POST['alb_date']);
@@ -239,12 +164,7 @@ switch ($op) {
                 }
             }
             $albumsHandler->setAlbumIsCat();
-            if ('' !== $uploaderErrors) {
-                $redirAlbId = isset($_REQUEST['alb_id']) ? $albId : $newAlbId;
-                redirect_header('albums.php?op=edit&alb_id=' . $redirAlbId, 4, $uploaderErrors);
-            } else {
-                redirect_header('albums.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
-            }
+            redirect_header('albums.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $albumsObj->getHtmlErrors());

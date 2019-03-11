@@ -170,7 +170,6 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         $imgHandler->maxWidth      = $helper->getConfig('maxwidth_medium');
         $imgHandler->maxHeight     = $helper->getConfig('maxheight_medium');
         $ret                       = $imgHandler->resizeImage();
-        // $ret = resizeImage($this->imagePath, $this->pathUpload . '/medium/' . $this->imageName, $helper->getConfig('maxwidth_medium'), $helper->getConfig('maxheight_medium'), $this->imageMimetype);
         if (false === $ret) {
             return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_MEDIUM, $this->imageNicename)];
         }
@@ -185,7 +184,6 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         $imgHandler->maxWidth      = $helper->getConfig('maxwidth_thumbs');
         $imgHandler->maxHeight     = $helper->getConfig('maxheight_thumbs');
         $ret                       = $imgHandler->resizeImage();
-        // $ret = resizeImage($this->imagePath, $this->pathUpload . '/thumbs/' . $this->imageName, $helper->getConfig('maxwidth_thumbs'), $helper->getConfig('maxheight_thumbs'), $this->imageMimetype);
         if (false === $ret) {
             return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_THUMBS, $this->imageNicename)];
         }
