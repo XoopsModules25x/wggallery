@@ -495,7 +495,8 @@ switch ($op) {
         }
         $success_text .= '</ul>';
         $GLOBALS['xoopsTpl']->assign('result', $success_text . $err_text);
-
+		$GLOBALS['xoopsTpl']->assign('show_wm', true);
+        $GLOBALS['xoopsTpl']->assign('show_result', true);
         break;
     case 'broken_imgdir_search':
         $success     = [];
