@@ -45,6 +45,7 @@ class Constants
     const IMAGE_THUMB = 0;
     const IMAGE_MEDIUM = 1;
     const IMAGE_LARGE = 2;
+    const IMAGE_ALL = 3;
     // constants for album image cat
     const ALBUM_IMGCAT_USE_EXIST_VAL = 1;
     const ALBUM_IMGCAT_USE_UPLOADED_VAL = 2;

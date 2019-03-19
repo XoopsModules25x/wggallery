@@ -167,6 +167,7 @@ define('_CO_WGGALLERY_IMAGE_RESIZE', 'Bild auf folgende Größe ändern:');
 define('_CO_WGGALLERY_IMAGE_THUMB', 'Vorschaubild');
 define('_CO_WGGALLERY_IMAGE_MEDIUM', 'Mittleres Bild');
 define('_CO_WGGALLERY_IMAGE_LARGE', 'Großes Bild');
+define('_CO_WGGALLERY_IMAGE_ALL', 'Alle Bilder');
 define('_CO_WGGALLERY_IMAGE_EXIF', 'Exif-Daten');
 // Watermark add/edit
 define('_CO_WGGALLERY_WATERMARK_ADD', 'Wasserzeichen hinzufügen');

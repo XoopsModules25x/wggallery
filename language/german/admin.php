@@ -198,10 +198,11 @@ define('_AM_WGGALLERY_OPTION_SHOWDESCR', 'Beschreibung anzeigen');
 define('_AM_WGGALLERY_OPTION_CSS', 'CSS für den Stil wählen');
 define('_AM_WGGALLERY_OPTION_SHOWSUBMITTER', 'Einsender anzeigen');
 // Maintenance
+define('_AM_WGGALLERY_MAINTENANCE_ALBUM_SELECT', 'Album auswählen');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_DR', 'Löschen und wiederherstellen');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_R', 'Standardeinstellungen wiederherstellen');
-define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_RIM', 'Mittlere Bilder neu erstellen');
-define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_RIT', 'Vorschaubilder neu erstellen');
+define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_RIM', 'Alle mittlere Bilder neu erstellen');
+define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_RIT', 'Alle Vorschaubilder neu erstellen');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_DUI', 'Nicht verwendete Bilder löschen');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_DUI_SHOW', 'Liste der nicht verwendeten Bilder anzeigen');
 define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET', 'Erfolgreich wiederhergestellt: ');
@@ -227,6 +228,7 @@ define('_AM_WGGALLERY_MAINTENANCE_AT_SUREDELETE', 'Alle derzeit bestehenden Albu
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE', 'Größenänderung Bilder');
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE_DESC',
        'Erneute Größenänderung der mittleren Bilder oder Vorschaubilder entsprechend der vorgegeben Höhe in den Moduleinstellungen.<br>Aktuelle Einstellungen:<br>a) Mittlere Bilder: maximale Breite %mw px / maximale Höhe %mh px<br>b) Vorschaubilder: maximale Breite %tw px / maximale Höhe %th px');
+define('_AM_WGGALLERY_MAINTENANCE_RESIZE_SELECT', 'Wähle die Bildart für Größenänderung');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED', 'Bilderverzeichnis bereinigen');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC', 'Alle derzeit nicht verwendeten Bilder in folgenden Verzeichissen werden gelöscht:<ul>
 <li>%p/albums/</li>
@@ -242,7 +244,6 @@ define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_NONE', 'Es wurden keine nicht ve
 define('_AM_WGGALLERY_MAINTENANCE_DUI_SUREDELETE', 'Alle derzeit nicht verwendeten Albumbilder werden gelöscht! Wollen Sie wirklich fortsetzen?');
 define('_AM_WGGALLERY_MAINTENANCE_WATERMARK', 'Wasserzeichen zu Album nachträglich hinzufügen');
 define('_AM_WGGALLERY_MAINTENANCE_WATERMARK_DESC', 'Ein Wasserzeichen zu einem Album hinzufügen.<br>Achtung: bestehende Wasserzeichen werden nicht entfernt.<br>Wenn bereits ein Wasserzeichen vorhanden ist, wird den Bildern ein zusätzliches Wasserzeichen hinzugefügt.');
-define('_AM_WGGALLERY_MAINTENANCE_WATERMARK_SELECT', 'Album auswählen');
 define('_AM_WGGALLERY_MAINTENANCE_WATERMARK_SUCCESS', 'Erfolgreich');
 define('_AM_WGGALLERY_MAINTENANCE_IMGDIR', 'Fehlerhafte Einträge Bilder zu Verzeichnis');
 define('_AM_WGGALLERY_MAINTENANCE_IMGDIR_DESC', 'Es werden Einträge in der Tabelle Bilder gesucht, die im Uploadverzeichnis nicht gefunden werden.');

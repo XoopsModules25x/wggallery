@@ -198,10 +198,11 @@ define('_AM_WGGALLERY_OPTION_SHOWDESCR', 'Show description');
 define('_AM_WGGALLERY_OPTION_CSS', 'Select css for style');
 define('_AM_WGGALLERY_OPTION_SHOWSUBMITTER', 'Show submitter');
 // Maintenance
+define('_AM_WGGALLERY_MAINTENANCE_ALBUM_SELECT', 'Select album');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_DR', 'Delete and reset');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_R', 'Set default settings');
-define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_RIM', 'Resize medium');
-define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_RIT', 'Resize thumbs');
+define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_RIM', 'Resize all medium images');
+define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_RIT', 'Resize all thumbs');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_DUI', 'Delete unused images');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_DUI_SHOW', 'Show list of unused images');
 define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET', 'Successfully reset: ');
@@ -226,6 +227,7 @@ define('_AM_WGGALLERY_MAINTENANCE_AT_SURERESET', 'All existing album settings wi
 define('_AM_WGGALLERY_MAINTENANCE_AT_SUREDELETE', 'All existing albumtypes (settings included) will be deleted and replaced by current albumtypes. Do you want to continue?');
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE', 'Resize images');
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE_DESC', 'Resize images or thumbs to max height corresponding module preferences.<br>Current settings:<br>a) medium: max width %mw px / max height %mh px<br>b) thumb: max width %tw px / max height %th px');
+define('_AM_WGGALLERY_MAINTENANCE_RESIZE_SELECT', 'Select kind of images for resizing');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED', 'Cleanup image directory');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC', 'All currently unused images from following directories will be deleted:<ul>
 <li>%p/albums/</li>
@@ -241,7 +243,6 @@ define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_NONE', 'No unused images found')
 define('_AM_WGGALLERY_MAINTENANCE_DUI_SUREDELETE', 'All currently unused album images will be deleted! Do you want to continue?');
 define('_AM_WGGALLERY_MAINTENANCE_WATERMARK', 'Add watermarks to an album later');
 define('_AM_WGGALLERY_MAINTENANCE_WATERMARK_DESC', 'Add watermarks to a selected album.<br>Attention: existing watermarks will be not removed.<br>If there are already watermarks on, an additional watermark will be added to images.');
-define('_AM_WGGALLERY_MAINTENANCE_WATERMARK_SELECT', 'Select album');
 define('_AM_WGGALLERY_MAINTENANCE_IMGDIR', 'Broken items image to directory');
 define('_AM_WGGALLERY_MAINTENANCE_IMGDIR_DESC', 'Items of table images are searched, where the image is not in the upload directory.');
 define('_AM_WGGALLERY_MAINTENANCE_IMGALB', 'Broken items image to albums');

@@ -21,6 +21,8 @@
  - updated notification (goffy)
  - updated comments (goffy)
  - updated testtables (goffy)
+ - added possibility to resize images for specific albums in maintenance (goffy)
+ - changed preview of images for edit album image to thumb (goffy)
 
 <h5>1.08</h5> [2018/12/28 19:55:00]
 <hr>

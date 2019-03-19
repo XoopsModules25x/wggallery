@@ -92,7 +92,14 @@ switch ($op) {
         $src[5] = Request::getString('src5', '');
         $src[6] = Request::getString('src6', '');
         $target = Request::getString('target', '');
-
+        // replace thumbs dir by dir for medium images
+        $src[1] = str_replace('/thumbs/', '/medium/', $src[1]);
+        $src[2] = str_replace('/thumbs/', '/medium/', $src[2]);
+        $src[3] = str_replace('/thumbs/', '/medium/', $src[3]);
+        $src[4] = str_replace('/thumbs/', '/medium/', $src[4]);
+        $src[5] = str_replace('/thumbs/', '/medium/', $src[5]);
+        $src[6] = str_replace('/thumbs/', '/medium/', $src[6]);
+        
         $images = [];
         for ($i = 1; $i <= 6; $i++) {
             if ('' !== $src[$i]) {

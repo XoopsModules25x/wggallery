@@ -168,6 +168,7 @@ define('_CO_WGGALLERY_IMAGE_RESIZE', 'Resize image to following size:');
 define('_CO_WGGALLERY_IMAGE_THUMB', 'Thumb image');
 define('_CO_WGGALLERY_IMAGE_MEDIUM', 'Medium image');
 define('_CO_WGGALLERY_IMAGE_LARGE', 'Large image');
+define('_CO_WGGALLERY_IMAGE_ALL', 'All images');
 define('_CO_WGGALLERY_IMAGE_EXIF', 'Exif-data');
 // Watermark add/edit
 define('_CO_WGGALLERY_WATERMARK_ADD', 'Add Watermark');

@@ -143,47 +143,114 @@ switch ($op) {
         }
 
         break;
+    case 'resize_album_select':
+        // Get Theme Form
+        xoops_load('XoopsFormLoader');
+        $form = new \XoopsThemeForm(_AM_WGGALLERY_MAINTENANCE_RESIZE, 'form_resize', 'maintenance.php', 'post', true);
+        $form->setExtra('enctype="multipart/form-data"');
+        // Form Select Parent Album
+        $albumsHandler = $helper->getHandler('Albums');
+        $rAlbid       = new \XoopsFormSelect(_AM_WGGALLERY_MAINTENANCE_ALBUM_SELECT, 'resize_albid', 0);
+        $rAlbid->addOption('', '&nbsp;');
+        $albumsAll = $albumsHandler->getAll();
+        foreach (array_keys($albumsAll) as $i) {
+            $albName   = $albumsAll[$i]->getVar('alb_name');
+            $albAlbPid = $albumsAll[$i]->getVar('alb_pid');
+            if ($albAlbPid > 0) {
+                $albumsObj = $albumsHandler->get($albAlbPid);
+                $albName   .= ' (' . $albumsObj->getVar('alb_name') . ')';
+            }
+            $rAlbid->addOption($albumsAll[$i]->getVar('alb_id'), $albName);
+        }
+        $form->addElement($rAlbid, true);
+        unset($criteria);
+        $rTargetSelect = new \XoopsFormRadio(_AM_WGGALLERY_MAINTENANCE_RESIZE_SELECT, 'resize_target', 0);
+        $rTargetSelect->addOption(Constants::IMAGE_ALL, _CO_WGGALLERY_IMAGE_ALL);
+        $rTargetSelect->addOption(Constants::IMAGE_THUMB, _CO_WGGALLERY_IMAGE_THUMB);
+        $rTargetSelect->addOption(Constants::IMAGE_MEDIUM, _CO_WGGALLERY_IMAGE_MEDIUM);
+        $form->addElement($rTargetSelect, true);
+        $form->addElement(new \XoopsFormHidden('op', 'resize_album'));
+        $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+        $form->display();
+        break;
+        
+    case 'resize_album':
     case 'resize_medium':
     case 'resize_thumb':
-        $counter     = 0;
-        $errors      = [];
+        $counter       = 0;
+        $success       = 0;
+        $errors        = [];
+        $resize_thumb  = 0;
+        $resize_medium = 0;
+        $resize_target = Request::getInt('resize_target');
+        $resize_albid  = Request::getInt('resize_albid', 0);
+        
+        if ('resize_thumb' === $op) { $resize_thumb = 1;}
+        if ('resize_medium' === $op) { $resize_medium = 1;}
+        if ('resize_album' === $op) {
+            if (Constants::IMAGE_ALL === $resize_target || Constants::IMAGE_THUMB === $resize_target) { $resize_thumb = 1;}
+            if (Constants::IMAGE_ALL === $resize_target || Constants::IMAGE_MEDIUM === $resize_target) { $resize_medium = 1;}
+        }
         $crImages    = new \CriteriaCompo();
+        if (0 < $resize_albid) {
+            $crImages->add(new \Criteria('img_albid', $resize_albid));
+        }
         $imagesCount = $imagesHandler->getCount($crImages);
         $imagesAll   = $imagesHandler->getAll($crImages);
-        if ('resize_medium' === $op) {
-            $maxwidth  = $helper->getConfig('maxwidth_medium');
-            $maxheight = $helper->getConfig('maxheight_medium');
-            $target    = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/';
-        } else {
-            $maxwidth  = $helper->getConfig('maxwidth_thumbs');
-            $maxheight = $helper->getConfig('maxheight_thumbs');
-            $target    = WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/';
-        }
         if ($imagesCount > 0) {
             foreach (array_keys($imagesAll) as $i) {
                 $sourcefile    = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesAll[$i]->getVar('img_namelarge');
-                $endfile       = $target . $imagesAll[$i]->getVar('img_name');
-                $imageMimetype = $imagesAll[$i]->getVar('img_mimetype');
-                unlink($endfile);
+                if (1 === $resize_medium) {
+                    $counter++;
+                    $maxwidth  = $helper->getConfig('maxwidth_medium');
+                    $maxheight = $helper->getConfig('maxheight_medium');
+                    $target    = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/';
+                    $endfile       = $target . $imagesAll[$i]->getVar('img_name');
+                    $imageMimetype = $imagesAll[$i]->getVar('img_mimetype');
+                    unlink($endfile);
 
-                $imgHandler                = new Wggallery\Resizer();
-                $imgHandler->sourceFile    = $sourcefile;
-                $imgHandler->endFile       = $endfile;
-                $imgHandler->imageMimetype = $imageMimetype;
-                $imgHandler->maxWidth      = $maxwidth;
-                $imgHandler->maxHeight     = $maxheight;
-                $result                    = $imgHandler->resizeImage();
-                if ('copy' === $result) {
-                    unlink($endfile);
-                    copy($sourcefile, $endfile);
+                    $imgHandler                = new Wggallery\Resizer();
+                    $imgHandler->sourceFile    = $sourcefile;
+                    $imgHandler->endFile       = $endfile;
+                    $imgHandler->imageMimetype = $imageMimetype;
+                    $imgHandler->maxWidth      = $maxwidth;
+                    $imgHandler->maxHeight     = $maxheight;
+                    $result                    = $imgHandler->resizeImage();
+                    if ('copy' === $result) {
+                        unlink($endfile);
+                        copy($sourcefile, $endfile);
+                        $success++;
+                    } elseif ($result) {
+                        $success++;
+                    } else {
+                        $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_RESIZE . $imagesAll[$i]->getVar('img_name');
+                    }
+                }
+                if (1 === $resize_thumb) {
                     $counter++;
-                } elseif ($result) {
-                    $counter++;
-                } elseif ('copy' === $result) {
+                    $maxwidth  = $helper->getConfig('maxwidth_thumbs');
+                    $maxheight = $helper->getConfig('maxheight_thumbs');
+                    $target    = WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/';
+                    $endfile       = $target . $imagesAll[$i]->getVar('img_name');
+                    $imageMimetype = $imagesAll[$i]->getVar('img_mimetype');
                     unlink($endfile);
-                    copy($sourcefile, $endfile);
-                } else {
-                    $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_RESIZE . $imagesAll[$i]->getVar('img_name');
+
+                    $imgHandler                = new Wggallery\Resizer();
+                    $imgHandler->sourceFile    = $sourcefile;
+                    $imgHandler->endFile       = $endfile;
+                    $imgHandler->imageMimetype = $imageMimetype;
+                    $imgHandler->maxWidth      = $maxwidth;
+                    $imgHandler->maxHeight     = $maxheight;
+                    $result                    = $imgHandler->resizeImage();
+                    if ('copy' === $result) {
+                        unlink($endfile);
+                        copy($sourcefile, $endfile);
+                        $success++;
+                    } elseif ($result) {
+                        $success++;
+                    } else {
+                        $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_RESIZE . $imagesAll[$i]->getVar('img_name');
+                    }
                 }
             }
         }
@@ -195,7 +262,7 @@ switch ($op) {
             }
             $GLOBALS['xoopsTpl']->assign('error', $err_text);
         }
-        $success_text = str_replace(['%s', '%t'], [$counter, $imagesCount], _AM_WGGALLERY_MAINTENANCE_SUCCESS_RESIZE);
+        $success_text = str_replace(['%s', '%t'], [$success, $counter], _AM_WGGALLERY_MAINTENANCE_SUCCESS_RESIZE);
 
         $GLOBALS['xoopsTpl']->assign('maintainance_resize_desc', $maintainance_resize_desc);
         // $GLOBALS['xoopsTpl']->assign('maintainance_dui_desc', $maintainance_dui_desc);
@@ -408,7 +475,7 @@ switch ($op) {
         $form->setExtra('enctype="multipart/form-data"');
         // Form Select Parent Album
         $albumsHandler = $helper->getHandler('Albums');
-        $wmAlbid       = new \XoopsFormSelect(_AM_WGGALLERY_MAINTENANCE_WATERMARK_SELECT, 'wm_albid', 0);
+        $wmAlbid       = new \XoopsFormSelect(_AM_WGGALLERY_MAINTENANCE_ALBUM_SELECT, 'wm_albid', 0);
         $wmAlbid->addOption('', '&nbsp;');
         $albumsAll = $albumsHandler->getAll();
         foreach (array_keys($albumsAll) as $i) {
@@ -495,8 +562,7 @@ switch ($op) {
         }
         $success_text .= '</ul>';
         $GLOBALS['xoopsTpl']->assign('result', $success_text . $err_text);
-		$GLOBALS['xoopsTpl']->assign('show_wm', true);
-        $GLOBALS['xoopsTpl']->assign('show_result', true);
+
         break;
     case 'broken_imgdir_search':
         $success     = [];
