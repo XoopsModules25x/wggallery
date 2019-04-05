@@ -26,7 +26,7 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 // ------------------- Informations ------------------- //
 $modversion = [
     'version'             => 1.09,
-    'module_status'       => 'Beta 1',
+    'module_status'       => 'RC1',
     'release_date'        => '2019/02/01',
     'name'                => _MI_WGGALLERY_NAME,
     'description'         => _MI_WGGALLERY_DESC,
@@ -64,7 +64,7 @@ $modversion = [
     'adminmenu'           => 'admin/menu.php',
     'onInstall'           => 'include/install.php',
     'onUpdate'            => 'include/update.php',
-
+    'onUninstall'         => 'include/onuninstall.php',
     // ------------------- Mysql -----------------------------
     'sqlfile'             => ['mysql' => 'sql/mysql.sql'],
     // ------------------- Tables ----------------------------
@@ -501,14 +501,14 @@ $modversion['config'][] = [
 /**
  * Show Developer Tools?
  */
-$modversion['config'][] = [
+/* $modversion['config'][] = [
     'name'        => 'displayDeveloperTools',
     'title'       => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS',
     'description' => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS_DESC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
     'default'     => 0,
-];
+]; */
 
 // ------------------- Notifications ------------------- //
 $modversion['hasNotification'] = 1;
