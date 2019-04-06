@@ -152,7 +152,7 @@ switch ($op) {
             $jssor_transition = $_POST['jssor_transition'];
             $transText        = '';
             foreach ($jssor_transition as $transition) {
-                if ('-' !== mb_substr($transition, 0, 1)) {
+                if (0 !== mb_strpos($transition, '-')) {
                     if ('' !== $transText) {
                         $transText .= '|';
                     }

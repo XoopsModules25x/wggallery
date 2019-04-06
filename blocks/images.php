@@ -67,7 +67,7 @@ function b_wggallery_images_show($options)
     $criteria      = new \CriteriaCompo();
     $album_ids     = implode(',', $options);
     // echo "options;".$album_ids;
-    if ('0' !== mb_substr($album_ids, 0, 1)) {
+    if (0 !== mb_strpos($album_ids, '0')) {
         $criteria->add(new \Criteria('img_albid', '(' . $album_ids . ')', 'IN'));
     }
     $criteria->add(new \Criteria('img_state', Constants::STATE_ONLINE_VAL));
