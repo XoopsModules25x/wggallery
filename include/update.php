@@ -136,7 +136,9 @@ function update_wggallery_v109(&$module)
     $blankFile = XOOPS_UPLOAD_PATH . '/blank.gif';
     $specimage = XOOPS_UPLOAD_PATH . '/wggallery/images/temp';
     if (!is_dir($specimage)) {
-        mkdir($specimage, 0777);
+        if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
+        }
         chmod($specimage, 0777);
     }
     copy($indexFile, $specimage . '/index.html');
