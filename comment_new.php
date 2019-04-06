@@ -9,6 +9,7 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
+
 /**
  * Module: Tdmdownloads
  *
@@ -21,21 +22,17 @@
  * @since           1.0.0
  */
 
-
 use Xmf\Request;
-use XoopsModules\Wggallery;
 
-
-require  dirname(dirname(__DIR__)) . '/mainfile.php';
+require dirname(dirname(__DIR__)) . '/mainfile.php';
 $com_itemid = Request::getInt('com_itemid', 0);
 if ($com_itemid > 0) {
-
     /** @var \XoopsModules\Wggallery\Helper $helper */
     $helper = \XoopsModules\Wggallery\Helper::getInstance();
     /** @var \XoopsPersistableObjectHandler $imagesHandler */
     $imagesHandler = $helper->getHandler('Images');
 
-    $itemObj = $imagesHandler->get($com_itemid);
+    $itemObj        = $imagesHandler->get($com_itemid);
     $com_replytitle = $itemObj->getVar('img_title');
-    require XOOPS_ROOT_PATH.'/include/comment_new.php';
+    require XOOPS_ROOT_PATH . '/include/comment_new.php';
 }

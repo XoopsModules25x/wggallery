@@ -15,6 +15,7 @@
  * @package
  * @since
  * @author       XOOPS Development Team
+ * @param mixed $val
  */
 
 /**

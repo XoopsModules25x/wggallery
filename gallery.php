@@ -23,7 +23,7 @@
 
 use Xmf\Request;
 
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 $pr_gallery                              = $gallerytypesHandler->getPrimaryGallery();
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_gallery_' . $pr_gallery['template'] . '.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
@@ -191,4 +191,4 @@ unset($images);
 $utility::getMetaDescription(_CO_WGGALLERY_ALBUMS_DESC);
 // $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGGALLERY_URL.'/images.php');
 $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
-include __DIR__ . '/footer.php';
+require __DIR__ . '/footer.php';

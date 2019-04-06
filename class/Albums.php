@@ -25,7 +25,6 @@ namespace XoopsModules\Wggallery;
  */
 
 use XoopsModules\Wggallery;
-use XoopsModules\Wggallery\Constants;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
@@ -358,7 +357,7 @@ class Albums extends \XoopsObject
         $imageSelect    = new \XoopsFormSelect(sprintf(_CO_WGGALLERY_FORM_IMAGE_PATH, ".{$imageDirectory}/"), 'alb_image', $albImage, 5);
         $imageArray     = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $imageDirectory);
         foreach ($imageArray as $imagepreview2) {
-            $imageSelect->addOption((string)($imagepreview2), $imagepreview2);
+            $imageSelect->addOption((string)$imagepreview2, $imagepreview2);
         }
         $imageSelect->setExtra("onchange='showImgSelected(\"imagepreview2\", \"alb_image\", \"" . $imageDirectory . '", "", "' . XOOPS_URL . "\")'");
         $imageTray2->addElement($imageSelect, false);

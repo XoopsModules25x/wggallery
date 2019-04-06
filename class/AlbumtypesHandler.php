@@ -53,7 +53,7 @@ class AlbumtypesHandler extends \XoopsPersistableObjectHandler
     /**
      * retrieve a field
      *
-     * @param int        $i field id
+     * @param int   $i field id
      * @param array $fields
      * @return mixed reference to the {@link Get} object
      */
@@ -164,7 +164,6 @@ class AlbumtypesHandler extends \XoopsPersistableObjectHandler
      * Create Gallerytypes
      * @param $success
      * @param $errors
-     * @return void
      */
     public function albumtypesCreateReset(&$success, &$errors)
     {
@@ -227,7 +226,7 @@ class AlbumtypesHandler extends \XoopsPersistableObjectHandler
      * @param $atId
      * @param $template
      * @param $primary
-     * @return boolean
+     * @return bool
      */
     public function reset($atId, $template, $primary)
     {

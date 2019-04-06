@@ -20,17 +20,17 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 rate.php 1 Mon 2018-03-19 10:04:54Z XOOPS Project (www.xoops.org) $
  */
-  
+
 use Xmf\Request;
 
-include __DIR__ . '/header.php';
-$op = Request::getString('op', 'form');
-$lid = Request::getInt('lid');
+require __DIR__ . '/header.php';
+$op                                      = Request::getString('op', 'form');
+$lid                                     = Request::getInt('lid');
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_images.tpl';
-require_once XOOPS_ROOT_PATH .'/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 // Define Stylesheet
-$GLOBALS['xoTheme']->addStylesheet( $style, null );
-switch($op) {
+$GLOBALS['xoTheme']->addStylesheet($style, null);
+switch ($op) {
     case 'form':
     default:
         // Navigation
@@ -41,16 +41,16 @@ switch($op) {
         $title .= $GLOBALS['xoopsModule']->name();
         $GLOBALS['xoopsTpl']->assign('xoops_pagetitle', $title);
         // Description
-        $GLOBALS['xoTheme']->addMeta( 'meta', 'description', strip_tags(_MA_WGGALLERY_RATE));
+        $GLOBALS['xoTheme']->addMeta('meta', 'description', strip_tags(_MA_WGGALLERY_RATE));
         // Form Create
         $imagesObj = $imagesHandler->create();
-        $form = $imagesObj->getFormImages();
+        $form      = $imagesObj->getFormImages();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
 
-    break;
+        break;
     case 'save':
         // Security Check
-        if($GLOBALS['xoopsSecurity']->check()) {
+        if ($GLOBALS['xoopsSecurity']->check()) {
             redirect_header('images.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         $imagesObj = $imagesHandler->create();
@@ -69,11 +69,11 @@ switch($op) {
         $imagesObj->setVar('img_albid', $_POST['img_albid']);
         $imagesObj->setVar('img_state', $_POST['img_state']);
         $imageDate = date_create_from_format(_SHORTDATESTRING, $_POST['img_date']);
-$imagesObj->setVar('img_date', $imageDate->getTimestamp());
+        $imagesObj->setVar('img_date', $imageDate->getTimestamp());
         $imagesObj->setVar('img_submitter', $_POST['img_submitter']);
         $imagesObj->setVar('img_ip', $_POST['img_ip']);
         // Insert Data
-        if($images1->insert($imagesObj)) {
+        if ($images1->insert($imagesObj)) {
             redirect_header('index.php', 2, _MA_WGGALLERY_FORM_OK);
         }
         // Get Form Error
@@ -81,8 +81,8 @@ $imagesObj->setVar('img_date', $imageDate->getTimestamp());
         $form = $imagesObj->getFormImages();
         $GLOBALS['xoopsTpl']->assign('form', $form->display());
 
-    break;
+        break;
 }
 // Breadcrumbs
 $xoBreadcrumbs[] = ['title' => RATE_MA_WGGALLERY_];
-include __DIR__ . '/footer.php';
+require __DIR__ . '/footer.php';

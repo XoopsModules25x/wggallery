@@ -111,7 +111,7 @@ function b_wggallery_albums_show($options)
     $albumsHandler = $helper->getHandler('Albums');
     $criteria      = new \CriteriaCompo();
     $album_ids     = implode(',', $options);
-    if ('0' !== mb_substr($album_ids, 0, 1)) {
+    if (0 !== mb_strpos($album_ids, '0')) {
         $criteria->add(new \Criteria('alb_id', '(' . $album_ids . ')', 'IN'));
     }
     $criteria->add(new \Criteria('alb_state', Constants::STATE_ONLINE_VAL));
@@ -129,8 +129,7 @@ function b_wggallery_albums_show($options)
             $criteria->setSort('alb_hits');
             $criteria->setOrder('DESC');
         break;
-        */
-        // For the block: albums random
+        */ // For the block: albums random
         case 'random':
             $criteria->setSort('RAND()');
             break;
@@ -246,7 +245,7 @@ function b_wggallery_albums_edit($options)
     $form .= "<option value='0' " . (in_array(0, $options, false) ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_ALL_ALBUMS . '</option>';
     foreach (array_keys($albumsAll) as $i) {
         $alb_id = $albumsAll[$i]->getVar('alb_id');
-        $form   .= "<option value='" . $alb_id . "' " . (in_array($alb_id, $options, false) && false == in_array(0, $options, false) ? "selected='selected'" : '') . '>' . $albumsAll[$i]->getVar('alb_name') . '</option>';
+        $form   .= "<option value='" . $alb_id . "' " . (in_array($alb_id, $options, false) && false === in_array(0, $options, false) ? "selected='selected'" : '') . '>' . $albumsAll[$i]->getVar('alb_name') . '</option>';
     }
 
     $form .= '</select>';

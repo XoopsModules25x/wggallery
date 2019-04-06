@@ -129,7 +129,7 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
 
     /**
      * Get Criteria Albums
-     * @return boolean
+     * @return bool
      */
     public function setAlbumIsCat()
     {
@@ -189,7 +189,7 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
         {
             $childrens = array();
             $firstAlbId = 0;
-           
+
             $helper = \XoopsModules\Wggallery\Helper::getInstance();
             $albumsHandler = $helper->getHandler('Albums');
             $crAlbums = new \CriteriaCompo();

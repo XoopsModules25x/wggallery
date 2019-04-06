@@ -24,8 +24,6 @@ namespace XoopsModules\Wggallery;
  * @version        $Id: 1.0 helper.php 1 Mon 2018-03-19 10:04:53Z XOOPS Project (www.xoops.org) $
  */
 
-use XoopsModules\Wggallery\Constants;
-
 /**
  * Class Helper
  */
@@ -34,7 +32,6 @@ class Helper extends \Xmf\Module\Helper
     public $debug;
 
     /**
-     * @internal param $debug
      * @param bool $debug
      */
     public function __construct($debug = false)
@@ -66,15 +63,16 @@ class Helper extends \Xmf\Module\Helper
     {
         return $this->dirname;
     }
-    
+
     /**
      * @return int
      */
     public function getMid()
     {
-        $module_handler = xoops_getHandler('module');
-        $xoopsModule    = $module_handler->getByDirname('wggallery');
-        $mid            = $xoopsModule->mid();
+        $moduleHandler = xoops_getHandler('module');
+        $xoopsModule   = $moduleHandler->getByDirname('wggallery');
+        $mid           = $xoopsModule->mid();
+
         return $mid;
     }
 

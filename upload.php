@@ -23,7 +23,6 @@
 
 use Xmf\Request;
 use XoopsModules\Wggallery;
-use XoopsModules\Wggallery\Constants;
 
 require_once __DIR__ . '/header.php';
 // xoops_loadLanguage('admin', 'wggallery');
@@ -135,4 +134,4 @@ if ($albId > 0) {
 
 // Breadcrumbs
 $xoBreadcrumbs[] = ['title' => _CO_WGGALLERY_IMAGES_UPLOAD];
-include __DIR__ . '/footer.php';
+require __DIR__ . '/footer.php';

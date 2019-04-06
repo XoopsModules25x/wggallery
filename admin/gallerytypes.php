@@ -23,7 +23,7 @@
 
 use Xmf\Request;
 
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
 $op   = Request::getString('op', 'list');
 $gtId = Request::getInt('gt_id');
@@ -152,7 +152,7 @@ switch ($op) {
             $jssor_transition = $_POST['jssor_transition'];
             $transText        = '';
             foreach ($jssor_transition as $transition) {
-                if ('-' !== mb_substr($transition, 0, 1)) {
+                if (0 !== mb_strpos($transition, '-')) {
                     if ('' !== $transText) {
                         $transText .= '|';
                     }
@@ -445,4 +445,4 @@ switch ($op) {
 
         break;
 }
-include __DIR__ . '/footer.php';
+require __DIR__ . '/footer.php';

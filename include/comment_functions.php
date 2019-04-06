@@ -12,15 +12,16 @@
 /**
  * wgGallery module for xoops
  *
- * @copyright      module for xoops
- * @license        GPL 2.0 or later
- * @package        wggallery
+ * @param mixed $itemId
+ * @param mixed $itemNumb
+ * @param mixed $commentCount
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 comment_functions.php 1 Mon 2018-03-19 10:04:54Z XOOPS Project (www.xoops.org) $
- * @param mixed $itemId
- * @param mixed $itemNumb
+ * @copyright      module for xoops
+ * @license        GPL 2.0 or later
+ * @package        wggallery
  */
 
 /**
@@ -34,9 +35,10 @@ function wggalleryCommentsUpdate($itemId, $commentCount)
 {
     /** @var \XoopsModules\Wggallery\Helper $helper */
     $helper = \XoopsModules\Wggallery\Helper::getInstance();
-    if (!$helper->getHandler('Images')->updateAll('comments', (int)$commentCount, new \Criteria('lid', (int)$itemId))){
+    if (!$helper->getHandler('Images')->updateAll('comments', (int)$commentCount, new \Criteria('lid', (int)$itemId))) {
         return false;
-         }
+    }
+
     return true;
 }
 
@@ -44,7 +46,6 @@ function wggalleryCommentsUpdate($itemId, $commentCount)
  * CommentsApprove
  *
  * @param string $comment
- * @return void
  */
 function wggalleryCommentsApprove(&$comment)
 {

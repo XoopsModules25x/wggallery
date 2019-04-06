@@ -12,15 +12,15 @@
 /**
  * wgGallery module for xoops
  *
- * @copyright      module for xoops
- * @license        GPL 2.0 or later
+ * @param mixed      $module
+ * @param null|mixed $prev_version
  * @package        wggallery
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 update.php 1 Mon 2018-03-19 10:04:53Z XOOPS Project (www.xoops.org) $
- * @param mixed      $module
- * @param null|mixed $prev_version
+ * @copyright      module for xoops
+ * @license        GPL 2.0 or later
  */
 /**
  * @param      $module
@@ -136,7 +136,9 @@ function update_wggallery_v109(&$module)
     $blankFile = XOOPS_UPLOAD_PATH . '/blank.gif';
     $specimage = XOOPS_UPLOAD_PATH . '/wggallery/images/temp';
     if (!is_dir($specimage)) {
-        mkdir($specimage, 0777);
+        if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
+        }
         chmod($specimage, 0777);
     }
     copy($indexFile, $specimage . '/index.html');

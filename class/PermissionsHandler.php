@@ -23,9 +23,6 @@ namespace XoopsModules\Wggallery;
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 permissions.php 1 Sat 2018-03-31 11:31:09Z XOOPS Project (www.xoops.org) $
  */
-
-use XoopsModules\Wggallery\Constants;
-
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**

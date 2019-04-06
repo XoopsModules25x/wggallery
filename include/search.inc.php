@@ -29,7 +29,7 @@
  * @param $offset
  * @param $userid
  */
- 
+
 use XoopsModules\Wggallery;
 
 /**
@@ -42,15 +42,14 @@ use XoopsModules\Wggallery;
  */
 function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
 {
-    
-    $ret    = [];
+    $ret           = [];
     $helper        = \XoopsModules\Wggallery\Helper::getInstance();
     $imagesHandler = $helper->getHandler('Images');
     $albumsHandler = $helper->getHandler('Albums');
-    include_once 'common.php';
+    require_once __DIR__ . '/common.php';
 
     // search in images table
-    if(is_array($queryarray)) {
+    if (is_array($queryarray)) {
         $count = count($queryarray);
     }
     if (is_array($queryarray) && $count > 0) {
@@ -73,7 +72,7 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
         $criteriaUser = new CriteriaCompo();
         $criteriaUser->add(new Criteria('img_submitter', $userid), 'OR');
     }
-    
+
     $critSearch = new CriteriaCompo();
     if (!empty($criteriaUser)) {
         $critSearch->add($criteriaUser, 'AND');
@@ -88,10 +87,11 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
     $imagesAll = $imagesHandler->getAll($critSearch);
     foreach (array_keys($imagesAll) as $i) {
         $images[$i] = $imagesAll[$i]->getValuesImages();
-        $ret[] = ['image' => 'assets/icons/16/images.png',
-                  'link' => 'images.php?op=show&amp;img_id=' . $images[$i]['img_id'] . '&amp;alb_id=' . $images[$i]['img_albid'],
-                  'title' => $images[$i]['img_title']
-                 ];
+        $ret[]      = [
+            'image' => 'assets/icons/16/images.png',
+            'link'  => 'images.php?op=show&amp;img_id=' . $images[$i]['img_id'] . '&amp;alb_id=' . $images[$i]['img_albid'],
+            'title' => $images[$i]['img_title'],
+        ];
     }
     unset($imagesAll);
     unset($critSearch);
@@ -117,7 +117,7 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
         $criteriaUser = new CriteriaCompo();
         $criteriaUser->add(new Criteria('alb_submitter', $userid), 'OR');
     }
-    
+
     $critSearch = new CriteriaCompo();
     if (!empty($criteriaUser)) {
         $critSearch->add($criteriaUser, 'AND');
@@ -131,13 +131,13 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
     $critSearch->setOrder('DESC');
     $albumsAll = $albumsHandler->getAll($critSearch);
     foreach (array_keys($albumsAll) as $i) {
-        $ret[] = ['image' => 'assets/icons/16/albums.png',
-                  'link' => 'albums.php?op=show&amp;alb_id=' . $albumsAll[$i]->getVar('alb_id'),
-                  'title' => $albumsAll[$i]->getVar('alb_name')
-                 ];
+        $ret[] = [
+            'image' => 'assets/icons/16/albums.png',
+            'link'  => 'albums.php?op=show&amp;alb_id=' . $albumsAll[$i]->getVar('alb_id'),
+            'title' => $albumsAll[$i]->getVar('alb_name'),
+        ];
     }
     unset($albumsAll);
-    
-    return $ret;
 
+    return $ret;
 }

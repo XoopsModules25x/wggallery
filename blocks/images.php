@@ -22,8 +22,8 @@
  */
 
 use XoopsModules\Wggallery;
-use XoopsModules\Wggallery\Helper;
 use XoopsModules\Wggallery\Constants;
+use XoopsModules\Wggallery\Helper;
 
 require_once XOOPS_ROOT_PATH . '/modules/wggallery/include/common.php';
 // Function show block
@@ -35,7 +35,7 @@ function b_wggallery_images_show($options)
 {
     /** @var \XoopsModules\Wggallery\Helper $helper */
     $helper = \XoopsModules\Wggallery\Helper::getInstance();
-    
+
     //$myts = \MyTextSanitizer::getInstance();
     $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
     $block        = [];
@@ -67,7 +67,7 @@ function b_wggallery_images_show($options)
     $criteria      = new \CriteriaCompo();
     $album_ids     = implode(',', $options);
     // echo "options;".$album_ids;
-    if ('0' !== mb_substr($album_ids, 0, 1)) {
+    if (0 !== mb_strpos($album_ids, '0')) {
         $criteria->add(new \Criteria('img_albid', '(' . $album_ids . ')', 'IN'));
     }
     $criteria->add(new \Criteria('img_state', Constants::STATE_ONLINE_VAL));
@@ -170,7 +170,7 @@ function b_wggallery_images_edit($options)
     $form .= "<option value='0' " . (in_array(0, $options, false) ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_ALL_ALBUMS . '</option>';
     foreach (array_keys($albumsAll) as $i) {
         $alb_id = $albumsAll[$i]->getVar('alb_id');
-        $form   .= "<option value='" . $alb_id . "' " . (in_array($alb_id, $options, false) && false == in_array(0, $options, false) ? "selected='selected'" : '') . '>' . $albumsAll[$i]->getVar('alb_name') . '</option>';
+        $form   .= "<option value='" . $alb_id . "' " . (in_array($alb_id, $options, false) && false === in_array(0, $options, false) ? "selected='selected'" : '') . '>' . $albumsAll[$i]->getVar('alb_name') . '</option>';
     }
     $form .= '</select>';
 

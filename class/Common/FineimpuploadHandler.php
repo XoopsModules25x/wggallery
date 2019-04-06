@@ -121,7 +121,6 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         $helper           = \XoopsModules\Wggallery\Helper::getInstance();
         $this->pathUpload = WGGALLERY_UPLOAD_IMAGE_PATH;
 
-
         if (Constants::PERM_SUBMITAPPR === $permissionsHandler->permGlobalSubmit()) {
             $this->permUseralbum = Constants::STATE_APPROVAL_VAL;
         } else {
@@ -134,9 +133,9 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         $this->imageNicename  = str_replace(['_', '-'], ' ', $pathParts['filename']);
         $this->imageNameLarge = uniqid('imgl', true) . '.' . mb_strtolower($pathParts['extension']);
         $this->imagePath      = $this->pathUpload . '/large/' . $this->imageNameLarge;
-        $this->imageNameOrig = $_FILES[$this->inputName]['name'];
-        $this->imageMimetype = $_FILES[$this->inputName]['type'];
-        $this->imageSize     = $_FILES[$this->inputName]['size'];
+        $this->imageNameOrig  = $_FILES[$this->inputName]['name'];
+        $this->imageMimetype  = $_FILES[$this->inputName]['type'];
+        $this->imageSize      = $_FILES[$this->inputName]['size'];
 
         if (false === move_uploaded_file($_FILES[$this->inputName]['tmp_name'], $this->imagePath)) {
             return false;
@@ -168,8 +167,12 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         if ($wmId > 0) {
             $watermarksObj = $watermarksHandler->get($wmId);
             $wmTarget      = $watermarksObj->getVar('wm_target');
-            if (Constants::WATERMARK_TARGET_A === $wmTarget || Constants::WATERMARK_TARGET_M === $wmTarget) {$wmTargetM = true;}
-            if (Constants::WATERMARK_TARGET_A === $wmTarget || Constants::WATERMARK_TARGET_L === $wmTarget) {$wmTargetL = true;}
+            if (Constants::WATERMARK_TARGET_A === $wmTarget || Constants::WATERMARK_TARGET_M === $wmTarget) {
+                $wmTargetM = true;
+            }
+            if (Constants::WATERMARK_TARGET_A === $wmTarget || Constants::WATERMARK_TARGET_L === $wmTarget) {
+                $wmTargetL = true;
+            }
         }
 
         // create medium image
@@ -223,24 +226,25 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         $tags['IMAGE_URL']   = XOOPS_URL . '/modules/wggallery/images.php?op=show&img_id=' . $this->imageId . '&amp;alb_id=' . $this->claims->cat;
         $tags['ALBUM_URL']   = XOOPS_URL . '/modules/wggallery/albums.php?op=show&alb_id=' . $this->claims->cat;
         $notificationHandler = xoops_getHandler('notification');
-        $mid = \XoopsModules\Wggallery\Helper::getMid();
+        $mid                 = \XoopsModules\Wggallery\Helper::getMid();
         if (Constants::STATE_APPROVAL_VAL === $this->permUseralbum) {
-            $notificationHandler->triggerEvent('global', 0, 'image_approve',  $tags, [], $mid);
+            $notificationHandler->triggerEvent('global', 0, 'image_approve', $tags, [], $mid);
         } else {
-            $notificationHandler->triggerEvent('global', 0, 'image_new_all',  $tags, [], $mid);
-            $notificationHandler->triggerEvent('albums', $this->claims->cat, 'image_new',  $tags, [], $mid);
+            $notificationHandler->triggerEvent('global', 0, 'image_new_all', $tags, [], $mid);
+            $notificationHandler->triggerEvent('albums', $this->claims->cat, 'image_new', $tags, [], $mid);
         }
-        
+
         return ['success' => true, 'uuid' => $uuid];
     }
 
     /**
      * @return bool
      */
-    private function handleImageDB()    {
+    private function handleImageDB()
+    {
         require_once XOOPS_ROOT_PATH . '/modules/wggallery/header.php';
 
-        $helper        = \XoopsModules\Wggallery\Helper::getInstance();
+        $helper = \XoopsModules\Wggallery\Helper::getInstance();
 
         global $xoopsUser;
 
@@ -308,14 +312,14 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
      * @param string $endfile
      * @param int    $max_width
      * @param int    $max_height
-     * @return string|boolean
+     * @return string|bool
      */
     /*     private function resizeImage_sav($endfile, $max_width, $max_height){
             // check file extension
             switch($this->imageMimetype){
                 case'image/png':
                     $img = imagecreatefrompng($this->imagePath);
-    
+
                 break;
                 case'image/jpeg':
                     $img = imagecreatefromjpeg($this->imagePath);
@@ -326,10 +330,10 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
                 default:
                     return 'Unsupported format';
             }
-    
+
             $width = imagesx( $img );
             $height = imagesy( $img );
-            
+
             if ( $width > $max_width || $height > $max_height) {
                 // recalc image size based on max_width/max_height
                 if ($width > $height) {
@@ -347,15 +351,15 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
                     $divisor = $height / $new_height;
                     $new_width = floor( $width / $divisor );
                 }
-    
+
                 // Create a new temporary image.
                 $tmpimg = imagecreatetruecolor( $new_width, $new_height );
                 imagealphablending($tmpimg, false);
                 imagesavealpha($tmpimg, true);
-    
+
                 // Copy and resize old image into new image.
                 imagecopyresampled( $tmpimg, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-    
+
                 //compressing the file
                 switch($this->imageMimetype){
                     case'image/png':
@@ -368,7 +372,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
                         imagegif($tmpimg, $endfile);
                     break;
                 }
-                            
+
                 // release the memory
                 imagedestroy($tmpimg);
             } else {

@@ -21,11 +21,10 @@
  * @version        $Id: 1.0 watermarks.php 1 Thu 2018-11-01 08:54:56Z XOOPS Project (www.xoops.org) $
  */
 
+use Xmf\Request;
 use XoopsModules\Wggallery\Constants;
 
-include __DIR__ . '/header.php';
-
-use Xmf\Request;
+require __DIR__ . '/header.php';
 
 $op   = Request::getString('op', 'list');
 $wmId = Request::getInt('wm_id');
@@ -231,4 +230,4 @@ switch ($op) {
 
         break;
 }
-include __DIR__ . '/footer.php';
+require __DIR__ . '/footer.php';

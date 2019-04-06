@@ -25,7 +25,6 @@ namespace XoopsModules\Wggallery;
  */
 
 use XoopsModules\Wggallery;
-use XoopsModules\Wggallery\Constants;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
@@ -267,5 +266,4 @@ class Images extends \XoopsObject
 
         return $ret;
     }
-
 }

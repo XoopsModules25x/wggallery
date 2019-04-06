@@ -24,7 +24,7 @@
 use Xmf\Request;
 use XoopsModules\Wggallery\Constants;
 
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 $pr_album                                = $albumtypesHandler->getPrimaryAlbum();
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_index_' . $pr_album['template'] . '.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
@@ -100,11 +100,11 @@ $crAlbums->add(new \Criteria('alb_iscat', 0));
 $crAlbums->add(new \Criteria('alb_state', Constants::STATE_ONLINE_VAL));
 $albumsCount = $albumsHandler->getCount($crAlbums);
 // read all albums and check for perm to view
-$albumsAll = $albumsHandler->getAll($crAlbums);
+$albumsAll   = $albumsHandler->getAll($crAlbums);
 $permAlbView = [];
 if ($albumsCount > 0) {
     foreach (array_keys($albumsAll) as $i) {
-        if (0 < $permissionsHandler->permAlbumView($albumsAll[$i]->getVar('alb_id'))){
+        if ($permissionsHandler->permAlbumView($albumsAll[$i]->getVar('alb_id')) > 0) {
             $permAlbView[] = $albumsAll[$i]->getVar('alb_id');
         }
         // echo "<br>------------------------------------------------------------";
@@ -119,10 +119,10 @@ if ($albumsCount > 0) {
         // echo "<br>permGlobalSubmit:" . $permissionsHandler->permGlobalSubmit();
     }
 }
-unset ($albumsAll);
-unset ($crAlbums);
+unset($albumsAll);
+unset($crAlbums);
 $albumsCount = count($permAlbView);
-if (0 < $albumsCount) {
+if ($albumsCount > 0) {
     $crAlbums = new \CriteriaCompo();
     $crAlbums->add(new \Criteria('alb_id', '(' . implode(',', $permAlbView) . ')', 'IN'));
     $crAlbums->setSort('alb_weight ASC, alb_date');
@@ -130,7 +130,7 @@ if (0 < $albumsCount) {
     $crAlbums->setStart($start);
     $crAlbums->setLimit($limit);
     $albumsAll = $albumsHandler->getAll($crAlbums);
-    unset ($permAlbView);
+    unset($permAlbView);
 
     if ($albumsCount > 0) {
         $counter = 0;
@@ -138,7 +138,7 @@ if (0 < $albumsCount) {
         // Get All Albums
         foreach (array_keys($albumsAll) as $i) {
             $albums[$i] = $albumsAll[$i]->getValuesAlbums();
-            $submitter = $albumsAll[$i]->getVar('alb_submitter');
+            $submitter  = $albumsAll[$i]->getVar('alb_submitter');
             //check permissions
             $albums[$i]['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
             //set indicator for line break
@@ -148,7 +148,7 @@ if (0 < $albumsCount) {
             }
             if ($number_cols_album == $counter) {
                 $albums[$i]['linebreak'] = true;
-                $counter = 0;
+                $counter                 = 0;
             }
             $keywords[] = $albumsAll[$i]->getVar('alb_name');
         }
@@ -183,11 +183,11 @@ $crAlbums->add(new \Criteria('alb_iscat', 1));
 $crAlbums->add(new \Criteria('alb_state', Constants::STATE_ONLINE_VAL));
 $catsCount = $albumsHandler->getCount($crAlbums);
 // read all categories and check for perm to view
-$albumsAll = $albumsHandler->getAll($crAlbums);
+$albumsAll   = $albumsHandler->getAll($crAlbums);
 $permAlbView = [];
 if ($catsCount > 0) {
     foreach (array_keys($albumsAll) as $i) {
-        if (0 < $permissionsHandler->permAlbumView($albumsAll[$i]->getVar('alb_id'))){
+        if ($permissionsHandler->permAlbumView($albumsAll[$i]->getVar('alb_id')) > 0) {
             $permAlbView[] = $albumsAll[$i]->getVar('alb_id');
         }
         // echo "<br>------------------------------------------------------------";
@@ -202,10 +202,10 @@ if ($catsCount > 0) {
         // echo "<br>permGlobalSubmit:" . $permissionsHandler->permGlobalSubmit();
     }
 }
-unset ($albumsAll);
-unset ($crAlbums);
+unset($albumsAll);
+unset($crAlbums);
 $catsCount = count($permAlbView);
-if (0 < $catsCount) {
+if ($catsCount > 0) {
     $crAlbums = new \CriteriaCompo();
     $crAlbums->add(new \Criteria('alb_id', '(' . implode(',', $permAlbView) . ')', 'IN'));
     $crAlbums->setSort('alb_weight ASC, alb_date');
@@ -213,7 +213,7 @@ if (0 < $catsCount) {
     $crAlbums->setStart($start);
     $crAlbums->setLimit($limit);
     $albumsAll = $albumsHandler->getAll($crAlbums);
-    unset ($permAlbView);
+    unset($permAlbView);
 
     if ($catsCount > 0) {
         $categories = [];
@@ -270,4 +270,4 @@ unset($keywords);
 $utility::getMetaDescription(_CO_WGGALLERY_ALBUMS_DESC);
 // $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGGALLERY_URL.'/albums.php');
 $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
-include __DIR__ . '/footer.php';
+require __DIR__ . '/footer.php';
