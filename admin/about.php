@@ -20,8 +20,8 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 about.php 1 Mon 2018-03-19 10:04:52Z XOOPS Project (www.xoops.org) $
  */
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 $templateMain = 'wggallery_admin_about.tpl';
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('about.php'));
 $GLOBALS['xoopsTpl']->assign('about', $adminObject->renderAbout('', false));
-include __DIR__ . '/footer.php';
+require __DIR__ . '/footer.php';

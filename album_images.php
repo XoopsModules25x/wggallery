@@ -25,7 +25,7 @@ use Xmf\Request;
 use XoopsModules\Wggallery;
 use XoopsModules\Wggallery\Constants;
 
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_album_images.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 
@@ -99,7 +99,7 @@ switch ($op) {
         $src[4] = str_replace('/thumbs/', '/medium/', $src[4]);
         $src[5] = str_replace('/thumbs/', '/medium/', $src[5]);
         $src[6] = str_replace('/thumbs/', '/medium/', $src[6]);
-        
+
         $images = [];
         for ($i = 1; $i <= 6; $i++) {
             if ('' !== $src[$i]) {
@@ -365,4 +365,4 @@ $GLOBALS['xoopsTpl']->assign('panel_type', $helper->getConfig('panel_type'));
 // Description
 $utility::getMetaDescription(_CO_WGGALLERY_ALBUMS);
 $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
-include __DIR__ . '/footer.php';
+require __DIR__ . '/footer.php';

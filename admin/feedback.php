@@ -22,7 +22,7 @@
 
 use Xmf\Request;
 
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 
 $adminObject = \Xmf\Module\Admin::getInstance();
 
@@ -92,4 +92,4 @@ switch ($op) {
 
         break;
 }
-include __DIR__ . '/footer.php';
+require __DIR__ . '/footer.php';

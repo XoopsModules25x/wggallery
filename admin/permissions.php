@@ -23,7 +23,7 @@
 
 use Xmf\Request;
 
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
 $imagesHandler = $helper->getHandler('Images');
 // Check admin have access to this page
@@ -93,4 +93,4 @@ if ('global' === $op) {
     }
 }
 unset($permform);
-include __DIR__ . '/footer.php';
+require __DIR__ . '/footer.php';

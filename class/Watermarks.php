@@ -23,9 +23,6 @@ namespace XoopsModules\Wggallery;
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 watermarks.php 1 Thu 2018-11-01 08:54:56Z XOOPS Project (www.xoops.org) $
  */
-
-use XoopsModules\Wggallery\Constants;
-
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
@@ -150,7 +147,7 @@ class Watermarks extends \XoopsObject
         $imageSelect    = new \XoopsFormSelect(sprintf(_CO_WGGALLERY_FORM_IMAGE_PATH, ".{$imageDirectory}/"), 'wm_image', $wmImage, 5);
         $imageArray     = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $imageDirectory);
         foreach ($imageArray as $image1) {
-            $imageSelect->addOption((string)($image1), $image1);
+            $imageSelect->addOption((string)$image1, $image1);
         }
         $imageSelect->setExtra("onchange='showImgSelected(\"image1\", \"wm_image\", \"" . $imageDirectory . '", "", "' . XOOPS_URL . "\")'");
         $imageTray->addElement($imageSelect, false);

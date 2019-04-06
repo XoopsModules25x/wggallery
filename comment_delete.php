@@ -20,6 +20,6 @@
  * @link            https://xoops.org/
  * @since           1.0.0
  */
-require  dirname(dirname(__DIR__)) . '/mainfile.php';
+require dirname(dirname(__DIR__)) . '/mainfile.php';
 require __DIR__ . '/header.php';
-require XOOPS_ROOT_PATH.'/include/comment_delete.php';
+require XOOPS_ROOT_PATH . '/include/comment_delete.php';

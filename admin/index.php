@@ -20,7 +20,7 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 index.php 1 Mon 2018-03-19 10:04:52Z XOOPS Project (www.xoops.org) $
  */
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 // Count elements
 $countAlbums       = $albumsHandler->getCount();
 $countImages       = $imagesHandler->getCount();
@@ -68,12 +68,11 @@ foreach (array_keys($folder) as $i) {
 // Render Index
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('index.php'));
 
-
 //------------- Test Data ----------------------------
 
 if ($helper->getConfig('displaySampleButton')) {
     xoops_loadLanguage('admin/modulesadmin', 'system');
-    require  dirname(__DIR__) . '/testdata/index.php';
+    require dirname(__DIR__) . '/testdata/index.php';
 
     $adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_' . 'ADD_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=load', 'add');
 
@@ -87,4 +86,4 @@ if ($helper->getConfig('displaySampleButton')) {
 //------------- End Test Data ----------------------------
 
 $GLOBALS['xoopsTpl']->assign('index', $adminObject->displayIndex());
-include __DIR__ . '/footer.php';
+require __DIR__ . '/footer.php';

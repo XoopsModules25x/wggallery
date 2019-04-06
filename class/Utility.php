@@ -214,7 +214,6 @@ class Utility
     /**
      * Add content as meta tag to template
      * @param $content
-     * @return void
      */
     public static function getMetaKeywords($content)
     {
@@ -231,7 +230,6 @@ class Utility
     /**
      * Add content as meta description to template
      * @param $content
-     * @return void
      */
     public static function getMetaDescription($content)
     {
@@ -257,7 +255,7 @@ class Utility
     {
         $comment = '';
         /** @var \XoopsModules\Wggallery\Helper $helper */
-        $helper  = \XoopsModules\Wggallery\Helper::getInstance();
+        $helper = \XoopsModules\Wggallery\Helper::getInstance();
         //$images = $helper->getHandler('Images');
         $lenght_id   = $helper->getConfig('lenght_id');
         $rewrite_url = $helper->getConfig('rewrite_url');
@@ -360,5 +358,4 @@ class Utility
 
         return $url;
     }
-
 }

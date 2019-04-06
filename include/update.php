@@ -12,15 +12,15 @@
 /**
  * wgGallery module for xoops
  *
- * @copyright      module for xoops
- * @license        GPL 2.0 or later
+ * @param mixed      $module
+ * @param null|mixed $prev_version
  * @package        wggallery
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 update.php 1 Mon 2018-03-19 10:04:53Z XOOPS Project (www.xoops.org) $
- * @param mixed      $module
- * @param null|mixed $prev_version
+ * @copyright      module for xoops
+ * @license        GPL 2.0 or later
  */
 /**
  * @param      $module

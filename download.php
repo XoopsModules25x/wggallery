@@ -23,7 +23,7 @@
 
 use Xmf\Request;
 
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 
 $op    = Request::getString('op', 'list');
 $imgId = Request::getInt('img_id');

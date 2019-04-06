@@ -24,7 +24,7 @@
 use Xmf\Request;
 use XoopsModules\Wggallery\Constants;
 
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
 $op = Request::getString('op', 'list');
 // Request img_id
@@ -217,4 +217,4 @@ switch ($op) {
 
         break;
 }
-include __DIR__ . '/footer.php';
+require __DIR__ . '/footer.php';

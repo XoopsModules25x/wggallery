@@ -20,7 +20,7 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 albums.php 1 Mon 2018-03-19 10:04:49Z XOOPS Project (www.xoops.org) $
  */
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 
 use Xmf\Request;
 
@@ -116,4 +116,4 @@ switch ($op) {
 
         break;
 }
-include __DIR__ . '/footer.php';
+require __DIR__ . '/footer.php';

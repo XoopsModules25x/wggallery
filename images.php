@@ -24,7 +24,7 @@
 use Xmf\Request;
 use XoopsModules\Wggallery\Constants;
 
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 
 $op = Request::getString('op', 'list');
 if ('manage' === $op) {
@@ -34,14 +34,14 @@ if ('manage' === $op) {
 }
 require_once XOOPS_ROOT_PATH . '/header.php';
 
-$imgId   = Request::getInt('img_id');
-$albId   = Request::getInt('alb_id', 0);
-$albPid  = Request::getInt('alb_pid');
-$ref     = Request::getString('ref');
-$imgSubm = Request::getInt('img_submitter');
-$start   = Request::getInt('start', 0);
-$limit   = Request::getInt('limit', $helper->getConfig('userpager'));
-$keywords  = [];
+$imgId    = Request::getInt('img_id');
+$albId    = Request::getInt('alb_id', 0);
+$albPid   = Request::getInt('alb_pid');
+$ref      = Request::getString('ref');
+$imgSubm  = Request::getInt('img_submitter');
+$start    = Request::getInt('start', 0);
+$limit    = Request::getInt('limit', $helper->getConfig('userpager'));
+$keywords = [];
 
 if (_CANCEL === Request::getString('cancel', 'none')) {
     $op = 'list';
@@ -56,7 +56,7 @@ $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
 $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
 
-if (0 < $imgId && 0 === $albId) {
+if ($imgId > 0 && 0 === $albId) {
     // get album id
     $imagesObj = $imagesHandler->get($imgId);
     $albId     = $imagesObj->getVar('img_albid');
@@ -91,10 +91,10 @@ switch ($op) {
         }
         if (isset($imgId)) {
             $imagesObj = $imagesHandler->get($imgId);
-            $imgNew = 0;
+            $imgNew    = 0;
         } else {
             $imagesObj = $imagesHandler->create();
-            $imgNew = 1;
+            $imgNew    = 1;
         }
         // Set Vars
         $imagesObj->setVar('img_title', Request::getString('img_title', ''));
@@ -127,13 +127,13 @@ switch ($op) {
             $tags['IMAGE_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/images.php?op=show&img_id={$imgId}&amp;alb_id={$albId}";
             $tags['ALBUM_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/albums.php?op=show&alb_id={$albId}&amp;alb_pid={$imgAlbPid}";
             $notificationHandler = xoops_getHandler('notification');
-            
-            if ( WGGALLERY_STATE_APPROVAL_VAL === $imgState ) {
-                $notificationHandler->triggerEvent('global', 0, 'image_approve',  $tags );
+
+            if (WGGALLERY_STATE_APPROVAL_VAL === $imgState) {
+                $notificationHandler->triggerEvent('global', 0, 'image_approve', $tags);
             } else {
-                if ( $imgNew ) {
-                    $notificationHandler->triggerEvent('global', 0, 'image_new_all',  $tags );
-                    $notificationHandler->triggerEvent('albums', $albId, 'image_new',  $tags );
+                if ($imgNew) {
+                    $notificationHandler->triggerEvent('global', 0, 'image_new_all', $tags);
+                    $notificationHandler->triggerEvent('albums', $albId, 'image_new', $tags);
                 }
             }
             redirect_header('images.php?op=list&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid, 2, _CO_WGGALLERY_FORM_OK);
@@ -172,12 +172,12 @@ switch ($op) {
                 $tags['IMAGE_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/images.php?op=show&img_id=' . $imgId . '&amp;alb_id=' . $albId;
                 $tags['ALBUM_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/albums.php?op=show&alb_id=' . $albId;
                 $notificationHandler = xoops_getHandler('notification');
-                $notificationHandler->triggerEvent('albums', $albId, 'image_delete',  $tags );
+                $notificationHandler->triggerEvent('albums', $albId, 'image_delete', $tags);
                 // delete comments
-                $comment_handler = xoops_getHandler('comment');
-                $critComments = new CriteriaCompo(new Criteria('com_modid', $helper->getMid()));
+                $commentHandler = xoops_getHandler('comment');
+                $critComments   = new CriteriaCompo(new Criteria('com_modid', $helper->getMid()));
                 $critComments->add(new Criteria('com_itemid', $imgId));
-                $comment_handler->deleteAll($critComments);
+                $commentHandler->deleteAll($critComments);
                 redirect_header('images.php?op=list&amp;alb_id=' . $albId, 3, _CO_WGGALLERY_FORM_DELETE_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $imagesObj->getHtmlErrors());
@@ -321,4 +321,4 @@ $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
 //view comments
 require XOOPS_ROOT_PATH . '/include/comment_view.php';
 
-include __DIR__ . '/footer.php';
+require __DIR__ . '/footer.php';

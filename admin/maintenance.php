@@ -25,7 +25,7 @@ use Xmf\Request;
 use XoopsModules\Wggallery;
 use XoopsModules\Wggallery\Constants;
 
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 //require_once XOOPS_ROOT_PATH . '/modules/wggallery/include/imagehandler.php';
 
 $op    = Request::getString('op', 'list');
@@ -150,7 +150,7 @@ switch ($op) {
         $form->setExtra('enctype="multipart/form-data"');
         // Form Select Parent Album
         $albumsHandler = $helper->getHandler('Albums');
-        $rAlbid       = new \XoopsFormSelect(_AM_WGGALLERY_MAINTENANCE_ALBUM_SELECT, 'resize_albid', 0);
+        $rAlbid        = new \XoopsFormSelect(_AM_WGGALLERY_MAINTENANCE_ALBUM_SELECT, 'resize_albid', 0);
         $rAlbid->addOption('', '&nbsp;');
         $albumsAll = $albumsHandler->getAll();
         foreach (array_keys($albumsAll) as $i) {
@@ -173,7 +173,6 @@ switch ($op) {
         $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
         $form->display();
         break;
-        
     case 'resize_album':
     case 'resize_medium':
     case 'resize_thumb':
@@ -184,27 +183,35 @@ switch ($op) {
         $resize_medium = 0;
         $resize_target = Request::getInt('resize_target');
         $resize_albid  = Request::getInt('resize_albid', 0);
-        
-        if ('resize_thumb' === $op) { $resize_thumb = 1;}
-        if ('resize_medium' === $op) { $resize_medium = 1;}
-        if ('resize_album' === $op) {
-            if (Constants::IMAGE_ALL === $resize_target || Constants::IMAGE_THUMB === $resize_target) { $resize_thumb = 1;}
-            if (Constants::IMAGE_ALL === $resize_target || Constants::IMAGE_MEDIUM === $resize_target) { $resize_medium = 1;}
+
+        if ('resize_thumb' === $op) {
+            $resize_thumb = 1;
         }
-        $crImages    = new \CriteriaCompo();
-        if (0 < $resize_albid) {
+        if ('resize_medium' === $op) {
+            $resize_medium = 1;
+        }
+        if ('resize_album' === $op) {
+            if (Constants::IMAGE_ALL === $resize_target || Constants::IMAGE_THUMB === $resize_target) {
+                $resize_thumb = 1;
+            }
+            if (Constants::IMAGE_ALL === $resize_target || Constants::IMAGE_MEDIUM === $resize_target) {
+                $resize_medium = 1;
+            }
+        }
+        $crImages = new \CriteriaCompo();
+        if ($resize_albid > 0) {
             $crImages->add(new \Criteria('img_albid', $resize_albid));
         }
         $imagesCount = $imagesHandler->getCount($crImages);
         $imagesAll   = $imagesHandler->getAll($crImages);
         if ($imagesCount > 0) {
             foreach (array_keys($imagesAll) as $i) {
-                $sourcefile    = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesAll[$i]->getVar('img_namelarge');
+                $sourcefile = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesAll[$i]->getVar('img_namelarge');
                 if (1 === $resize_medium) {
                     $counter++;
-                    $maxwidth  = $helper->getConfig('maxwidth_medium');
-                    $maxheight = $helper->getConfig('maxheight_medium');
-                    $target    = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/';
+                    $maxwidth      = $helper->getConfig('maxwidth_medium');
+                    $maxheight     = $helper->getConfig('maxheight_medium');
+                    $target        = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/';
                     $endfile       = $target . $imagesAll[$i]->getVar('img_name');
                     $imageMimetype = $imagesAll[$i]->getVar('img_mimetype');
                     unlink($endfile);
@@ -228,9 +235,9 @@ switch ($op) {
                 }
                 if (1 === $resize_thumb) {
                     $counter++;
-                    $maxwidth  = $helper->getConfig('maxwidth_thumbs');
-                    $maxheight = $helper->getConfig('maxheight_thumbs');
-                    $target    = WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/';
+                    $maxwidth      = $helper->getConfig('maxwidth_thumbs');
+                    $maxheight     = $helper->getConfig('maxheight_thumbs');
+                    $target        = WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/';
                     $endfile       = $target . $imagesAll[$i]->getVar('img_name');
                     $imageMimetype = $imagesAll[$i]->getVar('img_mimetype');
                     unlink($endfile);
@@ -346,9 +353,9 @@ switch ($op) {
                 $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_READDIR . $directory;
             }
             $directory = WGGALLERY_UPLOAD_IMAGE_PATH . '/temp';
-        if (false === getUnusedImages($unused, $directory)) {
-            $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_READDIR . $directory;
-        }
+            if (false === getUnusedImages($unused, $directory)) {
+                $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_READDIR . $directory;
+            }
 
             if (count($unused) > 0) {
                 foreach ($unused as $image) {
@@ -918,7 +925,7 @@ function returnCleanBytes($val)
  * get unused images of given directory
  * @param array  $unused
  * @param string $directory
- * @return boolean
+ * @return bool
  */
 function getUnusedImages(&$unused, $directory)
 {
@@ -940,7 +947,7 @@ function getUnusedImages(&$unused, $directory)
                         break;
                     case 'default':
                     default:
-                        if ( WGGALLERY_UPLOAD_IMAGE_PATH . '/temp' === $directory ) {
+                        if (WGGALLERY_UPLOAD_IMAGE_PATH . '/temp' === $directory) {
                             $unused[] = ['name' => $entry, 'path' => $directory . '/' . $entry];
                         } else {
                             $crImages = new \CriteriaCompo();
@@ -970,4 +977,4 @@ function getUnusedImages(&$unused, $directory)
     return true;
 }
 
-include __DIR__ . '/footer.php';
+require __DIR__ . '/footer.php';
