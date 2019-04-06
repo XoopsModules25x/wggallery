@@ -1,19 +1,23 @@
-// ---------- Templates Mail Content Dummy ---------- //
-Hello {X_UNAME},
 
-A new story "{STORY_NAME}" has been added at {X_SITENAME}.
+Hallo {X_UNAME},
 
-You can view this story here:
-{STORY_URL}
+Ein Bild "{IMAGE_NAME}" wurde auf {X_SITENAME} hinzugefügt.
+
+Das Bild können Sie hier ansehen:
+{IMAGE_URL}
+
+Das ganze Album sehen sie hier:
+{ALBUM_URL}
 
 -----------
 
-You are receiving this message because you selected to be notified when new stories are added to our site.
+Du erhältst diese Nachricht weil Du entschieden hast, über neue Bilder informiert zu werden.
 
-If this is an error or you wish not to receive further such notifications, please update your subscriptions by visiting the link below:
+Sollte es sich dabei um einen Fehler handeln oder Du kein Interesse mehr daran haben derartige Informationen zu erhalten, ändere die Einstellungen in Deinem Profil in dem Du folgenden URL aufrufst:
+
 {X_UNSUBSCRIBE_URL}
 
-Please do not reply to this message.
+Auf diese Nachricht bitte nicht antworten, da diese automatisch generiert wurde.
 
 -----------
 

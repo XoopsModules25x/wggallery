@@ -38,9 +38,9 @@
                     <td class='left'><{$module.name}></td>
                     <td class='left'>
                         <{if $module.found == 1}>
-                            <img src="<{$wggallery_icon_url_16}>/on.png" alt="<{$smarty.const._YES}>" />  <{$smarty.const._AM_WGGALLERY_IMPORT_SUP_INSTALLED}>
+                            <img src="<{$wggallery_icon_url_16}>/on.png" alt="<{$smarty.const._YES}>">  <{$smarty.const._AM_WGGALLERY_IMPORT_SUP_INSTALLED}>
                         <{else}>
-                            <img src="<{$wggallery_icon_url_16}>/off.png" alt="<{$smarty.const._NO}>" />  <{$smarty.const._AM_WGGALLERY_IMPORT_SUP_NOTINSTALLED}>
+                            <img src="<{$wggallery_icon_url_16}>/off.png" alt="<{$smarty.const._NO}>">  <{$smarty.const._AM_WGGALLERY_IMPORT_SUP_NOTINSTALLED}>
                         <{/if}>
                     </td>
                     <td class='center'>

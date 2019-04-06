@@ -64,7 +64,7 @@
 						</div>
 					</div>
 				<{else}> 
-					<img class="lightbox-image-preview <{$indexImage}>" src="<{if $source_preview == 'medium'}><{$image.medium}><{else}><{$image.thumb}><{/if}>" alt="<{$image.title}>"/>
+					<img class="lightbox-image-preview <{$indexImage}>" src="<{if $source_preview == 'medium'}><{$image.medium}><{else}><{$image.thumb}><{/if}>" alt="<{$image.title}>">
 				<{/if}> 
 			</a>
 		<{/foreach}>

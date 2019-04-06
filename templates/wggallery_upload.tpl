@@ -6,7 +6,7 @@
 
 <{if $multiupload}>
     <div class="clear">&nbsp;</div>
-    <{includeq file="db:wggallery_trigger_uploads.tpl"}>
+    <{include file="db:wggallery_trigger_uploads.tpl"}>
     <h2><{$img_albname}></h2>
     <div id="fine-uploader-manual-trigger"></div>
     <div><{$smarty.const._IMGMAXSIZE}> <{$img_maxsize}></div>
@@ -102,11 +102,14 @@
 <div class='multiupload-footer'>
 	<{if $albId}>
 		<div class='col-xs-12 col-sm-12 right'>
-			<a class='btn btn-default wgg-btn' href='albums.php?op=edit&amp;alb_id=<{$albId}>' title='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>'>
-				<span class = "wgg-btn-icon"><img class='' src='<{$wggallery_icon_url_16}>/edit.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>' /></span><{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>
+			<a class='btn btn-default wgg-btn' href='images.php?op=list&amp;ref=albums&amp;alb_id=<{$albId}>&amp;alb_pid=<{$albPid}><{if $subm_id}>&amp;subm_id=<{$subm_id}><{/if}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'>
+                <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/photos.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'><{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>
+            </a>
+            <a class='btn btn-default wgg-btn' href='albums.php?op=edit&amp;alb_id=<{$albId}>' title='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>'>
+				<span class = "wgg-btn-icon"><img class='' src='<{$wggallery_icon_url_16}>/edit.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>'></span><{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>
 			</a>
 			<a class='btn btn-default wgg-btn' href='album_images.php?op=list&amp;alb_id=<{$albId}>' title='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}>'>
-				<span class = "wgg-btn-icon"><img class='' src='<{$wggallery_icon_url_16}>/album_images.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}>' /></span><{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}>
+				<span class = "wgg-btn-icon"><img class='' src='<{$wggallery_icon_url_16}>/album_images.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}>'></span><{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}>
 			</a>
 		</div>
 	<{/if}>

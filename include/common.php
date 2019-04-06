@@ -1,87 +1,108 @@
 <?php
 /*
- You may not change or alter any portion of this comment or credits
- of supporting developers from this source code or any supporting source code
- which is considered copyrighted (c) material of the original comment or credit authors.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-*/
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
 
 /**
- * wgGallery module for xoops
- *
- * @copyright      module for xoops
- * @license        GPL 2.0 or later
- * @package        wggallery
- * @since          1.0
- * @min_xoops      2.5.9
- * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
- * @version        $Id: 1.0 common.php 1 Mon 2018-03-19 10:04:56Z XOOPS Project (www.xoops.org) $
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @package
+ * @since
+ * @author       XOOPS Development Team
  */
-if (!defined('XOOPS_ICONS32_PATH')) {
-    define('XOOPS_ICONS32_PATH', XOOPS_ROOT_PATH . '/Frameworks/moduleclasses/icons/32');
-}
-if (!defined('XOOPS_ICONS32_URL')) {
-    define('XOOPS_ICONS32_URL', XOOPS_URL . '/Frameworks/moduleclasses/icons/32');
-}
-define('WGGALLERY_DIRNAME', 'wggallery');
-define('WGGALLERY_PATH', XOOPS_ROOT_PATH.'/modules/'.WGGALLERY_DIRNAME);
-define('WGGALLERY_URL', XOOPS_URL.'/modules/'.WGGALLERY_DIRNAME);
-define('WGGALLERY_ICONS_PATH', WGGALLERY_PATH.'/assets/icons');
-define('WGGALLERY_ICONS_URL', WGGALLERY_URL.'/assets/icons');
-define('WGGALLERY_IMAGE_PATH', WGGALLERY_PATH.'/assets/images');
-define('WGGALLERY_IMAGE_URL', WGGALLERY_URL.'/assets/images');
-define('WGGALLERY_UPLOAD_PATH', XOOPS_UPLOAD_PATH.'/'.WGGALLERY_DIRNAME);
-define('WGGALLERY_UPLOAD_URL', XOOPS_UPLOAD_URL.'/'.WGGALLERY_DIRNAME);
-define('WGGALLERY_UPLOAD_IMAGE_PATH', WGGALLERY_UPLOAD_PATH.'/images');
-define('WGGALLERY_UPLOAD_IMAGE_URL', WGGALLERY_UPLOAD_URL.'/images');
-define('WGGALLERY_UPLOAD_FONTS_PATH', WGGALLERY_UPLOAD_PATH.'/fonts');
-define('WGGALLERY_ADMIN', WGGALLERY_URL . '/admin/index.php');
-$localLogo = WGGALLERY_IMAGE_URL . '/wedega_logo.png';
-// Module Information
-$copyright = "<a href='https://wedega.com' title='Wedega - Webdesign Gabor' target='_blank'><img src='".$localLogo."' alt='Wedega - Webdesign Gabor' /></a>";
-include_once XOOPS_ROOT_PATH .'/class/xoopsrequest.php';
-include_once WGGALLERY_PATH .'/class/helper.php';
-include_once WGGALLERY_PATH .'/include/functions.php';
 
-// common constants
-// constants for state
-define('WGGALLERY_STATE_OFFLINE_VAL',  0);
-define('WGGALLERY_STATE_ONLINE_VAL',   1);
-define('WGGALLERY_STATE_APPROVAL_VAL', 2);
-// constants for perms
-define('WGGALLERY_PERM_SUBMITNONE',  0);
-define('WGGALLERY_PERM_SUBMITALL',   1);
-define('WGGALLERY_PERM_SUBMITOWN',   2);
-define('WGGALLERY_PERM_SUBMITAPPR',  3);
-// constants for image size
-define('WGGALLERY_IMAGE_THUMB',   0);
-define('WGGALLERY_IMAGE_MEDIUM',  1);
-define('WGGALLERY_IMAGE_LARGE',   2);
-// constants for album image cat
-define('WGGALLERY_ALBUM_IMGCAT_USE_EXIST_VAL',    1);
-define('WGGALLERY_ALBUM_IMGCAT_USE_UPLOADED_VAL', 2);
-//constants for jssor
-define('WGGALLERY_OPTION_GT_SLIDERTYPE_1_VAL',  1);
-define('WGGALLERY_OPTION_GT_SLIDERTYPE_2_VAL',  2);
-// define('WGGALLERY_OPTION_GT_SLIDERTYPE_3_VAL',  3);
-// constants for watermarks
-define('WGGALLERY_WATERMARK_TYPETEXT',  1);
-define('WGGALLERY_WATERMARK_TYPEIMAGE', 2);
-define('WGGALLERY_WATERMARK_POSTOPLEFT',      1);
-define('WGGALLERY_WATERMARK_POSTOPRIGHT',     2);
-define('WGGALLERY_WATERMARK_POSTOPCENTER',    3);
-define('WGGALLERY_WATERMARK_POSMIDDLELEFT',   4);
-define('WGGALLERY_WATERMARK_POSMIDDLERIGHT',  5);
-define('WGGALLERY_WATERMARK_POSMIDDLECENTER', 6);
-define('WGGALLERY_WATERMARK_POSBOTTOMLEFT',   7);
-define('WGGALLERY_WATERMARK_POSBOTTOMRIGHT',  8);
-define('WGGALLERY_WATERMARK_POSBOTTOMCENTER', 9);
-define('WGGALLERY_WATERMARK_USAGENONE',   0);
-define('WGGALLERY_WATERMARK_USAGEALL',    1);
-define('WGGALLERY_WATERMARK_USAGESINGLE', 2);
-define('WGGALLERY_WATERMARK_TARGET_A', 0);
-define('WGGALLERY_WATERMARK_TARGET_M', 1);
-define('WGGALLERY_WATERMARK_TARGET_L', 2);
+use XoopsModules\Wggallery;
+
+include dirname(__DIR__) . '/preloads/autoloader.php';
+
+$moduleDirName      = basename(dirname(__DIR__));
+$moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
+
+/** @var \XoopsDatabase $db */
+/** @var \XoopsModules\Wggallery\Helper $helper */
+/** @var \XoopsModules\Wggallery\Utility $utility */
+$db      = \XoopsDatabaseFactory::getDatabaseConnection();
+$debug   = false;
+$helper  = \XoopsModules\Wggallery\Helper::getInstance($debug);
+$utility = new \XoopsModules\Wggallery\Utility();
+//$configurator = new Wggallery\Common\Configurator();
+
+$helper->loadLanguage('common');
+
+//handlers
+//$categoryHandler     = new Wggallery\CategoryHandler($db);
+//$downloadHandler     = new Wggallery\DownloadHandler($db);
+
+$pathIcon16 = \Xmf\Module\Admin::iconUrl('', 16);
+$pathIcon32 = \Xmf\Module\Admin::iconUrl('', 32);
+if (is_object($helper->getModule())) {
+    $pathModIcon16 = $helper->getModule()->getInfo('modicons16');
+    $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+}
+
+if (!defined($moduleDirNameUpper . '_CONSTANTS_DEFINED')) {
+    define($moduleDirNameUpper . '_DIRNAME', basename(dirname(__DIR__)));
+    define($moduleDirNameUpper . '_ROOT_PATH', XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/');
+    define($moduleDirNameUpper . '_PATH', XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/');
+    define($moduleDirNameUpper . '_URL', XOOPS_URL . '/modules/' . $moduleDirName );
+    define($moduleDirNameUpper . '_IMAGE_URL', constant($moduleDirNameUpper . '_URL') . '/assets/images/');
+    define($moduleDirNameUpper . '_IMAGE_PATH', constant($moduleDirNameUpper . '_ROOT_PATH') . '/assets/images');
+    define($moduleDirNameUpper . '_ADMIN_URL', constant($moduleDirNameUpper . '_URL') . '/admin/');
+    define($moduleDirNameUpper . '_ADMIN_PATH', constant($moduleDirNameUpper . '_ROOT_PATH') . '/admin/');
+    define($moduleDirNameUpper . '_ADMIN', constant($moduleDirNameUpper . '_URL') . '/admin/index.php');
+    //    define($moduleDirNameUpper . '_AUTHOR_LOGOIMG', constant($moduleDirNameUpper . '_URL') . '/assets/images/logoModule.png');
+    define($moduleDirNameUpper . '_UPLOAD_URL', XOOPS_UPLOAD_URL . '/' . $moduleDirName); // WITHOUT Trailing slash
+    define($moduleDirNameUpper . '_UPLOAD_PATH', XOOPS_UPLOAD_PATH . '/' . $moduleDirName); // WITHOUT Trailing slash
+    define($moduleDirNameUpper . '_AUTHOR_LOGOIMG', $pathIcon32 . '/xoopsmicrobutton.gif');
+    define($moduleDirNameUpper . '_ICONS_URL', constant($moduleDirNameUpper . '_URL') . '/assets/icons/');
+    define($moduleDirNameUpper . '_UPLOAD_IMAGES_URL', XOOPS_UPLOAD_URL . '/' . $moduleDirName . '/images');
+    define($moduleDirNameUpper . '_UPLOAD_IMAGE_PATH', XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images');
+    define($moduleDirNameUpper . '_UPLOAD_IMAGES_PATH', XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images');
+    define($moduleDirNameUpper . '_UPLOAD_FONTS_PATH', XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/fonts');
+
+    define($moduleDirNameUpper . '_CONSTANTS_DEFINED', 1);
+}
+
+$localLogo = WGGALLERY_IMAGE_URL . '/wedega_logo.png';
+
+// Module Information
+$copyright = "<a href='https://wedega.com' title='Wedega - Webdesign Gabor' target='_blank'><img src='" . $localLogo . "' alt='Wedega - Webdesign Gabor'></a>";
+//require_once WGGALLERY_PATH . '/include/functions.php';
+
+$icons = [
+    'edit'    => "<img src='" . $pathIcon16 . "/edit.png'  alt=" . _EDIT . "' align='middle'>",
+    'delete'  => "<img src='" . $pathIcon16 . "/delete.png' alt='" . _DELETE . "' align='middle'>",
+    'clone'   => "<img src='" . $pathIcon16 . "/editcopy.png' alt='" . _CLONE . "' align='middle'>",
+    'preview' => "<img src='" . $pathIcon16 . "/view.png' alt='" . _PREVIEW . "' align='middle'>",
+    'print'   => "<img src='" . $pathIcon16 . "/printer.png' alt='" . _CLONE . "' align='middle'>",
+    'pdf'     => "<img src='" . $pathIcon16 . "/pdf.png' alt='" . _CLONE . "' align='middle'>",
+    'add'     => "<img src='" . $pathIcon16 . "/add.png' alt='" . _ADD . "' align='middle'>",
+    '0'       => "<img src='" . $pathIcon16 . "/0.png' alt='" . 0 . "' align='middle'>",
+    '1'       => "<img src='" . $pathIcon16 . "/1.png' alt='" . 1 . "' align='middle'>",
+];
+
+$debug = false;
+
+// MyTextSanitizer object
+$myts = \MyTextSanitizer::getInstance();
+
+if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof \XoopsTpl)) {
+    require $GLOBALS['xoops']->path('class/template.php');
+    $GLOBALS['xoopsTpl'] = new \XoopsTpl();
+}
+
+$GLOBALS['xoopsTpl']->assign('mod_url', XOOPS_URL . '/modules/' . $moduleDirName);
+// Local icons path
+if (is_object($helper->getModule())) {
+    $pathModIcon16 = $helper->getModule()->getInfo('modicons16');
+    $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+
+    $GLOBALS['xoopsTpl']->assign('pathModIcon16', XOOPS_URL . '/modules/' . $moduleDirName . '/' . $pathModIcon16);
+    $GLOBALS['xoopsTpl']->assign('pathModIcon32', $pathModIcon32);
+}

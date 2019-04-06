@@ -21,6 +21,10 @@
  * @version        $Id: 1.0 blocks.php 1 Mon 2018-03-19 10:04:53Z XOOPS Project (www.xoops.org) $
  */
 // Admin Edit
+define('_MB_WGGALLERY_BLOCKTYPE', 'Block Typ');
+define('_MB_WGGALLERY_BLOCKTYPE_DEFAULT', 'Standard (sortiert nach Datum absteigend)');
+define('_MB_WGGALLERY_BLOCKTYPE_RECENT', 'Neueste Einträge');
+define('_MB_WGGALLERY_BLOCKTYPE_RANDOM', 'zufällige Einträge');
 define('_MB_WGGALLERY_TITLE_SHOW', 'Titel anzeigen');
 define('_MB_WGGALLERY_TITLE_LENGTH', 'Länge des Titels (0 bedeutet ohne Limit)');
 define('_MB_WGGALLERY_DESC_SHOW', 'Beschreibung anzeigen');

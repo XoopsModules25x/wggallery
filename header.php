@@ -20,46 +20,53 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 header.php 1 Mon 2018-03-19 10:04:54Z XOOPS Project (www.xoops.org) $
  */
-include dirname(dirname(__DIR__)) .'/mainfile.php';
-include_once __DIR__ .'/include/common.php';
-// include_once __DIR__ .'/include/permissions.php';
+
+use XoopsModules\Wggallery;
+
+include dirname(dirname(__DIR__)) . '/mainfile.php';
+include __DIR__ . '/include/common.php';
 $dirname = basename(__DIR__);
 // Get instance of module
-$wggallery = WggalleryHelper::getInstance();
-$albumsHandler       = $wggallery->getHandler('albums');
-$imagesHandler       = $wggallery->getHandler('images');
-$gallerytypesHandler = $wggallery->getHandler('gallerytypes');
-$albumtypesHandler   = $wggallery->getHandler('albumtypes');
-$permissionsHandler  = $wggallery->getHandler('permissions');
-$watermarksHandler   = $wggallery->getHandler('watermarks');
+/** @var \XoopsModules\Wggallery\Helper $helper */
+$helper = \XoopsModules\Wggallery\Helper::getInstance();
+/** @var \XoopsModules\Wggallery\Utility $utility */
+$utility = new \XoopsModules\Wggallery\Utility();
+
+$albumsHandler       = $helper->getHandler('Albums');
+$imagesHandler       = $helper->getHandler('Images');
+$gallerytypesHandler = $helper->getHandler('Gallerytypes');
+$albumtypesHandler   = $helper->getHandler('Albumtypes');
+$permissionsHandler  = $helper->getHandler('Permissions');
+$watermarksHandler   = $helper->getHandler('Watermarks');
 // Permission
-include_once XOOPS_ROOT_PATH .'/class/xoopsform/grouppermform.php';
-$gpermHandler = xoops_gethandler('groupperm');
-if(is_object($xoopsUser)) {
-	$groups  = $xoopsUser->getGroups();
+require XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
+$gpermHandler = xoops_getHandler('groupperm');
+if (is_object($xoopsUser)) {
+    $groups = $xoopsUser->getGroups();
 } else {
-	$groups  = XOOPS_GROUP_ANONYMOUS;
+    $groups = XOOPS_GROUP_ANONYMOUS;
 }
 // Breadcrumbs
-$xoBreadcrumbs = array();
-if ($wggallery->getConfig('show_bcrumb_mname')) {
-    if ( isset($GLOBALS['xoopsModule']) && is_object($GLOBALS['xoopsModule'])) { // necessary to check, otherwise uploader runs into errors
-        $xoBreadcrumbs[] = array('title' => $GLOBALS['xoopsModule']->getVar('name'), 'link' => WGGALLERY_URL . '/');
+$xoBreadcrumbs = [];
+if ($helper->getConfig('show_bcrumb_mname')) {
+    if (isset($GLOBALS['xoopsModule']) && is_object($GLOBALS['xoopsModule'])) { // necessary to check, otherwise uploader runs into errors
+        $xoBreadcrumbs[] = ['title' => $GLOBALS['xoopsModule']->getVar('name'), 'link' => WGGALLERY_URL . '/'];
     }
 }
-// 
-$myts = MyTextSanitizer::getInstance();
+
+$myts = \MyTextSanitizer::getInstance();
 // Default Css Style
 $style = WGGALLERY_URL . '/assets/css/style.css';
-if(!file_exists($style)) {
-	return false;
+if (!file_exists($style)) {
+    return false;
 }
 // Smarty Default
-$sysPathIcon16 = $GLOBALS['xoopsModule']->getInfo('sysicons16');
-$sysPathIcon32 = $GLOBALS['xoopsModule']->getInfo('sysicons32');
+$sysPathIcon16   = $GLOBALS['xoopsModule']->getInfo('sysicons16');
+$sysPathIcon32   = $GLOBALS['xoopsModule']->getInfo('sysicons32');
 $pathModuleAdmin = $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin');
-$modPathIcon16 = $GLOBALS['xoopsModule']->getInfo('modicons16');
-$modPathIcon32 = $GLOBALS['xoopsModule']->getInfo('modicons16');
+$modPathIcon16   = $GLOBALS['xoopsModule']->getInfo('modicons16');
+$modPathIcon32   = $GLOBALS['xoopsModule']->getInfo('modicons16');
 // Load Languages
 xoops_loadLanguage('main');
 xoops_loadLanguage('modinfo');
+xoops_loadLanguage('common');

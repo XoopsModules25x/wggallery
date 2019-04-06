@@ -20,31 +20,33 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 rss.php 1 Mon 2018-03-19 10:04:55Z XOOPS Project (www.xoops.org) $
  */
+use Xmf\Request;
 
-$cid = wggallery_CleanVars($_GET, 'cid', 0);
-include_once XOOPS_ROOT_PATH.'/class/template.php';
+$cid = Request::getInt('cid', 0, 'GET');
+require_once XOOPS_ROOT_PATH . '/class/template.php';
 if (function_exists('mb_http_output')) {
     mb_http_output('pass');
 }
 //header ('Content-Type:text/xml; charset=UTF-8');
-$wggallery->geConfig('utf8') = false;
+//$helper->getConfig('utf8') = false;
+$xoopsModuleConfig['utf8'] = false;
 
-$tpl = new XoopsTpl();
+$tpl = new \XoopsTpl();
 $tpl->xoops_setCaching(2); //1 = Cache global, 2 = Cache individual (for template)
-$tpl->xoops_setCacheTime($wggallery->geConfig('timecacherss')*60); // Time of the cache on seconds
+$tpl->xoops_setCacheTime($helper->geConfig('timecacherss') * 60); // Time of the cache on seconds
 $categories = wggalleryMyGetItemIds('wggallery_view', 'wggallery');
-$criteria = new CriteriaCompo();
+$criteria   = new \CriteriaCompo();
 
-$criteria->add(new Criteria('cat_status', 0, '!='));
-$criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')','IN'));
-if ($cid != 0){
-    $criteria->add(new Criteria('cid', $cid));
+$criteria->add(new \Criteria('cat_status', 0, '!='));
+$criteria->add(new \Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
+if (0 != $cid) {
+    $criteria->add(new \Criteria('cid', $cid));
     $images = $imagesHandler->get($cid);
-    $title = $xoopsConfig['sitename'] . ' - ' . $xoopsModule->getVar('name') . ' - ' . $images->getVar('img_ip');
+    $title  = $xoopsConfig['sitename'] . ' - ' . $xoopsModule->getVar('name') . ' - ' . $images->getVar('img_ip');
 } else {
     $title = $xoopsConfig['sitename'] . ' - ' . $xoopsModule->getVar('name');
 }
-$criteria->setLimit($wggallery->geConfig('perpagerss'));
+$criteria->setLimit($helper->geConfig('perpagerss'));
 $criteria->setSort('date');
 $criteria->setOrder('DESC');
 $imagesArr = $imagesHandler->getAll($criteria);
@@ -52,7 +54,7 @@ unset($criteria);
 
 if (!$tpl->is_cached('db:wggallery_rss.tpl', $cid)) {
     $tpl->assign('channel_title', htmlspecialchars($title, ENT_QUOTES));
-    $tpl->assign('channel_link', XOOPS_URL.'/');
+    $tpl->assign('channel_link', XOOPS_URL . '/');
     $tpl->assign('channel_desc', htmlspecialchars($xoopsConfig['slogan'], ENT_QUOTES));
     $tpl->assign('channel_lastbuild', formatTimestamp(time(), 'rss'));
     $tpl->assign('channel_webmaster', $xoopsConfig['adminmail']);
@@ -60,7 +62,7 @@ if (!$tpl->is_cached('db:wggallery_rss.tpl', $cid)) {
     $tpl->assign('channel_category', 'Event');
     $tpl->assign('channel_generator', 'XOOPS - ' . htmlspecialchars($xoopsModule->getVar('img_ip'), ENT_QUOTES));
     $tpl->assign('channel_language', _LANGCODE);
-    if ( _LANGCODE == 'fr' ) {
+    if (_LANGCODE === 'fr') {
         $tpl->assign('docs', 'http://www.scriptol.fr/rss/RSS-2.0.html');
     } else {
         $tpl->assign('docs', 'http://cyber.law.harvard.edu/rss/rss.html');
@@ -70,7 +72,7 @@ if (!$tpl->is_cached('db:wggallery_rss.tpl', $cid)) {
     if (empty($dimention[0])) {
         $width = 88;
     } else {
-       $width = ($dimention[0] > 144) ? 144 : $dimention[0];
+        $width = ($dimention[0] > 144) ? 144 : $dimention[0];
     }
     if (empty($dimention[1])) {
         $height = 31;
@@ -82,16 +84,18 @@ if (!$tpl->is_cached('db:wggallery_rss.tpl', $cid)) {
     foreach (array_keys($imagesArr) as $i) {
         $description = $imagesArr[$i]->getVar('description');
         //permet d'afficher uniquement la description courte
-        if (strpos($description,'[pagebreak]')==false){
+        if (false === mb_strpos($description, '[pagebreak]')) {
             $description_short = $description;
         } else {
-            $description_short = substr($description,0,strpos($description,'[pagebreak]'));
+            $description_short = mb_substr($description, 0, mb_strpos($description, '[pagebreak]'));
         }
-        $tpl->append('items', array('title' => htmlspecialchars($imagesArr[$i]->getVar('img_ip'), ENT_QUOTES),
-                                    'link' => XOOPS_URL . '/modules/wggallery/single.php?cid=' . $imagesArr[$i]->getVar('cid') . '&amp;img_id=' . $imagesArr[$i]->getVar('img_id'),
-                                    'guid' => XOOPS_URL . '/modules/wggallery/single.php?cid=' . $imagesArr[$i]->getVar('cid') . '&amp;img_id=' . $imagesArr[$i]->getVar('img_id'),
-                                    'pubdate' => formatTimestamp($imagesArr[$i]->getVar('date'), 'rss'),
-                                    'description' => htmlspecialchars($description_short, ENT_QUOTES)));
+        $tpl->append('items', [
+            'title'       => htmlspecialchars($imagesArr[$i]->getVar('img_ip'), ENT_QUOTES),
+            'link'        => XOOPS_URL . '/modules/wggallery/single.php?cid=' . $imagesArr[$i]->getVar('cid') . '&amp;img_id=' . $imagesArr[$i]->getVar('img_id'),
+            'guid'        => XOOPS_URL . '/modules/wggallery/single.php?cid=' . $imagesArr[$i]->getVar('cid') . '&amp;img_id=' . $imagesArr[$i]->getVar('img_id'),
+            'pubdate'     => formatTimestamp($imagesArr[$i]->getVar('date'), 'rss'),
+            'description' => htmlspecialchars($description_short, ENT_QUOTES),
+        ]);
     }
 }
 header('Content-Type:text/xml; charset=' . _CHARSET);

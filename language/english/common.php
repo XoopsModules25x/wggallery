@@ -13,14 +13,14 @@
  * wgGallery module for xoops
  *
  * @copyright module for xoops
- * @license GPL 2.0 or later
- * @package wggallery
- * @since 1.0
+ * @license   GPL 2.0 or later
+ * @package   wggallery
+ * @since     1.0
  * @min_xoops 2.5.7
- * @author Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
- * @version $Id: 1.0 main.php 1 Mon 2018-03-19 10:04:56Z XOOPS Project (www.xoops.org) $
+ * @author    Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
+ * @version   $Id: 1.0 main.php 1 Mon 2018-03-19 10:04:56Z XOOPS Project (www.xoops.org) $
  */
- 
+
 // defines for state
 define('_CO_WGGALLERY_STATE_OFFLINE', 'Offline');
 define('_CO_WGGALLERY_STATE_ONLINE', 'Online');
@@ -54,20 +54,20 @@ define('_CO_WGGALLERY_FORM_ERROR_RESETUSAGE2', 'Error when reseting watermark us
 define('_CO_WGGALLERY_FORM_ERROR_ALBPID', 'Error: parent albums not found');
 define('_CO_WGGALLERY_FORM_OK_APPROVE', 'Successfully saved album. You will be forwarded to approve the images');
 // There aren't
-define('_CO_WGGALLERY_THEREARENT_ALBUMS', "There aren't albums");
-define('_CO_WGGALLERY_THEREARENT_IMAGES', "There aren't images");
+define('_CO_WGGALLERY_THEREARENT_ALBUMS', 'Currently there are no albums available');
+define('_CO_WGGALLERY_THEREARENT_IMAGES', 'Currently there are no images available');
 // general
 define('_CO_WGGALLERY_DATE', 'Date');
-define('_CO_WGGALLERY_SUBMITTER', 'Submitter'); 
+define('_CO_WGGALLERY_SUBMITTER', 'Submitter');
 // fine uploader
 define('_CO_WGGALLERY_FU_SUBMIT', 'Submitting image: ');
 define('_CO_WGGALLERY_FU_SUBMITTED', 'Image successfully checked, please upload');
 define('_CO_WGGALLERY_FU_UPLOAD', 'Upload image: ');
-define('_CO_WGGALLERY_FU_FAILED', 'Errors occured during uploading the images'); 
+define('_CO_WGGALLERY_FU_FAILED', 'Errors occured during uploading the images');
 define('_CO_WGGALLERY_FU_SUCCEEDED', 'Successfully uploaded all images');
 // Album buttons
 define('_CO_WGGALLERY_ALBUM_ADD', 'Add Album');
-define('_CO_WGGALLERY_ALBUM_EDIT', 'Edit Album'); 
+define('_CO_WGGALLERY_ALBUM_EDIT', 'Edit Album');
 // Elements of categories
 define('_CO_WGGALLERY_CATS_TITLE', 'Available categories');
 define('_CO_WGGALLERY_CATS_ALBUMS', 'Show sub albums');
@@ -107,7 +107,7 @@ define('_CO_WGGALLERY_ALBUMS_SORT', 'Sorting of albums');
 define('_CO_WGGALLERY_ALBUM_SORT_SHOWHIDE', 'Click to show/hide the sub items');
 // album image handler
 define('_CO_WGGALLERY_ALBUM_IH_APPLY', 'Apply');
-define('_CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT', 'Edsit album image');
+define('_CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT', 'Edit album image');
 define('_CO_WGGALLERY_ALBUM_IH_CURRENT', 'Current');
 define('_CO_WGGALLERY_ALBUM_IH_GRID4', 'Use 4 images');
 define('_CO_WGGALLERY_ALBUM_IH_GRID6', 'Use 6 images');
@@ -138,8 +138,8 @@ define('_CO_WGGALLERY_IMAGES', 'Images');
 define('_CO_WGGALLERY_IMAGES_TITLE', 'Gallery of images of ');
 define('_CO_WGGALLERY_IMAGES_COUNT', 'Number of images');
 define('_CO_WGGALLERY_IMAGES_ALBUMSHOW', 'Show Album');
-define('_CO_WGGALLERY_IMAGES_INDEX', 'Show Images Index'); 
-define('_CO_WGGALLERY_IMAGES_UPLOAD', 'Upload Images'); 
+define('_CO_WGGALLERY_IMAGES_INDEX', 'Show Images Index');
+define('_CO_WGGALLERY_IMAGES_UPLOAD', 'Upload Images');
 define('_CO_WGGALLERY_IMAGE_MANAGE', 'Image management');
 define('_CO_WGGALLERY_IMAGE_MANAGE_DESC', 'Resort your images by drag & drop');
 // Image add/edit/show
@@ -168,6 +168,7 @@ define('_CO_WGGALLERY_IMAGE_RESIZE', 'Resize image to following size:');
 define('_CO_WGGALLERY_IMAGE_THUMB', 'Thumb image');
 define('_CO_WGGALLERY_IMAGE_MEDIUM', 'Medium image');
 define('_CO_WGGALLERY_IMAGE_LARGE', 'Large image');
+define('_CO_WGGALLERY_IMAGE_ALL', 'All images');
 define('_CO_WGGALLERY_IMAGE_EXIF', 'Exif-data');
 // Watermark add/edit
 define('_CO_WGGALLERY_WATERMARK_ADD', 'Add Watermark');
@@ -220,10 +221,10 @@ define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN_DESC', 'Groups which should have pe
 define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR', 'Permissions global to submit/edit own albums only with approvement');
 define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR_DESC', 'Groups which should have permissions to <ul><li>create albums</li><li>edit own albums</li><li>upload images to own albums</li></ul>');
 define('_CO_WGGALLERY_PERMS_GLOBAL_DESC', '<ul>
-												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC. '</li>
-												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN_DESC. '</li>
-                                                <li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR_DESC. '</li>
-										   </ul>');
+                                                <li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC . '</li>
+                                                <li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN_DESC . '</li>
+                                                <li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR_DESC . '</li>
+                                           </ul>');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW', 'Permissions to view');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW_DESC', 'Groups which should have permissions to view an album');
 define('_CO_WGGALLERY_PERMS_ALB_DLFULLALB', 'Permissions to download full album');
@@ -240,3 +241,26 @@ define('_CO_WGGALLERY_IMAGE_ERRORUNLINK', 'Error deleting image: the image was d
 define('_CO_WGGALLERY_MAINTAINEDBY', 'Maintained By');
 define('_CO_WGGALLERY_MAINTAINEDBY_DESC', 'Allow url of support site or community');
 // ---------------- End ----------------
+
+$moduleDirName = basename(dirname(dirname(__DIR__)));
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+
+//Sample Data
+define('CO_' . $moduleDirNameUpper . '_' . 'ADD_SAMPLEDATA', 'Import Sample Data (will delete ALL current data)');
+define('CO_' . $moduleDirNameUpper . '_' . 'SAMPLEDATA_SUCCESS', 'Sample Date uploaded successfully');
+define('CO_' . $moduleDirNameUpper . '_' . 'SAVE_SAMPLEDATA', 'Export Tables to YAML');
+define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLE_BUTTON', 'Show Sample Button?');
+define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLE_BUTTON_DESC', 'If yes, the "Add Sample Data" button will be visible to the Admin. It is Yes as a default for first installation.');
+define('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA', 'Export DB Schema to YAML');
+define('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_SUCCESS', 'Export DB Schema to YAML was a success');
+define('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_ERROR', 'ERROR: Export of DB Schema to YAML failed');
+
+//Menu
+define('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_MIGRATE', 'Migrate');
+define('CO_' . $moduleDirNameUpper . '_' . 'FOLDER_YES', 'Folder "%s" exist');
+define('CO_' . $moduleDirNameUpper . '_' . 'FOLDER_NO', 'Folder "%s" does not exist. Create the specified folder with CHMOD 777.');
+define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS', 'Show Development Tools Button?');
+define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS_DESC', 'If yes, the "Migrate" Tab and other Development tools will be visible to the Admin.');
+
+//Latest Version Check
+define('CO_' . $moduleDirNameUpper . '_' . 'NEW_VERSION', 'New Version: ');

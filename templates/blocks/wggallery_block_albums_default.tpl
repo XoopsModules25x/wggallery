@@ -1,15 +1,15 @@
 <{if $balbums_list}>
     <{foreach item=album from=$balbums_list}>
-        <{if $nbAlbumsRow == 2}><div class='col-xs-12 col-sm-6'>
-        <{elseif $nbAlbumsRow == 3}><div class='col-xs-12 col-sm-4'>
-        <{elseif $nbAlbumsRow == 4}><div class='col-xs-12 col-sm-3'>
-        <{elseif $nbAlbumsRow == 6}><div class='col-xs-12 col-sm-2'>
+        <{if $bnbAlbumsRow == 2}><div class='col-xs-12 col-sm-6'>
+        <{elseif $bnbAlbumsRow == 3}><div class='col-xs-12 col-sm-4'>
+        <{elseif $bnbAlbumsRow == 4}><div class='col-xs-12 col-sm-3'>
+        <{elseif $bnbAlbumsRow == 6}><div class='col-xs-12 col-sm-2'>
         <{else}><div class='col-xs-12 col-sm-12'>
         <{/if}>
             <{if $ba_template == 'hovereffectideas'}>
                 <{if $album.newrow}><div class="grid"><{/if}>
                 <figure class="effect-<{$hovereffect}> figure<{$number_cols_album}><{$inblock}>">
-                    <img class='img-responsive' src='<{$album.image}>' alt='<{$album.name}>' />
+                    <img class='img-responsive' src='<{$album.image}>' alt='<{$album.name}>'>
                     <figcaption>
                         <div class="text_figure<{$number_cols_album}><{$inblock}>">
                             <{if $ba_showTitle || $ba_showDesc}>
@@ -135,15 +135,15 @@
                         <{if $album.nb_images}>
                             <{if $ba_gallery}>
                                 <a class='' href='<{$wggallery_url}>/gallery.php?op=show&amp;alb_id=<{$album.id}><{if $subm_id}>&amp;subm_id=<{$subm_id}><{/if}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>' target='<{$ba_gallery_target}>'>
-                                    <img class='img-responsive wgg-album-img center' src='<{$album.image}>' alt='<{$album.name}>' />
+                                    <img class='img-responsive wgg-album-img center' src='<{$album.image}>' alt='<{$album.name}>'>
                                 </a>
                             <{else}>
                                 <a class='' href='<{$wggallery_url}>/images.php?op=list&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$alb_pid}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'>
-                                    <img class='img-responsive wgg-album-img center' src='<{$album.image}>' alt='<{$album.name}>' />
+                                    <img class='img-responsive wgg-album-img center' src='<{$album.image}>' alt='<{$album.name}>'>
                                 </a>
                             <{/if}>
                         <{else}>
-                            <img class='img-responsive wgg-album-img center' src='<{$album.image}>' alt='<{$album.name}>' />
+                            <img class='img-responsive wgg-album-img center' src='<{$album.image}>' alt='<{$album.name}>'>
                         <{/if}>
                         <{if $ba_showTitle || $ba_showDesc}>
                             <{if $ba_gallery}>

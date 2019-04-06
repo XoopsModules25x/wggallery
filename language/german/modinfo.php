@@ -20,9 +20,8 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 modinfo.php 1 Mon 2018-03-19 10:04:52Z XOOPS Project (www.xoops.org) $
  */
- 
-include_once 'common.php'; 
- 
+require_once __DIR__ . '/common.php';
+
 // ---------------- Admin Main ----------------
 define('_MI_WGGALLERY_NAME', 'wgGallery');
 define('_MI_WGGALLERY_DESC', 'Dieses Modul ist einer Bildergalerie für XOOPS');
@@ -36,6 +35,7 @@ define('_MI_WGGALLERY_ADMENU7', 'Berechtigungen');
 define('_MI_WGGALLERY_ADMENU8', 'Wartung');
 define('_MI_WGGALLERY_ADMENU9', 'Wasserzeichen');
 define('_MI_WGGALLERY_ADMENU10', 'Import');
+define('_MI_WGGALLERY_FEEDBACK', 'Feedback');
 define('_MI_WGGALLERY_ABOUT', 'Über');
 // ---------------- Admin Nav ----------------
 define('_MI_WGGALLERY_ADMIN_PAGER', 'Listeneinträge Adminseite');
@@ -49,19 +49,16 @@ define('_MI_WGGALLERY_SMNAME2', 'Albenmanagement');
 define('_MI_WGGALLERY_SMNAME3', 'Neues Album erstellen');
 define('_MI_WGGALLERY_SMNAME4', 'Upload von Bildern');
 // Blocks
-define('_MI_WGGALLERY_ALBUMS_BLOCKDEFAULT', 'Block Alben');
-define('_MI_WGGALLERY_ALBUMS_BLOCKDEFAULT_DESC', 'Zeige einen Block mit den existierenden Alben (sortiert nach Reihung und Datum)');
-// define('_MI_WGGALLERY_ALBUMS_BLOCKDEFAULT_LAST', 'Last albums block');
-// define('_MI_WGGALLERY_ALBUMS_BLOCKDEFAULT_LAST_DESC', 'Show a block with last albums');
-// define('_MI_WGGALLERY_IMAGES_BLOCKDEFAULT', 'Images block');
-// define('_MI_WGGALLERY_IMAGES_BLOCKDEFAULT_DESC', 'Images block description');
-define('_MI_WGGALLERY_IMAGES_BLOCKDEFAULT', 'Block Bilder');
-define('_MI_WGGALLERY_IMAGES_BLOCKDEFAULT_DESC', 'Zeige einen Block mit den existierenden Bildern (sortiert nach Reihung und Datum)');
+define('_MI_WGGALLERY_ALBUMS_BLOCK', 'Block Alben');
+define('_MI_WGGALLERY_ALBUMS_BLOCK_DESC', 'Zeige einen Block mit den existierenden Alben (Sortierung wählbar)');
+define('_MI_WGGALLERY_IMAGES_BLOCK', 'Block Bilder');
+define('_MI_WGGALLERY_IMAGES_BLOCK_DESC', 'Zeige einen Block mit den existierenden Bildern (Sortierung wählbar)');
 // Config
 define('_MI_WGGALLERY_EDITOR', 'Editor');
 define('_MI_WGGALLERY_EDITOR_DESC', 'Bitte den zu verwendenden Editor wählen');
 define('_MI_WGGALLERY_KEYWORDS', 'Schlüsselworter');
 define('_MI_WGGALLERY_KEYWORDS_DESC', 'Bitte Schlüsselwörter angeben (getrennt durch ein Komma)');
+define('_MI_WGGALLERY_SIZE_MB', 'MB');
 define('_MI_WGGALLERY_MAXSIZE', 'Maximale Dateigröße');
 define('_MI_WGGALLERY_MAXSIZE_DESC', 'Bitte die für den Upload von Dateien maximal zulässige Dateigröße definieren');
 define('_MI_WGGALLERY_FILEEXT', 'Zulässige Dateierweiterungen');
@@ -71,13 +68,17 @@ define('_MI_WGGALLERY_MAXWIDTH_DESC', 'Bitte die für den Upload von Dateien max
 define('_MI_WGGALLERY_MAXHEIGHT', 'Maximale Höhe Upload');
 define('_MI_WGGALLERY_MAXHEIGHT_DESC', 'Bitte die für den Upload von Dateien maximal zulässige Bildhöhe definieren (in pixel)');
 define('_MI_WGGALLERY_MAXWIDTH_LARGE', 'Maximale Breite für große Bilder');
-define('_MI_WGGALLERY_MAXWIDTH_LARGE_DESC', 'Definieren Sie die maximale Breite, auf die die hochgeladenen Bilder für Format "Große Bilder" automatisch verkleinert werden sollen (in pixel)<br />0 bedeutet, dass Bilder die Originalgröße behalten. <br />Wenn ein Bild kleiner ist als die angegebenen Maximalwerte, so wird das Bild nicht vergrößert, sondern es wird in Originalgröße abgespeichert');
+define('_MI_WGGALLERY_MAXWIDTH_LARGE_DESC',
+       'Definieren Sie die maximale Breite, auf die die hochgeladenen Bilder für Format "Große Bilder" automatisch verkleinert werden sollen (in pixel)<br>0 bedeutet, dass Bilder die Originalgröße behalten. <br>Wenn ein Bild kleiner ist als die angegebenen Maximalwerte, so wird das Bild nicht vergrößert, sondern es wird in Originalgröße abgespeichert');
 define('_MI_WGGALLERY_MAXHEIGHT_LARGE', 'Maximale Höhe für große Bilder');
-define('_MI_WGGALLERY_MAXHEIGHT_LARGE_DESC', 'Definieren Sie die maximale Höhe, auf die die hochgeladenen Bilder für Format "Große Bilder" automatisch verkleinert werden sollen (in pixel)<br />0 bedeutet, dass Bilder die Originalgröße behalten. <br />Wenn ein Bild kleiner ist als die angegebenen Maximalwerte, so wird das Bild nicht vergrößert, sondern es wird in Originalgröße abgespeichert');
+define('_MI_WGGALLERY_MAXHEIGHT_LARGE_DESC',
+       'Definieren Sie die maximale Höhe, auf die die hochgeladenen Bilder für Format "Große Bilder" automatisch verkleinert werden sollen (in pixel)<br>0 bedeutet, dass Bilder die Originalgröße behalten. <br>Wenn ein Bild kleiner ist als die angegebenen Maximalwerte, so wird das Bild nicht vergrößert, sondern es wird in Originalgröße abgespeichert');
 define('_MI_WGGALLERY_MAXWIDTH_MEDIUM', 'Maximale Breite für mittlere Bilder');
-define('_MI_WGGALLERY_MAXWIDTH_MEDIUM_DESC', 'Definieren Sie die maximale Breite, auf die die hochgeladenen Bilder für Format "Mittlere Bilder" automatisch verkleinert werden sollen (in pixel)<br />0 bedeutet, dass Bilder die Originalgröße behalten. <br>Sofern das Originalbild kleiner sein sollte, so wird dieses nicht vergrößert (eine Kopie des Originalbildes wird als mittleres Bild abgespeichert).');
+define('_MI_WGGALLERY_MAXWIDTH_MEDIUM_DESC',
+       'Definieren Sie die maximale Breite, auf die die hochgeladenen Bilder für Format "Mittlere Bilder" automatisch verkleinert werden sollen (in pixel)<br>0 bedeutet, dass Bilder die Originalgröße behalten. <br>Sofern das Originalbild kleiner sein sollte, so wird dieses nicht vergrößert (eine Kopie des Originalbildes wird als mittleres Bild abgespeichert).');
 define('_MI_WGGALLERY_MAXHEIGHT_MEDIUM', 'Maximale Höhe für mittlere Bilder');
-define('_MI_WGGALLERY_MAXHEIGHT_MEDIUM_DESC', 'Definieren Sie die maximale Höhe, auf die die hochgeladenen Bilder für Format "Mittlere Bilder" automatisch verkleinert werden sollen (in pixel)<br />0 bedeutet, dass Bilder die Originalgröße behalten. <br>Sofern das Originalbild kleiner sein sollte, so wird dieses nicht vergrößert (eine Kopie des Originalbildes wird als mittleres Bild abgespeichert).');
+define('_MI_WGGALLERY_MAXHEIGHT_MEDIUM_DESC',
+       'Definieren Sie die maximale Höhe, auf die die hochgeladenen Bilder für Format "Mittlere Bilder" automatisch verkleinert werden sollen (in pixel)<br>0 bedeutet, dass Bilder die Originalgröße behalten. <br>Sofern das Originalbild kleiner sein sollte, so wird dieses nicht vergrößert (eine Kopie des Originalbildes wird als mittleres Bild abgespeichert).');
 define('_MI_WGGALLERY_MAXWIDTH_THUMBS', 'Maximale Breite für Vorschaubilder');
 define('_MI_WGGALLERY_MAXWIDTH_THUMBS_DESC', 'Definieren Sie die maximale Breite, auf die die hochgeladenen Bilder für Format "Vorschaubilder" automatisch verkleinert werden sollen (in pixel).');
 define('_MI_WGGALLERY_MAXHEIGHT_THUMBS', 'Maximale Höhe für Vorschaubilder');
@@ -103,35 +104,39 @@ define('_MI_WGGALLERY_SHOWCOPYRIGHT_DESC', 'Sie können das Copyright bei der Ga
 define('_MI_WGGALLERY_STOREEXIF', 'Metadaten (exif) speichern');
 define('_MI_WGGALLERY_STOREEXIF_DESC', 'Definieren sie, ob Sie die Metadaten der Bilder (exif-Daten) speichern wollen');
 // Notifications
-define('_MI_WGGALLERY_GLOBAL_NOTIFY', 'Global notify');
-define('_MI_WGGALLERY_ALBUMS_NOTIFY', 'Albums notify');
-define('_MI_WGGALLERY_IMAGES_NOTIFY', 'Images notify');
-define('_MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY', 'Global album new notify');
-define('_MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY_CAPTION', 'Global album new notify caption');
-define('_MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY_DESC', 'Global album new notify desc');
-define('_MI_WGGALLERY_GLOBAL_ALB_NEW_NOTIFY_SUBJECT', 'Global album new notify subject');
-define('_MI_WGGALLERY_GLOBAL_ALB_MODIFY_NOTIFY', 'Global album modify notify');
-define('_MI_WGGALLERY_GLOBAL_ALB_MODIFY_NOTIFY_CAPTION', 'Global album modify notify caption');
-define('_MI_WGGALLERY_GLOBAL_ALB_MODIFY_NOTIFY_DESC', 'Global album modify notify desc');
-define('_MI_WGGALLERY_GLOBAL_ALB_MODIFY_NOTIFY_SUBJECT', 'Global album modify notify subject');
-define('_MI_WGGALLERY_GLOBAL_ALB_APPROVE_NOTIFY', 'Global album approve notify');
-define('_MI_WGGALLERY_GLOBAL_ALB_APPROVE_NOTIFY_CAPTION', 'Global album approve notify caption');
-define('_MI_WGGALLERY_GLOBAL_ALB_APPROVE_NOTIFY_DESC', 'Global album approve notify desc');
-define('_MI_WGGALLERY_GLOBAL_ALB_APPROVE_NOTIFY_SUBJECT', 'Global album approve notify subject');
-define('_MI_WGGALLERY_GLOBAL_ALB_DELETE_NOTIFY', 'Global album delete notify');
-define('_MI_WGGALLERY_GLOBAL_ALB_DELETE_NOTIFY_CAPTION', 'Global album delete notify caption');
-define('_MI_WGGALLERY_GLOBAL_ALB_DELETE_NOTIFY_DESC', 'Global album delete notify desc');
-define('_MI_WGGALLERY_GLOBAL_ALB_DELETE_NOTIFY_SUBJECT', 'Global album delete notify subject');
-define('_MI_WGGALLERY_GLOBAL_IMG_NEW_NOTIFY', 'Global image new notify');
-define('_MI_WGGALLERY_GLOBAL_IMG_NEW_NOTIFY_CAPTION', 'Global image new notify caption');
-define('_MI_WGGALLERY_GLOBAL_IMG_NEW_NOTIFY_DESC', 'Global image new notify desc');
-define('_MI_WGGALLERY_GLOBAL_IMG_NEW_NOTIFY_SUBJECT', 'Global image new notify subject');
-define('_MI_WGGALLERY_GLOBAL_IMG_APPROVE_NOTIFY', 'Global image approve notify');
-define('_MI_WGGALLERY_GLOBAL_IMG_APPROVE_NOTIFY_CAPTION', 'Global image approve notify caption');
-define('_MI_WGGALLERY_GLOBAL_IMG_APPROVE_NOTIFY_DESC', 'Global image approve notify desc');
-define('_MI_WGGALLERY_GLOBAL_IMG_APPROVE_NOTIFY_SUBJECT', 'Global image approve notify subject');
-define('_MI_WGGALLERY_GLOBAL_IMG_DELETE_NOTIFY', 'Global image delete notify');
-define('_MI_WGGALLERY_GLOBAL_IMG_DELETE_NOTIFY_CAPTION', 'Global image delete notify caption');
-define('_MI_WGGALLERY_GLOBAL_IMG_DELETE_NOTIFY_DESC', 'Global image delete notify desc');
-define('_MI_WGGALLERY_GLOBAL_IMG_DELETE_NOTIFY_SUBJECT', 'Global image delete notify subject');
+define('_MI_WGGALLERY_GLOBAL_NOTIFY', 'Globale Benachrichtigungen');
+define('_MI_WGGALLERY_GLOBAL_ALB_NEW_ALL_NOTIFY', 'Sende Benachrichtigung wenn ein neues Album erstellt wird');
+define('_MI_WGGALLERY_GLOBAL_ALB_NEW_ALL_NOTIFY_CAPTION', 'Benachrichtige mich über neue Alben');
+define('_MI_WGGALLERY_GLOBAL_ALB_NEW_ALL_NOTIFY_SUBJECT', 'Benachrichtigung über ein neues Album');
+define('_MI_WGGALLERY_GLOBAL_ALB_MODIFY_ALL_NOTIFY', 'Sende Benachrichtigung wenn irgendein Album bearbeitet wurde');
+define('_MI_WGGALLERY_GLOBAL_ALB_MODIFY_ALL_NOTIFY_CAPTION', 'Benachrichtige mich über alle Albumbarbeitungen');
+define('_MI_WGGALLERY_GLOBAL_ALB_MODIFY_ALL_NOTIFY_SUBJECT', 'Benachrichtigung über bearbeitete Alben');
+define('_MI_WGGALLERY_GLOBAL_ALB_APPROVE_ALL_NOTIFY', 'Sende Benachrichtigung wenn ein Album auf Freigabe wartet');
+define('_MI_WGGALLERY_GLOBAL_ALB_APPROVE_ALL_NOTIFY_CAPTION', 'Benachrichtige mich über anstehende Freigaben von Alben');
+define('_MI_WGGALLERY_GLOBAL_ALB_APPROVE_ALL_NOTIFY_SUBJECT', 'Benachrichtigung dass ein Album auf Freigabe wartet');
+define('_MI_WGGALLERY_GLOBAL_ALB_DELETE_ALL_NOTIFY', 'Sende Benachrichtigung wenn irgendein Album gelöscht wurde');
+define('_MI_WGGALLERY_GLOBAL_ALB_DELETE_ALL_NOTIFY_CAPTION', 'Benachrichtige mich über alle Albumlöschungen');
+define('_MI_WGGALLERY_GLOBAL_ALB_DELETE_ALL_NOTIFY_SUBJECT', 'Benachrichtigung über Albumlöschung');
+define('_MI_WGGALLERY_GLOBAL_IMG_NEW_ALL_NOTIFY', 'Sende Benachrichtigung wenn neue Bilder hochgeladen wurden');
+define('_MI_WGGALLERY_GLOBAL_IMG_NEW_ALL_NOTIFY_CAPTION', 'Benachrichtige mich wenn irgendein Bild hochgeladen wurde');
+define('_MI_WGGALLERY_GLOBAL_IMG_NEW_ALL_NOTIFY_SUBJECT', 'Benachrichtigung über hochgeladenes Bild');
+define('_MI_WGGALLERY_GLOBAL_IMG_DELETE_ALL_NOTIFY', 'Sende Benachrichtigung wenn ein Bild aus diesem Album gelöscht wurde');
+define('_MI_WGGALLERY_GLOBAL_IMG_DELETE_ALL_NOTIFY_CAPTION', 'Benachrichtige mich über Löschung eines Bildes aus diesem Album');
+define('_MI_WGGALLERY_GLOBAL_IMG_DELETE_ALL_NOTIFY_SUBJECT', 'Benachrichtigung über Löschung eines Bildes');
+define('_MI_WGGALLERY_ALBUMS_NOTIFY', 'Benachrichtigugen Album');
+define('_MI_WGGALLERY_ALBUMS_ALB_MODIFY_NOTIFY', 'Sende Benachrichtigung wenn dieses Album bearbeitet wurde');
+define('_MI_WGGALLERY_ALBUMS_ALB_MODIFY_NOTIFY_CAPTION', 'Benachrichtige mich Bearbeitung dieses Albums');
+define('_MI_WGGALLERY_ALBUMS_ALB_MODIFY_NOTIFY_SUBJECT', 'Benachrichtigung über Bearbeitung eines Albums');
+define('_MI_WGGALLERY_ALBUMS_ALB_DELETE_NOTIFY', 'Sende Benachrichtigung wenn dieses Album gelöscht wurde');
+define('_MI_WGGALLERY_ALBUMS_ALB_DELETE_NOTIFY_CAPTION', 'Benachrichtige mich über Löschung dieses Albums');
+define('_MI_WGGALLERY_ALBUMS_ALB_DELETE_NOTIFY_SUBJECT', 'Benachrichtigung über Albumlöschung');
+define('_MI_WGGALLERY_ALBUMS_IMG_NEW_NOTIFY', 'Sende Benachrichtigung wenn neue Bilder in dieses Album hochgeladen wurden');
+define('_MI_WGGALLERY_ALBUMS_IMG_NEW_NOTIFY_CAPTION', 'Benachrichtige mich über hochgeladenes Bild in dieses Album');
+define('_MI_WGGALLERY_ALBUMS_IMG_NEW_NOTIFY_SUBJECT', 'Benachrichtigung über ein hochgeladenes Bild');
+define('_MI_WGGALLERY_ALBUMS_IMG_APPROVE_NOTIFY', 'Sende Benachrichtigung wenn wenn ein Bild auf Freigabe wartet');
+define('_MI_WGGALLERY_ALBUMS_IMG_APPROVE_NOTIFY_CAPTION', 'Benachrichtige mich über anstehende Freigaben von Bildern');
+define('_MI_WGGALLERY_ALBUMS_IMG_APPROVE_NOTIFY_SUBJECT', 'Benachrichtigung dass ein Bild auf Freigabe wartet');
+define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY', 'Sende Benachrichtigung wenn wenn ein Bild dieses Albums gelöscht wurde');
+define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_CAPTION', 'Benachrichtige mich über Bilderlöschungen dieses Albums');
+define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_SUBJECT', 'Benachrichtigung über Bilderlöschung');
 // ---------------- End ----------------

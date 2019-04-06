@@ -21,10 +21,10 @@
  * @version        $Id: 1.0 footer.php 1 Mon 2018-03-19 10:04:54Z XOOPS Project (www.xoops.org) $
  */
 if(count($xoBreadcrumbs) > 0) {
-	$GLOBALS['xoopsTpl']->assign('xoBreadcrumbs', $xoBreadcrumbs);
+    $GLOBALS['xoopsTpl']->assign('xoBreadcrumbs', $xoBreadcrumbs);
 }
 $GLOBALS['xoopsTpl']->assign('admin', WGGALLERY_ADMIN);
-if ( $wggallery->getConfig('show_copyright') ) {
+if ( $helper->getConfig('show_copyright') ) {
     $GLOBALS['xoopsTpl']->assign('copyright', $copyright);
 }
-include_once XOOPS_ROOT_PATH .'/footer.php';
+require_once XOOPS_ROOT_PATH .'/footer.php';

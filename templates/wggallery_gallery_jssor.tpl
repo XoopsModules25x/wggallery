@@ -92,23 +92,23 @@
 			<{if $images_nb > 0}>
 				<{foreach item=image from=$images}>                
 					<div>
-						<img data-u="image" src="<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>" />
+						<img data-u="image" src="<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>">
 						<{if $jssor_thumbnails}>
 							<{if $jssor_thumbnails == 'thumbnail-091' || $jssor_thumbnails == 'thumbnail-092'}>
 								<div u="thumb"><{$image.desc}></div>
 							<{elseif $jssor_thumbnails == 'thumbnail-111'}>
                                 <div data-u="thumb">
-                                    <img data-u="thumb" src="<{$image.thumb}>" />
+                                    <img data-u="thumb" src="<{$image.thumb}>">
                                     <div class="ti"><{$image.title}></div>
                                 </div>
                             <{elseif $jssor_thumbnails == 'thumbnail-121'}>
                                 <div data-u="thumb">
-                                    <img data-u="thumb" class="i" src="<{$image.thumb}>" />
+                                    <img data-u="thumb" class="i" src="<{$image.thumb}>">
                                     <span class="ti"><{$image.title}></span>
                                     <br><span class="d"><{$image.desc}></span>
                                 </div>
                             <{else}>
-								<img data-u="thumb" src="<{$image.thumb}>" />
+								<img data-u="thumb" src="<{$image.thumb}>">
 							<{/if}>
 						<{/if}>
 					</div>

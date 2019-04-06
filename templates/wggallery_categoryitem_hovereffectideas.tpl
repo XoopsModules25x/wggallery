@@ -1,5 +1,5 @@
 <figure class="effect-<{$hovereffect}> figure<{$number_cols_cat}>">
-    <img class='' src='<{$category.image}>' alt='<{$category.name}>' />
+    <img class='' src='<{$category.image}>' alt='<{$category.name}>'>
     <figcaption>
         <div class="text_figure<{$number_cols_cat}>">
             <h3><{$category.name}></h3>

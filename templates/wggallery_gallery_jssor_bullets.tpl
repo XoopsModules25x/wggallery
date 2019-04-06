@@ -257,7 +257,7 @@
         <div data-u="navigator" class="jssorb061" style="bottom:16px;right:16px;">
             <div data-u="prototype" class="i" style="width:16px;height:16px;">
                 <svg viewBox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
-                    <circle class="b" cx="8000" cy="8000" r="5800" />
+                    <circle class="b" cx="8000" cy="8000" r="5800">
                 </svg>
             </div>
         </div>
@@ -276,7 +276,7 @@
         <div data-u="navigator" class="jssorb062" style="bottom:16px;right:16px;">
             <div data-u="prototype" class="i" style="width:16px;height:16px;">
                 <svg viewBox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
-                    <circle class="b" cx="8000" cy="8000" r="5800" />
+                    <circle class="b" cx="8000" cy="8000" r="5800">
                 </svg>
             </div>
         </div>
@@ -294,7 +294,7 @@
         <div data-u="navigator" class="jssorb063" style="bottom:16px;right:16px;">
             <div data-u="prototype" class="i" style="width:16px;height:16px;">
                 <svg viewBox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
-                    <circle class="b" cx="8000" cy="8000" r="5800" />
+                    <circle class="b" cx="8000" cy="8000" r="5800">
                 </svg>
             </div>
         </div>
@@ -313,7 +313,7 @@
         <div data-u="navigator" class="jssorb064" style="bottom:16px;right:16px;">
             <div data-u="prototype" class="i" style="width:16px;height:16px;">
                 <svg viewBox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
-                    <circle class="b" cx="8000" cy="8000" r="5800" />
+                    <circle class="b" cx="8000" cy="8000" r="5800">
                 </svg>
             </div>
         </div>
