@@ -16,16 +16,16 @@
  * @license        GPL 2.0 or later
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.7
+ * @min_xoops      2.5.9
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 comment_new.php 1 Mon 2018-03-19 10:04:54Z XOOPS Project (www.xoops.org) $
  */
 include __DIR__ . '/../../../mainfile.php';
-include_once XOOPS_ROOT_PATH . '/modules/wggallery/class/images.php';
-$com_itemid = isset($_REQUEST['com_itemid']) ? (int)($_REQUEST['com_itemid']) : 0;
+include_once XOOPS_ROOT_PATH.'/modules/wggallery/class/images.php';
+$com_itemid = isset($_REQUEST['com_itemid']) ? (int) ($_REQUEST['com_itemid']) : 0;
 if ($com_itemid > 0) {
-    $imagesHandler  = xoops_getModuleHandler('images', 'wggallery');
-    $images         = $imageshandler->get($com_itemid);
+    $imagesHandler = xoops_getModuleHandler('images', 'wggallery');
+    $images = $imageshandler->get($com_itemid);
     $com_replytitle = $images->getVar('img_name');
-    include XOOPS_ROOT_PATH . '/include/comment_new.php';
+    include XOOPS_ROOT_PATH.'/include/comment_new.php';
 }

@@ -16,7 +16,7 @@
  * @license        GPL 2.0 or later
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.7
+ * @min_xoops      2.5.9
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 index.php 1 Mon 2018-03-19 10:04:52Z XOOPS Project (www.xoops.org) $
  */
@@ -24,27 +24,45 @@ include __DIR__ . '/header.php';
 // Count elements
 $countAlbums = $albumsHandler->getCount();
 $countImages = $imagesHandler->getCount();
+$countGallerytypes = $gallerytypesHandler->getCount();
+if ( 0 == $countGallerytypes ) {
+    $success = array();
+    $errors  = array();
+    $gallerytypesHandler->gallerytypesCreateReset($success, $errors);
+    $countGallerytypes = $gallerytypesHandler->getCount();
+}
+$countAlbumtypes = $albumtypesHandler->getCount();
+if ( 0 == $countAlbumtypes ) {
+    $success = array();
+    $errors  = array();
+    $albumtypesHandler->albumtypesCreateReset($success, $errors);
+    $countAlbumtypes = $albumtypesHandler->getCount();
+}
+$countWatermarks = $watermarksHandler->getCount();
 // Template Index
 $templateMain = 'wggallery_admin_index.tpl';
 // InfoBox Statistics
 $adminObject->addInfoBox(_AM_WGGALLERY_STATISTICS);
 // Info elements
-$adminObject->addInfoBoxLine(sprintf('<label>' . _AM_WGGALLERY_THEREARE_ALBUMS . '</label>', $countAlbums));
-$adminObject->addInfoBoxLine(sprintf('<label>' . _AM_WGGALLERY_THEREARE_IMAGES . '</label>', $countImages));
+$adminObject->addInfoBoxLine(sprintf( '<label>'._AM_WGGALLERY_THEREARE_ALBUMS.'</label>', $countAlbums));
+$adminObject->addInfoBoxLine(sprintf( '<label>'._AM_WGGALLERY_THEREARE_IMAGES.'</label>', $countImages));
+$adminObject->addInfoBoxLine(sprintf( '<label>'._AM_WGGALLERY_THEREARE_GALLERYTYPES.'</label>', $countGallerytypes));
+$adminObject->addInfoBoxLine(sprintf( '<label>'._AM_WGGALLERY_THEREARE_ALBUMTYPES.'</label>', $countAlbumtypes));
+$adminObject->addInfoBoxLine(sprintf( '<label>'._AM_WGGALLERY_THEREARE_WATERMARKS.'</label>', $countWatermarks));
 // Upload Folders
 $folder = array(
-    WGGALLERY_UPLOAD_PATH,
-    WGGALLERY_UPLOAD_PATH . '/albums/',
-    WGGALLERY_UPLOAD_PATH . '/images/',
-    WGGALLERY_UPLOAD_PATH . '/images/albums/',
-    WGGALLERY_UPLOAD_PATH . '/images/large/',
-    WGGALLERY_UPLOAD_PATH . '/images/medium/',
-    WGGALLERY_UPLOAD_PATH . '/images/thumbs/'
+	WGGALLERY_UPLOAD_PATH,
+	WGGALLERY_UPLOAD_PATH . '/images/',
+	WGGALLERY_UPLOAD_PATH . '/images/albums/',
+	WGGALLERY_UPLOAD_PATH . '/images/large/',
+	WGGALLERY_UPLOAD_PATH . '/images/medium/',
+	WGGALLERY_UPLOAD_PATH . '/images/thumbs/',
+    WGGALLERY_UPLOAD_PATH . '/images/watermarks/',
 );
 // Uploads Folders Created
-foreach (array_keys($folder) as $i) {
-    $adminObject->addConfigBoxLine($folder[$i], 'folder');
-    $adminObject->addConfigBoxLine(array($folder[$i], '777'), 'chmod');
+foreach(array_keys($folder) as $i) {
+	$adminObject->addConfigBoxLine($folder[$i], 'folder');
+	$adminObject->addConfigBoxLine(array($folder[$i], '777'), 'chmod');
 }
 
 // Render Index

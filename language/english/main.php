@@ -16,12 +16,12 @@
  * @license        GPL 2.0 or later
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.7
+ * @min_xoops      2.5.9
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 main.php 1 Mon 2018-03-19 10:04:56Z XOOPS Project (www.xoops.org) $
  */
 
-include_once __DIR__ . '/common.php';
+include_once 'common.php';
 
 // ---------------- Main ----------------
 define('_MA_WGGALLERY_INDEX', 'Home');
@@ -32,53 +32,7 @@ As you can see, you have created a page with a list of links at the top to navig
 define('_MA_WGGALLERY_NO_PDF_LIBRARY', 'Libraries TCPDF not there yet, upload them in root/Frameworks');
 define('_MA_WGGALLERY_NO', 'No');
 // ---------------- Contents ----------------
-// Album
-define('_MA_WGGALLERY_ALBUM', 'Album');
-define('_MA_WGGALLERY_ALBUMS', 'Albums');
-define('_MA_WGGALLERY_ALBUMS_TITLE', 'Gallery of albums');
-define('_MA_WGGALLERY_ALBUMS_DESC', 'Albums description');
-// Caption of Album
-define('_MA_WGGALLERY_ALBUM_ID', 'Id');
-define('_MA_WGGALLERY_ALBUM_PID', 'Pid');
-define('_MA_WGGALLERY_ALBUM_NAME', 'Name');
-define('_MA_WGGALLERY_ALBUM_DESC', 'Desc');
-define('_MA_WGGALLERY_ALBUM_WEIGHT', 'Weight');
-define('_MA_WGGALLERY_ALBUM_IMAGE', 'Image');
-define('_MA_WGGALLERY_ALBUM_IMGID', 'Imgid');
-define('_MA_WGGALLERY_ALBUM_STATE', 'State');
-define('_MA_WGGALLERY_ALBUM_DATE', 'Date');
-define('_MA_WGGALLERY_ALBUM_SUBMITTER', 'Submitter');
-define('_MA_WGGALLERY_ALBUM_SELECT', 'Select album');
-define('_MA_WGGALLERY_ALBUM_SELECT_DESC', 'Please select album for uploading images');
-
-// Image
-define('_MA_WGGALLERY_IMAGE', 'Image');
-define('_MA_WGGALLERY_IMAGES', 'Images');
-define('_MA_WGGALLERY_IMAGES_TITLE', 'Gallery of images');
-define('_MA_WGGALLERY_IMAGES_DESC', 'Images description');
-define('_MA_WGGALLERY_IMAGES_UPLOAD', 'Upload images');
-// Caption of Image
-define('_MA_WGGALLERY_IMAGE_ID', 'Id');
-define('_MA_WGGALLERY_IMAGE_TITLE', 'Title');
-define('_MA_WGGALLERY_IMAGE_DESC', 'Desc');
-define('_MA_WGGALLERY_IMAGE_NAME', 'Name');
-define('_MA_WGGALLERY_IMAGE_ORIGNAME', 'Origname');
-define('_MA_WGGALLERY_IMAGE_MIMETYPE', 'Mimetype');
-define('_MA_WGGALLERY_IMAGE_SIZE', 'Size');
-define('_MA_WGGALLERY_IMAGE_RESX', 'Resx');
-define('_MA_WGGALLERY_IMAGE_RESY', 'Resy');
-define('_MA_WGGALLERY_IMAGE_DOWNLOADS', 'Downloads');
-define('_MA_WGGALLERY_IMAGE_RATINGLIKES', 'Ratinglikes');
-define('_MA_WGGALLERY_IMAGE_VOTES', 'Votes');
-define('_MA_WGGALLERY_IMAGE_WEIGHT', 'Weight');
-define('_MA_WGGALLERY_IMAGE_ALBID', 'Albid');
-define('_MA_WGGALLERY_IMAGE_STATE', 'State');
-define('_MA_WGGALLERY_IMAGE_DATE', 'Date');
-define('_MA_WGGALLERY_IMAGE_SUBMITTER', 'Submitter');
-define('_MA_WGGALLERY_IMAGE_IP', 'Ip');
-define('_MA_WGGALLERY_INDEX_THEREARE', 'There are %s Images');
-define('_MA_WGGALLERY_INDEX_LATEST_LIST', 'Last wgGallery');
-// Submit
+/* // Submit
 define('_MA_WGGALLERY_SUBMIT', 'Submit');
 define('_MA_WGGALLERY_SUBMIT_IMAGE', 'Submit Image');
 define('_MA_WGGALLERY_SUBMIT_ALLPENDING', 'All image/script information are posted pending verification.');
@@ -87,10 +41,31 @@ define('_MA_WGGALLERY_SUBMIT_ISAPPROVED', 'Your image has been approved');
 define('_MA_WGGALLERY_SUBMIT_PROPOSER', 'Submit a image');
 define('_MA_WGGALLERY_SUBMIT_RECEIVED', 'We have received your image info. Thank you !');
 define('_MA_WGGALLERY_SUBMIT_SUBMITONCE', 'Submit your image/script only once.');
-define('_MA_WGGALLERY_SUBMIT_TAKEDAYS', 'This will take many days to see your image/script added successfully in our database.');
+define('_MA_WGGALLERY_SUBMIT_TAKEDAYS', 'This will take many days to see your image/script added successfully in our database.'); */
+//Colorbox and Lightbox
+define('_MA_WGGALLERY_CURRENT_LABEL', 'image {current} of {total}');
+// Colorbox
+define('_MA_WGGALLERY_COLORBOX_CLOSE', 'close');
+define('_MA_WGGALLERY_COLORBOX_PREVIOUS', 'previous');
+define('_MA_WGGALLERY_COLORBOX_NEXT', 'next');
+define('_MA_WGGALLERY_COLORBOX_SLIDESHOWSTART', 'start slideshow');
+define('_MA_WGGALLERY_COLORBOX_SLIDESHOWSTOP', 'stop slideshow');
+// LC_Lightbox lite
+define('_MA_WGGALLERY_LCL_CLOSE', 'close');
+define('_MA_WGGALLERY_LCL_PREVIOUS', 'previous');
+define('_MA_WGGALLERY_LCL_NEXT', 'next');
+define('_MA_WGGALLERY_LCL_PLAY', 'play');
+define('_MA_WGGALLERY_LCL_COUNTER', 'counter');
+define('_MA_WGGALLERY_LCL_FULLSCREEN', 'fullscreen');
+define('_MA_WGGALLERY_LCL_TXT_TOGGLE', 'toggle text');
+define('_MA_WGGALLERY_LCL_DOWNLOAD', 'download');
+define('_MA_WGGALLERY_LCL_THUMBS_TOGGLE', 'toggle thumbs');
+define('_MA_WGGALLERY_LCL_SOCIALS', 'socials');
 // Admin link
 define('_MA_WGGALLERY_ADMIN', 'Admin');
 // ---------------- Errors ----------------
-define('_MA_WGGALLERY_FAILSAVEIMG_MEDIUM', 'Error when creating medium image');
-define('_MA_WGGALLERY_FAILSAVEIMG_THUMBS', 'Error when creating thumb image');
+define('_MA_WGGALLERY_FAILSAVEIMG_MEDIUM', 'Error when creating medium image: %s');
+define('_MA_WGGALLERY_FAILSAVEIMG_THUMBS', 'Error when creating thumb image: %s');
+define('_MA_WGGALLERY_FAILSAVEWM_MEDIUM', 'Error when adding watermark to medium image: %s (reason: %g)');
+define('_MA_WGGALLERY_FAILSAVEWM_LARGE', 'Error when adding watermark to large image: %s (reason: %g)');
 // ---------------- End ----------------

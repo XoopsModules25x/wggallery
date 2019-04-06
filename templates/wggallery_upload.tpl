@@ -1,6 +1,8 @@
 <{include file='db:wggallery_header.tpl'}>
 
-<{if $form}><{$form}><{/if}>
+<{if $form}>
+	<{$form}>
+<{/if}>
 
 <{if $multiupload}>
     <div class="clear">&nbsp;</div>
@@ -13,13 +15,14 @@
     <!-- Your code to create an instance of Fine Uploader and bind to the DOM/template
     ====================================================================== -->
     <script>
+        var filesTotal = 0;
         var manualUploader = new qq.FineUploader({
             element: document.getElementById('fine-uploader-manual-trigger'),
             template: 'qq-template-manual-trigger',
             request: {
                 endpoint: '<{$xoops_url}>/ajaxfineupload.php',
-                customHeaders: {
-                    "Authorization": "Basic <{$jwt}>"
+                params: {
+                    "Authorization": "<{$jwt}>"
                 }
             },
             text: {
@@ -60,19 +63,54 @@
             },
             autoUpload: false,
             callbacks: {
-            onError: function(id, name, errorReason, xhrOrXdr) {
-                 console.log(qq.format("Error uploading {}.  Reason: {}", name, errorReason));
-             }
-         },
-        debug: <{$fineup_debug}>
+                onError: function(id, name, errorReason, xhrOrXdr) {
+                    console.log(qq.format("Error uploading {}.  Reason: {}", name, errorReason));
+                },
+                onStatusChange: function(id, oldStatus, newStatus) {
+                    document.getElementById("qq-uploader-status").classList.remove("qq-hide");
+                    if ( newStatus == "submitting" ) {
+                        filesTotal=id;
+                    }
+                },
+                onSubmitted: function(id, name) {
+                    if (id == filesTotal) {
+                        document.getElementById('qq-uploader-status-text').innerHTML = '<{$smarty.const._CO_WGGALLERY_FU_SUBMITTED}>';
+                    } else {
+                        document.getElementById('qq-uploader-status-text').innerHTML = '<{$smarty.const._CO_WGGALLERY_FU_SUBMIT}>' + (id + 1);
+                    }
+                },
+                onUpload: function(id, name) {
+                   document.getElementById('qq-uploader-status-text').innerHTML = '<{$smarty.const._CO_WGGALLERY_FU_UPLOAD}>' + id;
+                },
+                onAllComplete: function(succeeded, failed) {
+                    if ( failed.length > 0 ) {
+                        document.getElementById('qq-uploader-status-text').innerHTML = '<{$smarty.const._CO_WGGALLERY_FU_FAILED}>';
+                    } else {
+                        document.getElementById('qq-uploader-status-text').innerHTML = '<{$smarty.const._CO_WGGALLERY_FU_SUCCEEDED}>';
+                    }
+                }
+            },
+            debug: <{$fineup_debug}>
         });
+        
         qq(document.getElementById("trigger-upload")).attach("click", function() {
             manualUploader.uploadStoredFiles();
         });
     </script>
 <{/if}>
 <div class="clear">&nbsp;</div>
-<div class='multiupload-footer'></div>
+<div class='multiupload-footer'>
+	<{if $albId}>
+		<div class='col-xs-12 col-sm-12 right'>
+			<a class='btn btn-default wgg-btn' href='albums.php?op=edit&amp;alb_id=<{$albId}>' title='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>'>
+				<span class = "wgg-btn-icon"><img class='' src='<{$wggallery_icon_url_16}>/edit.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>' /></span><{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>
+			</a>
+			<a class='btn btn-default wgg-btn' href='album_images.php?op=list&amp;alb_id=<{$albId}>' title='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}>'>
+				<span class = "wgg-btn-icon"><img class='' src='<{$wggallery_icon_url_16}>/album_images.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}>' /></span><{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}>
+			</a>
+		</div>
+	<{/if}>
+</div>
 
 
 <{include file='db:wggallery_footer.tpl'}>

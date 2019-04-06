@@ -12,24 +12,36 @@
 /**
  * wgGallery module for xoops
  *
- * @copyright      module for xoops
- * @license        GPL 2.0 or later
- * @package        wggallery
- * @since          1.0
- * @min_xoops      2.5.7
- * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
- * @version        $Id: 1.0 main.php 1 Mon 2018-03-19 10:04:56Z XOOPS Project (www.xoops.org) $
+ * @copyright module for xoops
+ * @license GPL 2.0 or later
+ * @package wggallery
+ * @since 1.0
+ * @min_xoops 2.5.7
+ * @author Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
+ * @version $Id: 1.0 main.php 1 Mon 2018-03-19 10:04:56Z XOOPS Project (www.xoops.org) $
  */
-
-// constants for state
+ 
+// defines for state
 define('_CO_WGGALLERY_STATE_OFFLINE', 'Offline');
 define('_CO_WGGALLERY_STATE_ONLINE', 'Online');
 define('_CO_WGGALLERY_STATE_APPROVAL', 'Waiting for approval');
+
 // General
+define('_CO_WGGALLERY_NONE', 'None');
+define('_CO_WGGALLERY_BACK', 'Go back');
+define('_CO_WGGALLERY_ALL', 'All');
+define('_CO_WGGALLERY_UPDATE', 'Update');
+define('_CO_WGGALLERY_EXEC', 'Execute');
+define('_CO_WGGALLERY_DOWNLOAD', 'Download');
 define('_CO_WGGALLERY_FORM_UPLOAD', 'Upload file');
 define('_CO_WGGALLERY_FORM_IMAGE_PATH', 'Files in %s ');
 define('_CO_WGGALLERY_FORM_ACTION', 'Action');
 define('_CO_WGGALLERY_FORM_EDIT', 'Modification');
+define('_CO_WGGALLERY_FORM_TOGGLE_SELECT', 'select/unselect all');
+define('_CO_WGGALLERY_FORM_IMAGEPICKER', 'Select an image');
+define('_CO_WGGALLERY_FORM_SUBMIT_SUBMITUPLOAD', 'Submit and goto images upload');
+define('_CO_WGGALLERY_FORM_SUBMIT_WMTEST', 'Submit and show test image');
+define('_CO_WGGALLERY_FORM_ERROR_INVALIDID', 'Invalid Id');
 // Save/Delete
 define('_CO_WGGALLERY_FORM_OK', 'Successfully saved');
 define('_CO_WGGALLERY_FORM_DELETE_OK', 'Successfully deleted');
@@ -37,72 +49,194 @@ define('_CO_WGGALLERY_FORM_SURE_DELETE', "Are you sure to delete: <b><span style
 define('_CO_WGGALLERY_FORM_SURE_RENEW', "Are you sure to update: <b><span style='color : Red;'>%s </span></b>");
 define('_CO_WGGALLERY_FORM_DELETE', 'Delete'); //wggallery xoops confirm
 define('_CO_WGGALLERY_FORM_DELETE_SURE', 'Do you really want to delete?'); //wggallery xoops confirm
+define('_CO_WGGALLERY_FORM_ERROR_RESETUSAGE1', 'Error when reseting usage of a watermark');
+define('_CO_WGGALLERY_FORM_ERROR_RESETUSAGE2', 'Error when reseting watermark usage in albums');
+define('_CO_WGGALLERY_FORM_ERROR_ALBPID', 'Error: parent albums not found');
+define('_CO_WGGALLERY_FORM_OK_APPROVE', 'Successfully saved album. You will be forwarded to approve the images');
 // There aren't
 define('_CO_WGGALLERY_THEREARENT_ALBUMS', "There aren't albums");
 define('_CO_WGGALLERY_THEREARENT_IMAGES', "There aren't images");
+// general
+define('_CO_WGGALLERY_DATE', 'Date');
+define('_CO_WGGALLERY_SUBMITTER', 'Submitter'); 
+// fine uploader
+define('_CO_WGGALLERY_FU_SUBMIT', 'Submitting image: ');
+define('_CO_WGGALLERY_FU_SUBMITTED', 'Image successfully checked, please upload');
+define('_CO_WGGALLERY_FU_UPLOAD', 'Upload image: ');
+define('_CO_WGGALLERY_FU_FAILED', 'Errors occured during uploading the images'); 
+define('_CO_WGGALLERY_FU_SUCCEEDED', 'Successfully uploaded all images');
 // Album buttons
 define('_CO_WGGALLERY_ALBUM_ADD', 'Add Album');
-define('_CO_WGGALLERY_ALBUM_EDIT', 'Edit Album');
-
+define('_CO_WGGALLERY_ALBUM_EDIT', 'Edit Album'); 
+// Elements of categories
+define('_CO_WGGALLERY_CATS_TITLE', 'Available categories');
+define('_CO_WGGALLERY_CATS_ALBUMS', 'Show sub albums');
 // Elements of Album
+define('_CO_WGGALLERY_ALBUMS_TITLE', 'Gallery of albums');
+define('_CO_WGGALLERY_ALBUMS_COUNT', 'Number of albums');
+define('_CO_WGGALLERY_ALBUM', 'Album');
+define('_CO_WGGALLERY_ALBUMS', 'Albums');
+define('_CO_WGGALLERY_ALBUMS_DESC', 'wgGallery is a XOOPS module for presenting images in albums and categories');
+define('_CO_WGGALLERY_ALBUM_CAT', 'Category');
+define('_CO_WGGALLERY_ALBUM_NB_CATS', 'album(s) in this category');
+define('_CO_WGGALLERY_ALBUM_NB_IMAGES', 'image(s) in this album');
+define('_CO_WGGALLERY_ALBUM_NO_IMAGES', 'Album contains no images');
 define('_CO_WGGALLERY_ALBUM_ID', 'Id');
 define('_CO_WGGALLERY_ALBUM_PID', 'Parent album');
+define('_CO_WGGALLERY_ALBUM_ISCAT', 'Album is category');
 define('_CO_WGGALLERY_ALBUM_NAME', 'Name');
 define('_CO_WGGALLERY_ALBUM_DESC', 'Description');
 define('_CO_WGGALLERY_ALBUM_WEIGHT', 'Weight');
 define('_CO_WGGALLERY_ALBUM_IMAGE', 'Album image');
-define('_CO_WGGALLERY_ALBUM_IMAGE_DESC', 'Option (2) will only be used if (1) is empty');
-define('_CO_WGGALLERY_ALBUM_USE_EXIST', '(1) Use image of album as album image');
+define('_CO_WGGALLERY_ALBUM_IMGCAT', 'Source for album image');
+define('_CO_WGGALLERY_ALBUM_USE_EXIST', 'Use an image of album as album image');
 define('_CO_WGGALLERY_ALBUM_IMGID', 'Existing images in this album');
-define('_CO_WGGALLERY_ALBUM_USE_UPLOADED', '(2) Use an uploaded image as album image');
+define('_CO_WGGALLERY_ALBUM_USE_UPLOADED', 'Use an uploaded image as album image');
+define('_CO_WGGALLERY_ALBUM_CREATE_GRID', 'Create a grid');
+define('_CO_WGGALLERY_ALBUM_CROP_IMAGE', 'Crop image');
 define('_CO_WGGALLERY_ALBUM_FORM_UPLOAD_IMAGE', 'Upload a new image');
 define('_CO_WGGALLERY_ALBUM_STATE', 'State');
-define('_CO_WGGALLERY_ALBUM_DATE', 'Date');
-define('_CO_WGGALLERY_ALBUM_SUBMITTER', 'Submitter');
 define('_CO_WGGALLERY_ALBUM_DELETE_DESC', 'Attention: All images linked to this album will also be deleted');
+define('_CO_WGGALLERY_ALBUM_SELECT', 'Select album');
+define('_CO_WGGALLERY_ALBUM_SELECT_DESC', 'Please select album for uploading images');
+// define('_CO_WGGALLERY_ALBUM_ALLOWDOWNLOAD', 'Image download size');
+// define('_CO_WGGALLERY_ALBUM_DOWNLOAD_MEDIUM', 'Medium images');
+// define('_CO_WGGALLERY_ALBUM_DOWNLOAD_LARGE', 'Large images');
+define('_CO_WGGALLERY_ALBUMS_SHOW', 'Show all albums');
+define('_CO_WGGALLERY_ALBUMS_SORT', 'Sorting of albums');
+define('_CO_WGGALLERY_ALBUM_SORT_SHOWHIDE', 'Click to show/hide the sub items');
+// album image handler
+define('_CO_WGGALLERY_ALBUM_IH_APPLY', 'Apply');
+define('_CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT', 'Edsit album image');
+define('_CO_WGGALLERY_ALBUM_IH_CURRENT', 'Current');
+define('_CO_WGGALLERY_ALBUM_IH_GRID4', 'Use 4 images');
+define('_CO_WGGALLERY_ALBUM_IH_GRID6', 'Use 6 images');
+define('_CO_WGGALLERY_ALBUM_IH_GRID_SRC1', 'Select image 1');
+define('_CO_WGGALLERY_ALBUM_IH_GRID_SRC2', 'Select image 2');
+define('_CO_WGGALLERY_ALBUM_IH_GRID_SRC3', 'Select image 3');
+define('_CO_WGGALLERY_ALBUM_IH_GRID_SRC4', 'Select image 4');
+define('_CO_WGGALLERY_ALBUM_IH_GRID_SRC5', 'Select image 5');
+define('_CO_WGGALLERY_ALBUM_IH_GRID_SRC6', 'Select image 6');
+define('_CO_WGGALLERY_ALBUM_IH_GRID_CREATE', 'Create grid');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_CREATE', 'Create image');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_MOVE', 'Move');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_ZOOMIN', 'Zoom in');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_ZOOMOUT', 'Zomm out');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_MOVE_LEFT', 'Move left');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_MOVE_RIGHT', 'Move right');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_MOVE_UP', 'Move up');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_MOVE_DOWN', 'Move down');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_ROTATE_LEFT', 'Rotate left');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_ROTATE_RIGHT', 'Rotate right');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_FLIP_HORIZONTAL', 'Flip horizontal');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_FLIP_VERTICAL', 'Flip vertical');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_ASPECTRATIO', 'Aspect ratio');
+define('_CO_WGGALLERY_ALBUM_IH_CROP_ASPECTRATIO_FREE', 'Free');
 
-define('_AM_WGGALLERY_IMAGE_COUNT', 'Number of images');
+define('_CO_WGGALLERY_IMAGE', 'Image');
+define('_CO_WGGALLERY_IMAGES', 'Images');
+define('_CO_WGGALLERY_IMAGES_TITLE', 'Gallery of images of ');
+define('_CO_WGGALLERY_IMAGES_COUNT', 'Number of images');
 define('_CO_WGGALLERY_IMAGES_ALBUMSHOW', 'Show Album');
-define('_CO_WGGALLERY_IMAGES_INDEX', 'Show Images Index');
-define('_CO_WGGALLERY_IMAGES_UPLOAD', 'Upload Images');
-// Image add/edit
-define('_AM_WGGALLERY_IMAGE_ADD', 'Add Image');
-define('_AM_WGGALLERY_IMAGE_EDIT', 'Edit Image');
+define('_CO_WGGALLERY_IMAGES_INDEX', 'Show Images Index'); 
+define('_CO_WGGALLERY_IMAGES_UPLOAD', 'Upload Images'); 
+define('_CO_WGGALLERY_IMAGE_MANAGE', 'Image management');
+define('_CO_WGGALLERY_IMAGE_MANAGE_DESC', 'Resort your images by drag & drop');
+// Image add/edit/show
+define('_CO_WGGALLERY_IMAGE_ADD', 'Add image');
+define('_CO_WGGALLERY_IMAGE_EDIT', 'Edit image');
+define('_CO_WGGALLERY_IMAGE_SHOW', 'Show image');
 // Elements of Image
-define('_AM_WGGALLERY_IMAGE_ID', 'Id');
-define('_AM_WGGALLERY_IMAGE_TITLE', 'Title');
-define('_AM_WGGALLERY_IMAGE_DESC', 'Desc');
-define('_AM_WGGALLERY_IMAGE_NAME', 'Name');
-define('_AM_WGGALLERY_IMAGE_ORIGNAME', 'Origname');
-define('_AM_WGGALLERY_IMAGE_MIMETYPE', 'Mimetype');
-define('_AM_WGGALLERY_IMAGE_SIZE', 'Size');
-define('_AM_WGGALLERY_IMAGE_RESX', 'Resx');
-define('_AM_WGGALLERY_IMAGE_RESY', 'Resy');
-define('_AM_WGGALLERY_IMAGE_DOWNLOADS', 'Downloads');
-define('_AM_WGGALLERY_IMAGE_RATINGLIKES', 'Ratinglikes');
-define('_AM_WGGALLERY_IMAGE_VOTES', 'Votes');
-define('_AM_WGGALLERY_IMAGE_WEIGHT', 'Weight');
-define('_AM_WGGALLERY_IMAGE_ALBID', 'Albums');
-define('_AM_WGGALLERY_IMAGE_STATE', 'State');
-define('_AM_WGGALLERY_IMAGE_DATE', 'Date');
-define('_AM_WGGALLERY_IMAGE_SUBMITTER', 'Submitter');
-define('_AM_WGGALLERY_IMAGE_IP', 'Ip');
+define('_CO_WGGALLERY_IMAGE_ID', 'Id');
+define('_CO_WGGALLERY_IMAGE_TITLE', 'Title');
+define('_CO_WGGALLERY_IMAGE_DESC', 'Desc');
+define('_CO_WGGALLERY_IMAGE_NAME', 'Name');
+define('_CO_WGGALLERY_IMAGE_NAMEORIG', 'Origname');
+define('_CO_WGGALLERY_IMAGE_NAMELARGE', 'Name of large image');
+define('_CO_WGGALLERY_IMAGE_MIMETYPE', 'Mimetype');
+define('_CO_WGGALLERY_IMAGE_SIZE', 'Size');
+define('_CO_WGGALLERY_IMAGE_RESX', 'Resx');
+define('_CO_WGGALLERY_IMAGE_RESY', 'Resy');
+define('_CO_WGGALLERY_IMAGE_DOWNLOADS', 'Downloads');
+define('_CO_WGGALLERY_IMAGE_RATINGLIKES', 'Ratinglikes');
+define('_CO_WGGALLERY_IMAGE_VOTES', 'Votes');
+define('_CO_WGGALLERY_IMAGE_WEIGHT', 'Weight');
+define('_CO_WGGALLERY_IMAGE_ALBID', 'Albums');
+define('_CO_WGGALLERY_IMAGE_STATE', 'State');
+define('_CO_WGGALLERY_IMAGE_IP', 'Ip');
+define('_CO_WGGALLERY_IMAGE_RESIZE', 'Resize image to following size:');
+define('_CO_WGGALLERY_IMAGE_THUMB', 'Thumb image');
+define('_CO_WGGALLERY_IMAGE_MEDIUM', 'Medium image');
+define('_CO_WGGALLERY_IMAGE_LARGE', 'Large image');
+define('_CO_WGGALLERY_IMAGE_EXIF', 'Exif-data');
+// Watermark add/edit
+define('_CO_WGGALLERY_WATERMARK_ADD', 'Add Watermark');
+define('_CO_WGGALLERY_WATERMARK_EDIT', 'Edit Watermark');
+// Elements of Watermark
+define('_CO_WGGALLERY_WATERMARK', 'Watermark');
+define('_CO_WGGALLERY_WATERMARKS', 'Watermarks');
+define('_CO_WGGALLERY_WATERMARK_ID', 'Id');
+define('_CO_WGGALLERY_WATERMARK_PREVIEW', 'Preview');
+define('_CO_WGGALLERY_WATERMARK_NAME', 'Name');
+define('_CO_WGGALLERY_WATERMARK_TYPE', 'Type');
+define('_CO_WGGALLERY_WATERMARK_TYPETEXT', 'Use text');
+define('_CO_WGGALLERY_WATERMARK_TYPEIMAGE', 'Use an image');
+define('_CO_WGGALLERY_WATERMARK_POSITION', 'Position');
+define('_CO_WGGALLERY_WATERMARK_POSTOPLEFT', 'Top left');
+define('_CO_WGGALLERY_WATERMARK_POSTOPRIGHT', 'Top right');
+define('_CO_WGGALLERY_WATERMARK_POSTOPCENTER', 'Top center');
+define('_CO_WGGALLERY_WATERMARK_POSMIDDLELEFT', 'Middle left');
+define('_CO_WGGALLERY_WATERMARK_POSMIDDLERIGHT', 'Middle right');
+define('_CO_WGGALLERY_WATERMARK_POSMIDDLECENTER', 'Middle center');
+define('_CO_WGGALLERY_WATERMARK_POSBOTTOMLEFT', 'Bottom left');
+define('_CO_WGGALLERY_WATERMARK_POSBOTTOMRIGHT', 'Bottom right');
+define('_CO_WGGALLERY_WATERMARK_POSBOTTOMCENTER', 'Bottom center');
+define('_CO_WGGALLERY_WATERMARK_USAGENONE', 'Currently not used');
+define('_CO_WGGALLERY_WATERMARK_USAGEALL', 'Use in all albums');
+define('_CO_WGGALLERY_WATERMARK_USAGESINGLE', 'Defined in each album seperately');
+define('_CO_WGGALLERY_WATERMARK_MARGIN', 'Margin');
+define('_CO_WGGALLERY_WATERMARK_MARGINLR', 'Left/right');
+define('_CO_WGGALLERY_WATERMARK_MARGINTB', 'Top/bottom');
+define('_CO_WGGALLERY_WATERMARK_IMAGE', 'Image');
+define('_CO_WGGALLERY_FORM_UPLOAD_IMAGE_WATERMARKS', 'Image in uploads images');
+define('_CO_WGGALLERY_WATERMARK_TEXT', 'Text');
+define('_CO_WGGALLERY_WATERMARK_FONT', 'Font');
+define('_CO_WGGALLERY_WATERMARK_FONTFAMILY', 'Font-Family');
+define('_CO_WGGALLERY_WATERMARK_FONTSIZE', 'Fontsize');
+define('_CO_WGGALLERY_WATERMARK_COLOR', 'Color');
+define('_CO_WGGALLERY_WATERMARK_USAGE', 'Usage');
+define('_CO_WGGALLERY_WATERMARK_TARGET', 'Kind of images for adding watermark');
+define('_CO_WGGALLERY_WATERMARK_TARGET_A', 'Add to all');
+define('_CO_WGGALLERY_WATERMARK_TARGET_M', 'Add to medium');
+define('_CO_WGGALLERY_WATERMARK_TARGET_L', 'Add to large');
+
 // ---------------- Admin Permissions ----------------
 // Permissions
-define('_CO_WGGALLERY_PERMISSIONS_GLOBAL', 'Permissions global');
-define('_CO_WGGALLERY_PERMISSIONS_GLOBAL_DESC', 'Permissions global to check type of.');
-define('_CO_WGGALLERY_PERMISSIONS_GLOBAL_4', 'Permissions global to approve');
-define('_CO_WGGALLERY_PERMISSIONS_GLOBAL_8', 'Permissions global to submit');
-define('_CO_WGGALLERY_PERMISSIONS_GLOBAL_16', 'Permissions global to view');
-define('_CO_WGGALLERY_PERMISSIONS_APPROVE', 'Permissions to approve');
-define('_CO_WGGALLERY_PERMISSIONS_APPROVE_DESC', 'Permissions to approve');
-define('_CO_WGGALLERY_PERMISSIONS_SUBMIT', 'Permissions to submit');
-define('_CO_WGGALLERY_PERMISSIONS_SUBMIT_DESC', 'Permissions to submit');
-define('_CO_WGGALLERY_PERMISSIONS_VIEW', 'Permissions to view');
-define('_CO_WGGALLERY_PERMISSIONS_VIEW_DESC', 'Permissions to view');
-define('_AM_WGGALLERY_NO_PERMISSIONS_SET', 'No permission set');
-// ---------------- Errors ----------------
+define('_CO_WGGALLERY_PERMS_GLOBAL', 'Permissions global');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL', 'Permissions global to submit/edit all albums');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC', 'Groups which should have permissions to <ul><li>create albums</li><li>edit all albums</li><li>approve all albums</li><li>upload images to all albums</li><li>approve all images</li></ul>');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN', 'Permissions global to submit/edit own albums without approvement');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN_DESC', 'Groups which should have permissions to <ul><li>create albums</li><li>edit own albums</li><li>upload images to own albums</li></ul>');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR', 'Permissions global to submit/edit own albums only with approvement');
+define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR_DESC', 'Groups which should have permissions to <ul><li>create albums</li><li>edit own albums</li><li>upload images to own albums</li></ul>');
+define('_CO_WGGALLERY_PERMS_GLOBAL_DESC', '<ul>
+												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC. '</li>
+												<li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN_DESC. '</li>
+                                                <li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR_DESC. '</li>
+										   </ul>');
+define('_CO_WGGALLERY_PERMS_ALB_VIEW', 'Permissions to view');
+define('_CO_WGGALLERY_PERMS_ALB_VIEW_DESC', 'Groups which should have permissions to view an album');
+define('_CO_WGGALLERY_PERMS_ALB_DLFULLALB', 'Permissions to download full album');
+define('_CO_WGGALLERY_PERMS_ALB_DLFULLALB_DESC', 'Groups which should have permissions to download the full album at once');
+define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE', 'Permissions to download large images');
+define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE_DESC', 'Groups which should have permissions to download large images');
+define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM', 'Permissions to download medium images');
+define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM_DESC', 'Groups which should have permissions to download medium images');
+define('_CO_WGGALLERY_PERMS_NOTSET', 'No permission set');
+define('_CO_WGGALLERY_PERMS_NODOWNLOAD', 'You have no permission to download');
+// ---------------- Misc ----------------
 define('_CO_WGGALLERY_ALBUM_IMAGE_ERRORNOTFOUND', 'Error: album image not found');
 define('_CO_WGGALLERY_IMAGE_ERRORUNLINK', 'Error deleting image: the image was deleted in the database, but an error occured when deleting the image himself');
-
+define('_CO_WGGALLERY_MAINTAINEDBY', 'Maintained By');
+define('_CO_WGGALLERY_MAINTAINEDBY_DESC', 'Allow url of support site or community');
 // ---------------- End ----------------

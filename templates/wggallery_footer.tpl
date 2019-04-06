@@ -1,13 +1,5 @@
-<{if $bookmarks != 0}>
-<{include file="db:system_bookmarks.tpl"}>
-<{/if}>
-
-<{if $fbcomments != 0}>
-<{include file="db:system_fbcomments.tpl"}>
-<{/if}>
-<div class="pull-left"><{$copyright}></div>
-<{if $pagenav != ''}>
-    <div class="pull-right"><{$pagenav}></div>
+<{if $error}>
+	<div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
 <br>
 <{if $xoops_isadmin}>
@@ -25,3 +17,7 @@
 
 <br>
 <{include file='db:system_notification_select.tpl'}>
+<div class='clear spacer'></div>
+<{if $copyright}>
+<div class="pull-left"><{$copyright}></div>
+<{/if}>
