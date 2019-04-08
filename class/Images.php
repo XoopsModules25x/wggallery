@@ -33,7 +33,10 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
  */
 class Images extends \XoopsObject
 {
-    /**
+    
+	public $redirOp = '';
+	
+	/**
      * Constructor
      *
      * @param null
@@ -173,7 +176,7 @@ class Images extends \XoopsObject
         // Form Select Images
         $imgStateSelect = new \XoopsFormSelect(_CO_WGGALLERY_IMAGE_STATE, 'img_state', $this->getVar('img_state'));
         $imgStateSelect->addOption(Constants::STATE_OFFLINE_VAL, _CO_WGGALLERY_STATE_OFFLINE);
-        $imgStateSelect->addOption(Constants::STATE_OFFLINE_VAL, _CO_WGGALLERY_STATE_ONLINE);
+        $imgStateSelect->addOption(Constants::STATE_ONLINE_VAL, _CO_WGGALLERY_STATE_ONLINE);
         $imgStateSelect->addOption(Constants::STATE_APPROVAL_VAL, _CO_WGGALLERY_STATE_APPROVAL);
         $form->addElement($imgStateSelect, true);
         // Form Text Date Select ImgDate
@@ -185,6 +188,7 @@ class Images extends \XoopsObject
         $form->addElement(new \XoopsFormText(_CO_WGGALLERY_IMAGE_IP, 'img_ip', 50, 255, $this->getVar('img_ip')));
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
+		$form->addElement(new \XoopsFormHidden('redir_op', $this->redirOp));
         $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
 
         return $form;

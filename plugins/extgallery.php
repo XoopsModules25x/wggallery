@@ -69,7 +69,7 @@ function wggalleryPluginGetFormExtgallery($im_name, $num_albums, $num_images)
     // Form Select Albstate
     $albStateSelect = new \XoopsFormRadio(_CO_WGGALLERY_ALBUM_STATE, 'alb_state', Constants::STATE_OFFLINE_VAL);
     $albStateSelect->addOption(Constants::STATE_OFFLINE_VAL, _CO_WGGALLERY_STATE_OFFLINE);
-    $albStateSelect->addOption(Constants::STATE_OFFLINE_VAL, _CO_WGGALLERY_STATE_ONLINE);
+    $albStateSelect->addOption(Constants::STATE_ONLINE_VAL, _CO_WGGALLERY_STATE_ONLINE);
     $albStateSelect->addOption(Constants::STATE_APPROVAL_VAL, _CO_WGGALLERY_STATE_APPROVAL);
     $form->addElement($albStateSelect);
     // Permissions

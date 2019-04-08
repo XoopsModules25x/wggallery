@@ -60,6 +60,14 @@
 .wgg-btn {
 	margin-bottom:5px;
 }
+.wgg-btn-small {
+	margin-bottom:0;
+}
+.wgg-btn-small .wgg-btn-icon {
+	padding:0;
+	margin-right:5px;
+}
+
 .wgg-btn-icon {
 	padding:0 7px;
 	margin-right:5px;

@@ -486,6 +486,17 @@ $modversion['config'][] = [
 ];
 
 /**
+ * Make button text visible?
+ */
+$modversion['config'][] = [
+    'name'        => 'displayButtonText',
+    'title'       => '_MI_WGGALLERY_SHOWBUTTONTEXT',
+    'description' => '_MI_WGGALLERY_SHOWBUTTONTEXT_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+];
+/**
  * Make Sample button visible?
  */
 $modversion['config'][] = [

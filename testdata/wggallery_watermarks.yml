@@ -1,1 +1,16 @@
-{  }
+-
+    wm_id: '1'
+    wm_name: Wedega
+    wm_type: '2'
+    wm_position: '6'
+    wm_marginlr: '0'
+    wm_margintb: '0'
+    wm_image: wedega_logo.png
+    wm_text: ''
+    wm_font: ''
+    wm_fontsize: '12'
+    wm_color: '#000000'
+    wm_usage: '2'
+    wm_target: '0'
+    wm_date: '1554546773'
+    wm_submitter: '1'

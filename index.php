@@ -41,6 +41,7 @@ $GLOBALS['xoopsTpl']->assign('panel_type', $helper->getConfig('panel_type'));
 // $GLOBALS['xoopsTpl']->assign('divideby', $helper->getConfig('divideby'));
 // $GLOBALS['xoopsTpl']->assign('numb_col', $helper->getConfig('numb_col'));
 $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
+$GLOBALS['xoopsTpl']->assign('displayButtonText', $helper->getConfig('displayButtonText'));
 
 // assign all album options
 $atoptions = unserialize($pr_album['options'], ['allowed_classes' => false]);

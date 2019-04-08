@@ -23,3 +23,11 @@
 img {
 	max-width: 200px;
 }
+
+.maintenance-btn {
+	padding:0;
+}
+
+.maintenance-btn a.btn {
+	line-height:18px;
+}

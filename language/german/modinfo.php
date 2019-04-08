@@ -103,6 +103,8 @@ define('_MI_WGGALLERY_SHOWCOPYRIGHT', 'Copyright anzeigen');
 define('_MI_WGGALLERY_SHOWCOPYRIGHT_DESC', 'Sie können das Copyright bei der Galerie entfernen, jedoch wird ersucht, an einer beliebigen Stelle einen Backlink auf www.wedega.com anzubringen');
 define('_MI_WGGALLERY_STOREEXIF', 'Metadaten (exif) speichern');
 define('_MI_WGGALLERY_STOREEXIF_DESC', 'Definieren sie, ob Sie die Metadaten der Bilder (exif-Daten) speichern wollen');
+define('_MI_WGGALLERY_SHOWBUTTONTEXT', 'Schaltflächentext anzeigen');
+define('_MI_WGGALLERY_SHOWBUTTONTEXT_DESC', 'Anzeigen des Schaltflächentextes. Bei NEIN wird nur das Schaltflächenbild angezeigt');
 // Notifications
 define('_MI_WGGALLERY_GLOBAL_NOTIFY', 'Globale Benachrichtigungen');
 define('_MI_WGGALLERY_GLOBAL_ALB_NEW_ALL_NOTIFY', 'Sende Benachrichtigung wenn ein neues Album erstellt wird');

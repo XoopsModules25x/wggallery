@@ -41,6 +41,7 @@ $ref      = Request::getString('ref');
 $imgSubm  = Request::getInt('img_submitter');
 $start    = Request::getInt('start', 0);
 $limit    = Request::getInt('limit', $helper->getConfig('userpager'));
+$redir_op = Request::getString('redir_op', $op);
 $keywords = [];
 
 if (_CANCEL === Request::getString('cancel', 'none')) {
@@ -55,6 +56,7 @@ $GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/css/style.css', null
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
 $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
+$GLOBALS['xoopsTpl']->assign('displayButtonText', $helper->getConfig('displayButtonText'));
 
 if ($imgId > 0 && 0 === $albId) {
     // get album id
@@ -136,7 +138,11 @@ switch ($op) {
                     $notificationHandler->triggerEvent('albums', $albId, 'image_new', $tags);
                 }
             }
-            redirect_header('images.php?op=list&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid, 2, _CO_WGGALLERY_FORM_OK);
+			if ('manage' === $redir_op) {
+				redirect_header('images.php?op=manage&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid . '#image_' . $imgId, 2, _CO_WGGALLERY_FORM_OK);
+			} else {
+				redirect_header('images.php?op=list&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid, 2, _CO_WGGALLERY_FORM_OK);
+			}
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $imagesObj->getHtmlErrors());
@@ -147,6 +153,7 @@ switch ($op) {
     case 'edit':
         // Get Form
         $imagesObj = $imagesHandler->get($imgId);
+		$imagesObj->redirOp = $redir_op;
         $form      = $imagesObj->getFormImages();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
 
@@ -178,6 +185,14 @@ switch ($op) {
                 $critComments   = new CriteriaCompo(new Criteria('com_modid', $helper->getMid()));
                 $critComments->add(new Criteria('com_itemid', $imgId));
                 $commentHandler->deleteAll($critComments);
+				
+				if ('manage' === $redir_op) {
+					redirect_header('images.php?op=manage&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid, 2, _CO_WGGALLERY_FORM_DELETE_OK);
+				} else {
+					redirect_header('images.php?op=list&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid, 2, _CO_WGGALLERY_FORM_DELETE_OK);
+				}
+			
+			
                 redirect_header('images.php?op=list&amp;alb_id=' . $albId, 3, _CO_WGGALLERY_FORM_DELETE_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $imagesObj->getHtmlErrors());
@@ -201,6 +216,9 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('alb_id', $albId);
         $GLOBALS['xoopsTpl']->assign('alb_pid', $albPid);
         $GLOBALS['xoopsTpl']->assign('ref', $ref);
+		$GLOBALS['xoopsTpl']->assign('start', $start);
+        $GLOBALS['xoopsTpl']->assign('limit', $limit);
+        $GLOBALS['xoopsTpl']->assign('img_submitter', $imgSubm);
 
         $crImages = new \CriteriaCompo();
         $crImages->add(new \Criteria('img_albid', $albId));
@@ -247,7 +265,7 @@ switch ($op) {
         $crImages = new \CriteriaCompo();
         $crImages->add(new \Criteria('img_albid', $albId));
         if (!$permAlbumEdit) {
-            $crImages->add(new \Criteria('img_state', Constants::STATE_OFFLINE_VAL));
+            $crImages->add(new \Criteria('img_state', Constants::STATE_ONLINE_VAL));
         }
         $crImages->setSort('img_weight ASC, img_date');
         $crImages->setOrder('DESC');
@@ -299,6 +317,9 @@ switch ($op) {
         if ($permissionsHandler->permImageDownloadLarge($albId)) {
             $file = $image['large'];
         }
+		$GLOBALS['xoopsTpl']->assign('img_allowdownload', $permissionsHandler->permImageDownloadLarge($albId)
+                                                       || $permissionsHandler->permImageDownloadMedium($albId));
+        $GLOBALS['xoopsTpl']->assign('permAlbumEdit', $permissionsHandler->permAlbumEdit($albId, $albSubmitter));
         $GLOBALS['xoopsTpl']->assign('showimage', true);
         $GLOBALS['xoopsTpl']->assign('file', $file);
         $GLOBALS['xoopsTpl']->assign('image', $image);
@@ -307,7 +328,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('start', $start);
         $GLOBALS['xoopsTpl']->assign('limit', $limit);
         $GLOBALS['xoopsTpl']->assign('img_submitter', $imgSubm);
-
+		$GLOBALS['xoopsTpl']->assign('redir_op', $redir_op);
         break;
 }
 
