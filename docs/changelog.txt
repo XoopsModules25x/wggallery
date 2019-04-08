@@ -5,6 +5,7 @@
  - improved redirection after image handling - edit/delete (goffy/mamba)
  - added new preference displayButtonText (goffy/mamba)
  - aligned buttons in maintenance left (goffy/mamba) 
+ - added setting permission for test data (goffy)
  
 <h5>1.09 Beta1</h5>  [WORK IN PROGRESS - NOT RELEASED]  Dev: XOOPS 2.5.9, PHP 7.3.1
 <hr>
