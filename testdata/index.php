@@ -60,7 +60,7 @@ function loadSampleData()
 	$table = 'group_permission';
 	$tabledata = \Xmf\Yaml::readWrapped($table . '.yml');
 	$mid = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getVar('mid');
-	loadPermissionFromArray($table, $tabledata, 'gperm_modid', $mid);
+	loadTableFromArrayWithReplace($table, $tabledata, 'gperm_modid', $mid);
 
     //  ---  COPY test folder files ---------------
     if (is_array($configurator->copyTestFolders) && count($configurator->copyTestFolders) > 0) {
@@ -112,16 +112,18 @@ function exportSchema()
 }
 
 /**
- * loadPermissionFromArray
+ * loadTableFromArrayWithReplace
  *
- * @param string $table name of table to load without prefix
- * @param array  $data  array of rows to insert
- *                      Each element of the outer array represents a single table row.
- *                      Each row is an associative array in 'column' => 'value' format.
+ * @param string $table  name of table to load without prefix
+ * @param array  $data   array of rows to insert
+ *                       Each element of the outer array represents a single table row.
+ *                       Each row is an associative array in 'column' => 'value' format.
+ * @param string $search name of column for which the value should be replaced
+ * @param string $table  value with should be used insead of original value of $search
  *
  * @return int number of rows inserted
  */
-function loadPermissionFromArray($table, $data, $search, $replace)
+function loadTableFromArrayWithReplace($table, $data, $search, $replace)
 {
 	/** @var \XoopsDatabase */
 	$db = \XoopsDatabaseFactory::getDatabaseConnection();
