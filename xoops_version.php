@@ -16,7 +16,7 @@
  * @license        GPL 2.0 or later
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.9
+ * @min_xoops      2.5.10
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 xoops_version.php 1 Mon 2018-03-19 07:47:33Z XOOPS Project (www.xoops.org) $
  */
@@ -27,7 +27,7 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 $modversion = [
     'version'             => 1.09,
     'module_status'       => 'RC1',
-    'release_date'        => '2019/02/01',
+    'release_date'        => '2019/04/09',
     'name'                => _MI_WGGALLERY_NAME,
     'description'         => _MI_WGGALLERY_DESC,
     'author'              => 'Wedega',
@@ -43,7 +43,7 @@ $modversion = [
     'manual'              => 'link to manual file',
     'manual_file'         => XOOPS_URL . '/modules/wggallery/docs/install.txt',
     'min_php'             => '7.0',
-    'min_xoops'           => '2.5.9',
+    'min_xoops'           => '2.5.10',
     'min_admin'           => '1.1',
     'min_db'              => ['mysql' => '5.5'],
     'image'               => 'assets/images/logoModule.png',
@@ -56,7 +56,7 @@ $modversion = [
     'support_name'        => 'Wedega - Webdesign Gabor',
     'module_website_url'  => 'https://xoops.wedega.com',
     'module_website_name' => 'Wedega XOOPS Demo Site',
-    'release'             => '01/01/2018',
+    'release'             => '09/04/2019',
     'system_menu'         => 1,
     'hasAdmin'            => 1,
     'hasMain'             => 1,

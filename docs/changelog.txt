@@ -1,4 +1,4 @@
-<h5>1.09 RC1</h5>  [WORK IN PROGRESS - NOT RELEASED]  Dev: XOOPS 2.5.10, PHP 7.3.1
+<h5>1.09 RC1</h5>  [2019/04/09]  Dev: XOOPS 2.5.10, PHP 7.3.1
 <hr>
  - moved to RC1 (goffy)
  - added image handling to image management - edit/delete/download (goffy/mamba)
