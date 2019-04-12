@@ -29,11 +29,14 @@
             <!-- *************** Tab for select image of albums ***************-->
 			<div class='tab-pane' id='2'>
                 <div class='col-xs-12 col-sm-6'>
-                    <{foreach item=image from=$images}>
+                    <{foreach item=image from=$images name=fe_image}>
                         <{if $image.alb_name}><div class='selimages col-xs-12 col-sm-12'><h5 class='modal-title' style='width:100%'><{$image.alb_name}></h5></div><{/if}>
                         <div class='selimages col-xs-12 col-sm-4'>
                         <input id='<{$image.id}>' class='imgSelect1 img-responsive wgg-album-img <{if $image.selected}>wgg-modal-selected<{/if}>' type='image' src='<{$image.thumb}>' alt='<{$image.title}>' style='padding:3px;' value='<{$image.name}>'>
                         </div>
+						<{if $smarty.foreach.fe_image.iteration % 3 == 0}>
+							<div class='clear'></div>
+						<{/if}>
                     <{/foreach}>
                 </div>
                 <div class='col-xs-12 col-sm-6'>
@@ -48,6 +51,7 @@
 						<input type='hidden' name='alb_pid' value='<{$album.alb_pid}>'>
 						<input type='hidden' name='alb_state' value='<{$album.alb_state}>'>
 						<input type="submit" class="btn <{$btn_style}> disabled" name="btnApplySelected" id="btnApplySelected" value="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_APPLY}>">
+						<input type='button' class='btn <{$btn_style}>' value='<{$smarty.const._CANCEL}>' onclick='history.go(-1);return true;'>
 					</form>
                 </div>
 			</div>
@@ -89,6 +93,7 @@
 						<input type='hidden' name='alb_pid' value='<{$album.alb_pid}>'>
 						<input type='hidden' name='alb_state' value='<{$album.alb_state}>'>
 						<input type="submit" class="btn <{$btn_style}> disabled" name="btnApplyGrid" id="btnApplyGrid" value="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_APPLY}>">
+						<input type='button' class='btn <{$btn_style}>' value='<{$smarty.const._CANCEL}>' onclick='history.go(-1);return true;'>
 					</form>
 				</div>
 			</div>
@@ -203,7 +208,8 @@
                                 <span class="docs-tooltip" data-toggle="tooltip" title="cropper.getCroppedCanvas({ maxWidth: 4096, maxHeight: 4096 })"><{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_CREATE}></span>
                             </button>
                             <a class="btn <{$btn_style}> disabled" id="btnCropApply" href="<{$wggallery_url}>/album_images.php?op=saveCrop&alb_id=<{$album.alb_id}>&alb_pid=<{$album.alb_pid}>" ><{$smarty.const._CO_WGGALLERY_ALBUM_IH_APPLY}></a>
-                        </div>
+							<button type="button" class="btn btn-crop <{$btn_style}>"onclick='history.go(-1);return true;'><{$smarty.const._CANCEL}></button>
+						</div>
 
                         <!-- Show the cropped image in modal -->
                         <div class="modal fade docs-cropped" id="getCroppedCanvasModal" role="dialog" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" tabindex="-1">
