@@ -25,9 +25,9 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 // ------------------- Informations ------------------- //
 $modversion = [
-    'version'             => 1.09,
+    'version'             => '1.10',
     'module_status'       => 'RC1',
-    'release_date'        => '2019/04/09',
+    'release_date'        => '2019/04/15',
     'name'                => _MI_WGGALLERY_NAME,
     'description'         => _MI_WGGALLERY_DESC,
     'author'              => 'Wedega',
@@ -56,7 +56,7 @@ $modversion = [
     'support_name'        => 'Wedega - Webdesign Gabor',
     'module_website_url'  => 'https://xoops.wedega.com',
     'module_website_name' => 'Wedega XOOPS Demo Site',
-    'release'             => '09/04/2019',
+    'release'             => '15/04/2019',
     'system_menu'         => 1,
     'hasAdmin'            => 1,
     'hasMain'             => 1,
