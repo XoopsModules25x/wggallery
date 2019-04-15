@@ -35,7 +35,7 @@ $utility = new \XoopsModules\Wggallery\Utility();
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet($style, null);
 if ($helper->getConfig('addjquery')) {
-    $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/js/jquery-1.9.1.min.js');
+	$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/js/jquery-1.9.1.min.js');
 }
 
 // $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
