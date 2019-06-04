@@ -1,7 +1,10 @@
 <{if $error}>
 	<div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
-<br>
+<div class='clear spacer'></div>
+<{if $copyright}>
+    <div class="pull-right"><{$copyright}></div>
+<{/if}>
 <{if $xoops_isadmin}>
    <div class="text-center bold"><a href="<{$admin}>"><{$smarty.const._MA_WGGALLERY_ADMIN}></a></div><br>
 <{/if}>
@@ -17,7 +20,3 @@
 
 <br>
 <{include file='db:system_notification_select.tpl'}>
-<div class='clear spacer'></div>
-<{if $copyright}>
-<div class="pull-left"><{$copyright}></div>
-<{/if}>
