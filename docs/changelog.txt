@@ -2,6 +2,8 @@
 <hr>
  - fixed bug with id in image editor (goffy)
  - fixed include of wrong footer (goffy)
+ - added additional info for current album image in albumimage handler (goffy)
+ - fixed wrong titles in albumimage handler/crop image (goffy)
  
 <h5>1.09 RC1</h5>  [2019/04/09]  Dev: XOOPS 2.5.10, PHP 7.3.1
 <hr>

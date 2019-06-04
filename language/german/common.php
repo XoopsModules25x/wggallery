@@ -154,6 +154,7 @@ define('_CO_WGGALLERY_IMAGE_NAMEORIG', 'Originalname');
 define('_CO_WGGALLERY_IMAGE_NAMELARGE', 'Name große Bilder');
 define('_CO_WGGALLERY_IMAGE_MIMETYPE', 'Erweiterungen (Mimetype)');
 define('_CO_WGGALLERY_IMAGE_SIZE', 'Größe');
+define('_CO_WGGALLERY_IMAGE_RES', 'Auflösung');
 define('_CO_WGGALLERY_IMAGE_RESX', 'Resx');
 define('_CO_WGGALLERY_IMAGE_RESY', 'Resy');
 define('_CO_WGGALLERY_IMAGE_DOWNLOADS', 'Downloads');

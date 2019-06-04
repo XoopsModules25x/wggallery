@@ -299,7 +299,13 @@ switch ($op) {
 
         $GLOBALS['xoopsTpl']->assign('nbModals', [1, 2, 3, 4, 5, 6]);
 
-        $GLOBALS['xoopsTpl']->assign('album', $albumsObj->getValuesAlbums());
+        $album = $albumsObj->getValuesAlbums();
+        $GLOBALS['xoopsTpl']->assign('album', $album);
+        
+        // get size of current album image
+        list($width, $height, $type, $attr) = getimagesize($album['image']);
+        $GLOBALS['xoopsTpl']->assign('albimage_width', $width);
+        $GLOBALS['xoopsTpl']->assign('albimage_height', $height);
 
         $albImgid  = $albumsObj->getVar('alb_imgid');
         $albImage1 = 'blank.gif';

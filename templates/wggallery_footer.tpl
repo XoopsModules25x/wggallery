@@ -6,7 +6,8 @@
     <div class="pull-right"><{$copyright}></div>
 <{/if}>
 <{if $xoops_isadmin}>
-   <div class="text-center bold"><a href="<{$admin}>"><{$smarty.const._MA_WGGALLERY_ADMIN}></a></div><br>
+    <div class='clear spacer'></div>
+    <div class="text-center bold"><a href="<{$admin}>"><{$smarty.const._MA_WGGALLERY_ADMIN}></a></div><br>
 <{/if}>
 <div class="pad2 marg2">
     <{if $comment_mode == "flat"}>
@@ -17,6 +18,5 @@
         <{include file="db:system_comments_nest.tpl"}>
     <{/if}>
 </div>
-
-<br>
+<div class='clear spacer'></div>
 <{include file='db:system_notification_select.tpl'}>
