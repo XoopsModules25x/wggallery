@@ -27,11 +27,12 @@ use XoopsModules\Wggallery\Constants;
 
 require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
-$op = Request::getString('op', 'list');
-// Request alb_id
-$albId = Request::getInt('alb_id');
-$start = Request::getInt('start', 0);
-$limit = Request::getInt('limit', $helper->getConfig('adminpager'));
+$op      = Request::getString('op', 'list');
+$albId   = Request::getInt('alb_id');
+$start   = Request::getInt('start', 0);
+$limit   = Request::getInt('limit', $helper->getConfig('adminpager'));
+$sort    = Request::getString('sort', 'alb_id');
+$orderby = Request::getString('orderby', 'DESC');
 
 // add scripts
 $GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/wggallery/assets/js/admin.js');
@@ -63,6 +64,8 @@ switch ($op) {
         }
         $crAlbums->setStart($start);
         $crAlbums->setLimit($limit);
+        $crAlbums->setSort($sort);
+        $crAlbums->setOrder($orderby);
         $albumsCount = $albumsHandler->getCount($crAlbums);
         $albumsAll   = $albumsHandler->getAll($crAlbums);
         $GLOBALS['xoopsTpl']->assign('albums_count', $albumsCount);

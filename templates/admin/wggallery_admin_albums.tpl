@@ -5,12 +5,36 @@
 	<table class='table table-bordered'>
 		<thead>
 			<tr class='head'>
-				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_ID}></th>
+				<th class='center'>
+                    <{$smarty.const._CO_WGGALLERY_ALBUM_ID}>
+                    <a href='albums.php?op=list&amp;sort=alb_id&amp;orderby=DESC&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._DESCENDING}>'>
+                        <img src='<{$wggallery_icon_url_16}>desc.png' alt='<{$smarty.const._DESCENDING}>'>
+                    </a>
+                    <a href='albums.php?op=list&amp;sort=alb_id&amp;orderby=ASC&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._ASCENDING}>'>
+                        <img src='<{$wggallery_icon_url_16}>asc.png' alt='<{$smarty.const._ASCENDING}>'>
+                    </a>
+                </th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_PID}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_ISCAT}></th>
-				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_NAME}></th>
+				<th class='center'>
+                    <{$smarty.const._CO_WGGALLERY_ALBUM_NAME}>
+                    <a href='albums.php?op=list&amp;sort=alb_name&amp;orderby=DESC&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._DESCENDING}>'>
+                        <img src='<{$wggallery_icon_url_16}>desc.png' alt='<{$smarty.const._DESCENDING}>'>
+                    </a>
+                    <a href='albums.php?op=list&amp;sort=alb_name&amp;orderby=ASC&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._ASCENDING}>'>
+                        <img src='<{$wggallery_icon_url_16}>asc.png' alt='<{$smarty.const._ASCENDING}>'>
+                    </a>
+                </th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_DESC}></th>
-				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_WEIGHT}></th>
+				<th class='center'>
+                    <{$smarty.const._CO_WGGALLERY_ALBUM_WEIGHT}>
+                    <a href='albums.php?op=list&amp;sort=alb_weight&amp;orderby=DESC&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._DESCENDING}>'>
+                        <img src='<{$wggallery_icon_url_16}>desc.png' alt='<{$smarty.const._DESCENDING}>'>
+                    </a>
+                    <a href='albums.php?op=list&amp;sort=alb_weight&amp;orderby=ASC&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._ASCENDING}>'>
+                        <img src='<{$wggallery_icon_url_16}>asc.png' alt='<{$smarty.const._ASCENDING}>'>
+                    </a>
+                </th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_IMAGE}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_STATE}></th>
                 <th class='center'><{$smarty.const._CO_WGGALLERY_WATERMARKS}></th>
