@@ -62,4 +62,4 @@ $helper->loadLanguage('common');
 
 xoops_cp_header();
 $adminObject = \Xmf\Module\Admin::getInstance();
-$style       = WGGALLERY_URL . '/assets/css/admin/style.css';
+$GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/css/admin/style.css', null);

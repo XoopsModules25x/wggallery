@@ -71,8 +71,6 @@ switch ($op) {
                 foreach ($errors as $error) {
                     $err_text .= '<br>' . $error;
                 }
-
-                $GLOBALS['xoopsTpl']->assign('error', $err_text);
             }
             $success_text = '';
             foreach ($success as $s) {
@@ -81,9 +79,8 @@ switch ($op) {
                 }
                 $success_text .= $s;
             }
-            $GLOBALS['xoopsTpl']->assign('result', $success_text . $err_text);
-            // $GLOBALS['xoopsTpl']->assign('maintainance_resize_desc', $maintainance_resize_desc);
-            // $GLOBALS['xoopsTpl']->assign('maintainance_dui_desc', $maintainance_dui_desc);
+            $GLOBALS['xoopsTpl']->assign('result_success', $success_text);
+            $GLOBALS['xoopsTpl']->assign('result_error', $err_text);
             $GLOBALS['xoopsTpl']->assign('show_gt', true);
             $GLOBALS['xoopsTpl']->assign('show_result', true);
         } elseif ('reset_gt' === $op) {
@@ -122,7 +119,6 @@ switch ($op) {
                 foreach ($errors as $error) {
                     $err_text .= '<br>' . $error;
                 }
-                $GLOBALS['xoopsTpl']->assign('error', $err_text);
             }
             $success_text = '';
             foreach ($success as $s) {
@@ -131,9 +127,8 @@ switch ($op) {
                 }
                 $success_text .= $s;
             }
-            $GLOBALS['xoopsTpl']->assign('result', $success_text . $err_text);
-            // $GLOBALS['xoopsTpl']->assign('maintainance_resize_desc', $maintainance_resize_desc);
-            // $GLOBALS['xoopsTpl']->assign('maintainance_dui_desc', $maintainance_dui_desc);
+            $GLOBALS['xoopsTpl']->assign('result_success', $success_text);
+            $GLOBALS['xoopsTpl']->assign('result_error', $err_text);
             $GLOBALS['xoopsTpl']->assign('show_at', true);
             $GLOBALS['xoopsTpl']->assign('show_result', true);
         } elseif ('reset_at' === $op) {
@@ -204,63 +199,41 @@ switch ($op) {
         }
         $imagesCount = $imagesHandler->getCount($crImages);
         $imagesAll   = $imagesHandler->getAll($crImages);
-        if ($imagesCount > 0) {
+        if ($imagesCount > 0 && ($resize_thumb + $resize_medium) > 0) {
             foreach (array_keys($imagesAll) as $i) {
                 $sourcefile = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesAll[$i]->getVar('img_namelarge');
                 if (file_exists($sourcefile)) {
+                    $counter++;
                     if (1 === $resize_medium) {
-                        $counter++;
                         $maxwidth = $helper->getConfig('maxwidth_medium');
                         $maxheight = $helper->getConfig('maxheight_medium');
                         $target = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/';
-                        $endfile = $target . $imagesAll[$i]->getVar('img_name');
-                        $imageMimetype = $imagesAll[$i]->getVar('img_mimetype');
-                        unlink($endfile);
-
-                        $imgHandler = new Wggallery\Resizer();
-                        $imgHandler->sourceFile = $sourcefile;
-                        $imgHandler->endFile = $endfile;
-                        $imgHandler->imageMimetype = $imageMimetype;
-                        $imgHandler->maxWidth = $maxwidth;
-                        $imgHandler->maxHeight = $maxheight;
-                        $result = $imgHandler->resizeImage();
-                        if ('copy' === $result) {
-                            unlink($endfile);
-                            copy($sourcefile, $endfile);
-                            $success++;
-                        } elseif ($result) {
-                            $success++;
-                        } else {
-                            $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_RESIZE . $imagesAll[$i]->getVar('img_name');
-                        }
                     }
                     if (1 === $resize_thumb) {
-                        $counter++;
                         $maxwidth = $helper->getConfig('maxwidth_thumbs');
                         $maxheight = $helper->getConfig('maxheight_thumbs');
                         $target = WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/';
-                        $endfile = $target . $imagesAll[$i]->getVar('img_name');
-                        $imageMimetype = $imagesAll[$i]->getVar('img_mimetype');
-                        unlink($endfile);
+                    }
+                    $endfile = $target . $imagesAll[$i]->getVar('img_name');
+                    $imageMimetype = $imagesAll[$i]->getVar('img_mimetype');
 
-                        $imgHandler = new Wggallery\Resizer();
-                        $imgHandler->sourceFile = $sourcefile;
-                        $imgHandler->endFile = $endfile;
-                        $imgHandler->imageMimetype = $imageMimetype;
-                        $imgHandler->maxWidth = $maxwidth;
-                        $imgHandler->maxHeight = $maxheight;
-                        $result = $imgHandler->resizeImage();
-                        if ('copy' === $result) {
-                            unlink($endfile);
-                            copy($sourcefile, $endfile);
-                            $success++;
-                        } elseif ('Unsupported format' === $result) {
-                            $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_RESIZE . $result . ' - ' . $imagesAll[$i]->getVar('img_name');
-                        } elseif ($result) {
-                            $success++;
-                        } else {
-                            $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_RESIZE . $imagesAll[$i]->getVar('img_name');
-                        }
+                    $imgHandler = new Wggallery\Resizer();
+                    $imgHandler->sourceFile = $sourcefile;
+                    $imgHandler->endFile = $endfile;
+                    $imgHandler->imageMimetype = $imageMimetype;
+                    $imgHandler->maxWidth = $maxwidth;
+                    $imgHandler->maxHeight = $maxheight;
+                    $result = $imgHandler->resizeImage();
+                    if ('copy' === $result) {
+                        unlink($endfile);
+                        copy($sourcefile, $endfile);
+                        $success++;
+                    } elseif ('Unsupported format' === $result) {
+                        $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_RESIZE . $result . ' - ' . $imagesAll[$i]->getVar('img_name');
+                    } elseif ($result) {
+                        $success++;
+                    } else {
+                        $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_RESIZE . $imagesAll[$i]->getVar('img_name');
                     }
                 } else {
                     $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_SOURCE . $sourcefile;
@@ -273,13 +246,12 @@ switch ($op) {
             foreach ($errors as $error) {
                 $err_text .= '<br>' . $error;
             }
-            $GLOBALS['xoopsTpl']->assign('error', $err_text);
         }
         $success_text = str_replace(['%s', '%t'], [$success, $counter], _AM_WGGALLERY_MAINTENANCE_SUCCESS_RESIZE);
 
         $GLOBALS['xoopsTpl']->assign('maintainance_resize_desc', $maintainance_resize_desc);
-        // $GLOBALS['xoopsTpl']->assign('maintainance_dui_desc', $maintainance_dui_desc);
-        $GLOBALS['xoopsTpl']->assign('result', $success_text . $err_text);
+        $GLOBALS['xoopsTpl']->assign('result_success', $success_text);
+        $GLOBALS['xoopsTpl']->assign('result_error', $err_text);
         $GLOBALS['xoopsTpl']->assign('show_resize', true);
         $GLOBALS['xoopsTpl']->assign('show_result', true);
         break;
@@ -315,7 +287,6 @@ switch ($op) {
             foreach ($errors as $error) {
                 $err_text .= '<br>' . $error;
             }
-            $GLOBALS['xoopsTpl']->assign('error', $err_text);
         }
         if (count($unused) > 0) {
             foreach ($unused as $image) {
@@ -329,7 +300,8 @@ switch ($op) {
         }
         // $GLOBALS['xoopsTpl']->assign('maintainance_resize_desc', $maintainance_resize_desc);
         $GLOBALS['xoopsTpl']->assign('maintainance_dui_desc', $maintainance_dui_desc);
-        $GLOBALS['xoopsTpl']->assign('result', $unused_text . $err_text);
+        $GLOBALS['xoopsTpl']->assign('result_success', $unused_text);
+        $GLOBALS['xoopsTpl']->assign('result_error', $err_text);
         $GLOBALS['xoopsTpl']->assign('show_unnused', true);
         $GLOBALS['xoopsTpl']->assign('show_result', true);
         break;
@@ -380,7 +352,6 @@ switch ($op) {
                 foreach ($errors as $error) {
                     $err_text .= '<br>' . $error;
                 }
-                $GLOBALS['xoopsTpl']->assign('error', $err_text);
             }
             $success_text = '';
             foreach ($success as $s) {
@@ -390,9 +361,9 @@ switch ($op) {
                 $success_text .= $s;
             }
 
-            // $GLOBALS['xoopsTpl']->assign('maintainance_resize_desc', $maintainance_resize_desc);
             $GLOBALS['xoopsTpl']->assign('maintainance_dui_desc', $maintainance_dui_desc);
-            $GLOBALS['xoopsTpl']->assign('result', $success_text . $err_text);
+            $GLOBALS['xoopsTpl']->assign('result_success', $success_text);
+            $GLOBALS['xoopsTpl']->assign('result_error', $err_text);
             $GLOBALS['xoopsTpl']->assign('show_unnused', true);
             $GLOBALS['xoopsTpl']->assign('show_result', true);
         } else {
@@ -423,7 +394,6 @@ switch ($op) {
             foreach ($errors as $error) {
                 $err_text .= '<br>' . $error;
             }
-            $GLOBALS['xoopsTpl']->assign('error', $err_text);
         }
         $success_text = '';
         foreach ($success as $s) {
@@ -433,7 +403,8 @@ switch ($op) {
             $success_text .= $s;
         }
 
-        $GLOBALS['xoopsTpl']->assign('result', $success_text . $err_text);
+        $GLOBALS['xoopsTpl']->assign('result_success', $success_text);
+        $GLOBALS['xoopsTpl']->assign('result_error', $err_text);
         $GLOBALS['xoopsTpl']->assign('show_invalid', true);
         $GLOBALS['xoopsTpl']->assign('show_result', true);
         break;
@@ -467,7 +438,6 @@ switch ($op) {
             foreach ($errors as $error) {
                 $err_text .= '<br>' . $error;
             }
-            $GLOBALS['xoopsTpl']->assign('error', $err_text);
         }
         $success_text = '';
         foreach ($success as $s) {
@@ -477,7 +447,8 @@ switch ($op) {
             $success_text .= $s;
         }
 
-        $GLOBALS['xoopsTpl']->assign('result', $success_text . $err_text);
+        $GLOBALS['xoopsTpl']->assign('result_success', $success_text);
+        $GLOBALS['xoopsTpl']->assign('result_error', $err_text);
         $GLOBALS['xoopsTpl']->assign('show_invalid', true);
         $GLOBALS['xoopsTpl']->assign('show_result', true);
         break;
@@ -567,16 +538,18 @@ switch ($op) {
                 $err_text .= '<li>' . $error . '</li>';
             }
             $err_text .= '</ul>';
-            $GLOBALS['xoopsTpl']->assign('error', $err_text);
         }
         $success_text = '<ul>';
         foreach ($success as $s) {
             $success_text .= '<li>' . $s . '</li>';
         }
         $success_text .= '</ul>';
-        $GLOBALS['xoopsTpl']->assign('result', $success_text . $err_text);
 
+        $GLOBALS['xoopsTpl']->assign('result_success', $success_text);
+        $GLOBALS['xoopsTpl']->assign('result_error', $err_text);
+        $GLOBALS['xoopsTpl']->assign('show_result', true);
         break;
+
     case 'broken_imgdir_search':
         $success     = [];
         $errors      = [];
@@ -602,7 +575,6 @@ switch ($op) {
                 $err_text .= '<li>' . $error . '</li>';
             }
             $err_text .= '</ul>';
-            $GLOBALS['xoopsTpl']->assign('error', $err_text);
         }
         if (count($success) > 0) {
             $success_text = '<ul>';
@@ -613,9 +585,8 @@ switch ($op) {
         } else {
             $success_text = _AM_WGGALLERY_MAINTENANCE_IMG_SEARCHOK;
         }
-        // $GLOBALS['xoopsTpl']->assign('maintainance_resize_desc', $maintainance_resize_desc);
-        // $GLOBALS['xoopsTpl']->assign('maintainance_dui_desc', $maintainance_dui_desc);
-        $GLOBALS['xoopsTpl']->assign('result', $success_text . $err_text);
+        $GLOBALS['xoopsTpl']->assign('result_success', $success_text);
+        $GLOBALS['xoopsTpl']->assign('result_error', $err_text);
         $GLOBALS['xoopsTpl']->assign('show_imgdir', true);
         $GLOBALS['xoopsTpl']->assign('show_result', true);
         break;
@@ -649,7 +620,6 @@ switch ($op) {
                 $err_text .= '<li>' . $error . '</li>';
             }
             $err_text .= '</ul>';
-            $GLOBALS['xoopsTpl']->assign('error', $err_text);
         }
         if (count($success) > 0) {
             $success_text = '<ul>';
@@ -660,9 +630,8 @@ switch ($op) {
         } else {
             $success_text = '<ul>';
         }
-        // $GLOBALS['xoopsTpl']->assign('maintainance_resize_desc', $maintainance_resize_desc);
-        // $GLOBALS['xoopsTpl']->assign('maintainance_dui_desc', $maintainance_dui_desc);
-        $GLOBALS['xoopsTpl']->assign('result', $success_text . $err_text);
+        $GLOBALS['xoopsTpl']->assign('result_success', $success_text);
+        $GLOBALS['xoopsTpl']->assign('result_error', $err_text);
         $GLOBALS['xoopsTpl']->assign('show_imgdir', true);
         $GLOBALS['xoopsTpl']->assign('show_result', true);
         break;
@@ -694,7 +663,6 @@ switch ($op) {
                 $err_text .= '<li>' . $error . '</li>';
             }
             $err_text .= '</ul>';
-            $GLOBALS['xoopsTpl']->assign('error', $err_text);
         }
         if (count($success) > 0) {
             $success_text = '<ul>';
@@ -705,9 +673,8 @@ switch ($op) {
         } else {
             $success_text = _AM_WGGALLERY_MAINTENANCE_IMG_SEARCHOK;
         }
-        // $GLOBALS['xoopsTpl']->assign('maintainance_resize_desc', $maintainance_resize_desc);
-        // $GLOBALS['xoopsTpl']->assign('maintainance_dui_desc', $maintainance_dui_desc);
-        $GLOBALS['xoopsTpl']->assign('result', $success_text . $err_text);
+        $GLOBALS['xoopsTpl']->assign('result_success', $success_text);
+        $GLOBALS['xoopsTpl']->assign('result_error', $err_text);
         $GLOBALS['xoopsTpl']->assign('show_imgalb', true);
         $GLOBALS['xoopsTpl']->assign('show_result', true);
         break;
@@ -744,7 +711,6 @@ switch ($op) {
                 $err_text .= '<li>' . $error . '</li>';
             }
             $err_text .= '</ul>';
-            $GLOBALS['xoopsTpl']->assign('error', $err_text);
         }
         if (count($success) > 0) {
             $success_text = '<ul>';
@@ -755,9 +721,8 @@ switch ($op) {
         } else {
             $success_text = _AM_WGGALLERY_MAINTENANCE_IMG_SEARCHOK;
         }
-        // $GLOBALS['xoopsTpl']->assign('maintainance_resize_desc', $maintainance_resize_desc);
-        // $GLOBALS['xoopsTpl']->assign('maintainance_dui_desc', $maintainance_dui_desc);
-        $GLOBALS['xoopsTpl']->assign('result', $success_text . $err_text);
+        $GLOBALS['xoopsTpl']->assign('result_success', $success_text);
+        $GLOBALS['xoopsTpl']->assign('result_error', $err_text);
         $GLOBALS['xoopsTpl']->assign('show_imgalb', true);
         $GLOBALS['xoopsTpl']->assign('show_result', true);
         break;
@@ -795,7 +760,6 @@ switch ($op) {
                 $err_text .= '<li>' . $error . '</li>';
             }
             $err_text .= '</ul>';
-            $GLOBALS['xoopsTpl']->assign('error', $err_text);
         }
         if (count($success) > 0) {
             $success_text = '<ul>';
@@ -808,7 +772,8 @@ switch ($op) {
         }
         // $GLOBALS['xoopsTpl']->assign('maintainance_resize_desc', $maintainance_resize_desc);
         // $GLOBALS['xoopsTpl']->assign('maintainance_dui_desc', $maintainance_dui_desc);
-        $GLOBALS['xoopsTpl']->assign('result', $success_text . $err_text);
+        $GLOBALS['xoopsTpl']->assign('result_success', $success_text);
+        $GLOBALS['xoopsTpl']->assign('result_error', $err_text);
         $GLOBALS['xoopsTpl']->assign('show_exif', true);
         $GLOBALS['xoopsTpl']->assign('show_result', true);
         break;
@@ -942,15 +907,14 @@ switch ($op) {
             $success_text .= '</ul>';
         }
 
-        $GLOBALS['xoopsTpl']->assign('result', $success_text . $err_text);
+        $GLOBALS['xoopsTpl']->assign('result_success', $success_text);
+        $GLOBALS['xoopsTpl']->assign('result_error', $err_text);
         $GLOBALS['xoopsTpl']->assign('show_mimetypes', true);
         $GLOBALS['xoopsTpl']->assign('show_result', true);
         break;
 
     case 'list':
     default:
-        // Define Stylesheet
-        $GLOBALS['xoTheme']->addStylesheet($style, null);
         $templateMain = 'wggallery_admin_maintenance.tpl';
 
         $maintainance_resize_desc = str_replace(['%mw', '%mh', '%tw', '%th'], [$helper->getConfig('maxwidth_medium'), $helper->getConfig('maxheight_medium'), $helper->getConfig('maxwidth_thumbs'), $helper->getConfig('maxheight_thumbs')], _AM_WGGALLERY_MAINTENANCE_RESIZE_DESC);

@@ -61,7 +61,12 @@
                 <tr class="<{cycle values='odd, even'}>">
                     <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_GT}></td>
                     <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_GT_DESC}></td>
-                    <{if $show_result}><td class='left'><{$result}></td><{/if}>
+                    <{if $show_result}>
+                        <td class='left'>
+                            <{if $result_success}><span><{$result_success}></span><{/if}>
+                            <{if $result_error}><span class='maintenance-error'><{$result_error}></span><{/if}>
+                        </td>
+                    <{/if}>
                     <td class='center '>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=delete_reset_gt' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_DR}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_DR}></a></p>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=reset_gt' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_R}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_R}></a></p>
@@ -72,7 +77,12 @@
                 <tr class="<{cycle values='odd, even'}>">
                     <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_AT}></td>
                     <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_AT_DESC}></td>
-                    <{if $show_result}><td class='left'><{$result}></td><{/if}>
+                    <{if $show_result}>
+                        <td class='left'>
+                            <{if $result_success}><span><{$result_success}></span><{/if}>
+                            <{if $result_error}><span class='maintenance-error'><{$result_error}></span><{/if}>
+                        </td>
+                    <{/if}>
                     <td class='center'>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=delete_reset_at' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_DR}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_DR}></a></p>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=reset_at' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_R}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_R}></a></p>
@@ -83,7 +93,12 @@
                 <tr class="<{cycle values='odd, even'}>">
                     <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_RESIZE}></td>
                     <td class='left'><{$maintainance_resize_desc}></td>
-                    <{if $show_result}><td class='left'><{$result}></td><{/if}>
+                    <{if $show_result}>
+                        <td class='left'>
+                            <{if $result_success}><span><{$result_success}></span><{/if}>
+                            <{if $result_error}><span class='maintenance-error'><{$result_error}></span><{/if}>
+                        </td>
+                    <{/if}>
                     <td class='center'>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=resize_medium' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_RIM}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_RIM}></a></p>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=resize_thumb' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_RIT}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_RIT}></a></p>
@@ -95,7 +110,12 @@
                 <tr class="<{cycle values='odd, even'}>">
                     <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED}></td>
                     <td class='left'><{$maintainance_dui_desc}></td>
-                    <{if $show_result}><td class='left'><{$result}></td><{/if}>
+                    <{if $show_result}>
+                        <td class='left'>
+                            <{if $result_success}><span><{$result_success}></span><{/if}>
+                            <{if $result_error}><span class='maintenance-error'><{$result_error}></span><{/if}>
+                        </td>
+                    <{/if}>
                     <td class='center'>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=delete_unused_images_show' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_DUI_SHOW}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_DUI_SHOW}></a></p>
                         <{if $show_result}>
@@ -108,7 +128,12 @@
                 <tr class="<{cycle values='odd, even'}>">
                     <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_DELETE_INVALID}></td>
                     <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_DELETE_INVALID_DESC}></td>
-                    <{if $show_result}><td class='left'><{$result}></td><{/if}>
+                    <{if $show_result}>
+                        <td class='left'>
+                            <{if $result_success}><span><{$result_success}></span><{/if}>
+                            <{if $result_error}><span class='maintenance-error'><{$result_error}></span><{/if}>
+                        </td>
+                    <{/if}>
                     <td class='center'>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=invalid_images_search' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_SEARCH}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_SEARCH}></a></p>
                         <{if $show_result}>
@@ -121,7 +146,12 @@
                 <tr class="<{cycle values='odd, even'}>">
                     <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMGDIR}></td>
                     <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMGDIR_DESC}></td>
-                    <{if $show_result}><td class='left'><{$result}></td><{/if}>
+                    <{if $show_result}>
+                        <td class='left'>
+                            <{if $result_success}><span><{$result_success}></span><{/if}>
+                            <{if $result_error}><span class='maintenance-error'><{$result_error}></span><{/if}>
+                        </td>
+                    <{/if}>
                     <td class='center'>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=broken_imgdir_search' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_SEARCH}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_SEARCH}></a></p>
                         <{if $show_result}>
@@ -134,7 +164,12 @@
                 <tr class="<{cycle values='odd, even'}>">
                     <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMGALB}></td>
                     <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMGALB_DESC}></td>
-                    <{if $show_result}><td class='left'><{$result}></td><{/if}>
+                    <{if $show_result}>
+                        <td class='left'>
+                            <{if $result_success}><span><{$result_success}></span><{/if}>
+                            <{if $result_error}><span class='maintenance-error'><{$result_error}></span><{/if}>
+                        </td>
+                    <{/if}>
                     <td class='center'>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=broken_imgalb_search' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_SEARCH}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_SEARCH}></a></p>
                         <{if $show_result}>
@@ -147,7 +182,12 @@
                 <tr class="<{cycle values='odd, even'}>">
                     <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_WATERMARK}></td>
                     <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_WATERMARK_DESC}></td>
-                    <{if $show_result}><td class='left'><{$result}></td><{/if}>
+                    <{if $show_result}>
+                        <td class='left'>
+                            <{if $result_success}><span><{$result_success}></span><{/if}>
+                            <{if $result_error}><span class='maintenance-error'><{$result_error}></span><{/if}>
+                        </td>
+                    <{/if}>
                     <td class='center'>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=watermark_select' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_ALBUM_SELECT}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_ALBUM_SELECT}></a></p>
                     </td>
@@ -157,7 +197,12 @@
                 <tr class="<{cycle values='odd, even'}>">
                     <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF}></td>
                     <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_DESC}></td>
-                    <{if $show_result}><td class='left'><{$result}></td><{/if}>
+                    <{if $show_result}>
+                        <td class='left'>
+                            <{if $result_success}><span><{$result_success}></span><{/if}>
+                            <{if $result_error}><span class='maintenance-error'><{$result_error}></span><{/if}>
+                        </td>
+                    <{/if}>
                     <td class='center'>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=read_exif' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_READ}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_READ}></a></p>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=read_exifall' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_READALL}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_READALL}></a></p>
@@ -168,7 +213,12 @@
                 <tr class="<{cycle values='odd, even'}>">
                     <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECK_MT}></td>
                     <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECK_MT_DESC}></td>
-                    <{if $show_result}><td class='left'><{$result}></td><{/if}>
+                    <{if $show_result}>
+                        <td class='left'>
+                            <{if $result_success}><span><{$result_success}></span><{/if}>
+                            <{if $result_error}><span class='maintenance-error'><{$result_error}></span><{/if}>
+                        </td>
+                    <{/if}>
                     <td class='center'>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=mimetypes_search' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECK_MT_SEARCH}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECK_MT_SEARCH}></a></p>
                         <{if $show_result}>
