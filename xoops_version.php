@@ -25,7 +25,7 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 // ------------------- Informations ------------------- //
 $modversion = [
-    'version'             => '1.10',
+    'version'             => '1.11',
     'module_status'       => 'RC1',
     'release_date'        => '2019/04/15',
     'name'                => _MI_WGGALLERY_NAME,

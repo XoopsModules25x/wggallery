@@ -293,5 +293,18 @@ define('_AM_WGGALLERY_IMPORT_ERR_IMGEXIST', 'There are already images existing')
 define('_AM_WGGALLERY_IMPORT_SUCCESS', '%a albums and %i images successfully imported');
 define('_AM_WGGALLERY_IMPORT_ERROR', 'An error occured during import');
 // ---------------- Admin Others ----------------
-
 // ---------------- End ----------------
+// version 1.11
+define('_AM_WGGALLERY_MAINTENANCE_ERROR_SOURCE', 'Error - necessary sourcefile not found: ');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT', 'Check mimetypes');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_DESC', 'Check image table for:<ul>
+<li>invalid mimetypes</li>
+<li>mimetypes not allowed according module preferences</li>
+</ul>');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SEARCH', 'Search invalid mimetypes');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_CLEAN', 'Clean invalid mimetypes');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SUCCESS', '%s mimetype of %t are valid');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SUCCESSOK', 'Mimetype valid');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_ERROR', 'Invalid mimetype');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SAVESUCCESS', 'Mimetype successfully changed');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SAVEERROR', 'Error when saving mimetype');

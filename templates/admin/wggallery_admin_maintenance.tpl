@@ -130,7 +130,7 @@
                     </td>
                 </tr>
             <{/if}>
-            <{if $show_immgalb}>
+            <{if $show_imgalb}>
                 <tr class="<{cycle values='odd, even'}>">
                     <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMGALB}></td>
                     <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMGALB_DESC}></td>
@@ -161,6 +161,19 @@
                     <td class='center'>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=read_exif' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_READ}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_READ}></a></p>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=read_exifall' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_READALL}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_READALL}></a></p>
+                    </td>
+                </tr>
+            <{/if}>
+            <{if $show_mimetypes}>
+                <tr class="<{cycle values='odd, even'}>">
+                    <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECK_MT}></td>
+                    <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECK_MT_DESC}></td>
+                    <{if $show_result}><td class='left'><{$result}></td><{/if}>
+                    <td class='center'>
+                        <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=mimetypes_search' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECK_MT_SEARCH}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECK_MT_SEARCH}></a></p>
+                        <{if $show_result}>
+                            <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=mimetypes_clean' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECK_MT_CLEAN}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECK_MT_CLEAN}></a></p>
+                        <{/if}>
                     </td>
                 </tr>
             <{/if}>

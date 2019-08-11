@@ -226,8 +226,7 @@ define('_AM_WGGALLERY_MAINTENANCE_AT_DESC', 'Nicht mehr unterstützte Albumtypen
 define('_AM_WGGALLERY_MAINTENANCE_AT_SURERESET', 'Alle derzeit bestehenden Albumeinstellungen werden durch die Standardeinstellungen ersetzt! Wollen Sie wirklich fortsetzen?');
 define('_AM_WGGALLERY_MAINTENANCE_AT_SUREDELETE', 'Alle derzeit bestehenden Albumtypen (inklusive deren Einstellungen) werden gelöscht bzw. durch die aktuellen Albumtypen/Einstellungen ersetzt! Wollen Sie wirklich fortsetzen?');
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE', 'Größenänderung Bilder');
-define('_AM_WGGALLERY_MAINTENANCE_RESIZE_DESC',
-       'Erneute Größenänderung der mittleren Bilder oder Vorschaubilder entsprechend der vorgegeben Höhe in den Moduleinstellungen.<br>Aktuelle Einstellungen:<br>a) Mittlere Bilder: maximale Breite %mw px / maximale Höhe %mh px<br>b) Vorschaubilder: maximale Breite %tw px / maximale Höhe %th px');
+define('_AM_WGGALLERY_MAINTENANCE_RESIZE_DESC', 'Erneute Größenänderung der mittleren Bilder oder Vorschaubilder entsprechend der vorgegeben Höhe in den Moduleinstellungen.<br>Aktuelle Einstellungen:<br>a) Mittlere Bilder: maximale Breite %mw px / maximale Höhe %mh px<br>b) Vorschaubilder: maximale Breite %tw px / maximale Höhe %th px');
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE_SELECT', 'Wähle die Bildart für Größenänderung');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED', 'Bilderverzeichnis bereinigen');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC', 'Alle derzeit nicht verwendeten Bilder in folgenden Verzeichissen werden gelöscht:<ul>
@@ -244,7 +243,6 @@ define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_NONE', 'Es wurden keine nicht ve
 define('_AM_WGGALLERY_MAINTENANCE_DUI_SUREDELETE', 'Alle derzeit nicht verwendeten Albumbilder werden gelöscht! Wollen Sie wirklich fortsetzen?');
 define('_AM_WGGALLERY_MAINTENANCE_WATERMARK', 'Wasserzeichen zu Album nachträglich hinzufügen');
 define('_AM_WGGALLERY_MAINTENANCE_WATERMARK_DESC', 'Ein Wasserzeichen zu einem Album hinzufügen.<br>Achtung: bestehende Wasserzeichen werden nicht entfernt.<br>Wenn bereits ein Wasserzeichen vorhanden ist, wird den Bildern ein zusätzliches Wasserzeichen hinzugefügt.');
-define('_AM_WGGALLERY_MAINTENANCE_WATERMARK_SUCCESS', 'Erfolgreich');
 define('_AM_WGGALLERY_MAINTENANCE_IMGDIR', 'Fehlerhafte Einträge Bilder zu Verzeichnis');
 define('_AM_WGGALLERY_MAINTENANCE_IMGDIR_DESC', 'Es werden Einträge in der Tabelle Bilder gesucht, die im Uploadverzeichnis nicht gefunden werden.');
 define('_AM_WGGALLERY_MAINTENANCE_IMGALB', 'Fehlerhafte Einträge Bilder zu Album');
@@ -296,3 +294,17 @@ define('_AM_WGGALLERY_IMPORT_SUCCESS', '%a Alben und %i Bilder erfolgreich impor
 define('_AM_WGGALLERY_IMPORT_ERROR', 'Während des Imports ist ein Fehler aufgetreten');
 // ---------------- Admin Others ----------------
 // ---------------- End ----------------
+// version 1.11
+define('_AM_WGGALLERY_MAINTENANCE_ERROR_SOURCE', 'Fehler - erforderliche Quelldatei nicht gefunden: ');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT', 'Mimetypes überprüfen');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_DESC', 'Bildertabelle überprüfen auf:<ul>
+<li>ungültige Dateiendungen</li>
+<li>Dateiendungen, die aufgrund der Moduleinstellungen nicht zulässig sind</li>
+</ul>');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SEARCH', 'Fehlerhafte Mimetypes anzeigen');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_CLEAN', 'Fehlerhafte Mimetypes beheben');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SUCCESS', '%s Mimetypes von %t in Ordnung');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SUCCESSOK', 'Mimetype in Ordnung');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_ERROR', 'Fehlerhafter Mimetype');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SAVESUCCESS', 'Mimetype erfolgreich geändert');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SAVEERROR', 'Fehler beim Ändern Mimetype');
