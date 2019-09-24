@@ -151,6 +151,7 @@ switch ($op) {
         $imagesObj->setVar('img_weight', isset($_POST['img_weight']) ? $_POST['img_weight'] : 0);
         $imagesObj->setVar('img_albid', isset($_POST['img_albid']) ? $_POST['img_albid'] : 0);
         $imagesObj->setVar('img_state', isset($_POST['img_state']) ? $_POST['img_state'] : 0);
+        $imagesObj->setVar('img_exif', isset($_POST['img_exif']) ? $_POST['img_exif'] : '');
         $imageDate = date_create_from_format(_SHORTDATESTRING, $_POST['img_date']);
         $imagesObj->setVar('img_date', $imageDate->getTimestamp());
         $imagesObj->setVar('img_submitter', isset($_POST['img_submitter']) ? $_POST['img_submitter'] : 0);

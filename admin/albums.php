@@ -42,7 +42,6 @@ switch ($op) {
     case 'list':
     default:
         // Define Stylesheet
-        $GLOBALS['xoTheme']->addStylesheet($style, null);
         $templateMain = 'wggallery_admin_albums.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('albums.php'));
         $adminObject->addItemButton(_AM_WGGALLERY_ADD_ALBUM, 'albums.php?op=new', 'add');
@@ -124,6 +123,9 @@ switch ($op) {
         $albumsObj->setVar('alb_desc', Request::getString('alb_desc'));
         $albumsObj->setVar('alb_weight', Request::getInt('alb_weight'));
         $albumsObj->setVar('alb_state', Request::getInt('alb_state'));
+        $albumsObj->setVar('alb_imgcat', Request::getInt('alb_imgcat'));
+        $albumsObj->setVar('alb_image', Request::getString('alb_image'));
+        $albumsObj->setVar('alb_imgid', Request::getInt('alb_imgid'));
         $albumsObj->setVar('alb_wmid', Request::getInt('alb_wmid'));
         $albumDate = date_create_from_format(_SHORTDATESTRING, $_POST['alb_date']);
         $albumsObj->setVar('alb_date', $albumDate->getTimestamp());

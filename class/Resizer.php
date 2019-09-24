@@ -33,6 +33,8 @@ class Resizer
     public $jpgQuality    = 90;
     public $mergeType     = 0;
     public $mergePos      = 0;
+    public $degrees       = 0;
+    public $error         = '';
 
     /**
      * resize image if size exceed given width/height
@@ -47,6 +49,9 @@ class Resizer
                 break;
             case'image/jpeg':
                 $img = imagecreatefromjpeg($this->sourceFile);
+                if (!$img) {
+                    $img = imagecreatefromstring(file_get_contents($this->sourceFile));
+                }
                 break;
             case'image/gif':
                 $img = imagecreatefromgif($this->sourceFile);
@@ -107,8 +112,6 @@ class Resizer
 
         return true;
     }
-
-    // public function resizeAndCrop($this->sourceFile, $this->imageMimetype, $this->endFile, $this->maxWidth, $this->maxHeight, $this->jpgQuality=90)
 
     /**
      * @return bool|string
@@ -179,7 +182,7 @@ class Resizer
         return true;
     }
 
-    // public function mergeImage($this->sourceFile, $this->endFile, $this->mergePos, $this->mergeType)
+
     public function mergeImage()
     {
         $dest = imagecreatefromjpeg($this->endFile);
@@ -236,5 +239,58 @@ class Resizer
 
         imagedestroy($src);
         imagedestroy($dest);
+    }
+    
+    /**
+     * @return bool|string
+     */
+    public function rotateImage()
+    {
+        // check file extension
+        switch ($this->imageMimetype) {
+            case 'image/png':
+                $original = imagecreatefrompng($this->sourceFile);
+                break;
+            case 'image/jpeg':
+                $original = imagecreatefromjpeg($this->sourceFile);
+                break;
+            case 'image/gif':
+                $original = imagecreatefromgif($this->sourceFile);
+                break;
+            default:
+                return 'Unsupported format';
+        }
+
+        if (!$original) {
+            return false;
+        }
+        // Rotate
+        $tmpimg = imagerotate($original, $this->degrees, 0);
+
+
+        unlink($this->endFile);
+        //compressing the file
+        switch ($this->imageMimetype) {
+            case'image/png':
+                if (!imagepng($tmpimg, $this->endFile, 0)) {
+                    return false;
+                }
+                break;
+            case'image/jpeg':
+                if (!imagejpeg($tmpimg, $this->endFile, $this->jpgQuality)) {
+                    return false;
+                }
+                break;
+            case'image/gif':
+                if (!imagegif($tmpimg, $this->endFile)) {
+                    return false;
+                }
+                break;
+        }
+
+        // release the memory
+        imagedestroy($tmpimg);
+
+        return true;
     }
 }

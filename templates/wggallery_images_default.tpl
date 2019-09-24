@@ -9,7 +9,7 @@
                     <div class='row wgg-img-panel wgg-image-list'>
                         <div class='wgg-img-panel-row col-sm-8'>
                             <{if $image.medium}>
-                                <div class='center'><img id='image_<{$image.id}>' class='img-responsive wgg-img' src='<{$image.medium}>' alt='<{$image.title}>'></div>
+                                <div class='center'><img id='image_<{$image.id}>' class='img-responsive wgg-img' src='<{$image.medium}>#<{$random}>' alt='<{$image.title}>'></div>
                             <{/if}>
                         </div>
                         <div class='wgg-img-panel-row col-sm-4'>
@@ -44,6 +44,14 @@
                                 <a class='btn btn-default wgg-btn' href='<{$wggallery_url}>/images.php?op=delete&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>&amp;alb_pid=<{$alb_pid}>' title='<{$smarty.const._DELETE}>'>
                                     <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/delete.png' alt='<{$smarty.const._DELETE}>'>
 									<{if $displayButtonText}><{$smarty.const._DELETE}><{/if}>
+                                </a>
+                                <a class='btn btn-default wgg-btn' href='images.php?op=rotate&amp;dir=left&amp;img_id=<{$image.id}>&amp;alb_id=<{$alb_id}>&amp;start=<{$start}>&amp;limit=<{$limit}>&amp;img_submitter=<{$img_submitter}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_LEFT}>'>
+                                    <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/rotate_left.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_LEFT}>'>
+                                    <{if $displayButtonText}><{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_LEFT}><{/if}>
+                                </a>
+                                <a class='btn btn-default wgg-btn' href='images.php?op=rotate&amp;dir=right&amp;img_id=<{$image.id}>&amp;alb_id=<{$alb_id}>&amp;start=<{$start}>&amp;limit=<{$limit}>&amp;img_submitter=<{$img_submitter}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_RIGHT}>'>
+                                    <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/rotate_right.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_RIGHT}>'>
+                                    <{if $displayButtonText}><{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_RIGHT}><{/if}>
                                 </a>
                             <{/if}>
                             <{if $img_allowdownload}>

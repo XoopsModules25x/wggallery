@@ -1,5 +1,7 @@
+<i id='gallery'></i>
 <{if $balbums_list}>
-    <{foreach item=album from=$balbums_list}>
+    <{foreach name=album item=album from=$balbums_list}>
+        <{if $album.newrow}><div class="row wgg-row-block"><{/if}>
         <{if $bnbAlbumsRow == 2}><div class='col-xs-12 col-sm-6'>
         <{elseif $bnbAlbumsRow == 3}><div class='col-xs-12 col-sm-4'>
         <{elseif $bnbAlbumsRow == 4}><div class='col-xs-12 col-sm-3'>
@@ -89,7 +91,7 @@
                             </a>
                         </p>
                     </div>
-                </div>
+                </div>           
             <{elseif $ba_template == 'simple'}>
                 <div class='center'>
                     <{if $album.nb_images}>
@@ -174,13 +176,12 @@
         <{if $album.linebreak}>
             <div class='clear'>&nbsp;</div>
         <{/if}>
-        
-        
+        <{if $album.linebreak}></div><{/if}>
     <{/foreach}>
     <div class="clear"></div>
     <{if $show_more_albums}>
         <div class="wgg-b-album-more center">
-            <a class='btn wgfxg-more-btn' href='<{$wggallery_url}>/index.php' title='<{$smarty.const._CO_WGGALLERY_ALBUMS_SHOW}>'><{$smarty.const._CO_WGGALLERY_ALBUMS_SHOW}></a>
+            <a class='btn btn-primary wgg-btn-more' href='<{$wggallery_url}>/index.php' title='<{$smarty.const._CO_WGGALLERY_ALBUMS_SHOW}>'><{$smarty.const._CO_WGGALLERY_ALBUMS_SHOW}></a>
         </div>
     <{/if}>
 <{/if}>

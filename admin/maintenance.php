@@ -739,7 +739,7 @@ switch ($op) {
                     $imagesObj = $imagesHandler->get($image['img_id']);
                     $imgLarge  = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $image['img_namelarge'];
                     $imgExif   = exif_read_data($imgLarge);
-                    $imagesObj->setVar('img_exif', serialize($imgExif));
+                    $imagesObj->setVar('img_exif', json_encode($imgExif));
                     if ($imagesHandler->insert($imagesObj, true)) {
                         $success[] = _AM_WGGALLERY_MAINTENANCE_READ_EXIF_SUCCESS . ': ' . $image['img_id'];
                     } else {

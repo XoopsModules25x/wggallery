@@ -14,6 +14,11 @@
    -- _AM_WGGALLERY_MAINTENANCE_CHECK_MT_SAVESUCCESS
    -- _AM_WGGALLERY_MAINTENANCE_CHECK_MT_SAVEERROR 
  - added sorting for admin/albums list (goffy)
+ - fixed bug in wggallery_categoryitem_bcards.tpl (goffy)
+ - added image rotation to resizer class (goffy)
+ - set noimage.png as default for new albums (goffy)
+ - fixed bug with upload very big jpg images (goffy) 
+ - switch from serialize to json_decode to fix problem with lne breaks (goffy)
  
 <h5>1.10 RC1</h5>  [2019/04/15]
 <hr>

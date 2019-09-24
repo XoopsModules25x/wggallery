@@ -175,6 +175,9 @@ if ($moduleDirName == $currdirname) {
         $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME2;
         $modversion['sub'][$subcount]['url']  = 'albums.php';
         $subcount++;
+        $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME5;
+        $modversion['sub'][$subcount]['url']  = 'images.php';
+        $subcount++;
         $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME3;
         $modversion['sub'][$subcount]['url']  = 'albums.php?op=new';
         $subcount++;

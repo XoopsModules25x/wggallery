@@ -68,7 +68,7 @@ define('_CO_WGGALLERY_FU_SUCCEEDED', 'Alle Bilder erfolgreich hochgeladen');
 define('_CO_WGGALLERY_ALBUM_ADD', 'Album hinzufügen');
 define('_CO_WGGALLERY_ALBUM_EDIT', 'Album bearbeiten');
 // Elements of categories
-define('_CO_WGGALLERY_CATS_TITLE', 'Verfügbare Kategorien');
+define('_CO_WGGALLERY_CATS_TITLE', 'Verfügbare Albensammlungen');
 define('_CO_WGGALLERY_CATS_ALBUMS', 'Enthaltene Alben anzeigen');
 // Elements of Album
 define('_CO_WGGALLERY_ALBUMS_TITLE', 'Galerie unserer Alben');
@@ -125,8 +125,6 @@ define('_CO_WGGALLERY_ALBUM_IH_CROP_MOVE_LEFT', 'Nach links verschieben');
 define('_CO_WGGALLERY_ALBUM_IH_CROP_MOVE_RIGHT', 'Nach rechts verschieben');
 define('_CO_WGGALLERY_ALBUM_IH_CROP_MOVE_UP', 'Nach oben verschieben');
 define('_CO_WGGALLERY_ALBUM_IH_CROP_MOVE_DOWN', 'Nach unten verschieben');
-define('_CO_WGGALLERY_ALBUM_IH_CROP_ROTATE_LEFT', 'Links drehen');
-define('_CO_WGGALLERY_ALBUM_IH_CROP_ROTATE_RIGHT', 'Rechts drehen');
 define('_CO_WGGALLERY_ALBUM_IH_CROP_FLIP_HORIZONTAL', 'Horizontal spiegeln');
 define('_CO_WGGALLERY_ALBUM_IH_CROP_FLIP_VERTICAL', 'Vertikal spiegeln');
 define('_CO_WGGALLERY_ALBUM_IH_CROP_ASPECTRATIO', 'Seitenverhältnis');
@@ -170,6 +168,10 @@ define('_CO_WGGALLERY_IMAGE_MEDIUM', 'Mittleres Bild');
 define('_CO_WGGALLERY_IMAGE_LARGE', 'Großes Bild');
 define('_CO_WGGALLERY_IMAGE_ALL', 'Alle Bilder');
 define('_CO_WGGALLERY_IMAGE_EXIF', 'Exif-Daten');
+define('_CO_WGGALLERY_IMAGE_ROTATE_LEFT', 'Links drehen');
+define('_CO_WGGALLERY_IMAGE_ROTATE_RIGHT', 'Rechts drehen');
+define('_CO_WGGALLERY_IMAGE_ROTATED', 'Bild erfolgreich gedreht');
+define('_CO_WGGALLERY_IMAGE_ROTATE_ERROR', 'Beim Drehen des Bildes ist ein Fehler aufgetreten');
 // Watermark add/edit
 define('_CO_WGGALLERY_WATERMARK_ADD', 'Wasserzeichen hinzufügen');
 define('_CO_WGGALLERY_WATERMARK_EDIT', 'Wasserzeichen bearbeiten');

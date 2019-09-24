@@ -1,3 +1,4 @@
+<i id='images'></i>
 <{if $images_list}>
     <{foreach item=image from=$images_list}>
         <{if $bi_nbImagesRow == 2}><div class='col-xs-12 col-sm-6'>

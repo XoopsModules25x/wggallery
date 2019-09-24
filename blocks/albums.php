@@ -39,7 +39,7 @@ function b_wggallery_albums_show($options)
     $blenghtTitle = $options[3];
     $bshowDesc    = $options[4];
     $blenghtDesc  = $options[5];
-    $bnbAlbumsRow = $options[6];
+    $bnbAlbumsRow = (int) $options[6];
     $bgallery     = $options[7];
     $bAlbumType   = $options[8];
 
@@ -115,6 +115,7 @@ function b_wggallery_albums_show($options)
         $criteria->add(new \Criteria('alb_id', '(' . $album_ids . ')', 'IN'));
     }
     $criteria->add(new \Criteria('alb_state', Constants::STATE_ONLINE_VAL));
+    $criteria->add(new \Criteria('alb_iscat', 0));
     switch ($typeBlock) {
         // For the block: albums recent
         case 'recent':

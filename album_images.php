@@ -322,12 +322,14 @@ switch ($op) {
         if (count($albumsChilds) > 0) {
             foreach ($albumsChilds as $child) {
                 $alb_name = '';
+                $counter  = 0;
                 $crImages = new \CriteriaCompo();
                 $crImages->add(new \Criteria('img_albid', $child));
                 $crImages->setSort('img_weight');
                 $crImages->setOrder('DESC');
                 $imagesAll = $imagesHandler->getAll($crImages);
                 foreach (array_keys($imagesAll) as $i) {
+                    $counter++;
                     $images[$i] = $imagesAll[$i]->getValuesImages();
                     if ($albImage1 === $images[$i]['img_name']) {
                         $images[$i]['selected'] = 1;
@@ -337,6 +339,7 @@ switch ($op) {
                         $alb_name               = $albums->get($child)->getVar('alb_name');
                         $images[$i]['alb_name'] = $alb_name;
                     }
+                    $images[$i]['counter'] = $counter;
                 }
             }
         }

@@ -139,13 +139,22 @@ class Albums extends \XoopsObject
         $albWeight = $this->isNew() ? '0' : $this->getVar('alb_weight');
         $form->addElement(new \XoopsFormHidden('alb_weight', $albWeight));
 
-        // Form Select Album image
-        $albImgcat = $this->isNew() ? Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL : $this->getVar('alb_imgcat');
-        $form->addElement(new \XoopsFormHidden('alb_imgcat', $albImgcat));
-        $albImage = $this->isNew() ? 'blank.gif' : $this->getVar('alb_image');
-        $form->addElement(new \XoopsFormHidden('alb_image', $albImage));
-        $albImgid = $this->isNew() ? 0 : $this->getVar('alb_imgid');
-        $form->addElement(new \XoopsFormHidden('alb_imgid', $albImgid));
+        // Form Album image
+        $albImgcat = $this->isNew() ? Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL : $this->getVar('alb_imgcat');     
+        $albImage  = $this->isNew() ? 'noimage.png' : $this->getVar('alb_image');
+        $albImgid  = $this->isNew() ? 0 : $this->getVar('alb_imgid');
+        if (true === $admin) {
+            $albImgcatSelect = new \XoopsFormRadio(_CO_WGGALLERY_ALBUM_IMGCAT, 'alb_imgcat', $albImgcat);
+            $albImgcatSelect->addOption(Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL, _CO_WGGALLERY_ALBUM_USE_UPLOADED);
+            $albImgcatSelect->addOption(Constants::ALBUM_IMGCAT_USE_EXIST_VAL, _CO_WGGALLERY_ALBUM_IMGID);
+            $form->addElement($albImgcatSelect);
+            $form->addElement(new \XoopsFormText(_CO_WGGALLERY_IMAGE_NAME, 'alb_image', 50, 255, $albImage));
+            $form->addElement(new \XoopsFormText(_CO_WGGALLERY_IMAGE_ID, 'alb_imgid', 50, 255, $albImgid));
+        } else {
+            $form->addElement(new \XoopsFormHidden('alb_imgcat', $albImgcat));
+            $form->addElement(new \XoopsFormHidden('alb_image', $albImage));
+            $form->addElement(new \XoopsFormHidden('alb_imgid', $albImgid));
+        }
 
         // Form Select Albstate
         $albState       = $this->isNew() ? 0 : $this->getVar('alb_state');
@@ -268,6 +277,7 @@ class Albums extends \XoopsObject
             $alb_submitter = $this->getVar('alb_submitter');
         }
         $form->addElement(new \XoopsFormSelectUser(_CO_WGGALLERY_SUBMITTER, 'alb_submitter', false, $alb_submitter));
+
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $btnTray = new \XoopsFormElementTray('', '&nbsp;');

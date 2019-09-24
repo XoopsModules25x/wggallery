@@ -23,7 +23,7 @@
 			<!-- *************** Basic Tab ***************-->
             <div class='tab-pane active center' id='1'>
 				<img id='currentImg' class='img-responsive wgg-album-img' src='<{$album.image}>' alt='<{$album.name}>'>
-                <p><{$smarty.const._CO_WGGALLERY_ALBUM_IMGCAT}>: <{$album.image}><br>
+                <p><{$smarty.const._CO_WGGALLERY_ALBUM_IMGCAT}>: <{$album.image_path}><br>
                 <{$smarty.const._CO_WGGALLERY_IMAGE_RES}>: <{$albimage_width}> / <{$albimage_height}></p>
                 <input type='button' class='btn <{$btn_style}>' value='<{$smarty.const._CANCEL}>' onclick='history.go(-1);return true;'>
 			</div>
@@ -31,11 +31,17 @@
             <!-- *************** Tab for select image of albums ***************-->
 			<div class='tab-pane' id='2'>
                 <div class='col-xs-12 col-sm-6'>
-                    <{foreach item=image from=$images}>
-                        <{if $image.alb_name}><div class='selimages col-xs-12 col-sm-12'><h5 class='modal-title' style='width:100%'><{$image.alb_name}></h5></div><{/if}>
+                    <{foreach item=image from=$images name=fe_image}>
+                        <{if $image.alb_name}>
+                            <div class='clear'></div>
+                            <div class='selimages col-xs-12 col-sm-12'><h5 class='modal-title' style='width:100%'><{$image.alb_name}></h5></div>
+                        <{/if}>
                         <div class='selimages col-xs-12 col-sm-4'>
-                        <input id='<{$image.id}>_image' class='imgSelect1 img-responsive wgg-album-img <{if $image.selected}>wgg-modal-selected<{/if}>' type='image' src='<{$image.thumb}>' alt='<{$image.title}>' style='padding:3px;' value='<{$image.name}>'>
+                            <input id='<{$image.id}>_image' class='imgSelect1 img-responsive wgg-album-img <{if $image.selected}>wgg-modal-selected<{/if}>' type='image' src='<{$image.thumb}>'  preview='<{$image.medium}>' alt='<{$image.title}>' style='padding:3px;' value='<{$image.name}>'>
                         </div>
+                        <{if $image.counter % 3 == 0}>
+                            <div class='clear'></div>
+                        <{/if}>
                     <{/foreach}>
                 </div>
                 <div class='col-xs-12 col-sm-6'>
@@ -110,11 +116,11 @@
 					<div class="col-md-12 docs-toggles">
 						<!-- <h3>Toggles:</h3> -->
                         <div class="btn-group d-flex flex-nowrap" data-toggle="buttons">
-                            <label class="btn btn-crop <{$btn_style}> active">
+                            <label class="btn btn-crop <{$btn_style}>">
                                 <input type="radio" class="sr-only" id="aspectRatio1" name="aspectRatio" value="1.7777777777777777">
                                 <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_ASPECTRATIO}>: 16 / 9">16:9</span>
                             </label>
-                            <label class="btn btn-crop <{$btn_style}>">
+                            <label class="btn btn-crop <{$btn_style}>  active">
                                 <input type="radio" class="sr-only" id="aspectRatio2" name="aspectRatio" value="1.3333333333333333">
                                 <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_ASPECTRATIO}>: 4 / 3">4:3</span>
                             </label>
@@ -169,11 +175,11 @@
                         </div>
 
                         <div class="btn-group">
-                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="rotate" data-option="-45" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_ROTATE_LEFT}>">
-                                <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_ROTATE_LEFT}>"><span class="fa fa-rotate-left"></span></span>
+                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="rotate" data-option="-45" title="<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_LEFT}>">
+                                <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_LEFT}>"><span class="fa fa-rotate-left"></span></span>
                             </button>
-                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="rotate" data-option="45" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_ROTATE_RIGHT}>">
-                                <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_ROTATE_RIGHT}>"><span class="fa fa-rotate-right"></span></span>
+                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="rotate" data-option="45" title="<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_RIGHT}>">
+                                <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_RIGHT}>"><span class="fa fa-rotate-right"></span></span>
                             </button>
                         </div>
 
@@ -324,7 +330,7 @@
 	
 	$('.imgSelect1').click(function () {
 		$('#alb_imgid').val($(this).attr('id'));
-		document.getElementById('albImgSelected').src=$(this).attr('src');
+		document.getElementById('albImgSelected').src=$(this).attr('preview');
 		var elements = document.getElementsByClassName('wgg-modal-selected');
 		while(elements.length > 0){
 			elements[0].classList.remove('wgg-modal-selected');

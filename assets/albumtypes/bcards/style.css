@@ -3,4 +3,11 @@
     border-radius: 5px;
     padding: 5px;
     height: 120%;
+    margin-bottom:20px;
+}
+.card-body {
+    margin-top:10px;
+}
+.wgg-row-block {
+    margin:0;
 }

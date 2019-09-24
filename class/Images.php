@@ -179,6 +179,56 @@ class Images extends \XoopsObject
         $imgStateSelect->addOption(Constants::STATE_ONLINE_VAL, _CO_WGGALLERY_STATE_ONLINE);
         $imgStateSelect->addOption(Constants::STATE_APPROVAL_VAL, _CO_WGGALLERY_STATE_APPROVAL);
         $form->addElement($imgStateSelect, true);
+        
+        $img_exif = $this->getVar('img_exif');
+        if ($adminarea) {
+            // Form editor ImgDesc
+            $editorConfigs           = [];
+            $editorConfigs['name']   = 'img_exif';
+            $editorConfigs['value']  = $img_exif;
+            $editorConfigs['rows']   = 5;
+            $editorConfigs['cols']   = 40;
+            $editorConfigs['width']  = '100%';
+            $editorConfigs['height'] = '400px';
+            $editorConfigs['editor'] = $helper->getConfig('editor');
+            $form->addElement(new \XoopsFormEditor(_CO_WGGALLERY_IMAGE_EXIF, 'img_exif', $editorConfigs));
+            
+            
+            
+            
+            $exifs = json_decode($this->getVar('img_exif'), true);
+            if (is_array($exifs)) {
+                foreach ($exifs as $key => $value) {
+                    if (is_array($value)) {
+                        $exif_text .= $key . ': <br>';
+                        foreach ($value as $skey => $svalue) {
+                            $exif_text .= ' - ' . $skey . ': ' . $svalue . '<br>';
+                        }
+                    } else {
+                        $exif_text .= $key . ': ' . $value . '<br>';
+                    }
+                }
+            } else {
+                $exif_text = "Unexpected error json_decode:" . ($this->getVar('img_exif'));
+            }
+            
+            
+            
+            
+            // Form editor ImgDesc
+            $editorConfigs           = [];
+            $editorConfigs['name']   = 'img_exif2';
+            $editorConfigs['value']  = $helper->getConfig('editor').$exif_text;
+            $editorConfigs['rows']   = 5;
+            $editorConfigs['cols']   = 40;
+            $editorConfigs['width']  = '100%';
+            $editorConfigs['height'] = '400px';
+            $editorConfigs['editor'] = $helper->getConfig('editor');
+            $form->addElement(new \XoopsFormEditor(_CO_WGGALLERY_IMAGE_EXIF, 'img_exif2', $editorConfigs));
+
+        }       
+        
+        
         // Form Text Date Select ImgDate
         $imgDate = $this->isNew() ? 0 : $this->getVar('img_date');
         $form->addElement(new \XoopsFormTextDateSelect(_CO_WGGALLERY_DATE, 'img_date', '', $imgDate));
@@ -232,7 +282,7 @@ class Images extends \XoopsObject
         $ret['ip']         = $this->getVar('img_ip');
         $exif_text         = '';
         if ($helper->getConfig('store_exif')) {
-            $exifs = unserialize($this->getVar('img_exif'), ['allowed_classes' => false]);
+            $exifs = json_decode($this->getVar('img_exif'), true);
             if (is_array($exifs)) {
                 foreach ($exifs as $key => $value) {
                     if (is_array($value)) {
@@ -244,6 +294,8 @@ class Images extends \XoopsObject
                         $exif_text .= $key . ': ' . $value . '<br>';
                     }
                 }
+            } else {
+                $exif_text = "Unexpected error json_decode:" . ($this->getVar('img_exif'));
             }
         }
         $ret['exif']       = $exif_text;

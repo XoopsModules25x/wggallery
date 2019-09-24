@@ -159,7 +159,8 @@ class Watermarks extends \XoopsObject
         $imageTray->addElement($fileSelectTray);
         $form->addElement($imageTray);
         // Form Text WmText
-        $form->addElement(new \XoopsFormText(_CO_WGGALLERY_WATERMARK_TEXT, 'wm_text', 50, 255, $this->getVar('wm_text')));
+        $wmText = $this->isNew() ? '© ' : $this->getVar('wm_text');
+        $form->addElement(new \XoopsFormText(_CO_WGGALLERY_WATERMARK_TEXT, 'wm_text', 50, 255, $wmText));
         // Watermarks handler
         $watermarksHandler = $helper->getHandler('Watermarks');
         // Form Select Watermarks

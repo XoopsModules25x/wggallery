@@ -22,6 +22,7 @@
  */
 
 use Xmf\Request;
+use XoopsModules\Wggallery;
 use XoopsModules\Wggallery\Constants;
 
 require __DIR__ . '/header.php';
@@ -58,6 +59,8 @@ $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16
 $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
 $GLOBALS['xoopsTpl']->assign('displayButtonText', $helper->getConfig('displayButtonText'));
 
+$GLOBALS['xoopsTpl']->assign('random', rand());
+
 if ($imgId > 0 && 0 === $albId) {
     // get album id
     $imagesObj = $imagesHandler->get($imgId);
@@ -81,7 +84,67 @@ if ($albPid > 0) {
 $xoBreadcrumbs[] = ['title' => $albName, 'link' => WGGALLERY_URL . '/images.php?op=list&amp;alb_id=' . $albId];
 $xoBreadcrumbs[] = ['title' => _CO_WGGALLERY_IMAGES];
 
+if (0 === $albId) {
+    $form = $albumsObj->getFormUploadToAlbum();
+    $GLOBALS['xoopsTpl']->assign('form', $form->render());
+}
+
 switch ($op) {
+    case 'rotate':
+        if (!$permAlbumEdit) {
+            redirect_header('images.php', 3, _NOPERM);
+        }
+        if (isset($imgId)) {
+            $imagesObj = $imagesHandler->get($imgId);
+        } else {
+            redirect_header('images.php', 3, _MA_WGGALLERY_ERROR_NO_IMAGE_SET);
+        }
+
+        if ('manage' === $redir_op) {
+            $redir = 'images.php?op=manage';
+        } else {
+            $redir = 'images.php?op=list';
+        }
+        $redir .= '&amp;start=' . $start . '&amp;limit=' . $limit . '&amp;alb_id=' . $albId . '&amp;alb_pid=' . $albPid . '&amp;img_submitter=' . $imgSubm . '#image_' . $imgId;
+
+        $imgHandler                = new Wggallery\Resizer();
+        $imgHandler->imageMimetype = $imagesObj->getVar('img_mimetype');
+        $degrees = 0;
+        if ('left' === Request::getString('dir')) {
+            $degrees = 90;
+        }
+        if ('right' === Request::getString('dir')) {
+            $degrees = -90;
+        }
+        if (0 === $degrees) {
+            redirect_header($redir, 3, _NOPERM);
+        }
+        $imgHandler->degrees       = $degrees;
+        // rotate large
+        $imgHandler->sourceFile    = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesObj->getVar('img_namelarge');
+        $imgHandler->endFile       = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesObj->getVar('img_namelarge');
+        $result                    = $imgHandler->rotateImage();
+        if (true !== (boolean)$result) {
+            redirect_header($redir, 3, _CO_WGGALLERY_IMAGE_ROTATE_ERROR . ": " . $result);
+        }
+        // rotate medium
+        $imgHandler->sourceFile    = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $imagesObj->getVar('img_name');
+        $imgHandler->endFile       = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $imagesObj->getVar('img_name');
+        $result                    = $imgHandler->rotateImage();
+        if (true !== (boolean)$result) {
+            redirect_header($redir, 3, _CO_WGGALLERY_IMAGE_ROTATE_ERROR . ": " . $result);
+        }
+        // rotate thumb
+        $imgHandler->sourceFile    = WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/' . $imagesObj->getVar('img_name');
+        $imgHandler->endFile       = WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/' . $imagesObj->getVar('img_name');
+        $result                    = $imgHandler->rotateImage();
+        if (true !== (boolean)$result) {
+            redirect_header($redir, 3, _CO_WGGALLERY_IMAGE_ROTATE_ERROR . ": " . $result);
+        }
+
+        redirect_header($redir, 3, _CO_WGGALLERY_IMAGE_ROTATED);
+
+        break;
     case 'save':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
