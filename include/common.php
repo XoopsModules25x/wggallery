@@ -35,10 +35,6 @@ $utility = new \XoopsModules\Wggallery\Utility();
 
 $helper->loadLanguage('common');
 
-//handlers
-//$categoryHandler     = new Wggallery\CategoryHandler($db);
-//$downloadHandler     = new Wggallery\DownloadHandler($db);
-
 $pathIcon16 = \Xmf\Module\Admin::iconUrl('', 16);
 $pathIcon32 = \Xmf\Module\Admin::iconUrl('', 32);
 if (is_object($helper->getModule())) {

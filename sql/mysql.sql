@@ -14,15 +14,17 @@
 CREATE TABLE `wggallery_albums` (
   `alb_id`            INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   `alb_pid`           INT(8)          NOT NULL DEFAULT '0',
-  `alb_iscat`         INT(1)          NOT NULL DEFAULT '0',
+  `alb_iscoll`        INT(1)          NOT NULL DEFAULT '0',
   `alb_name`          VARCHAR(200)    NOT NULL DEFAULT '',
   `alb_desc`          TEXT            NULL ,
   `alb_weight`        INT(8)          NOT NULL DEFAULT '0',
-  `alb_imgcat`        INT(1)          NOT NULL DEFAULT '0',
+  `alb_imgtype`       INT(1)          NOT NULL DEFAULT '0',
   `alb_image`         VARCHAR(200)    NOT NULL DEFAULT '',
   `alb_imgid`         INT(8)          NOT NULL DEFAULT '0',
   `alb_state`         INT(1)          NOT NULL DEFAULT '0',
   `alb_wmid`          INT(8)          NOT NULL DEFAULT '0',
+  `alb_cats`          TEXT            NULL ,
+  `alb_tags`          TEXT            NULL ,
   `alb_date`          INT(8)          NOT NULL DEFAULT '0',
   `alb_submitter`     INT(8)          NOT NULL DEFAULT '0',
   PRIMARY KEY (`alb_id`)
@@ -49,6 +51,8 @@ CREATE TABLE `wggallery_images` (
   `img_weight`      INT(8)          NOT NULL DEFAULT '0',
   `img_albid`       INT(8)          NOT NULL DEFAULT '0',
   `img_state`       INT(8)          NOT NULL DEFAULT '0',
+  `img_cats`        TEXT            NULL ,
+  `img_tags`        TEXT            NULL ,
   `img_exif`        TEXT            NULL ,
   `img_date`        INT(8)          NOT NULL DEFAULT '0',
   `img_submitter`   INT(8)          NOT NULL DEFAULT '0',
@@ -111,3 +115,18 @@ CREATE TABLE `wggallery_watermarks` (
   PRIMARY KEY (`wm_id`)
 ) ENGINE=InnoDB;
 
+#
+# Structure table for `wggallery_categories` 13
+#
+
+CREATE TABLE `wggallery_categories` (
+  `cat_id`        INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `cat_text`      VARCHAR(100)    NOT NULL DEFAULT '',
+  `cat_album`     INT(1)          NOT NULL DEFAULT '0',
+  `cat_image`     INT(1)          NOT NULL DEFAULT '0',
+  `cat_search`    INT(1)          NOT NULL DEFAULT '0',
+  `cat_weight`    INT(8)          NOT NULL DEFAULT '0',
+  `cat_date`      INT(8)          NOT NULL DEFAULT '0',
+  `cat_submitter` INT(8)          NOT NULL DEFAULT '0',
+  PRIMARY KEY (`cat_id`)
+) ENGINE=InnoDB;

@@ -30,16 +30,19 @@ define('_AM_WGGALLERY_THEREARE_IMAGES', "Es gibt <span class='bold'>%s</span> Bi
 define('_AM_WGGALLERY_THEREARE_GALLERYTYPES', "Es gibt <span class='bold'>%s</span> Galerietypen in der Datenbank");
 define('_AM_WGGALLERY_THEREARE_ALBUMTYPES', "Es gibt <span class='bold'>%s</span> Albumtypen in der Datenbank");
 define('_AM_WGGALLERY_THEREARE_WATERMARKS', "Es gibt <span class='bold'>%s</span> Wasserzeichen in der Datenbank");
+define('_AM_WGGALLERY_THEREARE_CATEGORIES', "Es gibt <span class='bold'>%s</span> Kategorien in der Datenbank");
 // There aren't
 define('_AM_WGGALLERY_THEREARENT_GALLERYTYPES', "Es gibt keine Galerietypen! Für eine Initialisierung bzw. Wiederherstellung gehen Sie bitte auf 'Wartung' => 'Wartung Galerietypen' und klicken Sie auf die Schaltfläche 'Standardeinstellungen wiederherstellen'");
-define('_AM_WGGALLERY_THEREARENT_ALBUMTYPES', "Es gibt keine Albumtypen! Für eine Initialisierung bzw. Wiederherstellung gehen Sie bitte auf 'Wartung' => 'Wartung Albumtypen' und klicken Sie auf die Schaltfläche 'Standardeinstellungen wiederherstellen''");
+define('_AM_WGGALLERY_THEREARENT_ALBUMTYPES', "Es gibt keine Albumtypen! Für eine Initialisierung bzw. Wiederherstellung gehen Sie bitte auf 'Wartung' => 'Wartung Albumtypen' und klicken Sie auf die Schaltfläche 'Standardeinstellungen wiederherstellen'");
 define('_AM_WGGALLERY_THEREARENT_WATERMARKS', 'Derzeit sind keine Wasserzeichen definiert!');
+define('_AM_WGGALLERY_THEREARENT_CATEGORIES', "Es gibt keine Kategorien!");
 // ---------------- Admin Files ----------------
 // Buttons
 define('_AM_WGGALLERY_ADD_ALBUM', 'Neues Album hinzufügen');
 define('_AM_WGGALLERY_ADD_IMAGE', 'Neues Bild hinzufügen');
 define('_AM_WGGALLERY_ADD_GALLERYTYPE', 'Neuen Galerietyp hinzufügen');
 define('_AM_WGGALLERY_ADD_ALBUMTYPE', 'Neuen Albumtyp hinzufügen');
+define('_AM_WGGALLERY_ADD_CATEGORY', 'Kategorie hinzufügen');
 // Lists
 define('_AM_WGGALLERY_ALBUMS_LIST', 'Liste der Alben');
 define('_AM_WGGALLERY_ALBUMS_APPROVE', 'Auf Freigabe wartende Alben');
@@ -48,6 +51,17 @@ define('_AM_WGGALLERY_IMAGES_APPROVE', 'Auf Freigabe wartende Bilder');
 define('_AM_WGGALLERY_GALLERYTYPES_LIST', 'Liste der Galerietypen');
 define('_AM_WGGALLERY_ALBUMTYPES_LIST', 'Liste der Albumtypen');
 define('_AM_WGGALLERY_WATERMARKS_LIST', 'Liste der Wasserzeichen');
+define('_AM_WGGALLERY_CATEGORIES_LIST', 'Liste der Kategorien');
+//Categories
+define('_AM_WGGALLERY_EDIT_CATEGORY', 'Kategorie bearbeiten');
+define('_AM_WGGALLERY_CAT_ID', 'Id');
+define('_AM_WGGALLERY_CAT_TEXT', 'Kategorietext');
+define('_AM_WGGALLERY_CAT_EXIF', 'Exif-Name für Kategorie');
+define('_AM_WGGALLERY_CAT_ALBUM', 'Kategorie für Alben verwenden');
+define('_AM_WGGALLERY_CAT_IMAGE', 'Kategorie für Bilder verwenden');
+define('_AM_WGGALLERY_CAT_SEARCH', 'Kategorie für Suche verwenden');
+define('_AM_WGGALLERY_CAT_SEARCH', 'Kategorie für Suche verwenden');
+define('_AM_WGGALLERY_CAT_ERROR_CHANGE', 'Fehler beim Ändern der Option');
 //Gallerytype/Albumtypes
 define('_AM_WGGALLERY_GT_AT_ID', 'Id');
 define('_AM_WGGALLERY_GT_AT_PRIMARY', 'Primär');

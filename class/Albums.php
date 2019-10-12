@@ -42,15 +42,17 @@ class Albums extends \XoopsObject
     {
         $this->initVar('alb_id', XOBJ_DTYPE_INT);
         $this->initVar('alb_pid', XOBJ_DTYPE_INT);
-        $this->initVar('alb_iscat', XOBJ_DTYPE_INT);
+        $this->initVar('alb_iscoll', XOBJ_DTYPE_INT);
         $this->initVar('alb_name', XOBJ_DTYPE_TXTBOX);
         $this->initVar('alb_desc', XOBJ_DTYPE_TXTAREA);
         $this->initVar('alb_weight', XOBJ_DTYPE_INT);
-        $this->initVar('alb_imgcat', XOBJ_DTYPE_INT);
+        $this->initVar('alb_imgtype', XOBJ_DTYPE_INT);
         $this->initVar('alb_image', XOBJ_DTYPE_TXTBOX);
         $this->initVar('alb_imgid', XOBJ_DTYPE_INT);
         $this->initVar('alb_state', XOBJ_DTYPE_INT);
         $this->initVar('alb_wmid', XOBJ_DTYPE_INT);
+        $this->initVar('alb_cats', XOBJ_DTYPE_TXTAREA);
+        $this->initVar('alb_tags', XOBJ_DTYPE_TXTAREA);
         $this->initVar('alb_date', XOBJ_DTYPE_INT);
         $this->initVar('alb_submitter', XOBJ_DTYPE_INT);
         $this->initVar('dohtml', XOBJ_DTYPE_INT, 1, false);
@@ -140,18 +142,18 @@ class Albums extends \XoopsObject
         $form->addElement(new \XoopsFormHidden('alb_weight', $albWeight));
 
         // Form Album image
-        $albImgcat = $this->isNew() ? Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL : $this->getVar('alb_imgcat');     
+        $albImgcat = $this->isNew() ? Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL : $this->getVar('alb_imgtype');     
         $albImage  = $this->isNew() ? 'noimage.png' : $this->getVar('alb_image');
         $albImgid  = $this->isNew() ? 0 : $this->getVar('alb_imgid');
         if (true === $admin) {
-            $albImgcatSelect = new \XoopsFormRadio(_CO_WGGALLERY_ALBUM_IMGCAT, 'alb_imgcat', $albImgcat);
+            $albImgcatSelect = new \XoopsFormRadio(_CO_WGGALLERY_ALBUM_IMGTYPE, 'alb_imgtype', $albImgcat);
             $albImgcatSelect->addOption(Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL, _CO_WGGALLERY_ALBUM_USE_UPLOADED);
             $albImgcatSelect->addOption(Constants::ALBUM_IMGCAT_USE_EXIST_VAL, _CO_WGGALLERY_ALBUM_IMGID);
             $form->addElement($albImgcatSelect);
             $form->addElement(new \XoopsFormText(_CO_WGGALLERY_IMAGE_NAME, 'alb_image', 50, 255, $albImage));
             $form->addElement(new \XoopsFormText(_CO_WGGALLERY_IMAGE_ID, 'alb_imgid', 50, 255, $albImgid));
         } else {
-            $form->addElement(new \XoopsFormHidden('alb_imgcat', $albImgcat));
+            $form->addElement(new \XoopsFormHidden('alb_imgtype', $albImgcat));
             $form->addElement(new \XoopsFormHidden('alb_image', $albImage));
             $form->addElement(new \XoopsFormHidden('alb_imgid', $albImgid));
         }
@@ -259,7 +261,7 @@ class Albums extends \XoopsObject
                 $albWidSelect = new \XoopsFormSelect(_CO_WGGALLERY_WATERMARK, 'alb_wmid', $albWmid);
                 $albWidSelect->addOption(0, '&nbsp;');
                 $criteria = new \CriteriaCompo();
-                $criteria->add(new \Criteria('wm_usage', WGGALLERY_WATERMARK_USAGENONE, '>'));
+                $criteria->add(new \Criteria('wm_usage', Constants::WATERMARK_USAGENONE, '>'));
                 $albWidSelect->addOptionArray($watermarksHandler->getList($criteria));
                 $form->addElement($albWidSelect);
             }
@@ -267,6 +269,34 @@ class Albums extends \XoopsObject
             $form->addElement(new \XoopsFormHidden('alb_wmid', 0));
         }
         unset($criteria);
+        
+        // Form Text Select AlbCats
+        $albCats = $this->isNew() ? '' : unserialize($this->getVar('alb_cats'));
+        if ($helper->getConfig('use_categories')) {
+            $categoriesHandler = $helper->getHandler('Categories');
+            $crCategories = new \CriteriaCompo();
+            $crCategories->add(new \Criteria('cat_album', 1));
+            $categoriesCount = $categoriesHandler->getCount($crCategories);
+            if ($categoriesCount > 0) {
+                $crCategories->setSort('cat_weight ASC, cat_text');
+                $crCategories->setOrder('ASC');
+                $categoriesAll = $categoriesHandler->getAll($crCategories);
+                $selectCategories = new \XoopsFormCheckBox(_CO_WGGALLERY_CATS_SELECT, 'alb_cats', $albCats);
+                foreach (array_keys($categoriesAll) as $i) {
+                    $selectCategories->addOption($categoriesAll[$i]->getVar('cat_id'), $categoriesAll[$i]->getVar('cat_text'));
+                }
+                $form->addElement($selectCategories, false);
+            }
+        } else {
+            $form->addElement(new \XoopsFormHidden('alb_cats', $albCats));
+        }
+        // Form Text AlbTags
+        if ($helper->getConfig('use_tags')) {
+            $form->addElement(new \XoopsFormText(_CO_WGGALLERY_TAGS_ENTER, 'alb_tags', 50, 255, $this->getVar('alb_tags')), false);
+        } else {
+            $form->addElement(new \XoopsFormHidden('alb_tags', $this->getVar('alb_tags')));
+        }
+        
         // Form Text Date Select AlbDate
         $albDate = $this->isNew() ? 0 : $this->getVar('alb_date');
         $form->addElement(new \XoopsFormTextDateSelect(_CO_WGGALLERY_DATE, 'alb_date', '', $albDate));
@@ -311,7 +341,7 @@ class Albums extends \XoopsObject
         // Form Table Albums
         $albumsHandler = $helper->getHandler('Albums');
         $crAlbums      = new \CriteriaCompo();
-        $crAlbums->add(new \Criteria('alb_iscat', 0));
+        $crAlbums->add(new \Criteria('alb_iscoll', 0));
         $crAlbums->setSort('alb_weight ASC, alb_date');
         $crAlbums->setOrder('DESC');
         // Form Select Albums
@@ -402,12 +432,12 @@ class Albums extends \XoopsObject
         $ret           = $this->getValues($keys, $format, $maxDepth);
         $ret['id']     = $this->getVar('alb_id');
         $ret['pid']    = $this->getVar('alb_pid');
-        $ret['iscat']  = $this->getVar('alb_iscat');
+        $ret['iscoll']  = $this->getVar('alb_iscoll');
         $ret['name']   = $this->getVar('alb_name');
         $ret['desc']   = $this->getVar('alb_desc', 'show');
         $ret['weight'] = $this->getVar('alb_weight');
         $imagesHandler = $helper->getHandler('Images');
-        if (Constants::ALBUM_IMGCAT_USE_EXIST_VAL === $this->getVar('alb_imgcat')) {
+        if (Constants::ALBUM_IMGCAT_USE_EXIST_VAL === $this->getVar('alb_imgtype')) {
             if ($this->getVar('alb_imgid') > 0) {
                 $imagesObj = $imagesHandler->get($this->getVar('alb_imgid'));
                 if (null !== $imagesObj && is_object($imagesObj)) {
@@ -422,7 +452,7 @@ class Albums extends \XoopsObject
             }
 
             // TODO
-            /*         } else if (WGGALLERY_ALBUM_IMGCAT_USE_GRID === $this->getVar('alb_imgcat')) {
+            /*         } else if (WGGALLERY_ALBUM_IMGCAT_USE_GRID === $this->getVar('alb_imgtype')) {
                         $crImages = new \CriteriaCompo();
                         $crImages->add(new \Criteria('img_albid', $this->getVar('alb_id')));
                         $crImages->add(new \Criteria('img_state', 1));
@@ -461,6 +491,11 @@ class Albums extends \XoopsObject
         $crAlbums->add(new \Criteria('alb_pid', $this->getVar('alb_id')));
         $albumsCount         = $helper->getHandler('Albums')->getCount($crAlbums);
         $ret['nb_subalbums'] = $albumsCount;
+        
+        $ret['cats']      = $this->getVar('alb_cats');
+        $albCats          = unserialize($this->getVar('alb_cats'));
+        $ret['cats_list'] = $helper->getHandler('Categories')->getCatsList($albCats);
+        $ret['tags']      = $this->getVar('alb_tags');
 
         return $ret;
     }

@@ -23,7 +23,7 @@
 			<!-- *************** Basic Tab ***************-->
             <div class='tab-pane active center' id='1'>
 				<img id='currentImg' class='img-responsive wgg-album-img' src='<{$album.image}>' alt='<{$album.name}>'>
-                <p><{$smarty.const._CO_WGGALLERY_ALBUM_IMGCAT}>: <{$album.image_path}><br>
+                <p><{$smarty.const._CO_WGGALLERY_ALBUM_IMGTYPE}>: <{$album.image_path}><br>
                 <{$smarty.const._CO_WGGALLERY_IMAGE_RES}>: <{$albimage_width}> / <{$albimage_height}></p>
                 <input type='button' class='btn <{$btn_style}>' value='<{$smarty.const._CANCEL}>' onclick='history.go(-1);return true;'>
 			</div>
@@ -63,8 +63,8 @@
             <!-- *************** Tab for image grid ***************-->
 			<div class='tab-pane' id='3'>
 				<div class='col-xs-12 col-sm-12'>
-					<label class='radio-inline'><input type='radio' name='gridtype' id='alb_imgcat1' title='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID4}>' value='1' checked onchange='changeGridSetting(this)'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID4}>&nbsp;</label>
-					<label class='radio-inline'><input type='radio' name='gridtype' id='alb_imgcat2' title='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID6}>' value='2' onchange='changeGridSetting(this)'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID6}>&nbsp;</label>
+					<label class='radio-inline'><input type='radio' name='gridtype' id='alb_imgtype1' title='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID4}>' value='1' checked onchange='changeGridSetting(this)'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID4}>&nbsp;</label>
+					<label class='radio-inline'><input type='radio' name='gridtype' id='alb_imgtype2' title='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID6}>' value='2' onchange='changeGridSetting(this)'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID6}>&nbsp;</label>
 				</div>
 				<div class='col-xs-12 col-sm-4'>
 					<button id='btnGridAdd1' type='button' class='btn <{$btn_style}>' style='display:inline;margin:5px' data-toggle='modal' data-target='#myModalImagePicker1'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID_SRC1}></button>

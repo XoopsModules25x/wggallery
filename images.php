@@ -58,6 +58,8 @@ $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
 $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
 $GLOBALS['xoopsTpl']->assign('displayButtonText', $helper->getConfig('displayButtonText'));
+$GLOBALS['xoopsTpl']->assign('use_tags', $helper->getConfig('use_tags'));
+$GLOBALS['xoopsTpl']->assign('use_categories', $helper->getConfig('use_categories'));
 
 $GLOBALS['xoopsTpl']->assign('random', rand());
 
@@ -174,7 +176,8 @@ switch ($op) {
         $imagesObj->setVar('img_ratinglikes', Request::getInt('img_ratinglikes'));
         $imagesObj->setVar('img_votes', Request::getInt('img_votes'));
         $imagesObj->setVar('img_weight', Request::getInt('img_weight'));
-
+        $imagesObj->setVar('img_cats', serialize(Request::getArray('img_cats')));
+        $imagesObj->setVar('img_tags', Request::getString('img_tags'));
         $albumsObj = $albumsHandler->get($albId);
         $imgAlbPid = $albumsObj->getVar('alb_pid');
         $imagesObj->setVar('img_albid', $imgAlbId);

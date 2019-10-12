@@ -134,14 +134,14 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
     public function setAlbumIsCat()
     {
         // reset (necessary after deleting)
-        $strSQL = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . ' SET ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '.alb_iscat = 0';
+        $strSQL = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . ' SET ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '.alb_iscoll = 0';
         $GLOBALS['xoopsDB']->queryF($strSQL);
 
         // set values new
         $albumsAll = $this->getAllAlbums();
         foreach (array_keys($albumsAll) as $i) {
             $albPid = $albumsAll[$i]->getVar('alb_pid');
-            $strSQL = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . ' SET ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '.alb_iscat = 1 WHERE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '.alb_id = ' . $albPid;
+            $strSQL = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . ' SET ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '.alb_iscoll = 1 WHERE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '.alb_id = ' . $albPid;
             $GLOBALS['xoopsDB']->query($strSQL);
         }
         unset($albumsAll);

@@ -151,13 +151,13 @@ switch ($op) {
         }
         // Set Vars
         $albumsObj->setVar('alb_pid', $albPid);
-        $albIscat = Request::getInt('alb_iscat');
-        $albumsObj->setVar('alb_iscat', $albIscat);
+        $albIscat = Request::getInt('alb_iscoll');
+        $albumsObj->setVar('alb_iscoll', $albIscat);
         $alb_name = Request::getString('alb_name');
         $albumsObj->setVar('alb_name', $alb_name);
         $albumsObj->setVar('alb_desc', Request::getString('alb_desc'));
         $albumsObj->setVar('alb_weight', Request::getInt('alb_weight'));
-        $albumsObj->setVar('alb_imgcat', Request::getInt('alb_imgcat'));
+        $albumsObj->setVar('alb_imgtype', Request::getInt('alb_imgtype'));
         $albumsObj->setVar('alb_image', Request::getString('alb_image'));
         $albumsObj->setVar('alb_imgid', Request::getInt('alb_imgid'));
         $albState = Request::getInt('alb_state');

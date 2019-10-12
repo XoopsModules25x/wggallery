@@ -15,7 +15,7 @@
                     </a>
                 </th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_PID}></th>
-				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_ISCAT}></th>
+				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_ISCOLL}></th>
 				<th class='center'>
                     <{$smarty.const._CO_WGGALLERY_ALBUM_NAME}>
                     <a href='albums.php?op=list&amp;sort=alb_name&amp;orderby=DESC&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._DESCENDING}>'>
@@ -27,7 +27,7 @@
                 </th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_DESC}></th>
 				<th class='center'>
-                    <{$smarty.const._CO_WGGALLERY_ALBUM_WEIGHT}>
+                    <{$smarty.const._CO_WGGALLERY_WEIGHT}>
                     <a href='albums.php?op=list&amp;sort=alb_weight&amp;orderby=DESC&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._DESCENDING}>'>
                         <img src='<{$wggallery_icon_url_16}>desc.png' alt='<{$smarty.const._DESCENDING}>'>
                     </a>
@@ -39,6 +39,8 @@
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_STATE}></th>
                 <th class='center'><{$smarty.const._CO_WGGALLERY_WATERMARKS}></th>
                 <th class='center'><{$smarty.const._CO_WGGALLERY_IMAGES}></th>
+                <{if $use_categories}><th class='center'><{$smarty.const._CO_WGGALLERY_CATS}></th><{/if}>
+                <{if $use_tags}><th class='center'><{$smarty.const._CO_WGGALLERY_TAGS}></th><{/if}>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_DATE}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_SUBMITTER}></th>
 				<th class='center width5'><{$smarty.const._CO_WGGALLERY_FORM_ACTION}></th>
@@ -50,7 +52,7 @@
 					<tr class="<{cycle values='odd, even'}>">
 						<td class='center'><{$album.id}></td>
 						<td class='center'><{$album.pid}></td>
-						<td class='center'><{$album.iscat}></td>
+						<td class='center'><{$album.iscoll}></td>
 						<td class='center'><{$album.name}></td>
 						<td class='center'><{$album.desc}></td>
 						<td class='center'><{$album.weight}></td>
@@ -78,6 +80,8 @@
 							</a>
                         </td>
                         <td class='center'><{$album.nb_images}></td>
+                        <{if $use_categories}><td class='center'><{$album.cats_list}></td><{/if}>
+                        <{if $use_tags}><td class='center'><{$album.tags}></td><{/if}>
 						<td class='center'><{$album.date}></td>
 						<td class='center'><{$album.submitter}></td>
 						<td class='center  width10'>

@@ -59,6 +59,7 @@ define('_CO_WGGALLERY_THEREARENT_IMAGES', 'Currently there are no images availab
 // general
 define('_CO_WGGALLERY_DATE', 'Date');
 define('_CO_WGGALLERY_SUBMITTER', 'Submitter');
+define('_CO_WGGALLERY_WEIGHT', 'Weight');
 // fine uploader
 define('_CO_WGGALLERY_FU_SUBMIT', 'Submitting image: ');
 define('_CO_WGGALLERY_FU_SUBMITTED', 'Image successfully checked, please upload');
@@ -83,12 +84,11 @@ define('_CO_WGGALLERY_ALBUM_NB_IMAGES', 'image(s) in this album');
 define('_CO_WGGALLERY_ALBUM_NO_IMAGES', 'Album contains no images');
 define('_CO_WGGALLERY_ALBUM_ID', 'Id');
 define('_CO_WGGALLERY_ALBUM_PID', 'Parent album');
-define('_CO_WGGALLERY_ALBUM_ISCAT', 'Album is category');
+define('_CO_WGGALLERY_ALBUM_ISCOLL', 'Album is collection');
 define('_CO_WGGALLERY_ALBUM_NAME', 'Name');
 define('_CO_WGGALLERY_ALBUM_DESC', 'Description');
-define('_CO_WGGALLERY_ALBUM_WEIGHT', 'Weight');
 define('_CO_WGGALLERY_ALBUM_IMAGE', 'Album image');
-define('_CO_WGGALLERY_ALBUM_IMGCAT', 'Source for album image');
+define('_CO_WGGALLERY_ALBUM_IMGTYPE', 'Source for album image');
 define('_CO_WGGALLERY_ALBUM_USE_EXIST', 'Use an image of album as album image');
 define('_CO_WGGALLERY_ALBUM_IMGID', 'Existing images in this album');
 define('_CO_WGGALLERY_ALBUM_USE_UPLOADED', 'Use an uploaded image as album image');
@@ -159,7 +159,6 @@ define('_CO_WGGALLERY_IMAGE_RESY', 'Resy');
 define('_CO_WGGALLERY_IMAGE_DOWNLOADS', 'Downloads');
 define('_CO_WGGALLERY_IMAGE_RATINGLIKES', 'Ratinglikes');
 define('_CO_WGGALLERY_IMAGE_VOTES', 'Votes');
-define('_CO_WGGALLERY_IMAGE_WEIGHT', 'Weight');
 define('_CO_WGGALLERY_IMAGE_ALBID', 'Albums');
 define('_CO_WGGALLERY_IMAGE_STATE', 'State');
 define('_CO_WGGALLERY_IMAGE_IP', 'Ip');
@@ -213,7 +212,14 @@ define('_CO_WGGALLERY_WATERMARK_TARGET', 'Kind of images for adding watermark');
 define('_CO_WGGALLERY_WATERMARK_TARGET_A', 'Add to all');
 define('_CO_WGGALLERY_WATERMARK_TARGET_M', 'Add to medium');
 define('_CO_WGGALLERY_WATERMARK_TARGET_L', 'Add to large');
-
+// Elements of Categorie
+define('_CO_WGGALLERY_CAT', 'Category');
+define('_CO_WGGALLERY_CATS', 'Categories');
+define('_CO_WGGALLERY_CATS_SELECT', 'Select categories');
+// Elements of Tags
+define('_CO_WGGALLERY_TAG', 'Tag');
+define('_CO_WGGALLERY_TAGS', 'Tags');
+define('_CO_WGGALLERY_TAGS_ENTER', 'Enter tags (please use #)');
 // ---------------- Admin Permissions ----------------
 // Permissions
 define('_CO_WGGALLERY_PERMS_GLOBAL', 'Permissions global');

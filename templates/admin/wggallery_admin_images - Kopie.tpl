@@ -21,6 +21,8 @@
                     <th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_RESX}></th>
                     <th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_RESY}></th>
                     <th class='center'><{$smarty.const._CO_WGGALLERY_WEIGHT}></th>
+                    <th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_CATS}></th>
+                    <th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_TAGS}></th>
                     <th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_IP}></th>
                     <th class='center'><{$smarty.const._CO_WGGALLERY_DATE}></th>
                     <th class='center'><{$smarty.const._CO_WGGALLERY_SUBMITTER}></th>
@@ -41,6 +43,8 @@
                             <td class='center'><{$image.resx}></td>
                             <td class='center'><{$image.resy}></td>
                             <td class='center'><{$image.weight}></td>
+                            <td class='center'><{$image.cats_list}></td>
+                            <td class='center'><{$image.tags}></td>
                             <td class='center'><{$image.ip}></td>
                             <td class='center'><{$image.date}></td>
                             <td class='center'><{$image.submitter}></td>
@@ -92,8 +96,6 @@
                     <th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_DOWNLOADS}></th>
                     <th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_RATINGLIKES}></th>
                     <th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_VOTES}></th>
-                    <{if $use_categories}><th class='center'><{$smarty.const._CO_WGGALLERY_CATS}></th><{/if}>
-                    <{if $use_tags}><th class='center'><{$smarty.const._CO_WGGALLERY_TAGS}></th><{/if}>
                     <th class='center'><{$smarty.const._CO_WGGALLERY_WEIGHT}></th>
                     <th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_STATE}></th>
                     <th class='center'><{$smarty.const._CO_WGGALLERY_IMAGE_IP}></th>
@@ -120,8 +122,6 @@
                             <td class='center'><{$image.downloads}></td>
                             <td class='center'><{$image.ratinglikes}></td>
                             <td class='center'><{$image.votes}></td>
-                            <{if $use_categories}><td class='center'><{$image.cats_list}></td><{/if}>
-                            <{if $use_tags}><td class='center'><{$image.tags}></td><{/if}>
                             <td class='center'><{$image.weight}></td>
                             <td class='center'>
                                 <{if $image.state == 0}>

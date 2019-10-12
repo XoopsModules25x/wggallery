@@ -30,6 +30,8 @@ $op = Request::getString('op', 'list');
 // Request img_id
 $imgId = Request::getInt('img_id');
 $albId = Request::getInt('alb_id');
+$start = Request::getInt('start', 0);
+$limit = Request::getInt('limit', $helper->getConfig('adminpager'));
 
 $templateMain = 'wggallery_admin_images.tpl';
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16/');
@@ -57,10 +59,6 @@ switch ($op) {
             unset($crImages);
         }
         if ($albId > 0 || 'approve' === $op) {
-            // Define Stylesheet
-            $GLOBALS['xoTheme']->addStylesheet($style, null);
-            $start = Request::getInt('start', 0);
-            $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
             if ($albId > 0) {
                 $adminObject->addItemButton(_AM_WGGALLERY_ADD_IMAGE, '../upload.php?op=list&amp;alb_id=' . $albId, 'add');
             }
@@ -109,6 +107,8 @@ switch ($op) {
                     $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
                 }
                 $GLOBALS['xoopsTpl']->assign('show_exif', $helper->getConfig('store_exif'));
+                $GLOBALS['xoopsTpl']->assign('use_tags', $helper->getConfig('use_tags'));
+                $GLOBALS['xoopsTpl']->assign('use_categories', $helper->getConfig('use_categories'));
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', _CO_WGGALLERY_THEREARENT_IMAGES);
             }
@@ -136,29 +136,31 @@ switch ($op) {
             $imagesObj = $imagesHandler->create();
         }
         // Set Vars
-        $imagesObj->setVar('img_title', $_POST['img_title']);
-        $imagesObj->setVar('img_desc', $_POST['img_desc']);
-        $imagesObj->setVar('img_name', $_POST['img_name']);
-        $imagesObj->setVar('img_namelarge', $_POST['img_namelarge']);
-        $imagesObj->setVar('img_nameorig', $_POST['img_nameorig']);
-        $imagesObj->setVar('img_mimetype', isset($_POST['img_mimetype']) ? $_POST['img_mimetype'] : 0);
-        $imagesObj->setVar('img_size', isset($_POST['img_size']) ? $_POST['img_size'] : 0);
-        $imagesObj->setVar('img_resx', isset($_POST['img_resx']) ? $_POST['img_resx'] : 0);
-        $imagesObj->setVar('img_resy', isset($_POST['img_resy']) ? $_POST['img_resy'] : 0);
-        $imagesObj->setVar('img_downloads', isset($_POST['img_downloads']) ? $_POST['img_downloads'] : 0);
-        $imagesObj->setVar('img_ratinglikes', isset($_POST['img_ratinglikes']) ? $_POST['img_ratinglikes'] : 0);
-        $imagesObj->setVar('img_votes', isset($_POST['img_votes']) ? $_POST['img_votes'] : 0);
-        $imagesObj->setVar('img_weight', isset($_POST['img_weight']) ? $_POST['img_weight'] : 0);
-        $imagesObj->setVar('img_albid', isset($_POST['img_albid']) ? $_POST['img_albid'] : 0);
-        $imagesObj->setVar('img_state', isset($_POST['img_state']) ? $_POST['img_state'] : 0);
-        $imagesObj->setVar('img_exif', isset($_POST['img_exif']) ? $_POST['img_exif'] : '');
+        $imagesObj->setVar('img_title',     Request::getString('img_title'));
+        $imagesObj->setVar('img_desc',      Request::getString('img_desc'));
+        $imagesObj->setVar('img_name',      Request::getString('img_name'));
+        $imagesObj->setVar('img_namelarge', Request::getString('img_namelarge'));
+        $imagesObj->setVar('img_nameorig',  Request::getString('img_nameorig'));
+        $imagesObj->setVar('img_mimetype',  Request::getString('img_mimetype'));
+        $imagesObj->setVar('img_size',      Request::getInt('img_size'));
+        $imagesObj->setVar('img_resx',      Request::getInt('img_resx'));
+        $imagesObj->setVar('img_resy',      Request::getInt('img_resy'));
+        $imagesObj->setVar('img_downloads', Request::getInt('img_downloads'));
+        $imagesObj->setVar('img_ratinglikes', Request::getInt('img_ratinglikes'));
+        $imagesObj->setVar('img_votes',     Request::getInt('img_votes'));
+        $imagesObj->setVar('img_weight',    Request::getInt('img_weight'));
+        $imagesObj->setVar('img_albid',     Request::getInt('img_albid'));
+        $imagesObj->setVar('img_state',     Request::getInt('img_state'));
+        $imagesObj->setVar('img_exif',      Request::getString('img_exif'));
+        $imagesObj->setVar('img_cats',      serialize(Request::getArray('img_cats')));
+        $imagesObj->setVar('img_tags',      Request::getString('img_tags'));
         $imageDate = date_create_from_format(_SHORTDATESTRING, $_POST['img_date']);
         $imagesObj->setVar('img_date', $imageDate->getTimestamp());
-        $imagesObj->setVar('img_submitter', isset($_POST['img_submitter']) ? $_POST['img_submitter'] : 0);
+        $imagesObj->setVar('img_submitter', Request::getInt('img_submitter'));
         $imagesObj->setVar('img_ip', $_SERVER['REMOTE_ADDR']);
         // Insert Data
         if ($imagesHandler->insert($imagesObj)) {
-            redirect_header('images.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
+            redirect_header('images.php?op=list&amp;start=' . $start . '&amp;limit=' . $limit . '&amp;alb_id=' . $albId, 2, _CO_WGGALLERY_FORM_OK);
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $imagesObj->getHtmlErrors());

@@ -24,5 +24,5 @@ function wgshowImgSelected(imgId, selectId, imgDir, extra, xoopsUrl) {
     } else {
         imgDom.src = xoopsUrl + "/images/blank.gif";
     }
-    document.getElementById("alb_imgcat1").checked = true;
+    document.getElementById("alb_imgtype1").checked = true;
 }

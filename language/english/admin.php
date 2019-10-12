@@ -30,16 +30,19 @@ define('_AM_WGGALLERY_THEREARE_IMAGES', "There are <span class='bold'>%s</span> 
 define('_AM_WGGALLERY_THEREARE_GALLERYTYPES', "There are <span class='bold'>%s</span> gallery types in the database");
 define('_AM_WGGALLERY_THEREARE_ALBUMTYPES', "There are <span class='bold'>%s</span> album types in the database");
 define('_AM_WGGALLERY_THEREARE_WATERMARKS', "There are <span class='bold'>%s</span> watermarks in the database");
+define('_AM_WGGALLERY_THEREARE_CATEGORIES', "There are <span class='bold'>%s</span> categories in the database");
 // There aren't
 define('_AM_WGGALLERY_THEREARENT_GALLERYTYPES', "There aren't gallery types! For initialization/reset goto 'Maintenance' => 'Maintain gallerytypes' and click on button 'Set default settings'");
 define('_AM_WGGALLERY_THEREARENT_ALBUMTYPES', "There aren't album types! For initialization/reset goto 'Maintenance' => 'Maintain albumtypes' and click on button 'Set default settings'");
 define('_AM_WGGALLERY_THEREARENT_WATERMARKS', 'Currently there are no watermarks defined!');
+define('_AM_WGGALLERY_THEREARENT_CATEGORIES', "There aren't categories!");
 // ---------------- Admin Files ----------------
 // Buttons
 define('_AM_WGGALLERY_ADD_ALBUM', 'Add New Album');
 define('_AM_WGGALLERY_ADD_IMAGE', 'Add New Image');
 define('_AM_WGGALLERY_ADD_GALLERYTYPE', 'Add New Gallery Type');
 define('_AM_WGGALLERY_ADD_ALBUMTYPE', 'Add New Album Type');
+define('_AM_WGGALLERY_ADD_CATEGORY', 'Add New Category');
 // Lists
 define('_AM_WGGALLERY_ALBUMS_LIST', 'List of Albums');
 define('_AM_WGGALLERY_ALBUMS_APPROVE', 'Albums waiting for approving');
@@ -48,6 +51,16 @@ define('_AM_WGGALLERY_IMAGES_APPROVE', 'Images waiting for approving');
 define('_AM_WGGALLERY_GALLERYTYPES_LIST', 'List of Gallery types');
 define('_AM_WGGALLERY_ALBUMTYPES_LIST', 'List of Album types');
 define('_AM_WGGALLERY_WATERMARKS_LIST', 'List of Watermarks');
+define('_AM_WGGALLERY_CATEGORIES_LIST', 'List of Categories');
+//Categories
+define('_AM_WGGALLERY_EDIT_CATEGORY', 'Edit category');
+define('_AM_WGGALLERY_CAT_ID', 'Id');
+define('_AM_WGGALLERY_CAT_TEXT', 'Category text');
+define('_AM_WGGALLERY_CAT_EXIF', 'Exif name for category');
+define('_AM_WGGALLERY_CAT_ALBUM', 'Use category for albums');
+define('_AM_WGGALLERY_CAT_IMAGE', 'Use category for images');
+define('_AM_WGGALLERY_CAT_SEARCH', 'Use category for search');
+define('_AM_WGGALLERY_CAT_ERROR_CHANGE', 'Error when changing option');
 // Elements of Gallerytype
 define('_AM_WGGALLERY_GT_AT_ID', 'Id');
 define('_AM_WGGALLERY_GT_AT_PRIMARY', 'Primary');

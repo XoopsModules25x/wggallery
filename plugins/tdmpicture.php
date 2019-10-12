@@ -136,7 +136,7 @@ function wggalleryPluginExecImportTdmpicture()
     // copy album data and album images
     // import all album data
     $sql    = 'INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums');
-    $sql    .= ' ( alb_id, alb_pid, alb_name, alb_date, alb_desc, alb_imgcat, alb_image, alb_weight, alb_state, alb_submitter ) ';
+    $sql    .= ' ( alb_id, alb_pid, alb_name, alb_date, alb_desc, alb_imgtype, alb_image, alb_weight, alb_state, alb_submitter ) ';
     $sql    .= 'SELECT tc.cat_id, tc.cat_pid, tc.cat_title, tc.cat_date, tc.cat_text, 1, tc.cat_img, tc.cat_weight, If(tc.cat_display=1,' . Constants::STATE_OFFLINE_VAL . ',' . Constants::STATE_OFFLINE_VAL . '), tc.cat_uid';
     $sql    .= ' FROM ' . $GLOBALS['xoopsDB']->prefix('tdmpicture_cat') . ' as tc';
     $result = $GLOBALS['xoopsDB']->queryF($sql) || die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
@@ -151,7 +151,7 @@ function wggalleryPluginExecImportTdmpicture()
     while (false !== (list($cat_id, $cat_imgurl) = $GLOBALS['xoopsDB']->fetchRow($result))) {
         $imageName = basename($cat_imgurl);
         if ('' !== $imageName) {
-            $sql     = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . ' SET alb_imgcat = 2 WHERE (alb_id=' . $cat_id . ')';
+            $sql     = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . ' SET alb_imgtype = 2 WHERE (alb_id=' . $cat_id . ')';
             $result2 = $GLOBALS['xoopsDB']->queryF($sql) || die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
             if ('blank.png' !== $imageName) {
                 copy(XOOPS_ROOT_PATH . '/uploads/tdmpicture/cat/' . $imageName, WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $imageName);

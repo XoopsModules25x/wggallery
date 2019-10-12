@@ -97,7 +97,7 @@ if ($submitterId > 0) {
     $crAlbums->add(new \Criteria('alb_submitter', $submitterId));
 }
 $crAlbums->add(new \Criteria('alb_pid', $albPid));
-$crAlbums->add(new \Criteria('alb_iscat', 0));
+$crAlbums->add(new \Criteria('alb_iscoll', 0));
 $crAlbums->add(new \Criteria('alb_state', Constants::STATE_ONLINE_VAL));
 $albumsCount = $albumsHandler->getCount($crAlbums);
 // read all albums and check for perm to view
@@ -180,7 +180,7 @@ if ($albumsCount > 0) {
 // get all categories which contains albums
 $crAlbums = new \CriteriaCompo();
 $crAlbums->add(new \Criteria('alb_pid', $albPid));
-$crAlbums->add(new \Criteria('alb_iscat', 1));
+$crAlbums->add(new \Criteria('alb_iscoll', 1));
 $crAlbums->add(new \Criteria('alb_state', Constants::STATE_ONLINE_VAL));
 $catsCount = $albumsHandler->getCount($crAlbums);
 // read all categories and check for perm to view

@@ -59,6 +59,8 @@ class Images extends \XoopsObject
         $this->initVar('img_weight', XOBJ_DTYPE_INT);
         $this->initVar('img_albid', XOBJ_DTYPE_INT);
         $this->initVar('img_state', XOBJ_DTYPE_INT);
+        $this->initVar('img_cats', XOBJ_DTYPE_TXTAREA);
+        $this->initVar('img_tags', XOBJ_DTYPE_TXTAREA);
         $this->initVar('img_exif', XOBJ_DTYPE_TXTAREA);
         $this->initVar('img_date', XOBJ_DTYPE_INT);
         $this->initVar('img_submitter', XOBJ_DTYPE_INT);
@@ -109,6 +111,7 @@ class Images extends \XoopsObject
         xoops_load('XoopsFormLoader');
         $form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
+        $form->addElement(new \XoopsFormLabel('', "<img src='" . XOOPS_URL . '/uploads/wggallery/images/medium/' . $this->getVar('img_name') . "' name='" . $this->getVar('img_name') . "' id='imagepreview' alt='" . $this->getVar('img_name') . "' style='max-width:100%'>"));
         // Form Text ImgTitle
         $form->addElement(new \XoopsFormText(_CO_WGGALLERY_IMAGE_TITLE, 'img_title', 50, 255, $this->getVar('img_title')));
         // Form editor ImgDesc
@@ -162,7 +165,7 @@ class Images extends \XoopsObject
         // Form Text ImgWeight
         $imgWeight = $this->isNew() ? '0' : $this->getVar('img_weight');
         if ($adminarea) {
-            $form->addElement(new \XoopsFormText(_CO_WGGALLERY_IMAGE_WEIGHT, 'img_weight', 20, 150, $imgWeight));
+            $form->addElement(new \XoopsFormText(_CO_WGGALLERY_WEIGHT, 'img_weight', 20, 150, $imgWeight));
         } else {
             $form->addElement(new \XoopsFormHidden('img_weight', $imgWeight));
         }
@@ -180,6 +183,33 @@ class Images extends \XoopsObject
         $imgStateSelect->addOption(Constants::STATE_APPROVAL_VAL, _CO_WGGALLERY_STATE_APPROVAL);
         $form->addElement($imgStateSelect, true);
         
+        // Form Text Select AlbCats
+        $imgCats = $this->isNew() ? '' : unserialize($this->getVar('img_cats'));
+        if ($helper->getConfig('use_categories')) {
+            $categoriesHandler = $helper->getHandler('Categories');
+            $crCategories = new \CriteriaCompo();
+            $crCategories->add(new \Criteria('cat_image', 1));
+            $categoriesCount = $categoriesHandler->getCount($crCategories);
+            if ($categoriesCount > 0) {
+                $crCategories->setSort('cat_weight ASC, cat_text');
+                $crCategories->setOrder('ASC');
+                $categoriesAll = $categoriesHandler->getAll($crCategories);
+                $selectCategories = new \XoopsFormCheckBox(_CO_WGGALLERY_CATS_SELECT, 'img_cats', $imgCats);
+                foreach (array_keys($categoriesAll) as $i) {
+                    $selectCategories->addOption($categoriesAll[$i]->getVar('cat_id'), $categoriesAll[$i]->getVar('cat_text'));
+                }
+                $form->addElement($selectCategories, false);
+            }
+        } else {
+            $form->addElement(new \XoopsFormHidden('img_cats', $imgCats));
+        }
+        // Form Text AlbTags
+        if ($helper->getConfig('use_tags')) {
+            $form->addElement(new \XoopsFormText(_CO_WGGALLERY_TAGS_ENTER, 'img_tags', 50, 255, $this->getVar('img_tags')), false);
+        } else {
+            $form->addElement(new \XoopsFormHidden('img_tags', $this->getVar('img_tags')));
+        }
+        
         $img_exif = $this->getVar('img_exif');
         if ($adminarea) {
             // Form editor ImgDesc
@@ -190,14 +220,12 @@ class Images extends \XoopsObject
             $editorConfigs['cols']   = 40;
             $editorConfigs['width']  = '100%';
             $editorConfigs['height'] = '400px';
-            $editorConfigs['editor'] = $helper->getConfig('editor');
+            $editorConfigs['editor'] = 'dhtml';
             $form->addElement(new \XoopsFormEditor(_CO_WGGALLERY_IMAGE_EXIF, 'img_exif', $editorConfigs));
-            
-            
-            
-            
+
             $exifs = json_decode($this->getVar('img_exif'), true);
             if (is_array($exifs)) {
+                $exif_text = '';
                 foreach ($exifs as $key => $value) {
                     if (is_array($value)) {
                         $exif_text .= $key . ': <br>';
@@ -211,23 +239,7 @@ class Images extends \XoopsObject
             } else {
                 $exif_text = "Unexpected error json_decode:" . ($this->getVar('img_exif'));
             }
-            
-            
-            
-            
-            // Form editor ImgDesc
-            $editorConfigs           = [];
-            $editorConfigs['name']   = 'img_exif2';
-            $editorConfigs['value']  = $helper->getConfig('editor').$exif_text;
-            $editorConfigs['rows']   = 5;
-            $editorConfigs['cols']   = 40;
-            $editorConfigs['width']  = '100%';
-            $editorConfigs['height'] = '400px';
-            $editorConfigs['editor'] = $helper->getConfig('editor');
-            $form->addElement(new \XoopsFormEditor(_CO_WGGALLERY_IMAGE_EXIF, 'img_exif2', $editorConfigs));
-
         }       
-        
         
         // Form Text Date Select ImgDate
         $imgDate = $this->isNew() ? 0 : $this->getVar('img_date');
@@ -281,29 +293,79 @@ class Images extends \XoopsObject
         $ret['submitter']  = \XoopsUser::getUnameFromId($this->getVar('img_submitter'));
         $ret['ip']         = $this->getVar('img_ip');
         $exif_text         = '';
-        if ($helper->getConfig('store_exif')) {
-            $exifs = json_decode($this->getVar('img_exif'), true);
+        $exif_short        = '';
+        $exif              = $this->getVar('img_exif');
+        if ($helper->getConfig('store_exif') && '' !== $exif) {
+            $exifs = json_decode($exif, true);
             if (is_array($exifs)) {
+                $exif_types = $helper->getConfig('exif_types');
                 foreach ($exifs as $key => $value) {
-                    if (is_array($value)) {
-                        $exif_text .= $key . ': <br>';
-                        foreach ($value as $skey => $svalue) {
-                            $exif_text .= ' - ' . $skey . ': ' . $svalue . '<br>';
+                    if (in_array('all', $exif_types) || in_array($key, $exif_types)) {
+                        if (is_array($value)) {
+                            $exif_text .= $key . ': <br>';
+                            foreach ($value as $skey => $svalue) {
+                                $exif_text .= ' - ' . $skey . ': ' . $svalue . '<br>';
+                            }
+                        } else {
+                            switch ($key) {
+                                case 'Make';
+                                    $exif_text .= _MI_WGGALLERY_EXIF_CAMERA;
+                                break;
+                                case 'Model';
+                                    $exif_text .= _MI_WGGALLERY_EXIF_MODEL;
+                                break;
+                                case 'ExposureTime';
+                                    $exif_text .= _MI_WGGALLERY_EXIF_EXPTIME;
+                                break;
+                                case 'FocalLength';
+                                    $exif_text .= _MI_WGGALLERY_EXIF_FOCALLENGTH;
+                                break;
+                                case 'DateTimeOriginal';
+                                    $exif_text .= _MI_WGGALLERY_EXIF_DATETIMEORIG;
+                                break;
+                                case 'ISOSpeedRatings';
+                                    $exif_text .= _MI_WGGALLERY_EXIF_ISO;
+                                break;
+                                case 'FileName';
+                                    $exif_text .= _MI_WGGALLERY_EXIF_FILENAME;
+                                break;
+                                case 'FileDateTime';
+                                    $exif_text .= _MI_WGGALLERY_EXIF_FILEDATETIME;
+                                break;
+                                case 'FileSize';
+                                    $exif_text .= _MI_WGGALLERY_EXIF_FILESIZE;
+                                break;
+                                case 'MimeType';
+                                    $exif_text .= _MI_WGGALLERY_EXIF_MIMETYPE;
+                                break;                       
+                                case 'default';
+                                default:
+                                    $exif_text .= $key;
+                                break;
+                            }                     
+                            $exif_text .= ': ' . $value . '<br>';
                         }
-                    } else {
-                        $exif_text .= $key . ': ' . $value . '<br>';
                     }
                 }
             } else {
                 $exif_text = "Unexpected error json_decode:" . ($this->getVar('img_exif'));
             }
+            if (strlen($exif_text) >  500) {
+                $exif_short = mb_substr($exif_text, 0, 500) . '...';
+            } else {
+                $exif_short = $exif_text;
+            }
         }
         $ret['exif']       = $exif_text;
-        $ret['exif_short'] = mb_substr($exif_text, 0, 100) . '...';
+        $ret['exif_short'] = $exif_short;
         $ret['large']      = WGGALLERY_UPLOAD_IMAGES_URL . '/large/' . $this->getVar('img_namelarge');
         $ret['medium']     = WGGALLERY_UPLOAD_IMAGES_URL . '/medium/' . $this->getVar('img_name');
         $ret['thumb']      = WGGALLERY_UPLOAD_IMAGES_URL . '/thumbs/' . $this->getVar('img_name');
-
+        $ret['cats']      = $this->getVar('alb_cats');
+        $imgCats          = unserialize($this->getVar('img_cats'));
+        $ret['cats_list'] = $helper->getHandler('Categories')->getCatsList($imgCats);
+        $ret['tags']      = $this->getVar('img_tags');
+// echo "<br><br><br>img_exif:<br>".$this->getVar('img_exif');
         return $ret;
     }
 

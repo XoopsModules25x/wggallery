@@ -1,11 +1,11 @@
 -
     alb_id: '2'
     alb_pid: '0'
-    alb_iscat: '0'
+    alb_iscoll: '0'
     alb_name: Landscapes
     alb_desc: ''
     alb_weight: '0'
-    alb_imgcat: '1'
+    alb_imgtype: '1'
     alb_image: ''
     alb_imgid: '8'
     alb_state: '1'
@@ -15,11 +15,11 @@
 -
     alb_id: '1'
     alb_pid: '0'
-    alb_iscat: '0'
+    alb_iscoll: '0'
     alb_name: 'Water & Sun'
     alb_desc: ''
     alb_weight: '0'
-    alb_imgcat: '1'
+    alb_imgtype: '1'
     alb_image: ''
     alb_imgid: '24'
     alb_state: '1'

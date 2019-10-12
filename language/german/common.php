@@ -58,6 +58,7 @@ define('_CO_WGGALLERY_THEREARENT_IMAGES', 'Derzeit sind keine Bilder verfügbar'
 // general
 define('_CO_WGGALLERY_DATE', 'Datum');
 define('_CO_WGGALLERY_SUBMITTER', 'Einsender');
+define('_CO_WGGALLERY_WEIGHT', 'Reihung');
 // fine uploader
 define('_CO_WGGALLERY_FU_SUBMIT', 'Einsenden Bild: ');
 define('_CO_WGGALLERY_FU_SUBMITTED', 'Bilder erfolgreich überprüft, bitte Hochladen');
@@ -82,12 +83,11 @@ define('_CO_WGGALLERY_ALBUM_NB_IMAGES', 'Bilder in diesem Album');
 define('_CO_WGGALLERY_ALBUM_NO_IMAGES', 'Album enthält keine Bilder');
 define('_CO_WGGALLERY_ALBUM_ID', 'Id');
 define('_CO_WGGALLERY_ALBUM_PID', 'Übergeordnetes Album');
-define('_CO_WGGALLERY_ALBUM_ISCAT', 'Album ist Kategorie');
+define('_CO_WGGALLERY_ALBUM_ISCOLL', 'Album ist Albensammlung');
 define('_CO_WGGALLERY_ALBUM_NAME', 'Name');
 define('_CO_WGGALLERY_ALBUM_DESC', 'Beschreibung');
-define('_CO_WGGALLERY_ALBUM_WEIGHT', 'Reihung');
 define('_CO_WGGALLERY_ALBUM_IMAGE', 'Albumbild');
-define('_CO_WGGALLERY_ALBUM_IMGCAT', 'Quelle für Albumbild');
+define('_CO_WGGALLERY_ALBUM_IMGTYPE', 'Quelle für Albumbild');
 define('_CO_WGGALLERY_ALBUM_USE_EXIST', 'Verwende im Album enthaltenes Bild');
 define('_CO_WGGALLERY_ALBUM_IMGID', 'In diesem Album enthaltene Bilder');
 define('_CO_WGGALLERY_ALBUM_USE_UPLOADED', 'Ein dafür hochgeladenes Bild verwenden');
@@ -158,7 +158,6 @@ define('_CO_WGGALLERY_IMAGE_RESY', 'Resy');
 define('_CO_WGGALLERY_IMAGE_DOWNLOADS', 'Downloads');
 define('_CO_WGGALLERY_IMAGE_RATINGLIKES', 'Gefällt mir');
 define('_CO_WGGALLERY_IMAGE_VOTES', 'Stimmen');
-define('_CO_WGGALLERY_IMAGE_WEIGHT', 'Reihung');
 define('_CO_WGGALLERY_IMAGE_ALBID', 'Album-ID');
 define('_CO_WGGALLERY_IMAGE_STATE', 'Status');
 define('_CO_WGGALLERY_IMAGE_IP', 'Ip');
@@ -212,6 +211,14 @@ define('_CO_WGGALLERY_WATERMARK_TARGET', 'Bildart für Hinzufügen Wasserzeichen
 define('_CO_WGGALLERY_WATERMARK_TARGET_A', 'Bei allen hinzufügen');
 define('_CO_WGGALLERY_WATERMARK_TARGET_M', 'Nur bei mittleren Bildern hinzufügen');
 define('_CO_WGGALLERY_WATERMARK_TARGET_L', 'Nur bei großen Bildern hinzufügen');
+// Elements of Categorie
+define('_CO_WGGALLERY_CAT', 'Kategorie');
+define('_CO_WGGALLERY_CATS', 'Kategorien');
+define('_CO_WGGALLERY_CATS_SELECT', 'Kategorien auswählen');
+// Elements of Tags
+define('_CO_WGGALLERY_TAG', 'Tag');
+define('_CO_WGGALLERY_TAGS', 'Tags');
+define('_CO_WGGALLERY_TAGS_ENTER', 'Tags hinzufügen (bitte # verwenden)');
 // ---------------- Admin Permissions ----------------
 // Permissions
 define('_CO_WGGALLERY_PERMS_GLOBAL', 'Globale Berechtigungen');

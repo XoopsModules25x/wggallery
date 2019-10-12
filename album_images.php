@@ -197,11 +197,11 @@ switch ($op) {
             $ret     = rename($imgTemp, $final);
         }
         if ('saveAlbumImage' === $op) {
-            $albumsObj->setVar('alb_imgcat', Constants::ALBUM_IMGCAT_USE_EXIST_VAL);
+            $albumsObj->setVar('alb_imgtype', Constants::ALBUM_IMGCAT_USE_EXIST_VAL);
             $albumsObj->setVar('alb_imgid', Request::getInt('alb_imgid'));
             $albumsObj->setVar('alb_image', '');
         } else {
-            $albumsObj->setVar('alb_imgcat', Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL);
+            $albumsObj->setVar('alb_imgtype', Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL);
             $albumsObj->setVar('alb_imgid', 0);
             $albumsObj->setVar('alb_image', 'album' . $albId . '.jpg');
         }
@@ -228,7 +228,7 @@ switch ($op) {
             redirect_header('albums.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         // Set Vars
-        $albumsObj->setVar('alb_imgcat', Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL);
+        $albumsObj->setVar('alb_imgtype', Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL);
         require_once XOOPS_ROOT_PATH . '/class/uploader.php';
         $fileName       = $_FILES['attachedfile']['name'];
         $imageMimetype  = $_FILES['attachedfile']['type'];

@@ -115,7 +115,7 @@ function b_wggallery_albums_show($options)
         $criteria->add(new \Criteria('alb_id', '(' . $album_ids . ')', 'IN'));
     }
     $criteria->add(new \Criteria('alb_state', Constants::STATE_ONLINE_VAL));
-    $criteria->add(new \Criteria('alb_iscat', 0));
+    $criteria->add(new \Criteria('alb_iscoll', 0));
     switch ($typeBlock) {
         // For the block: albums recent
         case 'recent':

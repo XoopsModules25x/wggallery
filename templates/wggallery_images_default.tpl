@@ -30,6 +30,12 @@
                             <{/if}>
 							<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/date.png' alt='<{$smarty.const._CO_WGGALLERY_DATE}>' title='<{$smarty.const._CO_WGGALLERY_DATE}>'><{$image.date}></p>
                             <p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/submitter.png' alt='<{$smarty.const._CO_WGGALLERY_SUBMITTER}>' title='<{$smarty.const._CO_WGGALLERY_SUBMITTER}>'><{$image.submitter}></p>
+                            <{if $use_categories && $image.cats_list}>
+								<p class='wgg-cats'><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/categories.png' alt='<{$smarty.const._CO_WGGALLERY_CATS}>' title='<{$smarty.const._CO_WGGALLERY_CATS}>'><{$image.cats_list}></p>
+                            <{/if}>
+                            <{if $use_tags && $image.tags}>
+								<p class='wgg-tags'><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>/tags.png' alt='<{$smarty.const._CO_WGGALLERY_TAGS}>' title='<{$smarty.const._CO_WGGALLERY_TAGS}>'><{$image.tags}></p>
+                            <{/if}>
                         </div>
                         <div class='wgg-img-panel-row col-sm-12 center'>
                             <a class='btn btn-default wgg-btn' href='<{$wggallery_url}>/images.php?op=show&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>&amp;start=<{$start}>&amp;limit=<{$limit}>&amp;img_submitter=<{$img_submitter}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_SHOW}>'>

@@ -1,5 +1,15 @@
 <h5>1.11 RC1</h5>  [2019/../..]
 <hr>
+ - changed field name `alb_iscat` into `alb_iscoll` in wggalllery_albums (goffy)
+ - changed field name `alb_imgcat` `alb_imgtype` in wggalllery_albums (goffy) 
+ - added field `alb_cats` `alb_tags` in wggalllery_albums (goffy)
+ - added field `img_cats` `img_tags` in wggalllery_images (goffy)
+ - added caegories for albums and images (lupin/goffy)
+ - added new preferences for usage of categories and tags (goffy)
+ - added tags system (goffy)
+ 
+<h5>1.11 RC1</h5>  [2019/../..]
+<hr>
  - fixed problem when source file for resizing is not existing (goffy)
  - added check mimetypes to maintenance (goffy)
  - new lang constants:
@@ -19,6 +29,7 @@
  - set noimage.png as default for new albums (goffy)
  - fixed bug with upload very big jpg images (goffy) 
  - switch from serialize to json_decode to fix problem with lne breaks (goffy)
+ - added show image preview when editing image (goffy)
  
 <h5>1.10 RC1</h5>  [2019/04/15]
 <hr>

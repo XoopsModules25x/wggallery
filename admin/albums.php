@@ -90,6 +90,8 @@ switch ($op) {
                 $pagenav = new \XoopsPageNav($albumsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
+            $GLOBALS['xoopsTpl']->assign('use_tags', $helper->getConfig('use_tags'));
+            $GLOBALS['xoopsTpl']->assign('use_categories', $helper->getConfig('use_categories'));
         } else {
             $GLOBALS['xoopsTpl']->assign('error', _CO_WGGALLERY_THEREARENT_ALBUMS);
         }
@@ -118,15 +120,18 @@ switch ($op) {
         }
         // Set Vars
         $albumsObj->setVar('alb_pid', Request::getInt('alb_pid'));
-        $albumsObj->setVar('alb_iscat', Request::getInt('alb_iscat'));
+        $albumsObj->setVar('alb_iscoll', Request::getInt('alb_iscoll'));
         $albumsObj->setVar('alb_name', Request::getString('alb_name'));
         $albumsObj->setVar('alb_desc', Request::getString('alb_desc'));
         $albumsObj->setVar('alb_weight', Request::getInt('alb_weight'));
         $albumsObj->setVar('alb_state', Request::getInt('alb_state'));
-        $albumsObj->setVar('alb_imgcat', Request::getInt('alb_imgcat'));
+        $albumsObj->setVar('alb_imgtype', Request::getInt('alb_imgtype'));
         $albumsObj->setVar('alb_image', Request::getString('alb_image'));
         $albumsObj->setVar('alb_imgid', Request::getInt('alb_imgid'));
         $albumsObj->setVar('alb_wmid', Request::getInt('alb_wmid'));
+        $albCats = serialize(Request::getArray('alb_cats'));
+        $albumsObj->setVar('alb_cats', $albCats);
+        $albumsObj->setVar('alb_tags', Request::getString('alb_tags'));
         $albumDate = date_create_from_format(_SHORTDATESTRING, $_POST['alb_date']);
         $albumsObj->setVar('alb_date', $albumDate->getTimestamp());
         $albumsObj->setVar('alb_submitter', Request::getInt('alb_submitter'));

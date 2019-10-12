@@ -148,9 +148,9 @@ function wggalleryPluginExecImportExtgallery($albState = 0, $albSubmitter = 0)
     // copy album data and album images
     // import all album data
     $sql = 'INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums');
-    $sql .= ' ( alb_id, alb_pid, alb_name, alb_desc, alb_date, alb_iscat, alb_weight, alb_image, alb_imgid, alb_imgcat, ';
+    $sql .= ' ( alb_id, alb_pid, alb_name, alb_desc, alb_date, alb_iscoll, alb_weight, alb_image, alb_imgid, alb_imgtype, ';
     $sql .= 'alb_state, alb_submitter ) ';
-    $sql .= "SELECT ec.cat_id, ec.cat_pid, ec.cat_name, ec.cat_desc, ec.cat_date, Not (ec.cat_isalbum) AS iscat, ec.cat_weight, ec.cat_imgurl, If(ec.cat_imgurl='', ec.photo_id, 0), If(ec.cat_imgurl='', 1, 2), ";
+    $sql .= "SELECT ec.cat_id, ec.cat_pid, ec.cat_text, ec.cat_desc, ec.cat_date, Not (ec.cat_isalbum) AS iscat, ec.cat_weight, ec.cat_imgurl, If(ec.cat_imgurl='', ec.photo_id, 0), If(ec.cat_imgurl='', 1, 2), ";
     $sql .= $albState . ', ' . $albSubmitter;
     $sql .= ' FROM ' . $GLOBALS['xoopsDB']->prefix('extgallery_publiccat') . ' as ec';
     $result = $GLOBALS['xoopsDB']->queryF($sql) || die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
@@ -170,7 +170,7 @@ function wggalleryPluginExecImportExtgallery($albState = 0, $albSubmitter = 0)
     }
     unset($result);
     unset($result2);
-    $sql = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . " SET alb_image = 'noimage.png', alb_imgcat = 2 WHERE (alb_image='' and alb_imgid=0)";
+    $sql = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . " SET alb_image = 'noimage.png', alb_imgtype = 2 WHERE (alb_image='' and alb_imgid=0)";
     $result = $GLOBALS['xoopsDB']->queryF($sql) || die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
     unset($result);
 
