@@ -274,3 +274,15 @@ define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS_DESC', 'If yes, the "
 //Latest Version Check
 define('CO_' . $moduleDirNameUpper . '_' . 'NEW_VERSION', 'Neue Version: ');
 define('CO_' . $moduleDirNameUpper . '_' . 'ERROR_BAD_XOOPS', 'Sie benötigen mindestens Version %s (Ihre derzeitige Version ist %s)');
+
+define('_CO_WGGALLERY_EXIF_ALL', 'Alle anzeigen');
+define('_CO_WGGALLERY_EXIF_FILENAME', 'Dateiname');
+define('_CO_WGGALLERY_EXIF_FILEDATETIME', 'Dateidatum');
+define('_CO_WGGALLERY_EXIF_FILESIZE', 'Dateigröße');
+define('_CO_WGGALLERY_EXIF_MIMETYPE', 'Mime-Type');
+define('_CO_WGGALLERY_EXIF_CAMERA', 'Kamera Marke');
+define('_CO_WGGALLERY_EXIF_MODEL', 'Modell');
+define('_CO_WGGALLERY_EXIF_EXPTIME', 'Belichtungszeit');
+define('_CO_WGGALLERY_EXIF_FOCALLENGTH', 'Brennweite');
+define('_CO_WGGALLERY_EXIF_DATETIMEORIG', 'Aufnahmedatum');
+define('_CO_WGGALLERY_EXIF_ISO', 'ISO Speed');

@@ -273,3 +273,15 @@ define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS_DESC', 'If yes, the "
 
 //Latest Version Check
 define('CO_' . $moduleDirNameUpper . '_' . 'NEW_VERSION', 'New Version: ');
+
+define('_CO_WGGALLERY_EXIF_ALL', 'Show all');
+define('_CO_WGGALLERY_EXIF_FILENAME', 'File name');
+define('_CO_WGGALLERY_EXIF_FILEDATETIME', 'File date');
+define('_CO_WGGALLERY_EXIF_FILESIZE', 'File size');
+define('_CO_WGGALLERY_EXIF_MIMETYPE', 'Mimetype');
+define('_CO_WGGALLERY_EXIF_CAMERA', 'Camera Type');
+define('_CO_WGGALLERY_EXIF_MODEL', 'Modell');
+define('_CO_WGGALLERY_EXIF_EXPTIME', 'Exposure time');
+define('_CO_WGGALLERY_EXIF_FOCALLENGTH', 'Focal Length');
+define('_CO_WGGALLERY_EXIF_DATETIMEORIG', 'Date time original');
+define('_CO_WGGALLERY_EXIF_ISO', 'ISO Speed');

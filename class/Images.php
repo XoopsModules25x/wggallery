@@ -309,34 +309,34 @@ class Images extends \XoopsObject
                         } else {
                             switch ($key) {
                                 case 'Make';
-                                    $exif_text .= _MI_WGGALLERY_EXIF_CAMERA;
+                                    $exif_text .= _CO_WGGALLERY_EXIF_CAMERA;
                                 break;
                                 case 'Model';
-                                    $exif_text .= _MI_WGGALLERY_EXIF_MODEL;
+                                    $exif_text .= _CO_WGGALLERY_EXIF_MODEL;
                                 break;
                                 case 'ExposureTime';
-                                    $exif_text .= _MI_WGGALLERY_EXIF_EXPTIME;
+                                    $exif_text .= _CO_WGGALLERY_EXIF_EXPTIME;
                                 break;
                                 case 'FocalLength';
-                                    $exif_text .= _MI_WGGALLERY_EXIF_FOCALLENGTH;
+                                    $exif_text .= _CO_WGGALLERY_EXIF_FOCALLENGTH;
                                 break;
                                 case 'DateTimeOriginal';
-                                    $exif_text .= _MI_WGGALLERY_EXIF_DATETIMEORIG;
+                                    $exif_text .= _CO_WGGALLERY_EXIF_DATETIMEORIG;
                                 break;
                                 case 'ISOSpeedRatings';
-                                    $exif_text .= _MI_WGGALLERY_EXIF_ISO;
+                                    $exif_text .= _CO_WGGALLERY_EXIF_ISO;
                                 break;
                                 case 'FileName';
-                                    $exif_text .= _MI_WGGALLERY_EXIF_FILENAME;
+                                    $exif_text .= _CO_WGGALLERY_EXIF_FILENAME;
                                 break;
                                 case 'FileDateTime';
-                                    $exif_text .= _MI_WGGALLERY_EXIF_FILEDATETIME;
+                                    $exif_text .= _CO_WGGALLERY_EXIF_FILEDATETIME;
                                 break;
                                 case 'FileSize';
-                                    $exif_text .= _MI_WGGALLERY_EXIF_FILESIZE;
+                                    $exif_text .= _CO_WGGALLERY_EXIF_FILESIZE;
                                 break;
                                 case 'MimeType';
-                                    $exif_text .= _MI_WGGALLERY_EXIF_MIMETYPE;
+                                    $exif_text .= _CO_WGGALLERY_EXIF_MIMETYPE;
                                 break;                       
                                 case 'default';
                                 default:
