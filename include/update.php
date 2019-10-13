@@ -171,6 +171,12 @@ function update_wggallery_v112(&$module)
         $module->setErrors("Error when adding 'img_tags' to table 'wggallery_images'.");
         $ret = false;
     }
+    $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_images') . "` ADD `img_views` INT(1) NOT NULL DEFAULT '0' AFTER `img_votes` ;";
+    if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+        xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+        $module->setErrors("Error when adding 'img_tags' to table 'wggallery_images'.");
+        $ret = false;
+    }
     
     // update table 'wggallery_albums'
     $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '` ADD `alb_cats` TEXT NULL AFTER `alb_state` ;';
