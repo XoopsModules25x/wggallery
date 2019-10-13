@@ -42,7 +42,10 @@ $ref      = Request::getString('ref');
 $imgSubm  = Request::getInt('img_submitter');
 $start    = Request::getInt('start', 0);
 $limit    = Request::getInt('limit', $helper->getConfig('userpager'));
-$redir_op = Request::getString('redir_op', $op);
+$redir_op = Request::getString('redir', '');
+if ('' === $redir_op) {
+    $redir_op = Request::getString('redir_op', $op);
+}
 $keywords = [];
 
 if (_CANCEL === Request::getString('cancel', 'none')) {
@@ -394,7 +397,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('start', $start);
         $GLOBALS['xoopsTpl']->assign('limit', $limit);
         $GLOBALS['xoopsTpl']->assign('img_submitter', $imgSubm);
-		$GLOBALS['xoopsTpl']->assign('redir_op', $redir_op);
+		$GLOBALS['xoopsTpl']->assign('redir_op', 'list');
         break;
 }
 

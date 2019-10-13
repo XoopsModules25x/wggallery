@@ -365,7 +365,25 @@ class Images extends \XoopsObject
         $imgCats          = unserialize($this->getVar('img_cats'));
         $ret['cats_list'] = $helper->getHandler('Categories')->getCatsList($imgCats);
         $ret['tags']      = $this->getVar('img_tags');
-// echo "<br><br><br>img_exif:<br>".$this->getVar('img_exif');
+        
+        if ($helper->getConfig('com_rule') > 0) {
+            $ret['com_show'] = 1;
+            // count comments
+            $comment_Handler = xoops_getHandler('comment');
+            $criteria        = new \CriteriaCompo();
+            $criteria->add(new \Criteria('com_itemid', $this->getVar('img_id')));
+            $criteria->add(new \Criteria('com_status', '0', '>'));
+            $criteria->setSort('com_created');
+            $criteria->setOrder('DESC');
+            $com_count = $comment_Handler->getCount($criteria);
+            $ret['com_count'] = $com_count;
+            if ($com_count == 1) {
+                $ret['com_count_text'] = $com_count . " " . _CO_WGGALLERY_COMMENT;
+            } else {
+                $ret['com_count_text'] = $com_count . " " . _CO_WGGALLERY_COMMENTS;
+            }
+        }
+
         return $ret;
     }
 

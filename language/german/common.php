@@ -286,3 +286,5 @@ define('_CO_WGGALLERY_EXIF_EXPTIME', 'Belichtungszeit');
 define('_CO_WGGALLERY_EXIF_FOCALLENGTH', 'Brennweite');
 define('_CO_WGGALLERY_EXIF_DATETIMEORIG', 'Aufnahmedatum');
 define('_CO_WGGALLERY_EXIF_ISO', 'ISO Speed');
+define('_CO_WGGALLERY_COMMENT', 'Kommentar');
+define('_CO_WGGALLERY_COMMENTS', 'Kommentare');

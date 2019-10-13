@@ -1,4 +1,4 @@
-<h5>1.11 RC1</h5>  [2019/../..]
+<h5>1.12 RC1</h5>  [2019/../..]
 <hr>
  - changed field name `alb_iscat` into `alb_iscoll` in wggalllery_albums (goffy)
  - changed field name `alb_imgcat` `alb_imgtype` in wggalllery_albums (goffy) 
@@ -7,6 +7,8 @@
  - added caegories for albums and images (lupin/goffy)
  - added new preferences for usage of categories and tags (goffy)
  - added tags system (goffy)
+ - fixed bug with goback-button on image index site (goffy)
+ - added comment count to image index site (lupin/goffy)
  
 <h5>1.11 RC1</h5>  [2019/../..]
 <hr>

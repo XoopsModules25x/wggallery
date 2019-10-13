@@ -285,3 +285,5 @@ define('_CO_WGGALLERY_EXIF_EXPTIME', 'Exposure time');
 define('_CO_WGGALLERY_EXIF_FOCALLENGTH', 'Focal Length');
 define('_CO_WGGALLERY_EXIF_DATETIMEORIG', 'Date time original');
 define('_CO_WGGALLERY_EXIF_ISO', 'ISO Speed');
+define('_CO_WGGALLERY_COMMENT', 'comment');
+define('_CO_WGGALLERY_COMMENTS', 'comments');
