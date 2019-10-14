@@ -147,7 +147,10 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
                 if ('' !== $listText) {
                     $listText .= ', ';
                 }
-                $listText .= '<span>' . $this->get($cat)->getVar('cat_text') . '</span>';
+                $categoryObj = $this->get($cat);
+                if (is_object($categoryObj)) {
+                    $listText .= '<span>' . $this->get($cat)->getVar('cat_text') . '</span>';
+                }
             }
         }
         return $listText;

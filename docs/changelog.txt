@@ -9,6 +9,8 @@
  - added tags system (goffy)
  - fixed bug with goback-button on image index site (goffy)
  - added comment count to image index site (lupin/goffy)
+ - added views count to image (lupin/goffy)
+ - implementation of search (goffy)
  
 <h5>1.11 RC1</h5>  [2019/../..]
 <hr>

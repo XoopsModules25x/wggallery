@@ -49,6 +49,7 @@ CREATE TABLE `wggallery_images` (
   `img_ratinglikes` INT(8)          NOT NULL DEFAULT '0',
   `img_votes`       INT(8)          NOT NULL DEFAULT '0',
   `img_weight`      INT(8)          NOT NULL DEFAULT '0',
+  `img_views`       INT(8)          NOT NULL DEFAULT '0',
   `img_albid`       INT(8)          NOT NULL DEFAULT '0',
   `img_state`       INT(8)          NOT NULL DEFAULT '0',
   `img_cats`        TEXT            NULL ,

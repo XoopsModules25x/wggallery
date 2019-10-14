@@ -50,6 +50,7 @@ define('_MI_WGGALLERY_SMNAME2', 'Albenmanagement');
 define('_MI_WGGALLERY_SMNAME3', 'Neues Album erstellen');
 define('_MI_WGGALLERY_SMNAME4', 'Upload von Bildern');
 define('_MI_WGGALLERY_SMNAME5', 'Bildermanagement');
+define('_MI_WGGALLERY_SMNAME6', 'Bildersuche');
 // Blocks
 define('_MI_WGGALLERY_ALBUMS_BLOCK', 'Block Alben');
 define('_MI_WGGALLERY_ALBUMS_BLOCK_DESC', 'Zeige einen Block mit den existierenden Alben (Sortierung wählbar)');

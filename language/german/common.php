@@ -288,3 +288,4 @@ define('_CO_WGGALLERY_EXIF_DATETIMEORIG', 'Aufnahmedatum');
 define('_CO_WGGALLERY_EXIF_ISO', 'ISO Speed');
 define('_CO_WGGALLERY_COMMENT', 'Kommentar');
 define('_CO_WGGALLERY_COMMENTS', 'Kommentare');
+define('_CO_WGGALLERY_VIEWS', 'Anzeigen');

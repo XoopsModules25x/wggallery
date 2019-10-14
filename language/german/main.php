@@ -68,4 +68,14 @@ define('_MA_WGGALLERY_FAILSAVEIMG_THUMBS', 'Fehler beim Erstellen des Vorschaubi
 define('_MA_WGGALLERY_FAILSAVEWM_MEDIUM', 'Fehler beim Hinzufügen Wasserzeichen zu mittelgroßem Bild: %s (Grund: %g)');
 define('_MA_WGGALLERY_FAILSAVEWM_LARGE', 'Fehler beim Hinzufügen Wasserzeichen zu großem Bild: %s (Grund: %g)');
 define('_MA_WGGALLERY_ERROR_NO_IMAGE_SET', "You didn't specify the image. Please select the album first");
-// ---------------- End ----------------
+// search
+define('_MA_WGGALLERY_SEARCH', 'Suche Bilder nach speziellen Kriterien');
+define('_MA_WGGALLERY_SEARCH_CATS', 'Suche nach Kategorien');
+define('_MA_WGGALLERY_SEARCH_TEXT', 'Suche nach Text');
+define('_MA_WGGALLERY_SEARCH_SUBM', 'Suche nach Einsender');
+define('_MA_WGGALLERY_SEARCH_ERROR_NO_FILTER', 'Bitte minimum ein Filterkriterium wählen!');
+define('_MA_WGGALLERY_SEARCH_RESULT', 'Suchergebnis');
+define('_MA_WGGALLERY_SEARCH_NO_RESULT', 'Keine Bilder gefunden');
+define('_MA_WGGALLERY_SEARCH_ACT', 'Suche Bilder nach Benutzeraktivitäten');
+define('_MA_WGGALLERY_SEARCH_ACT_DOWNLOADS', 'Am meisten heruntergeladen');
+define('_MA_WGGALLERY_SEARCH_ACT_VIEWS', 'Am meisten angesehen');

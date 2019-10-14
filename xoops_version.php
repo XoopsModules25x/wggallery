@@ -163,15 +163,14 @@ $currdirname = isset($GLOBALS['xoopsModule']) && is_object($GLOBALS['xoopsModule
 if ($moduleDirName == $currdirname) {
     $subcount = 1;
     $pathname = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName;
+    $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME1;
+    $modversion['sub'][$subcount]['url']  = 'index.php';
     require_once $pathname . '/include/common.php';
     /** @var \XoopsModules\Wggallery\Helper $helper */
     $helper = \XoopsModules\Wggallery\Helper::getInstance();
     $helper->loadLanguage('common');
     $permissionsHandler = $helper->getHandler('Permissions');
-
     if ($permissionsHandler->permGlobalSubmit() > 0) {
-        $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME1;
-        $modversion['sub'][$subcount]['url']  = 'index.php';
         $subcount++;
         $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME2;
         $modversion['sub'][$subcount]['url']  = 'albums.php';
@@ -185,6 +184,9 @@ if ($moduleDirName == $currdirname) {
         $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME4;
         $modversion['sub'][$subcount]['url']  = 'upload.php';
     }
+    $subcount++;
+    $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME6;
+    $modversion['sub'][$subcount]['url']  = 'search.php';
 }
 // ------------------- Blocks ------------------- //
 

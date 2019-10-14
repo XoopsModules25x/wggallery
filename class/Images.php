@@ -56,6 +56,7 @@ class Images extends \XoopsObject
         $this->initVar('img_downloads', XOBJ_DTYPE_INT);
         $this->initVar('img_ratinglikes', XOBJ_DTYPE_INT);
         $this->initVar('img_votes', XOBJ_DTYPE_INT);
+        $this->initVar('img_views', XOBJ_DTYPE_INT);
         $this->initVar('img_weight', XOBJ_DTYPE_INT);
         $this->initVar('img_albid', XOBJ_DTYPE_INT);
         $this->initVar('img_state', XOBJ_DTYPE_INT);
@@ -162,6 +163,13 @@ class Images extends \XoopsObject
         // Form Text ImgVotes TODO
         // $imgVotes = $this->isNew() ? '0' : $this->getVar('img_votes');
         // $form->addElement(new \XoopsFormText( _CO_WGGALLERY_IMAGE_VOTES, 'img_votes', 20, 150, $imgVotes ));
+        // Form Text ImgViews
+        $ImgViews = $this->isNew() ? '0' : $this->getVar('img_views');
+        if ($adminarea) {
+            $form->addElement(new \XoopsFormText(_CO_WGGALLERY_VIEWS, 'img_views', 20, 150, $ImgViews));
+        } else {
+            $form->addElement(new \XoopsFormHidden('img_views', $ImgViews));
+        }
         // Form Text ImgWeight
         $imgWeight = $this->isNew() ? '0' : $this->getVar('img_weight');
         if ($adminarea) {
@@ -280,6 +288,7 @@ class Images extends \XoopsObject
         $ret['downloads']   = $this->getVar('img_downloads');
         $ret['ratinglikes'] = $this->getVar('img_ratinglikes');
         $ret['votes']       = $this->getVar('img_votes');
+        $ret['views']       = $this->getVar('img_views');
         $ret['weight']      = $this->getVar('img_weight');
         $ret['albid']       = $this->getVar('img_albid');
         //$albums             = $helper->getHandler('Albums');

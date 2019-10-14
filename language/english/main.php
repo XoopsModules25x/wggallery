@@ -68,4 +68,14 @@ define('_MA_WGGALLERY_FAILSAVEIMG_THUMBS', 'Error when creating thumb image: %s'
 define('_MA_WGGALLERY_FAILSAVEWM_MEDIUM', 'Error when adding watermark to medium image: %s (reason: %g)');
 define('_MA_WGGALLERY_FAILSAVEWM_LARGE', 'Error when adding watermark to large image: %s (reason: %g)');
 define('_MA_WGGALLERY_ERROR_NO_IMAGE_SET', "You didn't specify the image. Please select the album first");
-// ---------------- End ----------------
+// search
+define('_MA_WGGALLERY_SEARCH', 'Search image by specific criterias');
+define('_MA_WGGALLERY_SEARCH_CATS', 'Search for categories');
+define('_MA_WGGALLERY_SEARCH_TEXT', 'Search text');
+define('_MA_WGGALLERY_SEARCH_SUBM', 'Search from specific submitter');
+define('_MA_WGGALLERY_SEARCH_ERROR_NO_FILTER', 'Please select minimum one of the filters!');
+define('_MA_WGGALLERY_SEARCH_RESULT', 'Result of your search');
+define('_MA_WGGALLERY_SEARCH_NO_RESULT', 'No images found');
+define('_MA_WGGALLERY_SEARCH_ACT', 'Search for user activities');
+define('_MA_WGGALLERY_SEARCH_ACT_DOWNLOADS', 'Most downloads');
+define('_MA_WGGALLERY_SEARCH_ACT_VIEWS', 'Most views');

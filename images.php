@@ -178,6 +178,7 @@ switch ($op) {
         $imagesObj->setVar('img_downloads', Request::getInt('img_downloads'));
         $imagesObj->setVar('img_ratinglikes', Request::getInt('img_ratinglikes'));
         $imagesObj->setVar('img_votes', Request::getInt('img_votes'));
+        $imagesObj->setVar('img_views', Request::getInt('img_views'));
         $imagesObj->setVar('img_weight', Request::getInt('img_weight'));
         $imagesObj->setVar('img_cats', serialize(Request::getArray('img_cats')));
         $imagesObj->setVar('img_tags', Request::getString('img_tags'));
@@ -374,7 +375,7 @@ switch ($op) {
         if (!$imgId) {
             redirect_header('albums.php', 3, _MA_WGGALLERY_ERROR_NO_IMAGE_SET);
         }
-        // Get Form
+        // Get image
         $imagesObj = $imagesHandler->get($imgId);
         $image     = $imagesObj->getValuesImages();
         $albId     = $image['albid'];
@@ -398,6 +399,11 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('limit', $limit);
         $GLOBALS['xoopsTpl']->assign('img_submitter', $imgSubm);
 		$GLOBALS['xoopsTpl']->assign('redir_op', 'list');
+        
+        $img_views = (int)$imagesObj->getVar('img_views') + 1;
+        $imagesObj->setVar('img_views', $img_views);
+        $imagesHandler->insert($imagesObj);
+        
         break;
 }
 

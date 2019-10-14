@@ -287,3 +287,4 @@ define('_CO_WGGALLERY_EXIF_DATETIMEORIG', 'Date time original');
 define('_CO_WGGALLERY_EXIF_ISO', 'ISO Speed');
 define('_CO_WGGALLERY_COMMENT', 'comment');
 define('_CO_WGGALLERY_COMMENTS', 'comments');
+define('_CO_WGGALLERY_VIEWS', 'Views');
