@@ -65,7 +65,7 @@ $GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/css/style_default.cs
 $GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/wggallery/assets/js/admin.js');
 
 // assign vars
-$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_32', WGGALLERY_ICONS_URL . '/32');
 $GLOBALS['xoopsTpl']->assign('wggallery_upload_image_url', WGGALLERY_UPLOAD_IMAGES_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);

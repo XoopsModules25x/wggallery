@@ -1,2 +1,5 @@
 maintenance:
 categories not existing anymore (deleted from table categories) should be removed also from alb_cats and img_cats
+
+
+show image div links div rechts

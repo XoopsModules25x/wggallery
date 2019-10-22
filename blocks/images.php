@@ -58,7 +58,7 @@ function b_wggallery_images_show($options)
     $albumsHandler = $helper->getHandler('Albums');
 
     $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
-    $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+    $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
     $GLOBALS['xoopsTpl']->assign('bi_nbImagesRow', $nbImagesRow);
     $GLOBALS['xoopsTpl']->assign('bi_showTitle', $bshowTitle);
     $GLOBALS['xoopsTpl']->assign('bi_showDesc', $bshowDesc);

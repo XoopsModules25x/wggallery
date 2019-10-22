@@ -316,6 +316,7 @@ class Images extends \XoopsObject
                                 $exif_text .= ' - ' . $skey . ': ' . $svalue . '<br>';
                             }
                         } else {
+                            $newvalue = $value;
                             switch ($key) {
                                 case 'Make';
                                     $exif_text .= _CO_WGGALLERY_EXIF_CAMERA;
@@ -331,6 +332,7 @@ class Images extends \XoopsObject
                                 break;
                                 case 'DateTimeOriginal';
                                     $exif_text .= _CO_WGGALLERY_EXIF_DATETIMEORIG;
+                                    $newvalue = formatTimestamp($value);
                                 break;
                                 case 'ISOSpeedRatings';
                                     $exif_text .= _CO_WGGALLERY_EXIF_ISO;
@@ -340,6 +342,7 @@ class Images extends \XoopsObject
                                 break;
                                 case 'FileDateTime';
                                     $exif_text .= _CO_WGGALLERY_EXIF_FILEDATETIME;
+                                    $newvalue = formatTimestamp($value);
                                 break;
                                 case 'FileSize';
                                     $exif_text .= _CO_WGGALLERY_EXIF_FILESIZE;
@@ -351,8 +354,10 @@ class Images extends \XoopsObject
                                 default:
                                     $exif_text .= $key;
                                 break;
-                            }                     
-                            $exif_text .= ': ' . $value . '<br>';
+                            }
+
+// formatTimestamp($this->getVar('alb_date'), 's');                            
+                            $exif_text .= ': ' . $newvalue . '<br>';
                         }
                     }
                 }

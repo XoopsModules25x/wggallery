@@ -32,7 +32,7 @@ $op = Request::getString('op', 'list');
 $catId = Request::getInt('cat_id');
 
 $templateMain = 'wggallery_admin_categories.tpl';
-$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16/');
+$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
 
 switch ($op) {
     case 'list':

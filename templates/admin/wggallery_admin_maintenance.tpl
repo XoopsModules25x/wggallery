@@ -25,9 +25,9 @@
 					<td class='left'><{$check.result1}><{if $check.result2}><br><{$check.result2}><{/if}></td>
 					<td class='left'>
 						<{if $check.change}>
-							<img src="<{$wggallery_icon_url_16}>/off.png" alt="_AM_WGGALLERY_MAINTENANCE_CHECKOK"> <{$check.solve}> <{if $check.info2}><br><{/if}>
+							<img src="<{$wggallery_icon_url_16}>off.png" alt="_AM_WGGALLERY_MAINTENANCE_CHECKOK"> <{$check.solve}> <{if $check.info2}><br><{/if}>
 						<{else}>
-							<img src="<{$wggallery_icon_url_16}>/on.png" alt="_AM_WGGALLERY_MAINTENANCE_CHECKOK"> 
+							<img src="<{$wggallery_icon_url_16}>on.png" alt="_AM_WGGALLERY_MAINTENANCE_CHECKOK"> 
 						<{/if}>
 						<{$check.info2}>
 					</td>

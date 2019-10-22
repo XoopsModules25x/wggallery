@@ -58,11 +58,20 @@ $GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/css/style.css', null
 //
 // $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
-$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
 $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
 $GLOBALS['xoopsTpl']->assign('displayButtonText', $helper->getConfig('displayButtonText'));
 $GLOBALS['xoopsTpl']->assign('use_tags', $helper->getConfig('use_tags'));
 $GLOBALS['xoopsTpl']->assign('use_categories', $helper->getConfig('use_categories'));
+$GLOBALS['xoopsTpl']->assign('show_exif', $helper->getConfig('store_exif'));
+$ratingbars = (int)$helper->getConfig('ratingbars');
+if ($ratingbars > 0) {
+    $GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/css/rating.css', null);
+    $GLOBALS['xoopsTpl']->assign('rating', $ratingbars);
+    $GLOBALS['xoopsTpl']->assign('rating_stars', (Constants::RATING_STARS === $ratingbars));
+    $GLOBALS['xoopsTpl']->assign('rating_likes', (Constants::RATING_LIKES === $ratingbars));
+    $GLOBALS['xoopsTpl']->assign('save', 'save-img' . $op);
+}
 
 $GLOBALS['xoopsTpl']->assign('random', rand());
 
@@ -351,7 +360,10 @@ switch ($op) {
                 $images[$i] = $imagesAll[$i]->getValuesImages();
                 //check permissions
                 $images[$i]['edit'] = $permAlbumEdit;
-                $keywords[]         = $imagesAll[$i]->getVar('img_name');
+                if ($helper->getConfig('ratingbars')) {
+                    $images[$i]['rating'] = $ratingsHandler->getItemRating($images[$i]['id'], 1);
+                }
+                $keywords[] = $imagesAll[$i]->getVar('img_name');
             }
             $GLOBALS['xoopsTpl']->assign('images', $images);
             unset($images);
@@ -378,6 +390,10 @@ switch ($op) {
         // Get image
         $imagesObj = $imagesHandler->get($imgId);
         $image     = $imagesObj->getValuesImages();
+        if ($helper->getConfig('ratingbars')) {
+            $image['rating'] = $ratingsHandler->getItemRating($image['id'], 1);
+        }
+
         $albId     = $image['albid'];
         // check permissions
         $file = '';

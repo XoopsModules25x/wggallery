@@ -131,7 +131,7 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
      * Get Criteria Albums
      * @return bool
      */
-    public function setAlbumIsCat()
+    public function setAlbumIsColl()
     {
         // reset (necessary after deleting)
         $strSQL = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . ' SET ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '.alb_iscoll = 0';

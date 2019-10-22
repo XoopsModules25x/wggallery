@@ -54,7 +54,7 @@ $GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/css/style_default.cs
 $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/js/admin.js');
 
 // assign vars
-$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_32', WGGALLERY_ICONS_URL . '/32');
 $GLOBALS['xoopsTpl']->assign('wggallery_upload_image_url', WGGALLERY_UPLOAD_IMAGES_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
@@ -151,8 +151,8 @@ switch ($op) {
         }
         // Set Vars
         $albumsObj->setVar('alb_pid', $albPid);
-        $albIscat = Request::getInt('alb_iscoll');
-        $albumsObj->setVar('alb_iscoll', $albIscat);
+        $albIscoll = Request::getInt('alb_iscoll');
+        $albumsObj->setVar('alb_iscoll', $albIscoll);
         $alb_name = Request::getString('alb_name');
         $albumsObj->setVar('alb_name', $alb_name);
         $albumsObj->setVar('alb_desc', Request::getString('alb_desc'));
@@ -210,7 +210,7 @@ switch ($op) {
             }
 
             // set category of album
-            $albumsHandler->setAlbumIsCat();
+            $albumsHandler->setAlbumIsColl();
 
             // send notifications
             $tags                = [];

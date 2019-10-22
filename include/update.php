@@ -44,6 +44,9 @@ function xoops_module_update_wggallery(&$module, $prev_version = null)
     if ($prev_version < 112) {
         $ret = update_wggallery_v112($module);
     }
+    if ($prev_version < 113) {
+        $ret = update_wggallery_v113($module);
+    }
     $errors = $module->getErrors();
     if (!empty($errors)) {
         print_r($errors);
@@ -194,13 +197,13 @@ function update_wggallery_v112(&$module)
     $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . "` CHANGE `alb_iscat` `alb_iscoll` INT(1) NOT NULL DEFAULT '0'";
     if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
         xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
-        $module->setErrors("Error when changing 'alb_iscoll' into 'alb_iscoll' in table 'wggallery_albums'.");
+        $module->setErrors("Error when changing 'alb_iscat' into 'alb_iscoll' in table 'wggallery_albums'.");
         $ret = false;
     }
     $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . "` CHANGE `alb_imgcat` `alb_imgtype` INT(1) NOT NULL DEFAULT '0'";
     if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
         xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
-        $module->setErrors("Error when changing 'alb_iscoll' into 'alb_iscoll' in table 'wggallery_albums'.");
+        $module->setErrors("Error when changing 'alb_imgcat' into 'alb_imgtype' in table 'wggallery_albums'.");
         $ret = false;
     }
     
@@ -218,7 +221,37 @@ function update_wggallery_v112(&$module)
             ) ENGINE=InnoDB;";
     if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
         xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
-        $module->setErrors("Error when changing 'alb_iscoll' into 'alb_iscoll' in table 'wggallery_albums'.");
+        $module->setErrors("Error when creating table 'wggallery_categories'.");
+        $ret = false;
+    }
+     
+    return $ret;
+}
+
+
+/**
+ * @param $module
+ *
+ * @return bool
+ */
+function update_wggallery_v113(&$module)
+{
+    $ret = true;
+    
+    // create new table 'wggallery_categories'
+    $sql = 'CREATE TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_ratings') . "` (
+                `rate_id`     INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+                `rate_source` INT(1) NOT NULL DEFAULT '0',
+                `rate_itemid` INT(8) NOT NULL DEFAULT '0',
+                `rate_value`  INT(1) NOT NULL DEFAULT '0',
+                `rate_uid`    INT(8) NOT NULL DEFAULT '0',
+                `rate_ip`     VARCHAR(60) NOT NULL DEFAULT '',
+                `rate_date`   INT(8) NOT NULL DEFAULT '0',
+                PRIMARY KEY (`rate_id`)
+            ) ENGINE=InnoDB;";
+    if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+        xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+        $module->setErrors("Error when creating table 'wggallery_ratings'.");
         $ret = false;
     }
      

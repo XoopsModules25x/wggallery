@@ -44,18 +44,37 @@ require_once XOOPS_ROOT_PATH . '/header.php';
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet($style, null);
 $GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/css/style.css', null);
+if ($helper->getConfig('ratingbars') > 0) {
+    $GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/css/rating.css', null);
+    $GLOBALS['xoopsTpl']->assign('rating', true);
+    $GLOBALS['xoopsTpl']->assign('save', 'save-img' . $op);
+}
+$GLOBALS['xoopsTpl']->assign('show_exif', $helper->getConfig('store_exif'));
 
 // defines only for search
 define('WGGALLERY_SEARCH_NOTAPPLY', 0);
 define('WGGALLERY_SEARCH_ACT_DOWNLOADS', 1);
 define('WGGALLERY_SEARCH_ACT_VIEWS', 2);
+define('WGGALLERY_SEARCH_ACT_RATINGS', 3);
+define('WGGALLERY_SEARCH_ACT_VOTES', 4);
 
 // **************************
 // start search form section
 xoops_load('XoopsFormLoader');
 $form1 = new \XoopsThemeForm(_MA_WGGALLERY_SEARCH, 'form1', 'search.php', 'post', true);
 $form1->setExtra('enctype="multipart/form-data"');
-$form1->addElement(new \XoopsFormText(_MA_WGGALLERY_SEARCH_TEXT, 'search_text', 50, 255, $search_text), false);
+
+// search for text
+$trayText = new \XoopsFormElementTray(_MA_WGGALLERY_SEARCH_TEXT, '<br>');
+$descText = new \XoopsFormLabel('', _MA_WGGALLERY_SEARCH_TEXT_DESC);
+$trayText->addElement($descText, false);
+$trayText->addElement(new \XoopsFormText('', 'search_text', 50, 255, $search_text), false);
+$form1->addElement($trayText, false);
+
+// search for categories
+$trayCats = new \XoopsFormElementTray(_MA_WGGALLERY_SEARCH_CATS, '<br>');
+$descCats = new \XoopsFormLabel('', _MA_WGGALLERY_SEARCH_CATS_DESC);
+$trayCats->addElement($descCats, false);
 if ($helper->getConfig('use_categories')) {
     $categoriesHandler = $helper->getHandler('Categories');
     $crCategories = new \CriteriaCompo();
@@ -65,15 +84,18 @@ if ($helper->getConfig('use_categories')) {
         $crCategories->setSort('cat_weight ASC, cat_text');
         $crCategories->setOrder('ASC');
         $categoriesAll = $categoriesHandler->getAll($crCategories);
-        $selectCategories = new \XoopsFormCheckBox(_MA_WGGALLERY_SEARCH_CATS, 'search_cats', $search_cats);
+        $selectCategories = new \XoopsFormCheckBox('', 'search_cats', $search_cats);
         foreach (array_keys($categoriesAll) as $i) {
             $selectCategories->addOption($categoriesAll[$i]->getVar('cat_id'), $categoriesAll[$i]->getVar('cat_text'));
         }
-        $form1->addElement($selectCategories, false);
+        $trayCats->addElement($selectCategories, false);
     }
 } else {
-    $form1->addElement(new \XoopsFormHidden('search_cats', 0));
+    $trayCats->addElement(new \XoopsFormHidden('search_cats', 0));
 }
+$form1->addElement($trayCats, false);
+
+// search for submitter of album or image
 $userHandler = xoops_gethandler('user');
 $sql = 'SELECT alb_submitter FROM ' . $xoopsDB->prefix('wggallery_albums') . ' GROUP BY alb_submitter';
 $result = $GLOBALS['xoopsDB']->query($sql) or die ("MySQL-Error: " . mysqli_error());       
@@ -98,12 +120,17 @@ while($row = $GLOBALS['xoopsDB']->fetchrow($result)) {
     $subm_search[$row[0]]['name'] = $username;
 }  
 // Form Select users
-$submSelect = new \XoopsFormSelect(_MA_WGGALLERY_SEARCH_SUBM, 'search_subm', $search_subm);
+$traySubmitter = new \XoopsFormElementTray(_MA_WGGALLERY_SEARCH_SUBM, '<br>');
+$descSelect = new \XoopsFormLabel('', _MA_WGGALLERY_SEARCH_SUBM_DESC);
+$traySubmitter->addElement($descSelect, false);
+$submSelect = new \XoopsFormSelect('', 'search_subm', $search_subm);
 $submSelect->addOption(0, ' ');
 foreach ($subm_search as $subm) {
     $submSelect->addOption($subm['uid'], $subm['name']);
 }
-$form1->addElement($submSelect, false);
+$traySubmitter->addElement($submSelect, false);
+$form1->addElement($traySubmitter, false);
+
 // To Save
 $form1->addElement(new \XoopsFormHidden('op', 'exec_search'));
 $form1->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
@@ -117,6 +144,10 @@ $form2->setExtra('enctype="multipart/form-data"');
 $activitySelect = new \XoopsFormRadio(_MA_WGGALLERY_SEARCH_ACT, 'search_act', $search_act);
 $activitySelect->addOption(WGGALLERY_SEARCH_ACT_DOWNLOADS, _MA_WGGALLERY_SEARCH_ACT_DOWNLOADS);
 $activitySelect->addOption(WGGALLERY_SEARCH_ACT_VIEWS, _MA_WGGALLERY_SEARCH_ACT_VIEWS);
+if ($helper->getConfig('ratingbars')) {
+    $activitySelect->addOption(WGGALLERY_SEARCH_ACT_RATINGS, _MA_WGGALLERY_SEARCH_ACT_RATINGS);
+    $activitySelect->addOption(WGGALLERY_SEARCH_ACT_VOTES, _MA_WGGALLERY_SEARCH_ACT_VOTES);
+}
 $form2->addElement($activitySelect);
      
 // To Save
@@ -266,7 +297,13 @@ switch ($op) {
                 case WGGALLERY_SEARCH_ACT_VIEWS:
                     $crImages->setSort('img_views');
                     $crImages->setOrder('DESC');
-
+                case WGGALLERY_SEARCH_ACT_RATINGS:
+                    $crImages->setSort('img_ratinglikes');
+                    $crImages->setOrder('DESC');
+                break;
+                case WGGALLERY_SEARCH_ACT_VOTES:
+                    $crImages->setSort('img_votes');
+                    $crImages->setOrder('DESC');
                 break;
                 case 'default':
                 default:
@@ -300,7 +337,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('start', $start);
         $GLOBALS['xoopsTpl']->assign('limit', $limit);
         $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
-        $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+        $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
         $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
         $GLOBALS['xoopsTpl']->assign('displayButtonText', $helper->getConfig('displayButtonText'));
         $GLOBALS['xoopsTpl']->assign('use_tags', $helper->getConfig('use_tags'));

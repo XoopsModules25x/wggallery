@@ -25,7 +25,7 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 // ------------------- Informations ------------------- //
 $modversion = [
-    'version'             => '1.12',
+    'version'             => '1.13',
     'module_status'       => 'RC1',
     'release_date'        => '2019/04/15',
     'name'                => _MI_WGGALLERY_NAME,
@@ -132,7 +132,7 @@ $modversion['templates'] = [
     // array('file' => 'wggallery_block_images_default.tpl', 'description' => ''),
 
     ['file' => 'wggallery_breadcrumbs.tpl', 'description' => ''],
-    ['file' => 'wggallery_rate.tpl', 'description' => ''],
+    ['file' => 'wggallery_rating_img.tpl', 'description' => ''],
     ['file' => 'wggallery_rss.tpl', 'description' => ''],
     ['file' => 'wggallery_search.tpl', 'description' => ''],
     ['file' => 'wggallery_single.tpl', 'description' => ''],
@@ -562,6 +562,34 @@ $modversion['config'][] = [
                       '_CO_WGGALLERY_EXIF_DATETIMEORIG' => 'DateTimeOriginal',
                       '_CO_WGGALLERY_EXIF_ISO' => 'ISOSpeedRatings',
                      ]
+];
+
+// Rating bar
+$modversion['config'][] = [
+    'name'       => 'ratingbars',
+    'title'       => '_MI_WGGALLERY_RATINGBARS',
+    'description' => '_MI_WGGALLERY_RATINGBARS_DESC',
+    'formtype'    => 'select',
+    'valuetype'   => 'int',
+    'default'     => 0,
+    // 'options'     => ['_MI_WGGALLERY_RATING_NONE' => 0, '_MI_WGGALLERY_RATING_STARS' => 1, '_MI_WGGALLERY_RATING_LIKES' => 2],
+    'options'     => ['_MI_WGGALLERY_RATING_NONE' => 0, '_MI_WGGALLERY_RATING_STARS' => 1],
+];
+    
+$group_handler = xoops_getHandler('group');
+$group_arr     = $group_handler->getObjects();
+$ratingbar_groups = array();
+foreach (array_keys($group_arr) as $i) {
+    $ratingbar_groups[$group_arr[$i]->getVar('name')] = $group_arr[$i]->getVar('groupid');
+}
+$modversion['config'][] = [
+    'name'        => 'ratingbar_groups',
+    'title'       => '_MI_WGGALLERY_RATINGBAR_GROUPS',
+    'description' => '_MI_WGGALLERY_RATINGBAR_GROUPS_DESC',
+    'formtype'    => 'select_multi',
+    'valuetype'   => 'array',
+    'default'     => array('1'),
+    'options'     => $ratingbar_groups,
 ];
 
 /**

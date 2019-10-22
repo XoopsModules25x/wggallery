@@ -71,6 +71,10 @@ define('_MA_WGGALLERY_ERROR_NO_IMAGE_SET', "You didn't specify the image. Please
 // search
 define('_MA_WGGALLERY_SEARCH', 'Suche Bilder nach speziellen Kriterien');
 define('_MA_WGGALLERY_SEARCH_CATS', 'Suche nach Kategorien');
+define('_MA_WGGALLERY_SEARCH_CATS_DESC', 'Ausgewählt werden Bilder oder Alben, die einer dieser Kategorien zugeordnet wurden. Sofern ein Album einer Kategorie zugeordnet werden, so werden alle Bilder dieses Albums angezeigt, unabhängig davon, ob die einzelnen Bilder dieser Kategorie zugeordnet wurden');
+define('_MA_WGGALLERY_SEARCH_TEXT_DESC', 'Ausgewählt werden Bilder oder Alben, deren Name, Beschreibung, Name der Kategorie oder einer der verwendeten Tags diesen Text enthalten. Sofern ein Album einer Kategorie zugeordnet werden, so werden alle Bilder dieses Albums angezeigt');
+define('_MA_WGGALLERY_SEARCH_SUBM_DESC', 'Ausgewählt werden Bilder oder Alben, die vom ausgewählten Benutzer eingesendet wurden');
+
 define('_MA_WGGALLERY_SEARCH_TEXT', 'Suche nach Text');
 define('_MA_WGGALLERY_SEARCH_SUBM', 'Suche nach Einsender');
 define('_MA_WGGALLERY_SEARCH_ERROR_NO_FILTER', 'Bitte minimum ein Filterkriterium wählen!');
@@ -79,3 +83,17 @@ define('_MA_WGGALLERY_SEARCH_NO_RESULT', 'Keine Bilder gefunden');
 define('_MA_WGGALLERY_SEARCH_ACT', 'Suche Bilder nach Benutzeraktivitäten');
 define('_MA_WGGALLERY_SEARCH_ACT_DOWNLOADS', 'Am meisten heruntergeladen');
 define('_MA_WGGALLERY_SEARCH_ACT_VIEWS', 'Am meisten angesehen');
+define('_MA_WGGALLERY_SEARCH_ACT_RATINGS', 'Am besten bewertet');
+define('_MA_WGGALLERY_SEARCH_ACT_VOTES', 'Mit den meisten Bewertungen');
+// ---------------- Ratings ----------------
+define('_MA_WGGALLERY_RATING_CURRENT', 'Bewertung: %c / %m (%t Bewertung(en) insgesamt)');
+define('_MA_WGGALLERY_RATING_CURRENT_SHORT', '%c (%t Bewertung(en))');
+define('_MA_WGGALLERY_RATING1', '1 von 5');
+define('_MA_WGGALLERY_RATING2', '2 von 5');
+define('_MA_WGGALLERY_RATING3', '3 von 5');
+define('_MA_WGGALLERY_RATING4', '4 von 5');
+define('_MA_WGGALLERY_RATING5', '5 von 5');
+define('_MA_WGGALLERY_RATING_VOTE_BAD', 'Ungültige Bewertung');
+define('_MA_WGGALLERY_RATING_VOTE_ALREADY', 'Sie haben bereits eine Bewertung abgegeben');
+define('_MA_WGGALLERY_RATING_VOTE_THANKS', 'Danke für Ihre Bewertung');
+define('_MA_WGGALLERY_RATING_NOPERM', 'Verzeichung, aber Sie haben keine Berechtigung zum Bewerten von Einträgen');

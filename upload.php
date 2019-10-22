@@ -34,7 +34,7 @@ $albId = Request::getInt('alb_id', 0);
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_upload.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 
-$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
 $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
 $GLOBALS['xoopsTpl']->assign('displayButtonText', $helper->getConfig('displayButtonText'));
 

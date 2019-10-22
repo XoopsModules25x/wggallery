@@ -26,39 +26,39 @@
                 <tbody id="categories-list">
                     <{foreach item=category from=$categories_list}>
                         <tr class="<{cycle values='odd, even'}>" id="corder_<{$category.id}>">
-                            <td class="center"><img src="<{$wggallery_icon_url_16}>/up_down.png" alt="drag&drop" class="icon-sortable"></td>
+                            <td class="center"><img src="<{$wggallery_icon_url_16}>up_down.png" alt="drag&drop" class="icon-sortable"></td>
                             <td class='center'><{$category.id}></td>
                             <td class='center'><{$category.text}></td>
                             <td class='center'>
                                 <{if $category.album == 1}>
                                     <a href='<{$wggallery_url}>/admin/categories.php?op=change&amp;field=album&amp;state=0&amp;cat_id=<{$category.id}>' title='<{$smarty.const._EDIT}>'>
-                                        <img src="<{$wggallery_icon_url_16}>/on.png" alt="<{$smarty.const._YES}>">
+                                        <img src="<{$wggallery_icon_url_16}>on.png" alt="<{$smarty.const._YES}>">
                                     </a>
                                 <{else}>
                                     <a href='<{$wggallery_url}>/admin/categories.php?op=change&amp;field=album&amp;state=1&amp;cat_id=<{$category.id}>' title='<{$smarty.const._EDIT}>'>
-                                        <img src="<{$wggallery_icon_url_16}>/off.png" alt="<{$smarty.const._NO}>">
+                                        <img src="<{$wggallery_icon_url_16}>off.png" alt="<{$smarty.const._NO}>">
                                     </a>
                                 <{/if}>
                             </td>
                             <td class='center'>
                                 <{if $category.image == 1}>
                                     <a href='<{$wggallery_url}>/admin/categories.php?op=change&amp;field=image&amp;state=0&amp;cat_id=<{$category.id}>' title='<{$smarty.const._EDIT}>'>
-                                        <img src="<{$wggallery_icon_url_16}>/on.png" alt="<{$smarty.const._YES}>">
+                                        <img src="<{$wggallery_icon_url_16}>on.png" alt="<{$smarty.const._YES}>">
                                     </a>
                                 <{else}>
                                     <a href='<{$wggallery_url}>/admin/categories.php?op=change&amp;field=image&amp;state=1&amp;cat_id=<{$category.id}>' title='<{$smarty.const._EDIT}>'>
-                                        <img src="<{$wggallery_icon_url_16}>/off.png" alt="<{$smarty.const._NO}>">
+                                        <img src="<{$wggallery_icon_url_16}>off.png" alt="<{$smarty.const._NO}>">
                                     </a>
                                 <{/if}>
                             </td>
                             <td class='center'>
                                 <{if $category.search == 1}>
                                     <a href='<{$wggallery_url}>/admin/categories.php?op=change&amp;field=search&amp;state=0&amp;cat_id=<{$category.id}>' title='<{$smarty.const._EDIT}>'>
-                                        <img src="<{$wggallery_icon_url_16}>/on.png" alt="<{$smarty.const._YES}>">
+                                        <img src="<{$wggallery_icon_url_16}>on.png" alt="<{$smarty.const._YES}>">
                                     </a>
                                 <{else}>
                                     <a href='<{$wggallery_url}>/admin/categories.php?op=change&amp;field=search&amp;state=1&amp;cat_id=<{$category.id}>' title='<{$smarty.const._EDIT}>'>
-                                        <img src="<{$wggallery_icon_url_16}>/off.png" alt="<{$smarty.const._NO}>">
+                                        <img src="<{$wggallery_icon_url_16}>off.png" alt="<{$smarty.const._NO}>">
                                     </a>
                                 <{/if}>
                             </td>

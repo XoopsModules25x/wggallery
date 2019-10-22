@@ -154,4 +154,12 @@ define('_MI_WGGALLERY_ALBUMS_IMG_APPROVE_NOTIFY_SUBJECT', 'Benachrichtigung dass
 define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY', 'Sende Benachrichtigung wenn wenn ein Bild dieses Albums gelöscht wurde');
 define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_CAPTION', 'Benachrichtige mich über Bilderlöschungen dieses Albums');
 define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_SUBJECT', 'Benachrichtigung über Bilderlöschung');
-// ---------------- End ----------------
+
+define('_MI_WGGALLERY_RATINGBARS', 'Bewertung zulassen');
+define('_MI_WGGALLERY_RATINGBARS_DESC', 'Definieren Sie, ob eine Bewertung zulässig sein soll, und falls ja, welche');
+define('_MI_WGGALLERY_RATINGBAR_GROUPS', 'Gruppen mit Bewertungsrecht');
+define('_MI_WGGALLERY_RATINGBAR_GROUPS_DESC', 'Definieren Sie, welche Gruppen die Berechtigung zur Abgabe eine Bewertung besitzen');
+define('_MI_WGGALLERY_RATING_NONE', 'Keine Bewertung verwenden');
+define('_MI_WGGALLERY_RATING_STARS', 'Bewertung mit Sternen');
+define('_MI_WGGALLERY_RATING_LIKES', 'Bewertung mit Likes');
+

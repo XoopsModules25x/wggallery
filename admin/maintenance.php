@@ -34,7 +34,7 @@ $albId = Request::getInt('alb_id');
 // add scripts
 $GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/wggallery/assets/js/admin.js');
 
-$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
 
 $maintainance_resize_desc = str_replace(['%mw', '%mh', '%tw', '%th'], [$helper->getConfig('maxwidth_medium'), $helper->getConfig('maxheight_medium'), $helper->getConfig('maxwidth_thumbs'), $helper->getConfig('maxheight_thumbs')], _AM_WGGALLERY_MAINTENANCE_RESIZE_DESC);
 

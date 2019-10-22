@@ -60,7 +60,6 @@ define('_AM_WGGALLERY_CAT_EXIF', 'Exif-Name für Kategorie');
 define('_AM_WGGALLERY_CAT_ALBUM', 'Kategorie für Alben verwenden');
 define('_AM_WGGALLERY_CAT_IMAGE', 'Kategorie für Bilder verwenden');
 define('_AM_WGGALLERY_CAT_SEARCH', 'Kategorie für Suche verwenden');
-define('_AM_WGGALLERY_CAT_SEARCH', 'Kategorie für Suche verwenden');
 define('_AM_WGGALLERY_CAT_ERROR_CHANGE', 'Fehler beim Ändern der Option');
 //Gallerytype/Albumtypes
 define('_AM_WGGALLERY_GT_AT_ID', 'Id');

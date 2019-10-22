@@ -88,6 +88,10 @@
 .wgg-img-panel-row .wgg-img {
 	margin: 5px;
 }
+.wgg-img-exif {
+    text-indent: -35px;
+    padding-left:35px;
+}
 
 .wgg-modal-selected {
     border:1px solid #ff0000;

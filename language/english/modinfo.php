@@ -150,4 +150,12 @@ define('_MI_WGGALLERY_ALBUMS_IMG_APPROVE_NOTIFY_SUBJECT', 'Notification about im
 define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY', 'Send notification when a new image was deleted from this album');
 define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_CAPTION', 'Notify me about deleting image from this album');
 define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_SUBJECT', 'Notification about deleted image');
-// ---------------- End ----------------
+
+
+define('_MI_WGGALLERY_RATINGBARS', 'Allow rating');
+define('_MI_WGGALLERY_RATINGBARS_DESC', 'Define whether rating should be possible and which kind of rating should be used');
+define('_MI_WGGALLERY_RATINGBAR_GROUPS', 'Groups with rating rights');
+define('_MI_WGGALLERY_RATINGBAR_GROUPS_DESC', 'Define which groups should have the right to rate');
+define('_MI_WGGALLERY_RATING_NONE', 'Do not use rating');
+define('_MI_WGGALLERY_RATING_STARS', 'Rating with stars');
+define('_MI_WGGALLERY_RATING_LIKES', 'Rating with likes');

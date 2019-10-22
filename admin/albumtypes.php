@@ -45,7 +45,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('albumtypes_count', $albumtypesCount);
         $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
         $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
-        $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+        $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
         // Table view albumtypes
         if ($albumtypesCount > 0) {
             foreach (array_keys($albumtypesAll) as $i) {

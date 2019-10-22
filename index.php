@@ -35,7 +35,7 @@ $submitterId = Request::getInt('subm_id', 0);
 
 // general template assigns
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
-$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
 $GLOBALS['xoopsTpl']->assign('panel_type', $helper->getConfig('panel_type'));
 // $GLOBALS['xoopsTpl']->assign('type', $helper->getConfig('table_type'));
 // $GLOBALS['xoopsTpl']->assign('divideby', $helper->getConfig('divideby'));

@@ -36,7 +36,7 @@ $orderby = Request::getString('orderby', 'DESC');
 
 // add scripts
 $GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/wggallery/assets/js/admin.js');
-$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16/');
+$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
 
 switch ($op) {
     case 'list':
@@ -173,7 +173,7 @@ switch ($op) {
                     $gpermHandler->addRight('wggallery_dlimage_medium', $permId, $onegroupId, $perm_modid);
                 }
             }
-            $albumsHandler->setAlbumIsCat();
+            $albumsHandler->setAlbumIsColl();
             redirect_header('albums.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
         }
         // Get Form

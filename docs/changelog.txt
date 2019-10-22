@@ -1,3 +1,7 @@
+<h5>1.13 RC1</h5>  [2019/../..]
+<hr>
+ - added rating system (goffy)
+ 
 <h5>1.12 RC1</h5>  [2019/../..]
 <hr>
  - changed field name `alb_iscat` into `alb_iscoll` in wggalllery_albums (goffy)

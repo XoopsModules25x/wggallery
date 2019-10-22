@@ -83,7 +83,7 @@ function b_wggallery_albums_show($options)
     $GLOBALS['xoopsTpl']->assign('ba_gallery', 'none' !== $pr_gallery['template'] && 1 === (int)$bgallery);
 
     $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
-    $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+    $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
 
     $GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/css/blocks/blocks.css', null);
     switch ($template) {

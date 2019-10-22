@@ -45,7 +45,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('gallerytypes_count', $gallerytypesCount);
         $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
         $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
-        $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+        $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
         // Table view gallerytypes
         if ($gallerytypesCount > 0) {
             foreach (array_keys($gallerytypesAll) as $i) {
