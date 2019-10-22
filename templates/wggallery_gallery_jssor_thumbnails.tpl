@@ -102,7 +102,7 @@
             .jssort101 .t {position:absolute;top:0;left:0;width:100%;height:100%;border:none;opacity:.6;}
             .jssort101 .pav .t, .jssort101 .p:hover .t{opacity:1;}
         </style>
-        <div data-u="thumbnavigator" class="jssort101" style="position:absolute;left:0px;bottom:0px;width:<{$jssor_maxwidth}>px;height:100px;background-color:#000;" data-autocenter="1" data-scale-bottom="0.75">
+        <div data-u="thumbnavigator" class="jssort101" style="position:absolute;left:0;bottom:0;width:<{$jssor_maxwidth}>px;height:100px;background-color:#000;" data-autocenter="1" data-scale-bottom="0.75">
             <div data-u="slides">
                 <div data-u="prototype" class="p" style="width:190px;height:84px;">
                     <div data-u="thumbnailtemplate" class="t"></div>
@@ -125,7 +125,7 @@
             .jssort111 .ti {position:absolute;bottom:0px;left:0px;width:100%;height:28px;line-height:28px;text-align:center;font-size:12px;color:#fff;background-color:rgba(0,0,0,.3)}
             .jssort111 .pav .ti, .jssort111 .pdn .ti, .jssort111 .p:hover.pdn .ti{color:#000;background-color:rgba(255,255,255,.6);}
         </style>
-        <div data-u="thumbnavigator" class="jssort111" style="position:absolute;left:0px;bottom:0px;width:<{$jssor_maxwidth}>px;height:100px;cursor:default;" data-autocenter="1" data-scale-bottom="0.75">
+        <div data-u="thumbnavigator" class="jssort111" style="position:absolute;left:0;bottom:0;width:<{$jssor_maxwidth}>px;height:100px;cursor:default;" data-autocenter="1" data-scale-bottom="0.75">
             <div data-u="slides">
                 <div data-u="prototype" class="p">
                     <div data-u="thumbnailtemplate" class="t"></div>
@@ -145,7 +145,7 @@
             .jssort121 .d {position:relative;font-size:12px;}
             /*.jssort121 .d:before {content:'\a';white-space:pre;}*/
         </style>
-        <div data-u="thumbnavigator" class="jssort121" style="position:absolute;left:0px;top:0px;width:268px;height:380px;overflow:hidden;cursor:default;" data-autocenter="2" data-scale-left="0.75">
+        <div data-u="thumbnavigator" class="jssort121" style="position:absolute;left:0;top:0;width:268px;height:380px;overflow:hidden;cursor:default;" data-autocenter="2" data-scale-left="0.75">
             <div data-u="slides">
                 <div data-u="prototype" class="p" style="width:268px;height:68px;">
                     <div data-u="thumbnailtemplate" class="t"></div>

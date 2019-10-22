@@ -104,7 +104,7 @@
 
 /* image sorting */
 .wgg-img-sort, .wgg-img-sort-clear {
-	border:0px solid transparent !important;
+	border:0 solid transparent !important;
 }
 .wgg-img-sort-clear {
 	height:0;

@@ -24,7 +24,6 @@
                             <p class='wgg-block-idesc center'><{$image.desc}><p>
                         <{/if}>
                     <{/if}>
-                    </a>
                 <{/if}>
             </a>
         </div>

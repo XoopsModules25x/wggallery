@@ -1,6 +1,7 @@
 <h5>1.13 RC1</h5>  [2019/../..]
 <hr>
  - added rating system (goffy)
+ - cosmetics (goffy)
  
 <h5>1.12 RC1</h5>  [2019/../..]
 <hr>

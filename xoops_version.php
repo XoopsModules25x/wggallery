@@ -70,9 +70,11 @@ $modversion = [
     // ------------------- Tables ----------------------------
     'tables'              => [
         $moduleDirName . '_' . 'albums',
-        $moduleDirName . '_' . 'images',
-        $moduleDirName . '_' . 'gallerytypes',
         $moduleDirName . '_' . 'albumtypes',
+        $moduleDirName . '_' . 'categories',
+        $moduleDirName . '_' . 'gallerytypes',
+        $moduleDirName . '_' . 'images',
+        $moduleDirName . '_' . 'ratings',
         $moduleDirName . '_' . 'watermarks',
     ],
 ];

@@ -15,7 +15,7 @@
 		<thead>
 			<tr class='head'>
 				<th class='center' style='width:50%'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECK_SYSTEM}></th>
-				<th class='center' style='width:50%' colspan='2'"><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECK_RESULTS}></th>
+				<th class='center' style='width:50%' colspan='2'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECK_RESULTS}></th>
 			</tr>
 		</thead>
 		<tbody>

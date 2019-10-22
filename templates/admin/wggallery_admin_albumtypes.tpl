@@ -1,7 +1,7 @@
 <!-- Header -->
 <{include file='db:wggallery_admin_header.tpl'}>
 <{if $albumtypes_list}>
-	<h3 class=""><{$smarty.const._AM_WGGALLERY_OPTION_AT_SETINFO}></h2>
+	<h3 class=""><{$smarty.const._AM_WGGALLERY_OPTION_AT_SETINFO}></h3>
 	<table class='table table-bordered'>
 		<thead>
 			<tr class="head">

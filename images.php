@@ -178,7 +178,8 @@ switch ($op) {
         // Set Vars
         $imagesObj->setVar('img_title', Request::getString('img_title', ''));
         $imagesObj->setVar('img_desc', Request::getString('img_desc', ''));
-        $imagesObj->setVar('img_name', Request::getString('img_name', ''));
+        $img_name = Request::getString('img_name', '');
+        $imagesObj->setVar('img_name', $img_name);
         $imagesObj->setVar('img_nameorig', Request::getString('img_nameorig', ''));
         $imagesObj->setVar('img_mimetype', Request::getInt('img_mimetype'));
         $imagesObj->setVar('img_size', Request::getInt('img_size'));

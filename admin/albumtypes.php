@@ -90,7 +90,7 @@ switch ($op) {
         if (isset($atId)) {
             $albumtypesObj = $albumtypesHandler->get($atId);
         } else {
-            $redirect_header('albumtypes.php', 3, 'missing Id');
+            redirect_header('albumtypes.php', 3, 'missing Id');
         }
         // reset all
         $strSQL = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albumtypes') . ' SET ' . $GLOBALS['xoopsDB']->prefix('wggallery_albumtypes') . '.at_primary = 0';

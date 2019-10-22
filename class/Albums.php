@@ -163,9 +163,12 @@ class Albums extends \XoopsObject
         $albStateSelect = new \XoopsFormRadio(_CO_WGGALLERY_ALBUM_STATE, 'alb_state', $albState);
         $albStateSelect->addOption(Constants::STATE_OFFLINE_VAL, _CO_WGGALLERY_STATE_OFFLINE);
         $albStateSelect->addOption(Constants::STATE_ONLINE_VAL, _CO_WGGALLERY_STATE_ONLINE);
-        $albStateSelect->addOption(Constants::STATE_APPROVAL_VAL, _CO_WGGALLERY_STATE_APPROVAL);
+        if (Constants::STATE_APPROVAL_VAL == $albState) {
+            $albStateSelect->addOption(Constants::STATE_APPROVAL_VAL, _CO_WGGALLERY_STATE_APPROVAL);
+        }
         $form->addElement($albStateSelect);
         // Permissions
+        $listSelected = [];
         $memberHandler = xoops_getHandler('member');
         $groupList     = $memberHandler->getGroupList();
         $gpermHandler  = xoops_getHandler('groupperm');
@@ -278,8 +281,6 @@ class Albums extends \XoopsObject
             $crCategories->add(new \Criteria('cat_album', 1));
             $categoriesCount = $categoriesHandler->getCount($crCategories);
             if ($categoriesCount > 0) {
-                $crCategories->setSort('cat_weight ASC, cat_text');
-                $crCategories->setOrder('ASC');
                 $categoriesAll = $categoriesHandler->getAll($crCategories);
                 $selectCategories = new \XoopsFormCheckBox(_CO_WGGALLERY_CATS_SELECT, 'alb_cats', $albCats);
                 foreach (array_keys($categoriesAll) as $i) {

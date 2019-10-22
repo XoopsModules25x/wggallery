@@ -51,7 +51,7 @@ switch ($op) {
         }
 
         if (!$rate_allowed) {
-            redirect_header(WGGALLERY_URL . '/index.php?img_id=' . $img_id . '#item' . $itemid, 2, _MA_WGGALLERY_RATING_NOPERM);
+            redirect_header(WGGALLERY_URL . '/index.php?img_id=' . $itemid . '#item' . $itemid, 2, _MA_WGGALLERY_RATING_NOPERM);
         }
 
         $redir = $_SERVER['HTTP_REFERER'];

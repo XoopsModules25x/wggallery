@@ -78,17 +78,16 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
 
     /**
      * Get Count Categories in the database
-     * @param int    $catId
-     * @param int    $start
-     * @param int    $limit
+     * @param int $start
+     * @param int $limit
      * @param string $sort
      * @param string $order
      * @return int
      */
-    public function getCountCategories($catId = 0, $start = 0, $limit = 0, $sort = 'cat_weight ASC, cat_id', $order = 'ASC')
+    public function getCountCategories($start = 0, $limit = 0, $sort = 'cat_weight ASC, cat_id', $order = 'ASC')
     {
         $crCountCategories = new \CriteriaCompo();
-        $crCountCategories = $this->getCategoriesCriteria($crCountCategories, $albId, $start, $limit, $sort, $order);
+        $crCountCategories = $this->getCategoriesCriteria($crCountCategories, $start, $limit, $sort, $order);
 
         return parent::getCount($crCountCategories);
     }
@@ -104,7 +103,7 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
     public function getAllCategories($start = 0, $limit = 0, $sort = 'cat_weight ASC, cat_id', $order = 'ASC')
     {
         $crAllCategories = new \CriteriaCompo();
-        $crAllCategories = $this->getCategoriesCriteria($crAllCategories, 0, $start, $limit, $sort, $order);
+        $crAllCategories = $this->getCategoriesCriteria($crAllCategories, $start, $limit, $sort, $order);
 
         return parent::getAll($crAllCategories);
     }
@@ -128,15 +127,10 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
 
         return $crCategories;
     }
-    
-        /**
+
+    /**
      * Get Criteria Categories
-     * @param        $crCategories
-     * @param        $catId
-     * @param int    $start
-     * @param int    $limit
-     * @param string $sort
-     * @param string $order
+     * @param $cats
      * @return int
      */
     public function getCatsList($cats)

@@ -151,6 +151,7 @@ function b_wggallery_albums_show($options)
     }
 
     $counter = 0;
+    $i = 0;
     foreach (array_keys($albumsAll) as $i) {
         $block[$i] = $albumsAll[$i]->getValuesAlbums();
         if ($bshowTitle > 0 && $blenghtTitle > 0 && $blenghtTitle < mb_strlen($block[$i]['name'])) {

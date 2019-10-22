@@ -90,7 +90,7 @@ switch ($op) {
         if (isset($gtId)) {
             $gallerytypesObj = $gallerytypesHandler->get($gtId);
         } else {
-            $redirect_header('gallerytypes.php', 3, 'missing Id');
+            redirect_header('gallerytypes.php', 3, 'missing Id');
         }
         // reset all
         $strSQL = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_gallerytypes') . ' SET ' . $GLOBALS['xoopsDB']->prefix('wggallery_gallerytypes') . '.gt_primary = 0';

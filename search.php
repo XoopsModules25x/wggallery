@@ -297,6 +297,7 @@ switch ($op) {
                 case WGGALLERY_SEARCH_ACT_VIEWS:
                     $crImages->setSort('img_views');
                     $crImages->setOrder('DESC');
+                break;
                 case WGGALLERY_SEARCH_ACT_RATINGS:
                     $crImages->setSort('img_ratinglikes');
                     $crImages->setOrder('DESC');
