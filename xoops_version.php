@@ -460,6 +460,17 @@ $modversion['config'][] = [
     'options'     => ['_MI_WGGALLERY_GALLERY_TARGET_SELF' => '_self', '_MI_WGGALLERY_GALLERY_TARGET_BLANK' => '_blank'],
 ];
 
+// target for show single image
+/* $modversion['config'][] = [
+    'name'        => 'image_target',
+    'title'       => '_MI_WGGALLERY_IMAGE_TARGET',
+    'description' => '_MI_WGGALLERY_IMAGE_TARGET_DESC',
+    'formtype'    => 'select',
+    'valuetype'   => 'int',
+    'default'     => 0,
+    'options'     => ['_MI_WGGALLERY_IMAGE_TARGET_INFO' => 0, '_MI_WGGALLERY_IMAGE_TARGET_SINGLE' => 1],
+]; */
+
 // Panel by
 $modversion['config'][] = [
     'name'        => 'panel_type',
@@ -574,8 +585,7 @@ $modversion['config'][] = [
     'formtype'    => 'select',
     'valuetype'   => 'int',
     'default'     => 0,
-    // 'options'     => ['_MI_WGGALLERY_RATING_NONE' => 0, '_MI_WGGALLERY_RATING_STARS' => 1, '_MI_WGGALLERY_RATING_LIKES' => 2],
-    'options'     => ['_MI_WGGALLERY_RATING_NONE' => 0, '_MI_WGGALLERY_RATING_STARS' => 1],
+    'options'     => ['_MI_WGGALLERY_RATING_NONE' => 0, '_MI_WGGALLERY_RATING_STARS' => 1, '_MI_WGGALLERY_RATING_LIKES' => 2],
 ];
     
 $group_handler = xoops_getHandler('group');

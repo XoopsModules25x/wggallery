@@ -1,7 +1,8 @@
 <h5>1.13 RC1</h5>  [2019/../..]
 <hr>
- - added rating system (goffy)
+ - added rating system (stars or likes) (goffy)
  - cosmetics (goffy)
+ - fixed bug with import extgallery (mjoel/goffy)
  
 <h5>1.12 RC1</h5>  [2019/../..]
 <hr>

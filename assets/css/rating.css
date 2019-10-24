@@ -75,3 +75,7 @@
 .wggallery_unit-rating a.wggallery_r4-unit:hover {width: 100px;}
 .wggallery_unit-rating a.wggallery_r5-unit {left: 100px;}
 .wggallery_unit-rating a.wggallery_r5-unit:hover {width: 125px;}
+
+.wgg-rate-dislike {
+    padding-left:20px;
+}

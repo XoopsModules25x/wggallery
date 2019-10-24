@@ -25,6 +25,7 @@ namespace XoopsModules\Wggallery;
  */
  
 use XoopsModules\Wggallery;
+use XoopsModules\Wggallery\Constants;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
@@ -84,51 +85,97 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
      */
     public function getItemRating($itemid = 0, $source = 0)
     {
+        $helper = \XoopsModules\Wggallery\Helper::getInstance();
+        
         $ItemRating = array();
         $ItemRating['nb_ratings'] = 0;
-        $ItemRating['avg_rate_value'] = 0;
-        $ItemRating['size'] = 0;
 
-        $rating_unitwidth = 25;
-        $max_units = 5;
+        $uid   = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
+        $voted = false;
+        $ip    = getenv('REMOTE_ADDR');
+        
+        if (Constants::RATING_STARS === (int)$helper->getConfig('ratingbars')) {        
+            $rating_unitwidth = 25;
+            $max_units = 5;
+            $current_rating = 0;
+        
+            $criteria = new \CriteriaCompo();
+            $criteria->add(new \Criteria('rate_itemid', $itemid));
+            $criteria->add(new \Criteria('rate_source', $source));
+            
+            $ratingObjs = $helper->getHandler('ratings')->getObjects($criteria);
+            $count = count($ratingObjs);
+            $ItemRating['nb_ratings'] = $count;
 
-        $criteria = new \CriteriaCompo();
-        $criteria->add(new \Criteria('rate_itemid', $itemid));
-        $criteria->add(new \Criteria('rate_source', $source));
-        $helper         = \XoopsModules\Wggallery\Helper::getInstance();
-        $ratingObjs     = $helper->getHandler('ratings')->getObjects($criteria);
-
-        $uid            = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
-        $count          = count($ratingObjs);
-        $current_rating = 0;
-        $voted          = false;
-        $ip             = getenv('REMOTE_ADDR');
-
-        foreach ($ratingObjs as $ratingObj) {
-            $current_rating += $ratingObj->getVar('rate_value');
-            if ($ratingObj->getVar('rate_ip') == $ip || ($uid > 0 && $uid == $ratingObj->getVar('rate_uid'))) {
-                $voted = true;
+            foreach ($ratingObjs as $ratingObj) {
+                $current_rating += $ratingObj->getVar('rate_value');
+                if ($ratingObj->getVar('rate_ip') == $ip || ($uid > 0 && $uid == $ratingObj->getVar('rate_uid'))) {
+                    $voted = true;
+                    $ItemRating['id'] = $ratingObj->getVar('rate_id');
+                }
             }
-        }
-        unset($ratingObj);
+            unset($ratingObj);
+            unset($criteria);
 
-        $ItemRating['uid']            = $uid;
-        $ItemRating['nb_ratings']     = $count;
-        $ItemRating['avg_rate_value'] = 0;
-        if ($count > 0) {
-            $ItemRating['avg_rate_value'] = number_format($current_rating / $count, 2);
+            $ItemRating['avg_rate_value'] = 0;
+            if ($count > 0) {
+                $ItemRating['avg_rate_value'] = number_format($current_rating / $count, 2);
+            }
+            $text = str_replace('%c', $ItemRating['avg_rate_value'], _MA_WGGALLERY_RATING_CURRENT);
+            $text = str_replace('%m', $max_units, $text);
+            $text = str_replace('%t', $ItemRating['nb_ratings'], $text);
+            $shorttext = str_replace('%c', $ItemRating['avg_rate_value'], _MA_WGGALLERY_RATING_CURRENT_SHORT);
+            $shorttext = str_replace('%t', $ItemRating['nb_ratings'], $shorttext);
+            $ItemRating['text']      = $text;
+            $ItemRating['shorttext'] = $shorttext;
+            $ItemRating['size']      = ($ItemRating['avg_rate_value'] * $rating_unitwidth) . 'px';
+            $ItemRating['maxsize']   = ($max_units * $rating_unitwidth) . 'px';
+        } else {
+            $criteria = new \CriteriaCompo();
+            $criteria->add(new \Criteria('rate_itemid', $itemid));
+            $criteria->add(new \Criteria('rate_source', $source));
+            $criteria->add(new \Criteria('rate_value', 0, '<'));
+            
+            $ratingObjs     = $helper->getHandler('ratings')->getObjects($criteria);
+            $count          = count($ratingObjs);
+
+            foreach ($ratingObjs as $ratingObj) {
+                $current_rating += $ratingObj->getVar('rate_value');
+                if ($ratingObj->getVar('rate_ip') == $ip || ($uid > 0 && $uid == $ratingObj->getVar('rate_uid'))) {
+                    $voted = true;
+                    $ItemRating['id'] = $ratingObj->getVar('rate_id');
+                }
+            }
+            unset($ratingObj);
+            unset($criteria);
+            $ItemRating['dislikes'] = $count;
+            
+            $criteria = new \CriteriaCompo();
+            $criteria->add(new \Criteria('rate_itemid', $itemid));
+            $criteria->add(new \Criteria('rate_source', $source));
+            $criteria->add(new \Criteria('rate_value', 0, '>'));
+            
+            $ratingObjs     = $helper->getHandler('ratings')->getObjects($criteria);
+            $count          = count($ratingObjs);
+
+            foreach ($ratingObjs as $ratingObj) {
+                $current_rating += $ratingObj->getVar('rate_value');
+                if ($ratingObj->getVar('rate_ip') == $ip || ($uid > 0 && $uid == $ratingObj->getVar('rate_uid'))) {
+                    $voted = true;
+                    $ItemRating['id'] = $ratingObj->getVar('rate_id');
+                }
+            }
+            unset($ratingObj);
+            unset($criteria);
+            $ItemRating['likes'] = $count;
+            
+            $count = $ItemRating['likes'] + $ItemRating['dislikes'];
         }
-        $text = str_replace('%c', $ItemRating['avg_rate_value'], _MA_WGGALLERY_RATING_CURRENT);
-        $text = str_replace('%m', $max_units, $text);
-        $text = str_replace('%t', $ItemRating['nb_ratings'], $text);
-        $shorttext = str_replace('%c', $ItemRating['avg_rate_value'], _MA_WGGALLERY_RATING_CURRENT_SHORT);
-        $shorttext = str_replace('%t', $ItemRating['nb_ratings'], $shorttext);
-        $ItemRating['text']      = $text;
-        $ItemRating['shorttext'] = $shorttext;
-        $ItemRating['size']      = ($ItemRating['avg_rate_value'] * $rating_unitwidth) . 'px';
-        $ItemRating['maxsize']   = ($max_units * $rating_unitwidth) . 'px';
-        $ItemRating['voted']     = $voted;
-        $ItemRating['ip']        = $ip;
+        
+        $ItemRating['uid']        = $uid;
+        $ItemRating['nb_ratings'] = $count;
+        $ItemRating['voted']      = $voted;
+        $ItemRating['ip']         = $ip;
 
         return $ItemRating;
     }

@@ -22,6 +22,7 @@
  */
 
 use Xmf\Request;
+use XoopsModules\Wggallery\Constants;
 
 include __DIR__ . '/header.php';
 $op     = Request::getString('op', 'default');
@@ -40,13 +41,11 @@ switch ($op) {
 
         // Checking permissions
         $rate_allowed = false;
-        if ($helper->getConfig('ratingbars')) {
-            $groups = (isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
-            foreach ($groups as $group) {
-                if (XOOPS_GROUP_ADMIN == $group || in_array($group, $helper->getConfig('ratingbar_groups'))) {
-                    $rate_allowed = true;
-                    break;
-                }
+        $groups = (isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        foreach ($groups as $group) {
+            if (XOOPS_GROUP_ADMIN == $group || in_array($group, $helper->getConfig('ratingbar_groups'))) {
+                $rate_allowed = true;
+                break;
             }
         }
 
@@ -59,19 +58,26 @@ switch ($op) {
             $redir = $_SERVER['HTTP_REFERER'] . '#imglist_' . $itemid;
         }
 
-
-        if ($rating > 5 || $rating < 1) {
-            redirect_header($redir, 2, _MA_WGGALLERY_RATING_VOTE_BAD);
-            exit();
+        if (Constants::RATING_STARS === (int)$helper->getConfig('ratingbars')) {
+            if ($rating > 5 || $rating < 1) {
+                redirect_header($redir, 2, _MA_WGGALLERY_RATING_VOTE_BAD);
+                exit();
+            }
+        } else {
+            if ($rating > 1 || $rating < -1) {
+                redirect_header($redir, 2, _MA_WGGALLERY_RATING_VOTE_BAD);
+                exit();
+            }
         }
 
-        $itemrating = $ratingsHandler->getItemRating($itemid);
+        $itemrating = $ratingsHandler->getItemRating($itemid, 1);
 
         if ($itemrating['voted']) {
-            redirect_header($redir, 2, _MA_WGGALLERY_RATING_VOTE_ALREADY);
+            // redirect_header($redir, 2, _MA_WGGALLERY_RATING_VOTE_ALREADY);
+            $ratingsObj = $ratingsHandler->get($itemrating['id']);
+        } else {
+            $ratingsObj = $ratingsHandler->create();
         }
-        
-        $ratingsObj = $ratingsHandler->create();
         $ratingsObj->setVar('rate_source', $source);
         $ratingsObj->setVar('rate_itemid', $itemid);
         $ratingsObj->setVar('rate_value', $rating);
@@ -83,7 +89,7 @@ switch ($op) {
             // update table wggallery_images
             $nb_ratings     = 0;
             $avg_rate_value = 0;
-            $ratingObjs     = $helper->getHandler('ratings')->getObjects($criteria);
+            $ratingObjs     = $helper->getHandler('ratings')->getObjects();
             $count          = count($ratingObjs);
             $current_rating = 0;
             foreach ($ratingObjs as $ratingObj) {
@@ -101,7 +107,6 @@ switch ($op) {
             // Insert Data
             $imagesHandler->insert($imagesObj);
             unset($imagesObj);
-            
             redirect_header($redir, 2, _MA_WGGALLERY_RATING_VOTE_THANKS);
         }
         echo '<br>error:' . $ratingsObj->getHtmlErrors();

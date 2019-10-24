@@ -144,9 +144,12 @@ $form2->setExtra('enctype="multipart/form-data"');
 $activitySelect = new \XoopsFormRadio(_MA_WGGALLERY_SEARCH_ACT, 'search_act', $search_act);
 $activitySelect->addOption(WGGALLERY_SEARCH_ACT_DOWNLOADS, _MA_WGGALLERY_SEARCH_ACT_DOWNLOADS);
 $activitySelect->addOption(WGGALLERY_SEARCH_ACT_VIEWS, _MA_WGGALLERY_SEARCH_ACT_VIEWS);
-if ($helper->getConfig('ratingbars')) {
+$ratingbars = $helper->getConfig('ratingbars');
+if ($ratingbars > 0) {
     $activitySelect->addOption(WGGALLERY_SEARCH_ACT_RATINGS, _MA_WGGALLERY_SEARCH_ACT_RATINGS);
     $activitySelect->addOption(WGGALLERY_SEARCH_ACT_VOTES, _MA_WGGALLERY_SEARCH_ACT_VOTES);
+    $GLOBALS['xoopsTpl']->assign('rating_stars', (Constants::RATING_STARS === $ratingbars));
+    $GLOBALS['xoopsTpl']->assign('rating_likes', (Constants::RATING_LIKES === $ratingbars));
 }
 $form2->addElement($activitySelect);
      
@@ -322,7 +325,9 @@ switch ($op) {
             // Get All Images
             foreach (array_keys($imagesAll) as $i) {
                 $images[$i] = $imagesAll[$i]->getValuesImages();
-                //check permissions
+                if ($helper->getConfig('ratingbars') >  0) {
+                    $images[$i]['rating'] = $ratingsHandler->getItemRating($images[$i]['id'], 1);
+                }
 
             }
             $GLOBALS['xoopsTpl']->assign('images', $images);
@@ -339,6 +344,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('limit', $limit);
         $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
         $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
+        $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_24', WGGALLERY_ICONS_URL . '24/');
         $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
         $GLOBALS['xoopsTpl']->assign('displayButtonText', $helper->getConfig('displayButtonText'));
         $GLOBALS['xoopsTpl']->assign('use_tags', $helper->getConfig('use_tags'));
