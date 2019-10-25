@@ -238,10 +238,10 @@ define('_CO_WGGALLERY_PERMS_ALB_VIEW', 'Permissions to view');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW_DESC', 'Groups which should have permissions to view an album');
 define('_CO_WGGALLERY_PERMS_ALB_DLFULLALB', 'Permissions to download full album');
 define('_CO_WGGALLERY_PERMS_ALB_DLFULLALB_DESC', 'Groups which should have permissions to download the full album at once');
-define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE', 'Permissions to download large images');
-define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE_DESC', 'Groups which should have permissions to download large images');
-define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM', 'Permissions to download medium images');
-define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM_DESC', 'Groups which should have permissions to download medium images');
+define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE', 'Permissions to view/download large images');
+define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE_DESC', 'Groups which should have permissions to view and download large images');
+define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM', 'Permissions to view/download medium images');
+define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM_DESC', 'Groups which should have permissions to view and download medium images');
 define('_CO_WGGALLERY_PERMS_NOTSET', 'No permission set');
 define('_CO_WGGALLERY_PERMS_NODOWNLOAD', 'You have no permission to download');
 // ---------------- Misc ----------------

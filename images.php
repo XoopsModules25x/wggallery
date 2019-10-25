@@ -399,13 +399,13 @@ switch ($op) {
 
         $albId     = $image['albid'];
         // check permissions
-        $file = '';
-        if ($permissionsHandler->permImageDownloadMedium($albId)) {
-            $file = $image['medium'];
-        }
+        $file = $image['thumb'];
         if ($permissionsHandler->permImageDownloadLarge($albId)) {
             $file = $image['large'];
+        } else if ($permissionsHandler->permImageDownloadMedium($albId)) {
+            $file = $image['medium'];
         }
+        
 		$GLOBALS['xoopsTpl']->assign('img_allowdownload', $permissionsHandler->permImageDownloadLarge($albId)
                                                        || $permissionsHandler->permImageDownloadMedium($albId));
         $GLOBALS['xoopsTpl']->assign('permAlbumEdit', $permissionsHandler->permAlbumEdit($albId, $albSubmitter));

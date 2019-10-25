@@ -237,10 +237,10 @@ define('_CO_WGGALLERY_PERMS_ALB_VIEW', 'Berechtigung zum Ansehen');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW_DESC', 'Gruppen mit der Berechtigung zum Ansehen der Alben');
 define('_CO_WGGALLERY_PERMS_ALB_DLFULLALB', 'Berechtigung zum Download des gesamten Albums');
 define('_CO_WGGALLERY_PERMS_ALB_DLFULLALB_DESC', 'Gruppen mit der Berechtigung zum Download der Alben als Ganzes');
-define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE', 'Berechtigung zum Download großer Bildern');
-define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE_DESC', 'Gruppen mit der Berechtigung zum Download der großen Bilder');
-define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM', 'Berechtigung zum Download mittlerer Bildern');
-define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM_DESC', 'Gruppen mit der Berechtigung zum Download der mittleren Bilder');
+define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE', 'Berechtigung zum Anzeigen/Downloaden großer Bildern');
+define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE_DESC', 'Gruppen mit der Berechtigung zum Anzeigen und Downloaden der großen Bilder');
+define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM', 'Berechtigung zum Anzeigen/Download mittlerer Bildern');
+define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM_DESC', 'Gruppen mit der Berechtigung zum Anzeigen und Downloaden der mittleren Bilder');
 define('_CO_WGGALLERY_PERMS_NOTSET', 'Keine Berechtigung gesetzt');
 define('_CO_WGGALLERY_PERMS_NODOWNLOAD', 'Sie haben keine Berechtigung zum Download');
 // ---------------- Misc ----------------

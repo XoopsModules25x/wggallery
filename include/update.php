@@ -35,18 +35,12 @@ function xoops_module_update_wggallery(&$module, $prev_version = null)
     if ($prev_version < 10) {
         $ret = update_wggallery_v10($module);
     }
-    if ($prev_version < 108) {
-        $ret = update_wggallery_v108($module);
-    }
     if ($prev_version < 109) {
         $ret = update_wggallery_v109($module);
     }
-    if ($prev_version < 112) {
-        $ret = update_wggallery_v112($module);
-    }
-    if ($prev_version < 113) {
-        $ret = update_wggallery_v113($module);
-    }
+    
+    $ret = wggallery_check_db($module);
+    
     $errors = $module->getErrors();
     if (!empty($errors)) {
         print_r($errors);
@@ -117,17 +111,155 @@ function update_wggallery_v10(&$module)
  *
  * @return bool
  */
-function update_wggallery_v108(&$module)
+function wggallery_check_db(&$module)
 {
-    $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_images') . '` ADD `img_exif` TEXT NULL AFTER `img_state` ;';
-    if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
-        xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
-        $module->setErrors("Error when adding 'img_exif' to table 'wggallery_images'.");
+    $ret = true;
+    
+    // update table 'wggallery_images'
+    $table = $GLOBALS['xoopsDB']->prefix('wggallery_images');
+    $field = 'img_exif';
+    $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
+    $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
+    if(!$numRows) {
+       $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_images') . '` ADD `img_exif` TEXT NULL AFTER `img_state` ;';
+        if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+            xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+            $module->setErrors("Error when adding 'img_exif' to table 'wggallery_images'.");
+            $ret = false;
+        }
+    }
+    
+    $table = $GLOBALS['xoopsDB']->prefix('wggallery_images');
+    $field = 'img_cats';
+    $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
+    $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
+    if(!$numRows) {
+        $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_images') . '` ADD `img_cats` TEXT NULL AFTER `img_state` ;';
+        if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+            xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+            $module->setErrors("Error when adding 'img_cats' to table 'wggallery_images'.");
+            $ret = false;
+        }
+    }   
 
-        return false;
+    $table = $GLOBALS['xoopsDB']->prefix('wggallery_images');
+    $field = 'img_exif';
+    $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
+    $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
+    if(!$numRows) {
+
+    }
+    
+    $table = $GLOBALS['xoopsDB']->prefix('wggallery_images');
+    $field = 'img_tags';
+    $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
+    $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
+    if(!$numRows) {
+        $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_images') . '` ADD `img_tags` TEXT NULL AFTER `img_state` ;';
+        if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+            xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+            $module->setErrors("Error when adding 'img_tags' to table 'wggallery_images'.");
+            $ret = false;
+        }
+    }
+    
+    $table = $GLOBALS['xoopsDB']->prefix('wggallery_images');
+    $field = 'img_views';
+    $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
+    $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
+    if(!$numRows) {
+        $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_images') . "` ADD `img_views` INT(1) NOT NULL DEFAULT '0' AFTER `img_votes` ;";
+        if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+            xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+            $module->setErrors("Error when adding 'img_tags' to table 'wggallery_images'.");
+            $ret = false;
+        }
+
+    }
+    
+    // update table 'wggallery_albums'
+    $table = $GLOBALS['xoopsDB']->prefix('wggallery_albums');
+    $field = 'alb_cats';
+    $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
+    $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
+    if(!$numRows) {
+        $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '` ADD `alb_cats` TEXT NULL AFTER `alb_state` ;';
+        if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+            xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+            $module->setErrors("Error when adding 'alb_cats' to table 'wggallery_albums'.");
+            $ret = false;
+        }
+
+    } 
+
+    $table = $GLOBALS['xoopsDB']->prefix('wggallery_albums');
+    $field = 'alb_tags';
+    $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
+    $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
+    if(!$numRows) {
+        $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '` ADD `alb_tags` TEXT NULL AFTER `alb_state` ;';
+        if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+            xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+            $module->setErrors("Error when adding 'alb_tags' to table 'wggallery_albums'.");
+            $ret = false;
+        }  
+
+    } 
+
+    $table = $GLOBALS['xoopsDB']->prefix('wggallery_albums');
+    $field = 'alb_iscoll';
+    $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
+    $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
+    if(!$numRows) {
+        $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . "` CHANGE `alb_iscat` `alb_iscoll` INT(1) NOT NULL DEFAULT '0'";
+        if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+            xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+            $module->setErrors("Error when changing 'alb_iscat' into 'alb_iscoll' in table 'wggallery_albums'.");
+            $ret = false;
+        }
+
+    } 
+
+    $table = $GLOBALS['xoopsDB']->prefix('wggallery_albums');
+    $field = 'alb_imgtype';
+    $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
+    $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
+    if(!$numRows) {
+        $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . "` CHANGE `alb_imgcat` `alb_imgtype` INT(1) NOT NULL DEFAULT '0'";
+        if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+            xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+            $module->setErrors("Error when changing 'alb_imgcat' into 'alb_imgtype' in table 'wggallery_albums'.");
+            $ret = false;
+        }
+    }    
+    
+    
+    
+    $table = $GLOBALS['xoopsDB']->prefix('wggallery_categories');
+    $check = $GLOBALS['xoopsDB']->queryF("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='" . $table . "'");
+    $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
+    if(!$numRows) {
+        // create new table 'wggallery_categories'
+        $sql = 'CREATE TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_categories') . "` (
+                  `cat_id`        INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+                  `cat_text`      VARCHAR(100)    NOT NULL DEFAULT '',
+                  `cat_album`     INT(1)          NOT NULL DEFAULT '0',
+                  `cat_image`     INT(1)          NOT NULL DEFAULT '0',
+                  `cat_search`    INT(1)          NOT NULL DEFAULT '0',
+                  `cat_weight`    INT(8)          NOT NULL DEFAULT '0',
+                  `cat_date`      INT(8)          NOT NULL DEFAULT '0',
+                  `cat_submitter` INT(8)          NOT NULL DEFAULT '0',
+                  PRIMARY KEY (`cat_id`)
+                ) ENGINE=InnoDB;";
+        if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+            xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+            $module->setErrors("Error when creating table 'wggallery_categories'.");
+            $ret = false;
+        }
+
     }
 
-    return true;
+    return $ret;
 }
 
 /**
@@ -151,109 +283,4 @@ function update_wggallery_v109(&$module)
     copy($blankFile, $specimage . '/blank.gif');
 
     return true;
-}
-
-/**
- * @param $module
- *
- * @return bool
- */
-function update_wggallery_v112(&$module)
-{
-    $ret = true;
-    // update table 'wggallery_images'
-    $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_images') . '` ADD `img_cats` TEXT NULL AFTER `img_state` ;';
-    if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
-        xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
-        $module->setErrors("Error when adding 'img_cats' to table 'wggallery_images'.");
-        $ret = false;
-    }
-    $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_images') . '` ADD `img_tags` TEXT NULL AFTER `img_state` ;';
-    if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
-        xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
-        $module->setErrors("Error when adding 'img_tags' to table 'wggallery_images'.");
-        $ret = false;
-    }
-    $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_images') . "` ADD `img_views` INT(1) NOT NULL DEFAULT '0' AFTER `img_votes` ;";
-    if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
-        xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
-        $module->setErrors("Error when adding 'img_tags' to table 'wggallery_images'.");
-        $ret = false;
-    }
-    
-    // update table 'wggallery_albums'
-    $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '` ADD `alb_cats` TEXT NULL AFTER `alb_state` ;';
-    if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
-        xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
-        $module->setErrors("Error when adding 'alb_cats' to table 'wggallery_albums'.");
-        $ret = false;
-    }
-    $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '` ADD `alb_tags` TEXT NULL AFTER `alb_state` ;';
-    if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
-        xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
-        $module->setErrors("Error when adding 'alb_tags' to table 'wggallery_albums'.");
-        $ret = false;
-    }  
-    $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . "` CHANGE `alb_iscat` `alb_iscoll` INT(1) NOT NULL DEFAULT '0'";
-    if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
-        xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
-        $module->setErrors("Error when changing 'alb_iscat' into 'alb_iscoll' in table 'wggallery_albums'.");
-        $ret = false;
-    }
-    $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . "` CHANGE `alb_imgcat` `alb_imgtype` INT(1) NOT NULL DEFAULT '0'";
-    if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
-        xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
-        $module->setErrors("Error when changing 'alb_imgcat' into 'alb_imgtype' in table 'wggallery_albums'.");
-        $ret = false;
-    }
-    
-    // create new table 'wggallery_categories'
-    $sql = 'CREATE TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_categories') . "` (
-              `cat_id`        INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
-              `cat_text`      VARCHAR(100)    NOT NULL DEFAULT '',
-              `cat_album`     INT(1)          NOT NULL DEFAULT '0',
-              `cat_image`     INT(1)          NOT NULL DEFAULT '0',
-              `cat_search`    INT(1)          NOT NULL DEFAULT '0',
-              `cat_weight`    INT(8)          NOT NULL DEFAULT '0',
-              `cat_date`      INT(8)          NOT NULL DEFAULT '0',
-              `cat_submitter` INT(8)          NOT NULL DEFAULT '0',
-              PRIMARY KEY (`cat_id`)
-            ) ENGINE=InnoDB;";
-    if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
-        xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
-        $module->setErrors("Error when creating table 'wggallery_categories'.");
-        $ret = false;
-    }
-     
-    return $ret;
-}
-
-
-/**
- * @param $module
- *
- * @return bool
- */
-function update_wggallery_v113(&$module)
-{
-    $ret = true;
-    
-    // create new table 'wggallery_categories'
-    $sql = 'CREATE TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_ratings') . "` (
-                `rate_id`     INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
-                `rate_source` INT(1) NOT NULL DEFAULT '0',
-                `rate_itemid` INT(8) NOT NULL DEFAULT '0',
-                `rate_value`  INT(1) NOT NULL DEFAULT '0',
-                `rate_uid`    INT(8) NOT NULL DEFAULT '0',
-                `rate_ip`     VARCHAR(60) NOT NULL DEFAULT '',
-                `rate_date`   INT(8) NOT NULL DEFAULT '0',
-                PRIMARY KEY (`rate_id`)
-            ) ENGINE=InnoDB;";
-    if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
-        xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
-        $module->setErrors("Error when creating table 'wggallery_ratings'.");
-        $ret = false;
-    }
-     
-    return $ret;
 }
