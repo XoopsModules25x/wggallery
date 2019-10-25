@@ -92,6 +92,7 @@ class Albums extends \XoopsObject
     {
         /** @var \XoopsModules\Wggallery\Helper $helper */
         $helper = \XoopsModules\Wggallery\Helper::getInstance();
+        $albumsHandler = $helper->getHandler('Albums');
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
@@ -104,7 +105,8 @@ class Albums extends \XoopsObject
         // Form Text AlbName
         $form->addElement(new \XoopsFormText(_CO_WGGALLERY_ALBUM_NAME, 'alb_name', 50, 255, $this->getVar('alb_name')), true);
         // Form Select Parent Album
-        $albumsHandler = $helper->getHandler('Albums');
+        $albumsHandler      = $helper->getHandler('Albums');
+        $permissionsHandler = $helper->getHandler('Permissions');
         $criteria      = new \CriteriaCompo();
         $criteria->add(new \Criteria('alb_id', $this->getVar('alb_id'), '<>'));
         $criteria->setSort('alb_weight ASC, alb_date');
@@ -113,17 +115,19 @@ class Albums extends \XoopsObject
         $albPid->addOption(0, '&nbsp;');
         $albumsAll = $albumsHandler->getAll($criteria);
         foreach (array_keys($albumsAll) as $i) {
-            $albName   = $albumsAll[$i]->getVar('alb_name');
-            $albAlbPid = $albumsAll[$i]->getVar('alb_pid');
-            if ($albAlbPid > 0) {
-                $albumsObj = $albumsHandler->get($albAlbPid);
-                if (is_object($albumsObj)) {
-                    $albName .= ' (' . $albumsObj->getVar('alb_name') . ')';
-                } else {
-                    $albName .= ' (' . _CO_WGGALLERY_FORM_ERROR_ALBPID . ')';
+            if ($permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'))) {
+                $albName   = $albumsAll[$i]->getVar('alb_name');
+                $albAlbPid = $albumsAll[$i]->getVar('alb_pid');
+                if ($albAlbPid > 0) {
+                    $albumsObj = $albumsHandler->get($albAlbPid);
+                    if (is_object($albumsObj)) {
+                        $albName .= ' (' . $albumsObj->getVar('alb_name') . ')';
+                    } else {
+                        $albName .= ' (' . _CO_WGGALLERY_FORM_ERROR_ALBPID . ')';
+                    }
                 }
+                $albPid->addOption($albumsAll[$i]->getVar('alb_id'), $albName);
             }
-            $albPid->addOption($albumsAll[$i]->getVar('alb_id'), $albName);
         }
         $form->addElement($albPid);
         unset($criteria);
@@ -150,8 +154,8 @@ class Albums extends \XoopsObject
             $albImgcatSelect->addOption(Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL, _CO_WGGALLERY_ALBUM_USE_UPLOADED);
             $albImgcatSelect->addOption(Constants::ALBUM_IMGCAT_USE_EXIST_VAL, _CO_WGGALLERY_ALBUM_IMGID);
             $form->addElement($albImgcatSelect);
-            $form->addElement(new \XoopsFormText(_CO_WGGALLERY_IMAGE_NAME, 'alb_image', 50, 255, $albImage));
-            $form->addElement(new \XoopsFormText(_CO_WGGALLERY_IMAGE_ID, 'alb_imgid', 50, 255, $albImgid));
+            $form->addElement(new \XoopsFormText(_AM_WGGALLERY_ALBUM_IMGNAME, 'alb_image', 50, 255, $albImage));
+            $form->addElement(new \XoopsFormText(_AM_WGGALLERY_ALBUM_IMGID, 'alb_imgid', 50, 255, $albImgid));
         } else {
             $form->addElement(new \XoopsFormHidden('alb_imgtype', $albImgcat));
             $form->addElement(new \XoopsFormHidden('alb_image', $albImage));
@@ -340,7 +344,8 @@ class Albums extends \XoopsObject
         $form = new \XoopsThemeForm(_CO_WGGALLERY_ALBUM_SELECT, 'formselalbum', $action, 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
         // Form Table Albums
-        $albumsHandler = $helper->getHandler('Albums');
+        $albumsHandler      = $helper->getHandler('Albums');
+        $permissionsHandler = $helper->getHandler('Permissions');
         $crAlbums      = new \CriteriaCompo();
         $crAlbums->add(new \Criteria('alb_iscoll', 0));
         $crAlbums->setSort('alb_weight ASC, alb_date');
@@ -352,7 +357,7 @@ class Albums extends \XoopsObject
         $albumsAll = $albumsHandler->getAll($crAlbums);
 
         foreach (array_keys($albumsAll) as $i) {
-            if ($helper->getHandler('Permissions')->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'))) {
+            if ($permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'))) {
                 $albName = $albumsAll[$i]->getVar('alb_name');
                 $albPid  = $albumsAll[$i]->getVar('alb_pid');
                 if ($albPid > 0) {

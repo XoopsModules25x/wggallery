@@ -59,7 +59,7 @@
                             <{/if}>
                         </div>
                         <div class='wgg-img-panel-row col-sm-12 center'>
-                            <a class='btn btn-default wgg-btn' href='<{$wggallery_url}>/images.php?op=show&amp;redir=list&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>&amp;start=<{$start}>&amp;limit=<{$limit}>&amp;img_submitter=<{$img_submitter}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_SHOW}>'>
+                            <a class='btn btn-default wgg-btn' href='<{$wggallery_url}>/images.php?op=show&amp;redir=list&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>&amp;start=<{$start}>&amp;limit=<{$limit}>&amp;img_submitter=<{$img_submitter}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_SHOW}>' target='<{$image_target}>'>
                                 <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>show.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_SHOW}>'>
 								<{if $displayButtonText}><{$smarty.const._CO_WGGALLERY_IMAGE_SHOW}><{/if}>
                             </a>
@@ -152,10 +152,12 @@
             <{/if}>
         </div>
 		<div class='wgg-img-panel-row col-sm-12 center'>
-			<a class='btn btn-default wgg-btn' href='images.php?op=<{if $redir_op}><{$redir_op}><{else}>list<{/if}>&amp;alb_id=<{$alb_id}>&amp;alb_pid=<{$alb_pid}>&amp;start=<{$start}>&amp;limit=<{$limit}>&amp;img_submitter=<{$img_submitter}>#image_<{$image.id}>' title='<{$smarty.const._CO_WGGALLERY_BACK}>'>
-                <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>back.png' alt='<{$smarty.const._CO_WGGALLERY_BACK}>'>
-				<{if $displayButtonText}><{$smarty.const._CO_WGGALLERY_BACK}><{/if}>
-            </a>
+			<{if $showBack}>
+                <a class='btn btn-default wgg-btn' href='images.php?op=<{if $redir_op}><{$redir_op}><{else}>list<{/if}>&amp;alb_id=<{$alb_id}>&amp;alb_pid=<{$alb_pid}>&amp;start=<{$start}>&amp;limit=<{$limit}>&amp;img_submitter=<{$img_submitter}>#image_<{$image.id}>' title='<{$smarty.const._CO_WGGALLERY_BACK}>'>
+                    <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>back.png' alt='<{$smarty.const._CO_WGGALLERY_BACK}>'>
+                    <{if $displayButtonText}><{$smarty.const._CO_WGGALLERY_BACK}><{/if}>
+                </a>
+            <{/if}>
 			<{if $permAlbumEdit}>
 				<a class='btn btn-default wgg-btn' href='<{$wggallery_url}>/images.php?op=edit&amp;img_id=<{$image.id}>' title='<{$smarty.const._EDIT}>'>
 					<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>edit.png' alt='<{$smarty.const._EDIT}>'>

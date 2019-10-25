@@ -62,6 +62,7 @@ $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_24', WGGALLERY_ICONS_URL . '24/');
 $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
 $GLOBALS['xoopsTpl']->assign('displayButtonText', $helper->getConfig('displayButtonText'));
+$GLOBALS['xoopsTpl']->assign('image_target', $helper->getConfig('image_target'));
 $GLOBALS['xoopsTpl']->assign('use_tags', $helper->getConfig('use_tags'));
 $GLOBALS['xoopsTpl']->assign('use_categories', $helper->getConfig('use_categories'));
 $GLOBALS['xoopsTpl']->assign('show_exif', $helper->getConfig('store_exif'));
@@ -417,6 +418,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('limit', $limit);
         $GLOBALS['xoopsTpl']->assign('img_submitter', $imgSubm);
 		$GLOBALS['xoopsTpl']->assign('redir_op', 'list');
+        $GLOBALS['xoopsTpl']->assign('showBack', '_self' === $helper->getConfig('image_target'));
         
         $img_views = (int)$imagesObj->getVar('img_views') + 1;
         $imagesObj->setVar('img_views', $img_views);

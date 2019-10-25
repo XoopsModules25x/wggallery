@@ -52,6 +52,9 @@ define('_AM_WGGALLERY_GALLERYTYPES_LIST', 'Liste der Galerietypen');
 define('_AM_WGGALLERY_ALBUMTYPES_LIST', 'Liste der Albumtypen');
 define('_AM_WGGALLERY_WATERMARKS_LIST', 'Liste der Wasserzeichen');
 define('_AM_WGGALLERY_CATEGORIES_LIST', 'Liste der Kategorien');
+// Album
+define('_AM_WGGALLERY_ALBUM_IMGNAME', "Name des Albumbildes (wenn '" . _CO_WGGALLERY_ALBUM_USE_UPLOADED . "')");
+define('_AM_WGGALLERY_ALBUM_IMGID', "ID des Albumbildes (wenn '" . _CO_WGGALLERY_ALBUM_IMGID . "')");
 //Categories
 define('_AM_WGGALLERY_EDIT_CATEGORY', 'Kategorie bearbeiten');
 define('_AM_WGGALLERY_CAT_ID', 'Id');

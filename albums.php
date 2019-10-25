@@ -92,17 +92,22 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('albums_count', $albumsCount);
         $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
         // Table view albums
+        $albumsPermEdit = 0;
         if ($albumsCount > 0) {
             foreach (array_keys($albumsAll) as $i) {
-                $album = $albumsAll[$i]->getValuesAlbums();
                 //check permissions
-                $album['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
-                $keywords[]    = $albumsAll[$i]->getVar('alb_name');
-                $GLOBALS['xoopsTpl']->append('albums_list', $album);
+                if ($permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'))) {
+                    $album = $albumsAll[$i]->getValuesAlbums();
+                    $album['edit'] = true;
+                    $albumsPermEdit++;
+                    $keywords[]    = $albumsAll[$i]->getVar('alb_name');
+                    $GLOBALS['xoopsTpl']->append('albums_list', $album);
+                }
+                
                 unset($album);
             }
             // Display Navigation
-            if ($albumsCount > $limit) {
+            if ($albumsPermEdit > $limit) {
                 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($albumsCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit . '&amp;alb_id=' . $albId . '&amp;alb_pid=' . $albPid . '&amp;alb_submitter=' . $albSubm);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));

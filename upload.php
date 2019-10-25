@@ -38,7 +38,7 @@ $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/
 $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
 $GLOBALS['xoopsTpl']->assign('displayButtonText', $helper->getConfig('displayButtonText'));
 
-// Form Create
+// check permissions
 if (isset($albId)) {
     $albumsObj = $albumsHandler->get($albId);
     if (!$permissionsHandler->permAlbumEdit($albId, $albumsObj->getVar('alb_submitter'))) {
@@ -52,6 +52,7 @@ if (isset($albId)) {
     }
 }
 
+// show form
 $form = $albumsObj->getFormUploadToAlbum();
 $GLOBALS['xoopsTpl']->assign('form', $form->render());
 

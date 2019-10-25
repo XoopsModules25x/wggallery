@@ -3,6 +3,8 @@
  - added rating system (stars or likes) (goffy)
  - cosmetics (goffy)
  - fixed bug with import extgallery (mjoel/goffy)
+ - added new preference image_target (lupin/goffy)
+ - show only albums with perm to edit in upload list (goffy)
  
 <h5>1.12 RC1</h5>  [2019/../..]
 <hr>

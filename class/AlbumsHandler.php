@@ -230,9 +230,10 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
             $childsAll = '';
         }
 
-        $helper        = \XoopsModules\Wggallery\Helper::getInstance();
-        $albumsHandler = $helper->getHandler('Albums');
-        $crAlbums      = new \CriteriaCompo();
+        $helper = \XoopsModules\Wggallery\Helper::getInstance();
+        $albumsHandler      = $helper->getHandler('Albums');
+        $permissionsHandler = $helper->getHandler('Permissions');
+        $crAlbums = new \CriteriaCompo();
         $crAlbums->add(new \Criteria('alb_pid', $albPid));
         $crAlbums->setSort('alb_weight ASC, alb_date');
         $crAlbums->setOrder('DESC');
@@ -241,25 +242,26 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
         // Table view albums
         if ($albumsCount > 0) {
             foreach (array_keys($albumsAll) as $i) {
-                // if ( 0 < count($childsAll) ) {$childsAll .= "#".('' !== $childsAll)."|";}
-                $child     = $this->getListChildsOfCategory($albumsAll[$i]->getVar('alb_id'));
-                $childsAll .= '<li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-collapsed" id="menuItem_' . $albumsAll[$i]->getVar('alb_id') . '">';
+                if ($permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'))) {
+                    $child     = $this->getListChildsOfCategory($albumsAll[$i]->getVar('alb_id'));
+                    $childsAll .= '<li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-collapsed" id="menuItem_' . $albumsAll[$i]->getVar('alb_id') . '">';
 
-                $childsAll .= '<div class="menuDiv">';
-                if ($child) {
-                    $childsAll .= '<span title="Click to show/hide children" class="disclose ui-icon ui-icon-plusthick"><span>-</span></span>';
-                }
-                $childsAll .= '<span>';
-                $childsAll .= '<span data-id="' . $albumsAll[$i]->getVar('alb_id') . '" class="itemTitle">' . $albumsAll[$i]->getVar('alb_name') . '</span>';
-                $childsAll .= '<span class="pull-right">
-                                <a class="" href="albums.php?op=edit&amp;alb_id=' . $albumsAll[$i]->getVar('alb_id') . '" title="' . _CO_WGGALLERY_ALBUM_EDIT . '">
-                                    <img class="wgg-btn-icon" src="' . WGGALLERY_ICONS_URL . '/16/edit.png" alt="' . _CO_WGGALLERY_ALBUM_EDIT . '">
-                                </a></span>';
-                $childsAll .= '</span>';
-                $childsAll .= '</div>';
+                    $childsAll .= '<div class="menuDiv">';
+                    if ($child) {
+                        $childsAll .= '<span title="Click to show/hide children" class="disclose ui-icon ui-icon-plusthick"><span>-</span></span>';
+                    }
+                    $childsAll .= '<span>';
+                    $childsAll .= '<span data-id="' . $albumsAll[$i]->getVar('alb_id') . '" class="itemTitle">' . $albumsAll[$i]->getVar('alb_name') . '</span>';
+                    $childsAll .= '<span class="pull-right">
+                                    <a class="" href="albums.php?op=edit&amp;alb_id=' . $albumsAll[$i]->getVar('alb_id') . '" title="' . _CO_WGGALLERY_ALBUM_EDIT . '">
+                                        <img class="wgg-btn-icon" src="' . WGGALLERY_ICONS_URL . '/16/edit.png" alt="' . _CO_WGGALLERY_ALBUM_EDIT . '">
+                                    </a></span>';
+                    $childsAll .= '</span>';
+                    $childsAll .= '</div>';
 
-                if ($child) {
-                    $childsAll .= $child;
+                    if ($child) {
+                        $childsAll .= $child;
+                    }
                 }
             }
         } else {

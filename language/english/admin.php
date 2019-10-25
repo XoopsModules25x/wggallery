@@ -52,6 +52,9 @@ define('_AM_WGGALLERY_GALLERYTYPES_LIST', 'List of Gallery types');
 define('_AM_WGGALLERY_ALBUMTYPES_LIST', 'List of Album types');
 define('_AM_WGGALLERY_WATERMARKS_LIST', 'List of Watermarks');
 define('_AM_WGGALLERY_CATEGORIES_LIST', 'List of Categories');
+// Album
+define('_AM_WGGALLERY_ALBUM_IMGNAME', "Name of album image (if '" . _CO_WGGALLERY_ALBUM_USE_UPLOADED . "')");
+define('_AM_WGGALLERY_ALBUM_IMGID', "ID of album image (if '" . _CO_WGGALLERY_ALBUM_IMGID . "')");
 //Categories
 define('_AM_WGGALLERY_EDIT_CATEGORY', 'Edit category');
 define('_AM_WGGALLERY_CAT_ID', 'Id');
