@@ -24,6 +24,8 @@
 .wggallery_ratingblock {
     margin:20px 0;
 }
+
+/* star rating */
 .wggallery_unit-rating {
     width: 125px;
 	list-style: none;
@@ -106,6 +108,27 @@
 .wggallery_unit-rating-10 a.wggallery_r10-unit {left: 225px;}
 .wggallery_unit-rating-10 a.wggallery_r10-unit:hover {width: 250px;}
 
+/* rating with likes */
 .wgg-rate-dislike {
     padding-left:20px;
+}
+
+/* numeric rfating */
+.wggallery_unit-rating-10numeric {
+    margin:10px 0;
+}
+.wggallery-rater-numeric {
+    border:1px solid #ccc;
+    border-radius:5px;
+    padding:5px 7px;
+    margin:0px;
+    background-color:#ffffff;
+}
+.wggallery-rater-numeric:hover {
+    background-color:#337ab7;
+    color:#ffffff;
+}
+.wggallery-rater-numeric-active {
+    border:1px solid #d43f3a;
+     background-color:#eea236;
 }

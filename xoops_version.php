@@ -585,7 +585,7 @@ $modversion['config'][] = [
     'formtype'    => 'select',
     'valuetype'   => 'int',
     'default'     => 0,
-    'options'     => ['_MI_WGGALLERY_RATING_NONE' => 0, '_MI_WGGALLERY_RATING_5STARS' => 1, '_MI_WGGALLERY_RATING_10STARS' => 2, '_MI_WGGALLERY_RATING_LIKES' => 3],
+    'options'     => ['_MI_WGGALLERY_RATING_NONE' => 0, '_MI_WGGALLERY_RATING_5STARS' => 1, '_MI_WGGALLERY_RATING_10STARS' => 2, '_MI_WGGALLERY_RATING_LIKES' => 3, '_MI_WGGALLERY_RATING_10NUM' => 4],
 ];
     
 $group_handler = xoops_getHandler('group');

@@ -63,7 +63,7 @@ switch ($op) {
                 redirect_header($redir, 2, _MA_WGGALLERY_RATING_VOTE_BAD);
                 exit();
             }
-        } else if (Constants::RATING_10STARS === (int)$helper->getConfig('ratingbars')) {
+        } else if (Constants::RATING_10STARS === (int)$helper->getConfig('ratingbars') || Constants::RATING_10NUM === (int)$helper->getConfig('ratingbars')) {
             if ($rating > 10 || $rating < 1) {
                 redirect_header($redir, 2, _MA_WGGALLERY_RATING_VOTE_BAD);
                 exit();

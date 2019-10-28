@@ -3,3 +3,6 @@ categories not existing anymore (deleted from table categories) should be remove
 
 download full album as zip
 
+maintenance:
+show used space on server for upload folders of wggallery
+https://stackoverflow.com/questions/478121/how-to-get-directory-size-in-php

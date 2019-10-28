@@ -73,6 +73,7 @@ if ($ratingbars > 0) {
     $GLOBALS['xoopsTpl']->assign('rating', $ratingbars);
     $GLOBALS['xoopsTpl']->assign('rating_5stars', (Constants::RATING_5STARS === $ratingbars));
     $GLOBALS['xoopsTpl']->assign('rating_10stars', (Constants::RATING_10STARS === $ratingbars));
+    $GLOBALS['xoopsTpl']->assign('rating_10num', (Constants::RATING_10NUM === $ratingbars));
     $GLOBALS['xoopsTpl']->assign('rating_likes', (Constants::RATING_LIKES === $ratingbars));
     $GLOBALS['xoopsTpl']->assign('save', 'save-img' . $op);
 }

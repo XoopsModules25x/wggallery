@@ -77,4 +77,5 @@ class Constants
     const RATING_5STARS = 1;
     const RATING_10STARS = 2;
     const RATING_LIKES = 3;
+    const RATING_10NUM = 4;
 }

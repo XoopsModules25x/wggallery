@@ -94,7 +94,10 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
         $voted = false;
         $ip    = getenv('REMOTE_ADDR');
         
-        if (Constants::RATING_5STARS === (int)$helper->getConfig('ratingbars') || Constants::RATING_10STARS === (int)$helper->getConfig('ratingbars')) {        
+        if (Constants::RATING_5STARS === (int)$helper->getConfig('ratingbars') 
+                || Constants::RATING_10STARS === (int)$helper->getConfig('ratingbars')
+                || Constants::RATING_10NUM === (int)$helper->getConfig('ratingbars')
+            ) {        
             $rating_unitwidth = 25;
             if (Constants::RATING_5STARS === (int)$helper->getConfig('ratingbars')) {
                 $max_units = 5;
