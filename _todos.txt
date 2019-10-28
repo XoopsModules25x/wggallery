@@ -1,8 +1,5 @@
 maintenance:
-categories not existing anymore (deleted from table categories) should be removed also from alb_cats and img_cats
+- categories not existing anymore (deleted from table categories) should be removed also from alb_cats and img_cats
+- delete rating when image is deleted
 
 download full album as zip
-
-maintenance:
-show used space on server for upload folders of wggallery
-https://stackoverflow.com/questions/478121/how-to-get-directory-size-in-php

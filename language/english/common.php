@@ -274,7 +274,7 @@ define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS_DESC', 'If yes, the "
 //Latest Version Check
 define('CO_' . $moduleDirNameUpper . '_' . 'NEW_VERSION', 'New Version: ');
 
-define('_CO_WGGALLERY_EXIF', 'Exif data');
+define('_CO_WGGALLERY_EXIF', 'Exif data original file');
 define('_CO_WGGALLERY_EXIF_ALL', 'Show all');
 define('_CO_WGGALLERY_EXIF_FILENAME', 'File name');
 define('_CO_WGGALLERY_EXIF_FILEDATETIME', 'File date');

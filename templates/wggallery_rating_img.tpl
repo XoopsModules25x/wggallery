@@ -83,7 +83,7 @@
                     <a class="wggallery-rater-numeric <{if $image.rating.avg_rate_value >=9}>wggallery-rater-numeric-active<{/if}>" href="rate.php?op=<{$save}>&amp;img_id=<{$image.id}>&rating=9&amp;source=1" rel="nofollow">9</a>
                     <a class="wggallery-rater-numeric <{if $image.rating.avg_rate_value >=10}>wggallery-rater-numeric-active<{/if}>" href="rate.php?op=<{$save}>&amp;img_id=<{$image.id}>&rating=10&amp;source=1" rel="nofollow">10</a>
                 </div>
-                <div class='center'>
+                <div class='left'>
                     <{$image.rating.text}>
                 </div>
             </div>

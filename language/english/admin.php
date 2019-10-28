@@ -289,6 +289,14 @@ define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_READ', 'Read missing exif data');
 define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_READALL', 'Read all exif data again');
 define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_SUCCESS', 'Successfully read exif');
 define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_ERROR', 'Error when reading exif');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_SPACE', 'Check used space in upload directory');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_SPACE_DESC', 'Following upload directories will be checked in order to get used space:<ul>
+<li>%p/albums/</li>
+<li>%p/large/</li>
+<li>%p/medium/</li>
+<li>%p/thumbs/</li>
+<li>%p/temp/</li>
+</ul>');
 // Albums
 define('_AM_WGGALLERY_ALBUMS_ERRNOTFOUND', 'Error: Image not found (Image-Id %s)');
 // Import

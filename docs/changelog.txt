@@ -9,6 +9,8 @@
  - added modal view of single image (goffy)
  - added 10 stars rating (lupin/goffy)
  - added 10 numeric rating (lupin/goffy)
+ - moved exif reading before resizing, because exif data get partially lost by gd resizing (goffy)
+ - added show used space on server for upload folders in maintenance (goffy)
  
 <h5>1.12 RC1</h5>  [2019/../..]
 <hr>

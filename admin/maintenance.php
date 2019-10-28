@@ -912,7 +912,49 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('show_mimetypes', true);
         $GLOBALS['xoopsTpl']->assign('show_result', true);
         break;
+    case 'check_space':
+        $success     = [];
+        $errors      = [];
+        
+        
+        $path = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums';
+        $disk_used = wgg_foldersize($path);
+        $success[] = $path . ': ' . wgg_format_size($disk_used);
+        $path = WGGALLERY_UPLOAD_IMAGE_PATH . '/large';
+        $disk_used = wgg_foldersize($path);
+        $success[] = $path . ': ' . wgg_format_size($disk_used);
+        $path = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium';
+        $disk_used = wgg_foldersize($path);
+        $success[] = $path . ': ' . wgg_format_size($disk_used);
+        $path = WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs';
+        $disk_used = wgg_foldersize($path);
+        $success[] = $path . ': ' . wgg_format_size($disk_used);
+        $path = WGGALLERY_UPLOAD_IMAGE_PATH . '/temp';
+        $disk_used = wgg_foldersize($path);
+        $success[] = $path . ': ' . wgg_format_size($disk_used);
 
+        $templateMain = 'wggallery_admin_maintenance.tpl';
+        $err_text     = '';
+        if (count($errors) > 0) {
+            $err_text = '<ul>';
+            foreach ($errors as $error) {
+                $err_text .= '<li>' . $error . '</li>';
+            }
+            $err_text .= '</ul>';
+        }
+         if (count($success) > 0) {
+            $success_text = '<ul>';
+            foreach ($success as $s) {
+                $success_text .= '<li>' . $s . '</li>';
+            }
+            $success_text .= '</ul>';
+        }
+
+        $GLOBALS['xoopsTpl']->assign('result_success', $success_text);
+        $GLOBALS['xoopsTpl']->assign('result_error', $err_text);
+        $GLOBALS['xoopsTpl']->assign('show_checkspace', true);
+        $GLOBALS['xoopsTpl']->assign('show_result', true);
+        break;
     case 'list':
     default:
         $templateMain = 'wggallery_admin_maintenance.tpl';
@@ -934,6 +976,10 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('show_wm', true);
         $GLOBALS['xoopsTpl']->assign('show_exif', true);
         $GLOBALS['xoopsTpl']->assign('show_mimetypes', true);
+        
+        $maintainance_cs_desc = str_replace('%p', WGGALLERY_UPLOAD_IMAGE_PATH, _AM_WGGALLERY_MAINTENANCE_CHECK_SPACE_DESC);
+        $GLOBALS['xoopsTpl']->assign('maintainance_cs_desc', $maintainance_cs_desc);
+        $GLOBALS['xoopsTpl']->assign('show_checkspace', true);
         break;
 }
 
@@ -1012,6 +1058,35 @@ function getUnusedImages(&$unused, $directory)
     }
 
     return true;
+}
+
+function wgg_foldersize($path) {
+  $total_size = 0;
+  $files = scandir($path);
+
+  foreach($files as $t) {
+    if (is_dir(rtrim($path, '/') . '/' . $t)) {
+      if ($t<>"." && $t<>"..") {
+          $size = wgg_foldersize(rtrim($path, '/') . '/' . $t);
+
+          $total_size += $size;
+      }
+    } else {
+      $size = filesize(rtrim($path, '/') . '/' . $t);
+      $total_size += $size;
+    }
+  }
+  return $total_size;
+}
+
+function wgg_format_size($size) {
+  $mod = 1024;
+  $units = explode(' ','B KB MB GB TB PB');
+  for ($i = 0; $size > $mod; $i++) {
+    $size /= $mod;
+  }
+
+  return round($size, 2) . ' ' . $units[$i];
 }
 
 require __DIR__ . '/footer.php';

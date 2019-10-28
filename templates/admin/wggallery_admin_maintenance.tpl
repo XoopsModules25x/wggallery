@@ -205,7 +205,7 @@
                     <{/if}>
                     <td class='center'>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=read_exif' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_READ}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_READ}></a></p>
-                        <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=read_exifall' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_READALL}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_READALL}></a></p>
+                        <!--<p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=read_exifall' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_READALL}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_READALL}></a></p>-->
                     </td>
                 </tr>
             <{/if}>
@@ -224,6 +224,21 @@
                         <{if $show_result}>
                             <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=mimetypes_clean' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECK_MT_CLEAN}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECK_MT_CLEAN}></a></p>
                         <{/if}>
+                    </td>
+                </tr>
+            <{/if}>
+            <{if $show_checkspace}>
+                <tr class="<{cycle values='odd, even'}>">
+                    <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_CHECK_SPACE}></td>
+                    <td class='left'><{$maintainance_cs_desc}></td>
+                    <{if $show_result}>
+                        <td class='left'>
+                            <{if $result_success}><span><{$result_success}></span><{/if}>
+                            <{if $result_error}><span class='maintenance-error'><{$result_error}></span><{/if}>
+                        </td>
+                    <{/if}>
+                    <td class='center'>
+                        <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=check_space' title='<{$smarty.const._CO_WGGALLERY_EXEC}>'><{$smarty.const._CO_WGGALLERY_EXEC}></a></p>
                     </td>
                 </tr>
             <{/if}>

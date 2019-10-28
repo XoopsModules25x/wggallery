@@ -40,8 +40,6 @@ namespace XoopsModules\Wggallery\Common;
 use XoopsModules\Wggallery;
 use XoopsModules\Wggallery\Constants;
 
-//class FineimpuploadHandler extends \SystemFineUploadHandler
-
 /**
  * Class FineimpuploadHandler
  * @package XoopsModules\Wggallery
@@ -164,8 +162,8 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         }
         
         // TODO: copy exif from original to resized, if resized
-        // if ($helper->getConfig('store_exif')) {
-            
+        // if (true === $ret && $helper->getConfig('store_exif')) {
+            // possible solutions???
         // }
         
         $ret = $this->handleImageDB();

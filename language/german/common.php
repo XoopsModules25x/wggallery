@@ -275,7 +275,7 @@ define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS_DESC', 'If yes, the "
 define('CO_' . $moduleDirNameUpper . '_' . 'NEW_VERSION', 'Neue Version: ');
 define('CO_' . $moduleDirNameUpper . '_' . 'ERROR_BAD_XOOPS', 'Sie benötigen mindestens Version %s (Ihre derzeitige Version ist %s)');
 
-define('_CO_WGGALLERY_EXIF', 'Exif-Daten');
+define('_CO_WGGALLERY_EXIF', 'Exif-Daten Originaldatei');
 define('_CO_WGGALLERY_EXIF_ALL', 'Alle anzeigen');
 define('_CO_WGGALLERY_EXIF_FILENAME', 'Dateiname');
 define('_CO_WGGALLERY_EXIF_FILEDATETIME', 'Dateidatum');
