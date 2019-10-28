@@ -144,6 +144,13 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         if (false === move_uploaded_file($_FILES[$this->inputName]['tmp_name'], $this->imagePath)) {
             return false;
         }
+        
+        if ($helper->getConfig('store_exif')) {
+            // read exif from original image
+            $exif = json_encode(exif_read_data($this->imagePath));
+            $this->exifData   = $exif;
+        }
+        
         // resize large image
         $imgHandler                = new Wggallery\Resizer();
         $imgHandler->sourceFile    = $this->imagePath;
@@ -156,11 +163,10 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
             return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_LARGE, $this->imageNicename)];
         }
         
-        if ($helper->getConfig('store_exif')) {
-            $imgLarge  = $this->pathUpload . '/large/' . $this->imageNameLarge;
-            $exif = json_encode(exif_read_data($imgLarge));
-            $this->exifData   = $exif;
-        }
+        // TODO: copy exif from original to resized, if resized
+        // if ($helper->getConfig('store_exif')) {
+            
+        // }
         
         $ret = $this->handleImageDB();
         if (false === $ret) {

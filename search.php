@@ -148,7 +148,8 @@ $ratingbars = $helper->getConfig('ratingbars');
 if ($ratingbars > 0) {
     $activitySelect->addOption(WGGALLERY_SEARCH_ACT_RATINGS, _MA_WGGALLERY_SEARCH_ACT_RATINGS);
     $activitySelect->addOption(WGGALLERY_SEARCH_ACT_VOTES, _MA_WGGALLERY_SEARCH_ACT_VOTES);
-    $GLOBALS['xoopsTpl']->assign('rating_stars', (Constants::RATING_STARS === $ratingbars));
+    $GLOBALS['xoopsTpl']->assign('rating_5stars', (Constants::RATING_5STARS === $ratingbars));
+    $GLOBALS['xoopsTpl']->assign('rating_10stars', (Constants::RATING_10STARS === $ratingbars));
     $GLOBALS['xoopsTpl']->assign('rating_likes', (Constants::RATING_LIKES === $ratingbars));
 }
 $form2->addElement($activitySelect);

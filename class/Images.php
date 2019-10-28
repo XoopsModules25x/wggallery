@@ -157,12 +157,20 @@ class Images extends \XoopsObject
         // Form Text ImgDownloads
         $imgDownloads = $this->isNew() ? '0' : $this->getVar('img_downloads');
         $form->addElement(new \XoopsFormText(_CO_WGGALLERY_IMAGE_DOWNLOADS, 'img_downloads', 20, 150, $imgDownloads));
-        // Form Text ImgRatinglikes TODO
-        // $imgRatinglikes = $this->isNew() ? '0' : $this->getVar('img_ratinglikes');
-        // $form->addElement(new \XoopsFormText( _CO_WGGALLERY_IMAGE_RATINGLIKES, 'img_ratinglikes', 20, 150, $imgRatinglikes ));
-        // Form Text ImgVotes TODO
-        // $imgVotes = $this->isNew() ? '0' : $this->getVar('img_votes');
-        // $form->addElement(new \XoopsFormText( _CO_WGGALLERY_IMAGE_VOTES, 'img_votes', 20, 150, $imgVotes ));
+        
+        // Form Text ImgRatinglikes
+        // Form Text ImgVotes
+        $imgRatinglikes = $this->isNew() ? '0' : $this->getVar('img_ratinglikes');
+        $imgVotes = $this->isNew() ? '0' : $this->getVar('img_votes');
+        if ($adminarea) {
+            $form->addElement(new \XoopsFormText( _CO_WGGALLERY_IMAGE_RATINGLIKES, 'img_ratinglikes', 20, 150, $imgRatinglikes ));
+            $form->addElement(new \XoopsFormText( _CO_WGGALLERY_IMAGE_VOTES, 'img_votes', 20, 150, $imgVotes ));
+        } else {
+            $form->addElement(new \XoopsFormLabel(_CO_WGGALLERY_IMAGE_RATINGLIKES, $imgRatinglikes));
+            $form->addElement(new \XoopsFormHidden('img_ratinglikes', $imgRatinglikes));
+            $form->addElement(new \XoopsFormLabel(_CO_WGGALLERY_IMAGE_VOTES, $imgVotes));
+            $form->addElement(new \XoopsFormHidden('img_votes', $imgVotes));
+        }
         // Form Text ImgViews
         $ImgViews = $this->isNew() ? '0' : $this->getVar('img_views');
         if ($adminarea) {
@@ -230,32 +238,16 @@ class Images extends \XoopsObject
             $editorConfigs['height'] = '400px';
             $editorConfigs['editor'] = 'dhtml';
             $form->addElement(new \XoopsFormEditor(_CO_WGGALLERY_IMAGE_EXIF, 'img_exif', $editorConfigs));
-
-            $exifs = json_decode($this->getVar('img_exif'), true);
-            if (is_array($exifs)) {
-                $exif_text = '';
-                foreach ($exifs as $key => $value) {
-                    if (is_array($value)) {
-                        $exif_text .= $key . ': <br>';
-                        foreach ($value as $skey => $svalue) {
-                            $exif_text .= ' - ' . $skey . ': ' . $svalue . '<br>';
-                        }
-                    } else {
-                        $exif_text .= $key . ': ' . $value . '<br>';
-                    }
-                }
-            } else {
-                $exif_text = "Unexpected error json_decode:" . ($this->getVar('img_exif'));
-            }
         }       
         
+        // Form Text ImgIp
+        $form->addElement(new \XoopsFormText(_CO_WGGALLERY_IMAGE_IP, 'img_ip', 50, 255, $this->getVar('img_ip')));
         // Form Text Date Select ImgDate
         $imgDate = $this->isNew() ? 0 : $this->getVar('img_date');
         $form->addElement(new \XoopsFormTextDateSelect(_CO_WGGALLERY_DATE, 'img_date', '', $imgDate));
         // Form Select User ImgSubmitter
         $form->addElement(new \XoopsFormSelectUser(_CO_WGGALLERY_SUBMITTER, 'img_submitter', false, $this->getVar('img_submitter')));
-        // Form Text ImgIp
-        $form->addElement(new \XoopsFormText(_CO_WGGALLERY_IMAGE_IP, 'img_ip', 50, 255, $this->getVar('img_ip')));
+        
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
 		$form->addElement(new \XoopsFormHidden('redir_op', $this->redirOp));
@@ -355,8 +347,6 @@ class Images extends \XoopsObject
                                     $exif_text .= $key;
                                 break;
                             }
-
-// formatTimestamp($this->getVar('alb_date'), 's');                            
                             $exif_text .= ': ' . $newvalue . '<br>';
                         }
                     }

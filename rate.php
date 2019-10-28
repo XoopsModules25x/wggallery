@@ -58,8 +58,13 @@ switch ($op) {
             $redir = $_SERVER['HTTP_REFERER'] . '#imglist_' . $itemid;
         }
 
-        if (Constants::RATING_STARS === (int)$helper->getConfig('ratingbars')) {
+        if (Constants::RATING_5STARS === (int)$helper->getConfig('ratingbars')) {
             if ($rating > 5 || $rating < 1) {
+                redirect_header($redir, 2, _MA_WGGALLERY_RATING_VOTE_BAD);
+                exit();
+            }
+        } else if (Constants::RATING_10STARS === (int)$helper->getConfig('ratingbars')) {
+            if ($rating > 10 || $rating < 1) {
                 redirect_header($redir, 2, _MA_WGGALLERY_RATING_VOTE_BAD);
                 exit();
             }

@@ -41,7 +41,7 @@
 								<p class='wgg-comcount'><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>comments.png' alt='<{$smarty.const._CO_WGGALLERY_COMMENTS}>' title='<{$smarty.const._CO_WGGALLERY_COMMENTS}>'><{$image.com_count_text}></p>
                             <{/if}>
                             <{if $rating > 0}>
-                                <{if $rating_stars}>
+                                <{if $rating_5stars || $rating_10stars}>
                                     <p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>rate.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_RATINGLIKES}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_RATINGLIKES}>'><{$image.ratinglikes}> (<{$image.votes}> <{$smarty.const._CO_WGGALLERY_IMAGE_VOTES}>)</p>
                                 <{/if}>
                                 <{if $rating_likes}>
@@ -59,10 +59,17 @@
                             <{/if}>
                         </div>
                         <div class='wgg-img-panel-row col-sm-12 center'>
-                            <a class='btn btn-default wgg-btn' href='<{$wggallery_url}>/images.php?op=show&amp;redir=list&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>&amp;start=<{$start}>&amp;limit=<{$limit}>&amp;img_submitter=<{$img_submitter}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_SHOW}>' target='<{$image_target}>'>
-                                <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>show.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_SHOW}>'>
-								<{if $displayButtonText}><{$smarty.const._CO_WGGALLERY_IMAGE_SHOW}><{/if}>
-                            </a>
+                            <{if $showModal}>
+                                <a href='' id='btnModal<{$image.id}>' class='btn btn-default wgg-btn' data-toggle='modal' data-target='#myModalImagePicker<{$image.id}>'>
+                                    <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>show.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_SHOW}>'>
+                                    <{if $displayButtonText}><{$smarty.const._CO_WGGALLERY_IMAGE_SHOW}><{/if}>
+                                </a>
+                            <{else}>
+                                <a class='btn btn-default wgg-btn' href='<{$wggallery_url}>/images.php?op=show&amp;redir=list&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>&amp;start=<{$start}>&amp;limit=<{$limit}>&amp;img_submitter=<{$img_submitter}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_SHOW}>' target='<{$image_target}>'>
+                                    <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>show.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_SHOW}>'>
+                                    <{if $displayButtonText}><{$smarty.const._CO_WGGALLERY_IMAGE_SHOW}><{/if}>
+                                </a>
+                            <{/if}>
                             <{if $permAlbumEdit}>
                                 <a class='btn btn-default wgg-btn' href='<{$wggallery_url}>/images.php?op=edit&amp;img_id=<{$image.id}>' title='<{$smarty.const._EDIT}>'>
                                     <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>edit.png' alt='<{$smarty.const._EDIT}>'>
@@ -182,6 +189,63 @@
 
     <{/if}>
 </div>
+
+<{if $showModal}>
+    <!-- Create Modals -->
+    <{foreach item=image from=$images}>
+        <div class='modal fade' id='myModalImagePicker<{$image.id}>' tabindex='-1' role='dialog' aria-labelledby='myModalLabel'>
+            <div class='modal-dialog wgg-modal-image' role='document'>
+                <div class='modal-content'>
+                    <div class='modal-header'>
+                        <button type='button' class='close' data-dismiss='modal'
+                                aria-label='Close'><span aria-hidden='true'>&times;</span>
+                        </button>
+                        <h4 class='modal-title' id='myModalLabel'><{$image.title}></h4>
+                    </div>
+                    <div class='modal-body'>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <{if $showModalInfo}>
+                                    <div class="col-xs-12 col-md-8 col-sm-9 col-lg-10">
+                                <{else}>
+                                    <div class="col-xs-12 col-md-12">
+                                <{/if}>
+                                    <{if $image.alb_name}><h4 class='modal-title'><{$image.alb_name}></h4><{/if}>
+                                    <img class='img-responsive wgg-img' src='<{$image.img_modal}>' alt='<{$image.title}>'>
+                                <{if $showModalInfo}>
+                                    </div>
+                                    <div class="col-xs-12 col-md-4 col-sm-3 col-lg-2">
+                                        <p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>size.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_SIZE}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_SIZE}>'><{$image.size}> kb</p>
+                                        <p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>dimension.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_SIZE}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_SIZE}>'><{$image.resx}>px / <{$image.resy}>px</p>
+                                        <{if $img_allowdownload}>
+                                            <p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>download.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_DOWNLOADS}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_DOWNLOADS}>'><{$image.downloads}></p>
+                                        <{/if}>
+                                        <{if $show_rating}>
+                                            <p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>rate.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_RATINGLIKES}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_RATINGLIKES}>'><{$image.ratinglikes}> (<{$image.votes}> <{$smarty.const._CO_WGGALLERY_IMAGE_VOTES}>)</p>
+                                        <{/if}>
+                                        <{if $permAlbumEdit}>
+                                            <p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>state<{$image.state}>.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_STATE}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_STATE}>'><{$image.state_text}></p>
+                                        <{/if}>
+                                        <p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>date.png' alt='<{$smarty.const._CO_WGGALLERY_DATE}>' title='<{$smarty.const._CO_WGGALLERY_DATE}>'><{$image.date}></p>
+                                        <p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>submitter.png' alt='<{$smarty.const._CO_WGGALLERY_SUBMITTER}>' title='<{$smarty.const._CO_WGGALLERY_SUBMITTER}>'><{$image.submitter}></p>
+                                        <p class='wgg-img-exif'><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>exif.png' alt='<{$smarty.const._CO_WGGALLERY_EXIF}>' title='<{$smarty.const._CO_WGGALLERY_EXIF}>'><{$image.exif}></p>
+                                        <{if $rating}>
+                                            <{include file="db:wggallery_rating_img.tpl"}>
+                                        <{/if}>
+                                    </div>
+                                <{else}>
+                                    </div>
+                                <{/if}>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <{/foreach }>
+    <!-- end of modals -->
+<{/if}>
 
 <{if $form}>
 	<{$form}>

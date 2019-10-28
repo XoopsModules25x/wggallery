@@ -102,6 +102,10 @@
 	width:650px;
 }
 
+.wgg-modal-image {
+	width:90%;
+}
+
 /* image sorting */
 .wgg-img-sort, .wgg-img-sort-clear {
 	border:0 solid transparent !important;

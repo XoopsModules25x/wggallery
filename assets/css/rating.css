@@ -33,13 +33,22 @@
     margin: 0;
     padding: 0;
 }
-.wggallery_unit-rating div {
+.wggallery_unit-rating-10 {
+    width: 250px;
+	list-style: none;
+    height: 25px;
+    position: relative;
+    background: url(../images/starrating.png) top left repeat-x;
+    margin: 0;
+    padding: 0;
+}
+.wggallery_unit-rating div, .wggallery_unit-rating-10 div {
     text-indent: -90000px;
     overflow: hidden;
     margin: 0;
     padding: 0;
 }
-.wggallery_unit-rating div a {
+.wggallery_unit-rating div a, .wggallery_unit-rating-10 div a {
     outline: none;
     display: block;
     width: 25px;
@@ -51,12 +60,12 @@
     position: absolute;
     padding: 0;
 }
-.wggallery_unit-rating div a:hover {
+.wggallery_unit-rating div a:hover, .wggallery_unit-rating-10 div a:hover {
     background: url(../images/starrating.png) left bottom;
     z-index: 2;
     left: 0;
 }
-.wggallery_unit-rating div.wgwggallery_current-rating {
+.wggallery_unit-rating div.wgwggallery_current-rating, .wggallery_unit-rating-10 div.wgwggallery_current-rating {
     background: url(../images/starrating.png) left center;
     position: absolute;
     height: 25px;
@@ -75,6 +84,27 @@
 .wggallery_unit-rating a.wggallery_r4-unit:hover {width: 100px;}
 .wggallery_unit-rating a.wggallery_r5-unit {left: 100px;}
 .wggallery_unit-rating a.wggallery_r5-unit:hover {width: 125px;}
+
+.wggallery_unit-rating-10 a.wggallery_r1-unit {left: 0;}
+.wggallery_unit-rating-10 a.wggallery_r1-unit:hover {width: 25px;}
+.wggallery_unit-rating-10 a.wggallery_r2-unit {left: 25px;}
+.wggallery_unit-rating-10 a.wggallery_r2-unit:hover {width: 50px;}
+.wggallery_unit-rating-10 a.wggallery_r3-unit {left: 50px;}
+.wggallery_unit-rating-10 a.wggallery_r3-unit:hover {width: 75px;}
+.wggallery_unit-rating-10 a.wggallery_r4-unit {left: 75px;}
+.wggallery_unit-rating-10 a.wggallery_r4-unit:hover {width: 100px;}
+.wggallery_unit-rating-10 a.wggallery_r5-unit {left: 100px;}
+.wggallery_unit-rating-10 a.wggallery_r5-unit:hover {width: 125px;}
+.wggallery_unit-rating-10 a.wggallery_r6-unit {left: 125px;}
+.wggallery_unit-rating-10 a.wggallery_r6-unit:hover {width: 150px;}
+.wggallery_unit-rating-10 a.wggallery_r7-unit {left: 150px;}
+.wggallery_unit-rating-10 a.wggallery_r7-unit:hover {width: 175px;}
+.wggallery_unit-rating-10 a.wggallery_r8-unit {left: 175px;}
+.wggallery_unit-rating-10 a.wggallery_r8-unit:hover {width: 200px;}
+.wggallery_unit-rating-10 a.wggallery_r9-unit {left: 200px;}
+.wggallery_unit-rating-10 a.wggallery_r9-unit:hover {width: 225px;}
+.wggallery_unit-rating-10 a.wggallery_r10-unit {left: 225px;}
+.wggallery_unit-rating-10 a.wggallery_r10-unit:hover {width: 250px;}
 
 .wgg-rate-dislike {
     padding-left:20px;

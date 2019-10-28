@@ -74,6 +74,7 @@ class Constants
     const WATERMARK_TARGET_L = 2;
     // constants for rating
     const RATING_NONE = 0;
-    const RATING_STARS = 1;
-    const RATING_LIKES = 2;
+    const RATING_5STARS = 1;
+    const RATING_10STARS = 2;
+    const RATING_LIKES = 3;
 }

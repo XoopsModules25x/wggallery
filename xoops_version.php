@@ -468,7 +468,7 @@ $modversion['config'][] = [
     'formtype'    => 'select',
     'valuetype'   => 'text',
     'default'     => '_self',
-    'options'     => ['_MI_WGGALLERY_LINK_TARGET_SELF' => '_self', '_MI_WGGALLERY_LINK_TARGET_BLANK' => '_blank'],
+    'options'     => ['_MI_WGGALLERY_LINK_TARGET_SELF' => '_self', '_MI_WGGALLERY_LINK_TARGET_BLANK' => '_blank', '_MI_WGGALLERY_LINK_TARGET_MODAL' => '_modal', '_MI_WGGALLERY_LINK_TARGET_MODALINFO' => '_modalinfo'],
 ];
 
 // Panel by
@@ -585,7 +585,7 @@ $modversion['config'][] = [
     'formtype'    => 'select',
     'valuetype'   => 'int',
     'default'     => 0,
-    'options'     => ['_MI_WGGALLERY_RATING_NONE' => 0, '_MI_WGGALLERY_RATING_STARS' => 1, '_MI_WGGALLERY_RATING_LIKES' => 2],
+    'options'     => ['_MI_WGGALLERY_RATING_NONE' => 0, '_MI_WGGALLERY_RATING_5STARS' => 1, '_MI_WGGALLERY_RATING_10STARS' => 2, '_MI_WGGALLERY_RATING_LIKES' => 3],
 ];
     
 $group_handler = xoops_getHandler('group');

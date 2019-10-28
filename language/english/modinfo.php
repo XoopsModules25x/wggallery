@@ -92,6 +92,8 @@ define('_MI_WGGALLERY_LINK_TARGET_SELF', 'Same window/tab');
 define('_MI_WGGALLERY_LINK_TARGET_BLANK', 'New window/tab');
 define('_MI_WGGALLERY_IMAGE_TARGET', 'Target for single image');
 define('_MI_WGGALLERY_IMAGE_TARGET_DESC', 'Please select where a single image should be shown');
+define('_MI_WGGALLERY_LINK_TARGET_MODAL', 'Show image as modal without informations');
+define('_MI_WGGALLERY_LINK_TARGET_MODALINFO', 'Show image as modal with detailed image informations');
 define('_MI_WGGALLERY_ADDJQUERY', 'Add jquery library');
 define('_MI_WGGALLERY_ADDJQUERY_DESC', 'If you use already jquery (e.g. in your theme) then set to NO');
 define('_MI_WGGALLERY_PANEL_TYPE', 'Panel Type');
@@ -159,5 +161,6 @@ define('_MI_WGGALLERY_RATINGBARS_DESC', 'Define whether rating should be possibl
 define('_MI_WGGALLERY_RATINGBAR_GROUPS', 'Groups with rating rights');
 define('_MI_WGGALLERY_RATINGBAR_GROUPS_DESC', 'Define which groups should have the right to rate');
 define('_MI_WGGALLERY_RATING_NONE', 'Do not use rating');
-define('_MI_WGGALLERY_RATING_STARS', 'Rating with stars');
+define('_MI_WGGALLERY_RATING_5STARS', 'Rating with 5 stars');
+define('_MI_WGGALLERY_RATING_10STARS', 'Rating with 10 stars');
 define('_MI_WGGALLERY_RATING_LIKES', 'Rating with likes');

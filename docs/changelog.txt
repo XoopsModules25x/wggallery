@@ -6,6 +6,8 @@
  - added new preference image_target (lupin/goffy)
  - show only albums with perm to edit in upload list (goffy)
  - rebuilt update functions (added wggallery_check_db) (goffy)
+ - added modal view of single image (goffy)
+ - added 10 stars rating (lupin/goffy)
  
 <h5>1.12 RC1</h5>  [2019/../..]
 <hr>

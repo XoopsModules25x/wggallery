@@ -95,7 +95,9 @@ define('_MI_WGGALLERY_GALLERY_TARGET_DESC', 'Bitte legen Sie fest, wo eine Bilde
 define('_MI_WGGALLERY_LINK_TARGET_SELF', 'Gleiches Fenster/gleicher Tab');
 define('_MI_WGGALLERY_LINK_TARGET_BLANK', 'Neues Fenster/neuer Tab');
 define('_MI_WGGALLERY_IMAGE_TARGET', 'Ziel für Einzelbild');
-define('_MI_WGGALLERY_IMAGE_TARGET_DESC', 'Bitte legen Sie fest, wo ein einzelnes Bildn angezeigt werden soll');
+define('_MI_WGGALLERY_IMAGE_TARGET_DESC', 'Bitte legen Sie fest, wo ein einzelnes Bild angezeigt werden soll');
+define('_MI_WGGALLERY_LINK_TARGET_MODAL', 'Bild als als Modal ohne Bildinfos anzeigen');
+define('_MI_WGGALLERY_LINK_TARGET_MODALINFO', 'Bild als als Modal mit detailierten Bildinfos anzeigen');
 define('_MI_WGGALLERY_ADDJQUERY', 'jquery library hinzufügen');
 define('_MI_WGGALLERY_ADDJQUERY_DESC', 'Wenn Sie bereits jquery implentiert haben (z.B. durch Ihr Theme), dann bitte "Nein" wählen');
 define('_MI_WGGALLERY_PANEL_TYPE', 'Panel Type');
@@ -162,6 +164,7 @@ define('_MI_WGGALLERY_RATINGBARS_DESC', 'Definieren Sie, ob eine Bewertung zulä
 define('_MI_WGGALLERY_RATINGBAR_GROUPS', 'Gruppen mit Bewertungsrecht');
 define('_MI_WGGALLERY_RATINGBAR_GROUPS_DESC', 'Definieren Sie, welche Gruppen die Berechtigung zur Abgabe eine Bewertung besitzen');
 define('_MI_WGGALLERY_RATING_NONE', 'Keine Bewertung verwenden');
-define('_MI_WGGALLERY_RATING_STARS', 'Bewertung mit Sternen');
+define('_MI_WGGALLERY_RATING_5STARS', 'Bewertung mit 5 Sternen');
+define('_MI_WGGALLERY_RATING_10STARS', 'Bewertung mit 10 Sternen');
 define('_MI_WGGALLERY_RATING_LIKES', 'Bewertung mit Likes');
 
