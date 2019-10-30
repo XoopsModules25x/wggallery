@@ -57,6 +57,10 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
     /**
      * @var string
      */
+    private $imageOrigName = null;
+    /**
+     * @var string
+     */
     private $imageName = null;
     /**
      * @var string
@@ -131,9 +135,9 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
 
         $pathParts = pathinfo($this->getName());
 
-        $this->imageName      = uniqid('img', true) . '.' . mb_strtolower($pathParts['extension']);
+        $this->imageName      = uniqid('img', true) . '_' . mb_strtolower($pathParts['extension']);
         $this->imageNicename  = str_replace(['_', '-'], ' ', $pathParts['filename']);
-        $this->imageNameLarge = uniqid('imgl', true) . '.' . mb_strtolower($pathParts['extension']);
+        $this->imageNameLarge = uniqid('imgl', true) . '_' . mb_strtolower($pathParts['extension']);
         $this->imagePath      = $this->pathUpload . '/large/' . $this->imageNameLarge;
         $this->imageNameOrig  = $_FILES[$this->inputName]['name'];
         $this->imageMimetype  = $_FILES[$this->inputName]['type'];
@@ -141,6 +145,11 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
 
         if (false === move_uploaded_file($_FILES[$this->inputName]['tmp_name'], $this->imagePath)) {
             return false;
+        }
+        
+        if ($helper->getConfig('store_original')) {
+            $imgPathSaveOrig = $this->pathUpload . '/original/' . $this->imageNameOrig;
+            copy ( $this->imagePath , $imgPathSaveOrig );
         }
         
         if ($helper->getConfig('store_exif')) {

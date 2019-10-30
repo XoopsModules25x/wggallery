@@ -25,7 +25,7 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 // ------------------- Informations ------------------- //
 $modversion = [
-    'version'             => '1.13',
+    'version'             => '1.14',
     'module_status'       => 'RC1',
     'release_date'        => '2019/04/15',
     'name'                => _MI_WGGALLERY_NAME,
@@ -62,8 +62,8 @@ $modversion = [
     'hasMain'             => 1,
     'adminindex'          => 'admin/index.php',
     'adminmenu'           => 'admin/menu.php',
-    'onInstall'           => 'include/install.php',
-    'onUpdate'            => 'include/update.php',
+    'onInstall'           => 'include/oninstall.php',
+    'onUpdate'            => 'include/onupdate.php',
     'onUninstall'         => 'include/onuninstall.php',
     // ------------------- Mysql -----------------------------
     'sqlfile'             => ['mysql' => 'sql/mysql.sql'],
@@ -315,7 +315,7 @@ $modversion['config'][] = [
     'description' => '_MI_WGGALLERY_MAXWIDTH_DESC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
-    'default'     => 4000,
+    'default'     => 8000,
 ];
 
 // Uploads : max height of images for upload
@@ -325,7 +325,17 @@ $modversion['config'][] = [
     'description' => '_MI_WGGALLERY_MAXHEIGHT_DESC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
-    'default'     => 4000,
+    'default'     => 8000,
+];
+
+// store original images
+$modversion['config'][] = [
+    'name'        => 'store_original',
+    'title'       => '_MI_WGGALLERY_STORE_ORIGINAL',
+    'description' => '_MI_WGGALLERY_STORE_ORIGINAL_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 0,
 ];
 
 // group header

@@ -147,9 +147,9 @@ define('_CO_WGGALLERY_IMAGE_SHOW', 'Show image');
 // Elements of Image
 define('_CO_WGGALLERY_IMAGE_ID', 'Id');
 define('_CO_WGGALLERY_IMAGE_TITLE', 'Title');
-define('_CO_WGGALLERY_IMAGE_DESC', 'Desc');
+define('_CO_WGGALLERY_IMAGE_DESC', 'Description');
 define('_CO_WGGALLERY_IMAGE_NAME', 'Name');
-define('_CO_WGGALLERY_IMAGE_NAMEORIG', 'Origname');
+define('_CO_WGGALLERY_IMAGE_NAMEORIG', 'Original name');
 define('_CO_WGGALLERY_IMAGE_NAMELARGE', 'Name of large image');
 define('_CO_WGGALLERY_IMAGE_MIMETYPE', 'Mimetype');
 define('_CO_WGGALLERY_IMAGE_SIZE', 'Size');

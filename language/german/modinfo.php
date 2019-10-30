@@ -167,4 +167,9 @@ define('_MI_WGGALLERY_RATING_NONE', 'Keine Bewertung verwenden');
 define('_MI_WGGALLERY_RATING_5STARS', 'Bewertung mit 5 Sternen');
 define('_MI_WGGALLERY_RATING_10STARS', 'Bewertung mit 10 Sternen');
 define('_MI_WGGALLERY_RATING_LIKES', 'Bewertung mit Likes');
+define('_MI_WGGALLERY_RATING_10NUM', 'Bewertung mit 10 Punkten');
 
+define('_MI_WGGALLERY_STORE_ORIGINAL', 'Originalbild speichern');
+define('_MI_WGGALLERY_STORE_ORIGINAL_DESC', 'Definieren Sie, ob sie das Originalbild zusätzlich speichern wollen.
+                <br>Vorteil: alle Bilder sind später in neuen Größen und mit neuen Wasserzeichen reproduzierbar
+                <br>Nachteil: der Speicherbedarf wird entsprechend der zulässigen Größe für Uploads ansteigen');

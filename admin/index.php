@@ -56,6 +56,7 @@ $folder = [
     WGGALLERY_UPLOAD_PATH,
     WGGALLERY_UPLOAD_PATH . '/images/',
     WGGALLERY_UPLOAD_PATH . '/images/albums/',
+    WGGALLERY_UPLOAD_PATH . '/images/original/',
     WGGALLERY_UPLOAD_PATH . '/images/large/',
     WGGALLERY_UPLOAD_PATH . '/images/medium/',
     WGGALLERY_UPLOAD_PATH . '/images/thumbs/',

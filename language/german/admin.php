@@ -217,13 +217,14 @@ define('_AM_WGGALLERY_OPTION_SHOWSUBMITTER', 'Einsender anzeigen');
 define('_AM_WGGALLERY_MAINTENANCE_ALBUM_SELECT', 'Album auswählen');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_DR', 'Löschen und wiederherstellen');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_R', 'Standardeinstellungen wiederherstellen');
+define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_RIL', 'Alle großen Bilder neu erstellen');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_RIM', 'Alle mittlere Bilder neu erstellen');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_RIT', 'Alle Vorschaubilder neu erstellen');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_DUI', 'Nicht verwendete Bilder löschen');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_DUI_SHOW', 'Liste der nicht verwendeten Bilder anzeigen');
 define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET', 'Erfolgreich wiederhergestellt: ');
 define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE', 'Erfolgreich erstellt: ');
-define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_RESIZE', 'Größenänderung erfolgreich: %s von %t Bildern');
+define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_RESIZE', 'Größenänderung erfolgreich: %s mal Änderung bei %t Bildern');
 define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_DELETE', 'Erfolgreich gelöscht: ');
 define('_AM_WGGALLERY_MAINTENANCE_ERROR_RESET', 'Fehler beim Wiederherstellen: ');
 define('_AM_WGGALLERY_MAINTENANCE_ERROR_CREATE', 'Fehler beim Erstellen: ');
@@ -242,7 +243,12 @@ define('_AM_WGGALLERY_MAINTENANCE_AT_DESC', 'Nicht mehr unterstützte Albumtypen
 define('_AM_WGGALLERY_MAINTENANCE_AT_SURERESET', 'Alle derzeit bestehenden Albumeinstellungen werden durch die Standardeinstellungen ersetzt! Wollen Sie wirklich fortsetzen?');
 define('_AM_WGGALLERY_MAINTENANCE_AT_SUREDELETE', 'Alle derzeit bestehenden Albumtypen (inklusive deren Einstellungen) werden gelöscht bzw. durch die aktuellen Albumtypen/Einstellungen ersetzt! Wollen Sie wirklich fortsetzen?');
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE', 'Größenänderung Bilder');
-define('_AM_WGGALLERY_MAINTENANCE_RESIZE_DESC', 'Erneute Größenänderung der mittleren Bilder oder Vorschaubilder entsprechend der vorgegeben Höhe in den Moduleinstellungen.<br>Aktuelle Einstellungen:<br>a) Mittlere Bilder: maximale Breite %mw px / maximale Höhe %mh px<br>b) Vorschaubilder: maximale Breite %tw px / maximale Höhe %th px');
+define('_AM_WGGALLERY_MAINTENANCE_RESIZE_DESC', 'Erneute Größenänderung der mittleren Bilder oder Vorschaubilder entsprechend der vorgegeben Höhe in den Moduleinstellungen.<br>Aktuelle Einstellungen:<ul>
+<li>Große Bilder: maximale Breite %lw px / maximale Höhe %lh px</li>
+<li>Mittlere Bilder: maximale Breite %mw px / maximale Höhe %mh px</li>
+<li>Vorschaubilder: maximale Breite %tw px / maximale Höhe %th px</li>
+</ul>');
+define('_AM_WGGALLERY_MAINTENANCE_RESIZE_INFO', 'Eine Größenänderung bei "Große Bilder" ist nur möglich, wenn das Originalbild verfügbar ist!');
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE_SELECT', 'Wähle die Bildart für Größenänderung');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED', 'Bilderverzeichnis bereinigen');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC', 'Alle derzeit nicht verwendeten Bilder in folgenden Verzeichissen werden gelöscht:<ul>
@@ -289,6 +295,14 @@ define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_READ', 'Fehlende Exif-Daten einlesen
 define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_READALL', 'Alle Exif-Daten einlesen');
 define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_SUCCESS', 'Exif erfolgreich eingelesen');
 define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_ERROR', 'Fehler beim Lesen Exif-Daten');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_SPACE', 'Verwendeten Speicherplatz Upload-Verzeichnis ermitteln');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_SPACE_DESC', 'Folgende Upload-Verzeichnisse werden überprüft um festzustellen, wie hoch der verwendete Speicherplatz ist:<ul>
+<li>%p/albums/</li>
+<li>%p/large/</li>
+<li>%p/medium/</li>
+<li>%p/thumbs/</li>
+<li>%p/temp/</li>
+</ul>');
 // Albums
 define('_AM_WGGALLERY_ALBUMS_ERRNOTFOUND', 'Fehler: Bild nicht gefunden (Bild-Id %s)');
 // Import

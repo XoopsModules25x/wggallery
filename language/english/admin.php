@@ -217,13 +217,14 @@ define('_AM_WGGALLERY_OPTION_SHOWSUBMITTER', 'Show submitter');
 define('_AM_WGGALLERY_MAINTENANCE_ALBUM_SELECT', 'Select album');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_DR', 'Delete and reset');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_R', 'Set default settings');
+define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_RIL', 'Resize all large images');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_RIM', 'Resize all medium images');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_RIT', 'Resize all thumbs');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_DUI', 'Delete unused images');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_DUI_SHOW', 'Show list of unused images');
 define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET', 'Successfully reset: ');
 define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE', 'Successfully created: ');
-define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_RESIZE', 'Successfully resized: %s of %t images');
+define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_RESIZE', 'Successfully resized: %s times resized for %t images');
 define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_DELETE', 'Successfully deleted: ');
 define('_AM_WGGALLERY_MAINTENANCE_ERROR_RESET', 'Error when reseting: ');
 define('_AM_WGGALLERY_MAINTENANCE_ERROR_CREATE', 'Error when creating: ');
@@ -242,7 +243,12 @@ define('_AM_WGGALLERY_MAINTENANCE_AT_DESC', 'Delete albumtypes not supported any
 define('_AM_WGGALLERY_MAINTENANCE_AT_SURERESET', 'All existing album settings will be updated to default albumtypes. Do you want to continue?');
 define('_AM_WGGALLERY_MAINTENANCE_AT_SUREDELETE', 'All existing albumtypes (settings included) will be deleted and replaced by current albumtypes. Do you want to continue?');
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE', 'Resize images');
-define('_AM_WGGALLERY_MAINTENANCE_RESIZE_DESC', 'Resize images or thumbs to max height corresponding module preferences.<br>Current settings:<br>a) medium: max width %mw px / max height %mh px<br>b) thumb: max width %tw px / max height %th px');
+define('_AM_WGGALLERY_MAINTENANCE_RESIZE_DESC', 'Resize images or thumbs to max height corresponding module preferences.<br>Current settings:<ul>
+<li>large: max width %lw px / max height %lh px</li>
+<li>medium: max width %mw px / max height %mh px</li>
+<li>thumb: max width %tw px / max height %th px</li>
+</ul>');
+define('_AM_WGGALLERY_MAINTENANCE_RESIZE_INFO', 'Resizing of "large images" is only possible if original image is available!');
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE_SELECT', 'Select kind of images for resizing');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED', 'Cleanup image directory');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC', 'All currently unused images from following directories will be deleted:<ul>

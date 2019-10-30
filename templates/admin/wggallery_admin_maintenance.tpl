@@ -42,9 +42,9 @@
         <thead>
             <tr class='head'>
                 <th class='center' style='width:10%'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_TYP}></th>
-                <th class='center' style='width:35%'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_DESC}></th>
+                <th class='center' style='width:30%'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_DESC}></th>
                 <{if $show_result}><th class='center' style='width:35%'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_RESULTS}></th><{/if}>
-                <th class='center' style='width:20%'><{$smarty.const._CO_WGGALLERY_FORM_ACTION}></th>
+                <th class='center' style='width:25%'><{$smarty.const._CO_WGGALLERY_FORM_ACTION}></th>
             </tr>
         </thead>
         <tbody>
@@ -100,6 +100,7 @@
                         </td>
                     <{/if}>
                     <td class='center'>
+                        <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=resize_large' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_RIL}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_RIL}></a></p>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=resize_medium' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_RIM}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_RIM}></a></p>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=resize_thumb' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_RIT}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_EXECUTE_RIT}></a></p>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=resize_album_select' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_ALBUM_SELECT}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_ALBUM_SELECT}></a></p>

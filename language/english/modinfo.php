@@ -155,7 +155,6 @@ define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY', 'Send notification when a new i
 define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_CAPTION', 'Notify me about deleting image from this album');
 define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_SUBJECT', 'Notification about deleted image');
 
-
 define('_MI_WGGALLERY_RATINGBARS', 'Allow rating');
 define('_MI_WGGALLERY_RATINGBARS_DESC', 'Define whether rating should be possible and which kind of rating should be used');
 define('_MI_WGGALLERY_RATINGBAR_GROUPS', 'Groups with rating rights');
@@ -164,3 +163,9 @@ define('_MI_WGGALLERY_RATING_NONE', 'Do not use rating');
 define('_MI_WGGALLERY_RATING_5STARS', 'Rating with 5 stars');
 define('_MI_WGGALLERY_RATING_10STARS', 'Rating with 10 stars');
 define('_MI_WGGALLERY_RATING_LIKES', 'Rating with likes');
+define('_MI_WGGALLERY_RATING_10NUM', 'Rating with 10 points');
+
+define('_MI_WGGALLERY_STORE_ORIGINAL', 'Store original image');
+define('_MI_WGGALLERY_STORE_ORIGINAL_DESC', 'Define, whether you want to store the original image.
+                <br>Advantage: all images can be reproduced later including new water marks
+                <br>Disadvantage: the used server space will increase corresponding the allowed upload file size');

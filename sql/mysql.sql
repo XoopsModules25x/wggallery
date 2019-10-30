@@ -55,9 +55,9 @@ CREATE TABLE `wggallery_images` (
   `img_cats`        TEXT            NULL ,
   `img_tags`        TEXT            NULL ,
   `img_exif`        TEXT            NULL ,
+  `img_ip`          VARCHAR(50)     NOT NULL DEFAULT '',
   `img_date`        INT(8)          NOT NULL DEFAULT '0',
   `img_submitter`   INT(8)          NOT NULL DEFAULT '0',
-  `img_ip`          VARCHAR(50)     NOT NULL DEFAULT '',
   PRIMARY KEY (`img_id`)
 ) ENGINE=InnoDB;
 

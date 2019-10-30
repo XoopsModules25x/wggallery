@@ -195,7 +195,7 @@
     <{foreach item=image from=$images}>
         <div class='modal fade' id='myModalImagePicker<{$image.id}>' tabindex='-1' role='dialog' aria-labelledby='myModalLabel'>
             <div class='modal-dialog wgg-modal-image' role='document'>
-                <div class='modal-content'>
+                <div class='modal-content wgg-modal-content'>
                     <div class='modal-header'>
                         <button type='button' class='close' data-dismiss='modal'
                                 aria-label='Close'><span aria-hidden='true'>&times;</span>
@@ -206,15 +206,15 @@
                         <div class="container-fluid">
                             <div class="row">
                                 <{if $showModalInfo}>
-                                    <div class="col-xs-12 col-md-8 col-sm-9 col-lg-10">
+                                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
                                 <{else}>
-                                    <div class="col-xs-12 col-md-12">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <{/if}>
                                     <{if $image.alb_name}><h4 class='modal-title'><{$image.alb_name}></h4><{/if}>
                                     <img class='img-responsive wgg-img' src='<{$image.img_modal}>' alt='<{$image.title}>'>
                                 <{if $showModalInfo}>
                                     </div>
-                                    <div class="col-xs-12 col-md-4 col-sm-3 col-lg-2">
+                                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                                         <p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>size.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_SIZE}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_SIZE}>'><{$image.size}> kb</p>
                                         <p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>dimension.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_SIZE}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_SIZE}>'><{$image.resx}>px / <{$image.resy}>px</p>
                                         <{if $img_allowdownload}>

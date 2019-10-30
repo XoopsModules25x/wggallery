@@ -38,7 +38,10 @@ function xoops_module_update_wggallery(&$module, $prev_version = null)
     if ($prev_version < 109) {
         $ret = update_wggallery_v109($module);
     }
-    
+    if ($prev_version < 114) {
+        $ret = update_wggallery_v114($module);
+    }
+        
     $ret = wggallery_check_db($module);
     
     $errors = $module->getErrors();
@@ -141,14 +144,6 @@ function wggallery_check_db(&$module)
             $ret = false;
         }
     }   
-
-    $table = $GLOBALS['xoopsDB']->prefix('wggallery_images');
-    $field = 'img_exif';
-    $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
-    $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
-    if(!$numRows) {
-
-    }
     
     $table = $GLOBALS['xoopsDB']->prefix('wggallery_images');
     $field = 'img_tags';
@@ -168,10 +163,10 @@ function wggallery_check_db(&$module)
     $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
     $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
     if(!$numRows) {
-        $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_images') . "` ADD `img_views` INT(1) NOT NULL DEFAULT '0' AFTER `img_votes` ;";
+        $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_images') . "` ADD `img_views` INT(8) NOT NULL DEFAULT '0' AFTER `img_votes` ;";
         if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
             xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
-            $module->setErrors("Error when adding 'img_tags' to table 'wggallery_images'.");
+            $module->setErrors("Error when adding 'img_views' to table 'wggallery_images'.");
             $ret = false;
         }
 
@@ -231,9 +226,7 @@ function wggallery_check_db(&$module)
             $module->setErrors("Error when changing 'alb_imgcat' into 'alb_imgtype' in table 'wggallery_albums'.");
             $ret = false;
         }
-    }    
-    
-    
+    }
     
     $table = $GLOBALS['xoopsDB']->prefix('wggallery_categories');
     $check = $GLOBALS['xoopsDB']->queryF("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='" . $table . "'");
@@ -273,6 +266,29 @@ function update_wggallery_v109(&$module)
     $indexFile = XOOPS_UPLOAD_PATH . '/index.html';
     $blankFile = XOOPS_UPLOAD_PATH . '/blank.gif';
     $specimage = XOOPS_UPLOAD_PATH . '/wggallery/images/temp';
+    if (!is_dir($specimage)) {
+        if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
+        }
+        chmod($specimage, 0777);
+    }
+    copy($indexFile, $specimage . '/index.html');
+    copy($blankFile, $specimage . '/blank.gif');
+
+    return true;
+}
+
+/**
+ * @param $module
+ *
+ * @return bool
+ */
+function update_wggallery_v114(&$module)
+{
+    // Making of temp images folder
+    $indexFile = XOOPS_UPLOAD_PATH . '/index.html';
+    $blankFile = XOOPS_UPLOAD_PATH . '/blank.gif';
+    $specimage = XOOPS_UPLOAD_PATH . '/wggallery/images/original';
     if (!is_dir($specimage)) {
         if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
             throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
