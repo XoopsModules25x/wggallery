@@ -118,7 +118,7 @@ switch ($op) {
             $GLOBALS['xoopsTpl']->assign('error', _CO_WGGALLERY_THEREARENT_ALBUMS);
         }
         // add list for sorting
-        $albumlist_sort = $albumsHandler->getListChildsOfCategory(0);
+        $albumlist_sort = $albumsHandler->getListChildsOfCollection(0);
         // var_dump($albumlist_sort);
         $GLOBALS['xoopsTpl']->assign('albumlist_sort', $albumlist_sort);
         $GLOBALS['xoopsTpl']->assign('global_submit', $permissionsHandler->permGlobalSubmit());
@@ -173,6 +173,7 @@ switch ($op) {
         }
         $albumsObj->setVar('alb_state', $albState);
         $albumsObj->setVar('alb_wmid', Request::getInt('alb_wmid'));
+        $albumsObj->setVar('alb_cats', serialize(Request::getArray('alb_cats')));
         $albumDate = date_create_from_format(_SHORTDATESTRING, $_POST['alb_date']);
         $albumsObj->setVar('alb_date', $albumDate->getTimestamp());
         $albumsObj->setVar('alb_submitter', Request::getInt('alb_submitter'));

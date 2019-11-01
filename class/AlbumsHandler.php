@@ -181,48 +181,10 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
 
     /**
      * Get all childs of a category
-     * @param int   $albId
-     * @param mixed $albPid
-     * @return array
-     */
-    /*     function getListChildsOfCategory($albPid)
-        {
-            $childrens = array();
-            $firstAlbId = 0;
-
-            $helper = \XoopsModules\Wggallery\Helper::getInstance();
-            $albumsHandler = $helper->getHandler('Albums');
-            $crAlbums = new \CriteriaCompo();
-            $crAlbums->add(new \Criteria('alb_pid', $albPid));
-            $crAlbums->setSort('alb_weight ASC, alb_date');
-            $crAlbums->setOrder('DESC');
-            $albumsCount = $albumsHandler->getCount($crAlbums);
-            $albumsAll = $albumsHandler->getAll($crAlbums);
-            // Table view albums
-            if($albumsCount > 0) {
-                foreach(array_keys($albumsAll) as $i) {
-                    // if ( 0 < count($childsAll) ) {$childsAll .= "#".('' !== $childsAll)."|";}
-                    if ( 0 === $firstAlbId) {$firstAlbId = $albumsAll[$i]->getVar('alb_id');}
-                    $child = $this->getListChildsOfCategory($albumsAll[$i]->getVar('alb_id'));
-                    if ( $child ) {
-                        $childrens[$albumsAll[$i]->getVar('alb_id')] = $child;
-                    } else {
-                        $childrens[$albumsAll[$i]->getVar('alb_id')] = array('first' => 0, 'last' => 0,'alb_pid' => $albumsAll[$i]->getVar('alb_pid'), 'alb_name' => $albumsAll[$i]->getVar('alb_name'));
-                    }
-                }
-                $childrens[$firstAlbId]['first'] = 1;
-                $childrens[$albumsAll[$i]->getVar('alb_id')]['last'] = 1;
-            } else {
-                return false;
-            }
-            return $childrens;
-        } */
-
-    /**
      * @param $albPid
      * @return bool|string
      */
-    public function getListChildsOfCategory($albPid)
+    public function getListChildsOfCollection($albPid)
     {
         if ($albPid > 0) {
             $childsAll = '<ol>';
@@ -243,7 +205,7 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
         if ($albumsCount > 0) {
             foreach (array_keys($albumsAll) as $i) {
                 if ($permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'))) {
-                    $child     = $this->getListChildsOfCategory($albumsAll[$i]->getVar('alb_id'));
+                    $child     = $this->getListChildsOfCollection($albumsAll[$i]->getVar('alb_id'));
                     $childsAll .= '<li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-collapsed" id="menuItem_' . $albumsAll[$i]->getVar('alb_id') . '">';
 
                     $childsAll .= '<div class="menuDiv">';

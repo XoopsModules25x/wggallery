@@ -320,6 +320,9 @@ define('_AM_WGGALLERY_MAINTENANCE_INVALIDRATE', 'Bewertungen/Likes bereinigen');
 define('_AM_WGGALLERY_MAINTENANCE_INVALIDRATE_DESC', 'Bewertungen/Likes löschen, wenn das Bild nicht mehr exisitiert');
 define('_AM_WGGALLERY_MAINTENANCE_INVALIDRATE_NUM', '%e von %s Bewertungen/Likes fehlerhaft');
 define('_AM_WGGALLERY_MAINTENANCE_INVALIDRATE_RESULT', '%s von %t Bewertungen/Likes bereinigt');
+define('_AM_WGGALLERY_MAINTENANCE_INVALIDCATS', 'Verwendete Kategorien bereinigen');
+define('_AM_WGGALLERY_MAINTENANCE_INVALIDCATS_DESC', 'Kategorien bei Alben und Bildern löschen, wenn die Kategorie nicht mehr exisitiert');
+define('_AM_WGGALLERY_MAINTENANCE_INVALIDCATS_RESULT', '%t Einträge wurden bereinigt');
 // Albums
 define('_AM_WGGALLERY_ALBUMS_ERRNOTFOUND', 'Fehler: Bild nicht gefunden (Bild-Id %s)');
 // Import

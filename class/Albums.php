@@ -198,7 +198,7 @@ class Albums extends \XoopsObject
             $groupsCanDlImageMCheckbox = new \XoopsFormCheckBox('', 'groups_dlimage_medium', $groupsIdsDlImageM);
         } else {
             $groupsCanViewCheckbox = new \XoopsFormCheckBox('', 'groups_view', $listSelected);
-            $groupsCanDlFullAlbCheckbox = new \XoopsFormCheckBox( '', 'groups_dlfullalb', $listNone);
+            $groupsCanDlFullAlbCheckbox = new \XoopsFormCheckBox( '', 'groups_dlfullalb', $listSelected);
             $groupsCanDlImageLCheckbox = new \XoopsFormCheckBox('', 'groups_dlimage_large', $listNone);
             $groupsCanDlImageMCheckbox = new \XoopsFormCheckBox('', 'groups_dlimage_medium', $listSelected);
         }
@@ -454,28 +454,6 @@ class Albums extends \XoopsObject
             } else {
                 $image = WGGALLERY_UPLOAD_IMAGES_URL . '/albums/noimage.png';
             }
-
-            // TODO
-            /*         } else if (WGGALLERY_ALBUM_IMGCAT_USE_GRID === $this->getVar('alb_imgtype')) {
-                        $crImages = new \CriteriaCompo();
-                        $crImages->add(new \Criteria('img_albid', $this->getVar('alb_id')));
-                        $crImages->add(new \Criteria('img_state', 1));
-                        $crImages->setSort('img_weight ASC, img_id');
-                        $crImages->setOrder('ASC');
-                        $crImages->setStart( 0 );
-                        $crImages->setLimit( 4 );
-                        $imagesCount = $imagesHandler->getCount($crImages);
-                        $imagesAll = $imagesHandler->getAll($crImages);
-                        if($imagesCount > 0) {
-                            $images = array();
-                            foreach(array_keys($imagesAll) as $i) {
-                                $images[] = $imagesAll[$i]->getValuesImages();
-                            }
-                            $GLOBALS['xoopsTpl']->assign('grid', $images);
-                            $ret['grid'] = $images;
-                            unset($images);
-                        }
-                        $image = ''; */
         } else {
             $image = WGGALLERY_UPLOAD_IMAGES_URL . '/albums/' . $this->getVar('alb_image');
         }

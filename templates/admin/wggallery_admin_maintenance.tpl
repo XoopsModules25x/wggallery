@@ -260,6 +260,20 @@
                     </td>
                 </tr>
             <{/if}>
+            <{if $show_invalidcats}>
+                <tr class="<{cycle values='odd, even'}>">
+                    <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_INVALIDCATS}></td>
+                    <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_INVALIDCATS_DESC}></td>
+                    <{if $show_result}>
+                        <td class='left'>
+                            <{if $result_success}><span><{$result_success}></span><{/if}>
+                        </td>
+                    <{/if}>
+                    <td class='center'>
+                        <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=invalid_cats_clean' title='<{$smarty.const._CO_WGGALLERY_EXEC}>'><{$smarty.const._CO_WGGALLERY_EXEC}></a></p>
+                    </td>
+                </tr>
+            <{/if}>
         </tbody>
     </table>
 <{/if}>

@@ -512,6 +512,61 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('show_invalidrate', true);
         $GLOBALS['xoopsTpl']->assign('show_result', true);
         break;
+    case 'invalid_cats_clean':
+        $templateMain = 'wggallery_admin_maintenance.tpl';
+        
+        $success    = [];
+        $errors     = [];
+        $countTotal = 0;
+        $crCheck = new \CriteriaCompo();
+        $crCheck->add(new \Criteria('alb_cats', '', '<>'));
+        $albumsCount = $albumsHandler->getCount($crCheck);
+        if ($albumsCount > 0) {
+            $albumsAll = $albumsHandler->getAll($crCheck);
+            foreach (array_keys($albumsAll) as $i) {
+                $cats = unserialize($albumsAll[$i]->getVar('alb_cats'));
+                if (is_array($cats)) {
+                    $cats_new = [];
+                    foreach ($cats as $cat) {
+                        $categoryObj = $categoriesHandler->get($cat);
+                        if (is_object($categoryObj)) {
+                            $cats_new[] = $cat;
+                        }
+                    }
+                    $albumsAll[$i]->setVar('alb_cats', serialize($cats_new));
+                    $albumsHandler->insert($albumsAll[$i], true);
+                    $countTotal = $countTotal + count($cats) - count($cats_new);
+                }
+            }
+        }
+        unset($crCheck);
+        $crCheck = new \CriteriaCompo();
+        $crCheck->add(new \Criteria('img_cats', '', '<>'));
+        $imagesCount = $imagesHandler->getCount($crCheck);
+        if ($imagesCount > 0) {
+            $imagesAll = $imagesHandler->getAll($crCheck);
+            foreach (array_keys($imagesAll) as $i) {
+                $cats = unserialize($imagesAll[$i]->getVar('img_cats'));
+                if (is_array($cats)) {
+                    $cats_new = [];
+                    foreach ($cats as $cat) {
+                        $categoryObj = $categoriesHandler->get($cat);
+                        if (is_object($categoryObj)) {
+                            $cats_new[] = $cat;
+                        }
+                    }
+                    $imagesAll[$i]->setVar('img_cats', serialize($cats_new));
+                    $imagesHandler->insert($imagesAll[$i], true);
+                    $countTotal = $countTotal + count($cats) - count($cats_new);
+                }
+            }
+        }
+        unset($crCheck);
+        $success_text = str_replace('%t', $countTotal, _AM_WGGALLERY_MAINTENANCE_INVALIDCATS_RESULT);
+        $GLOBALS['xoopsTpl']->assign('result_success', $success_text);
+        $GLOBALS['xoopsTpl']->assign('show_invalidcats', true);
+        $GLOBALS['xoopsTpl']->assign('show_result', true);
+        break;
     case 'invalid_images_search':
         $success = [];
         $errors  = [];
@@ -1124,6 +1179,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('maintainance_cs_desc', $maintainance_cs_desc);
         $GLOBALS['xoopsTpl']->assign('show_checkspace', true);
         $GLOBALS['xoopsTpl']->assign('show_invalidrate', true);
+        $GLOBALS['xoopsTpl']->assign('show_invalidcats', true);
         break;
 }
 
