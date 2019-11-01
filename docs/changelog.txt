@@ -5,6 +5,7 @@
  - added possibility to download full album (goffy)
  - added cleaning invalid ratings in maintenance (goffy)
  - added default exif lens make and lens model (lupin/goffy)
+ - fixed bug in fineimageuploader (goffy)
 
 <h5>1.13 RC1</h5>  [2019/../..]
 <hr>
