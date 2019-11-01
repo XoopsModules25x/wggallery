@@ -1,5 +1,4 @@
 <{include file='db:wggallery_header.tpl'}>
-
 <{if $albums_list}>
 	<div class='col-sm-12 col-sm-8'>
 	<div class='panel panel-<{$panel_type}>'>
@@ -68,11 +67,17 @@
 								<{if $displayButtonText}><{$smarty.const._DELETE}><{/if}>
                             </a>
                         <{/if}>
+                        <{if $album.download}>
+                            <a class='btn btn-default wgg-btn' href='<{$wggallery_url}>/download.php?op=album&amp;alb_id=<{$album.id}>' title='<{$smarty.const._CO_WGGALLERY_DOWNLOAD_ALB}>'>
+                                <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>download.png' alt='<{$smarty.const._CO_WGGALLERY_DOWNLOAD_ALB}>'>
+                                <{if $displayButtonText}><{$smarty.const._CO_WGGALLERY_DOWNLOAD_ALB}><{/if}>
+                            </a>
+                        <{/if}>
 						
 						<{if $album.nb_subalbums}>
-							<a class='btn btn-default wgg-btn' href='albums.php?op=list&amp;alb_pid=<{$album.id}><{if $subm_id}>&amp;subm_id=<{$subm_id}><{/if}>' title='<{$smarty.const._CO_WGGALLERY_CATS_ALBUMS}>'>
-								<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>index.png' alt='<{$smarty.const._CO_WGGALLERY_CATS_ALBUMS}>'>
-								<{if $displayButtonText}><{$smarty.const._CO_WGGALLERY_CATS_ALBUMS}><{/if}>
+							<a class='btn btn-default wgg-btn' href='albums.php?op=list&amp;alb_pid=<{$album.id}><{if $subm_id}>&amp;subm_id=<{$subm_id}><{/if}>' title='<{$smarty.const._CO_WGGALLERY_COLL_ALBUMS}>'>
+								<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>index.png' alt='<{$smarty.const._CO_WGGALLERY_COLL_ALBUMS}>'>
+								<{if $displayButtonText}><{$smarty.const._CO_WGGALLERY_COLL_ALBUMS}><{/if}>
 							</a>
 						<{/if}>
 					</div>

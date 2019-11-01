@@ -45,6 +45,7 @@ $albumtypesHandler   = $helper->getHandler('Albumtypes');
 $permissionsHandler  = $helper->getHandler('Permissions');
 $watermarksHandler   = $helper->getHandler('Watermarks');
 $categoriesHandler   = $helper->getHandler('Categories');
+$ratingsHandler      = $helper->getHandler('Ratings');
 $myts                = \MyTextSanitizer::getInstance();
 
 if (!isset($xoopsTpl) || !is_object($xoopsTpl)) {

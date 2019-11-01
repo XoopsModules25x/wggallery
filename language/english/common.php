@@ -25,7 +25,6 @@
 define('_CO_WGGALLERY_STATE_OFFLINE', 'Offline');
 define('_CO_WGGALLERY_STATE_ONLINE', 'Online');
 define('_CO_WGGALLERY_STATE_APPROVAL', 'Waiting for approval');
-
 // General
 define('_CO_WGGALLERY_NONE', 'None');
 define('_CO_WGGALLERY_BACK', 'Go back');
@@ -33,6 +32,15 @@ define('_CO_WGGALLERY_ALL', 'All');
 define('_CO_WGGALLERY_UPDATE', 'Update');
 define('_CO_WGGALLERY_EXEC', 'Execute');
 define('_CO_WGGALLERY_DOWNLOAD', 'Download');
+define('_CO_WGGALLERY_DOWNLOAD_ALB', 'Download album');
+define('_CO_WGGALLERY_DATE', 'Date');
+define('_CO_WGGALLERY_SUBMITTER', 'Submitter');
+define('_CO_WGGALLERY_WEIGHT', 'Weight');
+define('_CO_WGGALLERY_COMMENT', 'comment');
+define('_CO_WGGALLERY_COMMENTS', 'comments');
+define('_CO_WGGALLERY_VIEWS', 'Views');
+define('_CO_WGGALLERY_RATING', 'Rating');
+// Forms
 define('_CO_WGGALLERY_FORM_UPLOAD', 'Upload file');
 define('_CO_WGGALLERY_FORM_IMAGE_PATH', 'Files in %s ');
 define('_CO_WGGALLERY_FORM_ACTION', 'Action');
@@ -42,7 +50,6 @@ define('_CO_WGGALLERY_FORM_IMAGEPICKER', 'Select an image');
 define('_CO_WGGALLERY_FORM_SUBMIT_SUBMITUPLOAD', 'Submit and goto images upload');
 define('_CO_WGGALLERY_FORM_SUBMIT_WMTEST', 'Submit and show test image');
 define('_CO_WGGALLERY_FORM_ERROR_INVALIDID', 'Invalid Id');
-// Save/Delete
 define('_CO_WGGALLERY_FORM_OK', 'Successfully saved');
 define('_CO_WGGALLERY_FORM_DELETE_OK', 'Successfully deleted');
 define('_CO_WGGALLERY_FORM_SURE_DELETE', "Are you sure to delete: <b><span style='color : Red;'>%s </span></b>"); //default xoops confirm
@@ -56,10 +63,6 @@ define('_CO_WGGALLERY_FORM_OK_APPROVE', 'Successfully saved album. You will be f
 // There aren't
 define('_CO_WGGALLERY_THEREARENT_ALBUMS', 'Currently there are no albums available');
 define('_CO_WGGALLERY_THEREARENT_IMAGES', 'Currently there are no images available');
-// general
-define('_CO_WGGALLERY_DATE', 'Date');
-define('_CO_WGGALLERY_SUBMITTER', 'Submitter');
-define('_CO_WGGALLERY_WEIGHT', 'Weight');
 // fine uploader
 define('_CO_WGGALLERY_FU_SUBMIT', 'Submitting image: ');
 define('_CO_WGGALLERY_FU_SUBMITTED', 'Image successfully checked, please upload');
@@ -69,9 +72,9 @@ define('_CO_WGGALLERY_FU_SUCCEEDED', 'Successfully uploaded all images');
 // Album buttons
 define('_CO_WGGALLERY_ALBUM_ADD', 'Add Album');
 define('_CO_WGGALLERY_ALBUM_EDIT', 'Edit Album');
-// Elements of categories
-define('_CO_WGGALLERY_CATS_TITLE', 'Available categories');
-define('_CO_WGGALLERY_CATS_ALBUMS', 'Show sub albums');
+// Elements of collections
+define('_CO_WGGALLERY_COLL_TITLE', 'Available collections');
+define('_CO_WGGALLERY_COLL_ALBUMS', 'Show sub albums');
 // Elements of Album
 define('_CO_WGGALLERY_ALBUMS_TITLE', 'Gallery of albums');
 define('_CO_WGGALLERY_ALBUMS_COUNT', 'Number of albums');
@@ -99,12 +102,10 @@ define('_CO_WGGALLERY_ALBUM_STATE', 'State');
 define('_CO_WGGALLERY_ALBUM_DELETE_DESC', 'Attention: All images linked to this album will also be deleted');
 define('_CO_WGGALLERY_ALBUM_SELECT', 'Select album');
 define('_CO_WGGALLERY_ALBUM_SELECT_DESC', 'Please select album for uploading images');
-// define('_CO_WGGALLERY_ALBUM_ALLOWDOWNLOAD', 'Image download size');
-// define('_CO_WGGALLERY_ALBUM_DOWNLOAD_MEDIUM', 'Medium images');
-// define('_CO_WGGALLERY_ALBUM_DOWNLOAD_LARGE', 'Large images');
 define('_CO_WGGALLERY_ALBUMS_SHOW', 'Show all albums');
 define('_CO_WGGALLERY_ALBUMS_SORT', 'Sorting of albums');
 define('_CO_WGGALLERY_ALBUM_SORT_SHOWHIDE', 'Click to show/hide the sub items');
+define('_CO_WGGALLERY_ALBUM_IMAGE_ERRORNOTFOUND', 'Error: album image not found');
 // album image handler
 define('_CO_WGGALLERY_ALBUM_IH_APPLY', 'Apply');
 define('_CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT', 'Edit album image');
@@ -130,7 +131,11 @@ define('_CO_WGGALLERY_ALBUM_IH_CROP_FLIP_HORIZONTAL', 'Flip horizontal');
 define('_CO_WGGALLERY_ALBUM_IH_CROP_FLIP_VERTICAL', 'Flip vertical');
 define('_CO_WGGALLERY_ALBUM_IH_CROP_ASPECTRATIO', 'Aspect ratio');
 define('_CO_WGGALLERY_ALBUM_IH_CROP_ASPECTRATIO_FREE', 'Free');
-
+// Image add/edit/show
+define('_CO_WGGALLERY_IMAGE_ADD', 'Add image');
+define('_CO_WGGALLERY_IMAGE_EDIT', 'Edit image');
+define('_CO_WGGALLERY_IMAGE_SHOW', 'Show image');
+// Elements of Image
 define('_CO_WGGALLERY_IMAGE', 'Image');
 define('_CO_WGGALLERY_IMAGES', 'Images');
 define('_CO_WGGALLERY_IMAGES_TITLE', 'Gallery of images of ');
@@ -140,11 +145,6 @@ define('_CO_WGGALLERY_IMAGES_INDEX', 'Show Images Index');
 define('_CO_WGGALLERY_IMAGES_UPLOAD', 'Upload Images');
 define('_CO_WGGALLERY_IMAGE_MANAGE', 'Image management');
 define('_CO_WGGALLERY_IMAGE_MANAGE_DESC', 'Resort your images by drag & drop');
-// Image add/edit/show
-define('_CO_WGGALLERY_IMAGE_ADD', 'Add image');
-define('_CO_WGGALLERY_IMAGE_EDIT', 'Edit image');
-define('_CO_WGGALLERY_IMAGE_SHOW', 'Show image');
-// Elements of Image
 define('_CO_WGGALLERY_IMAGE_ID', 'Id');
 define('_CO_WGGALLERY_IMAGE_TITLE', 'Title');
 define('_CO_WGGALLERY_IMAGE_DESC', 'Description');
@@ -172,6 +172,7 @@ define('_CO_WGGALLERY_IMAGE_ROTATE_LEFT', 'Rotate left');
 define('_CO_WGGALLERY_IMAGE_ROTATE_RIGHT', 'Rotate right');
 define('_CO_WGGALLERY_IMAGE_ROTATED', 'Image succesfully rotated');
 define('_CO_WGGALLERY_IMAGE_ROTATE_ERROR', 'Error when rotating image');
+define('_CO_WGGALLERY_IMAGE_ERRORUNLINK', 'Error deleting image: the image was deleted in the database, but an error occured when deleting the image himself');
 // Watermark add/edit
 define('_CO_WGGALLERY_WATERMARK_ADD', 'Add Watermark');
 define('_CO_WGGALLERY_WATERMARK_EDIT', 'Edit Watermark');
@@ -212,7 +213,7 @@ define('_CO_WGGALLERY_WATERMARK_TARGET', 'Kind of images for adding watermark');
 define('_CO_WGGALLERY_WATERMARK_TARGET_A', 'Add to all');
 define('_CO_WGGALLERY_WATERMARK_TARGET_M', 'Add to medium');
 define('_CO_WGGALLERY_WATERMARK_TARGET_L', 'Add to large');
-// Elements of Categorie
+// Elements of categories
 define('_CO_WGGALLERY_CAT', 'Category');
 define('_CO_WGGALLERY_CATS', 'Categories');
 define('_CO_WGGALLERY_CATS_SELECT', 'Select categories');
@@ -220,7 +221,6 @@ define('_CO_WGGALLERY_CATS_SELECT', 'Select categories');
 define('_CO_WGGALLERY_TAG', 'Tag');
 define('_CO_WGGALLERY_TAGS', 'Tags');
 define('_CO_WGGALLERY_TAGS_ENTER', 'Enter tags (please use #)');
-// ---------------- Admin Permissions ----------------
 // Permissions
 define('_CO_WGGALLERY_PERMS_GLOBAL', 'Permissions global');
 define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL', 'Permissions global to submit/edit all albums');
@@ -244,12 +244,23 @@ define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM', 'Permissions to view/download m
 define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM_DESC', 'Groups which should have permissions to view and download medium images');
 define('_CO_WGGALLERY_PERMS_NOTSET', 'No permission set');
 define('_CO_WGGALLERY_PERMS_NODOWNLOAD', 'You have no permission to download');
+// exif
+define('_CO_WGGALLERY_EXIF', 'Exif data original file');
+define('_CO_WGGALLERY_EXIF_ALL', 'Show all');
+define('_CO_WGGALLERY_EXIF_FILENAME', 'File name');
+define('_CO_WGGALLERY_EXIF_FILEDATETIME', 'File date');
+define('_CO_WGGALLERY_EXIF_FILESIZE', 'File size');
+define('_CO_WGGALLERY_EXIF_MIMETYPE', 'Mimetype');
+define('_CO_WGGALLERY_EXIF_CAMERA', 'Camera Type');
+define('_CO_WGGALLERY_EXIF_MODEL', 'Modell');
+define('_CO_WGGALLERY_EXIF_EXPTIME', 'Exposure time');
+define('_CO_WGGALLERY_EXIF_FOCALLENGTH', 'Focal Length');
+define('_CO_WGGALLERY_EXIF_DATETIMEORIG', 'Date time original');
+define('_CO_WGGALLERY_EXIF_ISO', 'ISO Speed');
 // ---------------- Misc ----------------
-define('_CO_WGGALLERY_ALBUM_IMAGE_ERRORNOTFOUND', 'Error: album image not found');
-define('_CO_WGGALLERY_IMAGE_ERRORUNLINK', 'Error deleting image: the image was deleted in the database, but an error occured when deleting the image himself');
 define('_CO_WGGALLERY_MAINTAINEDBY', 'Maintained By');
 define('_CO_WGGALLERY_MAINTAINEDBY_DESC', 'Allow url of support site or community');
-// ---------------- End ----------------
+
 
 $moduleDirName = basename(dirname(dirname(__DIR__)));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
@@ -273,20 +284,4 @@ define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS_DESC', 'If yes, the "
 
 //Latest Version Check
 define('CO_' . $moduleDirNameUpper . '_' . 'NEW_VERSION', 'New Version: ');
-
-define('_CO_WGGALLERY_EXIF', 'Exif data original file');
-define('_CO_WGGALLERY_EXIF_ALL', 'Show all');
-define('_CO_WGGALLERY_EXIF_FILENAME', 'File name');
-define('_CO_WGGALLERY_EXIF_FILEDATETIME', 'File date');
-define('_CO_WGGALLERY_EXIF_FILESIZE', 'File size');
-define('_CO_WGGALLERY_EXIF_MIMETYPE', 'Mimetype');
-define('_CO_WGGALLERY_EXIF_CAMERA', 'Camera Type');
-define('_CO_WGGALLERY_EXIF_MODEL', 'Modell');
-define('_CO_WGGALLERY_EXIF_EXPTIME', 'Exposure time');
-define('_CO_WGGALLERY_EXIF_FOCALLENGTH', 'Focal Length');
-define('_CO_WGGALLERY_EXIF_DATETIMEORIG', 'Date time original');
-define('_CO_WGGALLERY_EXIF_ISO', 'ISO Speed');
-define('_CO_WGGALLERY_COMMENT', 'comment');
-define('_CO_WGGALLERY_COMMENTS', 'comments');
-define('_CO_WGGALLERY_VIEWS', 'Views');
-define('_CO_WGGALLERY_RATING', 'Rating');
+define('CO_' . $moduleDirNameUpper . '_' . 'ERROR_BAD_XOOPS', 'You need minimul version %s (your current version is %s)');

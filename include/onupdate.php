@@ -35,14 +35,9 @@ function xoops_module_update_wggallery(&$module, $prev_version = null)
     if ($prev_version < 10) {
         $ret = update_wggallery_v10($module);
     }
-    if ($prev_version < 109) {
-        $ret = update_wggallery_v109($module);
-    }
-    if ($prev_version < 114) {
-        $ret = update_wggallery_v114($module);
-    }
         
     $ret = wggallery_check_db($module);
+    $ret = wggallery_check_dir($module);
     
     $errors = $module->getErrors();
     if (!empty($errors)) {
@@ -255,16 +250,18 @@ function wggallery_check_db(&$module)
     return $ret;
 }
 
+
 /**
  * @param $module
  *
  * @return bool
  */
-function update_wggallery_v109(&$module)
+function wggallery_check_dir(&$module)
 {
     // Making of temp images folder
     $indexFile = XOOPS_UPLOAD_PATH . '/index.html';
     $blankFile = XOOPS_UPLOAD_PATH . '/blank.gif';
+    
     $specimage = XOOPS_UPLOAD_PATH . '/wggallery/images/temp';
     if (!is_dir($specimage)) {
         if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
@@ -274,20 +271,7 @@ function update_wggallery_v109(&$module)
     }
     copy($indexFile, $specimage . '/index.html');
     copy($blankFile, $specimage . '/blank.gif');
-
-    return true;
-}
-
-/**
- * @param $module
- *
- * @return bool
- */
-function update_wggallery_v114(&$module)
-{
-    // Making of temp images folder
-    $indexFile = XOOPS_UPLOAD_PATH . '/index.html';
-    $blankFile = XOOPS_UPLOAD_PATH . '/blank.gif';
+    
     $specimage = XOOPS_UPLOAD_PATH . '/wggallery/images/original';
     if (!is_dir($specimage)) {
         if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
@@ -297,6 +281,15 @@ function update_wggallery_v114(&$module)
     }
     copy($indexFile, $specimage . '/index.html');
     copy($blankFile, $specimage . '/blank.gif');
+    
+    $specimage = XOOPS_UPLOAD_PATH . '/wggallery/temp';
+    if (!is_dir($specimage)) {
+        if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
+        }
+        chmod($specimage, 0777);
+    }
+    copy($indexFile, $specimage . '/index.html');
 
     return true;
 }

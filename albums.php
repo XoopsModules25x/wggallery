@@ -101,9 +101,11 @@ switch ($op) {
                     $album['edit'] = true;
                     $albumsPermEdit++;
                     $keywords[]    = $albumsAll[$i]->getVar('alb_name');
-                    $GLOBALS['xoopsTpl']->append('albums_list', $album);
                 }
-                
+                if ($permissionsHandler->permAlbumDownload($albumsAll[$i]->getVar('alb_id'))) {
+                    $album['download'] = true;
+                }
+                $GLOBALS['xoopsTpl']->append('albums_list', $album);
                 unset($album);
             }
             // Display Navigation

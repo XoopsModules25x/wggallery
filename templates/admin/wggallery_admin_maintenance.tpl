@@ -136,7 +136,7 @@
                         </td>
                     <{/if}>
                     <td class='center'>
-                        <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=invalid_images_search' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_SEARCH}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_SEARCH}></a></p>
+                        <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=invalid_images_search' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_ITEM_SEARCH}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_ITEM_SEARCH}></a></p>
                         <{if $show_result}>
                             <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=invalid_images_clean' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_CLEAN}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_CLEAN}></a></p>
                         <{/if}>
@@ -154,7 +154,7 @@
                         </td>
                     <{/if}>
                     <td class='center'>
-                        <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=broken_imgdir_search' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_SEARCH}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_SEARCH}></a></p>
+                        <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=broken_imgdir_search' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_ITEM_SEARCH}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_ITEM_SEARCH}></a></p>
                         <{if $show_result}>
                             <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=broken_imgdir_clean' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_CLEAN}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_CLEAN}></a></p>
                         <{/if}>
@@ -172,7 +172,7 @@
                         </td>
                     <{/if}>
                     <td class='center'>
-                        <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=broken_imgalb_search' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_SEARCH}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_SEARCH}></a></p>
+                        <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=broken_imgalb_search' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_ITEM_SEARCH}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_ITEM_SEARCH}></a></p>
                         <{if $show_result}>
                             <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=broken_imgalb_clean' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_CLEAN}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_IMG_CLEAN}></a></p>
                         <{/if}>
@@ -240,6 +240,23 @@
                     <{/if}>
                     <td class='center'>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=check_space' title='<{$smarty.const._CO_WGGALLERY_EXEC}>'><{$smarty.const._CO_WGGALLERY_EXEC}></a></p>
+                    </td>
+                </tr>
+            <{/if}>
+            <{if $show_invalidrate}>
+                <tr class="<{cycle values='odd, even'}>">
+                    <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_INVALIDRATE}></td>
+                    <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_INVALIDRATE_DESC}></td>
+                    <{if $show_result}>
+                        <td class='left'>
+                            <{if $result_success}><span><{$result_success}></span><{/if}>
+                        </td>
+                    <{/if}>
+                    <td class='center'>
+                        <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=invalid_ratings_search' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_ITEM_SEARCH}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_ITEM_SEARCH}></a></p>
+                        <{if $show_result}>
+                            <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=invalid_ratings_clean' title='<{$smarty.const._CO_WGGALLERY_EXEC}>'><{$smarty.const._CO_WGGALLERY_EXEC}></a></p>
+                        <{/if}>
                     </td>
                 </tr>
             <{/if}>

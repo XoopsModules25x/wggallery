@@ -450,6 +450,68 @@ switch ($op) {
             xoops_confirm(['ok' => 1, 'op' => 'delete_unused_images'], $_SERVER['REQUEST_URI'], _AM_WGGALLERY_MAINTENANCE_DUI_SUREDELETE);
         }
         break;
+    case 'invalid_ratings_search':
+    
+        $templateMain = 'wggallery_admin_maintenance.tpl';
+        
+        $success    = [];
+        $errors     = [];
+        $countTotal = 0;
+        $crRatings = new \CriteriaCompo();
+        $crRatings->add(new \Criteria('rate_source', 1));
+        $ratingsCount = $ratingsHandler->getCount($crRatings);
+        if ($ratingsCount > 0) {
+            $ratingsAll = $ratingsHandler->getAll($crRatings);
+            foreach (array_keys($ratingsAll) as $i) {
+                $crImages = new \CriteriaCompo();
+                $crImages->add(new \Criteria('img_id', $ratingsAll[$i]->getVar('rate_itemid')));
+                $imagesCount = $imagesHandler->getCount($crImages);
+                $countTotal++;
+                if ($imagesCount > 0) {
+                    $success[] = $ratingsAll[$i]->getVar('rate_itemid');
+                } else {
+                    $errors[] = $ratingsAll[$i]->getVar('rate_itemid');
+                }
+            }
+        }
+        $success_text = str_replace(['%e', '%s'], [count($errors), $countTotal], _AM_WGGALLERY_MAINTENANCE_INVALIDRATE_NUM);
+        $GLOBALS['xoopsTpl']->assign('result_success', $success_text);
+        $GLOBALS['xoopsTpl']->assign('result_error', $err_text);
+        $GLOBALS['xoopsTpl']->assign('show_invalidrate', true);
+        $GLOBALS['xoopsTpl']->assign('show_result', true);
+        
+        break;
+    case 'invalid_ratings_clean':
+        $templateMain = 'wggallery_admin_maintenance.tpl';
+        
+        $success    = [];
+        $errors     = [];
+        $countTotal = 0;
+        $crRatings = new \CriteriaCompo();
+        $crRatings->add(new \Criteria('rate_source', 1));
+        $ratingsCount = $ratingsHandler->getCount($crRatings);
+        if ($ratingsCount > 0) {
+            $ratingsAll = $ratingsHandler->getAll($crRatings);
+            foreach (array_keys($ratingsAll) as $i) {
+                $crImages = new \CriteriaCompo();
+                $crImages->add(new \Criteria('img_id', $ratingsAll[$i]->getVar('rate_itemid')));
+                $imagesCount = $imagesHandler->getCount($crImages);
+                if (0 == $imagesCount) {
+                    $countTotal++;
+                    $ratingsObj = $ratingsHandler->get($ratingsAll[$i]->getVar('rate_id'));
+                    if ($ratingsHandler->delete($ratingsObj, true)) {
+                        $success[] = $ratingsAll[$i]->getVar('rate_itemid');
+                    } else {
+                        $errors[] = $ratingsAll[$i]->getVar('rate_itemid');
+                    }                    
+                }
+            }
+        }
+        $success_text = str_replace(['%s', '%t'], [count($success), $countTotal], _AM_WGGALLERY_MAINTENANCE_INVALIDRATE_RESULT);
+        $GLOBALS['xoopsTpl']->assign('result_success', $success_text);
+        $GLOBALS['xoopsTpl']->assign('show_invalidrate', true);
+        $GLOBALS['xoopsTpl']->assign('show_result', true);
+        break;
     case 'invalid_images_search':
         $success = [];
         $errors  = [];
@@ -1061,6 +1123,7 @@ switch ($op) {
         $maintainance_cs_desc = str_replace('%p', WGGALLERY_UPLOAD_IMAGE_PATH, _AM_WGGALLERY_MAINTENANCE_CHECK_SPACE_DESC);
         $GLOBALS['xoopsTpl']->assign('maintainance_cs_desc', $maintainance_cs_desc);
         $GLOBALS['xoopsTpl']->assign('show_checkspace', true);
+        $GLOBALS['xoopsTpl']->assign('show_invalidrate', true);
         break;
 }
 

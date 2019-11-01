@@ -37,7 +37,7 @@ switch ($op) {
 
         $itemid = Request::getInt('img_id', 0);
         $rating = Request::getInt('rating', 0);
-        $source = Request::getInt('source', 0); //source 2 = album rating TODO
+        $source = Request::getInt('source', 0); //source 1 = image / source 2 = album rating TODO
 
         // Checking permissions
         $rate_allowed = false;

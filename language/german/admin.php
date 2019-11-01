@@ -269,7 +269,7 @@ define('_AM_WGGALLERY_MAINTENANCE_IMGDIR', 'Fehlerhafte Einträge Bilder zu Verz
 define('_AM_WGGALLERY_MAINTENANCE_IMGDIR_DESC', 'Es werden Einträge in der Tabelle Bilder gesucht, die im Uploadverzeichnis nicht gefunden werden.');
 define('_AM_WGGALLERY_MAINTENANCE_IMGALB', 'Fehlerhafte Einträge Bilder zu Album');
 define('_AM_WGGALLERY_MAINTENANCE_IMGALB_DESC', 'Es werden Einträge in der Tabelle Bilder gesucht, deren angegebenes Album nicht (mehr) existiert.');
-define('_AM_WGGALLERY_MAINTENANCE_IMG_SEARCH', 'Einträge suchen');
+define('_AM_WGGALLERY_MAINTENANCE_ITEM_SEARCH', 'Einträge suchen');
 define('_AM_WGGALLERY_MAINTENANCE_IMG_SEARCHOK', 'Keine fehlerhafte Einträge Bilder gefunden');
 define('_AM_WGGALLERY_MAINTENANCE_IMG_CLEAN', 'Fehlerhafte Einträge bereinigen');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_SYSTEM', 'Systemchecks');
@@ -303,6 +303,23 @@ define('_AM_WGGALLERY_MAINTENANCE_CHECK_SPACE_DESC', 'Folgende Upload-Verzeichni
 <li>%p/thumbs/</li>
 <li>%p/temp/</li>
 </ul>');
+define('_AM_WGGALLERY_MAINTENANCE_ERROR_SOURCE', 'Fehler - erforderliche Quelldatei nicht gefunden: ');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT', 'Mimetypes überprüfen');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_DESC', 'Bildertabelle überprüfen auf:<ul>
+<li>ungültige Dateiendungen</li>
+<li>Dateiendungen, die aufgrund der Moduleinstellungen nicht zulässig sind</li>
+</ul>');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SEARCH', 'Fehlerhafte Mimetypes anzeigen');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_CLEAN', 'Fehlerhafte Mimetypes beheben');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SUCCESS', '%s Mimetypes von %t in Ordnung');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SUCCESSOK', 'Mimetype in Ordnung');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_ERROR', 'Fehlerhafter Mimetype');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SAVESUCCESS', 'Mimetype erfolgreich geändert');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SAVEERROR', 'Fehler beim Ändern Mimetype');
+define('_AM_WGGALLERY_MAINTENANCE_INVALIDRATE', 'Bewertungen/Likes bereinigen');
+define('_AM_WGGALLERY_MAINTENANCE_INVALIDRATE_DESC', 'Bewertungen/Likes löschen, wenn das Bild nicht mehr exisitiert');
+define('_AM_WGGALLERY_MAINTENANCE_INVALIDRATE_NUM', '%e von %s Bewertungen/Likes fehlerhaft');
+define('_AM_WGGALLERY_MAINTENANCE_INVALIDRATE_RESULT', '%s von %t Bewertungen/Likes bereinigt');
 // Albums
 define('_AM_WGGALLERY_ALBUMS_ERRNOTFOUND', 'Fehler: Bild nicht gefunden (Bild-Id %s)');
 // Import
@@ -322,19 +339,3 @@ define('_AM_WGGALLERY_IMPORT_ERR_ALBEXIST', 'Es gibt bereits Alben');
 define('_AM_WGGALLERY_IMPORT_ERR_IMGEXIST', 'Es gibt bereits Bilder');
 define('_AM_WGGALLERY_IMPORT_SUCCESS', '%a Alben und %i Bilder erfolgreich importiert');
 define('_AM_WGGALLERY_IMPORT_ERROR', 'Während des Imports ist ein Fehler aufgetreten');
-// ---------------- Admin Others ----------------
-// ---------------- End ----------------
-// version 1.11
-define('_AM_WGGALLERY_MAINTENANCE_ERROR_SOURCE', 'Fehler - erforderliche Quelldatei nicht gefunden: ');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT', 'Mimetypes überprüfen');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_DESC', 'Bildertabelle überprüfen auf:<ul>
-<li>ungültige Dateiendungen</li>
-<li>Dateiendungen, die aufgrund der Moduleinstellungen nicht zulässig sind</li>
-</ul>');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SEARCH', 'Fehlerhafte Mimetypes anzeigen');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_CLEAN', 'Fehlerhafte Mimetypes beheben');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SUCCESS', '%s Mimetypes von %t in Ordnung');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SUCCESSOK', 'Mimetype in Ordnung');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_ERROR', 'Fehlerhafter Mimetype');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SAVESUCCESS', 'Mimetype erfolgreich geändert');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SAVEERROR', 'Fehler beim Ändern Mimetype');

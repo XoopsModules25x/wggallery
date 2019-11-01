@@ -1,3 +1,10 @@
+<h5>1.14 RC1</h5>  [2019/../..]
+<hr>
+ - added possibility to store original image (lupin/goffy)
+ - implemented permissions for download full album (goffy)
+ - added possibility to download full album (goffy)
+ - added cleaning invalid ratings in maintenance (goffy)
+
 <h5>1.13 RC1</h5>  [2019/../..]
 <hr>
  - added rating system (stars or likes) (goffy)
@@ -11,8 +18,7 @@
  - added 10 numeric rating (lupin/goffy)
  - moved exif reading before resizing, because exif data get partially lost by gd resizing (goffy)
  - added show used space on server for upload folders in maintenance (goffy)
- - added possibility to store original image (lupin/goffy)
- 
+
 <h5>1.12 RC1</h5>  [2019/../..]
 <hr>
  - changed field name `alb_iscat` into `alb_iscoll` in wggalllery_albums (goffy)

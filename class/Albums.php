@@ -185,10 +185,9 @@ class Albums extends \XoopsObject
             $groupsIdsView[]       = array_values($groupsIdsView);
             $groupsCanViewCheckbox = new \XoopsFormCheckBox('', 'groups_view', $groupsIdsView);
 
-            // TODO
-            // $groupsIdsDlFullAlb = $gpermHandler->getGroupIds('wggallery_dlfullalb', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
-            // $groupsIdsDlFullAlb[] = array_values($groupsIdsDlFullAlb);
-            // $groupsCanDlFullAlbCheckbox = new \XoopsFormCheckBox( '', 'groups_dlfullalb', $groupsIdsDlFullAlb);
+            $groupsIdsDlFullAlb = $gpermHandler->getGroupIds('wggallery_dlfullalb', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
+            $groupsIdsDlFullAlb[] = array_values($groupsIdsDlFullAlb);
+            $groupsCanDlFullAlbCheckbox = new \XoopsFormCheckBox( '', 'groups_dlfullalb', $groupsIdsDlFullAlb);
 
             $groupsIdsDlImageL         = $gpermHandler->getGroupIds('wggallery_dlimage_large', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
             $groupsIdsDlImageL[]       = array_values($groupsIdsDlImageL);
@@ -213,16 +212,15 @@ class Albums extends \XoopsObject
         $groupsCanViewTray->addElement($groupsCanViewAll, false);
         $form->addElement($groupsCanViewTray);
 
-        // TODO
         // To Download full album
-        // $groupsCanDlFullAlbCheckbox->addOptionArray($groupList);
-        // $groupsCanDlFullAlbTray = new \XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_DLFULLALB, '&nbsp;' );
-        // $groupsCanDlFullAlbTray->addElement($groupsCanDlFullAlbCheckbox, false);
-        // $groupsCanDlFullAlbAll = new \XoopsFormCheckBox( '', 'all_groups_dlfullalb', 0);
-        // $groupsCanDlFullAlbAll->setExtra('onclick="javascript:toggleCheckboxGroupPerm(' . "'groups_dlfullalb'" . ')"');
-        // $groupsCanDlFullAlbAll->addOption(1, _CO_WGGALLERY_ALL);
-        // $groupsCanDlFullAlbTray->addElement($groupsCanDlFullAlbAll, false);
-        // $form->addElement($groupsCanDlFullAlbTray);
+        $groupsCanDlFullAlbCheckbox->addOptionArray($groupList);
+        $groupsCanDlFullAlbTray = new \XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_DLFULLALB, '&nbsp;' );
+        $groupsCanDlFullAlbTray->addElement($groupsCanDlFullAlbCheckbox, false);
+        $groupsCanDlFullAlbAll = new \XoopsFormCheckBox( '', 'all_groups_dlfullalb', 0);
+        $groupsCanDlFullAlbAll->setExtra('onclick="javascript:toggleCheckboxGroupPerm(' . "'groups_dlfullalb'" . ')"');
+        $groupsCanDlFullAlbAll->addOption(1, _CO_WGGALLERY_ALL);
+        $groupsCanDlFullAlbTray->addElement($groupsCanDlFullAlbAll, false);
+        $form->addElement($groupsCanDlFullAlbTray);
 
         // To Download Large Images
         $groupsCanDlImageLCheckbox->addOptionArray($groupList);

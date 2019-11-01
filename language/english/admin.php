@@ -269,7 +269,7 @@ define('_AM_WGGALLERY_MAINTENANCE_IMGDIR', 'Broken items image to directory');
 define('_AM_WGGALLERY_MAINTENANCE_IMGDIR_DESC', 'Items of table images are searched, where the image is not in the upload directory.');
 define('_AM_WGGALLERY_MAINTENANCE_IMGALB', 'Broken items image to albums');
 define('_AM_WGGALLERY_MAINTENANCE_IMGALB_DESC', 'Items of table images are searched, where the parent album is not existing (anymore).');
-define('_AM_WGGALLERY_MAINTENANCE_IMG_SEARCH', 'Search items');
+define('_AM_WGGALLERY_MAINTENANCE_ITEM_SEARCH', 'Search items');
 define('_AM_WGGALLERY_MAINTENANCE_IMG_SEARCHOK', 'No broken items image found');
 define('_AM_WGGALLERY_MAINTENANCE_IMG_CLEAN', 'Clean broken items');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_SYSTEM', 'System checks');
@@ -303,6 +303,23 @@ define('_AM_WGGALLERY_MAINTENANCE_CHECK_SPACE_DESC', 'Following upload directori
 <li>%p/thumbs/</li>
 <li>%p/temp/</li>
 </ul>');
+define('_AM_WGGALLERY_MAINTENANCE_ERROR_SOURCE', 'Error - necessary sourcefile not found: ');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT', 'Check mimetypes');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_DESC', 'Check image table for:<ul>
+<li>invalid mimetypes</li>
+<li>mimetypes not allowed according module preferences</li>
+</ul>');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SEARCH', 'Search invalid mimetypes');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_CLEAN', 'Clean invalid mimetypes');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SUCCESS', '%s mimetype of %t are valid');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SUCCESSOK', 'Mimetype valid');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_ERROR', 'Invalid mimetype');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SAVESUCCESS', 'Mimetype successfully changed');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SAVEERROR', 'Error when saving mimetype');
+define('_AM_WGGALLERY_MAINTENANCE_INVALIDRATE', 'Cleaning ratings/likes');
+define('_AM_WGGALLERY_MAINTENANCE_INVALIDRATE_DESC', 'Delete ratings/likes, where the image is not existing anymore');
+define('_AM_WGGALLERY_MAINTENANCE_INVALIDRATE_NUM', '%e of %s ratings are invalid');
+define('_AM_WGGALLERY_MAINTENANCE_INVALIDRATE_RESULT', '%s of %t ratings cleaned');
 // Albums
 define('_AM_WGGALLERY_ALBUMS_ERRNOTFOUND', 'Error: Image not found (Image-Id %s)');
 // Import
@@ -322,19 +339,3 @@ define('_AM_WGGALLERY_IMPORT_ERR_ALBEXIST', 'There are already albums existing')
 define('_AM_WGGALLERY_IMPORT_ERR_IMGEXIST', 'There are already images existing');
 define('_AM_WGGALLERY_IMPORT_SUCCESS', '%a albums and %i images successfully imported');
 define('_AM_WGGALLERY_IMPORT_ERROR', 'An error occured during import');
-// ---------------- Admin Others ----------------
-// ---------------- End ----------------
-// version 1.11
-define('_AM_WGGALLERY_MAINTENANCE_ERROR_SOURCE', 'Error - necessary sourcefile not found: ');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT', 'Check mimetypes');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_DESC', 'Check image table for:<ul>
-<li>invalid mimetypes</li>
-<li>mimetypes not allowed according module preferences</li>
-</ul>');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SEARCH', 'Search invalid mimetypes');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_CLEAN', 'Clean invalid mimetypes');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SUCCESS', '%s mimetype of %t are valid');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SUCCESSOK', 'Mimetype valid');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_ERROR', 'Invalid mimetype');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SAVESUCCESS', 'Mimetype successfully changed');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SAVEERROR', 'Error when saving mimetype');

@@ -31,16 +31,6 @@ As you can see, you have created a page with a list of links at the top to navig
 define('_MA_WGGALLERY_NO_PDF_LIBRARY', 'Libraries TCPDF not there yet, upload them in root/Frameworks');
 define('_MA_WGGALLERY_NO', 'No');
 // ---------------- Contents ----------------
-/* // Submit
-define('_MA_WGGALLERY_SUBMIT', 'Submit');
-define('_MA_WGGALLERY_SUBMIT_IMAGE', 'Submit Image');
-define('_MA_WGGALLERY_SUBMIT_ALLPENDING', 'All image/script information are posted pending verification.');
-define('_MA_WGGALLERY_SUBMIT_DONTABUSE', 'Username and IP are recorded, so please do not abuse the system.');
-define('_MA_WGGALLERY_SUBMIT_ISAPPROVED', 'Your image has been approved');
-define('_MA_WGGALLERY_SUBMIT_PROPOSER', 'Submit a image');
-define('_MA_WGGALLERY_SUBMIT_RECEIVED', 'We have received your image info. Thank you !');
-define('_MA_WGGALLERY_SUBMIT_SUBMITONCE', 'Submit your image/script only once.');
-define('_MA_WGGALLERY_SUBMIT_TAKEDAYS', 'This will take many days to see your image/script added successfully in our database.'); */
 //Colorbox and Lightbox
 define('_MA_WGGALLERY_CURRENT_LABEL', 'image {current} of {total}');
 // Colorbox
@@ -85,8 +75,8 @@ define('_MA_WGGALLERY_SEARCH_ACT_VIEWS', 'Most views');
 define('_MA_WGGALLERY_SEARCH_ACT_RATINGS', 'Best rated');
 define('_MA_WGGALLERY_SEARCH_ACT_VOTES', 'Most votes');
 // ---------------- Ratings ----------------
-define('_MA_WGGALLERY_RATING_CURRENT', 'Rating: %c / %m (%t rating(s) totally)');
-define('_MA_WGGALLERY_RATING_CURRENT_SHORT', '%c (%t rating(s))');
+define('_MA_WGGALLERY_RATING_CURRENT_X', 'Rating: %c / %m (%t rating(s) totally)');
+define('_MA_WGGALLERY_RATING_CURRENT_SHORT_X', '%c (%t rating(s))');
 define('_MA_WGGALLERY_RATING1', '1 of 5');
 define('_MA_WGGALLERY_RATING2', '2 of 5');
 define('_MA_WGGALLERY_RATING3', '3 of 5');
@@ -108,3 +98,4 @@ define('_MA_WGGALLERY_RATING_VOTE_THANKS', 'Thank you for rating');
 define('_MA_WGGALLERY_RATING_NOPERM', "Sorry, you don't have permission to rate items");
 define('_MA_WGGALLERY_RATING_LIKE', 'Like');
 define('_MA_WGGALLERY_RATING_DISLIKE', 'Dislike');
+define('_MA_WGGALLERY_ERROR_CREATE_ZIP', 'Error: Zip-archive could not be created');

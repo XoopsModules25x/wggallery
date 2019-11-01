@@ -31,16 +31,6 @@ As you can see, you have created a page with a list of links at the top to navig
 define('_MA_WGGALLERY_NO_PDF_LIBRARY', 'Libraries TCPDF not there yet, upload them in root/Frameworks');
 define('_MA_WGGALLERY_NO', 'No');
 // ---------------- Contents ----------------
-/* // Submit
-define('_MA_WGGALLERY_SUBMIT', 'Submit');
-define('_MA_WGGALLERY_SUBMIT_IMAGE', 'Submit Image');
-define('_MA_WGGALLERY_SUBMIT_ALLPENDING', 'All image/script information are posted pending verification.');
-define('_MA_WGGALLERY_SUBMIT_DONTABUSE', 'Username and IP are recorded, so please do not abuse the system.');
-define('_MA_WGGALLERY_SUBMIT_ISAPPROVED', 'Your image has been approved');
-define('_MA_WGGALLERY_SUBMIT_PROPOSER', 'Submit a image');
-define('_MA_WGGALLERY_SUBMIT_RECEIVED', 'We have received your image info. Thank you !');
-define('_MA_WGGALLERY_SUBMIT_SUBMITONCE', 'Submit your image/script only once.');
-define('_MA_WGGALLERY_SUBMIT_TAKEDAYS', 'This will take many days to see your image/script added successfully in our database.'); */
 //Colorbox and Lightbox
 define('_MA_WGGALLERY_CURRENT_LABEL', 'Bild {current} von {total}');
 // Colorbox
@@ -74,7 +64,6 @@ define('_MA_WGGALLERY_SEARCH_CATS', 'Suche nach Kategorien');
 define('_MA_WGGALLERY_SEARCH_CATS_DESC', 'Ausgewählt werden Bilder oder Alben, die einer dieser Kategorien zugeordnet wurden. Sofern ein Album einer Kategorie zugeordnet werden, so werden alle Bilder dieses Albums angezeigt, unabhängig davon, ob die einzelnen Bilder dieser Kategorie zugeordnet wurden');
 define('_MA_WGGALLERY_SEARCH_TEXT_DESC', 'Ausgewählt werden Bilder oder Alben, deren Name, Beschreibung, Name der Kategorie oder einer der verwendeten Tags diesen Text enthalten. Sofern ein Album einer Kategorie zugeordnet werden, so werden alle Bilder dieses Albums angezeigt');
 define('_MA_WGGALLERY_SEARCH_SUBM_DESC', 'Ausgewählt werden Bilder oder Alben, die vom ausgewählten Benutzer eingesendet wurden');
-
 define('_MA_WGGALLERY_SEARCH_TEXT', 'Suche nach Text');
 define('_MA_WGGALLERY_SEARCH_SUBM', 'Suche nach Einsender');
 define('_MA_WGGALLERY_SEARCH_ERROR_NO_FILTER', 'Bitte minimum ein Filterkriterium wählen!');
@@ -86,8 +75,10 @@ define('_MA_WGGALLERY_SEARCH_ACT_VIEWS', 'Am meisten angesehen');
 define('_MA_WGGALLERY_SEARCH_ACT_RATINGS', 'Am besten bewertet');
 define('_MA_WGGALLERY_SEARCH_ACT_VOTES', 'Mit den meisten Bewertungen');
 // ---------------- Ratings ----------------
-define('_MA_WGGALLERY_RATING_CURRENT', 'Bewertung: %c / %m (%t Bewertung(en) insgesamt)');
-define('_MA_WGGALLERY_RATING_CURRENT_SHORT', '%c (%t Bewertung(en))');
+define('_MA_WGGALLERY_RATING_CURRENT_1', 'Bewertung: %c / %m (%t Bewertung insgesamt)');
+define('_MA_WGGALLERY_RATING_CURRENT_X', 'Bewertung: %c / %m (%t Bewertungen insgesamt)');
+define('_MA_WGGALLERY_RATING_CURRENT_SHORT_1', '%c (%t Bewertung)');
+define('_MA_WGGALLERY_RATING_CURRENT_SHORT_X', '%c (%t Bewertungen)');
 define('_MA_WGGALLERY_RATING1', '1 von 5');
 define('_MA_WGGALLERY_RATING2', '2 von 5');
 define('_MA_WGGALLERY_RATING3', '3 von 5');
@@ -109,3 +100,4 @@ define('_MA_WGGALLERY_RATING_VOTE_THANKS', 'Danke für Ihre Bewertung');
 define('_MA_WGGALLERY_RATING_NOPERM', 'Verzeichung, aber Sie haben keine Berechtigung zum Bewerten von Einträgen');
 define('_MA_WGGALLERY_RATING_LIKE', 'Gefällt mir');
 define('_MA_WGGALLERY_RATING_DISLIKE', 'Gefällt mir nicht');
+define('_MA_WGGALLERY_ERROR_CREATE_ZIP', 'Fehler: das Zip-Archiv konnte nicht erstellt werden');

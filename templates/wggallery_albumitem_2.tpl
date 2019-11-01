@@ -48,4 +48,10 @@
 			<{if $displayButtonText}><{$album.submitter}><{/if}>
         </a>
     <{/if}>
+    <{if $album.download}>
+        <a class='btn btn-default wgg-btn' href='<{$wggallery_url}>/download.php?op=album&amp;alb_id=<{$album.id}>' title='<{$smarty.const._CO_WGGALLERY_DOWNLOAD_ALB}>'>
+            <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>download.png' alt='<{$smarty.const._CO_WGGALLERY_DOWNLOAD_ALB}>'>
+            <{if $displayButtonText}><{$smarty.const._CO_WGGALLERY_DOWNLOAD_ALB}><{/if}>
+        </a>
+    <{/if}>
 </div>

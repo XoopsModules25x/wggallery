@@ -113,6 +113,15 @@ if (!is_dir($specimage)) {
 }
 copy($indexFile, $specimage . '/index.html');
 copy($blankFile, $specimage . '/blank.gif');
+// Making of temp folder for downloads
+$specimage = XOOPS_UPLOAD_PATH . '/wggallery/temp';
+if (!is_dir($specimage)) {
+    if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
+        throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
+    }
+    chmod($specimage, 0777);
+}
+copy($indexFile, $specimage . '/index.html');
 
 // Making of watermark images folder
 $imgwatermark = XOOPS_ROOT_PATH . '/modules/wggallery/assets/images/wedega_logo.png';

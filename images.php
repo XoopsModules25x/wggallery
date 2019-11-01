@@ -419,7 +419,7 @@ switch ($op) {
         } else if ($permissionsHandler->permImageDownloadMedium($albId)) {
             $file = $image['medium'];
         }
-        
+
 		$GLOBALS['xoopsTpl']->assign('img_allowdownload', $permissionsHandler->permImageDownloadLarge($albId)
                                                        || $permissionsHandler->permImageDownloadMedium($albId));
         $GLOBALS['xoopsTpl']->assign('permAlbumEdit', $permissionsHandler->permAlbumEdit($albId, $albSubmitter));

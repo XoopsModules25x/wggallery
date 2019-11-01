@@ -142,6 +142,9 @@ if ($albumsCount > 0) {
             $submitter  = $albumsAll[$i]->getVar('alb_submitter');
             //check permissions
             $albums[$i]['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
+            if ($permissionsHandler->permAlbumDownload($albumsAll[$i]->getVar('alb_id'))) {
+                $albums[$i]['download'] = true;
+            }
             //set indicator for line break
             $counter++;
             if (1 === $counter) {
@@ -247,9 +250,9 @@ if ($catsCount > 0) {
         // $GLOBALS['xoopsTpl']->assign('album_showsubmitter', $helper->getConfig('album_showsubmitter'));
         unset($categories);
         if ($submitterId > 0) {
-            $GLOBALS['xoopsTpl']->assign('index_cats_title', _CO_WGGALLERY_CATS_TITLE . ': ' . XoopsUser::getUnameFromId($submitter));
+            $GLOBALS['xoopsTpl']->assign('index_cats_title', _CO_WGGALLERY_COLL_TITLE . ': ' . XoopsUser::getUnameFromId($submitter));
         } else {
-            $GLOBALS['xoopsTpl']->assign('index_cats_title', _CO_WGGALLERY_CATS_TITLE);
+            $GLOBALS['xoopsTpl']->assign('index_cats_title', _CO_WGGALLERY_COLL_TITLE);
         }
         // Display Navigation
         if ($catsCount > $limit) {
