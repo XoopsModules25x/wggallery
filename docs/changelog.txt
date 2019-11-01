@@ -4,6 +4,7 @@
  - implemented permissions for download full album (goffy)
  - added possibility to download full album (goffy)
  - added cleaning invalid ratings in maintenance (goffy)
+ - added default exif lens make and lens model (lupin/goffy)
 
 <h5>1.13 RC1</h5>  [2019/../..]
 <hr>

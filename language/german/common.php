@@ -257,6 +257,8 @@ define('_CO_WGGALLERY_EXIF_EXPTIME', 'Belichtungszeit');
 define('_CO_WGGALLERY_EXIF_FOCALLENGTH', 'Brennweite');
 define('_CO_WGGALLERY_EXIF_DATETIMEORIG', 'Aufnahmedatum');
 define('_CO_WGGALLERY_EXIF_ISO', 'ISO Speed');
+define('_CO_WGGALLERY_EXIF_LENSMAKE', 'Linse Marke');
+define('_CO_WGGALLERY_EXIF_LENSMODEL', 'Linse Modell');
 // ---------------- Misc ----------------
 define('_CO_WGGALLERY_MAINTAINEDBY', 'Unterstützt von');
 define('_CO_WGGALLERY_MAINTAINEDBY_DESC', 'Erlaubt den Url zur Supportseite oder Community');

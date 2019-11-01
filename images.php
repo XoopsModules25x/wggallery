@@ -270,6 +270,8 @@ switch ($op) {
                 $critComments   = new CriteriaCompo(new Criteria('com_modid', $helper->getMid()));
                 $critComments->add(new Criteria('com_itemid', $imgId));
                 $commentHandler->deleteAll($critComments);
+                // delete ratings
+                $ratingsHandler->deleteAllRatings($imgId, 1);
 				
 				if ('manage' === $redir_op) {
 					redirect_header('images.php?op=manage&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid, 2, _CO_WGGALLERY_FORM_DELETE_OK);

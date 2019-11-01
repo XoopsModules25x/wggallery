@@ -572,7 +572,7 @@ $modversion['config'][] = [
     'description' => '_MI_WGGALLERY_EXIFTYPES_DESC',
     'formtype'    => 'select_multi',
     'valuetype'   => 'array',
-    'default'     => ['FileName', 'FileDateTime', 'FileSize', 'MimeType', 'Make', 'Model', 'ExposureTime', 'FocalLength', 'DateTimeOriginal', 'ISOSpeedRatings'],
+    'default'     => ['FileName', 'FileDateTime', 'FileSize', 'MimeType', 'Make', 'Model', 'ExposureTime', 'FocalLength', 'DateTimeOriginal', 'ISOSpeedRatings', 'UndefinedTag:0xA433', 'UndefinedTag:0xA434'],
     'options'     => ['_CO_WGGALLERY_EXIF_ALL' => 'all', 
                       '_CO_WGGALLERY_EXIF_FILENAME' => 'FileName',
                       '_CO_WGGALLERY_EXIF_FILEDATETIME' => 'FileDateTime',
@@ -584,6 +584,8 @@ $modversion['config'][] = [
                       '_CO_WGGALLERY_EXIF_FOCALLENGTH' => 'FocalLength',
                       '_CO_WGGALLERY_EXIF_DATETIMEORIG' => 'DateTimeOriginal',
                       '_CO_WGGALLERY_EXIF_ISO' => 'ISOSpeedRatings',
+                      '_CO_WGGALLERY_EXIF_LENSMAKE' => 'UndefinedTag:0xA433',
+                      '_CO_WGGALLERY_EXIF_LENSMODEL' => 'UndefinedTag:0xA434',
                      ]
 ];
 

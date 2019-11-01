@@ -83,15 +83,14 @@ switch ($op) {
                 header("Content-Length: ".filesize($archive_file_path));
                 ob_end_flush();
                 @readfile($archive_file_path);
-                // unlink($archive_file_path);
+                unlink($archive_file_path);
 
                 // mark all images of album as downloaded
-            
                 foreach (array_keys($imagesAll) as $i) {
-                        
+                    $imagesObj = $imagesHandler->get($imagesAll[$i]->getVar('img_id'));
+                    $imagesObj->setVar('img_downloads', $imagesObj->getVar('img_downloads') + 1);
+                    $imagesHandler->insert($imagesObj, true);
                 }
-            
-            
             } else {
                 redirect_header('albums.php', 3, _NOPERM);
             }

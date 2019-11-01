@@ -341,7 +341,13 @@ class Images extends \XoopsObject
                                 break;
                                 case 'MimeType';
                                     $exif_text .= _CO_WGGALLERY_EXIF_MIMETYPE;
-                                break;                       
+                                break;
+                                case 'UndefinedTag:0xA434';
+                                    $exif_text .= _CO_WGGALLERY_EXIF_LENSMODEL;
+                                break;
+                                case 'UndefinedTag:0xA433';
+                                    $exif_text .= _CO_WGGALLERY_EXIF_LENSMAKE;
+                                break;                                
                                 case 'default';
                                 default:
                                     $exif_text .= $key;

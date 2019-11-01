@@ -192,6 +192,21 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
 
         return $ItemRating;
     }
+    
+    /**
+     * delete ratings of given item
+     * @param int itemid
+     * @param int source
+     * @return boolean
+     */
+    public function deleteAllRatings($itemid, $source)
+    {
+        $criteria = new \CriteriaCompo();
+        $criteria->add(new \Criteria('rate_itemid', $itemid));
+        $criteria->add(new \Criteria('rate_source', $source));
+        
+        return $this->deleteAll($criteria);
+    }
 
     /**
      * Get Criteria Ratings

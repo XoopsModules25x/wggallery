@@ -241,6 +241,8 @@ switch ($op) {
                     $imagesHandler->unlinkImages($imagesAll[$i]->getVar('img_name'), $imagesAll[$i]->getVar('img_namelarge'));
                     $imagesObj = $imagesHandler->get($imagesAll[$i]->getVar('img_id'));
                     $imagesHandler->delete($imagesObj, true);
+                    // delete ratings
+                    $ratingsHandler->deleteAllRatings($imagesAll[$i]->getVar('img_id'), 1);
                 }
                 // send notifications
                 $tags                = [];

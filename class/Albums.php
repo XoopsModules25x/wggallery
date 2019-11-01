@@ -198,7 +198,7 @@ class Albums extends \XoopsObject
             $groupsCanDlImageMCheckbox = new \XoopsFormCheckBox('', 'groups_dlimage_medium', $groupsIdsDlImageM);
         } else {
             $groupsCanViewCheckbox = new \XoopsFormCheckBox('', 'groups_view', $listSelected);
-            // $groupsCanDlFullAlbCheckbox = new \XoopsFormCheckBox( '', 'groups_dlfullalb', $listNone);
+            $groupsCanDlFullAlbCheckbox = new \XoopsFormCheckBox( '', 'groups_dlfullalb', $listNone);
             $groupsCanDlImageLCheckbox = new \XoopsFormCheckBox('', 'groups_dlimage_large', $listNone);
             $groupsCanDlImageMCheckbox = new \XoopsFormCheckBox('', 'groups_dlimage_medium', $listSelected);
         }
