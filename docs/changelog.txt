@@ -8,6 +8,7 @@
  - fixed bug in fineimageuploader (goffy)
  - fixed bug in saving album cats (goffy)
  - added cleaning invalid cats in maintenance (goffy)
+ - correction of help files (goffy)
 
 <h5>1.13 RC1</h5>  [2019/../..]
 <hr>
