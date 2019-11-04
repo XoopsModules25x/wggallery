@@ -86,7 +86,7 @@ define('_CO_WGGALLERY_ALBUM_NB_COLL', 'Alben in dieser Sammlung');
 define('_CO_WGGALLERY_ALBUM_NB_IMAGES', 'Bilder in diesem Album');
 define('_CO_WGGALLERY_ALBUM_NO_IMAGES', 'Album enthält keine Bilder');
 define('_CO_WGGALLERY_ALBUM_ID', 'Id');
-define('_CO_WGGALLERY_ALBUM_PID', 'Übergeordnetes Album');
+define('_CO_WGGALLERY_ALBUM_PID', 'Übergeordnete Albensammlung');
 define('_CO_WGGALLERY_ALBUM_ISCOLL', 'Album ist Albensammlung');
 define('_CO_WGGALLERY_ALBUM_NAME', 'Name');
 define('_CO_WGGALLERY_ALBUM_DESC', 'Beschreibung');
