@@ -14,7 +14,7 @@
 						<p class='wgg-album-desc'><{$album.desc}></p>
 					</div>
 					<div class='col-sm-4'>
-						<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>category.png' 
+						<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>collection.png' 
 							alt='<{if $album.iscoll == 1}><{$smarty.const._CO_WGGALLERY_ALBUM_COLL}><{else}><{$smarty.const._CO_WGGALLERY_ALBUM}><{/if}>'>
 							<{if $album.iscoll == 1}><{$smarty.const._CO_WGGALLERY_ALBUM_COLL}><{else}><{$smarty.const._CO_WGGALLERY_ALBUM}><{/if}>
 						</p>
@@ -67,7 +67,7 @@
 								<{if $displayButtonText}><{$smarty.const._DELETE}><{/if}>
                             </a>
                         <{/if}>
-                        <{if $album.download}>
+                        <{if 0 == $album.iscoll && $album.download}>
                             <a class='btn btn-default wgg-btn' href='<{$wggallery_url}>/download.php?op=album&amp;alb_id=<{$album.id}>' title='<{$smarty.const._CO_WGGALLERY_DOWNLOAD_ALB}>'>
                                 <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>download.png' alt='<{$smarty.const._CO_WGGALLERY_DOWNLOAD_ALB}>'>
                                 <{if $displayButtonText}><{$smarty.const._CO_WGGALLERY_DOWNLOAD_ALB}><{/if}>
