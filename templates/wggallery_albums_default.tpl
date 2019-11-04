@@ -15,13 +15,13 @@
 					</div>
 					<div class='col-sm-4'>
 						<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>category.png' 
-							alt='<{if $album.iscoll == 1}><{$smarty.const._CO_WGGALLERY_ALBUM_CAT}><{else}><{$smarty.const._CO_WGGALLERY_ALBUM}><{/if}>'>
-							<{if $album.iscoll == 1}><{$smarty.const._CO_WGGALLERY_ALBUM_CAT}><{else}><{$smarty.const._CO_WGGALLERY_ALBUM}><{/if}>
+							alt='<{if $album.iscoll == 1}><{$smarty.const._CO_WGGALLERY_ALBUM_COLL}><{else}><{$smarty.const._CO_WGGALLERY_ALBUM}><{/if}>'>
+							<{if $album.iscoll == 1}><{$smarty.const._CO_WGGALLERY_ALBUM_COLL}><{else}><{$smarty.const._CO_WGGALLERY_ALBUM}><{/if}>
 						</p>
 						<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>state<{$album.state}>.png' alt='<{$album.state_text}>'><{$album.state_text}></p>
                         <p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>photos.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_COUNT}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_COUNT}>'><span><{$album.nb_images}> <{$smarty.const._CO_WGGALLERY_ALBUM_NB_IMAGES}></span></p>
 						<{if $album.nb_subalbums > 0}>
-							<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>albums.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUMS_COUNT}>' title='<{$smarty.const._CO_WGGALLERY_ALBUMS_COUNT}>'><span><{$album.nb_subalbums}> <{$smarty.const._CO_WGGALLERY_ALBUM_NB_CATS}></span></p>
+							<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>albums.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUMS_COUNT}>' title='<{$smarty.const._CO_WGGALLERY_ALBUMS_COUNT}>'><span><{$album.nb_subalbums}> <{$smarty.const._CO_WGGALLERY_ALBUM_NB_COLL}></span></p>
 						<{/if}>
 						<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>date.png' alt='<{$album.date}>'><{$album.date}></p>
 						<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>submitter.png' alt='<{$album.submitter}>'><{$album.submitter}></p>

@@ -176,7 +176,7 @@ if ($moduleDirName == $currdirname) {
         $modversion['sub'][$subcount]['url']  = 'albums.php';
         $subcount++;
         $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME5;
-        $modversion['sub'][$subcount]['url']  = 'images.php';
+        $modversion['sub'][$subcount]['url']  = 'images.php?op=manage';
         $subcount++;
         $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME3;
         $modversion['sub'][$subcount]['url']  = 'albums.php?op=new';
@@ -212,30 +212,6 @@ $modversion['blocks'][] = [
 ];
 
 // ------------------- Config ------------------- //
-
-// Editor desc
-xoops_load('xoopseditorhandler');
-$editorHandlerDesc      = \XoopsEditorHandler::getInstance();
-$modversion['config'][] = [
-    'name'        => 'editor',
-    'title'       => '_MI_WGGALLERY_EDITOR',
-    'description' => '_MI_WGGALLERY_EDITOR_DESC',
-    'formtype'    => 'select',
-    'valuetype'   => 'text',
-    'default'     => 'dhtml',
-    'options'     => array_flip($editorHandlerDesc->getList()),
-];
-
-// Keywords
-$modversion['config'][] = [
-    'name'        => 'keywords',
-    'title'       => '_MI_WGGALLERY_KEYWORDS',
-    'description' => '_MI_WGGALLERY_KEYWORDS_DESC',
-    'formtype'    => 'textbox',
-    'valuetype'   => 'text',
-    'default'     => 'wggallery, albums, images',
-];
-
 // group header
 $modversion['config'][] = [
     'name'        => 'group_upload',
@@ -291,7 +267,7 @@ $modversion['config'][] = [
     'description' => '_MI_WGGALLERY_MAXSIZE_DESC',
     'formtype'    => 'select',
     'valuetype'   => 'int',
-    'default'     => 3145728,
+    'default'     => 10485760,
     'options'     => $optionMaxsize,
 ];
 
@@ -426,6 +402,16 @@ $modversion['config'][] = [
     'default'     => 600,
 ];
 
+// Exif : Store exif
+$modversion['config'][] = [
+    'name'        => 'store_exif',
+    'title'       => '_MI_WGGALLERY_STOREEXIF',
+    'description' => '_MI_WGGALLERY_STOREEXIF_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+];
+
 // group header
 $modversion['config'][] = [
     'name'        => 'group_display',
@@ -552,16 +538,6 @@ $modversion['config'][] = [
     'default'     => 1,
 ];
 
-// Exif : Store exif
-$modversion['config'][] = [
-    'name'        => 'store_exif',
-    'title'       => '_MI_WGGALLERY_STOREEXIF',
-    'description' => '_MI_WGGALLERY_STOREEXIF_DESC',
-    'formtype'    => 'yesno',
-    'valuetype'   => 'int',
-    'default'     => 1,
-];
-
 // Exif : display exif infos
 // the value must be exactly the exif name (case sensitive)
 $modversion['config'][] = [
@@ -647,6 +623,29 @@ $modversion['config'][] = [
     'valuetype'   => 'textbox',
     'default'     => 'even',
     'category'    => 'group_header',
+];
+
+// Editor desc
+xoops_load('xoopseditorhandler');
+$editorHandlerDesc      = \XoopsEditorHandler::getInstance();
+$modversion['config'][] = [
+    'name'        => 'editor',
+    'title'       => '_MI_WGGALLERY_EDITOR',
+    'description' => '_MI_WGGALLERY_EDITOR_DESC',
+    'formtype'    => 'select',
+    'valuetype'   => 'text',
+    'default'     => 'dhtml',
+    'options'     => array_flip($editorHandlerDesc->getList()),
+];
+
+// Keywords
+$modversion['config'][] = [
+    'name'        => 'keywords',
+    'title'       => '_MI_WGGALLERY_KEYWORDS',
+    'description' => '_MI_WGGALLERY_KEYWORDS_DESC',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'text',
+    'default'     => 'wggallery, albums, images',
 ];
 
 // jquery

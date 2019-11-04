@@ -9,6 +9,9 @@
  - fixed bug in saving album cats (goffy)
  - added cleaning invalid cats in maintenance (goffy)
  - correction of help files (goffy)
+ - added img_tags/alb_tags to search.inc.php (GregMage/goffy)
+ - change of lang defines from cat to coll (goffy)
+ - changes in order of module preferences (goffy)
 
 <h5>1.13 RC1</h5>  [2019/../..]
 <hr>

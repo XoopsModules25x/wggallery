@@ -60,6 +60,7 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
             $criteriaKeyword->add(new Criteria('img_title', '%' . $queryarray[$i] . '%', 'LIKE'), 'OR');
             $criteriaKeyword->add(new Criteria('img_desc', '%' . $queryarray[$i] . '%', 'LIKE'), 'OR');
             $criteriaKeyword->add(new Criteria('img_name', '%' . $queryarray[$i] . '%', 'LIKE'), 'OR');
+            $criteriaKeyword->add(new Criteria('img_tags', '%' . $queryarray[$i] . '%', 'LIKE'), 'OR');
             $criteriaKeywords->add($criteriaKeyword, $andor);
             unset($criteriaKeyword);
         }
@@ -105,6 +106,7 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
             $criteriaKeyword = new CriteriaCompo();
             $criteriaKeyword->add(new Criteria('alb_name', '%' . $queryarray[$i] . '%', 'LIKE'), 'OR');
             $criteriaKeyword->add(new Criteria('alb_desc', '%' . $queryarray[$i] . '%', 'LIKE'), 'OR');
+            $criteriaKeyword->add(new Criteria('alb_tags', '%' . $queryarray[$i] . '%', 'LIKE'), 'OR');
             $criteriaKeywords->add($criteriaKeyword, $andor);
             unset($criteriaKeyword);
         }
