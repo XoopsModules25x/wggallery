@@ -95,7 +95,7 @@ if ($helper->getConfig('use_categories')) {
 $form1->addElement($trayCats, false);
 
 // search for submitter of album or image
-$userHandler = xoops_gethandler('user');
+$userHandler = xoops_getHandler('user');
 $sql = 'SELECT alb_submitter FROM ' . $xoopsDB->prefix('wggallery_albums') . ' GROUP BY alb_submitter';
 $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . mysqli_error());
 while ($row = $GLOBALS['xoopsDB']->fetchrow($result)) {
