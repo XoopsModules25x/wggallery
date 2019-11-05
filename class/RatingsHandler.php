@@ -210,12 +210,12 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
 
     /**
      * Get Criteria Ratings
-     * @param $crRatings
-     * @param $start
-     * @param $limit
-     * @param $sort
-     * @param $order
-     * @return
+     * @param        $crRatings
+     * @param int    $start
+     * @param int    $limit
+     * @param string $sort
+     * @param string $order
+     * @return int
      */
     private function getRatingsCriteria($crRatings, $start, $limit, $sort, $order)
     {

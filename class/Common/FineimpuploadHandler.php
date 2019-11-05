@@ -259,6 +259,12 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         return ['success' => true, 'uuid' => $uuid];
     }
 
+    /**
+     * @param string $find
+     * @param string $replace
+     * @param array  $array
+     * @return array|string|string[]
+     */
     private function recursive_array_replace($find, $replace, $array)
     {
         if (!is_array($array)) {
