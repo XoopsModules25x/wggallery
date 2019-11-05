@@ -148,10 +148,10 @@ function wggalleryPluginExecImportTdmpicture()
     // copy album images
     $sql    = 'SELECT `cat_id`, `cat_img` FROM ' . $GLOBALS['xoopsDB']->prefix('tdmpicture_cat');
     $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
-    while (list($cat_id, $cat_imgurl) = $GLOBALS['xoopsDB']->fetchRow($result)) {
+    while (false !== (list($cat_id, $cat_imgurl) = $GLOBALS['xoopsDB']->fetchRow($result))) {
         $imageName = basename($cat_imgurl);
         if ('' !== $imageName) {
-            $sql     = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . ' SET alb_imgcat = 2 WHERE (alb_id=' . $cat_id . ')';
+            $sql     = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . ' SET alb_imgtype = 2 WHERE (alb_id=' . $cat_id . ')';
             $result2 = $GLOBALS['xoopsDB']->queryF($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
             if ('blank.png' !== $imageName) {
                 copy(XOOPS_ROOT_PATH . '/uploads/tdmpicture/cat/' . $imageName, WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $imageName);
@@ -164,7 +164,7 @@ function wggalleryPluginExecImportTdmpicture()
     // create perms for each album
     $sql    = 'SELECT `alb_id` FROM ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums');
     $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
-    while (list($albId) = $GLOBALS['xoopsDB']->fetchRow($result)) {
+    while (false !== (list($albId) = $GLOBALS['xoopsDB']->fetchRow($result))) {
         $permId       = $albId;
         $perm_modid   = $GLOBALS['xoopsModule']->getVar('mid');
         $gpermHandler = xoops_getHandler('groupperm');
@@ -211,7 +211,7 @@ function wggalleryPluginExecImportTdmpicture()
     // copy all images
     $sql    = 'SELECT `file_id`, `file_file` FROM ' . $GLOBALS['xoopsDB']->prefix('tdmpicture_file');
     $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
-    while (list($photo_id, $photo_name) = $GLOBALS['xoopsDB']->fetchRow($result)) {
+    while (false !== (list($photo_id, $photo_name) = $GLOBALS['xoopsDB']->fetchRow($result))) {
         copy(XOOPS_ROOT_PATH . '/uploads/tdmpicture/' . $photo_name, WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $photo_name);
         copy(XOOPS_ROOT_PATH . '/uploads/tdmpicture/' . $photo_name, WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $photo_name);
         copy(XOOPS_ROOT_PATH . '/uploads/tdmpicture/thumb/' . $photo_name, WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/' . $photo_name);

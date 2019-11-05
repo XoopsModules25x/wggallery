@@ -379,13 +379,13 @@ class Images extends \XoopsObject
         if ($helper->getConfig('com_rule') > 0) {
             $ret['com_show'] = 1;
             // count comments
-            $comment_Handler = xoops_getHandler('comment');
+            $commentHandler = xoops_getHandler('comment');
             $criteria        = new \CriteriaCompo();
             $criteria->add(new \Criteria('com_itemid', $this->getVar('img_id')));
             $criteria->add(new \Criteria('com_status', '0', '>'));
             $criteria->setSort('com_created');
             $criteria->setOrder('DESC');
-            $com_count = $comment_Handler->getCount($criteria);
+            $com_count = $commentHandler->getCount($criteria);
             $ret['com_count'] = $com_count;
             if ($com_count == 1) {
                 $ret['com_count_text'] = $com_count . " " . _CO_WGGALLERY_COMMENT;
