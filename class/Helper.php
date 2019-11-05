@@ -114,8 +114,8 @@ class Helper extends \Xmf\Module\Helper
                 return _CO_WGGALLERY_STATE_APPROVAL;
                 break;
             case Constants::STATE_OFFLINE_VAL:
-				return _CO_WGGALLERY_STATE_OFFLINE;
-				break;
+                return _CO_WGGALLERY_STATE_OFFLINE;
+                break;
             default:
                 return 'invalid state in getStateText in Class/Helper.php'; //should never happen
                 break;

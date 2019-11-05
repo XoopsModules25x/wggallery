@@ -23,7 +23,6 @@ namespace XoopsModules\Wggallery;
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 images.php 1 Mon 2018-03-19 10:04:51Z XOOPS Project (www.xoops.org) $
  */
-
 use XoopsModules\Wggallery;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
@@ -33,10 +32,9 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
  */
 class Categories extends \XoopsObject
 {
-    
-	public $redirOp = '';
-	
-	/**
+    public $redirOp = '';
+
+    /**
      * Constructor
      *
      * @param null
@@ -67,15 +65,15 @@ class Categories extends \XoopsObject
         }
     }
 
-    /**
-     * The new inserted $Id
-     * @return int inserted id
-     */
+    // /**
+    //  * The new inserted $Id
+    //  * @return int inserted id
+    //  */
     // public function getNewInsertedIdImages()
     // {
-        // $newInsertedId = $GLOBALS['xoopsDB']->getInsertId();
+    // $newInsertedId = $GLOBALS['xoopsDB']->getInsertId();
 
-        // return $newInsertedId;
+    // return $newInsertedId;
     // }
 
     /**
@@ -96,7 +94,7 @@ class Categories extends \XoopsObject
         // Get Theme Form
         xoops_load('XoopsFormLoader');
         $form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
-        $form->setExtra('enctype="multipart/form-data"');        
+        $form->setExtra('enctype="multipart/form-data"');
         // Form Text cat_text
         $form->addElement(new \XoopsFormText(_AM_WGGALLERY_CAT_TEXT, 'cat_text', 50, 255, $this->getVar('cat_text')));
         // Form Text Date Select cat_album
@@ -117,7 +115,7 @@ class Categories extends \XoopsObject
         $form->addElement(new \XoopsFormSelectUser(_CO_WGGALLERY_SUBMITTER, 'cat_submitter', false, $this->getVar('cat_submitter')));
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
-		$form->addElement(new \XoopsFormHidden('redir_op', $this->redirOp));
+        $form->addElement(new \XoopsFormHidden('redir_op', $this->redirOp));
         $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
 
         return $form;
@@ -132,16 +130,17 @@ class Categories extends \XoopsObject
      */
     public function getValuesCategories($keys = null, $format = null, $maxDepth = null)
     {
-        $helper             = \XoopsModules\Wggallery\Helper::getInstance();
-        $ret                = $this->getValues($keys, $format, $maxDepth);
-        $ret['id']          = $this->getVar('cat_id');
-        $ret['text']        = $this->getVar('cat_text');
-        $ret['album']       = $this->getVar('cat_album');
-        $ret['image']       = $this->getVar('cat_image');
-        $ret['search']      = $this->getVar('cat_search');
-        $ret['weight']      = $this->getVar('cat_weight');
-        $ret['date']        = formatTimestamp($this->getVar('cat_date'), 's');
-        $ret['submitter']   = \XoopsUser::getUnameFromId($this->getVar('cat_submitter'));
+        $helper = \XoopsModules\Wggallery\Helper::getInstance();
+        $ret = $this->getValues($keys, $format, $maxDepth);
+        $ret['id'] = $this->getVar('cat_id');
+        $ret['text'] = $this->getVar('cat_text');
+        $ret['album'] = $this->getVar('cat_album');
+        $ret['image'] = $this->getVar('cat_image');
+        $ret['search'] = $this->getVar('cat_search');
+        $ret['weight'] = $this->getVar('cat_weight');
+        $ret['date'] = formatTimestamp($this->getVar('cat_date'), 's');
+        $ret['submitter'] = \XoopsUser::getUnameFromId($this->getVar('cat_submitter'));
+
         return $ret;
     }
 
@@ -152,7 +151,7 @@ class Categories extends \XoopsObject
      */
     public function toArrayCategories()
     {
-        $ret  = [];
+        $ret = [];
         $vars = $this->getVars();
         foreach (array_keys($vars) as $var) {
             $ret[$var] = $this->getVar('"{$var}"');

@@ -98,4 +98,3 @@ $adminmenu[] = [
     'link'  => 'admin/about.php',
     'icon'  => 'assets/icons/32/about.png',
 ];
-

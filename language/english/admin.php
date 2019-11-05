@@ -81,8 +81,10 @@ define('_AM_WGGALLERY_GALLERYTYPE_EDIT', 'Edit Gallerytype');
 // Elements of Gallery options
 define('_AM_WGGALLERY_OPTION_GT_SET', 'Set options for selected gallerytype');
 define('_AM_WGGALLERY_OPTION_GT_SOURCE', 'Slideshow source');
-define('_AM_WGGALLERY_OPTION_GT_SOURCE_DESC',
-       "Pay attention: if the user do not have to download large images the source will be automatically reduce to medium for this user in order to avoid unallowed download by right mouse click.<br>User with right to download large images will also see large images, if you have selected 'large'.");
+define(
+    '_AM_WGGALLERY_OPTION_GT_SOURCE_DESC',
+    "Pay attention: if the user do not have to download large images the source will be automatically reduce to medium for this user in order to avoid unallowed download by right mouse click.<br>User with right to download large images will also see large images, if you have selected 'large'."
+);
 define('_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW', 'Preview source');
 define('_AM_WGGALLERY_OPTION_GT_SOURCE_LARGE', 'large images');
 define('_AM_WGGALLERY_OPTION_GT_SOURCE_MEDIUM', 'medium images');

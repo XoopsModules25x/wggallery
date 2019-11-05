@@ -20,12 +20,11 @@
  * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
  * @version        $Id: 1.0 rate.php 13070 Wed 2016-12-14 22:22:38Z XOOPS Development Team $
  */
-
 use Xmf\Request;
 use XoopsModules\Wggallery\Constants;
 
 include __DIR__ . '/header.php';
-$op     = Request::getString('op', 'default');
+$op = Request::getString('op', 'default');
 
 switch ($op) {
     case 'save-imglist':
@@ -54,7 +53,7 @@ switch ($op) {
         }
 
         $redir = $_SERVER['HTTP_REFERER'];
-        if ($op === 'save-imglist') {
+        if ('save-imglist' === $op) {
             $redir = $_SERVER['HTTP_REFERER'] . '#imglist_' . $itemid;
         }
 
@@ -63,7 +62,7 @@ switch ($op) {
                 redirect_header($redir, 2, _MA_WGGALLERY_RATING_VOTE_BAD);
                 exit();
             }
-        } else if (Constants::RATING_10STARS === (int)$helper->getConfig('ratingbars') || Constants::RATING_10NUM === (int)$helper->getConfig('ratingbars')) {
+        } elseif (Constants::RATING_10STARS === (int)$helper->getConfig('ratingbars') || Constants::RATING_10NUM === (int)$helper->getConfig('ratingbars')) {
             if ($rating > 10 || $rating < 1) {
                 redirect_header($redir, 2, _MA_WGGALLERY_RATING_VOTE_BAD);
                 exit();
@@ -92,10 +91,10 @@ switch ($op) {
         // Insert Data
         if ($ratingsHandler->insert($ratingsObj)) {
             // update table wggallery_images
-            $nb_ratings     = 0;
+            $nb_ratings = 0;
             $avg_rate_value = 0;
-            $ratingObjs     = $helper->getHandler('ratings')->getObjects();
-            $count          = count($ratingObjs);
+            $ratingObjs = $helper->getHandler('ratings')->getObjects();
+            $count = count($ratingObjs);
             $current_rating = 0;
             foreach ($ratingObjs as $ratingObj) {
                 $current_rating += $ratingObj->getVar('rate_value');
@@ -104,7 +103,7 @@ switch ($op) {
             if ($count > 0) {
                 $avg_rate_value = number_format($current_rating / $count, 2);
             }
-            
+
             $imagesObj = $imagesHandler->get($itemid);
             // Set Vars
             $imagesObj->setVar('img_ratinglikes', $avg_rate_value);
@@ -117,7 +116,6 @@ switch ($op) {
         echo '<br>error:' . $ratingsObj->getHtmlErrors();
 
         break;
-
     case 'default':
     default:
         echo _MA_WGGALLERY_RATING_VOTE_BAD . ' (invalid parameter)';

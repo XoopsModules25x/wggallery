@@ -35,7 +35,7 @@ define('_AM_WGGALLERY_THEREARE_CATEGORIES', "Es gibt <span class='bold'>%s</span
 define('_AM_WGGALLERY_THEREARENT_GALLERYTYPES', "Es gibt keine Galerietypen! Für eine Initialisierung bzw. Wiederherstellung gehen Sie bitte auf 'Wartung' => 'Wartung Galerietypen' und klicken Sie auf die Schaltfläche 'Standardeinstellungen wiederherstellen'");
 define('_AM_WGGALLERY_THEREARENT_ALBUMTYPES', "Es gibt keine Albumtypen! Für eine Initialisierung bzw. Wiederherstellung gehen Sie bitte auf 'Wartung' => 'Wartung Albumtypen' und klicken Sie auf die Schaltfläche 'Standardeinstellungen wiederherstellen'");
 define('_AM_WGGALLERY_THEREARENT_WATERMARKS', 'Derzeit sind keine Wasserzeichen definiert!');
-define('_AM_WGGALLERY_THEREARENT_CATEGORIES', "Es gibt keine Kategorien!");
+define('_AM_WGGALLERY_THEREARENT_CATEGORIES', 'Es gibt keine Kategorien!');
 // ---------------- Admin Files ----------------
 // Buttons
 define('_AM_WGGALLERY_ADD_ALBUM', 'Neues Album hinzufügen');
@@ -81,8 +81,10 @@ define('_AM_WGGALLERY_GALLERYTYPE_EDIT', 'Galerietyp bearbeiten');
 // Elements of Gallery options
 define('_AM_WGGALLERY_OPTION_GT_SET', 'Optionen für ausgewählten Galerietyp definieren');
 define('_AM_WGGALLERY_OPTION_GT_SOURCE', 'Slideshow Quelle');
-define('_AM_WGGALLERY_OPTION_GT_SOURCE_DESC',
-       "Achtung: wenn der Benutzer nicht das Recht zum Herunterladen eines großen Bildes hat wird die Quelle für diesen Benutzer automatisch auf 'mittlere Bilder' reduziert um den unerlaubten Download von großen Bildern durch das Klicken mit der rechten Maustaste zu verhindern.<br>Den Benutzern mit dem Recht zum Herunterladen großer Bilder werden diese auch angezeigt, wenn Sie 'große Bilder' ausgewählt haben.");
+define(
+    '_AM_WGGALLERY_OPTION_GT_SOURCE_DESC',
+    "Achtung: wenn der Benutzer nicht das Recht zum Herunterladen eines großen Bildes hat wird die Quelle für diesen Benutzer automatisch auf 'mittlere Bilder' reduziert um den unerlaubten Download von großen Bildern durch das Klicken mit der rechten Maustaste zu verhindern.<br>Den Benutzern mit dem Recht zum Herunterladen großer Bilder werden diese auch angezeigt, wenn Sie 'große Bilder' ausgewählt haben."
+);
 define('_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW', 'Quelle Vorschaubild');
 define('_AM_WGGALLERY_OPTION_GT_SOURCE_LARGE', 'große Bilder');
 define('_AM_WGGALLERY_OPTION_GT_SOURCE_MEDIUM', 'mittlere Bilder');

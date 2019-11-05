@@ -20,7 +20,6 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 images.php 1 Mon 2018-03-19 10:04:51Z XOOPS Project (www.xoops.org) $
  */
-
 use Xmf\Request;
 use XoopsModules\Wggallery;
 use XoopsModules\Wggallery\Constants;
@@ -35,13 +34,13 @@ if ('manage' === $op) {
 }
 require_once XOOPS_ROOT_PATH . '/header.php';
 
-$imgId    = Request::getInt('img_id');
-$albId    = Request::getInt('alb_id', 0);
-$albPid   = Request::getInt('alb_pid');
-$ref      = Request::getString('ref');
-$imgSubm  = Request::getInt('img_submitter');
-$start    = Request::getInt('start', 0);
-$limit    = Request::getInt('limit', $helper->getConfig('userpager'));
+$imgId = Request::getInt('img_id');
+$albId = Request::getInt('alb_id', 0);
+$albPid = Request::getInt('alb_pid');
+$ref = Request::getString('ref');
+$imgSubm = Request::getInt('img_submitter');
+$start = Request::getInt('start', 0);
+$limit = Request::getInt('limit', $helper->getConfig('userpager'));
 $redir_op = Request::getString('redir', '');
 if ('' === $redir_op) {
     $redir_op = Request::getString('redir_op', $op);
@@ -62,7 +61,7 @@ $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_24', WGGALLERY_ICONS_URL . '24/');
 $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
 $GLOBALS['xoopsTpl']->assign('displayButtonText', $helper->getConfig('displayButtonText'));
-$image_target =  $helper->getConfig('image_target');
+$image_target = $helper->getConfig('image_target');
 $GLOBALS['xoopsTpl']->assign('image_target', $image_target);
 $GLOBALS['xoopsTpl']->assign('use_tags', $helper->getConfig('use_tags'));
 $GLOBALS['xoopsTpl']->assign('use_categories', $helper->getConfig('use_categories'));
@@ -78,18 +77,18 @@ if ($ratingbars > 0) {
     $GLOBALS['xoopsTpl']->assign('save', 'save-img' . $op);
 }
 
-$GLOBALS['xoopsTpl']->assign('random', rand());
+$GLOBALS['xoopsTpl']->assign('random', mt_rand());
 
 if ($imgId > 0 && 0 === $albId) {
     // get album id
     $imagesObj = $imagesHandler->get($imgId);
-    $albId     = $imagesObj->getVar('img_albid');
+    $albId = $imagesObj->getVar('img_albid');
 }
 
-$albName   = '';
+$albName = '';
 $albumsObj = $albumsHandler->get($albId);
 if (isset($albumsObj) && is_object($albumsObj)) {
-    $albName      = $albumsObj->getVar('alb_name');
+    $albName = $albumsObj->getVar('alb_name');
     $albSubmitter = $albumsObj->getVar('alb_submitter');
 }
 $permAlbumEdit = $permissionsHandler->permAlbumEdit($albId, $albSubmitter);
@@ -97,7 +96,7 @@ $permAlbumEdit = $permissionsHandler->permAlbumEdit($albId, $albSubmitter);
 // Breadcrumbs
 $xoBreadcrumbs[] = ['title' => _CO_WGGALLERY_ALBUMS, 'link' => WGGALLERY_URL . '/'];
 if ($albPid > 0) {
-    $albumsObj       = $albumsHandler->get($albPid);
+    $albumsObj = $albumsHandler->get($albPid);
     $xoBreadcrumbs[] = ['title' => $albumsObj->getVar('alb_name'), 'link' => WGGALLERY_URL . '/index.php?op=list&amp;alb_pid=' . $albPid];
 }
 $xoBreadcrumbs[] = ['title' => $albName, 'link' => WGGALLERY_URL . '/images.php?op=list&amp;alb_id=' . $albId];
@@ -126,7 +125,7 @@ switch ($op) {
         }
         $redir .= '&amp;start=' . $start . '&amp;limit=' . $limit . '&amp;alb_id=' . $albId . '&amp;alb_pid=' . $albPid . '&amp;img_submitter=' . $imgSubm . '#image_' . $imgId;
 
-        $imgHandler                = new Wggallery\Resizer();
+        $imgHandler = new Wggallery\Resizer();
         $imgHandler->imageMimetype = $imagesObj->getVar('img_mimetype');
         $degrees = 0;
         if ('left' === Request::getString('dir')) {
@@ -138,27 +137,27 @@ switch ($op) {
         if (0 === $degrees) {
             redirect_header($redir, 3, _NOPERM);
         }
-        $imgHandler->degrees       = $degrees;
+        $imgHandler->degrees = $degrees;
         // rotate large
-        $imgHandler->sourceFile    = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesObj->getVar('img_namelarge');
-        $imgHandler->endFile       = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesObj->getVar('img_namelarge');
-        $result                    = $imgHandler->rotateImage();
-        if (true !== (boolean)$result) {
-            redirect_header($redir, 3, _CO_WGGALLERY_IMAGE_ROTATE_ERROR . ": " . $result);
+        $imgHandler->sourceFile = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesObj->getVar('img_namelarge');
+        $imgHandler->endFile = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesObj->getVar('img_namelarge');
+        $result = $imgHandler->rotateImage();
+        if (true !== (bool)$result) {
+            redirect_header($redir, 3, _CO_WGGALLERY_IMAGE_ROTATE_ERROR . ': ' . $result);
         }
         // rotate medium
-        $imgHandler->sourceFile    = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $imagesObj->getVar('img_name');
-        $imgHandler->endFile       = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $imagesObj->getVar('img_name');
-        $result                    = $imgHandler->rotateImage();
-        if (true !== (boolean)$result) {
-            redirect_header($redir, 3, _CO_WGGALLERY_IMAGE_ROTATE_ERROR . ": " . $result);
+        $imgHandler->sourceFile = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $imagesObj->getVar('img_name');
+        $imgHandler->endFile = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $imagesObj->getVar('img_name');
+        $result = $imgHandler->rotateImage();
+        if (true !== (bool)$result) {
+            redirect_header($redir, 3, _CO_WGGALLERY_IMAGE_ROTATE_ERROR . ': ' . $result);
         }
         // rotate thumb
-        $imgHandler->sourceFile    = WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/' . $imagesObj->getVar('img_name');
-        $imgHandler->endFile       = WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/' . $imagesObj->getVar('img_name');
-        $result                    = $imgHandler->rotateImage();
-        if (true !== (boolean)$result) {
-            redirect_header($redir, 3, _CO_WGGALLERY_IMAGE_ROTATE_ERROR . ": " . $result);
+        $imgHandler->sourceFile = WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/' . $imagesObj->getVar('img_name');
+        $imgHandler->endFile = WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/' . $imagesObj->getVar('img_name');
+        $result = $imgHandler->rotateImage();
+        if (true !== (bool)$result) {
+            redirect_header($redir, 3, _CO_WGGALLERY_IMAGE_ROTATE_ERROR . ': ' . $result);
         }
 
         redirect_header($redir, 3, _CO_WGGALLERY_IMAGE_ROTATED);
@@ -175,10 +174,10 @@ switch ($op) {
         }
         if (isset($imgId)) {
             $imagesObj = $imagesHandler->get($imgId);
-            $imgNew    = 0;
+            $imgNew = 0;
         } else {
             $imagesObj = $imagesHandler->create();
-            $imgNew    = 1;
+            $imgNew = 1;
         }
         // Set Vars
         $imagesObj->setVar('img_title', Request::getString('img_title', ''));
@@ -209,10 +208,10 @@ switch ($op) {
         // Insert Data
         if ($imagesHandler->insert($imagesObj)) {
             // send notifications
-            $tags                = [];
-            $tags['IMAGE_NAME']  = $img_name;
-            $tags['IMAGE_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/images.php?op=show&img_id={$imgId}&amp;alb_id={$albId}";
-            $tags['ALBUM_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/albums.php?op=show&alb_id={$albId}&amp;alb_pid={$imgAlbPid}";
+            $tags = [];
+            $tags['IMAGE_NAME'] = $img_name;
+            $tags['IMAGE_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/images.php?op=show&img_id={$imgId}&amp;alb_id={$albId}";
+            $tags['ALBUM_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/albums.php?op=show&alb_id={$albId}&amp;alb_pid={$imgAlbPid}";
             $notificationHandler = xoops_getHandler('notification');
 
             if (WGGALLERY_STATE_APPROVAL_VAL === $imgState) {
@@ -223,11 +222,11 @@ switch ($op) {
                     $notificationHandler->triggerEvent('albums', $albId, 'image_new', $tags);
                 }
             }
-			if ('manage' === $redir_op) {
-				redirect_header('images.php?op=manage&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid . '#image_' . $imgId, 2, _CO_WGGALLERY_FORM_OK);
-			} else {
-				redirect_header('images.php?op=list&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid, 2, _CO_WGGALLERY_FORM_OK);
-			}
+            if ('manage' === $redir_op) {
+                redirect_header('images.php?op=manage&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid . '#image_' . $imgId, 2, _CO_WGGALLERY_FORM_OK);
+            } else {
+                redirect_header('images.php?op=list&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid, 2, _CO_WGGALLERY_FORM_OK);
+            }
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $imagesObj->getHtmlErrors());
@@ -238,14 +237,14 @@ switch ($op) {
     case 'edit':
         // Get Form
         $imagesObj = $imagesHandler->get($imgId);
-		$imagesObj->redirOp = $redir_op;
-        $form      = $imagesObj->getFormImages();
+        $imagesObj->redirOp = $redir_op;
+        $form = $imagesObj->getFormImages();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
 
         break;
     case 'delete':
         $imagesObj = $imagesHandler->get($imgId);
-        $imgAlbId  = $imagesObj->getVar('img_albid');
+        $imgAlbId = $imagesObj->getVar('img_albid');
         if (!$permAlbumEdit || $imgAlbId !== $albId) {
             redirect_header('images.php', 3, _NOPERM);
         }
@@ -259,27 +258,26 @@ switch ($op) {
                     $GLOBALS['xoopsTpl']->assign('error', _CO_WGGALLERY_IMAGE_ERRORUNLINK);
                 }
                 // send notifications
-                $tags                = [];
-                $tags['IMAGE_NAME']  = $img_name;
-                $tags['IMAGE_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/images.php?op=show&img_id=' . $imgId . '&amp;alb_id=' . $albId;
-                $tags['ALBUM_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/albums.php?op=show&alb_id=' . $albId;
+                $tags = [];
+                $tags['IMAGE_NAME'] = $img_name;
+                $tags['IMAGE_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/images.php?op=show&img_id=' . $imgId . '&amp;alb_id=' . $albId;
+                $tags['ALBUM_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/albums.php?op=show&alb_id=' . $albId;
                 $notificationHandler = xoops_getHandler('notification');
                 $notificationHandler->triggerEvent('albums', $albId, 'image_delete', $tags);
                 // delete comments
                 $commentHandler = xoops_getHandler('comment');
-                $critComments   = new CriteriaCompo(new Criteria('com_modid', $helper->getMid()));
+                $critComments = new CriteriaCompo(new Criteria('com_modid', $helper->getMid()));
                 $critComments->add(new Criteria('com_itemid', $imgId));
                 $commentHandler->deleteAll($critComments);
                 // delete ratings
                 $ratingsHandler->deleteAllRatings($imgId, 1);
-				
-				if ('manage' === $redir_op) {
-					redirect_header('images.php?op=manage&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid, 2, _CO_WGGALLERY_FORM_DELETE_OK);
-				} else {
-					redirect_header('images.php?op=list&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid, 2, _CO_WGGALLERY_FORM_DELETE_OK);
-				}
-			
-			
+
+                if ('manage' === $redir_op) {
+                    redirect_header('images.php?op=manage&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid, 2, _CO_WGGALLERY_FORM_DELETE_OK);
+                } else {
+                    redirect_header('images.php?op=list&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid, 2, _CO_WGGALLERY_FORM_DELETE_OK);
+                }
+
                 redirect_header('images.php?op=list&amp;alb_id=' . $albId, 3, _CO_WGGALLERY_FORM_DELETE_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $imagesObj->getHtmlErrors());
@@ -303,7 +301,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('alb_id', $albId);
         $GLOBALS['xoopsTpl']->assign('alb_pid', $albPid);
         $GLOBALS['xoopsTpl']->assign('ref', $ref);
-		$GLOBALS['xoopsTpl']->assign('start', $start);
+        $GLOBALS['xoopsTpl']->assign('start', $start);
         $GLOBALS['xoopsTpl']->assign('limit', $limit);
         $GLOBALS['xoopsTpl']->assign('img_submitter', $imgSubm);
 
@@ -312,7 +310,7 @@ switch ($op) {
         $crImages->setSort('img_weight ASC, img_date');
         $crImages->setOrder('DESC');
         $imagesCount = $imagesHandler->getCount($crImages);
-        $imagesAll   = $imagesHandler->getAll($crImages);
+        $imagesAll = $imagesHandler->getAll($crImages);
         if ($imagesCount > 0) {
             $images = [];
             // Get All Images
@@ -325,7 +323,7 @@ switch ($op) {
         break;
     case 'order':
         $aorder = $_POST['menuItem'];
-        $i      = 0;
+        $i = 0;
         foreach (array_keys($aorder) as $key) {
             $imagesObj = $imagesHandler->get($key);
             $imagesObj->setVar('img_weight', $i + 1);
@@ -335,10 +333,10 @@ switch ($op) {
         break;
     case 'list':
     default:
-        $albums    = $helper->getHandler('Albums');
+        $albums = $helper->getHandler('Albums');
         $albumsObj = $albums->get($albId);
         if (isset($albumsObj) && is_object($albumsObj)) {
-            $albName      = $albumsObj->getVar('alb_name');
+            $albName = $albumsObj->getVar('alb_name');
             $albSubmitter = $albumsObj->getVar('alb_submitter');
         }
         $GLOBALS['xoopsTpl']->assign('alb_name', $albName);
@@ -375,7 +373,7 @@ switch ($op) {
                     $images[$i]['img_modal'] = $image['thumb'];
                     if ($permissionsHandler->permImageDownloadLarge($albId)) {
                         $images[$i]['img_modal'] = $images[$i]['large'];
-                    } else if ($permissionsHandler->permImageDownloadMedium($albId)) {
+                    } elseif ($permissionsHandler->permImageDownloadMedium($albId)) {
                         $images[$i]['img_modal'] = $images[$i]['medium'];
                     }
                 }
@@ -408,21 +406,21 @@ switch ($op) {
         }
         // Get image
         $imagesObj = $imagesHandler->get($imgId);
-        $image     = $imagesObj->getValuesImages();
+        $image = $imagesObj->getValuesImages();
         if ($helper->getConfig('ratingbars') > 0) {
             $image['rating'] = $ratingsHandler->getItemRating($image['id'], 1);
         }
 
-        $albId     = $image['albid'];
+        $albId = $image['albid'];
         // check permissions
         $file = $image['thumb'];
         if ($permissionsHandler->permImageDownloadLarge($albId)) {
             $file = $image['large'];
-        } else if ($permissionsHandler->permImageDownloadMedium($albId)) {
+        } elseif ($permissionsHandler->permImageDownloadMedium($albId)) {
             $file = $image['medium'];
         }
 
-		$GLOBALS['xoopsTpl']->assign('img_allowdownload', $permissionsHandler->permImageDownloadLarge($albId)
+        $GLOBALS['xoopsTpl']->assign('img_allowdownload', $permissionsHandler->permImageDownloadLarge($albId)
                                                        || $permissionsHandler->permImageDownloadMedium($albId));
         $GLOBALS['xoopsTpl']->assign('permAlbumEdit', $permissionsHandler->permAlbumEdit($albId, $albSubmitter));
         $GLOBALS['xoopsTpl']->assign('showimage', true);
@@ -433,13 +431,13 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('start', $start);
         $GLOBALS['xoopsTpl']->assign('limit', $limit);
         $GLOBALS['xoopsTpl']->assign('img_submitter', $imgSubm);
-		$GLOBALS['xoopsTpl']->assign('redir_op', 'list');
+        $GLOBALS['xoopsTpl']->assign('redir_op', 'list');
         $GLOBALS['xoopsTpl']->assign('showBack', '_self' === $helper->getConfig('image_target'));
-        
+
         $img_views = (int)$imagesObj->getVar('img_views') + 1;
         $imagesObj->setVar('img_views', $img_views);
         $imagesHandler->insert($imagesObj);
-        
+
         break;
 }
 

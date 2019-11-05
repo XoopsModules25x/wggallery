@@ -70,7 +70,7 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
      * get inserted id
      *
      * @param null
-     * @return integer reference to the {@link Get} object
+     * @return int reference to the {@link Get} object
      */
     public function getInsertId()
     {
@@ -87,17 +87,17 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
     {
         $helper = \XoopsModules\Wggallery\Helper::getInstance();
         
-        $ItemRating = array();
+        $ItemRating = [];
         $ItemRating['nb_ratings'] = 0;
 
         $uid   = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
         $voted = false;
         $ip    = getenv('REMOTE_ADDR');
         
-        if (Constants::RATING_5STARS === (int)$helper->getConfig('ratingbars') 
+        if (Constants::RATING_5STARS === (int)$helper->getConfig('ratingbars')
                 || Constants::RATING_10STARS === (int)$helper->getConfig('ratingbars')
                 || Constants::RATING_10NUM === (int)$helper->getConfig('ratingbars')
-            ) {        
+            ) {
             $rating_unitwidth = 25;
             if (Constants::RATING_5STARS === (int)$helper->getConfig('ratingbars')) {
                 $max_units = 5;

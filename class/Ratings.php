@@ -23,9 +23,6 @@ namespace XoopsModules\Wggallery;
  * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
  * @version        $Id: 1.0 ratings.php 13070 Wed 2016-12-14 22:22:34Z XOOPS Development Team $
  */
-
-use XoopsModules\Wggallery;
-
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
@@ -69,6 +66,7 @@ class Ratings extends \XoopsObject
     public function getNewInsertedIdRatings()
     {
         $newInsertedId = $GLOBALS['xoopsDB']->getInsertId();
+
         return $newInsertedId;
     }
 
@@ -81,15 +79,16 @@ class Ratings extends \XoopsObject
      */
     public function getValuesRatings($keys = null, $format = null, $maxDepth = null)
     {
-        $helper        = \XoopsModules\Wggallery\Helper::getInstance();
-        $ret           = $this->getValues($keys, $format, $maxDepth);
-        $ret['id']     = $this->getVar('rate_id');
+        $helper = \XoopsModules\Wggallery\Helper::getInstance();
+        $ret = $this->getValues($keys, $format, $maxDepth);
+        $ret['id'] = $this->getVar('rate_id');
         $ret['source'] = $this->getVar('rate_source');
         $ret['itemid'] = $this->getVar('rate_itemid');
-        $ret['value']  = $this->getVar('rate_value');
-        $ret['uid']    = XoopsUser::getUnameFromId($this->getVar('rate_uid'));
-        $ret['ip']     = $this->getVar('rate_ip');
-        $ret['date']   = formatTimestamp($this->getVar('rate_date'), 's');
+        $ret['value'] = $this->getVar('rate_value');
+        $ret['uid'] = XoopsUser::getUnameFromId($this->getVar('rate_uid'));
+        $ret['ip'] = $this->getVar('rate_ip');
+        $ret['date'] = formatTimestamp($this->getVar('rate_date'), 's');
+
         return $ret;
     }
 
@@ -100,11 +99,12 @@ class Ratings extends \XoopsObject
      */
     public function toArrayRatings()
     {
-        $ret = array();
+        $ret = [];
         $vars = $this->getVars();
         foreach (array_keys($vars) as $var) {
             $ret[$var] = $this->getVar('"{$var}"');
         }
+
         return $ret;
     }
 }

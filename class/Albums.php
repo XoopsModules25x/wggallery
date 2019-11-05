@@ -146,7 +146,7 @@ class Albums extends \XoopsObject
         $form->addElement(new \XoopsFormHidden('alb_weight', $albWeight));
 
         // Form Album image
-        $albImgcat = $this->isNew() ? Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL : $this->getVar('alb_imgtype');     
+        $albImgcat = $this->isNew() ? Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL : $this->getVar('alb_imgtype');
         $albImage  = $this->isNew() ? 'noimage.png' : $this->getVar('alb_image');
         $albImgid  = $this->isNew() ? 0 : $this->getVar('alb_imgid');
         if (true === $admin) {
@@ -187,7 +187,7 @@ class Albums extends \XoopsObject
 
             $groupsIdsDlFullAlb = $gpermHandler->getGroupIds('wggallery_dlfullalb', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
             $groupsIdsDlFullAlb[] = array_values($groupsIdsDlFullAlb);
-            $groupsCanDlFullAlbCheckbox = new \XoopsFormCheckBox( '', 'groups_dlfullalb', $groupsIdsDlFullAlb);
+            $groupsCanDlFullAlbCheckbox = new \XoopsFormCheckBox('', 'groups_dlfullalb', $groupsIdsDlFullAlb);
 
             $groupsIdsDlImageL         = $gpermHandler->getGroupIds('wggallery_dlimage_large', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
             $groupsIdsDlImageL[]       = array_values($groupsIdsDlImageL);
@@ -198,7 +198,7 @@ class Albums extends \XoopsObject
             $groupsCanDlImageMCheckbox = new \XoopsFormCheckBox('', 'groups_dlimage_medium', $groupsIdsDlImageM);
         } else {
             $groupsCanViewCheckbox = new \XoopsFormCheckBox('', 'groups_view', $listSelected);
-            $groupsCanDlFullAlbCheckbox = new \XoopsFormCheckBox( '', 'groups_dlfullalb', $listSelected);
+            $groupsCanDlFullAlbCheckbox = new \XoopsFormCheckBox('', 'groups_dlfullalb', $listSelected);
             $groupsCanDlImageLCheckbox = new \XoopsFormCheckBox('', 'groups_dlimage_large', $listNone);
             $groupsCanDlImageMCheckbox = new \XoopsFormCheckBox('', 'groups_dlimage_medium', $listSelected);
         }
@@ -214,9 +214,9 @@ class Albums extends \XoopsObject
 
         // To Download full album
         $groupsCanDlFullAlbCheckbox->addOptionArray($groupList);
-        $groupsCanDlFullAlbTray = new \XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_DLFULLALB, '&nbsp;' );
+        $groupsCanDlFullAlbTray = new \XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_DLFULLALB, '&nbsp;');
         $groupsCanDlFullAlbTray->addElement($groupsCanDlFullAlbCheckbox, false);
-        $groupsCanDlFullAlbAll = new \XoopsFormCheckBox( '', 'all_groups_dlfullalb', 0);
+        $groupsCanDlFullAlbAll = new \XoopsFormCheckBox('', 'all_groups_dlfullalb', 0);
         $groupsCanDlFullAlbAll->setExtra('onclick="javascript:toggleCheckboxGroupPerm(' . "'groups_dlfullalb'" . ')"');
         $groupsCanDlFullAlbAll->addOption(1, _CO_WGGALLERY_ALL);
         $groupsCanDlFullAlbTray->addElement($groupsCanDlFullAlbAll, false);

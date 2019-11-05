@@ -118,8 +118,8 @@ function wggallery_check_db(&$module)
     $field = 'img_exif';
     $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
     $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
-    if(!$numRows) {
-       $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_images') . '` ADD `img_exif` TEXT NULL AFTER `img_state` ;';
+    if (!$numRows) {
+        $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_images') . '` ADD `img_exif` TEXT NULL AFTER `img_state` ;';
         if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
             xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
             $module->setErrors("Error when adding 'img_exif' to table 'wggallery_images'.");
@@ -131,20 +131,20 @@ function wggallery_check_db(&$module)
     $field = 'img_cats';
     $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
     $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
-    if(!$numRows) {
+    if (!$numRows) {
         $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_images') . '` ADD `img_cats` TEXT NULL AFTER `img_state` ;';
         if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
             xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
             $module->setErrors("Error when adding 'img_cats' to table 'wggallery_images'.");
             $ret = false;
         }
-    }   
+    }
     
     $table = $GLOBALS['xoopsDB']->prefix('wggallery_images');
     $field = 'img_tags';
     $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
     $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
-    if(!$numRows) {
+    if (!$numRows) {
         $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_images') . '` ADD `img_tags` TEXT NULL AFTER `img_state` ;';
         if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
             xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
@@ -157,14 +157,13 @@ function wggallery_check_db(&$module)
     $field = 'img_views';
     $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
     $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
-    if(!$numRows) {
+    if (!$numRows) {
         $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_images') . "` ADD `img_views` INT(8) NOT NULL DEFAULT '0' AFTER `img_votes` ;";
         if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
             xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
             $module->setErrors("Error when adding 'img_views' to table 'wggallery_images'.");
             $ret = false;
         }
-
     }
     
     // update table 'wggallery_albums'
@@ -172,49 +171,46 @@ function wggallery_check_db(&$module)
     $field = 'alb_cats';
     $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
     $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
-    if(!$numRows) {
+    if (!$numRows) {
         $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '` ADD `alb_cats` TEXT NULL AFTER `alb_state` ;';
         if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
             xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
             $module->setErrors("Error when adding 'alb_cats' to table 'wggallery_albums'.");
             $ret = false;
         }
-
-    } 
+    }
 
     $table = $GLOBALS['xoopsDB']->prefix('wggallery_albums');
     $field = 'alb_tags';
     $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
     $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
-    if(!$numRows) {
+    if (!$numRows) {
         $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '` ADD `alb_tags` TEXT NULL AFTER `alb_state` ;';
         if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
             xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
             $module->setErrors("Error when adding 'alb_tags' to table 'wggallery_albums'.");
             $ret = false;
-        }  
-
-    } 
+        }
+    }
 
     $table = $GLOBALS['xoopsDB']->prefix('wggallery_albums');
     $field = 'alb_iscoll';
     $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
     $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
-    if(!$numRows) {
+    if (!$numRows) {
         $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . "` CHANGE `alb_iscat` `alb_iscoll` INT(1) NOT NULL DEFAULT '0'";
         if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
             xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
             $module->setErrors("Error when changing 'alb_iscat' into 'alb_iscoll' in table 'wggallery_albums'.");
             $ret = false;
         }
-
-    } 
+    }
 
     $table = $GLOBALS['xoopsDB']->prefix('wggallery_albums');
     $field = 'alb_imgtype';
     $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
     $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
-    if(!$numRows) {
+    if (!$numRows) {
         $sql = 'ALTER TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . "` CHANGE `alb_imgcat` `alb_imgtype` INT(1) NOT NULL DEFAULT '0'";
         if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
             xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
@@ -226,7 +222,7 @@ function wggallery_check_db(&$module)
     $table = $GLOBALS['xoopsDB']->prefix('wggallery_categories');
     $check = $GLOBALS['xoopsDB']->queryF("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='" . $table . "'");
     $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
-    if(!$numRows) {
+    if (!$numRows) {
         // create new table 'wggallery_categories'
         $sql = 'CREATE TABLE `' . $GLOBALS['xoopsDB']->prefix('wggallery_categories') . "` (
                   `cat_id`        INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -244,7 +240,6 @@ function wggallery_check_db(&$module)
             $module->setErrors("Error when creating table 'wggallery_categories'.");
             $ret = false;
         }
-
     }
 
     return $ret;

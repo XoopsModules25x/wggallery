@@ -36,7 +36,6 @@ namespace XoopsModules\Wggallery\Common;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 use XoopsModules\Wggallery;
 use XoopsModules\Wggallery\Constants;
 
@@ -110,7 +109,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
     public function __construct(\stdClass $claims)
     {
         parent::__construct($claims);
-        $this->allowedMimeTypes  = ['image/gif', 'image/jpeg', 'image/png'];
+        $this->allowedMimeTypes = ['image/gif', 'image/jpeg', 'image/png'];
         $this->allowedExtensions = ['gif', 'jpeg', 'jpg', 'png'];
     }
 
@@ -124,7 +123,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
     {
         require_once XOOPS_ROOT_PATH . '/modules/wggallery/header.php';
         /** @var \XoopsModules\Wggallery\Helper $helper */
-        $helper           = \XoopsModules\Wggallery\Helper::getInstance();
+        $helper = \XoopsModules\Wggallery\Helper::getInstance();
         $this->pathUpload = WGGALLERY_UPLOAD_IMAGE_PATH;
 
         if (Constants::PERM_SUBMITAPPR === $permissionsHandler->permGlobalSubmit()) {
@@ -134,47 +133,47 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         }
 
         $pathParts = pathinfo($this->getName());
-        
-        $this->imageName      = str_replace('.','_',uniqid('img', true)) . '.' . mb_strtolower($pathParts['extension']);
-        $this->imageNicename  = str_replace(['_', '-'], ' ', $pathParts['filename']);
-        $this->imageNameLarge = str_replace('.','_',uniqid('imgl', true)) . '.' . mb_strtolower($pathParts['extension']);
-        $this->imagePath      = $this->pathUpload . '/large/' . $this->imageNameLarge;
-        $this->imageNameOrig  = $_FILES[$this->inputName]['name'];
-        $this->imageMimetype  = $_FILES[$this->inputName]['type'];
-        $this->imageSize      = $_FILES[$this->inputName]['size'];
+
+        $this->imageName = str_replace('.', '_', uniqid('img', true)) . '.' . mb_strtolower($pathParts['extension']);
+        $this->imageNicename = str_replace(['_', '-'], ' ', $pathParts['filename']);
+        $this->imageNameLarge = str_replace('.', '_', uniqid('imgl', true)) . '.' . mb_strtolower($pathParts['extension']);
+        $this->imagePath = $this->pathUpload . '/large/' . $this->imageNameLarge;
+        $this->imageNameOrig = $_FILES[$this->inputName]['name'];
+        $this->imageMimetype = $_FILES[$this->inputName]['type'];
+        $this->imageSize = $_FILES[$this->inputName]['size'];
 
         if (false === move_uploaded_file($_FILES[$this->inputName]['tmp_name'], $this->imagePath)) {
             return false;
         }
-        
+
         if ($helper->getConfig('store_original')) {
             $imgPathSaveOrig = $this->pathUpload . '/original/' . $this->imageNameOrig;
-            copy ( $this->imagePath , $imgPathSaveOrig );
+            copy($this->imagePath, $imgPathSaveOrig);
         }
-        
+
         if ($helper->getConfig('store_exif')) {
             // read exif from original image
             $exif = json_encode(exif_read_data($this->imagePath));
-            $this->exifData   = $exif;
+            $this->exifData = $exif;
         }
-        
+
         // resize large image
-        $imgHandler                = new Wggallery\Resizer();
-        $imgHandler->sourceFile    = $this->imagePath;
-        $imgHandler->endFile       = $this->imagePath;
+        $imgHandler = new Wggallery\Resizer();
+        $imgHandler->sourceFile = $this->imagePath;
+        $imgHandler->endFile = $this->imagePath;
         $imgHandler->imageMimetype = $this->imageMimetype;
-        $imgHandler->maxWidth      = $helper->getConfig('maxwidth_large');
-        $imgHandler->maxHeight     = $helper->getConfig('maxheight_large');
-        $ret                       = $imgHandler->resizeImage();
+        $imgHandler->maxWidth = $helper->getConfig('maxwidth_large');
+        $imgHandler->maxHeight = $helper->getConfig('maxheight_large');
+        $ret = $imgHandler->resizeImage();
         if (false === $ret) {
             return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_LARGE, $this->imageNicename)];
         }
-        
+
         // TODO: copy exif from original to resized, if resized
         // if (true === $ret && $helper->getConfig('store_exif')) {
-            // possible solutions???
+        // possible solutions???
         // }
-        
+
         $ret = $this->handleImageDB();
         if (false === $ret) {
             return [
@@ -183,13 +182,13 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         }
 
         // load watermark settings
-        $albumObj  = $albumsHandler->get($this->claims->cat);
-        $wmId      = $albumObj->getVar('alb_wmid');
+        $albumObj = $albumsHandler->get($this->claims->cat);
+        $wmId = $albumObj->getVar('alb_wmid');
         $wmTargetM = false;
         $wmTargetL = false;
         if ($wmId > 0) {
             $watermarksObj = $watermarksHandler->get($wmId);
-            $wmTarget      = $watermarksObj->getVar('wm_target');
+            $wmTarget = $watermarksObj->getVar('wm_target');
             if (Constants::WATERMARK_TARGET_A === $wmTarget || Constants::WATERMARK_TARGET_M === $wmTarget) {
                 $wmTargetM = true;
             }
@@ -199,13 +198,13 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         }
 
         // create medium image
-        $imgHandler                = new Wggallery\Resizer();
-        $imgHandler->sourceFile    = $this->imagePath;
-        $imgHandler->endFile       = $this->pathUpload . '/medium/' . $this->imageName;
+        $imgHandler = new Wggallery\Resizer();
+        $imgHandler->sourceFile = $this->imagePath;
+        $imgHandler->endFile = $this->pathUpload . '/medium/' . $this->imageName;
         $imgHandler->imageMimetype = $this->imageMimetype;
-        $imgHandler->maxWidth      = $helper->getConfig('maxwidth_medium');
-        $imgHandler->maxHeight     = $helper->getConfig('maxheight_medium');
-        $ret                       = $imgHandler->resizeImage();
+        $imgHandler->maxWidth = $helper->getConfig('maxwidth_medium');
+        $imgHandler->maxHeight = $helper->getConfig('maxheight_medium');
+        $ret = $imgHandler->resizeImage();
         if (false === $ret) {
             return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_MEDIUM, $this->imageNicename)];
         }
@@ -214,12 +213,12 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         }
 
         // create thumb
-        $imgHandler->sourceFile    = $this->imagePath;
-        $imgHandler->endFile       = $this->pathUpload . '/thumbs/' . $this->imageName;
+        $imgHandler->sourceFile = $this->imagePath;
+        $imgHandler->endFile = $this->pathUpload . '/thumbs/' . $this->imageName;
         $imgHandler->imageMimetype = $this->imageMimetype;
-        $imgHandler->maxWidth      = $helper->getConfig('maxwidth_thumbs');
-        $imgHandler->maxHeight     = $helper->getConfig('maxheight_thumbs');
-        $ret                       = $imgHandler->resizeImage();
+        $imgHandler->maxWidth = $helper->getConfig('maxwidth_thumbs');
+        $imgHandler->maxHeight = $helper->getConfig('maxheight_thumbs');
+        $ret = $imgHandler->resizeImage();
         if (false === $ret) {
             return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_THUMBS, $this->imageNicename)];
         }
@@ -244,12 +243,12 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
             }
         }
         // send notifications
-        $tags                = [];
-        $tags['IMAGE_NAME']  = $this->imageNicename;
-        $tags['IMAGE_URL']   = XOOPS_URL . '/modules/wggallery/images.php?op=show&img_id=' . $this->imageId . '&amp;alb_id=' . $this->claims->cat;
-        $tags['ALBUM_URL']   = XOOPS_URL . '/modules/wggallery/albums.php?op=show&alb_id=' . $this->claims->cat;
+        $tags = [];
+        $tags['IMAGE_NAME'] = $this->imageNicename;
+        $tags['IMAGE_URL'] = XOOPS_URL . '/modules/wggallery/images.php?op=show&img_id=' . $this->imageId . '&amp;alb_id=' . $this->claims->cat;
+        $tags['ALBUM_URL'] = XOOPS_URL . '/modules/wggallery/albums.php?op=show&alb_id=' . $this->claims->cat;
         $notificationHandler = xoops_getHandler('notification');
-        $mid                 = \XoopsModules\Wggallery\Helper::getMid();
+        $mid = \XoopsModules\Wggallery\Helper::getMid();
         if (Constants::STATE_APPROVAL_VAL === $this->permUseralbum) {
             $notificationHandler->triggerEvent('global', 0, 'image_approve', $tags, [], $mid);
         } else {
@@ -259,9 +258,9 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
 
         return ['success' => true, 'uuid' => $uuid];
     }
-    
-    
-    private function recursive_array_replace ($find, $replace, $array) {
+
+    private function recursive_array_replace($find, $replace, $array)
+    {
         if (!is_array($array)) {
             return str_replace($find, $replace, $array);
         }
@@ -270,6 +269,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         foreach ($array as $key => $value) {
             $newArray[$key] = $this->recursive_array_replace($find, $replace, $value);
         }
+
         return $newArray;
     }
 
@@ -288,7 +288,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
 
         /** @var \XoopsModules\Wggallery\ImagesHandler $imagesHandler */
         $imagesHandler = $helper->getHandler('Images');
-        $imagesObj     = $imagesHandler->create();
+        $imagesObj = $imagesHandler->create();
         // Set Vars
         $imagesObj->setVar('img_title', $this->imageNicename);
         $imagesObj->setVar('img_desc', '');
@@ -321,25 +321,25 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
     private function getImageDim()
     {
         switch ($this->imageMimetype) {
-            case'image/png':
+            case 'image/png':
                 $img = imagecreatefrompng($this->imagePath);
                 break;
-            case'image/jpeg':
+            case 'image/jpeg':
                 $img = imagecreatefromjpeg($this->imagePath);
                 if (!$img) {
                     $img = imagecreatefromstring(file_get_contents($this->imagePath));
                 }
                 break;
-            case'image/gif':
+            case 'image/gif':
                 $img = imagecreatefromgif($this->imagePath);
                 break;
             default:
-                $this->imageWidth  = 0;
+                $this->imageWidth = 0;
                 $this->imageHeight = 0;
 
                 return 'Unsupported format';
         }
-        $this->imageWidth  = imagesx($img);
+        $this->imageWidth = imagesx($img);
         $this->imageHeight = imagesy($img);
 
         imagedestroy($img);

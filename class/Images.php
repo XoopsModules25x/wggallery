@@ -33,10 +33,9 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
  */
 class Images extends \XoopsObject
 {
+    public $redirOp = '';
     
-	public $redirOp = '';
-	
-	/**
+    /**
      * Constructor
      *
      * @param null
@@ -163,8 +162,8 @@ class Images extends \XoopsObject
         $imgRatinglikes = $this->isNew() ? '0' : $this->getVar('img_ratinglikes');
         $imgVotes = $this->isNew() ? '0' : $this->getVar('img_votes');
         if ($adminarea) {
-            $form->addElement(new \XoopsFormText( _CO_WGGALLERY_IMAGE_RATINGLIKES, 'img_ratinglikes', 20, 150, $imgRatinglikes ));
-            $form->addElement(new \XoopsFormText( _CO_WGGALLERY_IMAGE_VOTES, 'img_votes', 20, 150, $imgVotes ));
+            $form->addElement(new \XoopsFormText(_CO_WGGALLERY_IMAGE_RATINGLIKES, 'img_ratinglikes', 20, 150, $imgRatinglikes));
+            $form->addElement(new \XoopsFormText(_CO_WGGALLERY_IMAGE_VOTES, 'img_votes', 20, 150, $imgVotes));
         } else {
             $form->addElement(new \XoopsFormLabel(_CO_WGGALLERY_IMAGE_RATINGLIKES, $imgRatinglikes));
             $form->addElement(new \XoopsFormHidden('img_ratinglikes', $imgRatinglikes));
@@ -238,7 +237,7 @@ class Images extends \XoopsObject
             $editorConfigs['height'] = '400px';
             $editorConfigs['editor'] = 'dhtml';
             $form->addElement(new \XoopsFormEditor(_CO_WGGALLERY_IMAGE_EXIF, 'img_exif', $editorConfigs));
-        }       
+        }
         
         // Form Text ImgIp
         $form->addElement(new \XoopsFormText(_CO_WGGALLERY_IMAGE_IP, 'img_ip', 50, 255, $this->getVar('img_ip')));
@@ -250,7 +249,7 @@ class Images extends \XoopsObject
         
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
-		$form->addElement(new \XoopsFormHidden('redir_op', $this->redirOp));
+        $form->addElement(new \XoopsFormHidden('redir_op', $this->redirOp));
         $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
 
         return $form;
@@ -310,45 +309,45 @@ class Images extends \XoopsObject
                         } else {
                             $newvalue = $value;
                             switch ($key) {
-                                case 'Make';
+                                case 'Make':
                                     $exif_text .= _CO_WGGALLERY_EXIF_CAMERA;
                                 break;
-                                case 'Model';
+                                case 'Model':
                                     $exif_text .= _CO_WGGALLERY_EXIF_MODEL;
                                 break;
-                                case 'ExposureTime';
+                                case 'ExposureTime':
                                     $exif_text .= _CO_WGGALLERY_EXIF_EXPTIME;
                                 break;
-                                case 'FocalLength';
+                                case 'FocalLength':
                                     $exif_text .= _CO_WGGALLERY_EXIF_FOCALLENGTH;
                                 break;
-                                case 'DateTimeOriginal';
+                                case 'DateTimeOriginal':
                                     $exif_text .= _CO_WGGALLERY_EXIF_DATETIMEORIG;
                                     $newvalue = formatTimestamp($value);
                                 break;
-                                case 'ISOSpeedRatings';
+                                case 'ISOSpeedRatings':
                                     $exif_text .= _CO_WGGALLERY_EXIF_ISO;
                                 break;
-                                case 'FileName';
+                                case 'FileName':
                                     $exif_text .= _CO_WGGALLERY_EXIF_FILENAME;
                                 break;
-                                case 'FileDateTime';
+                                case 'FileDateTime':
                                     $exif_text .= _CO_WGGALLERY_EXIF_FILEDATETIME;
                                     $newvalue = formatTimestamp($value);
                                 break;
-                                case 'FileSize';
+                                case 'FileSize':
                                     $exif_text .= _CO_WGGALLERY_EXIF_FILESIZE;
                                 break;
-                                case 'MimeType';
+                                case 'MimeType':
                                     $exif_text .= _CO_WGGALLERY_EXIF_MIMETYPE;
                                 break;
-                                case 'UndefinedTag:0xA434';
+                                case 'UndefinedTag:0xA434':
                                     $exif_text .= _CO_WGGALLERY_EXIF_LENSMODEL;
                                 break;
-                                case 'UndefinedTag:0xA433';
+                                case 'UndefinedTag:0xA433':
                                     $exif_text .= _CO_WGGALLERY_EXIF_LENSMAKE;
-                                break;                                
-                                case 'default';
+                                break;
+                                case 'default':
                                 default:
                                     $exif_text .= $key;
                                 break;
@@ -358,9 +357,9 @@ class Images extends \XoopsObject
                     }
                 }
             } else {
-                $exif_text = "Unexpected error json_decode:" . ($this->getVar('img_exif'));
+                $exif_text = 'Unexpected error json_decode:' . ($this->getVar('img_exif'));
             }
-            if (strlen($exif_text) >  500) {
+            if (mb_strlen($exif_text) > 500) {
                 $exif_short = mb_substr($exif_text, 0, 500) . '...';
             } else {
                 $exif_short = $exif_text;
@@ -387,10 +386,10 @@ class Images extends \XoopsObject
             $criteria->setOrder('DESC');
             $com_count = $commentHandler->getCount($criteria);
             $ret['com_count'] = $com_count;
-            if ($com_count == 1) {
-                $ret['com_count_text'] = $com_count . " " . _CO_WGGALLERY_COMMENT;
+            if (1 == $com_count) {
+                $ret['com_count_text'] = $com_count . ' ' . _CO_WGGALLERY_COMMENT;
             } else {
-                $ret['com_count_text'] = $com_count . " " . _CO_WGGALLERY_COMMENTS;
+                $ret['com_count_text'] = $com_count . ' ' . _CO_WGGALLERY_COMMENTS;
             }
         }
 
