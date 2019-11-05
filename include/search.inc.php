@@ -92,6 +92,7 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
             'image' => 'assets/icons/16/images.png',
             'link'  => 'images.php?op=show&amp;img_id=' . $images[$i]['img_id'] . '&amp;alb_id=' . $images[$i]['img_albid'],
             'title' => $images[$i]['img_title'],
+            'time'  => $images[$i]['img_date'],
         ];
     }
     unset($imagesAll);
@@ -137,6 +138,7 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
             'image' => 'assets/icons/16/albums.png',
             'link'  => 'albums.php?op=show&amp;alb_id=' . $albumsAll[$i]->getVar('alb_id'),
             'title' => $albumsAll[$i]->getVar('alb_name'),
+            'time'  => $albumsAll[$i]->getVar('alb_date'),
         ];
     }
     unset($albumsAll);
