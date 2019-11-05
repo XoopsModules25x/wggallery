@@ -197,7 +197,7 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
      * delete ratings of given item
      * @param int itemid
      * @param int source
-     * @return boolean
+     * @return bool
      */
     public function deleteAllRatings($itemid, $source)
     {
