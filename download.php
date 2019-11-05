@@ -36,7 +36,7 @@ switch ($op) {
             if ($permissionsHandler->permAlbumDownload($albId)) {
                 //Archive name
                 $archive_file_name = preg_replace('/[^a-z0-9_]/i', '', $albumsHandler->get($albId)->getVar('alb_name'));
-                $archive_file_name .= uniqid('_') . '.zip';
+                $archive_file_name .= uniqid('_', true) . '.zip';
                 $archive_file_path = WGGALLERY_UPLOAD_PATH . '/temp/' . $archive_file_name;
                 unlink($archive_file_path);
 
