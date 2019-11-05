@@ -32,7 +32,7 @@ if (function_exists('mb_http_output')) {
 $xoopsModuleConfig['utf8'] = false;
 
 $tpl = new \XoopsTpl();
-$tpl->xoops_setCaching(2); //1 = Cache global, 2 = Cache individual (for template)
+$tpl->caching = 2; //1 = Cache global, 2 = Cache individual (for template)
 $tpl->xoops_setCacheTime($helper->geConfig('timecacherss') * 60); // Time of the cache on seconds
 $categories = wggalleryMyGetItemIds('wggallery_view', 'wggallery');
 $criteria   = new \CriteriaCompo();
