@@ -55,12 +55,12 @@ function loadSampleData()
         \Xmf\Database\TableLoad::truncateTable($table);
         \Xmf\Database\TableLoad::loadTableFromArray($table, $tabledata);
     }
-	
-	// load permissions
-	$table = 'group_permission';
-	$tabledata = \Xmf\Yaml::readWrapped($table . '.yml');
-	$mid = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getVar('mid');
-	loadTableFromArrayWithReplace($table, $tabledata, 'gperm_modid', $mid);
+
+    // load permissions
+    $table     = 'group_permission';
+    $tabledata = \Xmf\Yaml::readWrapped($table . '.yml');
+    $mid       = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getVar('mid');
+    loadTableFromArrayWithReplace($table, $tabledata, 'gperm_modid', $mid);
 
     //  ---  COPY test folder files ---------------
     if (is_array($configurator->copyTestFolders) && count($configurator->copyTestFolders) > 0) {
@@ -86,12 +86,12 @@ function saveSampleData()
         \Xmf\Database\TableLoad::saveTableToYamlFile($table, $table . '_' . date('Y-m-d H-i-s') . '.yml');
     }
 
-	$criteria = new \CriteriaCompo();
-	$criteria->add(new \Criteria('gperm_modid', \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getVar('mid')));
-	$skipColumns[] = 'gperm_id';
-	\Xmf\Database\TableLoad::saveTableToYamlFile('group_permission', 'group_permission_' . date('Y-m-d H-i-s') . '.yml', $criteria, $skipColumns);
-	unset($criteria);
-	
+    $criteria = new \CriteriaCompo();
+    $criteria->add(new \Criteria('gperm_modid', \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getVar('mid')));
+    $skipColumns[] = 'gperm_id';
+    \Xmf\Database\TableLoad::saveTableToYamlFile('group_permission', 'group_permission_' . date('Y-m-d H-i-s') . '.yml', $criteria, $skipColumns);
+    unset($criteria);
+
     redirect_header('../admin/index.php', 1, constant('CO_' . $moduleDirNameUpper . '_' . 'SAMPLEDATA_SUCCESS'));
 }
 
@@ -101,7 +101,7 @@ function exportSchema()
         $moduleDirName      = basename(dirname(__DIR__));
         $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
-        $migrate = new  \Xmf\Database\Migrate($moduleDirName);
+        $migrate = new \Xmf\Database\Migrate($moduleDirName);
         $migrate->saveCurrentSchema();
 
         redirect_header('../admin/index.php', 1, constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_SUCCESS'));
@@ -114,53 +114,54 @@ function exportSchema()
 /**
  * loadTableFromArrayWithReplace
  *
- * @param string $table value with should be used insead of original value of $search
+ * @param string $table  value with should be used insead of original value of $search
  *
- * @param array $data array of rows to insert
+ * @param array  $data   array of rows to insert
  *                       Each element of the outer array represents a single table row.
  *                       Each row is an associative array in 'column' => 'value' format.
  * @param string $search name of column for which the value should be replaced
- * @param $replace
+ * @param        $replace
  * @return int number of rows inserted
  */
 function loadTableFromArrayWithReplace($table, $data, $search, $replace)
 {
-	/** @var \XoopsDatabase */
-	$db = \XoopsDatabaseFactory::getDatabaseConnection();
+    /** @var \XoopsDatabase */
+    $db = \XoopsDatabaseFactory::getDatabaseConnection();
 
-	$prefixedTable = $db->prefix($table);
-	$count = 0;
-	
-	$sql = 'DELETE FROM ' . $prefixedTable . ' WHERE `' . $search . '`=' . $db->quote($replace);;
-	$result = $db->queryF($sql);
+    $prefixedTable = $db->prefix($table);
+    $count         = 0;
 
-	foreach ($data as $row) {
-		$insertInto = 'INSERT INTO ' . $prefixedTable . ' (';
-		$valueClause = ' VALUES (';
-		$first = true;
-		foreach ($row as $column => $value) {
-			if ($first) {
-				$first = false;
-			} else {
-				$insertInto .= ', ';
-				$valueClause .= ', ';
-			}
+    $sql = 'DELETE FROM ' . $prefixedTable . ' WHERE `' . $search . '`=' . $db->quote($replace);
 
-			$insertInto .= $column;
-			if ($search === $column) {
-				$valueClause .= $db->quote($replace);
-			} else {
-				$valueClause .= $db->quote($value);
-			}
-		}
+    $result = $db->queryF($sql);
 
-		$sql = $insertInto . ') ' . $valueClause . ')';
+    foreach ($data as $row) {
+        $insertInto  = 'INSERT INTO ' . $prefixedTable . ' (';
+        $valueClause = ' VALUES (';
+        $first       = true;
+        foreach ($row as $column => $value) {
+            if ($first) {
+                $first = false;
+            } else {
+                $insertInto  .= ', ';
+                $valueClause .= ', ';
+            }
 
-		$result = $db->queryF($sql);
-		if (false !== $result) {
-			++$count;
-		}
-	}
+            $insertInto .= $column;
+            if ($search === $column) {
+                $valueClause .= $db->quote($replace);
+            } else {
+                $valueClause .= $db->quote($value);
+            }
+        }
 
-	return $count;
+        $sql = $insertInto . ') ' . $valueClause . ')';
+
+        $result = $db->queryF($sql);
+        if (false !== $result) {
+            ++$count;
+        }
+    }
+
+    return $count;
 }

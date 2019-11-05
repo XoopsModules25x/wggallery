@@ -36,11 +36,14 @@ $GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/wggallery/assets/js/admin.j
 
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
 
-$maintainance_resize_desc = str_replace(['%lw', '%lh', '%mw', '%mh', '%tw', '%th'],[
-            $helper->getConfig('maxwidth_large'), $helper->getConfig('maxheight_large'), 
-            $helper->getConfig('maxwidth_medium'), $helper->getConfig('maxheight_medium'), 
-            $helper->getConfig('maxwidth_thumbs'), $helper->getConfig('maxheight_thumbs')
-            ], _AM_WGGALLERY_MAINTENANCE_RESIZE_DESC);
+$maintainance_resize_desc = str_replace(['%lw', '%lh', '%mw', '%mh', '%tw', '%th'], [
+    $helper->getConfig('maxwidth_large'),
+    $helper->getConfig('maxheight_large'),
+    $helper->getConfig('maxwidth_medium'),
+    $helper->getConfig('maxheight_medium'),
+    $helper->getConfig('maxwidth_thumbs'),
+    $helper->getConfig('maxheight_thumbs')
+], _AM_WGGALLERY_MAINTENANCE_RESIZE_DESC);
 
 $maintainance_dui_desc = str_replace('%p', WGGALLERY_UPLOAD_IMAGE_PATH, _AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC);
 
@@ -169,9 +172,9 @@ switch ($op) {
         $rTargetSelect->addOption(Constants::IMAGE_MEDIUM, _CO_WGGALLERY_IMAGE_MEDIUM);
         $rTargetSelect->addOption(Constants::IMAGE_LARGE, _CO_WGGALLERY_IMAGE_LARGE);
         $form->addElement($rTargetSelect, true);
-        
+
         $form->addElement(new \XoopsFormLabel('', _AM_WGGALLERY_MAINTENANCE_RESIZE_INFO));
-        
+
         $form->addElement(new \XoopsFormHidden('op', 'resize_album'));
         $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
         $form->display();
@@ -227,20 +230,20 @@ switch ($op) {
                 if (file_exists($sourcefile)) {
                     $counter++;
                     if (1 === $resize_large && $img_original) {
-                        $maxwidth = $helper->getConfig('maxwidth_large');
+                        $maxwidth  = $helper->getConfig('maxwidth_large');
                         $maxheight = $helper->getConfig('maxheight_large');
-                        $target = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/';
-                        
-                        $endfile = $target . $imagesAll[$i]->getVar('img_namelarge');
+                        $target    = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/';
+
+                        $endfile       = $target . $imagesAll[$i]->getVar('img_namelarge');
                         $imageMimetype = $imagesAll[$i]->getVar('img_mimetype');
 
-                        $imgHandler = new Wggallery\Resizer();
-                        $imgHandler->sourceFile = $sourcefile;
-                        $imgHandler->endFile = $endfile;
+                        $imgHandler                = new Wggallery\Resizer();
+                        $imgHandler->sourceFile    = $sourcefile;
+                        $imgHandler->endFile       = $endfile;
                         $imgHandler->imageMimetype = $imageMimetype;
-                        $imgHandler->maxWidth = $maxwidth;
-                        $imgHandler->maxHeight = $maxheight;
-                        $result = $imgHandler->resizeImage();
+                        $imgHandler->maxWidth      = $maxwidth;
+                        $imgHandler->maxHeight     = $maxheight;
+                        $result                    = $imgHandler->resizeImage();
                         if ('copy' === $result) {
                             unlink($endfile);
                             copy($sourcefile, $endfile);
@@ -254,20 +257,20 @@ switch ($op) {
                         }
                     }
                     if (1 === $resize_medium) {
-                        $maxwidth = $helper->getConfig('maxwidth_medium');
+                        $maxwidth  = $helper->getConfig('maxwidth_medium');
                         $maxheight = $helper->getConfig('maxheight_medium');
-                        $target = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/';
-                        
-                        $endfile = $target . $imagesAll[$i]->getVar('img_name');
+                        $target    = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/';
+
+                        $endfile       = $target . $imagesAll[$i]->getVar('img_name');
                         $imageMimetype = $imagesAll[$i]->getVar('img_mimetype');
 
-                        $imgHandler = new Wggallery\Resizer();
-                        $imgHandler->sourceFile = $sourcefile;
-                        $imgHandler->endFile = $endfile;
+                        $imgHandler                = new Wggallery\Resizer();
+                        $imgHandler->sourceFile    = $sourcefile;
+                        $imgHandler->endFile       = $endfile;
                         $imgHandler->imageMimetype = $imageMimetype;
-                        $imgHandler->maxWidth = $maxwidth;
-                        $imgHandler->maxHeight = $maxheight;
-                        $result = $imgHandler->resizeImage();
+                        $imgHandler->maxWidth      = $maxwidth;
+                        $imgHandler->maxHeight     = $maxheight;
+                        $result                    = $imgHandler->resizeImage();
                         if ('copy' === $result) {
                             unlink($endfile);
                             copy($sourcefile, $endfile);
@@ -281,20 +284,20 @@ switch ($op) {
                         }
                     }
                     if (1 === $resize_thumb) {
-                        $maxwidth = $helper->getConfig('maxwidth_thumbs');
+                        $maxwidth  = $helper->getConfig('maxwidth_thumbs');
                         $maxheight = $helper->getConfig('maxheight_thumbs');
-                        $target = WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/';
-                    
-                        $endfile = $target . $imagesAll[$i]->getVar('img_name');
+                        $target    = WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/';
+
+                        $endfile       = $target . $imagesAll[$i]->getVar('img_name');
                         $imageMimetype = $imagesAll[$i]->getVar('img_mimetype');
 
-                        $imgHandler = new Wggallery\Resizer();
-                        $imgHandler->sourceFile = $sourcefile;
-                        $imgHandler->endFile = $endfile;
+                        $imgHandler                = new Wggallery\Resizer();
+                        $imgHandler->sourceFile    = $sourcefile;
+                        $imgHandler->endFile       = $endfile;
                         $imgHandler->imageMimetype = $imageMimetype;
-                        $imgHandler->maxWidth = $maxwidth;
-                        $imgHandler->maxHeight = $maxheight;
-                        $result = $imgHandler->resizeImage();
+                        $imgHandler->maxWidth      = $maxwidth;
+                        $imgHandler->maxHeight     = $maxheight;
+                        $result                    = $imgHandler->resizeImage();
                         if ('copy' === $result) {
                             unlink($endfile);
                             copy($sourcefile, $endfile);
@@ -451,13 +454,12 @@ switch ($op) {
         }
         break;
     case 'invalid_ratings_search':
-    
         $templateMain = 'wggallery_admin_maintenance.tpl';
-        
+
         $success    = [];
         $errors     = [];
         $countTotal = 0;
-        $crRatings = new \CriteriaCompo();
+        $crRatings  = new \CriteriaCompo();
         $crRatings->add(new \Criteria('rate_source', 1));
         $ratingsCount = $ratingsHandler->getCount($crRatings);
         if ($ratingsCount > 0) {
@@ -479,15 +481,15 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('result_error', $err_text);
         $GLOBALS['xoopsTpl']->assign('show_invalidrate', true);
         $GLOBALS['xoopsTpl']->assign('show_result', true);
-        
+
         break;
     case 'invalid_ratings_clean':
         $templateMain = 'wggallery_admin_maintenance.tpl';
-        
+
         $success    = [];
         $errors     = [];
         $countTotal = 0;
-        $crRatings = new \CriteriaCompo();
+        $crRatings  = new \CriteriaCompo();
         $crRatings->add(new \Criteria('rate_source', 1));
         $ratingsCount = $ratingsHandler->getCount($crRatings);
         if ($ratingsCount > 0) {
@@ -503,7 +505,7 @@ switch ($op) {
                         $success[] = $ratingsAll[$i]->getVar('rate_itemid');
                     } else {
                         $errors[] = $ratingsAll[$i]->getVar('rate_itemid');
-                    }                    
+                    }
                 }
             }
         }
@@ -514,11 +516,11 @@ switch ($op) {
         break;
     case 'invalid_cats_clean':
         $templateMain = 'wggallery_admin_maintenance.tpl';
-        
+
         $success    = [];
         $errors     = [];
         $countTotal = 0;
-        $crCheck = new \CriteriaCompo();
+        $crCheck    = new \CriteriaCompo();
         $crCheck->add(new \Criteria('alb_cats', '', '<>'));
         $albumsCount = $albumsHandler->getCount($crCheck);
         if ($albumsCount > 0) {
@@ -746,7 +748,6 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('result_error', $err_text);
         $GLOBALS['xoopsTpl']->assign('show_result', true);
         break;
-
     case 'broken_imgdir_search':
         $success     = [];
         $errors      = [];
@@ -933,13 +934,13 @@ switch ($op) {
             foreach (array_keys($imagesAll) as $i) {
                 $image = $imagesAll[$i]->getValuesImages();
                 if (('read_exif' === $op && '' == $image['img_exif']) || 'read_exifall' === $op) {
-                    $imagesObj = $imagesHandler->get($image['img_id']);
+                    $imagesObj  = $imagesHandler->get($image['img_id']);
                     $sourcefile = WGGALLERY_UPLOAD_IMAGE_PATH . '/original/' . $imagesAll[$i]->getVar('img_nameorig');
                     if (!file_exists($sourcefile)) {
                         $sourcefile = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesAll[$i]->getVar('img_namelarge');
                     }
-                
-                    $imgExif   = exif_read_data($sourcefile);
+
+                    $imgExif = exif_read_data($sourcefile);
                     $imagesObj->setVar('img_exif', json_encode($imgExif));
                     if ($imagesHandler->insert($imagesObj, true)) {
                         $success[] = _AM_WGGALLERY_MAINTENANCE_READ_EXIF_SUCCESS . ': ' . $image['img_id'];
@@ -1053,15 +1054,15 @@ switch ($op) {
         $imgMimetype = '';
         $result      = false;
         $fileextions = $helper->getConfig('fileext');
-        
+
         $imagesCount = $imagesHandler->getCount();
         if ($imagesCount > 0) {
             $imagesAll = $imagesHandler->getAll();
             foreach (array_keys($imagesAll) as $i) {
                 $image = $imagesAll[$i]->getValuesImages();
                 if ('mimetypes_search' === $op) {
-                    $imgMimetype  = $image['img_mimetype'];
-                    $result = in_array($imgMimetype, $fileextions);
+                    $imgMimetype = $image['img_mimetype'];
+                    $result      = in_array($imgMimetype, $fileextions);
                     if ($result) {
                         $success[] = $image['img_name'];
                     } else {
@@ -1069,13 +1070,13 @@ switch ($op) {
                     }
                 }
                 if ('mimetypes_clean' === $op) {
-                    $imgMimetype  = $image['img_mimetype'];
-                    $result = in_array($imgMimetype, $fileextions);
+                    $imgMimetype = $image['img_mimetype'];
+                    $result      = in_array($imgMimetype, $fileextions);
                     if ($result) {
                         $success[] = _AM_WGGALLERY_MAINTENANCE_CHECK_MT_SUCCESSOK . ': ' . $image['img_name'];
                     } else {
-                        $imagesObj = $imagesHandler->get($image['img_id']);
-                        $imgLarge  = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $image['img_namelarge'];
+                        $imagesObj   = $imagesHandler->get($image['img_id']);
+                        $imgLarge    = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $image['img_namelarge'];
                         $imgMimetype = mime_content_type($imgLarge);
                         $imagesObj->setVar('img_mimetype', $imgMimetype);
                         if ($imagesHandler->insert($imagesObj, true)) {
@@ -1114,23 +1115,22 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('show_result', true);
         break;
     case 'check_space':
-        $success     = [];
-        $errors      = [];
-        
-        
-        $path = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums';
+        $success = [];
+        $errors  = [];
+
+        $path      = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums';
         $disk_used = wgg_foldersize($path);
         $success[] = $path . ': ' . wgg_format_size($disk_used);
-        $path = WGGALLERY_UPLOAD_IMAGE_PATH . '/large';
+        $path      = WGGALLERY_UPLOAD_IMAGE_PATH . '/large';
         $disk_used = wgg_foldersize($path);
         $success[] = $path . ': ' . wgg_format_size($disk_used);
-        $path = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium';
+        $path      = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium';
         $disk_used = wgg_foldersize($path);
         $success[] = $path . ': ' . wgg_format_size($disk_used);
-        $path = WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs';
+        $path      = WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs';
         $disk_used = wgg_foldersize($path);
         $success[] = $path . ': ' . wgg_format_size($disk_used);
-        $path = WGGALLERY_UPLOAD_IMAGE_PATH . '/temp';
+        $path      = WGGALLERY_UPLOAD_IMAGE_PATH . '/temp';
         $disk_used = wgg_foldersize($path);
         $success[] = $path . ': ' . wgg_format_size($disk_used);
 
@@ -1143,7 +1143,7 @@ switch ($op) {
             }
             $err_text .= '</ul>';
         }
-         if (count($success) > 0) {
+        if (count($success) > 0) {
             $success_text = '<ul>';
             foreach ($success as $s) {
                 $success_text .= '<li>' . $s . '</li>';
@@ -1174,7 +1174,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('show_wm', true);
         $GLOBALS['xoopsTpl']->assign('show_exif', true);
         $GLOBALS['xoopsTpl']->assign('show_mimetypes', true);
-        
+
         $maintainance_cs_desc = str_replace('%p', WGGALLERY_UPLOAD_IMAGE_PATH, _AM_WGGALLERY_MAINTENANCE_CHECK_SPACE_DESC);
         $GLOBALS['xoopsTpl']->assign('maintainance_cs_desc', $maintainance_cs_desc);
         $GLOBALS['xoopsTpl']->assign('show_checkspace', true);
@@ -1266,23 +1266,25 @@ function getUnusedImages(&$unused, $directory)
  * @param string $path
  * @return int
  */
-function wgg_foldersize($path) {
-  $total_size = 0;
-  $files = scandir($path);
+function wgg_foldersize($path)
+{
+    $total_size = 0;
+    $files      = scandir($path);
 
-  foreach($files as $t) {
-    if (is_dir(rtrim($path, '/') . '/' . $t)) {
-      if ($t<>"." && $t<>"..") {
-          $size = wgg_foldersize(rtrim($path, '/') . '/' . $t);
+    foreach ($files as $t) {
+        if (is_dir(rtrim($path, '/') . '/' . $t)) {
+            if ('.' != $t && '..' != $t) {
+                $size = wgg_foldersize(rtrim($path, '/') . '/' . $t);
 
-          $total_size += $size;
-      }
-    } else {
-      $size = filesize(rtrim($path, '/') . '/' . $t);
-      $total_size += $size;
+                $total_size += $size;
+            }
+        } else {
+            $size       = filesize(rtrim($path, '/') . '/' . $t);
+            $total_size += $size;
+        }
     }
-  }
-  return $total_size;
+
+    return $total_size;
 }
 
 /**
@@ -1290,14 +1292,15 @@ function wgg_foldersize($path) {
  * @param int $size
  * @return string
  */
-function wgg_format_size($size) {
-  $mod = 1024;
-  $units = explode(' ','B KB MB GB TB PB');
-  for ($i = 0; $size > $mod; $i++) {
-    $size /= $mod;
-  }
+function wgg_format_size($size)
+{
+    $mod   = 1024;
+    $units = explode(' ', 'B KB MB GB TB PB');
+    for ($i = 0; $size > $mod; $i++) {
+        $size /= $mod;
+    }
 
-  return round($size, 2) . ' ' . $units[$i];
+    return round($size, 2) . ' ' . $units[$i];
 }
 
 require __DIR__ . '/footer.php';

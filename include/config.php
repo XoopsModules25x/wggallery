@@ -53,7 +53,7 @@ function getConfig()
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/watermarks',
             //XOOPS_UPLOAD_PATH . '/flags'
         ],
-        
+
         'copyNoImageFiles' => [
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/albums',
             //XOOPS_UPLOAD_PATH . '/flags'

@@ -35,7 +35,7 @@ define('_AM_WGGALLERY_THEREARE_CATEGORIES', "Es gibt <span class='bold'>%s</span
 define('_AM_WGGALLERY_THEREARENT_GALLERYTYPES', "Es gibt keine Galerietypen! Für eine Initialisierung bzw. Wiederherstellung gehen Sie bitte auf 'Wartung' => 'Wartung Galerietypen' und klicken Sie auf die Schaltfläche 'Standardeinstellungen wiederherstellen'");
 define('_AM_WGGALLERY_THEREARENT_ALBUMTYPES', "Es gibt keine Albumtypen! Für eine Initialisierung bzw. Wiederherstellung gehen Sie bitte auf 'Wartung' => 'Wartung Albumtypen' und klicken Sie auf die Schaltfläche 'Standardeinstellungen wiederherstellen'");
 define('_AM_WGGALLERY_THEREARENT_WATERMARKS', 'Derzeit sind keine Wasserzeichen definiert!');
-define('_AM_WGGALLERY_THEREARENT_CATEGORIES', "Es gibt keine Kategorien!");
+define('_AM_WGGALLERY_THEREARENT_CATEGORIES', 'Es gibt keine Kategorien!');
 // ---------------- Admin Files ----------------
 // Buttons
 define('_AM_WGGALLERY_ADD_ALBUM', 'Neues Album hinzufügen');

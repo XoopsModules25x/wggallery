@@ -161,8 +161,8 @@ $modversion['comments']['callback']['update']  = 'wggalleryCommentsUpdate';
 $currdirname = isset($GLOBALS['xoopsModule']) && is_object($GLOBALS['xoopsModule']) ? $GLOBALS['xoopsModule']->getVar('dirname') : 'system';
 
 if ($moduleDirName == $currdirname) {
-    $subcount = 1;
-    $pathname = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName;
+    $subcount                             = 1;
+    $pathname                             = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName;
     $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME1;
     $modversion['sub'][$subcount]['url']  = 'index.php';
     require_once $pathname . '/include/common.php';
@@ -547,25 +547,26 @@ $modversion['config'][] = [
     'formtype'    => 'select_multi',
     'valuetype'   => 'array',
     'default'     => ['FileName', 'FileDateTime', 'FileSize', 'MimeType', 'Make', 'Model', 'ExposureTime', 'FocalLength', 'DateTimeOriginal', 'ISOSpeedRatings', 'UndefinedTag:0xA433', 'UndefinedTag:0xA434'],
-    'options'     => ['_CO_WGGALLERY_EXIF_ALL' => 'all', 
-                      '_CO_WGGALLERY_EXIF_FILENAME' => 'FileName',
-                      '_CO_WGGALLERY_EXIF_FILEDATETIME' => 'FileDateTime',
-                      '_CO_WGGALLERY_EXIF_FILESIZE' => 'FileSize',
-                      '_CO_WGGALLERY_EXIF_MIMETYPE' => 'MimeType',
-                      '_CO_WGGALLERY_EXIF_CAMERA' => 'Make', 
-                      '_CO_WGGALLERY_EXIF_MODEL' => 'Model',
-                      '_CO_WGGALLERY_EXIF_EXPTIME' => 'ExposureTime',
-                      '_CO_WGGALLERY_EXIF_FOCALLENGTH' => 'FocalLength',
-                      '_CO_WGGALLERY_EXIF_DATETIMEORIG' => 'DateTimeOriginal',
-                      '_CO_WGGALLERY_EXIF_ISO' => 'ISOSpeedRatings',
-                      '_CO_WGGALLERY_EXIF_LENSMAKE' => 'UndefinedTag:0xA433',
-                      '_CO_WGGALLERY_EXIF_LENSMODEL' => 'UndefinedTag:0xA434',
-                     ]
+    'options'     => [
+        '_CO_WGGALLERY_EXIF_ALL'          => 'all',
+        '_CO_WGGALLERY_EXIF_FILENAME'     => 'FileName',
+        '_CO_WGGALLERY_EXIF_FILEDATETIME' => 'FileDateTime',
+        '_CO_WGGALLERY_EXIF_FILESIZE'     => 'FileSize',
+        '_CO_WGGALLERY_EXIF_MIMETYPE'     => 'MimeType',
+        '_CO_WGGALLERY_EXIF_CAMERA'       => 'Make',
+        '_CO_WGGALLERY_EXIF_MODEL'        => 'Model',
+        '_CO_WGGALLERY_EXIF_EXPTIME'      => 'ExposureTime',
+        '_CO_WGGALLERY_EXIF_FOCALLENGTH'  => 'FocalLength',
+        '_CO_WGGALLERY_EXIF_DATETIMEORIG' => 'DateTimeOriginal',
+        '_CO_WGGALLERY_EXIF_ISO'          => 'ISOSpeedRatings',
+        '_CO_WGGALLERY_EXIF_LENSMAKE'     => 'UndefinedTag:0xA433',
+        '_CO_WGGALLERY_EXIF_LENSMODEL'    => 'UndefinedTag:0xA434',
+    ],
 ];
 
 // Rating bar
 $modversion['config'][] = [
-    'name'       => 'ratingbars',
+    'name'        => 'ratingbars',
     'title'       => '_MI_WGGALLERY_RATINGBARS',
     'description' => '_MI_WGGALLERY_RATINGBARS_DESC',
     'formtype'    => 'select',
@@ -573,10 +574,10 @@ $modversion['config'][] = [
     'default'     => 0,
     'options'     => ['_MI_WGGALLERY_RATING_NONE' => 0, '_MI_WGGALLERY_RATING_5STARS' => 1, '_MI_WGGALLERY_RATING_10STARS' => 2, '_MI_WGGALLERY_RATING_LIKES' => 3, '_MI_WGGALLERY_RATING_10NUM' => 4],
 ];
-    
-$group_handler = xoops_getHandler('group');
-$group_arr     = $group_handler->getObjects();
-$ratingbar_groups = array();
+
+$group_handler    = xoops_getHandler('group');
+$group_arr        = $group_handler->getObjects();
+$ratingbar_groups = [];
 foreach (array_keys($group_arr) as $i) {
     $ratingbar_groups[$group_arr[$i]->getVar('name')] = $group_arr[$i]->getVar('groupid');
 }
@@ -586,7 +587,7 @@ $modversion['config'][] = [
     'description' => '_MI_WGGALLERY_RATINGBAR_GROUPS_DESC',
     'formtype'    => 'select_multi',
     'valuetype'   => 'array',
-    'default'     => array('1'),
+    'default'     => ['1'],
     'options'     => $ratingbar_groups,
 ];
 

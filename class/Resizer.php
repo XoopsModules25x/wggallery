@@ -182,7 +182,6 @@ class Resizer
         return true;
     }
 
-
     public function mergeImage()
     {
         $dest = imagecreatefromjpeg($this->endFile);
@@ -240,7 +239,7 @@ class Resizer
         imagedestroy($src);
         imagedestroy($dest);
     }
-    
+
     /**
      * @return bool|string
      */
@@ -266,7 +265,6 @@ class Resizer
         }
         // Rotate
         $tmpimg = imagerotate($original, $this->degrees, 0);
-
 
         unlink($this->endFile);
         //compressing the file

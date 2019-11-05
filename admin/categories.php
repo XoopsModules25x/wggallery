@@ -44,7 +44,7 @@ switch ($op) {
         $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
         $adminObject->addItemButton(_AM_WGGALLERY_ADD_CATEGORY, 'categories.php?op=new', 'add');
 
-        $crCategories = new \CriteriaCompo();
+        $crCategories    = new \CriteriaCompo();
         $categoriesCount = $categoriesHandler->getCount($crCategories);
         $crCategories->setStart($start);
         $crCategories->setLimit($limit);
@@ -70,7 +70,7 @@ switch ($op) {
         } else {
             $GLOBALS['xoopsTpl']->assign('error', _AM_WGGALLERY_THEREARENT_CATEGORIES);
         }
-        
+
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         break;
     case 'new':
@@ -79,7 +79,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $categoriesObj = $categoriesHandler->create();
-        $form      = $categoriesObj->getFormCategories();
+        $form          = $categoriesObj->getFormCategories();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
 
         break;
@@ -118,7 +118,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $categoriesObj = $categoriesHandler->get($catId);
-        $form      = $categoriesObj->getFormCategories(true);
+        $form          = $categoriesObj->getFormCategories(true);
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     case 'change':

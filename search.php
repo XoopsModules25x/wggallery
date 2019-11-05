@@ -31,7 +31,7 @@ $op    = Request::getString('op', 'initiate');
 $start = Request::getInt('start', 0);
 $limit = Request::getInt('limit', $helper->getConfig('userpager'));
 
-$search_text = strtolower(Request::getString('search_text', ''));
+$search_text = mb_strtolower(Request::getString('search_text', ''));
 $search_cats = Request::getArray('search_cats', []);
 $search_subm = Request::getInt('search_subm', 0);
 $search_act  = Request::getInt('search_act', 1);
@@ -77,13 +77,13 @@ $descCats = new \XoopsFormLabel('', _MA_WGGALLERY_SEARCH_CATS_DESC);
 $trayCats->addElement($descCats, false);
 if ($helper->getConfig('use_categories')) {
     $categoriesHandler = $helper->getHandler('Categories');
-    $crCategories = new \CriteriaCompo();
+    $crCategories      = new \CriteriaCompo();
     $crCategories->add(new \Criteria('cat_image', 1));
     $categoriesCount = $categoriesHandler->getCount($crCategories);
     if ($categoriesCount > 0) {
         $crCategories->setSort('cat_weight ASC, cat_text');
         $crCategories->setOrder('ASC');
-        $categoriesAll = $categoriesHandler->getAll($crCategories);
+        $categoriesAll    = $categoriesHandler->getAll($crCategories);
         $selectCategories = new \XoopsFormCheckBox('', 'search_cats', $search_cats);
         foreach (array_keys($categoriesAll) as $i) {
             $selectCategories->addOption($categoriesAll[$i]->getVar('cat_id'), $categoriesAll[$i]->getVar('cat_text'));
@@ -96,32 +96,32 @@ if ($helper->getConfig('use_categories')) {
 $form1->addElement($trayCats, false);
 
 // search for submitter of album or image
-$userHandler = xoops_gethandler('user');
-$sql = 'SELECT alb_submitter FROM ' . $xoopsDB->prefix('wggallery_albums') . ' GROUP BY alb_submitter';
-$result = $GLOBALS['xoopsDB']->query($sql) or die ("MySQL-Error: " . mysqli_error());       
-while($row = $GLOBALS['xoopsDB']->fetchrow($result)) {
+$userHandler = xoops_getHandler('user');
+$sql         = 'SELECT alb_submitter FROM ' . $xoopsDB->prefix('wggallery_albums') . ' GROUP BY alb_submitter';
+$result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . mysqli_error());
+while ($row = $GLOBALS['xoopsDB']->fetchrow($result)) {
     $subm_search[$row[0]]['uid'] = $row[0];
-    $user = $userHandler->get($row[0]);
-    $username = $user->getVar('name');
+    $user                        = $userHandler->get($row[0]);
+    $username                    = $user->getVar('name');
     if ('' === $username) {
         $username = $user->getVar('uname');
     }
     $subm_search[$row[0]]['name'] = $username;
 }
 $sql = 'SELECT img_submitter FROM ' . $xoopsDB->prefix('wggallery_images') . ' GROUP BY img_submitter';
-$result       = $GLOBALS['xoopsDB']->query($sql) or die ("MySQL-Error: " . mysqli_error());       
-while($row = $GLOBALS['xoopsDB']->fetchrow($result)) {
+$result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . mysqli_error());
+while ($row = $GLOBALS['xoopsDB']->fetchrow($result)) {
     $subm_search[$row[0]]['uid'] = $row[0];
-    $user = $userHandler->get($row[0]);
-    $username = $user->getVar('name');
+    $user                        = $userHandler->get($row[0]);
+    $username                    = $user->getVar('name');
     if ('' === $username) {
         $username = $user->getVar('uname');
     }
     $subm_search[$row[0]]['name'] = $username;
-}  
+}
 // Form Select users
 $traySubmitter = new \XoopsFormElementTray(_MA_WGGALLERY_SEARCH_SUBM, '<br>');
-$descSelect = new \XoopsFormLabel('', _MA_WGGALLERY_SEARCH_SUBM_DESC);
+$descSelect    = new \XoopsFormLabel('', _MA_WGGALLERY_SEARCH_SUBM_DESC);
 $traySubmitter->addElement($descSelect, false);
 $submSelect = new \XoopsFormSelect('', 'search_subm', $search_subm);
 $submSelect->addOption(0, ' ');
@@ -153,7 +153,7 @@ if ($ratingbars > 0) {
     $GLOBALS['xoopsTpl']->assign('rating_likes', (Constants::RATING_LIKES === $ratingbars));
 }
 $form2->addElement($activitySelect);
-     
+
 // To Save
 $form2->addElement(new \XoopsFormHidden('op', 'exec_search_act'));
 $form2->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
@@ -165,14 +165,13 @@ $GLOBALS['xoopsTpl']->assign('form2', $form2->render());
 switch ($op) {
     case 'exec_search':
     case 'exec_search_act':
-        
         if ('' === $imageIdsIn) {
             // search wasnt done till now
             // check that minimum one search option is used
-            if ('' === $search_text && count($search_cats) == 0 && 0 === $search_subm && 'exec_search' === $op ) {
+            if ('' === $search_text && 0 == count($search_cats) && 0 === $search_subm && 'exec_search' === $op) {
                 redirect_header('search.php', 3, _MA_WGGALLERY_SEARCH_ERROR_NO_FILTER);
             }
-            
+
             $album_ids      = [];
             $album_ids_view = [];
             $image_ids      = [];
@@ -185,23 +184,23 @@ switch ($op) {
             if ($albumsCount > 0) {
                 $albumsAll = $albumsHandler->getAll($crAlbums);
                 foreach (array_keys($albumsAll) as $i) {
-                    $albId =$albumsAll[$i]->getVar('alb_id');
+                    $albId    = $albumsAll[$i]->getVar('alb_id');
                     $permView = $permissionsHandler->permAlbumView($albId);
                     if ($permView) {
-                        $album_ids_view[] = $albId ;
+                        $album_ids_view[] = $albId;
                         if ('' !== $search_text) {
-                            $pos = strpos(strtolower($albumsAll[$i]->getVar('alb_name')), $search_text);
-                            if ($pos !== false) {
+                            $pos = mb_strpos(mb_strtolower($albumsAll[$i]->getVar('alb_name')), $search_text);
+                            if (false !== $pos) {
                                 $album_ids[] = $albId;
                                 //echo "<br>$albId: alb_name ".$albumsAll[$i]->getVar('alb_name')." contains " . $search_text;
                             }
-                            $pos = strpos(strtolower($albumsAll[$i]->getVar('alb_desc')), $search_text);
-                            if ($pos !== false) {
+                            $pos = mb_strpos(mb_strtolower($albumsAll[$i]->getVar('alb_desc')), $search_text);
+                            if (false !== $pos) {
                                 $album_ids[] = $albId;
                                 //echo "<br>$albId: alb_desc ".$albumsAll[$i]->getVar('alb_desc')." contains " . $search_text;
                             }
-                            $pos = strpos(strtolower($albumsAll[$i]->getVar('alb_tags')), $search_text);
-                            if ($pos !== false) {
+                            $pos = mb_strpos(mb_strtolower($albumsAll[$i]->getVar('alb_tags')), $search_text);
+                            if (false !== $pos) {
                                 $album_ids[] = $albId;
                                 //echo "<br>$albId: alb_tags ".$albumsAll[$i]->getVar('alb_tags')." contains " . $search_text;
                             }
@@ -210,9 +209,9 @@ switch ($op) {
                             $album_ids[] = $albId;
                             //echo "<br>$albId: alb_submitter = " . $search_subm;
                         }
-                        if ($albumsAll[$i]->getVar('alb_cats') != '') {
+                        if ('' != $albumsAll[$i]->getVar('alb_cats')) {
                             $alb_cats = unserialize($albumsAll[$i]->getVar('alb_cats'));
-                            foreach($search_cats as $cat) {
+                            foreach ($search_cats as $cat) {
                                 if (in_array($cat, $alb_cats)) {
                                     $album_ids[] = $albId;
                                     //echo "<br>$albId: cat $cat is in alb_cats = ";
@@ -223,17 +222,17 @@ switch ($op) {
                 }
                 //echo "<br>count(album_ids):".count($album_ids);
                 if (count($album_ids) > 0) {
-                    $img_albids = implode(",",$album_ids);
-                    $sql = 'SELECT img_id FROM ' . $xoopsDB->prefix('wggallery_images') . ' WHERE (`img_albid` IN (' . $img_albids . '))';
-                    $result = $GLOBALS['xoopsDB']->query($sql) or die ("MySQL-Error: " . mysqli_error());       
-                    while($row = $GLOBALS['xoopsDB']->fetchrow($result)) {
+                    $img_albids = implode(',', $album_ids);
+                    $sql        = 'SELECT img_id FROM ' . $xoopsDB->prefix('wggallery_images') . ' WHERE (`img_albid` IN (' . $img_albids . '))';
+                    $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . mysqli_error());
+                    while ($row = $GLOBALS['xoopsDB']->fetchrow($result)) {
                         $image_ids[] = $row[0];
                     }
                 }
             }
             unset($crAlbums);
             unset($i);
-            
+
             // search in table wggallery_images
             $crImages = new \CriteriaCompo();
             $crImages->add(new \Criteria('img_state', Constants::STATE_ONLINE_VAL));
@@ -242,23 +241,23 @@ switch ($op) {
                 $imagesAll = $imagesHandler->getAll($crImages);
                 foreach (array_keys($imagesAll) as $i) {
                     if ('' !== $search_text) {
-                        $pos = strpos(strtolower($imagesAll[$i]->getVar('img_title')), $search_text);
-                        if ($pos !== false) {
+                        $pos = mb_strpos(mb_strtolower($imagesAll[$i]->getVar('img_title')), $search_text);
+                        if (false !== $pos) {
                             $image_ids[] = $imagesAll[$i]->getVar('img_id');
                             //echo "<br>img_title ".$imagesAll[$i]->getVar('img_title')." contains " . $search_text;
                         }
-                        $pos = strpos(strtolower($imagesAll[$i]->getVar('img_name')), $search_text);
-                        if ($pos !== false) {
+                        $pos = mb_strpos(mb_strtolower($imagesAll[$i]->getVar('img_name')), $search_text);
+                        if (false !== $pos) {
                             $image_ids[] = $imagesAll[$i]->getVar('img_id');
                             //echo "<br>img_name ".$imagesAll[$i]->getVar('img_name')." contains " . $search_text;
                         }
-                        $pos = strpos(strtolower($imagesAll[$i]->getVar('img_desc')), $search_text);
-                        if ($pos !== false) {
+                        $pos = mb_strpos(mb_strtolower($imagesAll[$i]->getVar('img_desc')), $search_text);
+                        if (false !== $pos) {
                             $image_ids[] = $imagesAll[$i]->getVar('img_id');
                             //echo "<br>img_desc ".$imagesAll[$i]->getVar('img_desc')." contains " . $search_text;
                         }
-                        $pos = strpos(strtolower($imagesAll[$i]->getVar('img_tags')), $search_text);
-                        if ($pos !== false) {
+                        $pos = mb_strpos(mb_strtolower($imagesAll[$i]->getVar('img_tags')), $search_text);
+                        if (false !== $pos) {
                             $image_ids[] = $imagesAll[$i]->getVar('img_id');
                             //echo "<br>img_tags ".$imagesAll[$i]->getVar('img_tags')." contains " . $search_text;
                         }
@@ -267,9 +266,9 @@ switch ($op) {
                         $image_ids[] = $imagesAll[$i]->getVar('img_id');
                         //echo "<br>img_submitter = " . $search_subm;
                     }
-                    if ($imagesAll[$i]->getVar('img_cats') != '') {
+                    if ('' != $imagesAll[$i]->getVar('img_cats')) {
                         $img_cats = unserialize($imagesAll[$i]->getVar('img_cats'));
-                        foreach($search_cats as $cat) {
+                        foreach ($search_cats as $cat) {
                             if (in_array($cat, $img_cats)) {
                                 $image_ids[] = $imagesAll[$i]->getVar('img_id');
                                 //echo "<br>cat $cat is in img_cats = ";
@@ -280,12 +279,12 @@ switch ($op) {
             }
             unset($crImages);
             unset($i);
-            
-            $imageIdsIn = implode(",",array_unique($image_ids));
+
+            $imageIdsIn = implode(',', array_unique($image_ids));
         }
-        
+
         //echo "<br>imageIdsIn: $imageIdsIn";
-        
+
         // get list of images
         $crImages = new \CriteriaCompo();
         $crImages->add(new \Criteria('img_state', Constants::STATE_ONLINE_VAL));
@@ -297,24 +296,24 @@ switch ($op) {
                 case WGGALLERY_SEARCH_ACT_DOWNLOADS:
                     $crImages->setSort('img_downloads');
                     $crImages->setOrder('DESC');
-                break;
+                    break;
                 case WGGALLERY_SEARCH_ACT_VIEWS:
                     $crImages->setSort('img_views');
                     $crImages->setOrder('DESC');
-                break;
+                    break;
                 case WGGALLERY_SEARCH_ACT_RATINGS:
                     $crImages->setSort('img_ratinglikes');
                     $crImages->setOrder('DESC');
-                break;
+                    break;
                 case WGGALLERY_SEARCH_ACT_VOTES:
                     $crImages->setSort('img_votes');
                     $crImages->setOrder('DESC');
-                break;
+                    break;
                 case 'default':
                 default:
                     // should never happens
                     redirect_header('search.php', 3, 'invalid parameter');
-                break;
+                    break;
             }
         }
         $imagesCount = $imagesHandler->getCount($crImages);
@@ -326,19 +325,18 @@ switch ($op) {
             // Get All Images
             foreach (array_keys($imagesAll) as $i) {
                 $images[$i] = $imagesAll[$i]->getValuesImages();
-                if ($helper->getConfig('ratingbars') >  0) {
+                if ($helper->getConfig('ratingbars') > 0) {
                     $images[$i]['rating'] = $ratingsHandler->getItemRating($images[$i]['id'], 1);
                 }
-
             }
             $GLOBALS['xoopsTpl']->assign('images', $images);
             unset($images);
             // Display Navigation
             if ($imagesCount > $limit && 'exec_search' == $op) {
                 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-                $pagenav = new \XoopsPageNav($imagesCount, $limit, $start, 'start', 'op=exec_search&amp;limit=' .  $limit . '&amp;imageIdsIn=' . $imageIdsIn);
+                $pagenav = new \XoopsPageNav($imagesCount, $limit, $start, 'start', 'op=exec_search&amp;limit=' . $limit . '&amp;imageIdsIn=' . $imageIdsIn);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
-            }        
+            }
         }
         $GLOBALS['xoopsTpl']->assign('showlist', true);
         $GLOBALS['xoopsTpl']->assign('start', $start);
@@ -351,11 +349,8 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('use_tags', $helper->getConfig('use_tags'));
         $GLOBALS['xoopsTpl']->assign('use_categories', $helper->getConfig('use_categories'));
         break;
-
     case 'intiate':
     default:
-        
-        
         break;
 }
 

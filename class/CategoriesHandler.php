@@ -56,7 +56,7 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
     /**
      * retrieve a field
      *
-     * @param int        $i field id
+     * @param int   $i field id
      * @param array $fields
      * @return mixed reference to the {@link Get} object
      */
@@ -78,8 +78,8 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
 
     /**
      * Get Count Categories in the database
-     * @param int $start
-     * @param int $limit
+     * @param int    $start
+     * @param int    $limit
      * @param string $sort
      * @param string $order
      * @return int

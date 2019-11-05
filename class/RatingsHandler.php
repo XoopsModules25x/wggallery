@@ -23,7 +23,7 @@ namespace XoopsModules\Wggallery;
  * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
  * @version        $Id: 1.0 ratings.php 13070 Wed 2016-12-14 22:22:34Z XOOPS Development Team $
  */
- 
+
 use XoopsModules\Wggallery;
 use XoopsModules\Wggallery\Constants;
 
@@ -57,7 +57,7 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
     /**
      * retrieve a field
      *
-     * @param int $i field id
+     * @param int   $i field id
      * @param array $fields
      * @return mixed reference to the {@link Get} object
      */
@@ -70,7 +70,7 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
      * get inserted id
      *
      * @param null
-     * @return integer reference to the {@link Get} object
+     * @return int reference to the {@link Get} object
      */
     public function getInsertId()
     {
@@ -86,18 +86,17 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
     public function getItemRating($itemid = 0, $source = 0)
     {
         $helper = \XoopsModules\Wggallery\Helper::getInstance();
-        
-        $ItemRating = array();
+
+        $ItemRating               = [];
         $ItemRating['nb_ratings'] = 0;
 
         $uid   = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
         $voted = false;
         $ip    = getenv('REMOTE_ADDR');
-        
-        if (Constants::RATING_5STARS === (int)$helper->getConfig('ratingbars') 
-                || Constants::RATING_10STARS === (int)$helper->getConfig('ratingbars')
-                || Constants::RATING_10NUM === (int)$helper->getConfig('ratingbars')
-            ) {        
+
+        if (Constants::RATING_5STARS === (int)$helper->getConfig('ratingbars')
+            || Constants::RATING_10STARS === (int)$helper->getConfig('ratingbars')
+            || Constants::RATING_10NUM === (int)$helper->getConfig('ratingbars')) {
             $rating_unitwidth = 25;
             if (Constants::RATING_5STARS === (int)$helper->getConfig('ratingbars')) {
                 $max_units = 5;
@@ -105,19 +104,19 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
                 $max_units = 10;
             }
             $current_rating = 0;
-        
+
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('rate_itemid', $itemid));
             $criteria->add(new \Criteria('rate_source', $source));
-            
-            $ratingObjs = $helper->getHandler('ratings')->getObjects($criteria);
-            $count = count($ratingObjs);
+
+            $ratingObjs               = $helper->getHandler('ratings')->getObjects($criteria);
+            $count                    = count($ratingObjs);
             $ItemRating['nb_ratings'] = $count;
 
             foreach ($ratingObjs as $ratingObj) {
                 $current_rating += $ratingObj->getVar('rate_value');
                 if ($ratingObj->getVar('rate_ip') == $ip || ($uid > 0 && $uid == $ratingObj->getVar('rate_uid'))) {
-                    $voted = true;
+                    $voted            = true;
                     $ItemRating['id'] = $ratingObj->getVar('rate_id');
                 }
             }
@@ -129,16 +128,16 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
                 $ItemRating['avg_rate_value'] = number_format($current_rating / $count, 2);
             }
             if (1 == $count) {
-                $text = str_replace('%c', $ItemRating['avg_rate_value'], _MA_WGGALLERY_RATING_CURRENT_1);
+                $text      = str_replace('%c', $ItemRating['avg_rate_value'], _MA_WGGALLERY_RATING_CURRENT_1);
                 $shorttext = str_replace('%c', $ItemRating['avg_rate_value'], _MA_WGGALLERY_RATING_CURRENT_SHORT_1);
             } else {
-                $text = str_replace('%c', $ItemRating['avg_rate_value'], _MA_WGGALLERY_RATING_CURRENT_X);
+                $text      = str_replace('%c', $ItemRating['avg_rate_value'], _MA_WGGALLERY_RATING_CURRENT_X);
                 $shorttext = str_replace('%c', $ItemRating['avg_rate_value'], _MA_WGGALLERY_RATING_CURRENT_SHORT_X);
             }
-            $text = str_replace('%c', $ItemRating['avg_rate_value'], _MA_WGGALLERY_RATING_CURRENT_X);
-            $text = str_replace('%m', $max_units, $text);
-            $text = str_replace('%t', $ItemRating['nb_ratings'], $text);
-            $shorttext = str_replace('%t', $ItemRating['nb_ratings'], $shorttext);
+            $text                    = str_replace('%c', $ItemRating['avg_rate_value'], _MA_WGGALLERY_RATING_CURRENT_X);
+            $text                    = str_replace('%m', $max_units, $text);
+            $text                    = str_replace('%t', $ItemRating['nb_ratings'], $text);
+            $shorttext               = str_replace('%t', $ItemRating['nb_ratings'], $shorttext);
             $ItemRating['text']      = $text;
             $ItemRating['shorttext'] = $shorttext;
             $ItemRating['size']      = ($ItemRating['avg_rate_value'] * $rating_unitwidth) . 'px';
@@ -148,43 +147,43 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
             $criteria->add(new \Criteria('rate_itemid', $itemid));
             $criteria->add(new \Criteria('rate_source', $source));
             $criteria->add(new \Criteria('rate_value', 0, '<'));
-            
-            $ratingObjs     = $helper->getHandler('ratings')->getObjects($criteria);
-            $count          = count($ratingObjs);
+
+            $ratingObjs = $helper->getHandler('ratings')->getObjects($criteria);
+            $count      = count($ratingObjs);
 
             foreach ($ratingObjs as $ratingObj) {
                 $current_rating += $ratingObj->getVar('rate_value');
                 if ($ratingObj->getVar('rate_ip') == $ip || ($uid > 0 && $uid == $ratingObj->getVar('rate_uid'))) {
-                    $voted = true;
+                    $voted            = true;
                     $ItemRating['id'] = $ratingObj->getVar('rate_id');
                 }
             }
             unset($ratingObj);
             unset($criteria);
             $ItemRating['dislikes'] = $count;
-            
+
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('rate_itemid', $itemid));
             $criteria->add(new \Criteria('rate_source', $source));
             $criteria->add(new \Criteria('rate_value', 0, '>'));
-            
-            $ratingObjs     = $helper->getHandler('ratings')->getObjects($criteria);
-            $count          = count($ratingObjs);
+
+            $ratingObjs = $helper->getHandler('ratings')->getObjects($criteria);
+            $count      = count($ratingObjs);
 
             foreach ($ratingObjs as $ratingObj) {
                 $current_rating += $ratingObj->getVar('rate_value');
                 if ($ratingObj->getVar('rate_ip') == $ip || ($uid > 0 && $uid == $ratingObj->getVar('rate_uid'))) {
-                    $voted = true;
+                    $voted            = true;
                     $ItemRating['id'] = $ratingObj->getVar('rate_id');
                 }
             }
             unset($ratingObj);
             unset($criteria);
             $ItemRating['likes'] = $count;
-            
+
             $count = $ItemRating['likes'] + $ItemRating['dislikes'];
         }
-        
+
         $ItemRating['uid']        = $uid;
         $ItemRating['nb_ratings'] = $count;
         $ItemRating['voted']      = $voted;
@@ -192,30 +191,30 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
 
         return $ItemRating;
     }
-    
+
     /**
      * delete ratings of given item
      * @param int itemid
      * @param int source
-     * @return boolean
+     * @return bool
      */
     public function deleteAllRatings($itemid, $source)
     {
         $criteria = new \CriteriaCompo();
         $criteria->add(new \Criteria('rate_itemid', $itemid));
         $criteria->add(new \Criteria('rate_source', $source));
-        
+
         return $this->deleteAll($criteria);
     }
 
     /**
      * Get Criteria Ratings
-     * @param $crRatings
-     * @param $start
-     * @param $limit
-     * @param $sort
-     * @param $order
-     * @return
+     * @param        $crRatings
+     * @param int    $start
+     * @param int    $limit
+     * @param string $sort
+     * @param string $order
+     * @return int
      */
     private function getRatingsCriteria($crRatings, $start, $limit, $sort, $order)
     {

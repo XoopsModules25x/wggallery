@@ -13,7 +13,6 @@
  * wgGallery module for xoops
  *
  * @param mixed $itemId
- * @param mixed $itemNumb
  * @param mixed $commentCount
  * @since          1.0
  * @min_xoops      2.5.9

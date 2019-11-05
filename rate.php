@@ -25,7 +25,7 @@ use Xmf\Request;
 use XoopsModules\Wggallery\Constants;
 
 include __DIR__ . '/header.php';
-$op     = Request::getString('op', 'default');
+$op = Request::getString('op', 'default');
 
 switch ($op) {
     case 'save-imglist':
@@ -41,7 +41,7 @@ switch ($op) {
 
         // Checking permissions
         $rate_allowed = false;
-        $groups = (isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $groups       = (isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
         foreach ($groups as $group) {
             if (XOOPS_GROUP_ADMIN == $group || in_array($group, $helper->getConfig('ratingbar_groups'))) {
                 $rate_allowed = true;
@@ -54,7 +54,7 @@ switch ($op) {
         }
 
         $redir = $_SERVER['HTTP_REFERER'];
-        if ($op === 'save-imglist') {
+        if ('save-imglist' === $op) {
             $redir = $_SERVER['HTTP_REFERER'] . '#imglist_' . $itemid;
         }
 
@@ -63,7 +63,7 @@ switch ($op) {
                 redirect_header($redir, 2, _MA_WGGALLERY_RATING_VOTE_BAD);
                 exit();
             }
-        } else if (Constants::RATING_10STARS === (int)$helper->getConfig('ratingbars') || Constants::RATING_10NUM === (int)$helper->getConfig('ratingbars')) {
+        } elseif (Constants::RATING_10STARS === (int)$helper->getConfig('ratingbars') || Constants::RATING_10NUM === (int)$helper->getConfig('ratingbars')) {
             if ($rating > 10 || $rating < 1) {
                 redirect_header($redir, 2, _MA_WGGALLERY_RATING_VOTE_BAD);
                 exit();
@@ -104,7 +104,7 @@ switch ($op) {
             if ($count > 0) {
                 $avg_rate_value = number_format($current_rating / $count, 2);
             }
-            
+
             $imagesObj = $imagesHandler->get($itemid);
             // Set Vars
             $imagesObj->setVar('img_ratinglikes', $avg_rate_value);
@@ -117,7 +117,6 @@ switch ($op) {
         echo '<br>error:' . $ratingsObj->getHtmlErrors();
 
         break;
-
     case 'default':
     default:
         echo _MA_WGGALLERY_RATING_VOTE_BAD . ' (invalid parameter)';

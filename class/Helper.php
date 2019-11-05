@@ -85,11 +85,17 @@ class Helper extends \Xmf\Module\Helper
      */
     public function getHandler($name)
     {
-        $ret   = false;
-        $db    = \XoopsDatabaseFactory::getDatabaseConnection();
-        $class = '\\XoopsModules\\' . ucfirst(mb_strtolower(basename(dirname(__DIR__)))) . '\\' . $name . 'Handler';
-        $ret   = new $class($db);
+        $ret = false;
 
+        $class = __NAMESPACE__ . '\\' . ucfirst($name) . 'Handler';
+        if (!class_exists($class)) {
+            throw new \RuntimeException("Class '$class' not found");
+        }
+        /** @var \XoopsMySQLDatabase $db */
+        $db     = \XoopsDatabaseFactory::getDatabaseConnection();
+        $helper = self::getInstance();
+        $ret    = new $class($db, $helper);
+        $this->addLog("Getting handler '{$name}'");
         return $ret;
     }
 
@@ -108,8 +114,8 @@ class Helper extends \Xmf\Module\Helper
                 return _CO_WGGALLERY_STATE_APPROVAL;
                 break;
             case Constants::STATE_OFFLINE_VAL:
-				return _CO_WGGALLERY_STATE_OFFLINE;
-				break;
+                return _CO_WGGALLERY_STATE_OFFLINE;
+                break;
             default:
                 return 'invalid state in getStateText in Class/Helper.php'; //should never happen
                 break;

@@ -97,10 +97,10 @@ switch ($op) {
             foreach (array_keys($albumsAll) as $i) {
                 //check permissions
                 if ($permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'))) {
-                    $album = $albumsAll[$i]->getValuesAlbums();
+                    $album         = $albumsAll[$i]->getValuesAlbums();
                     $album['edit'] = true;
                     $albumsPermEdit++;
-                    $keywords[]    = $albumsAll[$i]->getVar('alb_name');
+                    $keywords[] = $albumsAll[$i]->getVar('alb_name');
                 }
                 if ($permissionsHandler->permAlbumDownload($albumsAll[$i]->getVar('alb_id'))) {
                     $album['download'] = true;

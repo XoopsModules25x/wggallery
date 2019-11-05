@@ -134,30 +134,30 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         }
 
         $pathParts = pathinfo($this->getName());
-        
-        $this->imageName      = str_replace('.','_',uniqid('img', true)) . '.' . mb_strtolower($pathParts['extension']);
+
+        $this->imageName      = str_replace('.', '_', uniqid('img', true)) . '.' . mb_strtolower($pathParts['extension']);
         $this->imageNicename  = str_replace(['_', '-'], ' ', $pathParts['filename']);
-        $this->imageNameLarge = str_replace('.','_',uniqid('imgl', true)) . '.' . mb_strtolower($pathParts['extension']);
+        $this->imageNameLarge = str_replace('.', '_', uniqid('imgl', true)) . '.' . mb_strtolower($pathParts['extension']);
         $this->imagePath      = $this->pathUpload . '/large/' . $this->imageNameLarge;
         $this->imageNameOrig  = $_FILES[$this->inputName]['name'];
         $this->imageMimetype  = $_FILES[$this->inputName]['type'];
         $this->imageSize      = $_FILES[$this->inputName]['size'];
 
-        if (false === move_uploaded_file($_FILES[$this->inputName]['tmp_name'], $this->imagePath)) {
+        if (!move_uploaded_file($_FILES[$this->inputName]['tmp_name'], $this->imagePath)) {
             return false;
         }
-        
+
         if ($helper->getConfig('store_original')) {
             $imgPathSaveOrig = $this->pathUpload . '/original/' . $this->imageNameOrig;
-            copy ( $this->imagePath , $imgPathSaveOrig );
+            copy($this->imagePath, $imgPathSaveOrig);
         }
-        
+
         if ($helper->getConfig('store_exif')) {
             // read exif from original image
-            $exif = json_encode(exif_read_data($this->imagePath));
-            $this->exifData   = $exif;
+            $exif           = json_encode(exif_read_data($this->imagePath));
+            $this->exifData = $exif;
         }
-        
+
         // resize large image
         $imgHandler                = new Wggallery\Resizer();
         $imgHandler->sourceFile    = $this->imagePath;
@@ -169,14 +169,14 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         if (false === $ret) {
             return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_LARGE, $this->imageNicename)];
         }
-        
+
         // TODO: copy exif from original to resized, if resized
         // if (true === $ret && $helper->getConfig('store_exif')) {
-            // possible solutions???
+        // possible solutions???
         // }
-        
+
         $ret = $this->handleImageDB();
-        if (false === $ret) {
+        if (!$ret) {
             return [
                 'error' => sprintf(_FAILSAVEIMG, $this->imageNicename),
             ];
@@ -228,7 +228,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         }
 
         // add watermark to large image
-        if (true === $wmTargetL) {
+        if ($wmTargetL) {
             $imgWm = $this->pathUpload . '/large/' . $this->imageNameLarge;
             $resWm = $watermarksHandler->watermarkImage($wmId, $imgWm, $imgWm);
             if (true !== $resWm) {
@@ -236,7 +236,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
             }
         }
         // add watermark to medium image
-        if (true === $wmTargetM) {
+        if ($wmTargetM) {
             $imgWm = $this->pathUpload . '/medium/' . $this->imageName;
             $resWm = $watermarksHandler->watermarkImage($wmId, $imgWm, $imgWm);
             if (true !== $resWm) {
@@ -259,9 +259,15 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
 
         return ['success' => true, 'uuid' => $uuid];
     }
-    
-    
-    private function recursive_array_replace ($find, $replace, $array) {
+
+    /**
+     * @param string $find
+     * @param string $replace
+     * @param array  $array
+     * @return array|string|string[]
+     */
+    private function recursive_array_replace($find, $replace, $array)
+    {
         if (!is_array($array)) {
             return str_replace($find, $replace, $array);
         }
@@ -270,6 +276,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         foreach ($array as $key => $value) {
             $newArray[$key] = $this->recursive_array_replace($find, $replace, $value);
         }
+
         return $newArray;
     }
 
@@ -321,16 +328,16 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
     private function getImageDim()
     {
         switch ($this->imageMimetype) {
-            case'image/png':
+            case 'image/png':
                 $img = imagecreatefrompng($this->imagePath);
                 break;
-            case'image/jpeg':
+            case 'image/jpeg':
                 $img = imagecreatefromjpeg($this->imagePath);
                 if (!$img) {
                     $img = imagecreatefromstring(file_get_contents($this->imagePath));
                 }
                 break;
-            case'image/gif':
+            case 'image/gif':
                 $img = imagecreatefromgif($this->imagePath);
                 break;
             default:

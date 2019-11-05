@@ -62,7 +62,7 @@ $adminmenu[] = [
     'link'  => 'admin/categories.php',
     'icon'  => 'assets/icons/32/categories.png',
 ];
-    
+
 $adminmenu[] = [
     'title' => _MI_WGGALLERY_ADMENU9,
     'link'  => 'admin/watermarks.php',
@@ -98,4 +98,3 @@ $adminmenu[] = [
     'link'  => 'admin/about.php',
     'icon'  => 'assets/icons/32/about.png',
 ];
-

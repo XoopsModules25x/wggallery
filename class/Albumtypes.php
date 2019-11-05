@@ -79,7 +79,7 @@ class Albumtypes extends \XoopsObject
     public function getFormAlbumtypes($action = false)
     {
         //$helper = \XoopsModules\Wggallery\Helper::getInstance();
-        if (false === $action) {
+        if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         // Title
@@ -119,7 +119,7 @@ class Albumtypes extends \XoopsObject
     public function getFormAlbumtypeOptions($action = false)
     {
         //$helper = \XoopsModules\Wggallery\Helper::getInstance();
-        if (false === $action) {
+        if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         // Get Theme Form

@@ -20,6 +20,7 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 rss.php 1 Mon 2018-03-19 10:04:55Z XOOPS Project (www.xoops.org) $
  */
+
 use Xmf\Request;
 
 $cid = Request::getInt('cid', 0, 'GET');
@@ -31,8 +32,8 @@ if (function_exists('mb_http_output')) {
 //$helper->getConfig('utf8') = false;
 $xoopsModuleConfig['utf8'] = false;
 
-$tpl = new \XoopsTpl();
-$tpl->xoops_setCaching(2); //1 = Cache global, 2 = Cache individual (for template)
+$tpl          = new \XoopsTpl();
+$tpl->caching = 2; //1 = Cache global, 2 = Cache individual (for template)
 $tpl->xoops_setCacheTime($helper->geConfig('timecacherss') * 60); // Time of the cache on seconds
 $categories = wggalleryMyGetItemIds('wggallery_view', 'wggallery');
 $criteria   = new \CriteriaCompo();

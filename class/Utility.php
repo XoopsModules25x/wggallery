@@ -194,7 +194,7 @@ class Utility
     public static function getNumbersOfEntries($mytree, $images, $entries, $cid)
     {
         $count = 0;
-        if (in_array($cid, $images, true)) {
+        if (in_array($cid, $images)) {
             $child = $mytree->getAllChild($cid);
             foreach (array_keys($entries) as $i) {
                 if ($entries[$i]->getVar('img_id') == $cid) {

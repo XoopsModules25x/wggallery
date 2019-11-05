@@ -301,7 +301,7 @@ switch ($op) {
 
         $album = $albumsObj->getValuesAlbums();
         $GLOBALS['xoopsTpl']->assign('album', $album);
-        
+
         // get size of current album image
         list($width, $height, $type, $attr) = getimagesize($album['image']);
         $GLOBALS['xoopsTpl']->assign('albimage_width', $width);

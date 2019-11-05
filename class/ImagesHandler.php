@@ -56,7 +56,7 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
     /**
      * retrieve a field
      *
-     * @param int        $i field id
+     * @param int   $i field id
      * @param array $fields
      * @return mixed reference to the {@link Get} object
      */

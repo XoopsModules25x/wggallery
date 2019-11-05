@@ -20,7 +20,7 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 footer.php 1 Mon 2018-03-19 10:04:52Z XOOPS Project (www.xoops.org) $
  */
-if(isset($templateMain)) {
+if (isset($templateMain)) {
     $GLOBALS['xoopsTpl']->assign('maintainedby', $helper->getConfig('maintainedby'));
     $GLOBALS['xoopsTpl']->display("db:{$templateMain}");
 }

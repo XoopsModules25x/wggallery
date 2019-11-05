@@ -36,17 +36,17 @@ switch ($op) {
             // check permission whether download of full album is allowed
             if ($permissionsHandler->permAlbumDownload($albId)) {
                 //Archive name
-                $archive_file_name = preg_replace ( '/[^a-z0-9_]/i', '', $albumsHandler->get($albId)->getVar('alb_name'));
-                $archive_file_name .= uniqid('_') . '.zip';
+                $archive_file_name = preg_replace('/[^a-z0-9_]/i', '', $albumsHandler->get($albId)->getVar('alb_name'));
+                $archive_file_name .= uniqid('_', true) . '.zip';
                 $archive_file_path = WGGALLERY_UPLOAD_PATH . '/temp/' . $archive_file_name;
                 unlink($archive_file_path);
-                
+
                 $zip = new ZipArchive();
                 //create the file and throw the error if unsuccessful
-                if ($zip->open($archive_file_path, ZIPARCHIVE::CREATE )!==TRUE) {
+                if (true !== $zip->open($archive_file_path, ZIPARCHIVE::CREATE)) {
                     redirect_header('albums.php', 5, _MA_WGGALLERY_ERROR_CREATE_ZIP);
                 }
-                
+
                 $crImages = new \CriteriaCompo();
                 $crImages->add(new \Criteria('img_albid', $albId));
                 $crImages->add(new \Criteria('img_state', Constants::STATE_ONLINE_VAL));
@@ -69,18 +69,18 @@ switch ($op) {
                         }
                     }
                 }
-                
+
                 $zip->close();
-                
-                header("Pragma: public");
-                header("Expires: 0");
-                header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-                header("Cache-Control: public");
-                header("Content-Description: File Transfer");
-                header("Content-type: application/octet-stream");
-                header('Content-Disposition: attachment; filename="'.$archive_file_name.'"');
-                header("Content-Transfer-Encoding: binary");
-                header("Content-Length: ".filesize($archive_file_path));
+
+                header('Pragma: public');
+                header('Expires: 0');
+                header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+                header('Cache-Control: public');
+                header('Content-Description: File Transfer');
+                header('Content-type: application/octet-stream');
+                header('Content-Disposition: attachment; filename="' . $archive_file_name . '"');
+                header('Content-Transfer-Encoding: binary');
+                header('Content-Length: ' . filesize($archive_file_path));
                 ob_end_flush();
                 @readfile($archive_file_path);
                 unlink($archive_file_path);
@@ -94,9 +94,8 @@ switch ($op) {
             } else {
                 redirect_header('albums.php', 3, _NOPERM);
             }
-            
         }
-    break;
+        break;
     case 'viewerjs':
         //src: provided by viewer.js
         $file     = Request::getString('src', 'none');

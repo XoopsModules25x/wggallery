@@ -56,8 +56,8 @@ switch ($op) {
         break;
     case 'dlfullalb':
         $formTitle = _CO_WGGALLERY_PERMS_ALB_DLFULLALB;
-        $permName = 'wggallery_dlfullalb';
-        $permDesc = _CO_WGGALLERY_PERMS_ALB_DLFULLALB_DESC;
+        $permName  = 'wggallery_dlfullalb';
+        $permDesc  = _CO_WGGALLERY_PERMS_ALB_DLFULLALB_DESC;
         break;
     case 'dlimage_large':
         $formTitle = _CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE;

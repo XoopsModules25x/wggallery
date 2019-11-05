@@ -39,7 +39,7 @@ function b_wggallery_albums_show($options)
     $blenghtTitle = $options[3];
     $bshowDesc    = $options[4];
     $blenghtDesc  = $options[5];
-    $bnbAlbumsRow = (int) $options[6];
+    $bnbAlbumsRow = (int)$options[6];
     $bgallery     = $options[7];
     $bAlbumType   = $options[8];
 
@@ -151,7 +151,7 @@ function b_wggallery_albums_show($options)
     }
 
     $counter = 0;
-    $i = 0;
+    $i       = 0;
     foreach (array_keys($albumsAll) as $i) {
         $block[$i] = $albumsAll[$i]->getValuesAlbums();
         if ($bshowTitle > 0 && $blenghtTitle > 0 && $blenghtTitle < mb_strlen($block[$i]['name'])) {
@@ -247,7 +247,7 @@ function b_wggallery_albums_edit($options)
     $form .= "<option value='0' " . (in_array(0, $options, false) ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_ALL_ALBUMS . '</option>';
     foreach (array_keys($albumsAll) as $i) {
         $alb_id = $albumsAll[$i]->getVar('alb_id');
-        $form   .= "<option value='" . $alb_id . "' " . (in_array($alb_id, $options, false) && false === in_array(0, $options, false) ? "selected='selected'" : '') . '>' . $albumsAll[$i]->getVar('alb_name') . '</option>';
+        $form   .= "<option value='" . $alb_id . "' " . (in_array($alb_id, $options, false) && !in_array(0, $options, false) ? "selected='selected'" : '') . '>' . $albumsAll[$i]->getVar('alb_name') . '</option>';
     }
 
     $form .= '</select>';
