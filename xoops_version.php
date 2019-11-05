@@ -43,7 +43,7 @@ $modversion = [
     'manual'              => 'link to manual file',
     'manual_file'         => XOOPS_URL . '/modules/wggallery/docs/install.txt',
     'min_php'             => '7.0',
-    'min_xoops'           => '2.5.9',
+    'min_xoops'           => '2.5.10',
     'min_admin'           => '1.1',
     'min_db'              => ['mysql' => '5.5'],
     'image'               => 'assets/images/logoModule.png',

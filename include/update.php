@@ -65,7 +65,7 @@ function update_wggallery_v10(&$module)
                               . $xoopsDB->prefix('tplfile')
                               . ' t2 WHERE t1.tpl_refid = t2.tpl_refid AND t1.tpl_module = t2.tpl_module AND t1.tpl_tplset=t2.tpl_tplset AND t1.tpl_file = t2.tpl_file AND t1.tpl_type = t2.tpl_type AND t1.tpl_id > t2.tpl_id');
     $tplids = [];
-    while (false !== (list($tplid) = $xoopsDB->fetchRow($result))) {
+    while (list($tplid) = $xoopsDB->fetchRow($result)) {
         $tplids[] = $tplid;
     }
     if (count($tplids) > 0) {
