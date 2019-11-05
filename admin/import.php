@@ -34,10 +34,8 @@ $GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/wggallery/assets/js/admin.j
 
 $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_upload_fonts_path', WGGALLERY_UPLOAD_FONTS_PATH);
-$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
 
-// Define Stylesheet
-$GLOBALS['xoTheme']->addStylesheet($style, null);
 $templateMain = 'wggallery_admin_import.tpl';
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('import.php'));
 

@@ -16,7 +16,7 @@
  * @license        GPL 2.0 or later
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.9
+ * @min_xoops      2.5.10
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 xoops_version.php 1 Mon 2018-03-19 07:47:33Z XOOPS Project (www.xoops.org) $
  */
@@ -25,9 +25,9 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 // ------------------- Informations ------------------- //
 $modversion = [
-    'version'             => 1.09,
+    'version'             => '1.14',
     'module_status'       => 'RC1',
-    'release_date'        => '2019/02/01',
+    'release_date'        => '2019/11/01',
     'name'                => _MI_WGGALLERY_NAME,
     'description'         => _MI_WGGALLERY_DESC,
     'author'              => 'Wedega',
@@ -56,23 +56,25 @@ $modversion = [
     'support_name'        => 'Wedega - Webdesign Gabor',
     'module_website_url'  => 'https://xoops.wedega.com',
     'module_website_name' => 'Wedega XOOPS Demo Site',
-    'release'             => '01/01/2018',
+    'release'             => '01/11/2019',
     'system_menu'         => 1,
     'hasAdmin'            => 1,
     'hasMain'             => 1,
     'adminindex'          => 'admin/index.php',
     'adminmenu'           => 'admin/menu.php',
-    'onInstall'           => 'include/install.php',
-    'onUpdate'            => 'include/update.php',
+    'onInstall'           => 'include/oninstall.php',
+    'onUpdate'            => 'include/onupdate.php',
     'onUninstall'         => 'include/onuninstall.php',
     // ------------------- Mysql -----------------------------
     'sqlfile'             => ['mysql' => 'sql/mysql.sql'],
     // ------------------- Tables ----------------------------
     'tables'              => [
         $moduleDirName . '_' . 'albums',
-        $moduleDirName . '_' . 'images',
-        $moduleDirName . '_' . 'gallerytypes',
         $moduleDirName . '_' . 'albumtypes',
+        $moduleDirName . '_' . 'categories',
+        $moduleDirName . '_' . 'gallerytypes',
+        $moduleDirName . '_' . 'images',
+        $moduleDirName . '_' . 'ratings',
         $moduleDirName . '_' . 'watermarks',
     ],
 ];
@@ -91,6 +93,7 @@ $modversion['templates'] = [
     ['file' => 'wggallery_admin_permissions.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wggallery_admin_import.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wggallery_admin_footer.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'wggallery_admin_categories.tpl', 'description' => '', 'type' => 'admin'],
     // User
     ['file' => 'wggallery_header.tpl', 'description' => ''],
     ['file' => 'wggallery_index_default.tpl', 'description' => ''],
@@ -131,11 +134,9 @@ $modversion['templates'] = [
     // array('file' => 'wggallery_block_images_default.tpl', 'description' => ''),
 
     ['file' => 'wggallery_breadcrumbs.tpl', 'description' => ''],
-    ['file' => 'wggallery_rate.tpl', 'description' => ''],
+    ['file' => 'wggallery_rating_img.tpl', 'description' => ''],
     ['file' => 'wggallery_rss.tpl', 'description' => ''],
     ['file' => 'wggallery_search.tpl', 'description' => ''],
-    ['file' => 'wggallery_single.tpl', 'description' => ''],
-    ['file' => 'wggallery_submit.tpl', 'description' => ''],
     ['file' => 'wggallery_trigger_uploads.tpl', 'description' => ''],
     ['file' => 'wggallery_upload.tpl', 'description' => ''],
     ['file' => 'wggallery_footer.tpl', 'description' => ''],
@@ -162,18 +163,20 @@ $currdirname = isset($GLOBALS['xoopsModule']) && is_object($GLOBALS['xoopsModule
 if ($moduleDirName == $currdirname) {
     $subcount = 1;
     $pathname = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName;
+    $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME1;
+    $modversion['sub'][$subcount]['url']  = 'index.php';
     require_once $pathname . '/include/common.php';
     /** @var \XoopsModules\Wggallery\Helper $helper */
     $helper = \XoopsModules\Wggallery\Helper::getInstance();
     $helper->loadLanguage('common');
     $permissionsHandler = $helper->getHandler('Permissions');
-
     if ($permissionsHandler->permGlobalSubmit() > 0) {
-        $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME1;
-        $modversion['sub'][$subcount]['url']  = 'index.php';
         $subcount++;
         $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME2;
         $modversion['sub'][$subcount]['url']  = 'albums.php';
+        $subcount++;
+        $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME5;
+        $modversion['sub'][$subcount]['url']  = 'images.php?op=manage';
         $subcount++;
         $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME3;
         $modversion['sub'][$subcount]['url']  = 'albums.php?op=new';
@@ -181,6 +184,9 @@ if ($moduleDirName == $currdirname) {
         $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME4;
         $modversion['sub'][$subcount]['url']  = 'upload.php';
     }
+    $subcount++;
+    $modversion['sub'][$subcount]['name'] = _MI_WGGALLERY_SMNAME6;
+    $modversion['sub'][$subcount]['url']  = 'search.php';
 }
 // ------------------- Blocks ------------------- //
 
@@ -206,29 +212,17 @@ $modversion['blocks'][] = [
 ];
 
 // ------------------- Config ------------------- //
-
-// Editor desc
-xoops_load('xoopseditorhandler');
-$editorHandlerDesc      = \XoopsEditorHandler::getInstance();
+// group header
 $modversion['config'][] = [
-    'name'        => 'editor',
-    'title'       => '_MI_WGGALLERY_EDITOR',
-    'description' => '_MI_WGGALLERY_EDITOR_DESC',
-    'formtype'    => 'select',
-    'valuetype'   => 'text',
-    'default'     => 'dhtml',
-    'options'     => array_flip($editorHandlerDesc->getList()),
+    'name'        => 'group_upload',
+    'title'       => '_MI_WGGALLERY_GROUP_UPLOAD',
+    'description' => '',
+    'formtype'    => 'line_break',
+    'valuetype'   => 'textbox',
+    'default'     => 'even',
+    'category'    => 'group_header',
 ];
 
-// Keywords
-$modversion['config'][] = [
-    'name'        => 'keywords',
-    'title'       => '_MI_WGGALLERY_KEYWORDS',
-    'description' => '_MI_WGGALLERY_KEYWORDS_DESC',
-    'formtype'    => 'textbox',
-    'valuetype'   => 'text',
-    'default'     => 'wggallery, albums, images',
-];
 // Uploads : maxsize of image
 require_once __DIR__ . '/include/xoops_version.inc.php';
 $iniPostMaxSize       = wggalleryReturnBytes(ini_get('post_max_size'));
@@ -273,9 +267,10 @@ $modversion['config'][] = [
     'description' => '_MI_WGGALLERY_MAXSIZE_DESC',
     'formtype'    => 'select',
     'valuetype'   => 'int',
-    'default'     => 3145728,
+    'default'     => 10485760,
     'options'     => $optionMaxsize,
 ];
+
 // Uploads : mimetypes of image
 $modversion['config'][] = [
     'name'        => 'fileext',
@@ -294,7 +289,7 @@ $modversion['config'][] = [
     'description' => '_MI_WGGALLERY_MAXWIDTH_DESC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
-    'default'     => 4000,
+    'default'     => 8000,
 ];
 
 // Uploads : max height of images for upload
@@ -304,9 +299,29 @@ $modversion['config'][] = [
     'description' => '_MI_WGGALLERY_MAXHEIGHT_DESC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
-    'default'     => 4000,
+    'default'     => 8000,
 ];
 
+// store original images
+$modversion['config'][] = [
+    'name'        => 'store_original',
+    'title'       => '_MI_WGGALLERY_STORE_ORIGINAL',
+    'description' => '_MI_WGGALLERY_STORE_ORIGINAL_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 0,
+];
+
+// group header
+$modversion['config'][] = [
+    'name'        => 'group_image',
+    'title'       => '_MI_WGGALLERY_GROUP_IMAGE',
+    'description' => '',
+    'formtype'    => 'line_break',
+    'valuetype'   => 'textbox',
+    'default'     => 'even',
+    'category'    => 'group_header',
+];
 // Uploads : max width for large images
 $modversion['config'][] = [
     'name'        => 'maxwidth_large',
@@ -366,6 +381,7 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 100,
 ];
+
 // Uploads : max width for album images
 $modversion['config'][] = [
     'name'        => 'maxwidth_albimage',
@@ -375,6 +391,7 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 800,
 ];
+
 // Uploads : max height for album images
 $modversion['config'][] = [
     'name'        => 'maxheight_albimage',
@@ -384,6 +401,28 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 600,
 ];
+
+// Exif : Store exif
+$modversion['config'][] = [
+    'name'        => 'store_exif',
+    'title'       => '_MI_WGGALLERY_STOREEXIF',
+    'description' => '_MI_WGGALLERY_STOREEXIF_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+];
+
+// group header
+$modversion['config'][] = [
+    'name'        => 'group_display',
+    'title'       => '_MI_WGGALLERY_GROUP_DISPLAY',
+    'description' => '',
+    'formtype'    => 'line_break',
+    'valuetype'   => 'textbox',
+    'default'     => 'even',
+    'category'    => 'group_header',
+];
+
 // Admin pager
 $modversion['config'][] = [
     'name'        => 'adminpager',
@@ -412,26 +451,18 @@ $modversion['config'][] = [
     'formtype'    => 'select',
     'valuetype'   => 'text',
     'default'     => '_self',
-    'options'     => ['_MI_WGGALLERY_GALLERY_TARGET_SELF' => '_self', '_MI_WGGALLERY_GALLERY_TARGET_BLANK' => '_blank'],
-];
-// Bookmarks
-$modversion['config'][] = [
-    'name'        => 'addjquery',
-    'title'       => '_MI_WGGALLERY_ADDJQUERY',
-    'description' => '_MI_WGGALLERY_ADDJQUERY_DESC',
-    'formtype'    => 'yesno',
-    'valuetype'   => 'int',
-    'default'     => 0,
+    'options'     => ['_MI_WGGALLERY_LINK_TARGET_SELF' => '_self', '_MI_WGGALLERY_LINK_TARGET_BLANK' => '_blank'],
 ];
 
-// Store exif
+// target for show single image
 $modversion['config'][] = [
-    'name'        => 'store_exif',
-    'title'       => '_MI_WGGALLERY_STOREEXIF',
-    'description' => '_MI_WGGALLERY_STOREEXIF_DESC',
-    'formtype'    => 'yesno',
-    'valuetype'   => 'int',
-    'default'     => 1,
+    'name'        => 'image_target',
+    'title'       => '_MI_WGGALLERY_IMAGE_TARGET',
+    'description' => '_MI_WGGALLERY_IMAGE_TARGET_DESC',
+    'formtype'    => 'select',
+    'valuetype'   => 'text',
+    'default'     => '_self',
+    'options'     => ['_MI_WGGALLERY_LINK_TARGET_SELF' => '_self', '_MI_WGGALLERY_LINK_TARGET_BLANK' => '_blank', '_MI_WGGALLERY_LINK_TARGET_MODAL' => '_modal', '_MI_WGGALLERY_LINK_TARGET_MODALINFO' => '_modalinfo'],
 ];
 
 // Panel by
@@ -465,16 +496,6 @@ $modversion['config'][] = [
     'default'     => 1,
 ];
 
-// Maintained by
-$modversion['config'][] = [
-    'name'        => 'maintainedby',
-    'title'       => '_CO_WGGALLERY_MAINTAINEDBY',
-    'description' => '_CO_WGGALLERY_MAINTAINEDBY_DESC',
-    'formtype'    => 'textbox',
-    'valuetype'   => 'text',
-    'default'     => 'https://xoops.wedega.com',
-];
-
 // Show copyright
 $modversion['config'][] = [
     'name'        => 'show_copyright',
@@ -496,6 +517,79 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 1,
 ];
+
+// use categories for images/albums
+$modversion['config'][] = [
+    'name'        => 'use_categories',
+    'title'       => '_MI_WGGALLERY_USE_CATS',
+    'description' => '_MI_WGGALLERY_USE_CATS_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+];
+
+// use tags for images/albums
+$modversion['config'][] = [
+    'name'        => 'use_tags',
+    'title'       => '_MI_WGGALLERY_USE_TAGS',
+    'description' => '_MI_WGGALLERY_USE_TAGS_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+];
+
+// Exif : display exif infos
+// the value must be exactly the exif name (case sensitive)
+$modversion['config'][] = [
+    'name'        => 'exif_types',
+    'title'       => '_MI_WGGALLERY_EXIFTYPES',
+    'description' => '_MI_WGGALLERY_EXIFTYPES_DESC',
+    'formtype'    => 'select_multi',
+    'valuetype'   => 'array',
+    'default'     => ['FileName', 'FileDateTime', 'FileSize', 'MimeType', 'Make', 'Model', 'ExposureTime', 'FocalLength', 'DateTimeOriginal', 'ISOSpeedRatings', 'UndefinedTag:0xA433', 'UndefinedTag:0xA434'],
+    'options'     => ['_CO_WGGALLERY_EXIF_ALL' => 'all', 
+                      '_CO_WGGALLERY_EXIF_FILENAME' => 'FileName',
+                      '_CO_WGGALLERY_EXIF_FILEDATETIME' => 'FileDateTime',
+                      '_CO_WGGALLERY_EXIF_FILESIZE' => 'FileSize',
+                      '_CO_WGGALLERY_EXIF_MIMETYPE' => 'MimeType',
+                      '_CO_WGGALLERY_EXIF_CAMERA' => 'Make', 
+                      '_CO_WGGALLERY_EXIF_MODEL' => 'Model',
+                      '_CO_WGGALLERY_EXIF_EXPTIME' => 'ExposureTime',
+                      '_CO_WGGALLERY_EXIF_FOCALLENGTH' => 'FocalLength',
+                      '_CO_WGGALLERY_EXIF_DATETIMEORIG' => 'DateTimeOriginal',
+                      '_CO_WGGALLERY_EXIF_ISO' => 'ISOSpeedRatings',
+                      '_CO_WGGALLERY_EXIF_LENSMAKE' => 'UndefinedTag:0xA433',
+                      '_CO_WGGALLERY_EXIF_LENSMODEL' => 'UndefinedTag:0xA434',
+                     ]
+];
+
+// Rating bar
+$modversion['config'][] = [
+    'name'       => 'ratingbars',
+    'title'       => '_MI_WGGALLERY_RATINGBARS',
+    'description' => '_MI_WGGALLERY_RATINGBARS_DESC',
+    'formtype'    => 'select',
+    'valuetype'   => 'int',
+    'default'     => 0,
+    'options'     => ['_MI_WGGALLERY_RATING_NONE' => 0, '_MI_WGGALLERY_RATING_5STARS' => 1, '_MI_WGGALLERY_RATING_10STARS' => 2, '_MI_WGGALLERY_RATING_LIKES' => 3, '_MI_WGGALLERY_RATING_10NUM' => 4],
+];
+    
+$group_handler = xoops_getHandler('group');
+$group_arr     = $group_handler->getObjects();
+$ratingbar_groups = array();
+foreach (array_keys($group_arr) as $i) {
+    $ratingbar_groups[$group_arr[$i]->getVar('name')] = $group_arr[$i]->getVar('groupid');
+}
+$modversion['config'][] = [
+    'name'        => 'ratingbar_groups',
+    'title'       => '_MI_WGGALLERY_RATINGBAR_GROUPS',
+    'description' => '_MI_WGGALLERY_RATINGBAR_GROUPS_DESC',
+    'formtype'    => 'select_multi',
+    'valuetype'   => 'array',
+    'default'     => array('1'),
+    'options'     => $ratingbar_groups,
+];
+
 /**
  * Make Sample button visible?
  */
@@ -519,6 +613,60 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 0,
 ]; */
+
+// group header
+$modversion['config'][] = [
+    'name'        => 'group_misc',
+    'title'       => '_MI_WGGALLERY_GROUP_MISC',
+    'description' => '',
+    'formtype'    => 'line_break',
+    'valuetype'   => 'textbox',
+    'default'     => 'even',
+    'category'    => 'group_header',
+];
+
+// Editor desc
+xoops_load('xoopseditorhandler');
+$editorHandlerDesc      = \XoopsEditorHandler::getInstance();
+$modversion['config'][] = [
+    'name'        => 'editor',
+    'title'       => '_MI_WGGALLERY_EDITOR',
+    'description' => '_MI_WGGALLERY_EDITOR_DESC',
+    'formtype'    => 'select',
+    'valuetype'   => 'text',
+    'default'     => 'dhtml',
+    'options'     => array_flip($editorHandlerDesc->getList()),
+];
+
+// Keywords
+$modversion['config'][] = [
+    'name'        => 'keywords',
+    'title'       => '_MI_WGGALLERY_KEYWORDS',
+    'description' => '_MI_WGGALLERY_KEYWORDS_DESC',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'text',
+    'default'     => 'wggallery, albums, images',
+];
+
+// jquery
+$modversion['config'][] = [
+    'name'        => 'addjquery',
+    'title'       => '_MI_WGGALLERY_ADDJQUERY',
+    'description' => '_MI_WGGALLERY_ADDJQUERY_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 0,
+];
+
+// Maintained by
+$modversion['config'][] = [
+    'name'        => 'maintainedby',
+    'title'       => '_CO_WGGALLERY_MAINTAINEDBY',
+    'description' => '_CO_WGGALLERY_MAINTAINEDBY_DESC',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'text',
+    'default'     => 'https://xoops.wedega.com',
+];
 
 // ------------------- Notifications ------------------- //
 $modversion['hasNotification']             = 1;

@@ -13,76 +13,113 @@
  * wgGallery module for xoops
  *
  * @copyright      module for xoops
- * @license        GPL 2.0 or later
+ * @license        GPL 3.0 or later
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.9
- * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
- * @version        $Id: 1.0 rate.php 1 Mon 2018-03-19 10:04:54Z XOOPS Project (www.xoops.org) $
+ * @min_xoops      2.5.7
+ * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
+ * @version        $Id: 1.0 rate.php 13070 Wed 2016-12-14 22:22:38Z XOOPS Development Team $
  */
 
 use Xmf\Request;
+use XoopsModules\Wggallery\Constants;
 
-require __DIR__ . '/header.php';
-$op                                      = Request::getString('op', 'form');
-$lid                                     = Request::getInt('lid');
-$GLOBALS['xoopsOption']['template_main'] = 'wggallery_images.tpl';
-require_once XOOPS_ROOT_PATH . '/header.php';
-// Define Stylesheet
-$GLOBALS['xoTheme']->addStylesheet($style, null);
+include __DIR__ . '/header.php';
+$op     = Request::getString('op', 'default');
+
 switch ($op) {
-    case 'form':
-    default:
-        // Navigation
-        $navigation = _MA_WGGALLERY_RATE;
-        $GLOBALS['xoopsTpl']->assign('navigation', $navigation);
-        // Title of page
-        $title = _MA_WGGALLERY_RATE . '&nbsp;-&nbsp;';
-        $title .= $GLOBALS['xoopsModule']->name();
-        $GLOBALS['xoopsTpl']->assign('xoops_pagetitle', $title);
-        // Description
-        $GLOBALS['xoTheme']->addMeta('meta', 'description', strip_tags(_MA_WGGALLERY_RATE));
-        // Form Create
-        $imagesObj = $imagesHandler->create();
-        $form      = $imagesObj->getFormImages();
-        $GLOBALS['xoopsTpl']->assign('form', $form->render());
-
-        break;
-    case 'save':
+    case 'save-imglist':
+    case 'save-imgshow':
         // Security Check
         if ($GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('images.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            redirect_header('index.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
-        $imagesObj = $imagesHandler->create();
-        $imagesObj->setVar('img_title', $_POST['img_title']);
-        $imagesObj->setVar('img_desc', $_POST['img_desc']);
-        $imagesObj->setVar('img_name', $_POST['img_name']);
-        $imagesObj->setVar('img_nameorig', $_POST['img_nameorig']);
-        $imagesObj->setVar('img_mimetype', $_POST['img_mimetype']);
-        $imagesObj->setVar('img_size', $_POST['img_size']);
-        $imagesObj->setVar('img_resx', $_POST['img_resx']);
-        $imagesObj->setVar('img_resy', $_POST['img_resy']);
-        $imagesObj->setVar('img_downloads', $_POST['img_downloads']);
-        $imagesObj->setVar('img_ratinglikes', $_POST['img_ratinglikes']);
-        $imagesObj->setVar('img_votes', $_POST['img_votes']);
-        $imagesObj->setVar('img_weight', $_POST['img_weight']);
-        $imagesObj->setVar('img_albid', $_POST['img_albid']);
-        $imagesObj->setVar('img_state', $_POST['img_state']);
-        $imageDate = date_create_from_format(_SHORTDATESTRING, $_POST['img_date']);
-        $imagesObj->setVar('img_date', $imageDate->getTimestamp());
-        $imagesObj->setVar('img_submitter', $_POST['img_submitter']);
-        $imagesObj->setVar('img_ip', $_POST['img_ip']);
+
+        $itemid = Request::getInt('img_id', 0);
+        $rating = Request::getInt('rating', 0);
+        $source = Request::getInt('source', 0); //source 1 = image / source 2 = album rating TODO
+
+        // Checking permissions
+        $rate_allowed = false;
+        $groups = (isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        foreach ($groups as $group) {
+            if (XOOPS_GROUP_ADMIN == $group || in_array($group, $helper->getConfig('ratingbar_groups'))) {
+                $rate_allowed = true;
+                break;
+            }
+        }
+
+        if (!$rate_allowed) {
+            redirect_header(WGGALLERY_URL . '/index.php?img_id=' . $itemid . '#item' . $itemid, 2, _MA_WGGALLERY_RATING_NOPERM);
+        }
+
+        $redir = $_SERVER['HTTP_REFERER'];
+        if ($op === 'save-imglist') {
+            $redir = $_SERVER['HTTP_REFERER'] . '#imglist_' . $itemid;
+        }
+
+        if (Constants::RATING_5STARS === (int)$helper->getConfig('ratingbars')) {
+            if ($rating > 5 || $rating < 1) {
+                redirect_header($redir, 2, _MA_WGGALLERY_RATING_VOTE_BAD);
+                exit();
+            }
+        } else if (Constants::RATING_10STARS === (int)$helper->getConfig('ratingbars') || Constants::RATING_10NUM === (int)$helper->getConfig('ratingbars')) {
+            if ($rating > 10 || $rating < 1) {
+                redirect_header($redir, 2, _MA_WGGALLERY_RATING_VOTE_BAD);
+                exit();
+            }
+        } else {
+            if ($rating > 1 || $rating < -1) {
+                redirect_header($redir, 2, _MA_WGGALLERY_RATING_VOTE_BAD);
+                exit();
+            }
+        }
+
+        $itemrating = $ratingsHandler->getItemRating($itemid, 1);
+
+        if ($itemrating['voted']) {
+            // redirect_header($redir, 2, _MA_WGGALLERY_RATING_VOTE_ALREADY);
+            $ratingsObj = $ratingsHandler->get($itemrating['id']);
+        } else {
+            $ratingsObj = $ratingsHandler->create();
+        }
+        $ratingsObj->setVar('rate_source', $source);
+        $ratingsObj->setVar('rate_itemid', $itemid);
+        $ratingsObj->setVar('rate_value', $rating);
+        $ratingsObj->setVar('rate_uid', $itemrating['uid']);
+        $ratingsObj->setVar('rate_ip', $itemrating['ip']);
+        $ratingsObj->setVar('rate_date', time());
         // Insert Data
-        if ($images1->insert($imagesObj)) {
-            redirect_header('index.php', 2, _MA_WGGALLERY_FORM_OK);
+        if ($ratingsHandler->insert($ratingsObj)) {
+            // update table wggallery_images
+            $nb_ratings     = 0;
+            $avg_rate_value = 0;
+            $ratingObjs     = $helper->getHandler('ratings')->getObjects();
+            $count          = count($ratingObjs);
+            $current_rating = 0;
+            foreach ($ratingObjs as $ratingObj) {
+                $current_rating += $ratingObj->getVar('rate_value');
+            }
+            unset($ratingObj);
+            if ($count > 0) {
+                $avg_rate_value = number_format($current_rating / $count, 2);
+            }
+            
+            $imagesObj = $imagesHandler->get($itemid);
+            // Set Vars
+            $imagesObj->setVar('img_ratinglikes', $avg_rate_value);
+            $imagesObj->setVar('img_votes', $count);
+            // Insert Data
+            $imagesHandler->insert($imagesObj);
+            unset($imagesObj);
+            redirect_header($redir, 2, _MA_WGGALLERY_RATING_VOTE_THANKS);
         }
-        // Get Form Error
-        $GLOBALS['xoopsTpl']->assign('error', $imagesObj->getHtmlErrors());
-        $form = $imagesObj->getFormImages();
-        $GLOBALS['xoopsTpl']->assign('form', $form->display());
+        echo '<br>error:' . $ratingsObj->getHtmlErrors();
 
         break;
+
+    case 'default':
+    default:
+        echo _MA_WGGALLERY_RATING_VOTE_BAD . ' (invalid parameter)';
+        break;
 }
-// Breadcrumbs
-$xoBreadcrumbs[] = ['title' => RATE_MA_WGGALLERY_];
-require __DIR__ . '/footer.php';

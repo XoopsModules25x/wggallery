@@ -36,8 +36,6 @@ if ($atCount < 1) {
 switch ($op) {
     case 'list':
     default:
-        // Define Stylesheet
-        $GLOBALS['xoTheme']->addStylesheet($style, null);
         $start        = Request::getInt('start', 0);
         $limit        = Request::getInt('limit', $helper->getConfig('adminpager'));
         $templateMain = 'wggallery_admin_albumtypes.tpl';
@@ -47,7 +45,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('albumtypes_count', $albumtypesCount);
         $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
         $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
-        $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+        $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
         // Table view albumtypes
         if ($albumtypesCount > 0) {
             foreach (array_keys($albumtypesAll) as $i) {
@@ -92,7 +90,7 @@ switch ($op) {
         if (isset($atId)) {
             $albumtypesObj = $albumtypesHandler->get($atId);
         } else {
-            $redirect_header('albumtypes.php', 3, 'missing Id');
+            redirect_header('albumtypes.php', 3, 'missing Id');
         }
         // reset all
         $strSQL = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albumtypes') . ' SET ' . $GLOBALS['xoopsDB']->prefix('wggallery_albumtypes') . '.at_primary = 0';

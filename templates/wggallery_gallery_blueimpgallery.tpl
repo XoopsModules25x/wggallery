@@ -128,4 +128,4 @@
 <{/if}> 
 
 <!-- Footer -->
-<{include file='db:wggallery_admin_footer.tpl'}>
+<{include file='db:wggallery_footer.tpl'}>

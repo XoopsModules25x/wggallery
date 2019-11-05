@@ -40,8 +40,6 @@ $GLOBALS['xoopsTpl']->assign('wggallery_upload_fonts_path', WGGALLERY_UPLOAD_FON
 switch ($op) {
     case 'list':
     default:
-        // Define Stylesheet
-        $GLOBALS['xoTheme']->addStylesheet($style, null);
         $start        = Request::getInt('start', 0);
         $limit        = Request::getInt('limit', $helper->getConfig('adminpager'));
         $templateMain = 'wggallery_admin_watermarks.tpl';

@@ -39,7 +39,7 @@ function b_wggallery_albums_show($options)
     $blenghtTitle = $options[3];
     $bshowDesc    = $options[4];
     $blenghtDesc  = $options[5];
-    $bnbAlbumsRow = $options[6];
+    $bnbAlbumsRow = (int) $options[6];
     $bgallery     = $options[7];
     $bAlbumType   = $options[8];
 
@@ -83,7 +83,7 @@ function b_wggallery_albums_show($options)
     $GLOBALS['xoopsTpl']->assign('ba_gallery', 'none' !== $pr_gallery['template'] && 1 === (int)$bgallery);
 
     $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
-    $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+    $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
 
     $GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/css/blocks/blocks.css', null);
     switch ($template) {
@@ -115,6 +115,7 @@ function b_wggallery_albums_show($options)
         $criteria->add(new \Criteria('alb_id', '(' . $album_ids . ')', 'IN'));
     }
     $criteria->add(new \Criteria('alb_state', Constants::STATE_ONLINE_VAL));
+    $criteria->add(new \Criteria('alb_iscoll', 0));
     switch ($typeBlock) {
         // For the block: albums recent
         case 'recent':
@@ -150,6 +151,7 @@ function b_wggallery_albums_show($options)
     }
 
     $counter = 0;
+    $i = 0;
     foreach (array_keys($albumsAll) as $i) {
         $block[$i] = $albumsAll[$i]->getValuesAlbums();
         if ($bshowTitle > 0 && $blenghtTitle > 0 && $blenghtTitle < mb_strlen($block[$i]['name'])) {

@@ -131,17 +131,17 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
      * Get Criteria Albums
      * @return bool
      */
-    public function setAlbumIsCat()
+    public function setAlbumIsColl()
     {
         // reset (necessary after deleting)
-        $strSQL = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . ' SET ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '.alb_iscat = 0';
+        $strSQL = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . ' SET ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '.alb_iscoll = 0';
         $GLOBALS['xoopsDB']->queryF($strSQL);
 
         // set values new
         $albumsAll = $this->getAllAlbums();
         foreach (array_keys($albumsAll) as $i) {
             $albPid = $albumsAll[$i]->getVar('alb_pid');
-            $strSQL = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . ' SET ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '.alb_iscat = 1 WHERE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '.alb_id = ' . $albPid;
+            $strSQL = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . ' SET ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '.alb_iscoll = 1 WHERE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '.alb_id = ' . $albPid;
             $GLOBALS['xoopsDB']->query($strSQL);
         }
         unset($albumsAll);
@@ -181,48 +181,10 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
 
     /**
      * Get all childs of a category
-     * @param int   $albId
-     * @param mixed $albPid
-     * @return array
-     */
-    /*     function getListChildsOfCategory($albPid)
-        {
-            $childrens = array();
-            $firstAlbId = 0;
-
-            $helper = \XoopsModules\Wggallery\Helper::getInstance();
-            $albumsHandler = $helper->getHandler('Albums');
-            $crAlbums = new \CriteriaCompo();
-            $crAlbums->add(new \Criteria('alb_pid', $albPid));
-            $crAlbums->setSort('alb_weight ASC, alb_date');
-            $crAlbums->setOrder('DESC');
-            $albumsCount = $albumsHandler->getCount($crAlbums);
-            $albumsAll = $albumsHandler->getAll($crAlbums);
-            // Table view albums
-            if($albumsCount > 0) {
-                foreach(array_keys($albumsAll) as $i) {
-                    // if ( 0 < count($childsAll) ) {$childsAll .= "#".('' !== $childsAll)."|";}
-                    if ( 0 === $firstAlbId) {$firstAlbId = $albumsAll[$i]->getVar('alb_id');}
-                    $child = $this->getListChildsOfCategory($albumsAll[$i]->getVar('alb_id'));
-                    if ( $child ) {
-                        $childrens[$albumsAll[$i]->getVar('alb_id')] = $child;
-                    } else {
-                        $childrens[$albumsAll[$i]->getVar('alb_id')] = array('first' => 0, 'last' => 0,'alb_pid' => $albumsAll[$i]->getVar('alb_pid'), 'alb_name' => $albumsAll[$i]->getVar('alb_name'));
-                    }
-                }
-                $childrens[$firstAlbId]['first'] = 1;
-                $childrens[$albumsAll[$i]->getVar('alb_id')]['last'] = 1;
-            } else {
-                return false;
-            }
-            return $childrens;
-        } */
-
-    /**
      * @param $albPid
      * @return bool|string
      */
-    public function getListChildsOfCategory($albPid)
+    public function getListChildsOfCollection($albPid)
     {
         if ($albPid > 0) {
             $childsAll = '<ol>';
@@ -230,9 +192,10 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
             $childsAll = '';
         }
 
-        $helper        = \XoopsModules\Wggallery\Helper::getInstance();
-        $albumsHandler = $helper->getHandler('Albums');
-        $crAlbums      = new \CriteriaCompo();
+        $helper = \XoopsModules\Wggallery\Helper::getInstance();
+        $albumsHandler      = $helper->getHandler('Albums');
+        $permissionsHandler = $helper->getHandler('Permissions');
+        $crAlbums = new \CriteriaCompo();
         $crAlbums->add(new \Criteria('alb_pid', $albPid));
         $crAlbums->setSort('alb_weight ASC, alb_date');
         $crAlbums->setOrder('DESC');
@@ -241,25 +204,26 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
         // Table view albums
         if ($albumsCount > 0) {
             foreach (array_keys($albumsAll) as $i) {
-                // if ( 0 < count($childsAll) ) {$childsAll .= "#".('' !== $childsAll)."|";}
-                $child     = $this->getListChildsOfCategory($albumsAll[$i]->getVar('alb_id'));
-                $childsAll .= '<li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-collapsed" id="menuItem_' . $albumsAll[$i]->getVar('alb_id') . '">';
+                if ($permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'))) {
+                    $child     = $this->getListChildsOfCollection($albumsAll[$i]->getVar('alb_id'));
+                    $childsAll .= '<li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-collapsed" id="menuItem_' . $albumsAll[$i]->getVar('alb_id') . '">';
 
-                $childsAll .= '<div class="menuDiv">';
-                if ($child) {
-                    $childsAll .= '<span title="Click to show/hide children" class="disclose ui-icon ui-icon-plusthick"><span>-</span></span>';
-                }
-                $childsAll .= '<span>';
-                $childsAll .= '<span data-id="' . $albumsAll[$i]->getVar('alb_id') . '" class="itemTitle">' . $albumsAll[$i]->getVar('alb_name') . '</span>';
-                $childsAll .= '<span class="pull-right">
-                                <a class="" href="albums.php?op=edit&amp;alb_id=' . $albumsAll[$i]->getVar('alb_id') . '" title="' . _CO_WGGALLERY_ALBUM_EDIT . '">
-                                    <img class="wgg-btn-icon" src="' . WGGALLERY_ICONS_URL . '/16/edit.png" alt="' . _CO_WGGALLERY_ALBUM_EDIT . '">
-                                </a></span>';
-                $childsAll .= '</span>';
-                $childsAll .= '</div>';
+                    $childsAll .= '<div class="menuDiv">';
+                    if ($child) {
+                        $childsAll .= '<span title="Click to show/hide children" class="disclose ui-icon ui-icon-plusthick"><span>-</span></span>';
+                    }
+                    $childsAll .= '<span>';
+                    $childsAll .= '<span data-id="' . $albumsAll[$i]->getVar('alb_id') . '" class="itemTitle">' . $albumsAll[$i]->getVar('alb_name') . '</span>';
+                    $childsAll .= '<span class="pull-right">
+                                    <a class="" href="albums.php?op=edit&amp;alb_id=' . $albumsAll[$i]->getVar('alb_id') . '" title="' . _CO_WGGALLERY_ALBUM_EDIT . '">
+                                        <img class="wgg-btn-icon" src="' . WGGALLERY_ICONS_URL . '/16/edit.png" alt="' . _CO_WGGALLERY_ALBUM_EDIT . '">
+                                    </a></span>';
+                    $childsAll .= '</span>';
+                    $childsAll .= '</div>';
 
-                if ($child) {
-                    $childsAll .= $child;
+                    if ($child) {
+                        $childsAll .= $child;
+                    }
                 }
             }
         } else {

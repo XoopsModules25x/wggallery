@@ -30,16 +30,19 @@ define('_AM_WGGALLERY_THEREARE_IMAGES', "There are <span class='bold'>%s</span> 
 define('_AM_WGGALLERY_THEREARE_GALLERYTYPES', "There are <span class='bold'>%s</span> gallery types in the database");
 define('_AM_WGGALLERY_THEREARE_ALBUMTYPES', "There are <span class='bold'>%s</span> album types in the database");
 define('_AM_WGGALLERY_THEREARE_WATERMARKS', "There are <span class='bold'>%s</span> watermarks in the database");
+define('_AM_WGGALLERY_THEREARE_CATEGORIES', "There are <span class='bold'>%s</span> categories in the database");
 // There aren't
 define('_AM_WGGALLERY_THEREARENT_GALLERYTYPES', "There aren't gallery types! For initialization/reset goto 'Maintenance' => 'Maintain gallerytypes' and click on button 'Set default settings'");
 define('_AM_WGGALLERY_THEREARENT_ALBUMTYPES', "There aren't album types! For initialization/reset goto 'Maintenance' => 'Maintain albumtypes' and click on button 'Set default settings'");
 define('_AM_WGGALLERY_THEREARENT_WATERMARKS', 'Currently there are no watermarks defined!');
+define('_AM_WGGALLERY_THEREARENT_CATEGORIES', "There aren't categories!");
 // ---------------- Admin Files ----------------
 // Buttons
 define('_AM_WGGALLERY_ADD_ALBUM', 'Add New Album');
 define('_AM_WGGALLERY_ADD_IMAGE', 'Add New Image');
 define('_AM_WGGALLERY_ADD_GALLERYTYPE', 'Add New Gallery Type');
 define('_AM_WGGALLERY_ADD_ALBUMTYPE', 'Add New Album Type');
+define('_AM_WGGALLERY_ADD_CATEGORY', 'Add New Category');
 // Lists
 define('_AM_WGGALLERY_ALBUMS_LIST', 'List of Albums');
 define('_AM_WGGALLERY_ALBUMS_APPROVE', 'Albums waiting for approving');
@@ -48,6 +51,19 @@ define('_AM_WGGALLERY_IMAGES_APPROVE', 'Images waiting for approving');
 define('_AM_WGGALLERY_GALLERYTYPES_LIST', 'List of Gallery types');
 define('_AM_WGGALLERY_ALBUMTYPES_LIST', 'List of Album types');
 define('_AM_WGGALLERY_WATERMARKS_LIST', 'List of Watermarks');
+define('_AM_WGGALLERY_CATEGORIES_LIST', 'List of Categories');
+// Album
+define('_AM_WGGALLERY_ALBUM_IMGNAME', "Name of album image (if '" . _CO_WGGALLERY_ALBUM_USE_UPLOADED . "')");
+define('_AM_WGGALLERY_ALBUM_IMGID', "ID of album image (if '" . _CO_WGGALLERY_ALBUM_IMGID . "')");
+//Categories
+define('_AM_WGGALLERY_EDIT_CATEGORY', 'Edit category');
+define('_AM_WGGALLERY_CAT_ID', 'Id');
+define('_AM_WGGALLERY_CAT_TEXT', 'Category text');
+define('_AM_WGGALLERY_CAT_EXIF', 'Exif name for category');
+define('_AM_WGGALLERY_CAT_ALBUM', 'Use category for albums');
+define('_AM_WGGALLERY_CAT_IMAGE', 'Use category for images');
+define('_AM_WGGALLERY_CAT_SEARCH', 'Use category for search');
+define('_AM_WGGALLERY_CAT_ERROR_CHANGE', 'Error when changing option');
 // Elements of Gallerytype
 define('_AM_WGGALLERY_GT_AT_ID', 'Id');
 define('_AM_WGGALLERY_GT_AT_PRIMARY', 'Primary');
@@ -201,13 +217,14 @@ define('_AM_WGGALLERY_OPTION_SHOWSUBMITTER', 'Show submitter');
 define('_AM_WGGALLERY_MAINTENANCE_ALBUM_SELECT', 'Select album');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_DR', 'Delete and reset');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_R', 'Set default settings');
+define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_RIL', 'Resize all large images');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_RIM', 'Resize all medium images');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_RIT', 'Resize all thumbs');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_DUI', 'Delete unused images');
 define('_AM_WGGALLERY_MAINTENANCE_EXECUTE_DUI_SHOW', 'Show list of unused images');
 define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET', 'Successfully reset: ');
 define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE', 'Successfully created: ');
-define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_RESIZE', 'Successfully resized: %s of %t images');
+define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_RESIZE', 'Successfully resized: %s times resized for %t images');
 define('_AM_WGGALLERY_MAINTENANCE_SUCCESS_DELETE', 'Successfully deleted: ');
 define('_AM_WGGALLERY_MAINTENANCE_ERROR_RESET', 'Error when reseting: ');
 define('_AM_WGGALLERY_MAINTENANCE_ERROR_CREATE', 'Error when creating: ');
@@ -226,7 +243,12 @@ define('_AM_WGGALLERY_MAINTENANCE_AT_DESC', 'Delete albumtypes not supported any
 define('_AM_WGGALLERY_MAINTENANCE_AT_SURERESET', 'All existing album settings will be updated to default albumtypes. Do you want to continue?');
 define('_AM_WGGALLERY_MAINTENANCE_AT_SUREDELETE', 'All existing albumtypes (settings included) will be deleted and replaced by current albumtypes. Do you want to continue?');
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE', 'Resize images');
-define('_AM_WGGALLERY_MAINTENANCE_RESIZE_DESC', 'Resize images or thumbs to max height corresponding module preferences.<br>Current settings:<br>a) medium: max width %mw px / max height %mh px<br>b) thumb: max width %tw px / max height %th px');
+define('_AM_WGGALLERY_MAINTENANCE_RESIZE_DESC', 'Resize images or thumbs to max height corresponding module preferences.<br>Current settings:<ul>
+<li>large: max width %lw px / max height %lh px</li>
+<li>medium: max width %mw px / max height %mh px</li>
+<li>thumb: max width %tw px / max height %th px</li>
+</ul>');
+define('_AM_WGGALLERY_MAINTENANCE_RESIZE_INFO', 'Resizing of "large images" is only possible if original image is available!');
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE_SELECT', 'Select kind of images for resizing');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED', 'Cleanup image directory');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC', 'All currently unused images from following directories will be deleted:<ul>
@@ -247,7 +269,7 @@ define('_AM_WGGALLERY_MAINTENANCE_IMGDIR', 'Broken items image to directory');
 define('_AM_WGGALLERY_MAINTENANCE_IMGDIR_DESC', 'Items of table images are searched, where the image is not in the upload directory.');
 define('_AM_WGGALLERY_MAINTENANCE_IMGALB', 'Broken items image to albums');
 define('_AM_WGGALLERY_MAINTENANCE_IMGALB_DESC', 'Items of table images are searched, where the parent album is not existing (anymore).');
-define('_AM_WGGALLERY_MAINTENANCE_IMG_SEARCH', 'Search items');
+define('_AM_WGGALLERY_MAINTENANCE_ITEM_SEARCH', 'Search items');
 define('_AM_WGGALLERY_MAINTENANCE_IMG_SEARCHOK', 'No broken items image found');
 define('_AM_WGGALLERY_MAINTENANCE_IMG_CLEAN', 'Clean broken items');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_SYSTEM', 'System checks');
@@ -273,6 +295,34 @@ define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_READ', 'Read missing exif data');
 define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_READALL', 'Read all exif data again');
 define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_SUCCESS', 'Successfully read exif');
 define('_AM_WGGALLERY_MAINTENANCE_READ_EXIF_ERROR', 'Error when reading exif');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_SPACE', 'Check used space in upload directory');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_SPACE_DESC', 'Following upload directories will be checked in order to get used space:<ul>
+<li>%p/albums/</li>
+<li>%p/large/</li>
+<li>%p/medium/</li>
+<li>%p/thumbs/</li>
+<li>%p/temp/</li>
+</ul>');
+define('_AM_WGGALLERY_MAINTENANCE_ERROR_SOURCE', 'Error - necessary sourcefile not found: ');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT', 'Check mimetypes');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_DESC', 'Check image table for:<ul>
+<li>invalid mimetypes</li>
+<li>mimetypes not allowed according module preferences</li>
+</ul>');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SEARCH', 'Search invalid mimetypes');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_CLEAN', 'Clean invalid mimetypes');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SUCCESS', '%s mimetype of %t are valid');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SUCCESSOK', 'Mimetype valid');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_ERROR', 'Invalid mimetype');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SAVESUCCESS', 'Mimetype successfully changed');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_MT_SAVEERROR', 'Error when saving mimetype');
+define('_AM_WGGALLERY_MAINTENANCE_INVALIDRATE', 'Cleaning ratings/likes');
+define('_AM_WGGALLERY_MAINTENANCE_INVALIDRATE_DESC', 'Delete ratings/likes, where the image is not existing anymore');
+define('_AM_WGGALLERY_MAINTENANCE_INVALIDRATE_NUM', '%e of %s ratings are invalid');
+define('_AM_WGGALLERY_MAINTENANCE_INVALIDRATE_RESULT', '%s of %t ratings cleaned');
+define('_AM_WGGALLERY_MAINTENANCE_INVALIDCATS', 'Cleaning used categories');
+define('_AM_WGGALLERY_MAINTENANCE_INVALIDCATS_DESC', 'Delete category in albums and images, if category is not existing anymore');
+define('_AM_WGGALLERY_MAINTENANCE_INVALIDCATS_RESULT', '%t items have been cleaned');
 // Albums
 define('_AM_WGGALLERY_ALBUMS_ERRNOTFOUND', 'Error: Image not found (Image-Id %s)');
 // Import
@@ -292,6 +342,3 @@ define('_AM_WGGALLERY_IMPORT_ERR_ALBEXIST', 'There are already albums existing')
 define('_AM_WGGALLERY_IMPORT_ERR_IMGEXIST', 'There are already images existing');
 define('_AM_WGGALLERY_IMPORT_SUCCESS', '%a albums and %i images successfully imported');
 define('_AM_WGGALLERY_IMPORT_ERROR', 'An error occured during import');
-// ---------------- Admin Others ----------------
-
-// ---------------- End ----------------

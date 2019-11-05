@@ -39,6 +39,7 @@ if (0 == $countAlbumtypes) {
     $countAlbumtypes = $albumtypesHandler->getCount();
 }
 $countWatermarks = $watermarksHandler->getCount();
+$countCategories = $categoriesHandler->getCount();
 // Template Index
 $templateMain = 'wggallery_admin_index.tpl';
 // InfoBox Statistics
@@ -49,11 +50,13 @@ $adminObject->addInfoBoxLine(sprintf('<label>' . _AM_WGGALLERY_THEREARE_IMAGES .
 $adminObject->addInfoBoxLine(sprintf('<label>' . _AM_WGGALLERY_THEREARE_GALLERYTYPES . '</label>', $countGallerytypes));
 $adminObject->addInfoBoxLine(sprintf('<label>' . _AM_WGGALLERY_THEREARE_ALBUMTYPES . '</label>', $countAlbumtypes));
 $adminObject->addInfoBoxLine(sprintf('<label>' . _AM_WGGALLERY_THEREARE_WATERMARKS . '</label>', $countWatermarks));
+$adminObject->addInfoBoxLine(sprintf('<label>' . _AM_WGGALLERY_THEREARE_CATEGORIES . '</label>', $countCategories));
 // Upload Folders
 $folder = [
     WGGALLERY_UPLOAD_PATH,
     WGGALLERY_UPLOAD_PATH . '/images/',
     WGGALLERY_UPLOAD_PATH . '/images/albums/',
+    WGGALLERY_UPLOAD_PATH . '/images/original/',
     WGGALLERY_UPLOAD_PATH . '/images/large/',
     WGGALLERY_UPLOAD_PATH . '/images/medium/',
     WGGALLERY_UPLOAD_PATH . '/images/thumbs/',

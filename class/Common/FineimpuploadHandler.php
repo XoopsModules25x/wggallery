@@ -40,8 +40,6 @@ namespace XoopsModules\Wggallery\Common;
 use XoopsModules\Wggallery;
 use XoopsModules\Wggallery\Constants;
 
-//class FineimpuploadHandler extends \SystemFineUploadHandler
-
 /**
  * Class FineimpuploadHandler
  * @package XoopsModules\Wggallery
@@ -56,6 +54,10 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
      * @var int
      */
     private $imageId = 0;
+    /**
+     * @var string
+     */
+    private $imageOrigName = null;
     /**
      * @var string
      */
@@ -96,6 +98,10 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
      * @var string
      */
     private $pathUpload = null;
+    /**
+     * @var string
+     */
+    private $exifData = null;
 
     /**
      * XoopsFineImUploadHandler constructor.
@@ -128,10 +134,10 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         }
 
         $pathParts = pathinfo($this->getName());
-
-        $this->imageName      = uniqid('img', true) . '.' . mb_strtolower($pathParts['extension']);
+        
+        $this->imageName      = str_replace('.','_',uniqid('img', true)) . '.' . mb_strtolower($pathParts['extension']);
         $this->imageNicename  = str_replace(['_', '-'], ' ', $pathParts['filename']);
-        $this->imageNameLarge = uniqid('imgl', true) . '.' . mb_strtolower($pathParts['extension']);
+        $this->imageNameLarge = str_replace('.','_',uniqid('imgl', true)) . '.' . mb_strtolower($pathParts['extension']);
         $this->imagePath      = $this->pathUpload . '/large/' . $this->imageNameLarge;
         $this->imageNameOrig  = $_FILES[$this->inputName]['name'];
         $this->imageMimetype  = $_FILES[$this->inputName]['type'];
@@ -140,6 +146,18 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         if (false === move_uploaded_file($_FILES[$this->inputName]['tmp_name'], $this->imagePath)) {
             return false;
         }
+        
+        if ($helper->getConfig('store_original')) {
+            $imgPathSaveOrig = $this->pathUpload . '/original/' . $this->imageNameOrig;
+            copy ( $this->imagePath , $imgPathSaveOrig );
+        }
+        
+        if ($helper->getConfig('store_exif')) {
+            // read exif from original image
+            $exif = json_encode(exif_read_data($this->imagePath));
+            $this->exifData   = $exif;
+        }
+        
         // resize large image
         $imgHandler                = new Wggallery\Resizer();
         $imgHandler->sourceFile    = $this->imagePath;
@@ -151,7 +169,12 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         if (false === $ret) {
             return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_LARGE, $this->imageNicename)];
         }
-
+        
+        // TODO: copy exif from original to resized, if resized
+        // if (true === $ret && $helper->getConfig('store_exif')) {
+            // possible solutions???
+        // }
+        
         $ret = $this->handleImageDB();
         if (false === $ret) {
             return [
@@ -236,6 +259,19 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
 
         return ['success' => true, 'uuid' => $uuid];
     }
+    
+    
+    private function recursive_array_replace ($find, $replace, $array) {
+        if (!is_array($array)) {
+            return str_replace($find, $replace, $array);
+        }
+
+        $newArray = [];
+        foreach ($array as $key => $value) {
+            $newArray[$key] = $this->recursive_array_replace($find, $replace, $value);
+        }
+        return $newArray;
+    }
 
     /**
      * @return bool
@@ -265,6 +301,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         $imagesObj->setVar('img_resy', $this->imageHeight);
         $imagesObj->setVar('img_albid', $this->claims->cat);
         $imagesObj->setVar('img_state', $this->permUseralbum);
+        $imagesObj->setVar('img_exif', $this->exifData);
         $imagesObj->setVar('img_date', time());
         $imagesObj->setVar('img_submitter', $xoopsUser->id());
         $imagesObj->setVar('img_ip', $_SERVER['REMOTE_ADDR']);
@@ -289,6 +326,9 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
                 break;
             case'image/jpeg':
                 $img = imagecreatefromjpeg($this->imagePath);
+                if (!$img) {
+                    $img = imagecreatefromstring(file_get_contents($this->imagePath));
+                }
                 break;
             case'image/gif':
                 $img = imagecreatefromgif($this->imagePath);

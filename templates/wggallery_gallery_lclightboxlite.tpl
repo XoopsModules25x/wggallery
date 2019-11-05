@@ -2,14 +2,15 @@
 
 <{include file='db:wggallery_admin_header.tpl'}>
 
+
 <script type='text/javascript'>
     $(document).ready(function() {
         var data = [<{if $images_nb > 0}><{foreach item=image from=$images}>                
 					{
 						type            : 'image',
 						src             : '<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>',
-						title           : '<{$image.title}>',
-						author          : '<{$image.submitter}>',
+						title           : '<{if $showTitle == 'true'}><{$image.title}><{/if}>',
+						author          : '<{if $showSubmitter == 'true'}><{$image.submitter}><{/if}>',
 						thumb           : '<{$image.thumb}>',
 						force_outer_cmd : true,
 						download        : '<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>'
@@ -95,4 +96,4 @@
 <div class="clear spacer"></div>
 
 <!-- Footer -->
-<{include file='db:wggallery_admin_footer.tpl'}>
+<{include file='db:wggallery_footer.tpl'}>

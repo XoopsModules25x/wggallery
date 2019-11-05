@@ -23,17 +23,25 @@
 			<!-- *************** Basic Tab ***************-->
             <div class='tab-pane active center' id='1'>
 				<img id='currentImg' class='img-responsive wgg-album-img' src='<{$album.image}>' alt='<{$album.name}>'>
+                <p><{$smarty.const._CO_WGGALLERY_ALBUM_IMGTYPE}>: <{$album.image_path}><br>
+                <{$smarty.const._CO_WGGALLERY_IMAGE_RES}>: <{$albimage_width}> / <{$albimage_height}></p>
                 <input type='button' class='btn <{$btn_style}>' value='<{$smarty.const._CANCEL}>' onclick='history.go(-1);return true;'>
 			</div>
             
             <!-- *************** Tab for select image of albums ***************-->
 			<div class='tab-pane' id='2'>
                 <div class='col-xs-12 col-sm-6'>
-                    <{foreach item=image from=$images}>
-                        <{if $image.alb_name}><div class='selimages col-xs-12 col-sm-12'><h5 class='modal-title' style='width:100%'><{$image.alb_name}></h5></div><{/if}>
+                    <{foreach item=image from=$images name=fe_image}>
+                        <{if $image.alb_name}>
+                            <div class='clear'></div>
+                            <div class='selimages col-xs-12 col-sm-12'><h5 class='modal-title' style='width:100%'><{$image.alb_name}></h5></div>
+                        <{/if}>
                         <div class='selimages col-xs-12 col-sm-4'>
-                        <input id='<{$image.id}>' class='imgSelect1 img-responsive wgg-album-img <{if $image.selected}>wgg-modal-selected<{/if}>' type='image' src='<{$image.thumb}>' alt='<{$image.title}>' style='padding:3px;' value='<{$image.name}>'>
+                            <input id='<{$image.id}>_image' class='imgSelect1 img-responsive wgg-album-img <{if $image.selected}>wgg-modal-selected<{/if}>' type='image' src='<{$image.thumb}>'  preview='<{$image.medium}>' alt='<{$image.title}>' style='padding:3px;' value='<{$image.name}>'>
                         </div>
+                        <{if $image.counter % 3 == 0}>
+                            <div class='clear'></div>
+                        <{/if}>
                     <{/foreach}>
                 </div>
                 <div class='col-xs-12 col-sm-6'>
@@ -55,8 +63,8 @@
             <!-- *************** Tab for image grid ***************-->
 			<div class='tab-pane' id='3'>
 				<div class='col-xs-12 col-sm-12'>
-					<label class='radio-inline'><input type='radio' name='gridtype' id='alb_imgcat1' title='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID4}>' value='1' checked onchange='changeGridSetting(this)'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID4}>&nbsp;</label>
-					<label class='radio-inline'><input type='radio' name='gridtype' id='alb_imgcat2' title='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID6}>' value='2' onchange='changeGridSetting(this)'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID6}>&nbsp;</label>
+					<label class='radio-inline'><input type='radio' name='gridtype' id='alb_imgtype1' title='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID4}>' value='1' checked onchange='changeGridSetting(this)'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID4}>&nbsp;</label>
+					<label class='radio-inline'><input type='radio' name='gridtype' id='alb_imgtype2' title='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID6}>' value='2' onchange='changeGridSetting(this)'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID6}>&nbsp;</label>
 				</div>
 				<div class='col-xs-12 col-sm-4'>
 					<button id='btnGridAdd1' type='button' class='btn <{$btn_style}>' style='display:inline;margin:5px' data-toggle='modal' data-target='#myModalImagePicker1'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID_SRC1}></button>
@@ -108,11 +116,11 @@
 					<div class="col-md-12 docs-toggles">
 						<!-- <h3>Toggles:</h3> -->
                         <div class="btn-group d-flex flex-nowrap" data-toggle="buttons">
-                            <label class="btn btn-crop <{$btn_style}> active">
+                            <label class="btn btn-crop <{$btn_style}>">
                                 <input type="radio" class="sr-only" id="aspectRatio1" name="aspectRatio" value="1.7777777777777777">
                                 <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_ASPECTRATIO}>: 16 / 9">16:9</span>
                             </label>
-                            <label class="btn btn-crop <{$btn_style}>">
+                            <label class="btn btn-crop <{$btn_style}>  active">
                                 <input type="radio" class="sr-only" id="aspectRatio2" name="aspectRatio" value="1.3333333333333333">
                                 <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_ASPECTRATIO}>: 4 / 3">4:3</span>
                             </label>
@@ -134,58 +142,59 @@
                         <!-- <h3>Toolbar:</h3> -->
                         <div class="btn-group">
                             <button type="button" class="btn btn-crop <{$btn_style}>" data-method="setDragMode" data-option="move" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE}>">
-                                <span class="docs-tooltip" data-toggle="tooltip" title="cropper.setDragMode(&quot;move&quot;)"><span class="fa fa-arrows"></span></span>
+                                <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE}>"><span class="fa fa-arrows"></span></span>
                             </button>
-                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="setDragMode" data-option="crop" title="Crop">
-								<span class="docs-tooltip" data-toggle="tooltip" title="cropper.setDragMode(&quot;crop&quot;)"><span class="fa fa-crop"></span>
+                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="setDragMode" data-option="crop" title="<{$smarty.const._CO_WGGALLERY_ALBUM_CROP_IMAGE}>">
+								<span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_CROP_IMAGE}>"><span class="fa fa-crop"></span>
 								</span>
 							</button>
                         </div>
 
                         <div class="btn-group">
                             <button type="button" class="btn btn-crop <{$btn_style}>" data-method="zoom" data-option="0.1" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_ZOOMIN}>">
-                                <span class="docs-tooltip" data-toggle="tooltip" title="cropper.zoom(0.1)"><span class="fa fa-search-plus"></span></span>
+                                <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_ZOOMIN}>"><span class="fa fa-search-plus"></span></span>
                             </button>
                             <button type="button" class="btn btn-crop <{$btn_style}>" data-method="zoom" data-option="-0.1" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_ZOOMOUT}>">
-                                <span class="docs-tooltip" data-toggle="tooltip" title="cropper.zoom(-0.1)"><span class="fa fa-search-minus"></span></span>
+                                <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_ZOOMOUT}>"><span class="fa fa-search-minus"></span></span>
                             </button>
                         </div>
 
                         <div class="btn-group">
                             <button type="button" class="btn btn-crop <{$btn_style}>" data-method="move" data-option="-10" data-second-option="0" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE_LEFT}>">
-                                <span class="docs-tooltip" data-toggle="tooltip" title="cropper.move(-10, 0)"><span class="fa fa-arrow-left"></span></span>
+                                <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE_LEFT}>"><span class="fa fa-arrow-left"></span></span>
                             </button>
                             <button type="button" class="btn btn-crop <{$btn_style}>" data-method="move" data-option="10" data-second-option="0" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE_RIGHT}>">
-                                <span class="docs-tooltip" data-toggle="tooltip" title="cropper.move(10, 0)"><span class="fa fa-arrow-right"></span></span>
+                                <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE_RIGHT}>"><span class="fa fa-arrow-right"></span></span>
                             </button>
-                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="move" data-option="0" data-second-option="-10" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE_UP}>"><span class="docs-tooltip" data-toggle="tooltip" title="cropper.move(0, -10)"><span class="fa fa-arrow-up"></span></span>
+                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="move" data-option="0" data-second-option="-10" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE_UP}>">
+                                <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE_UP}>"><span class="fa fa-arrow-up"></span></span>
                             </button>
                             <button type="button" class="btn btn-crop <{$btn_style}>" data-method="move" data-option="0" data-second-option="10" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE_DOWN}>">
-                                <span class="docs-tooltip" data-toggle="tooltip" title="cropper.move(0, 10)"><span class="fa fa-arrow-down"></span></span>
+                                <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE_DOWN}>"><span class="fa fa-arrow-down"></span></span>
                             </button>
                         </div>
 
                         <div class="btn-group">
-                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="rotate" data-option="-45" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_ROTATE_LEFT}>">
-                                <span class="docs-tooltip" data-toggle="tooltip" title="cropper.rotate(-45)"><span class="fa fa-rotate-left"></span></span>
+                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="rotate" data-option="-45" title="<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_LEFT}>">
+                                <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_LEFT}>"><span class="fa fa-rotate-left"></span></span>
                             </button>
-                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="rotate" data-option="45" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_ROTATE_RIGHT}>">
-                                <span class="docs-tooltip" data-toggle="tooltip" title="cropper.rotate(45)"><span class="fa fa-rotate-right"></span></span>
+                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="rotate" data-option="45" title="<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_RIGHT}>">
+                                <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_RIGHT}>"><span class="fa fa-rotate-right"></span></span>
                             </button>
                         </div>
 
                         <div class="btn-group">
                             <button type="button" class="btn btn-crop <{$btn_style}>" data-method="scaleX" data-option="-1" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_FLIP_HORIZONTAL}>">
-                                <span class="docs-tooltip" data-toggle="tooltip" title="cropper.scaleX(-1)"><span class="fa fa-arrows-h"></span></span>
+                                <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_FLIP_HORIZONTAL}>"><span class="fa fa-arrows-h"></span></span>
                             </button>
                             <button type="button" class="btn btn-crop <{$btn_style}>" data-method="scaleY" data-option="-1" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_FLIP_VERTICAL}>">
-                                <span class="docs-tooltip" data-toggle="tooltip" title="cropper.scaleY(-1)"><span class="fa fa-arrows-v"></span></span>
+                                <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_FLIP_VERTICAL}>"><span class="fa fa-arrows-v"></span></span>
                             </button>
                         </div>
 
                         <div class="btn-group">
                             <button type="button" class="btn btn-crop <{$btn_style}>" data-method="reset" title="<{$smarty.const._RESET}>">
-                                <span class="docs-tooltip" data-toggle="tooltip" title="cropper.reset()"><span class="fa fa-refresh"></span></span>
+                                <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._RESET}>"><span class="fa fa-refresh"></span></span>
                             </button>
                         </div>
                         <div class="btn-group">
@@ -197,12 +206,12 @@
 
                         <div class="btn-group-horizontal btn-group-crop col-xs-12 col-sm-12">
                             <button type="button" class="btn btn-crop <{$btn_style}>" data-method="getCroppedCanvas" data-option="{ &quot;maxWidth&quot;: 4096, &quot;maxHeight&quot;: 4096, &quot;save&quot;: 0 }">
-                                <span class="docs-tooltip" data-toggle="tooltip" title="cropper.getCroppedCanvas({ maxWidth: 4096, maxHeight: 4096 })"><{$smarty.const._PREVIEW}></span>
+                                <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._PREVIEW}>"><{$smarty.const._PREVIEW}></span>
                             </button>
                             <button id="btnCropCreate" type="button" class="btn btn-crop <{$btn_style}>" data-method="getCroppedCanvas" data-option="{ &quot;maxWidth&quot;: 4096, &quot;maxHeight&quot;: 4096, &quot;save&quot;: 1 }">
-                                <span class="docs-tooltip" data-toggle="tooltip" title="cropper.getCroppedCanvas({ maxWidth: 4096, maxHeight: 4096 })"><{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_CREATE}></span>
+                                <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_CREATE}>"><{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_CREATE}></span>
                             </button>
-                            <a class="btn <{$btn_style}> disabled" id="btnCropApply" href="<{$wggallery_url}>/album_images.php?op=saveCrop&alb_id=<{$album.alb_id}>&alb_pid=<{$album.alb_pid}>" ><{$smarty.const._CO_WGGALLERY_ALBUM_IH_APPLY}></a>
+                            <a class="btn <{$btn_style}> disabled" id="btnCropApply" href="<{$wggallery_url}>/album_images.php?op=saveCrop&alb_id=<{$album.alb_id}>&alb_pid=<{$album.alb_pid}>&alb_state=<{$album.alb_state}>" ><{$smarty.const._CO_WGGALLERY_ALBUM_IH_APPLY}></a>
                         </div>
 
                         <!-- Show the cropped image in modal -->
@@ -321,7 +330,7 @@
 	
 	$('.imgSelect1').click(function () {
 		$('#alb_imgid').val($(this).attr('id'));
-		document.getElementById('albImgSelected').src=$(this).attr('src');
+		document.getElementById('albImgSelected').src=$(this).attr('preview');
 		var elements = document.getElementsByClassName('wgg-modal-selected');
 		while(elements.length > 0){
 			elements[0].classList.remove('wgg-modal-selected');

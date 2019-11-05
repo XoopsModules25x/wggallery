@@ -72,6 +72,10 @@ class Constants
     const WATERMARK_TARGET_A = 0;
     const WATERMARK_TARGET_M = 1;
     const WATERMARK_TARGET_L = 2;
-
-    /**#@-*/
+    // constants for rating
+    const RATING_NONE = 0;
+    const RATING_5STARS = 1;
+    const RATING_10STARS = 2;
+    const RATING_LIKES = 3;
+    const RATING_10NUM = 4;
 }

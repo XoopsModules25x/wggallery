@@ -54,7 +54,7 @@ $GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/css/style_default.cs
 $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/js/admin.js');
 
 // assign vars
-$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_32', WGGALLERY_ICONS_URL . '/32');
 $GLOBALS['xoopsTpl']->assign('wggallery_upload_image_url', WGGALLERY_UPLOAD_IMAGES_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
@@ -92,17 +92,24 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('albums_count', $albumsCount);
         $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
         // Table view albums
+        $albumsPermEdit = 0;
         if ($albumsCount > 0) {
             foreach (array_keys($albumsAll) as $i) {
-                $album = $albumsAll[$i]->getValuesAlbums();
                 //check permissions
-                $album['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
-                $keywords[]    = $albumsAll[$i]->getVar('alb_name');
+                if ($permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'))) {
+                    $album = $albumsAll[$i]->getValuesAlbums();
+                    $album['edit'] = true;
+                    $albumsPermEdit++;
+                    $keywords[]    = $albumsAll[$i]->getVar('alb_name');
+                }
+                if ($permissionsHandler->permAlbumDownload($albumsAll[$i]->getVar('alb_id'))) {
+                    $album['download'] = true;
+                }
                 $GLOBALS['xoopsTpl']->append('albums_list', $album);
                 unset($album);
             }
             // Display Navigation
-            if ($albumsCount > $limit) {
+            if ($albumsPermEdit > $limit) {
                 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($albumsCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit . '&amp;alb_id=' . $albId . '&amp;alb_pid=' . $albPid . '&amp;alb_submitter=' . $albSubm);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
@@ -111,7 +118,7 @@ switch ($op) {
             $GLOBALS['xoopsTpl']->assign('error', _CO_WGGALLERY_THEREARENT_ALBUMS);
         }
         // add list for sorting
-        $albumlist_sort = $albumsHandler->getListChildsOfCategory(0);
+        $albumlist_sort = $albumsHandler->getListChildsOfCollection(0);
         // var_dump($albumlist_sort);
         $GLOBALS['xoopsTpl']->assign('albumlist_sort', $albumlist_sort);
         $GLOBALS['xoopsTpl']->assign('global_submit', $permissionsHandler->permGlobalSubmit());
@@ -151,13 +158,13 @@ switch ($op) {
         }
         // Set Vars
         $albumsObj->setVar('alb_pid', $albPid);
-        $albIscat = Request::getInt('alb_iscat');
-        $albumsObj->setVar('alb_iscat', $albIscat);
+        $albIscoll = Request::getInt('alb_iscoll');
+        $albumsObj->setVar('alb_iscoll', $albIscoll);
         $alb_name = Request::getString('alb_name');
         $albumsObj->setVar('alb_name', $alb_name);
         $albumsObj->setVar('alb_desc', Request::getString('alb_desc'));
         $albumsObj->setVar('alb_weight', Request::getInt('alb_weight'));
-        $albumsObj->setVar('alb_imgcat', Request::getInt('alb_imgcat'));
+        $albumsObj->setVar('alb_imgtype', Request::getInt('alb_imgtype'));
         $albumsObj->setVar('alb_image', Request::getString('alb_image'));
         $albumsObj->setVar('alb_imgid', Request::getInt('alb_imgid'));
         $albState = Request::getInt('alb_state');
@@ -166,6 +173,7 @@ switch ($op) {
         }
         $albumsObj->setVar('alb_state', $albState);
         $albumsObj->setVar('alb_wmid', Request::getInt('alb_wmid'));
+        $albumsObj->setVar('alb_cats', serialize(Request::getArray('alb_cats')));
         $albumDate = date_create_from_format(_SHORTDATESTRING, $_POST['alb_date']);
         $albumsObj->setVar('alb_date', $albumDate->getTimestamp());
         $albumsObj->setVar('alb_submitter', Request::getInt('alb_submitter'));
@@ -210,7 +218,7 @@ switch ($op) {
             }
 
             // set category of album
-            $albumsHandler->setAlbumIsCat();
+            $albumsHandler->setAlbumIsColl();
 
             // send notifications
             $tags                = [];
@@ -275,6 +283,8 @@ switch ($op) {
                     $imagesHandler->unlinkImages($imagesAll[$i]->getVar('img_name'), $imagesAll[$i]->getVar('img_namelarge'));
                     $imagesObj = $imagesHandler->get($imagesAll[$i]->getVar('img_id'));
                     $imagesHandler->delete($imagesObj, true);
+                    // delete ratings
+                    $ratingsHandler->deleteAllRatings($imagesAll[$i]->getVar('img_id'), 1);
                 }
                 // send notifications
                 $tags                = [];

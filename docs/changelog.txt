@@ -1,4 +1,77 @@
-<h5>1.09 RC1</h5>  [WORK IN PROGRESS - NOT RELEASED]  Dev: XOOPS 2.5.10, PHP 7.3.1
+<h5>1.14 RC1</h5>  [2019/../..]
+<hr>
+ - added possibility to store original image (lupin/goffy)
+ - implemented permissions for download full album (goffy)
+ - added possibility to download full album (goffy)
+ - added cleaning invalid ratings in maintenance (goffy)
+ - added default exif lens make and lens model (lupin/goffy)
+ - fixed bug in fineimageuploader (goffy)
+ - fixed bug in saving album cats (goffy)
+ - added cleaning invalid cats in maintenance (goffy)
+ - correction of help files (goffy)
+ - added img_tags/alb_tags to search.inc.php (GregMage/goffy)
+ - change of lang defines from cat to coll (goffy)
+ - changes in order of module preferences (goffy)
+
+<h5>1.13 RC1</h5>  [2019/../..]
+<hr>
+ - added rating system (stars or likes) (goffy)
+ - cosmetics (goffy)
+ - fixed bug with import extgallery (mjoel/goffy)
+ - added new preference image_target (lupin/goffy)
+ - show only albums with perm to edit in upload list (goffy)
+ - rebuilt update functions (added wggallery_check_db) (goffy)
+ - added modal view of single image (goffy)
+ - added 10 stars rating (lupin/goffy)
+ - added 10 numeric rating (lupin/goffy)
+ - moved exif reading before resizing, because exif data get partially lost by gd resizing (goffy)
+ - added show used space on server for upload folders in maintenance (goffy)
+
+<h5>1.12 RC1</h5>  [2019/../..]
+<hr>
+ - changed field name `alb_iscat` into `alb_iscoll` in wggalllery_albums (goffy)
+ - changed field name `alb_imgcat` `alb_imgtype` in wggalllery_albums (goffy) 
+ - added field `alb_cats` `alb_tags` in wggalllery_albums (goffy)
+ - added field `img_cats` `img_tags` in wggalllery_images (goffy)
+ - added caegories for albums and images (lupin/goffy)
+ - added new preferences for usage of categories and tags (goffy)
+ - added tags system (goffy)
+ - fixed bug with goback-button on image index site (goffy)
+ - added comment count to image index site (lupin/goffy)
+ - added views count to image (lupin/goffy)
+ - implementation of search (goffy)
+ 
+<h5>1.11 RC1</h5>  [2019/../..]
+<hr>
+ - fixed problem when source file for resizing is not existing (goffy)
+ - added check mimetypes to maintenance (goffy)
+ - new lang constants:
+   -- _AM_WGGALLERY_MAINTENANCE_ERROR_SOURCE
+   -- _AM_WGGALLERY_MAINTENANCE_CHECK_MT
+   -- _AM_WGGALLERY_MAINTENANCE_CHECK_MT_DESC
+   -- _AM_WGGALLERY_MAINTENANCE_CHECK_MT_SEARCH
+   -- _AM_WGGALLERY_MAINTENANCE_CHECK_MT_CLEAN
+   -- _AM_WGGALLERY_MAINTENANCE_CHECK_MT_SUCCESS
+   -- _AM_WGGALLERY_MAINTENANCE_CHECK_MT_SUCCESSOK
+   -- _AM_WGGALLERY_MAINTENANCE_CHECK_MT_ERROR
+   -- _AM_WGGALLERY_MAINTENANCE_CHECK_MT_SAVESUCCESS
+   -- _AM_WGGALLERY_MAINTENANCE_CHECK_MT_SAVEERROR 
+ - added sorting for admin/albums list (goffy)
+ - fixed bug in wggallery_categoryitem_bcards.tpl (goffy)
+ - added image rotation to resizer class (goffy)
+ - set noimage.png as default for new albums (goffy)
+ - fixed bug with upload very big jpg images (goffy) 
+ - switch from serialize to json_decode to fix problem with lne breaks (goffy)
+ - added show image preview when editing image (goffy)
+ 
+<h5>1.10 RC1</h5>  [2019/04/15]
+<hr>
+ - fixed bug with id in image editor (goffy)
+ - fixed include of wrong footer (goffy)
+ - added additional info for current album image in albumimage handler (goffy)
+ - fixed wrong titles in albumimage handler/crop image (goffy)
+ 
+<h5>1.09 RC1</h5>  [2019/04/09]  Dev: XOOPS 2.5.10, PHP 7.3.1
 <hr>
  - moved to RC1 (goffy)
  - added image handling to image management - edit/delete/download (goffy/mamba)

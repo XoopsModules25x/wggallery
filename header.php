@@ -38,6 +38,7 @@ $gallerytypesHandler = $helper->getHandler('Gallerytypes');
 $albumtypesHandler   = $helper->getHandler('Albumtypes');
 $permissionsHandler  = $helper->getHandler('Permissions');
 $watermarksHandler   = $helper->getHandler('Watermarks');
+$ratingsHandler      = $helper->getHandler('Ratings');
 // Permission
 require XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
 $gpermHandler = xoops_getHandler('groupperm');

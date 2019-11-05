@@ -44,6 +44,8 @@ $gallerytypesHandler = $helper->getHandler('Gallerytypes');
 $albumtypesHandler   = $helper->getHandler('Albumtypes');
 $permissionsHandler  = $helper->getHandler('Permissions');
 $watermarksHandler   = $helper->getHandler('Watermarks');
+$categoriesHandler   = $helper->getHandler('Categories');
+$ratingsHandler      = $helper->getHandler('Ratings');
 $myts                = \MyTextSanitizer::getInstance();
 
 if (!isset($xoopsTpl) || !is_object($xoopsTpl)) {
@@ -62,4 +64,4 @@ $helper->loadLanguage('common');
 
 xoops_cp_header();
 $adminObject = \Xmf\Module\Admin::getInstance();
-$style       = WGGALLERY_URL . '/assets/css/admin/style.css';
+$GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/css/admin/style.css', null);

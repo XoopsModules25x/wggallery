@@ -149,9 +149,9 @@
 			nav_btn_pos		: 'normal', // set arrows and play/pause position - normal/middle
 	
 			txt_hidden		: 500, // whether to hide texts on lightbox opening - bool or int (related to browser's smaller side)
-			show_title		: true, // bool / whether to display titles
-			show_descr		: true, // bool / whether to display descriptions
-			show_author		: true, // bool / whether to display authors
+			show_title		: false, // bool / whether to display titles
+			show_descr		: false, // bool / whether to display descriptions
+			show_author		: false, // bool / whether to display authors
 			
 			thumbs_nav		: true, // enables thumbnails navigation (requires elements poster or images)
 			tn_icons		: true, // print type icons on thumbs if types are mixed

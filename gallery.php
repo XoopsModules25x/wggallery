@@ -35,16 +35,19 @@ $utility = new \XoopsModules\Wggallery\Utility();
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet($style, null);
 if ($helper->getConfig('addjquery')) {
-    $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/js/jquery-1.9.1.min.js');
+	$GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/js/jquery-1.9.1.min.js');
 }
 
 // $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
-$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
 $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
 
 // Breadcrumbs
 $xoBreadcrumbs[] = ['title' => _CO_WGGALLERY_ALBUMS, 'link' => WGGALLERY_URL . '/'];
+
+// set default size
+$GLOBALS['xoopsTpl']->assign('source', 'medium');
 
 // assign all gallery options
 $options = unserialize($pr_gallery['options'], ['allowed_classes' => false]);
@@ -70,14 +73,9 @@ foreach ($options as $option) {
             $lcl_skin = $option['value'];
         }
     }
-    // echo "<br>".$option['name'].":".$option['value'].'#'.$optionValue;
+    // echo "<br>".$option['name'].":".$optionValue;
 }
-// check permission and overwrite gallery settings corresponding download perms, because otherwise user can download large images even if group doesn't have the right by using right mouse click
-$source = 'medium';
-if ($permissionsHandler->permImageDownloadLarge($albId)) {
-    $source = 'large';
-}
-$GLOBALS['xoopsTpl']->assign('source', $source);
+
 
 // echo '<br>template:wggallery_gallery_' . $pr_gallery['template'] . '.tpl';
 // echo '<br>isdir template: ' . is_dir(WGGALLERY_URL . '/assets/wggallery_gallery_' . $pr_gallery['template'] . '.tpl');

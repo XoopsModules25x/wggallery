@@ -88,6 +88,10 @@
 .wgg-img-panel-row .wgg-img {
 	margin: 5px;
 }
+.wgg-img-exif {
+    text-indent: -35px;
+    padding-left:35px;
+}
 
 .wgg-modal-selected {
     border:1px solid #ff0000;
@@ -98,9 +102,13 @@
 	width:650px;
 }
 
+.wgg-modal-image {
+    width: 95vw;
+}
+
 /* image sorting */
 .wgg-img-sort, .wgg-img-sort-clear {
-	border:0px solid transparent !important;
+	border:0 solid transparent !important;
 }
 .wgg-img-sort-clear {
 	height:0;

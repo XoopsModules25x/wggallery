@@ -53,8 +53,7 @@
 	<!-- Images used to open the lightbox -->
 	<div>
 		<{foreach item=image from=$images name=images}>
-			<a class="lightbox-image-link" href="<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>" data-lightbox="lightbox2-set" 
-			<{if $showDescr}> data-title="<{$image.desc}>"<{/if}> >
+			<a class="lightbox-image-link" href="<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>" data-lightbox="lightbox2-set" <{if $showDescr}> data-title="<{$image.desc}>"<{/if}> >
 				<{if $indexImage == 'simpleContainer'}>
 					<div class="simpleContainer">
 						<img class="img-responsive" src="<{if $source_preview == 'medium'}><{$image.medium}><{else}><{$image.thumb}><{/if}>" alt="<{$image.title}>" title="<{$image.title}>">
@@ -78,4 +77,4 @@
 <{/if}> 
 
 <!-- Footer -->
-<{include file='db:wggallery_admin_footer.tpl'}>
+<{include file='db:wggallery_footer.tpl'}>

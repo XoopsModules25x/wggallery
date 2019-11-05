@@ -58,6 +58,12 @@ $adminmenu[] = [
 ];
 
 $adminmenu[] = [
+    'title' => _MI_WGGALLERY_ADMENU11,
+    'link'  => 'admin/categories.php',
+    'icon'  => 'assets/icons/32/categories.png',
+];
+    
+$adminmenu[] = [
     'title' => _MI_WGGALLERY_ADMENU9,
     'link'  => 'admin/watermarks.php',
     'icon'  => 'assets/icons/32/watermarks.png',

@@ -22,13 +22,81 @@
  */
 
 use Xmf\Request;
+use XoopsModules\Wggallery\Constants;
 
 require __DIR__ . '/header.php';
 
 $op    = Request::getString('op', 'list');
 $imgId = Request::getInt('img_id');
+$albId = Request::getInt('alb_id');
 
 switch ($op) {
+    case 'album':
+        if ($albId > 0) {
+            // check permission whether download of full album is allowed
+            if ($permissionsHandler->permAlbumDownload($albId)) {
+                //Archive name
+                $archive_file_name = preg_replace ( '/[^a-z0-9_]/i', '', $albumsHandler->get($albId)->getVar('alb_name'));
+                $archive_file_name .= uniqid('_') . '.zip';
+                $archive_file_path = WGGALLERY_UPLOAD_PATH . '/temp/' . $archive_file_name;
+                unlink($archive_file_path);
+                
+                $zip = new ZipArchive();
+                //create the file and throw the error if unsuccessful
+                if ($zip->open($archive_file_path, ZIPARCHIVE::CREATE )!==TRUE) {
+                    redirect_header('albums.php', 5, _MA_WGGALLERY_ERROR_CREATE_ZIP);
+                }
+                
+                $crImages = new \CriteriaCompo();
+                $crImages->add(new \Criteria('img_albid', $albId));
+                $crImages->add(new \Criteria('img_state', Constants::STATE_ONLINE_VAL));
+                $crImages->setSort('img_weight ASC, img_date');
+                $crImages->setOrder('DESC');
+                $imagesCount = $imagesHandler->getCount($crImages);
+                if ($imagesCount > 0) {
+                    $imagesAll = $imagesHandler->getAll($crImages);
+                    // Get All Images
+                    foreach (array_keys($imagesAll) as $i) {
+                        $file = '';
+                        if ($permissionsHandler->permImageDownloadMedium($albId)) {
+                            $file = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $imagesAll[$i]->getVar('img_name');
+                        }
+                        if ($permissionsHandler->permImageDownloadLarge($albId)) {
+                            $file = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesAll[$i]->getVar('img_namelarge');
+                        }
+                        if (file_exists($file)) {
+                            $zip->addFile($file, $imagesAll[$i]->getVar('img_name'));
+                        }
+                    }
+                }
+                
+                $zip->close();
+                
+                header("Pragma: public");
+                header("Expires: 0");
+                header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+                header("Cache-Control: public");
+                header("Content-Description: File Transfer");
+                header("Content-type: application/octet-stream");
+                header('Content-Disposition: attachment; filename="'.$archive_file_name.'"');
+                header("Content-Transfer-Encoding: binary");
+                header("Content-Length: ".filesize($archive_file_path));
+                ob_end_flush();
+                @readfile($archive_file_path);
+                unlink($archive_file_path);
+
+                // mark all images of album as downloaded
+                foreach (array_keys($imagesAll) as $i) {
+                    $imagesObj = $imagesHandler->get($imagesAll[$i]->getVar('img_id'));
+                    $imagesObj->setVar('img_downloads', $imagesObj->getVar('img_downloads') + 1);
+                    $imagesHandler->insert($imagesObj, true);
+                }
+            } else {
+                redirect_header('albums.php', 3, _NOPERM);
+            }
+            
+        }
+    break;
     case 'viewerjs':
         //src: provided by viewer.js
         $file     = Request::getString('src', 'none');

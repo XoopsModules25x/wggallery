@@ -35,6 +35,7 @@ define('_MI_WGGALLERY_ADMENU7', 'Berechtigungen');
 define('_MI_WGGALLERY_ADMENU8', 'Wartung');
 define('_MI_WGGALLERY_ADMENU9', 'Wasserzeichen');
 define('_MI_WGGALLERY_ADMENU10', 'Import');
+define('_MI_WGGALLERY_ADMENU11', 'Kategorien');
 define('_MI_WGGALLERY_FEEDBACK', 'Feedback');
 define('_MI_WGGALLERY_ABOUT', 'Über');
 // ---------------- Admin Nav ----------------
@@ -48,6 +49,8 @@ define('_MI_WGGALLERY_SMNAME1', 'Indexseite');
 define('_MI_WGGALLERY_SMNAME2', 'Albenmanagement');
 define('_MI_WGGALLERY_SMNAME3', 'Neues Album erstellen');
 define('_MI_WGGALLERY_SMNAME4', 'Upload von Bildern');
+define('_MI_WGGALLERY_SMNAME5', 'Bildermanagement');
+define('_MI_WGGALLERY_SMNAME6', 'Bildersuche');
 // Blocks
 define('_MI_WGGALLERY_ALBUMS_BLOCK', 'Block Alben');
 define('_MI_WGGALLERY_ALBUMS_BLOCK_DESC', 'Zeige einen Block mit den existierenden Alben (Sortierung wählbar)');
@@ -89,8 +92,12 @@ define('_MI_WGGALLERY_MAXHEIGHT_ALBIMAGE', 'Maximale Höhe für Albumbilder');
 define('_MI_WGGALLERY_MAXHEIGHT_ALBIMAGE_DESC', 'Definieren Sie die maximale Höhe, auf die die hochgeladenen Bilder für Format "Albumbilder" automatisch verkleinert werden sollen (in pixel)<br>Wenn Sie ein Bild aus dem Album verwenden so hat diese Option keine Auswirkung');
 define('_MI_WGGALLERY_GALLERY_TARGET', 'Ziel für Galerien');
 define('_MI_WGGALLERY_GALLERY_TARGET_DESC', 'Bitte legen Sie fest, wo eine Bildergalerie (Slideshow) geöffnet werden soll');
-define('_MI_WGGALLERY_GALLERY_TARGET_SELF', 'Gleiches Fenster/gleicher Tab');
-define('_MI_WGGALLERY_GALLERY_TARGET_BLANK', 'Neues Fenster/neuer Tab');
+define('_MI_WGGALLERY_LINK_TARGET_SELF', 'Gleiches Fenster/gleicher Tab');
+define('_MI_WGGALLERY_LINK_TARGET_BLANK', 'Neues Fenster/neuer Tab');
+define('_MI_WGGALLERY_IMAGE_TARGET', 'Ziel für Einzelbild');
+define('_MI_WGGALLERY_IMAGE_TARGET_DESC', 'Bitte legen Sie fest, wo ein einzelnes Bild angezeigt werden soll');
+define('_MI_WGGALLERY_LINK_TARGET_MODAL', 'Bild als als Modal ohne Bildinfos anzeigen');
+define('_MI_WGGALLERY_LINK_TARGET_MODALINFO', 'Bild als als Modal mit detailierten Bildinfos anzeigen');
 define('_MI_WGGALLERY_ADDJQUERY', 'jquery library hinzufügen');
 define('_MI_WGGALLERY_ADDJQUERY_DESC', 'Wenn Sie bereits jquery implentiert haben (z.B. durch Ihr Theme), dann bitte "Nein" wählen');
 define('_MI_WGGALLERY_PANEL_TYPE', 'Panel Type');
@@ -101,10 +108,20 @@ define('_MI_WGGALLERY_SHOWBCRUMBS_MNAME', 'Modulnamen anzeigen');
 define('_MI_WGGALLERY_SHOWBCRUMBS_MNAME_DESC', 'Den Modulnamen in der Brotkrumen-Navigation anzeigen');
 define('_MI_WGGALLERY_SHOWCOPYRIGHT', 'Copyright anzeigen');
 define('_MI_WGGALLERY_SHOWCOPYRIGHT_DESC', 'Sie können das Copyright bei der Galerie entfernen, jedoch wird ersucht, an einer beliebigen Stelle einen Backlink auf www.wedega.com anzubringen');
+define('_MI_WGGALLERY_USE_CATS', 'Kategorien verwenden');
+define('_MI_WGGALLERY_USE_CATS_DESC', 'Definieren sie, ob Sie für die Bilder und Alben Kategorien verwenden wollen');
+define('_MI_WGGALLERY_USE_TAGS', 'Tags verwenden');
+define('_MI_WGGALLERY_USE_TAGS_DESC', 'Definieren sie, ob Sie für die Bilder und Alben Tags verwenden wollen');
 define('_MI_WGGALLERY_STOREEXIF', 'Metadaten (exif) speichern');
 define('_MI_WGGALLERY_STOREEXIF_DESC', 'Definieren sie, ob Sie die Metadaten der Bilder (exif-Daten) speichern wollen');
+define('_MI_WGGALLERY_EXIFTYPES', 'Exif-Daten für Anzeige');
+define('_MI_WGGALLERY_EXIFTYPES_DESC', "Definieren Sie welche Exif-Daten angezeigt werden sollen (nur wenn '" . _MI_WGGALLERY_STOREEXIF . "' aktiviert ist)");
 define('_MI_WGGALLERY_SHOWBUTTONTEXT', 'Schaltflächentext anzeigen');
 define('_MI_WGGALLERY_SHOWBUTTONTEXT_DESC', 'Anzeigen des Schaltflächentextes. Bei NEIN wird nur das Schaltflächenbild angezeigt');
+define('_MI_WGGALLERY_GROUP_UPLOAD', 'Optionen für Upload Bilder');
+define('_MI_WGGALLERY_GROUP_IMAGE', 'Optionen für Bildverarbeitung');
+define('_MI_WGGALLERY_GROUP_DISPLAY', 'Optionen für Anzeige');
+define('_MI_WGGALLERY_GROUP_MISC', 'Diverse Optionen');
 // Notifications
 define('_MI_WGGALLERY_GLOBAL_NOTIFY', 'Globale Benachrichtigungen');
 define('_MI_WGGALLERY_GLOBAL_ALB_NEW_ALL_NOTIFY', 'Sende Benachrichtigung wenn ein neues Album erstellt wird');
@@ -141,4 +158,18 @@ define('_MI_WGGALLERY_ALBUMS_IMG_APPROVE_NOTIFY_SUBJECT', 'Benachrichtigung dass
 define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY', 'Sende Benachrichtigung wenn wenn ein Bild dieses Albums gelöscht wurde');
 define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_CAPTION', 'Benachrichtige mich über Bilderlöschungen dieses Albums');
 define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_SUBJECT', 'Benachrichtigung über Bilderlöschung');
-// ---------------- End ----------------
+
+define('_MI_WGGALLERY_RATINGBARS', 'Bewertung zulassen');
+define('_MI_WGGALLERY_RATINGBARS_DESC', 'Definieren Sie, ob eine Bewertung zulässig sein soll, und falls ja, welche');
+define('_MI_WGGALLERY_RATINGBAR_GROUPS', 'Gruppen mit Bewertungsrecht');
+define('_MI_WGGALLERY_RATINGBAR_GROUPS_DESC', 'Definieren Sie, welche Gruppen die Berechtigung zur Abgabe eine Bewertung besitzen');
+define('_MI_WGGALLERY_RATING_NONE', 'Keine Bewertung verwenden');
+define('_MI_WGGALLERY_RATING_5STARS', 'Bewertung mit 5 Sternen');
+define('_MI_WGGALLERY_RATING_10STARS', 'Bewertung mit 10 Sternen');
+define('_MI_WGGALLERY_RATING_LIKES', 'Bewertung mit Likes');
+define('_MI_WGGALLERY_RATING_10NUM', 'Bewertung mit 10 Punkten');
+
+define('_MI_WGGALLERY_STORE_ORIGINAL', 'Originalbild speichern');
+define('_MI_WGGALLERY_STORE_ORIGINAL_DESC', 'Definieren Sie, ob sie das Originalbild zusätzlich speichern wollen.
+                <br>Vorteil: alle Bilder sind später in neuen Größen und mit neuen Wasserzeichen reproduzierbar
+                <br>Nachteil: der Speicherbedarf wird entsprechend der zulässigen Größe für Uploads ansteigen');

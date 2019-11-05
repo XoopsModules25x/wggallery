@@ -26,4 +26,7 @@
 
 .wgg-block-adesc, .wgg-block-icondesc {
 	font-size: 100%;
-} 
+}
+.wgg-b-album-more {
+    padding:10px;
+}

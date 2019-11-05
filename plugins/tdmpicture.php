@@ -71,10 +71,10 @@ function wggalleryPluginGetFormTdmpicture($im_name, $num_albums, $num_images)
     $groupList                  = $memberHandler->getGroupList();
     $gpermHandler               = xoops_getHandler('groupperm');
     $fullList[]                 = array_keys($groupList);
-    $groupsCanViewCheckbox      = new \XoopsFormCheckBox('', 'groups_view[]', $fullList);
-    $groupsCanDlFullAlbCheckbox = new \XoopsFormCheckBox('', 'groups_dlfullalb[]', $fullList);
-    $groupsCanDlImageLCheckbox  = new \XoopsFormCheckBox('', 'groups_dlimage_large[]', $fullList);
-    $groupsCanDlImageMCheckbox  = new \XoopsFormCheckBox('', 'groups_dlimage_medium[]', $fullList);
+    $groupsCanViewCheckbox      = new \XoopsFormCheckBox('', 'groups_view', $fullList);
+    $groupsCanDlFullAlbCheckbox = new \XoopsFormCheckBox('', 'groups_dlfullalb', $fullList);
+    $groupsCanDlImageLCheckbox  = new \XoopsFormCheckBox('', 'groups_dlimage_large', $fullList);
+    $groupsCanDlImageMCheckbox  = new \XoopsFormCheckBox('', 'groups_dlimage_medium', $fullList);
     // To View
     $groupsCanViewCheckbox->addOptionArray($groupList);
     $groupsCanViewTray = new \XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_VIEW, '&nbsp;');
@@ -136,7 +136,7 @@ function wggalleryPluginExecImportTdmpicture()
     // copy album data and album images
     // import all album data
     $sql    = 'INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums');
-    $sql    .= ' ( alb_id, alb_pid, alb_name, alb_date, alb_desc, alb_imgcat, alb_image, alb_weight, alb_state, alb_submitter ) ';
+    $sql    .= ' ( alb_id, alb_pid, alb_name, alb_date, alb_desc, alb_imgtype, alb_image, alb_weight, alb_state, alb_submitter ) ';
     $sql    .= 'SELECT tc.cat_id, tc.cat_pid, tc.cat_title, tc.cat_date, tc.cat_text, 1, tc.cat_img, tc.cat_weight, If(tc.cat_display=1,' . Constants::STATE_OFFLINE_VAL . ',' . Constants::STATE_OFFLINE_VAL . '), tc.cat_uid';
     $sql    .= ' FROM ' . $GLOBALS['xoopsDB']->prefix('tdmpicture_cat') . ' as tc';
     $result = $GLOBALS['xoopsDB']->queryF($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());

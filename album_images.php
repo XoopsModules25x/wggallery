@@ -65,7 +65,7 @@ $GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/css/style_default.cs
 $GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/wggallery/assets/js/admin.js');
 
 // assign vars
-$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_32', WGGALLERY_ICONS_URL . '/32');
 $GLOBALS['xoopsTpl']->assign('wggallery_upload_image_url', WGGALLERY_UPLOAD_IMAGES_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
@@ -197,11 +197,11 @@ switch ($op) {
             $ret     = rename($imgTemp, $final);
         }
         if ('saveAlbumImage' === $op) {
-            $albumsObj->setVar('alb_imgcat', Constants::ALBUM_IMGCAT_USE_EXIST_VAL);
+            $albumsObj->setVar('alb_imgtype', Constants::ALBUM_IMGCAT_USE_EXIST_VAL);
             $albumsObj->setVar('alb_imgid', Request::getInt('alb_imgid'));
             $albumsObj->setVar('alb_image', '');
         } else {
-            $albumsObj->setVar('alb_imgcat', Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL);
+            $albumsObj->setVar('alb_imgtype', Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL);
             $albumsObj->setVar('alb_imgid', 0);
             $albumsObj->setVar('alb_image', 'album' . $albId . '.jpg');
         }
@@ -228,7 +228,7 @@ switch ($op) {
             redirect_header('albums.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         // Set Vars
-        $albumsObj->setVar('alb_imgcat', Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL);
+        $albumsObj->setVar('alb_imgtype', Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL);
         require_once XOOPS_ROOT_PATH . '/class/uploader.php';
         $fileName       = $_FILES['attachedfile']['name'];
         $imageMimetype  = $_FILES['attachedfile']['type'];
@@ -299,7 +299,13 @@ switch ($op) {
 
         $GLOBALS['xoopsTpl']->assign('nbModals', [1, 2, 3, 4, 5, 6]);
 
-        $GLOBALS['xoopsTpl']->assign('album', $albumsObj->getValuesAlbums());
+        $album = $albumsObj->getValuesAlbums();
+        $GLOBALS['xoopsTpl']->assign('album', $album);
+        
+        // get size of current album image
+        list($width, $height, $type, $attr) = getimagesize($album['image']);
+        $GLOBALS['xoopsTpl']->assign('albimage_width', $width);
+        $GLOBALS['xoopsTpl']->assign('albimage_height', $height);
 
         $albImgid  = $albumsObj->getVar('alb_imgid');
         $albImage1 = 'blank.gif';
@@ -316,12 +322,14 @@ switch ($op) {
         if (count($albumsChilds) > 0) {
             foreach ($albumsChilds as $child) {
                 $alb_name = '';
+                $counter  = 0;
                 $crImages = new \CriteriaCompo();
                 $crImages->add(new \Criteria('img_albid', $child));
                 $crImages->setSort('img_weight');
                 $crImages->setOrder('DESC');
                 $imagesAll = $imagesHandler->getAll($crImages);
                 foreach (array_keys($imagesAll) as $i) {
+                    $counter++;
                     $images[$i] = $imagesAll[$i]->getValuesImages();
                     if ($albImage1 === $images[$i]['img_name']) {
                         $images[$i]['selected'] = 1;
@@ -331,6 +339,7 @@ switch ($op) {
                         $alb_name               = $albums->get($child)->getVar('alb_name');
                         $images[$i]['alb_name'] = $alb_name;
                     }
+                    $images[$i]['counter'] = $counter;
                 }
             }
         }

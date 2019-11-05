@@ -32,6 +32,15 @@ define('_CO_WGGALLERY_ALL', 'Alle');
 define('_CO_WGGALLERY_UPDATE', 'Aktualisieren');
 define('_CO_WGGALLERY_EXEC', 'Ausführen');
 define('_CO_WGGALLERY_DOWNLOAD', 'Download');
+define('_CO_WGGALLERY_DOWNLOAD_ALB', 'Album herunterladen');
+define('_CO_WGGALLERY_DATE', 'Datum');
+define('_CO_WGGALLERY_SUBMITTER', 'Einsender');
+define('_CO_WGGALLERY_WEIGHT', 'Reihung');
+define('_CO_WGGALLERY_COMMENT', 'Kommentar');
+define('_CO_WGGALLERY_COMMENTS', 'Kommentare');
+define('_CO_WGGALLERY_VIEWS', 'Anzeigen');
+define('_CO_WGGALLERY_RATING', 'Bewertung');
+// Forms
 define('_CO_WGGALLERY_FORM_UPLOAD', 'Dateien hochladen');
 define('_CO_WGGALLERY_FORM_IMAGE_PATH', 'Dateien in %s ');
 define('_CO_WGGALLERY_FORM_ACTION', 'Aktion');
@@ -41,7 +50,6 @@ define('_CO_WGGALLERY_FORM_IMAGEPICKER', 'Ein Bild auswählen');
 define('_CO_WGGALLERY_FORM_SUBMIT_SUBMITUPLOAD', 'Absenden und zum Bilderupload wechseln');
 define('_CO_WGGALLERY_FORM_SUBMIT_WMTEST', 'Absenden und Testbildanzeigen');
 define('_CO_WGGALLERY_FORM_ERROR_INVALIDID', 'Ungültige ID');
-// Save/Delete
 define('_CO_WGGALLERY_FORM_OK', 'Erfolgreich gespeichert');
 define('_CO_WGGALLERY_FORM_DELETE_OK', 'Erfolgreich gelöscht');
 define('_CO_WGGALLERY_FORM_SURE_DELETE', "Wollen Sie wirklich löschen: <b><span style='color : Red;'>%s </span></b>"); //default xoops confirm
@@ -55,9 +63,6 @@ define('_CO_WGGALLERY_FORM_OK_APPROVE', 'Änderungen Album erfolgreich gespeiche
 // There aren't
 define('_CO_WGGALLERY_THEREARENT_ALBUMS', 'Derzeit sind keine Alben verfügbar');
 define('_CO_WGGALLERY_THEREARENT_IMAGES', 'Derzeit sind keine Bilder verfügbar');
-// general
-define('_CO_WGGALLERY_DATE', 'Datum');
-define('_CO_WGGALLERY_SUBMITTER', 'Einsender');
 // fine uploader
 define('_CO_WGGALLERY_FU_SUBMIT', 'Einsenden Bild: ');
 define('_CO_WGGALLERY_FU_SUBMITTED', 'Bilder erfolgreich überprüft, bitte Hochladen');
@@ -67,27 +72,26 @@ define('_CO_WGGALLERY_FU_SUCCEEDED', 'Alle Bilder erfolgreich hochgeladen');
 // Album buttons
 define('_CO_WGGALLERY_ALBUM_ADD', 'Album hinzufügen');
 define('_CO_WGGALLERY_ALBUM_EDIT', 'Album bearbeiten');
-// Elements of categories
-define('_CO_WGGALLERY_CATS_TITLE', 'Verfügbare Kategorien');
-define('_CO_WGGALLERY_CATS_ALBUMS', 'Enthaltene Alben anzeigen');
+// Elements of collections
+define('_CO_WGGALLERY_COLL_TITLE', 'Verfügbare Albensammlungen');
+define('_CO_WGGALLERY_COLL_ALBUMS', 'Enthaltene Alben anzeigen');
 // Elements of Album
 define('_CO_WGGALLERY_ALBUMS_TITLE', 'Galerie unserer Alben');
 define('_CO_WGGALLERY_ALBUMS_COUNT', 'Anzahl der Alben');
 define('_CO_WGGALLERY_ALBUM', 'Album');
 define('_CO_WGGALLERY_ALBUMS', 'Alben');
 define('_CO_WGGALLERY_ALBUMS_DESC', 'wgGallery ist ein XOOPS-Modul für die Präsentation Ihrer Bilder in Alben und Kategorien');
-define('_CO_WGGALLERY_ALBUM_CAT', 'Kategorie');
-define('_CO_WGGALLERY_ALBUM_NB_CATS', 'Alben in dieser Kategorie');
+define('_CO_WGGALLERY_ALBUM_COLL', 'Albensammlung');
+define('_CO_WGGALLERY_ALBUM_NB_COLL', 'Alben in dieser Sammlung');
 define('_CO_WGGALLERY_ALBUM_NB_IMAGES', 'Bilder in diesem Album');
 define('_CO_WGGALLERY_ALBUM_NO_IMAGES', 'Album enthält keine Bilder');
 define('_CO_WGGALLERY_ALBUM_ID', 'Id');
-define('_CO_WGGALLERY_ALBUM_PID', 'Übergeordnetes Album');
-define('_CO_WGGALLERY_ALBUM_ISCAT', 'Album ist Kategorie');
+define('_CO_WGGALLERY_ALBUM_PID', 'Übergeordnete Albensammlung');
+define('_CO_WGGALLERY_ALBUM_ISCOLL', 'Album ist Albensammlung');
 define('_CO_WGGALLERY_ALBUM_NAME', 'Name');
 define('_CO_WGGALLERY_ALBUM_DESC', 'Beschreibung');
-define('_CO_WGGALLERY_ALBUM_WEIGHT', 'Reihung');
 define('_CO_WGGALLERY_ALBUM_IMAGE', 'Albumbild');
-define('_CO_WGGALLERY_ALBUM_IMGCAT', 'Quelle für Albumbild');
+define('_CO_WGGALLERY_ALBUM_IMGTYPE', 'Quelle für Albumbild');
 define('_CO_WGGALLERY_ALBUM_USE_EXIST', 'Verwende im Album enthaltenes Bild');
 define('_CO_WGGALLERY_ALBUM_IMGID', 'In diesem Album enthaltene Bilder');
 define('_CO_WGGALLERY_ALBUM_USE_UPLOADED', 'Ein dafür hochgeladenes Bild verwenden');
@@ -98,12 +102,10 @@ define('_CO_WGGALLERY_ALBUM_STATE', 'Status');
 define('_CO_WGGALLERY_ALBUM_DELETE_DESC', 'Achtung: Alle mit diesem Album verknüpften Bilder werden auch gelöscht');
 define('_CO_WGGALLERY_ALBUM_SELECT', 'Album auswählen');
 define('_CO_WGGALLERY_ALBUM_SELECT_DESC', 'Bitte wählen Sie ein Album zum Hochladen der Bilder');
-// define('_CO_WGGALLERY_ALBUM_ALLOWDOWNLOAD', 'Größe für Bilderdownload');
-// define('_CO_WGGALLERY_ALBUM_DOWNLOAD_MEDIUM', 'Mittlere Bilder');
-// define('_CO_WGGALLERY_ALBUM_DOWNLOAD_LARGE', 'Große Bilder');
 define('_CO_WGGALLERY_ALBUMS_SHOW', 'Alle Alben anzeigen');
 define('_CO_WGGALLERY_ALBUMS_SORT', 'Sortierung der Alben');
 define('_CO_WGGALLERY_ALBUM_SORT_SHOWHIDE', 'Zum Anzeigen/Verstecken der Listeneinträge anklicken');
+define('_CO_WGGALLERY_ALBUM_IMAGE_ERRORNOTFOUND', 'Fehler: Albumbild wurde nicht gefunden');
 // album image handler
 define('_CO_WGGALLERY_ALBUM_IH_APPLY', 'Anwenden');
 define('_CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT', 'Albumbild bearbeiten');
@@ -125,13 +127,15 @@ define('_CO_WGGALLERY_ALBUM_IH_CROP_MOVE_LEFT', 'Nach links verschieben');
 define('_CO_WGGALLERY_ALBUM_IH_CROP_MOVE_RIGHT', 'Nach rechts verschieben');
 define('_CO_WGGALLERY_ALBUM_IH_CROP_MOVE_UP', 'Nach oben verschieben');
 define('_CO_WGGALLERY_ALBUM_IH_CROP_MOVE_DOWN', 'Nach unten verschieben');
-define('_CO_WGGALLERY_ALBUM_IH_CROP_ROTATE_LEFT', 'Links drehen');
-define('_CO_WGGALLERY_ALBUM_IH_CROP_ROTATE_RIGHT', 'Rechts drehen');
 define('_CO_WGGALLERY_ALBUM_IH_CROP_FLIP_HORIZONTAL', 'Horizontal spiegeln');
 define('_CO_WGGALLERY_ALBUM_IH_CROP_FLIP_VERTICAL', 'Vertikal spiegeln');
 define('_CO_WGGALLERY_ALBUM_IH_CROP_ASPECTRATIO', 'Seitenverhältnis');
 define('_CO_WGGALLERY_ALBUM_IH_CROP_ASPECTRATIO_FREE', 'Frei');
-
+// Image add/edit/show
+define('_CO_WGGALLERY_IMAGE_ADD', 'Bild hinzufügen');
+define('_CO_WGGALLERY_IMAGE_EDIT', 'Bild bearbeiten');
+define('_CO_WGGALLERY_IMAGE_SHOW', 'Bild anzeigen');
+// Elements of Image
 define('_CO_WGGALLERY_IMAGE', 'Bild');
 define('_CO_WGGALLERY_IMAGES', 'Bilder');
 define('_CO_WGGALLERY_IMAGES_TITLE', 'Bildergalerie von ');
@@ -141,11 +145,6 @@ define('_CO_WGGALLERY_IMAGES_INDEX', 'Bilderindex anzeigen');
 define('_CO_WGGALLERY_IMAGES_UPLOAD', 'Bilder hochladen');
 define('_CO_WGGALLERY_IMAGE_MANAGE', 'Bildermanagement');
 define('_CO_WGGALLERY_IMAGE_MANAGE_DESC', 'Sortieren Sie Ihre Bilder durch Drag&Drop neu');
-// Image add/edit/show
-define('_CO_WGGALLERY_IMAGE_ADD', 'Bild hinzufügen');
-define('_CO_WGGALLERY_IMAGE_EDIT', 'Bild bearbeiten');
-define('_CO_WGGALLERY_IMAGE_SHOW', 'Bild anzeigen');
-// Elements of Image
 define('_CO_WGGALLERY_IMAGE_ID', 'Id');
 define('_CO_WGGALLERY_IMAGE_TITLE', 'Titel');
 define('_CO_WGGALLERY_IMAGE_DESC', 'Beschreibung');
@@ -154,12 +153,12 @@ define('_CO_WGGALLERY_IMAGE_NAMEORIG', 'Originalname');
 define('_CO_WGGALLERY_IMAGE_NAMELARGE', 'Name große Bilder');
 define('_CO_WGGALLERY_IMAGE_MIMETYPE', 'Erweiterungen (Mimetype)');
 define('_CO_WGGALLERY_IMAGE_SIZE', 'Größe');
+define('_CO_WGGALLERY_IMAGE_RES', 'Auflösung');
 define('_CO_WGGALLERY_IMAGE_RESX', 'Resx');
 define('_CO_WGGALLERY_IMAGE_RESY', 'Resy');
 define('_CO_WGGALLERY_IMAGE_DOWNLOADS', 'Downloads');
 define('_CO_WGGALLERY_IMAGE_RATINGLIKES', 'Gefällt mir');
-define('_CO_WGGALLERY_IMAGE_VOTES', 'Stimmen');
-define('_CO_WGGALLERY_IMAGE_WEIGHT', 'Reihung');
+define('_CO_WGGALLERY_IMAGE_VOTES', 'Abstimmungen');
 define('_CO_WGGALLERY_IMAGE_ALBID', 'Album-ID');
 define('_CO_WGGALLERY_IMAGE_STATE', 'Status');
 define('_CO_WGGALLERY_IMAGE_IP', 'Ip');
@@ -169,6 +168,11 @@ define('_CO_WGGALLERY_IMAGE_MEDIUM', 'Mittleres Bild');
 define('_CO_WGGALLERY_IMAGE_LARGE', 'Großes Bild');
 define('_CO_WGGALLERY_IMAGE_ALL', 'Alle Bilder');
 define('_CO_WGGALLERY_IMAGE_EXIF', 'Exif-Daten');
+define('_CO_WGGALLERY_IMAGE_ROTATE_LEFT', 'Links drehen');
+define('_CO_WGGALLERY_IMAGE_ROTATE_RIGHT', 'Rechts drehen');
+define('_CO_WGGALLERY_IMAGE_ROTATED', 'Bild erfolgreich gedreht');
+define('_CO_WGGALLERY_IMAGE_ROTATE_ERROR', 'Beim Drehen des Bildes ist ein Fehler aufgetreten');
+define('_CO_WGGALLERY_IMAGE_ERRORUNLINK', 'Fehler beim Löschen des Bildes: das Bild wurde aus der Datenbank entfernt, jedoch ist beim Löschen des Bildes selbst ein Fehler aufgetreten');
 // Watermark add/edit
 define('_CO_WGGALLERY_WATERMARK_ADD', 'Wasserzeichen hinzufügen');
 define('_CO_WGGALLERY_WATERMARK_EDIT', 'Wasserzeichen bearbeiten');
@@ -209,7 +213,14 @@ define('_CO_WGGALLERY_WATERMARK_TARGET', 'Bildart für Hinzufügen Wasserzeichen
 define('_CO_WGGALLERY_WATERMARK_TARGET_A', 'Bei allen hinzufügen');
 define('_CO_WGGALLERY_WATERMARK_TARGET_M', 'Nur bei mittleren Bildern hinzufügen');
 define('_CO_WGGALLERY_WATERMARK_TARGET_L', 'Nur bei großen Bildern hinzufügen');
-// ---------------- Admin Permissions ----------------
+// Elements of Categorie
+define('_CO_WGGALLERY_CAT', 'Kategorie');
+define('_CO_WGGALLERY_CATS', 'Kategorien');
+define('_CO_WGGALLERY_CATS_SELECT', 'Kategorien auswählen');
+// Elements of Tags
+define('_CO_WGGALLERY_TAG', 'Tag');
+define('_CO_WGGALLERY_TAGS', 'Tags');
+define('_CO_WGGALLERY_TAGS_ENTER', 'Tags hinzufügen (bitte # verwenden)');
 // Permissions
 define('_CO_WGGALLERY_PERMS_GLOBAL', 'Globale Berechtigungen');
 define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL', 'Globale Berechtigung zum Bearbeiten aller Alben');
@@ -227,18 +238,31 @@ define('_CO_WGGALLERY_PERMS_ALB_VIEW', 'Berechtigung zum Ansehen');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW_DESC', 'Gruppen mit der Berechtigung zum Ansehen der Alben');
 define('_CO_WGGALLERY_PERMS_ALB_DLFULLALB', 'Berechtigung zum Download des gesamten Albums');
 define('_CO_WGGALLERY_PERMS_ALB_DLFULLALB_DESC', 'Gruppen mit der Berechtigung zum Download der Alben als Ganzes');
-define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE', 'Berechtigung zum Download großer Bildern');
-define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE_DESC', 'Gruppen mit der Berechtigung zum Download der großen Bilder');
-define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM', 'Berechtigung zum Download mittlerer Bildern');
-define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM_DESC', 'Gruppen mit der Berechtigung zum Download der mittleren Bilder');
+define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE', 'Berechtigung zum Anzeigen/Downloaden großer Bildern');
+define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE_DESC', 'Gruppen mit der Berechtigung zum Anzeigen und Downloaden der großen Bilder');
+define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM', 'Berechtigung zum Anzeigen/Download mittlerer Bildern');
+define('_CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM_DESC', 'Gruppen mit der Berechtigung zum Anzeigen und Downloaden der mittleren Bilder');
 define('_CO_WGGALLERY_PERMS_NOTSET', 'Keine Berechtigung gesetzt');
 define('_CO_WGGALLERY_PERMS_NODOWNLOAD', 'Sie haben keine Berechtigung zum Download');
+// exif
+define('_CO_WGGALLERY_EXIF', 'Exif-Daten Originaldatei');
+define('_CO_WGGALLERY_EXIF_ALL', 'Alle anzeigen');
+define('_CO_WGGALLERY_EXIF_FILENAME', 'Dateiname');
+define('_CO_WGGALLERY_EXIF_FILEDATETIME', 'Dateidatum');
+define('_CO_WGGALLERY_EXIF_FILESIZE', 'Dateigröße');
+define('_CO_WGGALLERY_EXIF_MIMETYPE', 'Mime-Type');
+define('_CO_WGGALLERY_EXIF_CAMERA', 'Kamera Marke');
+define('_CO_WGGALLERY_EXIF_MODEL', 'Modell');
+define('_CO_WGGALLERY_EXIF_EXPTIME', 'Belichtungszeit');
+define('_CO_WGGALLERY_EXIF_FOCALLENGTH', 'Brennweite');
+define('_CO_WGGALLERY_EXIF_DATETIMEORIG', 'Aufnahmedatum');
+define('_CO_WGGALLERY_EXIF_ISO', 'ISO Speed');
+define('_CO_WGGALLERY_EXIF_LENSMAKE', 'Linse Marke');
+define('_CO_WGGALLERY_EXIF_LENSMODEL', 'Linse Modell');
 // ---------------- Misc ----------------
-define('_CO_WGGALLERY_ALBUM_IMAGE_ERRORNOTFOUND', 'Fehler: Albumbild wurde nicht gefundnen');
-define('_CO_WGGALLERY_IMAGE_ERRORUNLINK', 'Fehler beim Löschen des Bildes: das Bild wurde aus der Datenbank entfernt, jedoch ist beim Löschen des Bildes selbst ein Fehler aufgetreten');
 define('_CO_WGGALLERY_MAINTAINEDBY', 'Unterstützt von');
 define('_CO_WGGALLERY_MAINTAINEDBY_DESC', 'Erlaubt den Url zur Supportseite oder Community');
-// ---------------- End ----------------
+
 
 $moduleDirName = basename(dirname(dirname(__DIR__)));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
@@ -252,7 +276,6 @@ define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLE_BUTTON_DESC', 'Falls Ja,
 define('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA', 'Exportiere DB Schema nach YAML');
 define('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_SUCCESS', 'Export DB Schema nach YAML erfolgreich abgeschlossen');
 define('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_ERROR', 'Fehler: Export DB Schema nach YAML fehlgeschlagen');
-define('CO_' . $moduleDirNameUpper . '_' . 'ADD_SAMPLEDATA_OK', 'Sind Sie sicher, Beispieldaten zu importieren? (ALLE vorhandenen Daten werden gelöscht)');
 
 //Menu
 define('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_MIGRATE', 'Migrate');

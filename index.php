@@ -35,7 +35,7 @@ $submitterId = Request::getInt('subm_id', 0);
 
 // general template assigns
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
-$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
 $GLOBALS['xoopsTpl']->assign('panel_type', $helper->getConfig('panel_type'));
 // $GLOBALS['xoopsTpl']->assign('type', $helper->getConfig('table_type'));
 // $GLOBALS['xoopsTpl']->assign('divideby', $helper->getConfig('divideby'));
@@ -97,7 +97,7 @@ if ($submitterId > 0) {
     $crAlbums->add(new \Criteria('alb_submitter', $submitterId));
 }
 $crAlbums->add(new \Criteria('alb_pid', $albPid));
-$crAlbums->add(new \Criteria('alb_iscat', 0));
+$crAlbums->add(new \Criteria('alb_iscoll', 0));
 $crAlbums->add(new \Criteria('alb_state', Constants::STATE_ONLINE_VAL));
 $albumsCount = $albumsHandler->getCount($crAlbums);
 // read all albums and check for perm to view
@@ -142,6 +142,9 @@ if ($albumsCount > 0) {
             $submitter  = $albumsAll[$i]->getVar('alb_submitter');
             //check permissions
             $albums[$i]['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
+            if ($permissionsHandler->permAlbumDownload($albumsAll[$i]->getVar('alb_id'))) {
+                $albums[$i]['download'] = true;
+            }
             //set indicator for line break
             $counter++;
             if (1 === $counter) {
@@ -180,7 +183,7 @@ if ($albumsCount > 0) {
 // get all categories which contains albums
 $crAlbums = new \CriteriaCompo();
 $crAlbums->add(new \Criteria('alb_pid', $albPid));
-$crAlbums->add(new \Criteria('alb_iscat', 1));
+$crAlbums->add(new \Criteria('alb_iscoll', 1));
 $crAlbums->add(new \Criteria('alb_state', Constants::STATE_ONLINE_VAL));
 $catsCount = $albumsHandler->getCount($crAlbums);
 // read all categories and check for perm to view
@@ -247,9 +250,9 @@ if ($catsCount > 0) {
         // $GLOBALS['xoopsTpl']->assign('album_showsubmitter', $helper->getConfig('album_showsubmitter'));
         unset($categories);
         if ($submitterId > 0) {
-            $GLOBALS['xoopsTpl']->assign('index_cats_title', _CO_WGGALLERY_CATS_TITLE . ': ' . XoopsUser::getUnameFromId($submitter));
+            $GLOBALS['xoopsTpl']->assign('index_cats_title', _CO_WGGALLERY_COLL_TITLE . ': ' . XoopsUser::getUnameFromId($submitter));
         } else {
-            $GLOBALS['xoopsTpl']->assign('index_cats_title', _CO_WGGALLERY_CATS_TITLE);
+            $GLOBALS['xoopsTpl']->assign('index_cats_title', _CO_WGGALLERY_COLL_TITLE);
         }
         // Display Navigation
         if ($catsCount > $limit) {

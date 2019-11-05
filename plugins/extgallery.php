@@ -77,10 +77,10 @@ function wggalleryPluginGetFormExtgallery($im_name, $num_albums, $num_images)
     $groupList                  = $memberHandler->getGroupList();
     $gpermHandler               = xoops_getHandler('groupperm');
     $fullList[]                 = array_keys($groupList);
-    $groupsCanViewCheckbox      = new \XoopsFormCheckBox('', 'groups_view[]', $fullList);
-    $groupsCanDlFullAlbCheckbox = new \XoopsFormCheckBox('', 'groups_dlfullalb[]', $fullList);
-    $groupsCanDlImageLCheckbox  = new \XoopsFormCheckBox('', 'groups_dlimage_large[]', $fullList);
-    $groupsCanDlImageMCheckbox  = new \XoopsFormCheckBox('', 'groups_dlimage_medium[]', $fullList);
+    $groupsCanViewCheckbox      = new \XoopsFormCheckBox('', 'groups_view', $fullList);
+    $groupsCanDlFullAlbCheckbox = new \XoopsFormCheckBox('', 'groups_dlfullalb', $fullList);
+    $groupsCanDlImageLCheckbox  = new \XoopsFormCheckBox('', 'groups_dlimage_large', $fullList);
+    $groupsCanDlImageMCheckbox  = new \XoopsFormCheckBox('', 'groups_dlimage_medium', $fullList);
     // To View
     $groupsCanViewCheckbox->addOptionArray($groupList);
     $groupsCanViewTray = new \XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_VIEW, '&nbsp;');
@@ -170,7 +170,7 @@ function wggalleryPluginExecImportExtgallery($albState = 0, $albSubmitter = 0)
     }
     unset($result);
     unset($result2);
-    $sql = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . " SET alb_image = 'noimage.png', alb_imgcat = 2 WHERE (alb_image='' and alb_imgid=0)";
+    $sql = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . " SET alb_image = 'noimage.png', alb_imgtype = 2 WHERE (alb_image='' and alb_imgid=0)";
     $result = $GLOBALS['xoopsDB']->queryF($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
     unset($result);
 

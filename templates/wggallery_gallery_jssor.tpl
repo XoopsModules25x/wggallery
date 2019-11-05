@@ -88,7 +88,7 @@
         <{include file='db:wggallery_gallery_jssor_loadings.tpl'}>
 		
 		<!-- Slides -->
-        <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:<{$jssor_maxwidth}>px;height:<{$jssor_maxheight}>px;overflow:hidden;">
+        <div data-u="slides" style="cursor:default;position:relative;top:0;left:0;width:<{$jssor_maxwidth}>px;height:<{$jssor_maxheight}>px;overflow:hidden;">
 			<{if $images_nb > 0}>
 				<{foreach item=image from=$images}>                
 					<div>
@@ -135,4 +135,4 @@
 <div class="clear spacer"></div>
 
 <!-- Footer -->
-<{include file='db:wggallery_admin_footer.tpl'}>
+<{include file='db:wggallery_footer.tpl'}>

@@ -13,9 +13,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '1'
+    img_views: '0'
+    img_albid: '2'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542c522626a1.94309807.jpg","FileDateTime":1571727666,"FileSize":59727,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"","COMPUTED":{"html":"width=\"604\" height=\"340\"","Height":340,"Width":604,"IsColor":1}}'
     img_date: '1549020242'
     img_submitter: '1'
     img_ip: '::1'
@@ -34,9 +37,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '1'
+    img_views: '0'
+    img_albid: '2'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542c52262660.40013729.jpg","FileDateTime":1571727666,"FileSize":46185,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"ANY_TAG, IFD0, EXIF","COMPUTED":{"html":"width=\"510\" height=\"340\"","Height":340,"Width":510,"IsColor":1,"ByteOrderMotorola":1,"ApertureFNumber":"f\/7.1"},"Make":"NIKON CORPORATION","Model":"NIKON D3300","ExposureTime":"1\/250","Exif_IFD_Pointer":100,"FNumber":"71\/10","ISOSpeedRatings":[100,0],"DateTimeOriginal":"2017:07:10 12:02:13","FocalLength":"180\/10","UndefinedTag:0xA434":"18.0-55.0 mm f\/3.5-5.6"}'
     img_date: '1549020242'
     img_submitter: '1'
     img_ip: '::1'
@@ -55,9 +61,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '1'
+    img_views: '0'
+    img_albid: '2'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542c52262539.41394591.jpg","FileDateTime":1571727666,"FileSize":42379,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"IFD0","COMPUTED":{"html":"width=\"1020\" height=\"340\"","Height":340,"Width":1020,"IsColor":1,"ByteOrderMotorola":1}}'
     img_date: '1549020242'
     img_submitter: '1'
     img_ip: '::1'
@@ -76,9 +85,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '1'
+    img_views: '0'
+    img_albid: '2'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542c5368bc80.07814923.jpg","FileDateTime":1571727666,"FileSize":62625,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"ANY_TAG, IFD0, EXIF","COMPUTED":{"html":"width=\"541\" height=\"340\"","Height":340,"Width":541,"IsColor":1,"ByteOrderMotorola":1,"ApertureFNumber":"f\/8.0"},"Make":"NIKON CORPORATION","Model":"NIKON D3300","ExposureTime":"1\/2000","Exif_IFD_Pointer":100,"FNumber":"8\/1","ISOSpeedRatings":[800,0],"DateTimeOriginal":"2018:11:13 10:39:35","FocalLength":"24\/1","UndefinedTag:0xA434":"24.0-120.0 mm f\/4.0"}'
     img_date: '1549020243'
     img_submitter: '1'
     img_ip: '::1'
@@ -97,9 +109,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '1'
+    img_views: '0'
+    img_albid: '2'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542c536da183.30291619.jpg","FileDateTime":1571727666,"FileSize":54685,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"ANY_TAG, IFD0, EXIF","COMPUTED":{"html":"width=\"643\" height=\"340\"","Height":340,"Width":643,"IsColor":1,"ByteOrderMotorola":1,"ApertureFNumber":"f\/7.1"},"Make":"SONY","Model":"ILCE-6300","ExposureTime":"1\/125","Exif_IFD_Pointer":85,"FNumber":"71\/10","ISOSpeedRatings":[100,0],"DateTimeOriginal":"2018:07:04 20:56:49","Flash":[16,0],"FocalLength":"30\/1","UndefinedTag:0xA434":"E 30mm F2.8"}'
     img_date: '1549020243'
     img_submitter: '1'
     img_ip: '::1'
@@ -118,9 +133,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '1'
+    img_views: '0'
+    img_albid: '2'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542c5378fe52.31686999.jpg","FileDateTime":1571727666,"FileSize":119387,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"IFD0","COMPUTED":{"html":"width=\"1500\" height=\"340\"","Height":340,"Width":1500,"IsColor":1,"ByteOrderMotorola":1}}'
     img_date: '1549020243'
     img_submitter: '1'
     img_ip: '::1'
@@ -139,9 +157,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '1'
+    img_views: '0'
+    img_albid: '2'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542c54afbcd6.65900324.jpg","FileDateTime":1571727666,"FileSize":61671,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"IFD0","COMPUTED":{"html":"width=\"603\" height=\"340\"","Height":340,"Width":603,"IsColor":1,"ByteOrderMotorola":1}}'
     img_date: '1549020244'
     img_submitter: '1'
     img_ip: '::1'
@@ -160,9 +181,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '1'
+    img_views: '0'
+    img_albid: '2'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542c54b07a68.88590178.jpg","FileDateTime":1571727666,"FileSize":61797,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"ANY_TAG, IFD0, EXIF, GPS","COMPUTED":{"html":"width=\"750\" height=\"340\"","Height":340,"Width":750,"IsColor":1,"ByteOrderMotorola":1,"ApertureFNumber":"f\/8.0"},"Make":"Canon","Model":"Canon EOS 6D","ExposureTime":"1\/1250","Exif_IFD_Pointer":101,"GPS_IFD_Pointer":254,"FNumber":"8\/1","ISOSpeedRatings":[1000,0],"DateTimeOriginal":"2015:12:03 16:30:37","Flash":[16,0],"FocalLength":"24\/1","UndefinedTag:0xA434":"EF24-105mm f\/4L IS USM","GPSLatitudeRef":"N","GPSLatitude":["48\/1","381832\/10000","0\/1"],"GPSLongitudeRef":"W","GPSLongitude":["1\/1","308605\/10000","0\/1"],"GPSAltitude":"0\/10000"}'
     img_date: '1549020244'
     img_submitter: '1'
     img_ip: '::1'
@@ -181,9 +205,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '1'
+    img_views: '0'
+    img_albid: '2'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542c54ca5f83.02486749.jpg","FileDateTime":1571727666,"FileSize":61306,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"ANY_TAG, IFD0, EXIF","COMPUTED":{"html":"width=\"510\" height=\"340\"","Height":340,"Width":510,"IsColor":1,"ByteOrderMotorola":1,"ApertureFNumber":"f\/9.0"},"Make":"Canon","Model":"Canon EOS 7D Mark II","ExposureTime":"1\/60","Exif_IFD_Pointer":97,"FNumber":"9\/1","ISOSpeedRatings":[100,0],"DateTimeOriginal":"2016:06:06 20:05:49","Flash":[16,0],"FocalLength":"15\/1","UndefinedTag:0xA434":"EF-S15-85mm f\/3.5-5.6 IS USM"}'
     img_date: '1549020244'
     img_submitter: '1'
     img_ip: '::1'
@@ -202,9 +229,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '2'
+    img_views: '0'
+    img_albid: '1'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542cb067cf56.51116299.jpg","FileDateTime":1571727666,"FileSize":31036,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"ANY_TAG, IFD0, EXIF","COMPUTED":{"html":"width=\"604\" height=\"340\"","Height":340,"Width":604,"IsColor":1,"ByteOrderMotorola":1,"ApertureFNumber":"f\/4.5"},"Make":"Panasonic","Model":"DMC-FZ200","ExposureTime":"10\/5000","Exif_IFD_Pointer":90,"FNumber":"45\/10","ISOSpeedRatings":[100,0],"DateTimeOriginal":"2018:10:20 07:22:34","Flash":[16,0],"FocalLength":"534\/10"}'
     img_date: '1549020336'
     img_submitter: '1'
     img_ip: '::1'
@@ -223,9 +253,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '2'
+    img_views: '0'
+    img_albid: '1'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542cb067d2e3.48592224.jpg","FileDateTime":1571727666,"FileSize":42136,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"ANY_TAG, IFD0, EXIF","COMPUTED":{"html":"width=\"604\" height=\"340\"","Height":340,"Width":604,"IsColor":1,"ByteOrderMotorola":1,"ApertureFNumber":"f\/6.3"},"Make":"Canon","Model":"Canon EOS 7D Mark II","ExposureTime":"1\/800","Exif_IFD_Pointer":97,"FNumber":"63\/10","ISOSpeedRatings":[320,0],"DateTimeOriginal":"2015:07:29 23:20:24","Flash":[16,0],"FocalLength":"250\/1","UndefinedTag:0xA434":"EF-S55-250mm f\/4-5.6 IS"}'
     img_date: '1549020336'
     img_submitter: '1'
     img_ip: '::1'
@@ -244,9 +277,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '2'
+    img_views: '0'
+    img_albid: '1'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542cb06821d2.42416637.jpg","FileDateTime":1571727666,"FileSize":36730,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"","COMPUTED":{"html":"width=\"510\" height=\"340\"","Height":340,"Width":510,"IsColor":1}}'
     img_date: '1549020336'
     img_submitter: '1'
     img_ip: '::1'
@@ -265,9 +301,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '2'
+    img_views: '0'
+    img_albid: '1'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542cb1a85929.13973799.jpg","FileDateTime":1571727666,"FileSize":16743,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"","COMPUTED":{"html":"width=\"604\" height=\"340\"","Height":340,"Width":604,"IsColor":1}}'
     img_date: '1549020337'
     img_submitter: '1'
     img_ip: '::1'
@@ -286,9 +325,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '2'
+    img_views: '0'
+    img_albid: '1'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542cb1ab4601.02730074.jpg","FileDateTime":1571727666,"FileSize":29355,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"ANY_TAG, IFD0, EXIF","COMPUTED":{"html":"width=\"510\" height=\"340\"","Height":340,"Width":510,"IsColor":1,"ByteOrderMotorola":1,"ApertureFNumber":"f\/10.0"},"Make":"Canon","Model":"Canon EOS 80D","ExposureTime":"1\/500","Exif_IFD_Pointer":90,"FNumber":"10\/1","ISOSpeedRatings":[100,0],"DateTimeOriginal":"2018:02:24 10:47:26","Flash":[16,0],"FocalLength":"24\/1","UndefinedTag:0xA434":"TAMRON 16-300mm F\/3.5-6.3 Di II VC PZD B016"}'
     img_date: '1549020337'
     img_submitter: '1'
     img_ip: '::1'
@@ -307,9 +349,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '2'
+    img_views: '0'
+    img_albid: '1'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542cb1ac70c8.17257482.jpg","FileDateTime":1571727666,"FileSize":44884,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"ANY_TAG, IFD0, EXIF","COMPUTED":{"html":"width=\"604\" height=\"340\"","Height":340,"Width":604,"IsColor":1,"ByteOrderMotorola":1,"ApertureFNumber":"f\/2.0"},"Make":"samsung","Model":"SM-A500G","ExposureTime":"1\/250","Exif_IFD_Pointer":87,"FNumber":"2\/1","ISOSpeedRatings":[50,0],"DateTimeOriginal":"2016:11:23 18:13:48","FocalLength":"369\/100"}'
     img_date: '1549020337'
     img_submitter: '1'
     img_ip: '::1'
@@ -328,9 +373,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '2'
+    img_views: '0'
+    img_albid: '1'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542cb2ec41e6.80261613.jpg","FileDateTime":1571727666,"FileSize":19961,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"ANY_TAG, IFD0, EXIF","COMPUTED":{"html":"width=\"604\" height=\"340\"","Height":340,"Width":604,"IsColor":1,"ByteOrderMotorola":1,"ApertureFNumber":"f\/4.5"},"Make":"Panasonic","Model":"DMC-FZ200","ExposureTime":"10\/8000","Exif_IFD_Pointer":90,"FNumber":"45\/10","ISOSpeedRatings":[100,0],"DateTimeOriginal":"2018:05:24 15:39:32","Flash":[16,0],"FocalLength":"798\/10"}'
     img_date: '1549020338'
     img_submitter: '1'
     img_ip: '::1'
@@ -349,9 +397,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '2'
+    img_views: '0'
+    img_albid: '1'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542cb2ed61f4.04969095.jpg","FileDateTime":1571727666,"FileSize":20944,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"","COMPUTED":{"html":"width=\"709\" height=\"340\"","Height":340,"Width":709,"IsColor":1}}'
     img_date: '1549020338'
     img_submitter: '1'
     img_ip: '::1'
@@ -370,9 +421,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '2'
+    img_views: '0'
+    img_albid: '1'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542cb2edc2c4.39165464.jpg","FileDateTime":1571727666,"FileSize":19609,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"ANY_TAG, IFD0, EXIF","COMPUTED":{"html":"width=\"604\" height=\"340\"","Height":340,"Width":604,"IsColor":1,"ByteOrderMotorola":1,"ApertureFNumber":"f\/5.0"},"Make":"SONY","Model":"DSC-HX9V               ","ExposureTime":"1\/25","Exif_IFD_Pointer":99,"FNumber":"50\/10","ISOSpeedRatings":[200,0],"DateTimeOriginal":"2013:12:05 17:46:37","Flash":[16,0],"FocalLength":"3079\/100"}'
     img_date: '1549020338'
     img_submitter: '1'
     img_ip: '::1'
@@ -391,9 +445,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '2'
+    img_views: '0'
+    img_albid: '1'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542cb43e0072.06733818.jpg","FileDateTime":1571727666,"FileSize":45077,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"ANY_TAG, IFD0, EXIF","COMPUTED":{"html":"width=\"510\" height=\"340\"","Height":340,"Width":510,"IsColor":1,"ByteOrderMotorola":1,"ApertureFNumber":"f\/16.0"},"Make":"Canon","Model":"Canon EOS 650D","ExposureTime":"1\/320","Exif_IFD_Pointer":91,"FNumber":"16\/1","ISOSpeedRatings":[200,0],"DateTimeOriginal":"2018:10:03 14:32:58","Flash":[16,0],"FocalLength":"276\/1","UndefinedTag:0xA434":"18-300mm"}'
     img_date: '1549020340'
     img_submitter: '1'
     img_ip: '::1'
@@ -412,9 +469,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '2'
+    img_views: '0'
+    img_albid: '1'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542cb43f3937.58540190.jpg","FileDateTime":1571727666,"FileSize":58185,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"ANY_TAG, IFD0, EXIF","COMPUTED":{"html":"width=\"510\" height=\"340\"","Height":340,"Width":510,"IsColor":1,"ByteOrderMotorola":1,"ApertureFNumber":"f\/3.3"},"ExposureTime":"1\/500","Exif_IFD_Pointer":46,"FNumber":"33\/10","ISOSpeedRatings":[200,0],"DateTimeOriginal":"2018:11:18 16:44:56","Flash":[16,0],"FocalLength":"44\/5"}'
     img_date: '1549020340'
     img_submitter: '1'
     img_ip: '::1'
@@ -433,9 +493,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '2'
+    img_views: '0'
+    img_albid: '1'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542cb43f0913.06147458.jpg","FileDateTime":1571727666,"FileSize":69491,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"ANY_TAG, IFD0, EXIF","COMPUTED":{"html":"width=\"743\" height=\"340\"","Height":340,"Width":743,"IsColor":1,"ByteOrderMotorola":1,"ApertureFNumber":"f\/13.0"},"Make":"NIKON CORPORATION","Model":"NIKON D5100","ExposureTime":"10\/2000","Exif_IFD_Pointer":100,"FNumber":"130\/10","ISOSpeedRatings":[100,0],"DateTimeOriginal":"2012:08:02 18:15:34","Flash":[16,0],"FocalLength":"180\/10"}'
     img_date: '1549020340'
     img_submitter: '1'
     img_ip: '::1'
@@ -454,9 +517,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '2'
+    img_views: '0'
+    img_albid: '1'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542cb5821683.02624368.jpg","FileDateTime":1571727666,"FileSize":25440,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"ANY_TAG, IFD0, EXIF","COMPUTED":{"html":"width=\"523\" height=\"340\"","Height":340,"Width":523,"IsColor":1,"ByteOrderMotorola":1,"ApertureFNumber":"f\/4.5"},"Make":"SONY","Model":"ILCE-7M2","ExposureTime":"30\/1","Exif_IFD_Pointer":84,"FNumber":"45\/10","ISOSpeedRatings":[3200,0],"DateTimeOriginal":"2018:08:12 23:00:18","Flash":[16,0],"FocalLength":"120\/10","UndefinedTag:0xA434":"DT 12-24mm F4.5-5.6 SAM"}'
     img_date: '1549020341'
     img_submitter: '1'
     img_ip: '::1'
@@ -475,9 +541,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '2'
+    img_views: '0'
+    img_albid: '1'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542cb5821c44.86211145.jpg","FileDateTime":1571727666,"FileSize":40737,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"ANY_TAG, IFD0, EXIF","COMPUTED":{"html":"width=\"607\" height=\"340\"","Height":340,"Width":607,"IsColor":1,"ByteOrderMotorola":1,"ApertureFNumber":"f\/8.0"},"Make":"Panasonic","Model":"DMC-FZ200","ExposureTime":"10\/300","Exif_IFD_Pointer":90,"FNumber":"80\/10","ISOSpeedRatings":[100,0],"DateTimeOriginal":"2018:04:14 05:45:49","Flash":[16,0],"FocalLength":"621\/10"}'
     img_date: '1549020341'
     img_submitter: '1'
     img_ip: '::1'
@@ -496,9 +565,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '2'
+    img_views: '0'
+    img_albid: '1'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542cb583c504.66286593.jpg","FileDateTime":1571727666,"FileSize":26012,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"","COMPUTED":{"html":"width=\"604\" height=\"340\"","Height":340,"Width":604,"IsColor":1}}'
     img_date: '1549020341'
     img_submitter: '1'
     img_ip: '::1'
@@ -517,9 +589,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '2'
+    img_views: '1'
+    img_albid: '1'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542cb6c2f823.95430923.jpg","FileDateTime":1571727666,"FileSize":39592,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"ANY_TAG, IFD0, EXIF","COMPUTED":{"html":"width=\"510\" height=\"340\"","Height":340,"Width":510,"IsColor":1,"ByteOrderMotorola":1,"ApertureFNumber":"f\/7.1"},"Make":"Canon","Model":"Canon EOS 400D DIGITAL","ExposureTime":"1\/125","Exif_IFD_Pointer":99,"FNumber":"71\/10","ISOSpeedRatings":[200,0],"DateTimeOriginal":"2010:06:01 19:59:07","Flash":[16,0],"FocalLength":"18\/1","UndefinedTag:0xA434":"18.0-200.0 mm"}'
     img_date: '1549020342'
     img_submitter: '1'
     img_ip: '::1'
@@ -538,9 +613,12 @@
     img_ratinglikes: '0'
     img_votes: '0'
     img_weight: '0'
-    img_albid: '2'
+    img_views: '0'
+    img_albid: '1'
     img_state: '1'
-    img_exif: null
+    img_cats: null
+    img_tags: null
+    img_exif: '{"FileName":"imgl5c542cb6c42d39.60831825.jpg","FileDateTime":1571727666,"FileSize":49417,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"IFD0","COMPUTED":{"html":"width=\"511\" height=\"340\"","Height":340,"Width":511,"IsColor":1,"ByteOrderMotorola":1}}'
     img_date: '1549020342'
     img_submitter: '1'
     img_ip: '::1'
