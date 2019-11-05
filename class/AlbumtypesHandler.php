@@ -232,6 +232,7 @@ class AlbumtypesHandler extends \XoopsPersistableObjectHandler
     public function reset($atId, $template, $primary)
     {
         $options = [];
+        $at_name = $at_credits = '';
         switch ($template) {
             case 'default':
                 $at_name    = 'Default album style';
