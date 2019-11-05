@@ -86,7 +86,7 @@ class Categories extends \XoopsObject
     {
         /** @var \XoopsModules\Wggallery\Helper $helper */
         $helper = \XoopsModules\Wggallery\Helper::getInstance();
-        if (false === $action) {
+        if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         // Title

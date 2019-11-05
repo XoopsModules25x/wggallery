@@ -142,7 +142,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         $this->imageMimetype = $_FILES[$this->inputName]['type'];
         $this->imageSize = $_FILES[$this->inputName]['size'];
 
-        if (false === move_uploaded_file($_FILES[$this->inputName]['tmp_name'], $this->imagePath)) {
+        if (!move_uploaded_file($_FILES[$this->inputName]['tmp_name'], $this->imagePath)) {
             return false;
         }
 
@@ -175,7 +175,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         // }
 
         $ret = $this->handleImageDB();
-        if (false === $ret) {
+        if (!$ret) {
             return [
                 'error' => sprintf(_FAILSAVEIMG, $this->imageNicename),
             ];
@@ -227,7 +227,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         }
 
         // add watermark to large image
-        if (true === $wmTargetL) {
+        if ($wmTargetL) {
             $imgWm = $this->pathUpload . '/large/' . $this->imageNameLarge;
             $resWm = $watermarksHandler->watermarkImage($wmId, $imgWm, $imgWm);
             if (true !== $resWm) {
@@ -235,7 +235,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
             }
         }
         // add watermark to medium image
-        if (true === $wmTargetM) {
+        if ($wmTargetM) {
             $imgWm = $this->pathUpload . '/medium/' . $this->imageName;
             $resWm = $watermarksHandler->watermarkImage($wmId, $imgWm, $imgWm);
             if (true !== $resWm) {

@@ -93,7 +93,7 @@ class Albums extends \XoopsObject
         /** @var \XoopsModules\Wggallery\Helper $helper */
         $helper = \XoopsModules\Wggallery\Helper::getInstance();
         $albumsHandler = $helper->getHandler('Albums');
-        if (false === $action) {
+        if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         // Title
@@ -149,7 +149,7 @@ class Albums extends \XoopsObject
         $albImgcat = $this->isNew() ? Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL : $this->getVar('alb_imgtype');
         $albImage  = $this->isNew() ? 'noimage.png' : $this->getVar('alb_image');
         $albImgid  = $this->isNew() ? 0 : $this->getVar('alb_imgid');
-        if (true === $admin) {
+        if ($admin) {
             $albImgcatSelect = new \XoopsFormRadio(_CO_WGGALLERY_ALBUM_IMGTYPE, 'alb_imgtype', $albImgcat);
             $albImgcatSelect->addOption(Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL, _CO_WGGALLERY_ALBUM_USE_UPLOADED);
             $albImgcatSelect->addOption(Constants::ALBUM_IMGCAT_USE_EXIST_VAL, _CO_WGGALLERY_ALBUM_IMGID);
@@ -315,7 +315,7 @@ class Albums extends \XoopsObject
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $btnTray = new \XoopsFormElementTray('', '&nbsp;');
         $btnTray->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
-        if (false === $admin) {
+        if (!$admin) {
             $btnSubmitUpload = new \XoopsFormButton('', 'submit_upload', _CO_WGGALLERY_FORM_SUBMIT_SUBMITUPLOAD, 'submit');
             $btnSubmitUpload->setClass('btn btn-primary');
             $btnTray->addElement($btnSubmitUpload);
@@ -334,7 +334,7 @@ class Albums extends \XoopsObject
     public function getFormUploadToAlbum($action = false)
     {
         $helper = \XoopsModules\Wggallery\Helper::getInstance();
-        if (false === $action) {
+        if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         // Get Theme Form

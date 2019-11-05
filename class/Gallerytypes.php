@@ -77,7 +77,7 @@ class Gallerytypes extends \XoopsObject
     public function getFormGallerytypes($action = false)
     {
         //$helper = \XoopsModules\Wggallery\Helper::getInstance();
-        if (false === $action) {
+        if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         // Title
@@ -115,7 +115,7 @@ class Gallerytypes extends \XoopsObject
     public function getFormGallerytypeOptions($action = false)
     {
         //$helper = \XoopsModules\Wggallery\Helper::getInstance();
-        if (false === $action) {
+        if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         // Get Theme Form
