@@ -3,7 +3,7 @@ Read Me First
 
 Originally created by the Goffy - https://wedega.com.
 
-Main contributors: Mamba (https://xoops.org), Mage (https://xoops.org), geekwright (https://xoops.org)
+Main contributors: Goffy (German Xoops), Mamba (http://www.xoops.org), Mage (https://xoops.org), geekwright (https://xoops.org), Lupin (https://xoops.org)
 
 
 Code used from:
