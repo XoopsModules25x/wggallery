@@ -76,7 +76,6 @@ foreach ($options as $option) {
     // echo "<br>".$option['name'].":".$optionValue;
 }
 
-
 // echo '<br>template:wggallery_gallery_' . $pr_gallery['template'] . '.tpl';
 // echo '<br>isdir template: ' . is_dir(WGGALLERY_URL . '/assets/wggallery_gallery_' . $pr_gallery['template'] . '.tpl');
 

@@ -91,7 +91,7 @@ class Albums extends \XoopsObject
     public function getFormAlbums($action = false, $admin = false)
     {
         /** @var \XoopsModules\Wggallery\Helper $helper */
-        $helper = \XoopsModules\Wggallery\Helper::getInstance();
+        $helper        = \XoopsModules\Wggallery\Helper::getInstance();
         $albumsHandler = $helper->getHandler('Albums');
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
@@ -107,7 +107,7 @@ class Albums extends \XoopsObject
         // Form Select Parent Album
         $albumsHandler      = $helper->getHandler('Albums');
         $permissionsHandler = $helper->getHandler('Permissions');
-        $criteria      = new \CriteriaCompo();
+        $criteria           = new \CriteriaCompo();
         $criteria->add(new \Criteria('alb_id', $this->getVar('alb_id'), '<>'));
         $criteria->setSort('alb_weight ASC, alb_date');
         $criteria->setOrder('DESC');
@@ -172,7 +172,7 @@ class Albums extends \XoopsObject
         }
         $form->addElement($albStateSelect);
         // Permissions
-        $listSelected = [];
+        $listSelected  = [];
         $memberHandler = xoops_getHandler('member');
         $groupList     = $memberHandler->getGroupList();
         $gpermHandler  = xoops_getHandler('groupperm');
@@ -185,8 +185,8 @@ class Albums extends \XoopsObject
             $groupsIdsView[]       = array_values($groupsIdsView);
             $groupsCanViewCheckbox = new \XoopsFormCheckBox('', 'groups_view', $groupsIdsView);
 
-            $groupsIdsDlFullAlb = $gpermHandler->getGroupIds('wggallery_dlfullalb', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
-            $groupsIdsDlFullAlb[] = array_values($groupsIdsDlFullAlb);
+            $groupsIdsDlFullAlb         = $gpermHandler->getGroupIds('wggallery_dlfullalb', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
+            $groupsIdsDlFullAlb[]       = array_values($groupsIdsDlFullAlb);
             $groupsCanDlFullAlbCheckbox = new \XoopsFormCheckBox('', 'groups_dlfullalb', $groupsIdsDlFullAlb);
 
             $groupsIdsDlImageL         = $gpermHandler->getGroupIds('wggallery_dlimage_large', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
@@ -197,10 +197,10 @@ class Albums extends \XoopsObject
             $groupsIdsDlImageM[]       = array_values($groupsIdsDlImageM);
             $groupsCanDlImageMCheckbox = new \XoopsFormCheckBox('', 'groups_dlimage_medium', $groupsIdsDlImageM);
         } else {
-            $groupsCanViewCheckbox = new \XoopsFormCheckBox('', 'groups_view', $listSelected);
+            $groupsCanViewCheckbox      = new \XoopsFormCheckBox('', 'groups_view', $listSelected);
             $groupsCanDlFullAlbCheckbox = new \XoopsFormCheckBox('', 'groups_dlfullalb', $listSelected);
-            $groupsCanDlImageLCheckbox = new \XoopsFormCheckBox('', 'groups_dlimage_large', $listNone);
-            $groupsCanDlImageMCheckbox = new \XoopsFormCheckBox('', 'groups_dlimage_medium', $listSelected);
+            $groupsCanDlImageLCheckbox  = new \XoopsFormCheckBox('', 'groups_dlimage_large', $listNone);
+            $groupsCanDlImageMCheckbox  = new \XoopsFormCheckBox('', 'groups_dlimage_medium', $listSelected);
         }
         // To View
         $groupsCanViewCheckbox->addOptionArray($groupList);
@@ -274,16 +274,16 @@ class Albums extends \XoopsObject
             $form->addElement(new \XoopsFormHidden('alb_wmid', 0));
         }
         unset($criteria);
-        
+
         // Form Text Select AlbCats
         $albCats = $this->isNew() ? '' : unserialize($this->getVar('alb_cats'));
         if ($helper->getConfig('use_categories')) {
             $categoriesHandler = $helper->getHandler('Categories');
-            $crCategories = new \CriteriaCompo();
+            $crCategories      = new \CriteriaCompo();
             $crCategories->add(new \Criteria('cat_album', 1));
             $categoriesCount = $categoriesHandler->getCount($crCategories);
             if ($categoriesCount > 0) {
-                $categoriesAll = $categoriesHandler->getAll($crCategories);
+                $categoriesAll    = $categoriesHandler->getAll($crCategories);
                 $selectCategories = new \XoopsFormCheckBox(_CO_WGGALLERY_CATS_SELECT, 'alb_cats', $albCats);
                 foreach (array_keys($categoriesAll) as $i) {
                     $selectCategories->addOption($categoriesAll[$i]->getVar('cat_id'), $categoriesAll[$i]->getVar('cat_text'));
@@ -299,7 +299,7 @@ class Albums extends \XoopsObject
         } else {
             $form->addElement(new \XoopsFormHidden('alb_tags', $this->getVar('alb_tags')));
         }
-        
+
         // Form Text Date Select AlbDate
         $albDate = $this->isNew() ? 0 : $this->getVar('alb_date');
         $form->addElement(new \XoopsFormTextDateSelect(_CO_WGGALLERY_DATE, 'alb_date', '', $albDate));
@@ -344,7 +344,7 @@ class Albums extends \XoopsObject
         // Form Table Albums
         $albumsHandler      = $helper->getHandler('Albums');
         $permissionsHandler = $helper->getHandler('Permissions');
-        $crAlbums      = new \CriteriaCompo();
+        $crAlbums           = new \CriteriaCompo();
         $crAlbums->add(new \Criteria('alb_iscoll', 0));
         $crAlbums->setSort('alb_weight ASC, alb_date');
         $crAlbums->setOrder('DESC');
@@ -436,7 +436,7 @@ class Albums extends \XoopsObject
         $ret           = $this->getValues($keys, $format, $maxDepth);
         $ret['id']     = $this->getVar('alb_id');
         $ret['pid']    = $this->getVar('alb_pid');
-        $ret['iscoll']  = $this->getVar('alb_iscoll');
+        $ret['iscoll'] = $this->getVar('alb_iscoll');
         $ret['name']   = $this->getVar('alb_name');
         $ret['desc']   = $this->getVar('alb_desc', 'show');
         $ret['weight'] = $this->getVar('alb_weight');
@@ -473,7 +473,7 @@ class Albums extends \XoopsObject
         $crAlbums->add(new \Criteria('alb_pid', $this->getVar('alb_id')));
         $albumsCount         = $helper->getHandler('Albums')->getCount($crAlbums);
         $ret['nb_subalbums'] = $albumsCount;
-        
+
         $ret['cats']      = $this->getVar('alb_cats');
         $albCats          = unserialize($this->getVar('alb_cats'));
         $ret['cats_list'] = $helper->getHandler('Categories')->getCatsList($albCats);

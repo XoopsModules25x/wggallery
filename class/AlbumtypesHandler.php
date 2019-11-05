@@ -169,7 +169,7 @@ class AlbumtypesHandler extends \XoopsPersistableObjectHandler
     {
         // create new albumtypes if not existing
         $templates = ['default', 'simple', 'hovereffectideas', 'bcards'];
-        $template = '';
+        $template  = '';
         foreach ($templates as $template) {
             $gtCount      = 0;
             $crAlbumtypes = new \CriteriaCompo();

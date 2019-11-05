@@ -85,7 +85,7 @@ class Helper extends \Xmf\Module\Helper
      */
     public function getHandler($name)
     {
-        $ret   = false;
+        $ret = false;
 
         $class = __NAMESPACE__ . '\\' . ucfirst($name) . 'Handler';
         if (!class_exists($class)) {

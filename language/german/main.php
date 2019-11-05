@@ -61,7 +61,8 @@ define('_MA_WGGALLERY_ERROR_NO_IMAGE_SET', "You didn't specify the image. Please
 // search
 define('_MA_WGGALLERY_SEARCH', 'Suche Bilder nach speziellen Kriterien');
 define('_MA_WGGALLERY_SEARCH_CATS', 'Suche nach Kategorien');
-define('_MA_WGGALLERY_SEARCH_CATS_DESC', 'Ausgewählt werden Bilder oder Alben, die einer dieser Kategorien zugeordnet wurden. Sofern ein Album einer Kategorie zugeordnet werden, so werden alle Bilder dieses Albums angezeigt, unabhängig davon, ob die einzelnen Bilder dieser Kategorie zugeordnet wurden');
+define('_MA_WGGALLERY_SEARCH_CATS_DESC',
+       'Ausgewählt werden Bilder oder Alben, die einer dieser Kategorien zugeordnet wurden. Sofern ein Album einer Kategorie zugeordnet werden, so werden alle Bilder dieses Albums angezeigt, unabhängig davon, ob die einzelnen Bilder dieser Kategorie zugeordnet wurden');
 define('_MA_WGGALLERY_SEARCH_TEXT_DESC', 'Ausgewählt werden Bilder oder Alben, deren Name, Beschreibung, Name der Kategorie oder einer der verwendeten Tags diesen Text enthalten. Sofern ein Album einer Kategorie zugeordnet werden, so werden alle Bilder dieses Albums angezeigt');
 define('_MA_WGGALLERY_SEARCH_SUBM_DESC', 'Ausgewählt werden Bilder oder Alben, die vom ausgewählten Benutzer eingesendet wurden');
 define('_MA_WGGALLERY_SEARCH_TEXT', 'Suche nach Text');

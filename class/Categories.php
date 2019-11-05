@@ -23,6 +23,7 @@ namespace XoopsModules\Wggallery;
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 images.php 1 Mon 2018-03-19 10:04:51Z XOOPS Project (www.xoops.org) $
  */
+
 use XoopsModules\Wggallery;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
@@ -130,15 +131,15 @@ class Categories extends \XoopsObject
      */
     public function getValuesCategories($keys = null, $format = null, $maxDepth = null)
     {
-        $helper = \XoopsModules\Wggallery\Helper::getInstance();
-        $ret = $this->getValues($keys, $format, $maxDepth);
-        $ret['id'] = $this->getVar('cat_id');
-        $ret['text'] = $this->getVar('cat_text');
-        $ret['album'] = $this->getVar('cat_album');
-        $ret['image'] = $this->getVar('cat_image');
-        $ret['search'] = $this->getVar('cat_search');
-        $ret['weight'] = $this->getVar('cat_weight');
-        $ret['date'] = formatTimestamp($this->getVar('cat_date'), 's');
+        $helper           = \XoopsModules\Wggallery\Helper::getInstance();
+        $ret              = $this->getValues($keys, $format, $maxDepth);
+        $ret['id']        = $this->getVar('cat_id');
+        $ret['text']      = $this->getVar('cat_text');
+        $ret['album']     = $this->getVar('cat_album');
+        $ret['image']     = $this->getVar('cat_image');
+        $ret['search']    = $this->getVar('cat_search');
+        $ret['weight']    = $this->getVar('cat_weight');
+        $ret['date']      = formatTimestamp($this->getVar('cat_date'), 's');
         $ret['submitter'] = \XoopsUser::getUnameFromId($this->getVar('cat_submitter'));
 
         return $ret;
@@ -151,7 +152,7 @@ class Categories extends \XoopsObject
      */
     public function toArrayCategories()
     {
-        $ret = [];
+        $ret  = [];
         $vars = $this->getVars();
         foreach (array_keys($vars) as $var) {
             $ret[$var] = $this->getVar('"{$var}"');

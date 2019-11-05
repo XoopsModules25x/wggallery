@@ -263,8 +263,7 @@ define('_CO_WGGALLERY_EXIF_LENSMODEL', 'Linse Modell');
 define('_CO_WGGALLERY_MAINTAINEDBY', 'Unterstützt von');
 define('_CO_WGGALLERY_MAINTAINEDBY_DESC', 'Erlaubt den Url zur Supportseite oder Community');
 
-
-$moduleDirName = basename(dirname(dirname(__DIR__)));
+$moduleDirName      = basename(dirname(dirname(__DIR__)));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 //Sample Data

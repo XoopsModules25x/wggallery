@@ -20,6 +20,7 @@
  * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
  * @version        $Id: 1.0 rate.php 13070 Wed 2016-12-14 22:22:38Z XOOPS Development Team $
  */
+
 use Xmf\Request;
 use XoopsModules\Wggallery\Constants;
 
@@ -40,7 +41,7 @@ switch ($op) {
 
         // Checking permissions
         $rate_allowed = false;
-        $groups = (isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $groups       = (isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
         foreach ($groups as $group) {
             if (XOOPS_GROUP_ADMIN == $group || in_array($group, $helper->getConfig('ratingbar_groups'))) {
                 $rate_allowed = true;
@@ -91,10 +92,10 @@ switch ($op) {
         // Insert Data
         if ($ratingsHandler->insert($ratingsObj)) {
             // update table wggallery_images
-            $nb_ratings = 0;
+            $nb_ratings     = 0;
             $avg_rate_value = 0;
-            $ratingObjs = $helper->getHandler('ratings')->getObjects();
-            $count = count($ratingObjs);
+            $ratingObjs     = $helper->getHandler('ratings')->getObjects();
+            $count          = count($ratingObjs);
             $current_rating = 0;
             foreach ($ratingObjs as $ratingObj) {
                 $current_rating += $ratingObj->getVar('rate_value');

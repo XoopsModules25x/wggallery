@@ -20,21 +20,22 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 search.php 1 Mon 2018-03-19 10:04:51Z XOOPS Project (www.xoops.org) $
  */
+
 use Xmf\Request;
 use XoopsModules\Wggallery;
 use XoopsModules\Wggallery\Constants;
 
 require __DIR__ . '/header.php';
 
-$op = Request::getString('op', 'initiate');
+$op    = Request::getString('op', 'initiate');
 $start = Request::getInt('start', 0);
 $limit = Request::getInt('limit', $helper->getConfig('userpager'));
 
 $search_text = mb_strtolower(Request::getString('search_text', ''));
 $search_cats = Request::getArray('search_cats', []);
 $search_subm = Request::getInt('search_subm', 0);
-$search_act = Request::getInt('search_act', 1);
-$imageIdsIn = Request::getString('imageIdsIn', '');
+$search_act  = Request::getInt('search_act', 1);
+$imageIdsIn  = Request::getString('imageIdsIn', '');
 
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_search.tpl';
 
@@ -76,13 +77,13 @@ $descCats = new \XoopsFormLabel('', _MA_WGGALLERY_SEARCH_CATS_DESC);
 $trayCats->addElement($descCats, false);
 if ($helper->getConfig('use_categories')) {
     $categoriesHandler = $helper->getHandler('Categories');
-    $crCategories = new \CriteriaCompo();
+    $crCategories      = new \CriteriaCompo();
     $crCategories->add(new \Criteria('cat_image', 1));
     $categoriesCount = $categoriesHandler->getCount($crCategories);
     if ($categoriesCount > 0) {
         $crCategories->setSort('cat_weight ASC, cat_text');
         $crCategories->setOrder('ASC');
-        $categoriesAll = $categoriesHandler->getAll($crCategories);
+        $categoriesAll    = $categoriesHandler->getAll($crCategories);
         $selectCategories = new \XoopsFormCheckBox('', 'search_cats', $search_cats);
         foreach (array_keys($categoriesAll) as $i) {
             $selectCategories->addOption($categoriesAll[$i]->getVar('cat_id'), $categoriesAll[$i]->getVar('cat_text'));
@@ -96,12 +97,12 @@ $form1->addElement($trayCats, false);
 
 // search for submitter of album or image
 $userHandler = xoops_getHandler('user');
-$sql = 'SELECT alb_submitter FROM ' . $xoopsDB->prefix('wggallery_albums') . ' GROUP BY alb_submitter';
+$sql         = 'SELECT alb_submitter FROM ' . $xoopsDB->prefix('wggallery_albums') . ' GROUP BY alb_submitter';
 $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . mysqli_error());
 while ($row = $GLOBALS['xoopsDB']->fetchrow($result)) {
     $subm_search[$row[0]]['uid'] = $row[0];
-    $user = $userHandler->get($row[0]);
-    $username = $user->getVar('name');
+    $user                        = $userHandler->get($row[0]);
+    $username                    = $user->getVar('name');
     if ('' === $username) {
         $username = $user->getVar('uname');
     }
@@ -111,8 +112,8 @@ $sql = 'SELECT img_submitter FROM ' . $xoopsDB->prefix('wggallery_images') . ' G
 $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . mysqli_error());
 while ($row = $GLOBALS['xoopsDB']->fetchrow($result)) {
     $subm_search[$row[0]]['uid'] = $row[0];
-    $user = $userHandler->get($row[0]);
-    $username = $user->getVar('name');
+    $user                        = $userHandler->get($row[0]);
+    $username                    = $user->getVar('name');
     if ('' === $username) {
         $username = $user->getVar('uname');
     }
@@ -120,7 +121,7 @@ while ($row = $GLOBALS['xoopsDB']->fetchrow($result)) {
 }
 // Form Select users
 $traySubmitter = new \XoopsFormElementTray(_MA_WGGALLERY_SEARCH_SUBM, '<br>');
-$descSelect = new \XoopsFormLabel('', _MA_WGGALLERY_SEARCH_SUBM_DESC);
+$descSelect    = new \XoopsFormLabel('', _MA_WGGALLERY_SEARCH_SUBM_DESC);
 $traySubmitter->addElement($descSelect, false);
 $submSelect = new \XoopsFormSelect('', 'search_subm', $search_subm);
 $submSelect->addOption(0, ' ');
@@ -171,9 +172,9 @@ switch ($op) {
                 redirect_header('search.php', 3, _MA_WGGALLERY_SEARCH_ERROR_NO_FILTER);
             }
 
-            $album_ids = [];
+            $album_ids      = [];
             $album_ids_view = [];
-            $image_ids = [];
+            $image_ids      = [];
 
             // search in table wggallery_albums
             $crAlbums = new \CriteriaCompo();
@@ -183,7 +184,7 @@ switch ($op) {
             if ($albumsCount > 0) {
                 $albumsAll = $albumsHandler->getAll($crAlbums);
                 foreach (array_keys($albumsAll) as $i) {
-                    $albId = $albumsAll[$i]->getVar('alb_id');
+                    $albId    = $albumsAll[$i]->getVar('alb_id');
                     $permView = $permissionsHandler->permAlbumView($albId);
                     if ($permView) {
                         $album_ids_view[] = $albId;
@@ -222,7 +223,7 @@ switch ($op) {
                 //echo "<br>count(album_ids):".count($album_ids);
                 if (count($album_ids) > 0) {
                     $img_albids = implode(',', $album_ids);
-                    $sql = 'SELECT img_id FROM ' . $xoopsDB->prefix('wggallery_images') . ' WHERE (`img_albid` IN (' . $img_albids . '))';
+                    $sql        = 'SELECT img_id FROM ' . $xoopsDB->prefix('wggallery_images') . ' WHERE (`img_albid` IN (' . $img_albids . '))';
                     $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . mysqli_error());
                     while ($row = $GLOBALS['xoopsDB']->fetchrow($result)) {
                         $image_ids[] = $row[0];

@@ -64,7 +64,8 @@ define('_MA_WGGALLERY_SEARCH_CATS', 'Search for categories');
 define('_MA_WGGALLERY_SEARCH_TEXT', 'Search text');
 define('_MA_WGGALLERY_SEARCH_SUBM', 'Search from specific submitter');
 define('_MA_WGGALLERY_SEARCH_CATS_DESC', 'Images and albums will be selected, if they are connected to one of the selcted categories. If an album is connected to one of these categories then all images of the album will be shown, even if the image itself is not linked to the category.');
-define('_MA_WGGALLERY_SEARCH_TEXT_DESC', 'Images and albums will be selected, if the name, description, name of the category or one of the tags contains this text. If an album is connected to one of these categories then all images of the album will be shown, even if the image itself is not linked to the category.');
+define('_MA_WGGALLERY_SEARCH_TEXT_DESC',
+       'Images and albums will be selected, if the name, description, name of the category or one of the tags contains this text. If an album is connected to one of these categories then all images of the album will be shown, even if the image itself is not linked to the category.');
 define('_MA_WGGALLERY_SEARCH_SUBM_DESC', 'Images and albums will be selected, if they are submitted by selected user.');
 define('_MA_WGGALLERY_SEARCH_ERROR_NO_FILTER', 'Please select minimum one of the filters!');
 define('_MA_WGGALLERY_SEARCH_RESULT', 'Result of your search');

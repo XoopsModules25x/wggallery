@@ -192,10 +192,10 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
             $childsAll = '';
         }
 
-        $helper = \XoopsModules\Wggallery\Helper::getInstance();
+        $helper             = \XoopsModules\Wggallery\Helper::getInstance();
         $albumsHandler      = $helper->getHandler('Albums');
         $permissionsHandler = $helper->getHandler('Permissions');
-        $crAlbums = new \CriteriaCompo();
+        $crAlbums           = new \CriteriaCompo();
         $crAlbums->add(new \Criteria('alb_pid', $albPid));
         $crAlbums->setSort('alb_weight ASC, alb_date');
         $crAlbums->setOrder('DESC');

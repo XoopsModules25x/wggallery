@@ -263,8 +263,7 @@ define('_CO_WGGALLERY_EXIF_LENSMODEL', 'Lens model');
 define('_CO_WGGALLERY_MAINTAINEDBY', 'Maintained By');
 define('_CO_WGGALLERY_MAINTAINEDBY_DESC', 'Allow url of support site or community');
 
-
-$moduleDirName = basename(dirname(dirname(__DIR__)));
+$moduleDirName      = basename(dirname(dirname(__DIR__)));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 //Sample Data
