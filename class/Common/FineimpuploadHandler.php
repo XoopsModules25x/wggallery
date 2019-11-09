@@ -102,6 +102,10 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
      * @var string
      */
     private $exifData = null;
+    /**
+     * @var string
+     */
+    private $imageTags = null;
 
     /**
      * XoopsFineImUploadHandler constructor.
@@ -152,10 +156,18 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
             copy($this->imagePath, $imgPathSaveOrig);
         }
 
+        $exif = '';
         if ($helper->getConfig('store_exif')) {
             // read exif from original image
-            $exif           = json_encode(exif_read_data($this->imagePath));
-            $this->exifData = $exif;
+            $exif           = exif_read_data($this->imagePath);
+            $this->exifData = json_encode($exif);
+        }
+        if ('none' !== $helper->getConfig('exif_tags')) {
+            if ('' == $exif) {
+                // read exif from original image
+                $exif = exif_read_data($this->imagePath);
+            }
+            $this->imageTags = $imagesHandler->exifExtractTags($exif, $helper->getConfig('exif_tags'));
         }
 
         // resize large image
@@ -309,6 +321,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         $imagesObj->setVar('img_albid', $this->claims->cat);
         $imagesObj->setVar('img_state', $this->permUseralbum);
         $imagesObj->setVar('img_exif', $this->exifData);
+        $imagesObj->setVar('img_tags', $this->imageTags);
         $imagesObj->setVar('img_date', time());
         $imagesObj->setVar('img_submitter', $xoopsUser->id());
         $imagesObj->setVar('img_ip', $_SERVER['REMOTE_ADDR']);

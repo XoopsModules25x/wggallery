@@ -23,9 +23,11 @@
 			<!-- *************** Basic Tab ***************-->
             <div class='tab-pane active center' id='1'>
 				<img id='currentImg' class='img-responsive wgg-album-img' src='<{$album.image}>' alt='<{$album.name}>'>
-                <p><{$smarty.const._CO_WGGALLERY_ALBUM_IMGTYPE}>: <{$album.image_path}><br>
-                <{$smarty.const._CO_WGGALLERY_IMAGE_RES}>: <{$albimage_width}> / <{$albimage_height}></p>
-                <input type='button' class='btn <{$btn_style}>' value='<{$smarty.const._CANCEL}>' onclick='history.go(-1);return true;'>
+                <{if $album.image_path}>
+                    <p><{$smarty.const._CO_WGGALLERY_ALBUM_IMGTYPE}>: <{$album.image_path}><br>
+                    <{$smarty.const._CO_WGGALLERY_IMAGE_RES}>: <{$albimage_width}> / <{$albimage_height}></p>
+                    <input type='button' class='btn <{$btn_style}>' value='<{$smarty.const._CANCEL}>' onclick='history.go(-1);return true;'>
+                <{/if}>
 			</div>
             
             <!-- *************** Tab for select image of albums ***************-->

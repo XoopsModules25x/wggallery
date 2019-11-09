@@ -155,4 +155,35 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
 
         return true;
     }
+    
+    /**
+     * extract data from exif as tags
+     * @param  $exifs
+     * @param  $exif_tags
+     * @return string or null
+     */
+    public function exifExtractTags($exifs, $exif_tags)
+    {
+        $ret = '';
+        
+        if (is_array($exifs)) {
+            foreach ($exifs as $key => $value) {
+                if (in_array($key, $exif_tags)) {
+                    if (is_array($value)) {
+                        foreach ($value as $skey => $svalue) {
+                            $ret .= '#' . $svalue;
+                        }
+                    } else {
+                        $ret .= '#' . $value;
+                    }
+                }
+            }
+        } else {
+            return null;
+        }
+        
+        return $ret;
+    }        
+            
+            
 }

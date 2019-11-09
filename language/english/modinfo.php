@@ -111,7 +111,9 @@ define('_MI_WGGALLERY_USE_TAGS_DESC', 'Define whether you want to use tags for i
 define('_MI_WGGALLERY_STOREEXIF', 'Save meta data (exif)');
 define('_MI_WGGALLERY_STOREEXIF_DESC', 'Define whether you want to save the meta data (exif) of the images');
 define('_MI_WGGALLERY_EXIFTYPES', 'Exif data to display');
-define('_MI_WGGALLERY_EXIFTYPES_DESC', "Define which exif data should be shown (if '" . _MI_WGGALLERY_STOREEXIF . "' is activated)");
+define('_MI_WGGALLERY_EXIFTYPES_DESC', "Define which exif data should be shown<br>The option '" . _MI_WGGALLERY_STOREEXIF . "' must be activated");
+define('_MI_WGGALLERY_EXIF_TAGS', 'Extract tags of exif');
+define('_MI_WGGALLERY_EXIF_TAGS_DESC', "Define which exif data should be automatically extraced from exif and added to an image as a tag<br>The option '" . _MI_WGGALLERY_USE_TAGS . "' must be activated");
 define('_MI_WGGALLERY_SHOWBUTTONTEXT', 'Show button text');
 define('_MI_WGGALLERY_SHOWBUTTONTEXT_DESC', 'Show the button text. If NO then only images are shown');
 define('_MI_WGGALLERY_GROUP_UPLOAD', 'Options for image upload');

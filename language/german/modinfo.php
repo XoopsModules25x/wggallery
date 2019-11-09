@@ -115,7 +115,9 @@ define('_MI_WGGALLERY_USE_TAGS_DESC', 'Definieren sie, ob Sie für die Bilder un
 define('_MI_WGGALLERY_STOREEXIF', 'Metadaten (exif) speichern');
 define('_MI_WGGALLERY_STOREEXIF_DESC', 'Definieren sie, ob Sie die Metadaten der Bilder (exif-Daten) speichern wollen');
 define('_MI_WGGALLERY_EXIFTYPES', 'Exif-Daten für Anzeige');
-define('_MI_WGGALLERY_EXIFTYPES_DESC', "Definieren Sie welche Exif-Daten angezeigt werden sollen (nur wenn '" . _MI_WGGALLERY_STOREEXIF . "' aktiviert ist)");
+define('_MI_WGGALLERY_EXIFTYPES_DESC', "Definieren Sie welche Exif-Daten angezeigt werden sollen<br>Die Option '" . _MI_WGGALLERY_STOREEXIF . "' muss aktiviert sein");
+define('_MI_WGGALLERY_EXIF_TAGS', 'Tags aus Exif-Daten extrahieren');
+define('_MI_WGGALLERY_EXIF_TAGS_DESC', "Definieren Sie, ob sie bestimmte Informationen automatisch aus den Exif-Daten extrahieren und als Tags zum Bild abspeichern wollen<br>Die Option '" . _MI_WGGALLERY_USE_TAGS . "' muss aktiviert sein");
 define('_MI_WGGALLERY_SHOWBUTTONTEXT', 'Schaltflächentext anzeigen');
 define('_MI_WGGALLERY_SHOWBUTTONTEXT_DESC', 'Anzeigen des Schaltflächentextes. Bei NEIN wird nur das Schaltflächenbild angezeigt');
 define('_MI_WGGALLERY_GROUP_UPLOAD', 'Optionen für Upload Bilder');

@@ -1,4 +1,4 @@
-<h5>1.14 RC1</h5>  [2019/../..]
+<h5>1.14 RC1</h5>  [2019/11/09]
 <hr>
  - added possibility to store original image (lupin/goffy)
  - implemented permissions for download full album (goffy)
@@ -13,6 +13,7 @@
  - change of lang defines from cat to coll (goffy)
  - changes in order of module preferences (goffy)
  - fixed missing date in search.inc.php (goffy)
+ - added autotically extraction of exif for tags (lupin/goffy)
 
 <h5>1.13 RC1</h5>  [2019/../..]
 <hr>

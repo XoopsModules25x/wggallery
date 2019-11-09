@@ -441,11 +441,13 @@ class Albums extends \XoopsObject
         $ret['desc']   = $this->getVar('alb_desc', 'show');
         $ret['weight'] = $this->getVar('alb_weight');
         $imagesHandler = $helper->getHandler('Images');
+        $image_path = '';
         if (Constants::ALBUM_IMGCAT_USE_EXIST_VAL === $this->getVar('alb_imgtype')) {
             if ($this->getVar('alb_imgid') > 0) {
                 $imagesObj = $imagesHandler->get($this->getVar('alb_imgid'));
                 if (null !== $imagesObj && is_object($imagesObj)) {
                     $image = WGGALLERY_UPLOAD_IMAGES_URL . '/medium/' . $imagesObj->getVar('img_name');
+                    $image_path = '../uploads/wggallery/images/medium/' . $imagesObj->getVar('img_name');
                 } else {
                     $ret['image_err']     = true;
                     $ret['image_errtext'] = str_replace('%s', $this->getVar('alb_imgid'), _AM_WGGALLERY_ALBUMS_ERRNOTFOUND);
@@ -456,12 +458,16 @@ class Albums extends \XoopsObject
             }
         } else {
             $image = WGGALLERY_UPLOAD_IMAGES_URL . '/albums/' . $this->getVar('alb_image');
+            if ($this->getVar('alb_image') !== 'noimage.png') {
+                $image_path = '../uploads/wggallery/images/albums/' . $this->getVar('alb_image');
+            }
         }
-        $ret['image']     = $image;
-        $ret['nb_images'] = $imagesHandler->getCountImages($this->getVar('alb_id'));
-        $ret['state']     = $this->getVar('alb_state');
-        $alb_wmid         = $this->getVar('alb_wmid');
-        $ret['wmid']      = $alb_wmid;
+        $ret['image']      = $image;
+        $ret['image_path'] = $image_path;
+        $ret['nb_images']  = $imagesHandler->getCountImages($this->getVar('alb_id'));
+        $ret['state']      = $this->getVar('alb_state');
+        $alb_wmid          = $this->getVar('alb_wmid');
+        $ret['wmid']       = $alb_wmid;
         if ($alb_wmid > 0) {
             $watermarksHandler = $helper->getHandler('Watermarks');
             $ret['wmname']     = $watermarksHandler->get($alb_wmid)->getVar('wm_name');

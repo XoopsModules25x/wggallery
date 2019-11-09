@@ -346,12 +346,10 @@ switch ($op) {
         if (count($images) > 0) {
             $GLOBALS['xoopsTpl']->assign('images', $images);
         }
+
         // get form for upload album image
         $form = $albumsObj->getFormUploadAlbumimage();
         $GLOBALS['xoopsTpl']->assign('form_uploadimage', $form->render());
-        // get form for apply select existing
-
-        // get form for apply grid
 
         // set style of button
         $GLOBALS['xoopsTpl']->assign('btn_style', 'btn-default');

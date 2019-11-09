@@ -412,6 +412,23 @@ $modversion['config'][] = [
     'default'     => 1,
 ];
 
+// Exif : extract tags
+$modversion['config'][] = [
+    'name'        => 'exif_tags',
+    'title'       => '_MI_WGGALLERY_EXIF_TAGS',
+    'description' => '_MI_WGGALLERY_EXIF_TAGS_DESC',
+    'formtype'    => 'select_multi',
+    'valuetype'   => 'array',
+    'default'     => ['none'],
+    'options'     => [
+        '_CO_WGGALLERY_NONE'           => 'none',
+        '_CO_WGGALLERY_EXIF_CAMERA'    => 'Make',
+        '_CO_WGGALLERY_EXIF_MODEL'     => 'Model',
+        '_CO_WGGALLERY_EXIF_LENSMAKE'  => 'UndefinedTag:0xA433',
+        '_CO_WGGALLERY_EXIF_LENSMODEL' => 'UndefinedTag:0xA434',
+    ],
+];
+
 // group header
 $modversion['config'][] = [
     'name'        => 'group_display',
