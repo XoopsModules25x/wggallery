@@ -20,6 +20,11 @@ function getConfig()
 {
     $moduleDirName      = basename(dirname(__DIR__));
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
+    
+    if (!defined($moduleDirNameUpper . '_AUTHOR_LOGOIMG')) {
+        $pathIcon32 = \Xmf\Module\Admin::iconUrl('', 32);
+        define($moduleDirNameUpper . '_AUTHOR_LOGOIMG', $pathIcon32 . '/xoopsmicrobutton.gif');
+    }
 
     return (object)[
         'name'           => mb_strtoupper($moduleDirName) . ' Module Configurator',
@@ -35,27 +40,26 @@ function getConfig()
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName,
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images',
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/albums',
+            XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/original',
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/large',
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/medium',
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/thumbs',
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/temp',
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/watermarks',
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/watermarks-test',
+            XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/temp',
+            XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images',
+            XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/fonts',
             //XOOPS_UPLOAD_PATH . '/flags'
         ],
         'copyBlankFiles' => [
-            XOOPS_UPLOAD_PATH . '/' . $moduleDirName,
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images',
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/albums',
+            XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/original',
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/large',
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/medium',
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/thumbs',
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/watermarks',
-            //XOOPS_UPLOAD_PATH . '/flags'
-        ],
-
-        'copyNoImageFiles' => [
-            XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/albums',
             //XOOPS_UPLOAD_PATH . '/flags'
         ],
 

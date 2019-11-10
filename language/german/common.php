@@ -106,6 +106,7 @@ define('_CO_WGGALLERY_ALBUMS_SHOW', 'Alle Alben anzeigen');
 define('_CO_WGGALLERY_ALBUMS_SORT', 'Sortierung der Alben');
 define('_CO_WGGALLERY_ALBUM_SORT_SHOWHIDE', 'Zum Anzeigen/Verstecken der Listeneinträge anklicken');
 define('_CO_WGGALLERY_ALBUM_IMAGE_ERRORNOTFOUND', 'Fehler: Albumbild wurde nicht gefunden');
+define('_CO_WGGALLERY_ALBUMS_ERRNOTFOUND', 'Fehler: Bild nicht gefunden (Bild-Id %s)');
 // album image handler
 define('_CO_WGGALLERY_ALBUM_IH_APPLY', 'Anwenden');
 define('_CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT', 'Albumbild bearbeiten');

@@ -22,6 +22,7 @@
  * @copyright      module for xoops
  * @license        GPL 2.0 or later
  */
+ 
 /**
  * @param      $module
  * @param null $prev_version
@@ -37,7 +38,9 @@ function xoops_module_update_wggallery(&$module, $prev_version = null)
     }
 
     $ret = wggallery_check_db($module);
-    $ret = wggallery_check_dir($module);
+    
+    include_once __DIR__ . '/oninstall.php';
+    $ret = xoops_module_install_wggallery($module);
 
     $errors = $module->getErrors();
     if (!empty($errors)) {
@@ -243,47 +246,4 @@ function wggallery_check_db(&$module)
     }
 
     return $ret;
-}
-
-/**
- * @param $module
- *
- * @return bool
- */
-function wggallery_check_dir(&$module)
-{
-    // Making of temp images folder
-    $indexFile = XOOPS_UPLOAD_PATH . '/index.html';
-    $blankFile = XOOPS_UPLOAD_PATH . '/blank.gif';
-
-    $specimage = XOOPS_UPLOAD_PATH . '/wggallery/images/temp';
-    if (!is_dir($specimage)) {
-        if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
-            throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
-        }
-        chmod($specimage, 0777);
-    }
-    copy($indexFile, $specimage . '/index.html');
-    copy($blankFile, $specimage . '/blank.gif');
-
-    $specimage = XOOPS_UPLOAD_PATH . '/wggallery/images/original';
-    if (!is_dir($specimage)) {
-        if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
-            throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
-        }
-        chmod($specimage, 0777);
-    }
-    copy($indexFile, $specimage . '/index.html');
-    copy($blankFile, $specimage . '/blank.gif');
-
-    $specimage = XOOPS_UPLOAD_PATH . '/wggallery/temp';
-    if (!is_dir($specimage)) {
-        if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
-            throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
-        }
-        chmod($specimage, 0777);
-    }
-    copy($indexFile, $specimage . '/index.html');
-
-    return true;
 }

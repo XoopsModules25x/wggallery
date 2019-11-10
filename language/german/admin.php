@@ -323,8 +323,6 @@ define('_AM_WGGALLERY_MAINTENANCE_INVALIDRATE_RESULT', '%s von %t Bewertungen/Li
 define('_AM_WGGALLERY_MAINTENANCE_INVALIDCATS', 'Verwendete Kategorien bereinigen');
 define('_AM_WGGALLERY_MAINTENANCE_INVALIDCATS_DESC', 'Kategorien bei Alben und Bildern löschen, wenn die Kategorie nicht mehr exisitiert');
 define('_AM_WGGALLERY_MAINTENANCE_INVALIDCATS_RESULT', '%t Einträge wurden bereinigt');
-// Albums
-define('_AM_WGGALLERY_ALBUMS_ERRNOTFOUND', 'Fehler: Bild nicht gefunden (Bild-Id %s)');
 // Import
 define('_AM_WGGALLERY_IMPORT', 'Daten und Dateien aus anderen Galeriemodulen importieren');
 define('_AM_WGGALLERY_IMPORT_LIST', 'Liste der unterstützten Module');

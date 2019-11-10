@@ -106,6 +106,7 @@ define('_CO_WGGALLERY_ALBUMS_SHOW', 'Show all albums');
 define('_CO_WGGALLERY_ALBUMS_SORT', 'Sorting of albums');
 define('_CO_WGGALLERY_ALBUM_SORT_SHOWHIDE', 'Click to show/hide the sub items');
 define('_CO_WGGALLERY_ALBUM_IMAGE_ERRORNOTFOUND', 'Error: album image not found');
+define('_CO_WGGALLERY_ALBUMS_ERRNOTFOUND', 'Error: Image not found (Image-Id %s)');
 // album image handler
 define('_CO_WGGALLERY_ALBUM_IH_APPLY', 'Apply');
 define('_CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT', 'Edit album image');

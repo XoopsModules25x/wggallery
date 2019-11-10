@@ -14,6 +14,8 @@
  - changes in order of module preferences (goffy)
  - fixed missing date in search.inc.php (goffy)
  - added autotically extraction of exif for tags (lupin/goffy)
+ - fixed bug with deleting noimage.png when album deleted (goffy)
+ - added configuration system to oninstall (goffy)
 
 <h5>1.13 RC1</h5>  [2019/../..]
 <hr>

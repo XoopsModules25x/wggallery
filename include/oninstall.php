@@ -20,148 +20,105 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 install.php 1 Mon 2018-03-19 10:04:53Z XOOPS Project (www.xoops.org) $
  */
-// Copy base file
-$indexFile    = XOOPS_UPLOAD_PATH . '/index.html';
-$blankFile    = XOOPS_UPLOAD_PATH . '/blank.gif';
-$noimage      = XOOPS_ROOT_PATH . '/modules/wggallery/assets/images/noimage.png';
-$imgwatermark = XOOPS_ROOT_PATH . '/modules/wggallery/assets/images/wedega_logo.png';
-// Making of uploads/wggallery folder
-$helper = XOOPS_UPLOAD_PATH . '/wggallery';
-if (!is_dir($helper)) {
-    if (!mkdir($helper, 0777) && !is_dir($helper)) {
-        throw new \RuntimeException(sprintf('Directory "%s" was not created', $helper));
-    }
-    chmod($helper, 0777);
-}
-copy($indexFile, $helper . '/index.html');
-// Making of images folder
-$images = $helper . '/images';
-if (!is_dir($images)) {
-    if (!mkdir($images, 0777) && !is_dir($images)) {
-        throw new \RuntimeException(sprintf('Directory "%s" was not created', $images));
-    }
-    chmod($images, 0777);
-}
-copy($indexFile, $images . '/index.html');
-copy($blankFile, $images . '/blank.gif');
-// Making of album images folder
-$specimage = $images . '/albums';
-if (!is_dir($specimage)) {
-    if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
-        throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
-    }
-    chmod($specimage, 0777);
-}
-copy($indexFile, $specimage . '/index.html');
-copy($blankFile, $specimage . '/blank.gif');
-copy($noimage, $specimage . '/noimage.png');
-// Making of original images folder
-$specimage = $images . '/original';
-if (!is_dir($specimage)) {
-    if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
-        throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
-    }
-    chmod($specimage, 0777);
-}
-copy($indexFile, $specimage . '/index.html');
-copy($blankFile, $specimage . '/blank.gif');
-// Making of large images folder
-$specimage = $images . '/large';
-if (!is_dir($specimage)) {
-    if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
-        throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
-    }
-    chmod($specimage, 0777);
-}
-copy($indexFile, $specimage . '/index.html');
-copy($blankFile, $specimage . '/blank.gif');
-// Making of medium images folder
-$specimage = $images . '/medium';
-if (!is_dir($specimage)) {
-    if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
-        throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
-    }
-    chmod($specimage, 0777);
-}
-copy($indexFile, $specimage . '/index.html');
-copy($blankFile, $specimage . '/blank.gif');
-// Making of thumbs images folder
-$specimage = $images . '/thumbs';
-if (!is_dir($specimage)) {
-    if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
-        throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
-    }
-    chmod($specimage, 0777);
-}
-copy($indexFile, $specimage . '/index.html');
-copy($blankFile, $specimage . '/blank.gif');
-// Making of temp images folder
-$specimage = $images . '/temp';
-if (!is_dir($specimage)) {
-    if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
-        throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
-    }
-    chmod($specimage, 0777);
-}
-// Making of original folder
-$specimage = $images . '/original';
-if (!is_dir($specimage)) {
-    if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
-        throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
-    }
-    chmod($specimage, 0777);
-}
-copy($indexFile, $specimage . '/index.html');
-copy($blankFile, $specimage . '/blank.gif');
-// Making of temp folder for downloads
-$specimage = XOOPS_UPLOAD_PATH . '/wggallery/temp';
-if (!is_dir($specimage)) {
-    if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
-        throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
-    }
-    chmod($specimage, 0777);
-}
-copy($indexFile, $specimage . '/index.html');
+use XoopsModules\Wggallery;
+use XoopsModules\Wggallery\Common;
 
-// Making of watermark images folder
-$imgwatermark = XOOPS_ROOT_PATH . '/modules/wggallery/assets/images/wedega_logo.png';
-$specimage    = $images . '/watermarks';
-if (!is_dir($specimage)) {
-    if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
-        throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
-    }
-    chmod($specimage, 0777);
-}
-copy($indexFile, $specimage . '/index.html');
-copy($blankFile, $specimage . '/blank.gif');
-copy($imgwatermark, $specimage . '/wedega_logo.png');
-// create folder watermarks-test in uploads
-$specimage = XOOPS_UPLOAD_PATH . '/wggallery/images/watermarks-test';
-if (!is_dir($specimage)) {
-    if (!mkdir($specimage, 0777) && !is_dir($specimage)) {
-        throw new \RuntimeException(sprintf('Directory "%s" was not created', $specimage));
-    }
-    chmod($specimage, 0777);
-}
-copy($indexFile, $specimage . '/index.html');
-// installing watermark fonts
-$specfonts = XOOPS_UPLOAD_PATH . '/wggallery/fonts';
-if (!is_dir($specfonts)) {
-    if (!mkdir($specfonts, 0777) && !is_dir($specfonts)) {
-        throw new \RuntimeException(sprintf('Directory "%s" was not created', $specfonts));
-    }
-    chmod($specfonts, 0777);
-}
-copy($indexFile, $specfonts . '/index.html');
+/**
+ * @param  \XoopsModule $module
+ * @return bool
+ */
+function xoops_module_pre_install_wggallery(\XoopsModule $module)
+{
+    require dirname(__DIR__) . '/preloads/autoloader.php';
+    /** @var Wggallery\Utility $utility */
+    $utility = new Wggallery\Utility();
 
-$rep = XOOPS_ROOT_PATH . '/modules/wggallery/assets/fonts/';
-$dir = opendir($rep);
-while ($f = readdir($dir)) {
-    if (is_file($rep . $f)) {
-        if (preg_match('/.*ttf/', mb_strtolower($f))) {
-            copy($rep . $f, $specfonts . '/' . $f);
+    //check for minimum XOOPS version
+    $xoopsSuccess = $utility::checkVerXoops($module);
+
+    // check for minimum PHP version
+    $phpSuccess = $utility::checkVerPhp($module);
+
+    if (false !== $xoopsSuccess && false !== $phpSuccess) {
+        $moduleTables = &$module->getInfo('tables');
+        foreach ($moduleTables as $table) {
+            $GLOBALS['xoopsDB']->queryF('DROP TABLE IF EXISTS ' . $GLOBALS['xoopsDB']->prefix($table) . ';');
         }
     }
+
+    return $xoopsSuccess && $phpSuccess;
 }
 
-// ------------------- Install Footer ------------------- //
+/**
+ * @param \XoopsModule $module
+ *
+ * @return bool|string
+ */
+function xoops_module_install_wggallery(\XoopsModule $module)
+{
+    require dirname(__DIR__) . '/preloads/autoloader.php';
+
+    /** @var Wggallery\Helper $helper */
+    /** @var Wggallery\Utility $utility */
+    /** @var Common\Configurator $configurator */
+    $helper       = Wggallery\Helper::getInstance();
+    $utility      = new Wggallery\Utility();
+    $configurator = new Common\Configurator();
+
+    // Load language files
+    $helper->loadLanguage('admin');
+    $helper->loadLanguage('modinfo');
+    $helper->loadLanguage('common');
+
+    //  ---  CREATE FOLDERS ---------------
+    if ($configurator->uploadFolders && is_array($configurator->uploadFolders)) {
+        //    foreach (array_keys($GLOBALS['uploadFolders']) as $i) {
+        foreach (array_keys($configurator->uploadFolders) as $i) {
+            $utility::createFolder($configurator->uploadFolders[$i]);
+        }
+    }
+
+    //  ---  COPY blank.gif FILES ---------------
+    if ($configurator->copyBlankFiles && is_array($configurator->copyBlankFiles)) {
+        $file = dirname(__DIR__) . '/assets/images/blank.gif';
+        foreach (array_keys($configurator->copyBlankFiles) as $i) {
+            $dest = $configurator->copyBlankFiles[$i] . '/blank.gif';
+            $utility::copyFile($file, $dest);
+        }
+    }
+
+/* 
+    //  ---  COPY test folder files ---------------
+    if ($configurator->copyTestFolders && is_array($configurator->copyTestFolders)) {
+        //        $file =  dirname(__DIR__) . '/testdata/images/';
+        foreach (array_keys($configurator->copyTestFolders) as $i) {
+            $src  = $configurator->copyTestFolders[$i][0];
+            $dest = $configurator->copyTestFolders[$i][1];
+            $utility::rcopy($src, $dest);
+        }
+    } */
+    
+    // copy noimage.png
+    $source = XOOPS_ROOT_PATH . '/modules/wggallery/assets/images/noimage.png';
+    $target = XOOPS_UPLOAD_PATH . '/wggallery/images/albums';
+    copy($source, $target . '/noimage.png');
+    
+    // copy watermark logo
+    $source = XOOPS_ROOT_PATH . '/modules/wggallery/assets/images/wedega_logo.png';
+    $target = XOOPS_UPLOAD_PATH . '/wggallery/images/watermarks';
+    copy($source, $target . '/wedega_logo.png');
+    
+    // installing watermark fonts
+    $target = XOOPS_UPLOAD_PATH . '/wggallery/fonts';
+    $rep    = XOOPS_ROOT_PATH . '/modules/wggallery/assets/fonts/';
+    $dir    = opendir($rep);
+    while ($f = readdir($dir)) {
+        if (is_file($rep . $f)) {
+            if (preg_match('/.*ttf/', mb_strtolower($f))) {
+                copy($rep . $f, $target . '/' . $f);
+            }
+        }
+    }
+
+    return true;
+}

@@ -323,8 +323,6 @@ define('_AM_WGGALLERY_MAINTENANCE_INVALIDRATE_RESULT', '%s of %t ratings cleaned
 define('_AM_WGGALLERY_MAINTENANCE_INVALIDCATS', 'Cleaning used categories');
 define('_AM_WGGALLERY_MAINTENANCE_INVALIDCATS_DESC', 'Delete category in albums and images, if category is not existing anymore');
 define('_AM_WGGALLERY_MAINTENANCE_INVALIDCATS_RESULT', '%t items have been cleaned');
-// Albums
-define('_AM_WGGALLERY_ALBUMS_ERRNOTFOUND', 'Error: Image not found (Image-Id %s)');
 // Import
 define('_AM_WGGALLERY_IMPORT', 'Import data and files from other gallery modules');
 define('_AM_WGGALLERY_IMPORT_LIST', 'List of supported modules');

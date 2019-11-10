@@ -450,7 +450,7 @@ class Albums extends \XoopsObject
                     $image_path = '../uploads/wggallery/images/medium/' . $imagesObj->getVar('img_name');
                 } else {
                     $ret['image_err']     = true;
-                    $ret['image_errtext'] = str_replace('%s', $this->getVar('alb_imgid'), _AM_WGGALLERY_ALBUMS_ERRNOTFOUND);
+                    $ret['image_errtext'] = str_replace('%s', $this->getVar('alb_imgid'), _CO_WGGALLERY_ALBUMS_ERRNOTFOUND);
                     $image                = WGGALLERY_UPLOAD_IMAGES_URL . '/medium/blank.gif';
                 }
             } else {

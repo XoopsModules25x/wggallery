@@ -230,7 +230,7 @@ switch ($op) {
             $alb_image = $albumsObj->getVar('alb_image');
             if ($albumsHandler->delete($albumsObj)) {
                 // delete albimage
-                if ('blank.gif' !== $alb_image) {
+                if ('blank.gif' !== $alb_image && 'noimage.png' !== $alb_image) {
                     unlink(WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $alb_image);
                 }
                 // delete all images linked to this album
