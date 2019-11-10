@@ -141,7 +141,7 @@ if ($albumsCount > 0) {
             $albums[$i] = $albumsAll[$i]->getValuesAlbums();
             $submitter  = $albumsAll[$i]->getVar('alb_submitter');
             //check permissions
-            $albums[$i]['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
+            //$albums[$i]['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
             if ($permissionsHandler->permAlbumDownload($albumsAll[$i]->getVar('alb_id'))) {
                 $albums[$i]['download'] = true;
             }
@@ -231,7 +231,7 @@ if ($catsCount > 0) {
             $nbAlbums                    = $albumsHandler->getCount($crSubAlbums);
             $categories[$i]['nb_albums'] = $nbAlbums;
             //check permissions
-            $categories[$i]['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
+            //$categories[$i]['edit'] = $permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'));
             //set indicator for line break
             $counter++;
             if (1 === $counter) {
