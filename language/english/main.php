@@ -76,8 +76,10 @@ define('_MA_WGGALLERY_SEARCH_ACT_VIEWS', 'Most views');
 define('_MA_WGGALLERY_SEARCH_ACT_RATINGS', 'Best rated');
 define('_MA_WGGALLERY_SEARCH_ACT_VOTES', 'Most votes');
 // ---------------- Ratings ----------------
-define('_MA_WGGALLERY_RATING_CURRENT_X', 'Rating: %c / %m (%t rating(s) totally)');
-define('_MA_WGGALLERY_RATING_CURRENT_SHORT_X', '%c (%t rating(s))');
+define('_MA_WGGALLERY_RATING_CURRENT_1', 'Rating: %c / %m (%t rating totally)');
+define('_MA_WGGALLERY_RATING_CURRENT_X', 'Rating: %c / %m (%t ratings totally)');
+define('_MA_WGGALLERY_RATING_CURRENT_SHORT_1', '%c (%t rating)');
+define('_MA_WGGALLERY_RATING_CURRENT_SHORT_X', '%c (%t ratings)');
 define('_MA_WGGALLERY_RATING1', '1 of 5');
 define('_MA_WGGALLERY_RATING2', '2 of 5');
 define('_MA_WGGALLERY_RATING3', '3 of 5');
