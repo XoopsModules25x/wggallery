@@ -116,6 +116,7 @@
 /* numeric rfating */
 .wggallery_unit-rating-10numeric {
     margin:10px 0;
+    line-height:30px;
 }
 .wggallery-rater-numeric {
     border:1px solid #ccc;

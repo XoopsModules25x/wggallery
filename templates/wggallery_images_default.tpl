@@ -158,6 +158,7 @@
                 <{include file="db:wggallery_rating_img.tpl"}>
             <{/if}>
         </div>
+        <div class='clear'>&nbsp;</div>
 		<div class='wgg-img-panel-row col-sm-12 center'>
 			<{if $showBack}>
                 <a class='btn btn-default wgg-btn' href='images.php?op=<{if $redir_op}><{$redir_op}><{else}>list<{/if}>&amp;alb_id=<{$alb_id}>&amp;alb_pid=<{$alb_pid}>&amp;start=<{$start}>&amp;limit=<{$limit}>&amp;img_submitter=<{$img_submitter}>#image_<{$image.id}>' title='<{$smarty.const._CO_WGGALLERY_BACK}>'>
