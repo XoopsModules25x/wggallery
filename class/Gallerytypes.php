@@ -265,8 +265,8 @@ class Gallerytypes extends \XoopsObject
                     break;
                 case 'jssor_slidertype':
                     $jssor_slidertype = new \XoopsFormSelect(_AM_WGGALLERY_OPTION_GT_SLIDERTYPE, 'jssor_slidertype', $option['value']);
-                    $jssor_slidertype->addOption(WGGALLERY_OPTION_GT_SLIDERTYPE_1_VAL, _AM_WGGALLERY_OPTION_GT_SLIDERTYPE_1);
-                    $jssor_slidertype->addOption(WGGALLERY_OPTION_GT_SLIDERTYPE_2_VAL, _AM_WGGALLERY_OPTION_GT_SLIDERTYPE_2);
+                    $jssor_slidertype->addOption(Constants::OPTION_GT_SLIDERTYPE_1_VAL, _AM_WGGALLERY_OPTION_GT_SLIDERTYPE_1);
+                    $jssor_slidertype->addOption(Constants::OPTION_GT_SLIDERTYPE_2_VAL, _AM_WGGALLERY_OPTION_GT_SLIDERTYPE_2);
                     // $jssor_slidertype->addOption(WGGALLERY_OPTION_GT_SLIDERTYPE_3_VAL, _AM_WGGALLERY_OPTION_GT_SLIDERTYPE_3);
                     $form->addElement($jssor_slidertype);
                     break;

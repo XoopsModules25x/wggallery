@@ -22,6 +22,7 @@
  */
 
 use Xmf\Request;
+use XoopsModules\Wggallery\Constants;
 
 require __DIR__ . '/header.php';
 $pr_gallery                              = $gallerytypesHandler->getPrimaryGallery();
@@ -123,15 +124,15 @@ switch ($pr_gallery['template']) {
             // case WGGALLERY_OPTION_GT_SLIDERTYPE_3_VAL:
             // $GLOBALS['xoopsTpl']->assign('jssor_maxwidth_js', 3000);
             // break;
-            case WGGALLERY_OPTION_GT_SLIDERTYPE_2_VAL:
+            case Constants::OPTION_GT_SLIDERTYPE_2_VAL:
                 $GLOBALS['xoopsTpl']->assign('jssor_maxwidth_js', 3000);
                 break;
-            case WGGALLERY_OPTION_GT_SLIDERTYPE_1_VAL:
+            case  Constants::OPTION_GT_SLIDERTYPE_1_VAL:
             default:
                 $GLOBALS['xoopsTpl']->assign('jssor_maxwidth_js', $jssor_maxwidth);
                 break;
         }
-        if (WGGALLERY_OPTION_GT_SLIDERTYPE_1_VAL == $jssor_slidertype) {
+        if ( Constants::OPTION_GT_SLIDERTYPE_1_VAL == $jssor_slidertype) {
             $GLOBALS['xoopsTpl']->assign('jssor_maxwidth_js', $jssor_maxwidth);
         }
         $GLOBALS['xoopsTpl']->assign('jssor_maxwidth', $jssor_maxwidth);

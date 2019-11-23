@@ -18,6 +18,7 @@
  - added configuration system to oninstall (goffy)
  - removed album edit from idex page (goffy)
  - fixed bug with overlapping divs for numeric rating (lupin/goffy)
+ - fixed bug in jssor contants (goffy)
 
 <h5>1.13 RC1</h5>  [2019/../..]
 <hr>
