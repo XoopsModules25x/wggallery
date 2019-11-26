@@ -19,8 +19,7 @@
         <div id="links">
             <{foreach item=image from=$images}>
                 <a href="<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>" title="<{$image.title}>" data-description="<{$image.desc}>">
-                    <img src="<{if $source_preview == 'medium'}><{$image.medium}><{else}><{$image.thumb}><{/if}>" alt="<{$image.title}>">
-                </a>
+                    <img src="<{if $source_preview == 'medium'}><{$image.medium}><{else}><{$image.thumb}><{/if}>" alt="<{$image.title}>"></a>
             <{/foreach}>
         </div>
     <{/if}>

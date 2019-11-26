@@ -32,45 +32,37 @@
                             <td class='center'>
                                 <{if $category.album == 1}>
                                     <a href='<{$wggallery_url}>/admin/categories.php?op=change&amp;field=album&amp;state=0&amp;cat_id=<{$category.id}>' title='<{$smarty.const._EDIT}>'>
-                                        <img src="<{$wggallery_icon_url_16}>on.png" alt="<{$smarty.const._YES}>">
-                                    </a>
+                                        <img src="<{$wggallery_icon_url_16}>on.png" alt="<{$smarty.const._YES}>"></a>
                                 <{else}>
                                     <a href='<{$wggallery_url}>/admin/categories.php?op=change&amp;field=album&amp;state=1&amp;cat_id=<{$category.id}>' title='<{$smarty.const._EDIT}>'>
-                                        <img src="<{$wggallery_icon_url_16}>off.png" alt="<{$smarty.const._NO}>">
-                                    </a>
+                                        <img src="<{$wggallery_icon_url_16}>off.png" alt="<{$smarty.const._NO}>"></a>
                                 <{/if}>
                             </td>
                             <td class='center'>
                                 <{if $category.image == 1}>
                                     <a href='<{$wggallery_url}>/admin/categories.php?op=change&amp;field=image&amp;state=0&amp;cat_id=<{$category.id}>' title='<{$smarty.const._EDIT}>'>
-                                        <img src="<{$wggallery_icon_url_16}>on.png" alt="<{$smarty.const._YES}>">
-                                    </a>
+                                        <img src="<{$wggallery_icon_url_16}>on.png" alt="<{$smarty.const._YES}>"></a>
                                 <{else}>
                                     <a href='<{$wggallery_url}>/admin/categories.php?op=change&amp;field=image&amp;state=1&amp;cat_id=<{$category.id}>' title='<{$smarty.const._EDIT}>'>
-                                        <img src="<{$wggallery_icon_url_16}>off.png" alt="<{$smarty.const._NO}>">
-                                    </a>
+                                        <img src="<{$wggallery_icon_url_16}>off.png" alt="<{$smarty.const._NO}>"></a>
                                 <{/if}>
                             </td>
                             <td class='center'>
                                 <{if $category.search == 1}>
                                     <a href='<{$wggallery_url}>/admin/categories.php?op=change&amp;field=search&amp;state=0&amp;cat_id=<{$category.id}>' title='<{$smarty.const._EDIT}>'>
-                                        <img src="<{$wggallery_icon_url_16}>on.png" alt="<{$smarty.const._YES}>">
-                                    </a>
+                                        <img src="<{$wggallery_icon_url_16}>on.png" alt="<{$smarty.const._YES}>"></a>
                                 <{else}>
                                     <a href='<{$wggallery_url}>/admin/categories.php?op=change&amp;field=search&amp;state=1&amp;cat_id=<{$category.id}>' title='<{$smarty.const._EDIT}>'>
-                                        <img src="<{$wggallery_icon_url_16}>off.png" alt="<{$smarty.const._NO}>">
-                                    </a>
+                                        <img src="<{$wggallery_icon_url_16}>off.png" alt="<{$smarty.const._NO}>"></a>
                                 <{/if}>
                             </td>
                             <td class='center'><{$category.date}></td>
                             <td class='center'><{$category.submitter}></td>
                             <td class='center  width10'>
                                 <a href='<{$wggallery_url}>/admin/categories.php?op=edit&amp;cat_id=<{$category.id}>' title='<{$smarty.const._EDIT}>'>
-                                    <img src='<{xoModuleIcons16 edit.png}>' alt='categories'>
-                                </a>
+                                    <img src='<{xoModuleIcons16 edit.png}>' alt='categories'></a>
                                 <a href='<{$wggallery_url}>/admin/categories.php?op=delete&amp;cat_id=<{$category.id}>' title='<{$smarty.const._DELETE}>'>
-                                    <img src='<{xoModuleIcons16 delete.png}>' alt='categories'>
-                                </a>
+                                    <img src='<{xoModuleIcons16 delete.png}>' alt='categories'></a>
                             </td>
                         </tr>
                     <{/foreach}>

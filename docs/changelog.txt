@@ -20,6 +20,7 @@
  - fixed bug with overlapping divs for numeric rating (lupin/goffy)
  - fixed bug in jssor contants (goffy)
  - added italian language (lupin)
+ - fixed display problem (alain/goffy)
 
 <h5>1.13 RC1</h5>  [2019/../..]
 <hr>

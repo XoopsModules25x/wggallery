@@ -29,8 +29,7 @@
                         <td class='center'><{$watermark.id}></td>
                         <td class="center">
                             <a href="watermarks.php?op=edit&amp;wm_id=<{$watermark.id}>" title="<{$smarty.const._CO_WGGALLERY_WATERMARK_PREVIEW}>">
-                                <img src="<{$wggallery_upload_url}>/images/watermarks-test/wmtest<{$watermark.id}>.jpg" class="img-responsive" style="max-width:150px" alt="<{$smarty.const._CO_WGGALLERY_WATERMARK_PREVIEW}>">
-                            </a>
+                                <img src="<{$wggallery_upload_url}>/images/watermarks-test/wmtest<{$watermark.id}>.jpg" class="img-responsive" style="max-width:150px" alt="<{$smarty.const._CO_WGGALLERY_WATERMARK_PREVIEW}>"></a>
                         </td>
                         <td class="center"><{$watermark.name}></td>
                         <td class="center"><{$watermark.type_text}></td>
@@ -47,11 +46,9 @@
                         <td class="center"><{$watermark.submitter}></td>
                         <td class="center  width5">
                             <a href="watermarks.php?op=edit&amp;wm_id=<{$watermark.id}>" title="<{$smarty.const._EDIT}>">
-                                <img src="<{xoModuleIcons16 edit.png}>" alt="watermarks">
-                            </a>
+                                <img src="<{xoModuleIcons16 edit.png}>" alt="watermarks"></a>
                             <a href="watermarks.php?op=delete&amp;wm_id=<{$watermark.id}>" title="<{$smarty.const._DELETE}>">
-                                <img src="<{xoModuleIcons16 delete.png}>" alt="watermarks">
-                            </a>
+                                <img src="<{xoModuleIcons16 delete.png}>" alt="watermarks"></a>
                         </td>
                     </tr>
                 <{/foreach}>

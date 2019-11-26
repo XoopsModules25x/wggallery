@@ -20,26 +20,17 @@
                                     <div class='col-xs-1 wgg-img-sort'><{$image.date}></div>
                                     <div class='col-xs-5 wgg-img-sort right'>
                                         <a class='btn btn-default wgg-btn-small' href='<{$wggallery_url}>/images.php?op=show&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>&amp;start=<{$start}>&amp;limit=<{$limit}>&amp;img_submitter=<{$img_submitter}>&amp;redir_op=manage' title='<{$smarty.const._CO_WGGALLERY_IMAGE_SHOW}>' target='<{$image_target}>'>
-                                            <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>show.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_SHOW}>'>
-                                        </a>
+                                            <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>show.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_SHOW}>'></a>
                                         <a class='btn btn-default wgg-btn-small' href='<{$wggallery_url}>/images.php?op=edit&amp;img_id=<{$image.id}>&amp;redir_op=manage' title='<{$smarty.const._EDIT}>'>
-                                            <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>edit.png' alt='<{$smarty.const._EDIT}>'>
-                                        </a>
+                                            <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>edit.png' alt='<{$smarty.const._EDIT}>'></a>
                                         <a class='btn btn-default wgg-btn-small' href='images.php?op=rotate&amp;dir=left&amp;img_id=<{$image.id}>&amp;alb_id=<{$alb_id}>&amp;start=<{$start}>&amp;limit=<{$limit}>&amp;img_submitter=<{$img_submitter}>&amp;redir_op=manage' title='<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_LEFT}>'>
-                                            <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>rotate_left.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_LEFT}>'>
-                                            
-                                        </a>
+                                            <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>rotate_left.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_LEFT}>'></a>
                                         <a class='btn btn-default wgg-btn-small' href='images.php?op=rotate&amp;dir=right&amp;img_id=<{$image.id}>&amp;alb_id=<{$alb_id}>&amp;start=<{$start}>&amp;limit=<{$limit}>&amp;img_submitter=<{$img_submitter}>&amp;redir_op=manage' title='<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_RIGHT}>'>
-                                            <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>rotate_right.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_RIGHT}>'>
-                                            
-                                        </a>
+                                            <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>rotate_right.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_RIGHT}>'></a>
                                         <a class='btn btn-default wgg-btn-small' href='<{$wggallery_url}>/images.php?op=delete&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>&amp;alb_pid=<{$alb_pid}>&amp;redir_op=manage' title='<{$smarty.const._DELETE}>'>
-                                            <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>delete.png' alt='<{$smarty.const._DELETE}>'>
-                                        </a>
+                                            <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>delete.png' alt='<{$smarty.const._DELETE}>'></a>
                                         <a class='btn btn-default wgg-btn-small' href='<{$wggallery_url}>/download.php?op=default&amp;img_id=<{$image.id}>&amp;redir_op=manage' title='<{$smarty.const._CO_WGGALLERY_DOWNLOAD}>'>
-                                            <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>download.png' alt='<{$smarty.const._CO_WGGALLERY_DOWNLOAD}>'>
-                                        </a>
-                                
+                                            <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>download.png' alt='<{$smarty.const._CO_WGGALLERY_DOWNLOAD}>'></a>
                                     </div>
                                     <div class='clear wgg-img-sort-clear'></div>
                                 </div>
@@ -54,10 +45,7 @@
                 <div class='clear'>&nbsp;</div>
                 <div class='wgg-goback'>
                     <a class='btn btn-default wgg-btn' href='<{if $ref}><{$ref}><{else}>images<{/if}>.php?op=<{if $redir_op}><{$redir_op}><{else}>list<{/if}>&amp;alb_id=<{$alb_id}>&amp;alb_pid=<{$alb_pid}>' title='<{$smarty.const._CO_WGGALLERY_BACK}>'>
-                        <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>back.png' alt='<{$smarty.const._CO_WGGALLERY_BACK}>'>
-                        <{if $displayButtonText}><{$smarty.const._CO_WGGALLERY_BACK}><{/if}>
-                    </a>
-
+                        <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>back.png' alt='<{$smarty.const._CO_WGGALLERY_BACK}>'><{if $displayButtonText}><{$smarty.const._CO_WGGALLERY_BACK}><{/if}></a>
                     </div>
             </div>
             <div class='clear'>&nbsp;</div>

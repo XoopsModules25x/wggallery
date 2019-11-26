@@ -8,32 +8,26 @@
 				<th class='center'>
                     <{$smarty.const._CO_WGGALLERY_ALBUM_ID}>
                     <a href='albums.php?op=list&amp;sort=alb_id&amp;orderby=DESC&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._DESCENDING}>'>
-                        <img src='<{$wggallery_icon_url_16}>desc.png' alt='<{$smarty.const._DESCENDING}>'>
-                    </a>
+                        <img src='<{$wggallery_icon_url_16}>desc.png' alt='<{$smarty.const._DESCENDING}>'></a>
                     <a href='albums.php?op=list&amp;sort=alb_id&amp;orderby=ASC&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._ASCENDING}>'>
-                        <img src='<{$wggallery_icon_url_16}>asc.png' alt='<{$smarty.const._ASCENDING}>'>
-                    </a>
+                        <img src='<{$wggallery_icon_url_16}>asc.png' alt='<{$smarty.const._ASCENDING}>'></a>
                 </th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_PID}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_ISCOLL}></th>
 				<th class='center'>
                     <{$smarty.const._CO_WGGALLERY_ALBUM_NAME}>
                     <a href='albums.php?op=list&amp;sort=alb_name&amp;orderby=DESC&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._DESCENDING}>'>
-                        <img src='<{$wggallery_icon_url_16}>desc.png' alt='<{$smarty.const._DESCENDING}>'>
-                    </a>
+                        <img src='<{$wggallery_icon_url_16}>desc.png' alt='<{$smarty.const._DESCENDING}>'></a>
                     <a href='albums.php?op=list&amp;sort=alb_name&amp;orderby=ASC&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._ASCENDING}>'>
-                        <img src='<{$wggallery_icon_url_16}>asc.png' alt='<{$smarty.const._ASCENDING}>'>
-                    </a>
+                        <img src='<{$wggallery_icon_url_16}>asc.png' alt='<{$smarty.const._ASCENDING}>'></a>
                 </th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_DESC}></th>
 				<th class='center'>
                     <{$smarty.const._CO_WGGALLERY_WEIGHT}>
                     <a href='albums.php?op=list&amp;sort=alb_weight&amp;orderby=DESC&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._DESCENDING}>'>
-                        <img src='<{$wggallery_icon_url_16}>desc.png' alt='<{$smarty.const._DESCENDING}>'>
-                    </a>
+                        <img src='<{$wggallery_icon_url_16}>desc.png' alt='<{$smarty.const._DESCENDING}>'></a>
                     <a href='albums.php?op=list&amp;sort=alb_weight&amp;orderby=ASC&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._ASCENDING}>'>
-                        <img src='<{$wggallery_icon_url_16}>asc.png' alt='<{$smarty.const._ASCENDING}>'>
-                    </a>
+                        <img src='<{$wggallery_icon_url_16}>asc.png' alt='<{$smarty.const._ASCENDING}>'></a>
                 </th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_IMAGE}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_STATE}></th>
@@ -87,32 +81,25 @@
 						<td class='center  width10'>
                             <{if $album.state == 0}>
                                 <a href='albums.php?op=change_state&amp;alb_state=1&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'>
-                                    <img src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'>
-                                </a>
+                                    <img src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'></a>
                             <{/if}>
                             <{if $album.state == 1}>
                                 <a href='albums.php?op=change_state&amp;alb_state=0&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'>
-                                    <img src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'>
-                                </a>
+                                    <img src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'></a>
                             <{/if}>
                             <{if $album.state == 2}>
                                 <a href='albums.php?op=change_state&amp;alb_state=1&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'>
-                                    <img src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'>
-                                </a>
+                                    <img src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'></a>
                                 <a href='albums.php?op=change_state&amp;alb_state=0&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'>
-                                    <img src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'>
-                                </a>
+                                    <img src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'></a>
                             <{/if}>
                             <a href='albums.php?op=edit&amp;alb_id=<{$album.id}>' title='<{$smarty.const._EDIT}>'>
-								<img src='<{xoModuleIcons16 edit.png}>' alt='<{$smarty.const._EDIT}>'>
-							</a>
+								<img src='<{xoModuleIcons16 edit.png}>' alt='<{$smarty.const._EDIT}>'></a>
 							<a href='albums.php?op=delete&amp;alb_id=<{$album.id}>' title='<{$smarty.const._DELETE}>'>
-								<img src='<{xoModuleIcons16 delete.png}>' alt='<{$smarty.const._DELETE}>'>
-							</a>
+								<img src='<{xoModuleIcons16 delete.png}>' alt='<{$smarty.const._DELETE}>'></a>
                             <{if $album.nb_images > 0}>
                                 <a href='images.php?op=list&amp;alb_id=<{$album.id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES}>'>
-                                    <img src='<{$wggallery_icon_url_16}>photos.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES}>'>
-                                </a>
+                                    <img src='<{$wggallery_icon_url_16}>photos.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES}>'></a>
                             <{/if}>
 						</td>
 					</tr>

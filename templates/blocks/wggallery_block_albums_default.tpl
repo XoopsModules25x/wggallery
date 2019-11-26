@@ -84,11 +84,10 @@
                         <{/if}>
                         <p class="center">
                             <{if $ba_gallery}>
-                                <a class='btn btn-primary' href='<{$wggallery_url}>/gallery.php?op=show&amp;alb_id=<{$album.id}><{if $subm_id}>&amp;subm_id=<{$subm_id}><{/if}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>' target='<{$ba_gallery_target}>' ><{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>
+                                <a class='btn btn-primary' href='<{$wggallery_url}>/gallery.php?op=show&amp;alb_id=<{$album.id}><{if $subm_id}>&amp;subm_id=<{$subm_id}><{/if}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>' target='<{$ba_gallery_target}>' ><{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}></a>
                             <{else}>
-                                <a class='btn btn-primary' href='<{$wggallery_url}>/images.php?op=list&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$album.pid}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'><{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>
+                                <a class='btn btn-primary' href='<{$wggallery_url}>/images.php?op=list&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$album.pid}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'><{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}></a>
                             <{/if}>
-                            </a>
                         </p>
                     </div>
                 </div>           
@@ -137,12 +136,10 @@
                         <{if $album.nb_images}>
                             <{if $ba_gallery}>
                                 <a class='' href='<{$wggallery_url}>/gallery.php?op=show&amp;alb_id=<{$album.id}><{if $subm_id}>&amp;subm_id=<{$subm_id}><{/if}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>' target='<{$ba_gallery_target}>'>
-                                    <img class='img-responsive wgg-album-img center' src='<{$album.image}>' alt='<{$album.name}>'>
-                                </a>
+                                    <img class='img-responsive wgg-album-img center' src='<{$album.image}>' alt='<{$album.name}>'></a>
                             <{else}>
                                 <a class='' href='<{$wggallery_url}>/images.php?op=list&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$alb_pid}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'>
-                                    <img class='img-responsive wgg-album-img center' src='<{$album.image}>' alt='<{$album.name}>'>
-                                </a>
+                                    <img class='img-responsive wgg-album-img center' src='<{$album.image}>' alt='<{$album.name}>'></a>
                             <{/if}>
                         <{else}>
                             <img class='img-responsive wgg-album-img center' src='<{$album.image}>' alt='<{$album.name}>'>

@@ -92,12 +92,10 @@
     <{if $rating_likes}>
         <div class="wggallery_ratingblock">
             <a class="wgg-rate-like" href="rate.php?op=<{$save}>&amp;img_id=<{$image.id}>&rating=1&amp;source=1" title="<{$smarty.const._MA_WGGALLERY_RATING_LIKE}>" rel="nofollow">
-                <img class='wgg-btn-icon' src='<{$wggallery_icon_url_24}>like.png' alt='<{$smarty.const._MA_WGGALLERY_RATING_LIKE}>' title='<{$smarty.const._MA_WGGALLERY_RATING_LIKE}>'>(<{$image.rating.likes}>)
-            </a>
+                <img class='wgg-btn-icon' src='<{$wggallery_icon_url_24}>like.png' alt='<{$smarty.const._MA_WGGALLERY_RATING_LIKE}>' title='<{$smarty.const._MA_WGGALLERY_RATING_LIKE}>'>(<{$image.rating.likes}>)</a>
 
             <a class="wgg-rate-dislike" href="rate.php?op=<{$save}>&amp;img_id=<{$image.id}>&rating=-1&amp;source=1" title="<{$smarty.const._MA_WGGALLERY_RATING_DISLIKE}>" rel="nofollow">
-                <img class='wgg-btn-icon' src='<{$wggallery_icon_url_24}>dislike.png' alt='<{$smarty.const._MA_WGGALLERY_RATING_DISLIKE}>' title='<{$smarty.const._MA_WGGALLERY_RATING_DISLIKE}>'> (<{$image.rating.dislikes}>)
-            </a>
+                <img class='wgg-btn-icon' src='<{$wggallery_icon_url_24}>dislike.png' alt='<{$smarty.const._MA_WGGALLERY_RATING_DISLIKE}>' title='<{$smarty.const._MA_WGGALLERY_RATING_DISLIKE}>'> (<{$image.rating.dislikes}>)</a>
         </div>
 
     <{/if}>
