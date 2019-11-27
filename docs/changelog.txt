@@ -21,6 +21,7 @@
  - fixed bug in jssor contants (goffy)
  - added italian language (lupin)
  - fixed display problem (alain/goffy)
+ - fixed problem with redirect after posting comments (lupin/goffy)
 
 <h5>1.13 RC1</h5>  [2019/../..]
 <hr>

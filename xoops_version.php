@@ -150,7 +150,7 @@ $modversion['search']['func'] = 'wggallery_search';
 $modversion['hasComments']             = 1;
 $modversion['comments']['pageName']    = 'images.php';
 $modversion['comments']['itemName']    = 'img_id';
-$modversion['comments']['extraParams'] = ['alb_id'];
+$modversion['comments']['extraParams'] = ['op', 'alb_id', 'start', 'limit', 'img_submitter'];
 
 // Comment callback functions
 $modversion['comments']['callbackFile']        = 'include/comment_functions.php';
