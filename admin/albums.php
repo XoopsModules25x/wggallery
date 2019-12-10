@@ -37,6 +37,8 @@ $orderby = Request::getString('orderby', 'DESC');
 // add scripts
 $GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/wggallery/assets/js/admin.js');
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
+$GLOBALS['xoopsTpl']->assign('start', $start);
+$GLOBALS['xoopsTpl']->assign('limit', $limit);
 
 switch ($op) {
     case 'list':
@@ -87,7 +89,7 @@ switch ($op) {
             // Display Navigation
             if ($albumsCount > $limit) {
                 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-                $pagenav = new \XoopsPageNav($albumsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
+                $pagenav = new \XoopsPageNav($albumsCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit . '&amp;sort=' . $sort  . '&amp;orderby=' . $orderby);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
             $GLOBALS['xoopsTpl']->assign('use_tags', $helper->getConfig('use_tags'));
@@ -253,12 +255,12 @@ switch ($op) {
                 // delete all notifications linked to this album
                 $notificationHandler->unsubscribeByItem($GLOBALS['xoopsModule']->getVar('mid'), 'albums', $albId);
 
-                redirect_header('albums.php', 3, _CO_WGGALLERY_FORM_DELETE_OK);
+                redirect_header('albums.php?op=list&amp;start=' . $start . '&amp;limit=' . $limit, 3, _CO_WGGALLERY_FORM_DELETE_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $albumsObj->getHtmlErrors());
             }
         } else {
-            xoops_confirm(array('ok' => 1, 'alb_id' => $albId, 'op' => 'delete'), $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $albumsObj->getVar('alb_name')));
+            xoops_confirm(array('ok' => 1, 'alb_id' => $albId, 'op' => 'delete', 'start' => $start, 'limit' => $limit), $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $albumsObj->getVar('alb_name')));
 //            $form = $helper->getFormDelete(['ok' => 1, 'alb_id' => $albId, 'op' => 'delete'], _CO_WGGALLERY_FORM_DELETE, $albumsObj->getVar('alb_name'), _CO_WGGALLERY_ALBUM_DELETE_DESC);
 //            $GLOBALS['xoopsTpl']->assign('form', $form->render());
         }

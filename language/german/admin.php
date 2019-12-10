@@ -273,7 +273,7 @@ define('_AM_WGGALLERY_MAINTENANCE_ITEM_SEARCH', 'Einträge suchen');
 define('_AM_WGGALLERY_MAINTENANCE_IMG_SEARCHOK', 'Keine fehlerhafte Einträge Bilder gefunden');
 define('_AM_WGGALLERY_MAINTENANCE_IMG_CLEAN', 'Fehlerhafte Einträge bereinigen');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_SYSTEM', 'Systemchecks');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_SYSTEMDESC', 'Übreprüfung ob die PHP-Einstellungen mit den Moduleinstellungen kommpatibel sind');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_SYSTEMDESC', 'Überprüfung ob die PHP-Einstellungen mit den Moduleinstellungen kommpatibel sind');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_RESULTS', 'Ergebnis Systemchecks');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_TYPE', "Überprüfung PHP-Einstellung '%s'");
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_DESC', 'Die Moduleinstellung erlauben %s bytes');

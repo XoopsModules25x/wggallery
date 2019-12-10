@@ -32,7 +32,8 @@
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_IMAGE}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_STATE}></th>
                 <th class='center'><{$smarty.const._CO_WGGALLERY_WATERMARKS}></th>
-                <th class='center'><{$smarty.const._CO_WGGALLERY_IMAGES}></th>
+                <th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_NB_IMAGES}></th>
+                <th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_NB_COLL}></th>
                 <{if $use_categories}><th class='center'><{$smarty.const._CO_WGGALLERY_CATS}></th><{/if}>
                 <{if $use_tags}><th class='center'><{$smarty.const._CO_WGGALLERY_TAGS}></th><{/if}>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_DATE}></th>
@@ -73,7 +74,8 @@
 								<{$album.wmname}>
 							</a>
                         </td>
-                        <td class='center'><{$album.nb_images}></td>
+                        <td class='center'><{if $album.iscoll}>-<{else}><{$album.nb_images}><{/if}></td>
+                        <td class='center'><{if $album.iscoll}><{$album.nb_subalbums}><{else}>-<{/if}></td>
                         <{if $use_categories}><td class='center'><{$album.cats_list}></td><{/if}>
                         <{if $use_tags}><td class='center'><{$album.tags}></td><{/if}>
 						<td class='center'><{$album.date}></td>
@@ -93,9 +95,9 @@
                                 <a href='albums.php?op=change_state&amp;alb_state=0&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'>
                                     <img src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'></a>
                             <{/if}>
-                            <a href='albums.php?op=edit&amp;alb_id=<{$album.id}>' title='<{$smarty.const._EDIT}>'>
+                            <a href='albums.php?op=edit&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._EDIT}>'>
 								<img src='<{xoModuleIcons16 edit.png}>' alt='<{$smarty.const._EDIT}>'></a>
-							<a href='albums.php?op=delete&amp;alb_id=<{$album.id}>' title='<{$smarty.const._DELETE}>'>
+							<a href='albums.php?op=delete&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._DELETE}>'>
 								<img src='<{xoModuleIcons16 delete.png}>' alt='<{$smarty.const._DELETE}>'></a>
                             <{if $album.nb_images > 0}>
                                 <a href='images.php?op=list&amp;alb_id=<{$album.id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES}>'>

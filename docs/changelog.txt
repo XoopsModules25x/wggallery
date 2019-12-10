@@ -23,6 +23,8 @@
  - fixed display problem (alain/goffy)
  - fixed problem with redirect after posting comments (lupin/goffy)
  - fixed bug with deleting albums in admin area (goffy)
+ - fixed redirect params (goffy)
+ - added column with sub albums in admin/albums template (goffy)
 
 <h5>1.13 RC1</h5>  [2019/../..]
 <hr>
