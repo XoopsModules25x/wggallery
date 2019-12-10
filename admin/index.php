@@ -68,25 +68,20 @@ foreach (array_keys($folder) as $i) {
     $adminObject->addConfigBoxLine([$folder[$i], '777'], 'chmod');
 }
 
-// Render Index
+// display Navigation
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('index.php'));
 
 //------------- Test Data ----------------------------
-
 if ($helper->getConfig('displaySampleButton')) {
     xoops_loadLanguage('admin/modulesadmin', 'system');
     require dirname(__DIR__) . '/testdata/index.php';
-
     $adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_' . 'ADD_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=load', 'add');
-
     $adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_' . 'SAVE_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=save', 'add');
-
     //    $adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA'), '__DIR__ . /../../testdata/index.php?op=exportschema', 'add');
-
     $adminObject->displayButton('left', '');
 }
 
 //------------- End Test Data ----------------------------
-
+// display Index
 $GLOBALS['xoopsTpl']->assign('index', $adminObject->displayIndex());
 require __DIR__ . '/footer.php';
