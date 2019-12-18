@@ -6,7 +6,7 @@
     <div class="card-body">
         <{if $showTitle}><h5 class="center"><{$category.name}></h5><{/if}>
         <{if $showDesc}><p class="center"><{$category.desc}></p><{/if}>
-        <p class="center"><a class='btn btn-primary' href='index.php?op=list&amp;alb_pid=<{$category.id}>' title='<{$smarty.const._CO_WGGALLERY_COLL_ALBUMS}>'><{$smarty.const._CO_WGGALLERY_COLL_ALBUMS}></a></p>
+        <p class="center"><a class='btn btn-primary wg-color1' href='index.php?op=list&amp;alb_pid=<{$category.id}>' title='<{$smarty.const._CO_WGGALLERY_COLL_ALBUMS}>'><{$smarty.const._CO_WGGALLERY_COLL_ALBUMS}></a></p>
     </div>
 </div>
 <{if $category.linebreak}>

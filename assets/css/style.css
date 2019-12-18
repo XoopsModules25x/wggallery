@@ -92,20 +92,16 @@
     text-indent: -35px;
     padding-left:35px;
 }
-
 .wgg-modal-selected {
     border:1px solid #ff0000;
     background-color:#ff0000;
 }
-
 .wgg-modal-dialog {
 	width:650px;
 }
-
 .wgg-modal-image {
     width: 80vw;
 }
-
 /* image sorting */
 .wgg-img-sort, .wgg-img-sort-clear {
 	border:0 solid transparent !important;
@@ -114,10 +110,4 @@
 	height:0;
     padding:0 !important;
     margin:0;
-}
-.wgg-img-sort {
-    height:50px;
-}
-.wgg-img-sort img{
-    max-height:40px;
 }

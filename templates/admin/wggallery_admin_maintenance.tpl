@@ -197,7 +197,7 @@
             <{if $show_exif}>
                 <tr class="<{cycle values='odd, even'}>">
                     <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF}></td>
-                    <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_DESC}></td>
+                    <td class='left'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_DESC}><br><{$exif_current}></td>
                     <{if $show_result}>
                         <td class='left'>
                             <{if $result_success}><span><{$result_success}></span><{/if}>
@@ -206,7 +206,8 @@
                     <{/if}>
                     <td class='center'>
                         <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=read_exif' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_READ}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_READ}></a></p>
-                        <!--<p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=read_exifall' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_READALL}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_READALL}></a></p>-->
+                        <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=read_exifall' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_READALL}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_READ_EXIF_READALL}></a></p>
+                        <p class='maintenance-btn left'><a class='btn' href='maintenance.php?op=delete_exif' title='<{$smarty.const._AM_WGGALLERY_MAINTENANCE_DELETE_EXIF}>'><{$smarty.const._AM_WGGALLERY_MAINTENANCE_DELETE_EXIF}></a></p>
                     </td>
                 </tr>
             <{/if}>

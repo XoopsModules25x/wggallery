@@ -47,6 +47,14 @@ $maintainance_resize_desc = str_replace(['%lw', '%lh', '%mw', '%mh', '%tw', '%th
 
 $maintainance_dui_desc = str_replace('%p', WGGALLERY_UPLOAD_IMAGE_PATH, _AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC);
 
+// exif
+$imagesCount = $imagesHandler->getCount();
+$current = str_replace("%t", $imagesCount, _AM_WGGALLERY_MAINTENANCE_EXIF_CURRENT);
+$crImages = new \CriteriaCompo();
+$crImages->add(new \Criteria('img_exif', '', 'IS NULL'));
+$imagesCountNull = $imagesHandler->getCount($crImages);
+$GLOBALS['xoopsTpl']->assign('exif_current', str_replace("%c", $imagesCountNull, $current));
+
 switch ($op) {
     case 'reset_gt':
     case 'delete_reset_gt':
@@ -924,22 +932,49 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('show_imgalb', true);
         $GLOBALS['xoopsTpl']->assign('show_result', true);
         break;
+    case 'delete_exif':
+        $strSQL = 'UPDATE `' . $GLOBALS['xoopsDB']->prefix('wggallery_images') . '` SET `img_exif` = NULL;';
+        $ret = $GLOBALS['xoopsDB']->queryF($strSQL);
+
+        $templateMain = 'wggallery_admin_maintenance.tpl';
+        $err_text     = '';
+        if ($ret) {
+            $success_text = _AM_WGGALLERY_MAINTENANCE_DELETE_EXIF_SUCCESS;
+        } else {
+            $$err_text = _AM_WGGALLERY_MAINTENANCE_DELETE_EXIF_ERROR;
+        }
+        // $GLOBALS['xoopsTpl']->assign('maintainance_resize_desc', $maintainance_resize_desc);
+        // $GLOBALS['xoopsTpl']->assign('maintainance_dui_desc', $maintainance_dui_desc);
+        $GLOBALS['xoopsTpl']->assign('result_success', $success_text);
+        $GLOBALS['xoopsTpl']->assign('result_error', $err_text);
+        $GLOBALS['xoopsTpl']->assign('show_exif', true);
+        $GLOBALS['xoopsTpl']->assign('show_result', true);
+        break;
     case 'read_exif':
     case 'read_exifall':
-        $success     = [];
-        $errors      = [];
-        $imagesCount = $imagesHandler->getCount();
+        if ('read_exifall' === $op) {
+            $strSQL = 'UPDATE `' . $GLOBALS['xoopsDB']->prefix('wggallery_images') . '` SET `img_exif` = NULL;';
+            $GLOBALS['xoopsDB']->queryF($strSQL);
+        }
+        $success  = [];
+        $errors   = [];
+        $crImages = new \CriteriaCompo();
+        $crImages->add(new \Criteria('img_exif', '', 'IS NULL'));
+        $imagesCount = $imagesHandler->getCount($crImages);
         if ($imagesCount > 0) {
-            $imagesAll = $imagesHandler->getAll();
-            foreach (array_keys($imagesAll) as $i) {
-                $image = $imagesAll[$i]->getValuesImages();
-                if (('read_exif' === $op && '' == $image['img_exif']) || 'read_exifall' === $op) {
+            $counter = 0;
+            do {
+                $crImages->setStart($counter);
+                $crImages->setLimit(1000);
+                $imagesAll = $imagesHandler->getAll($crImages);
+                foreach (array_keys($imagesAll) as $i) {
+                    $counter++;
+                    $image = $imagesAll[$i]->getValuesImages();
                     $imagesObj  = $imagesHandler->get($image['img_id']);
                     $sourcefile = WGGALLERY_UPLOAD_IMAGE_PATH . '/original/' . $imagesAll[$i]->getVar('img_nameorig');
                     if (!file_exists($sourcefile)) {
                         $sourcefile = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesAll[$i]->getVar('img_namelarge');
                     }
-
                     $imgExif = exif_read_data($sourcefile);
                     $imagesObj->setVar('img_exif', json_encode($imgExif));
                     if ($imagesHandler->insert($imagesObj, true)) {
@@ -948,11 +983,10 @@ switch ($op) {
                         $errors[] = _AM_WGGALLERY_MAINTENANCE_READ_EXIF_ERROR . ': ' . $image['img_id'];
                     }
                     unset($imagesObj);
+                    unset($image);
                 }
-                unset($image);
-            }
-            // } else {
-            // $errors[] = _CO_WGGALLERY_THEREARENT_IMAGES;
+                unset($imagesAll);
+            } while ($counter < $imagesCount);
         }
         $templateMain = 'wggallery_admin_maintenance.tpl';
         $err_text     = '';

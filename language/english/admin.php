@@ -340,3 +340,8 @@ define('_AM_WGGALLERY_IMPORT_ERR_ALBEXIST', 'There are already albums existing')
 define('_AM_WGGALLERY_IMPORT_ERR_IMGEXIST', 'There are already images existing');
 define('_AM_WGGALLERY_IMPORT_SUCCESS', '%a albums and %i images successfully imported');
 define('_AM_WGGALLERY_IMPORT_ERROR', 'An error occured during import');
+
+define('_AM_WGGALLERY_MAINTENANCE_DELETE_EXIF', 'Delete Exif-data');
+define('_AM_WGGALLERY_MAINTENANCE_EXIF_CURRENT', 'Currently missing exif-data: %c of %t images');
+define('_AM_WGGALLERY_MAINTENANCE_DELETE_EXIF_SUCCESS', 'Exif-data successfully deleted');
+define('_AM_WGGALLERY_MAINTENANCE_DELETE_EXIF_ERROR', 'Error when deleting Exif-data');

@@ -42,6 +42,7 @@ $ref      = Request::getString('ref');
 $imgSubm  = Request::getInt('img_submitter');
 $start    = Request::getInt('start', 0);
 $limit    = Request::getInt('limit', $helper->getConfig('userpager'));
+
 $redir_op = Request::getString('redir', '');
 if ('' === $redir_op) {
     $redir_op = Request::getString('redir_op', $op);
@@ -104,6 +105,8 @@ $xoBreadcrumbs[] = ['title' => $albName, 'link' => WGGALLERY_URL . '/images.php?
 $xoBreadcrumbs[] = ['title' => _CO_WGGALLERY_IMAGES];
 
 if (0 === $albId) {
+    $albumsObj->start = $start;
+    $albumsObj->limit = $limit;
     $form = $albumsObj->getFormUploadToAlbum();
     $GLOBALS['xoopsTpl']->assign('form', $form->render());
 }
@@ -356,7 +359,6 @@ switch ($op) {
         $crImages->setSort('img_weight ASC, img_date');
         $crImages->setOrder('DESC');
         $imagesCount = $imagesHandler->getCount($crImages);
-
         $crImages->setStart($start);
         $crImages->setLimit($limit);
         $imagesAll = $imagesHandler->getAll($crImages);

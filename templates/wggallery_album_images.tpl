@@ -9,7 +9,7 @@
         padding:2px !important;
     }
 </style>
-
+    <h3><{$album.name}></h3>
 	<div id='imghandler' class='col-xs-12 col-sm-12'>
 		<ul class='nav nav-tabs'>
 			<li class='active'><a id='navtab_main' href='#1' data-toggle='tab'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_CURRENT}></a></li>
@@ -26,7 +26,7 @@
                 <{if $album.image_path}>
                     <p><{$smarty.const._CO_WGGALLERY_ALBUM_IMGTYPE}>: <{$album.image_path}><br>
                     <{$smarty.const._CO_WGGALLERY_IMAGE_RES}>: <{$albimage_width}> / <{$albimage_height}></p>
-                    <input type='button' class='btn <{$btn_style}>' value='<{$smarty.const._CANCEL}>' onclick='history.go(-1);return true;'>
+                    <input type='button' class='btn <{$btn_style}> wg-color1' value='<{$smarty.const._CANCEL}>' onclick='history.go(-1);return true;'>
                 <{/if}>
 			</div>
             
@@ -57,7 +57,7 @@
 						<input type='hidden' name='alb_id' value='<{$album.id}>'>
 						<input type='hidden' name='alb_pid' value='<{$album.alb_pid}>'>
 						<input type='hidden' name='alb_state' value='<{$album.alb_state}>'>
-						<input type="submit" class="btn <{$btn_style}> disabled" name="btnApplySelected" id="btnApplySelected" value="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_APPLY}>">
+						<input type="submit" class="btn <{$btn_style}>  wg-color1 disabled" name="btnApplySelected" id="btnApplySelected" value="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_APPLY}>">
 					</form>
                 </div>
 			</div>
@@ -69,36 +69,36 @@
 					<label class='radio-inline'><input type='radio' name='gridtype' id='alb_imgtype2' title='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID6}>' value='2' onchange='changeGridSetting(this)'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID6}>&nbsp;</label>
 				</div>
 				<div class='col-xs-12 col-sm-4'>
-					<button id='btnGridAdd1' type='button' class='btn <{$btn_style}>' style='display:inline;margin:5px' data-toggle='modal' data-target='#myModalImagePicker1'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID_SRC1}></button>
+					<button id='btnGridAdd1' type='button' class='btn <{$btn_style}> wg-color1' style='display:inline;margin:5px' data-toggle='modal' data-target='#myModalImagePicker1'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID_SRC1}></button>
 					<img src='<{$wggallery_upload_image_url}>/medium/blank.gif' name='imageGrid1' id='imageGrid1' alt='imageGrid1' style='margin:5px;max-width:75px'>
 					<br>
-					<button id='btnGridAdd2' type='button' class='btn <{$btn_style}>' style='display:inline;margin:5px' data-toggle='modal' data-target='#myModalImagePicker2'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID_SRC2}></button>
+					<button id='btnGridAdd2' type='button' class='btn <{$btn_style}> wg-color1' style='display:inline;margin:5px' data-toggle='modal' data-target='#myModalImagePicker2'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID_SRC2}></button>
 					<img src='<{$wggallery_upload_image_url}>/medium/blank.gif' name='imageGrid2' id='imageGrid2' alt='imageGrid2' style='margin:5px;max-width:75px'>
 					<br>
-					<button id='btnGridAdd3' type='button' class='btn <{$btn_style}>' style='display:inline;margin:5px' data-toggle='modal' data-target='#myModalImagePicker3'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID_SRC3}></button>
+					<button id='btnGridAdd3' type='button' class='btn <{$btn_style}> wg-color1' style='display:inline;margin:5px' data-toggle='modal' data-target='#myModalImagePicker3'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID_SRC3}></button>
 					<img src='<{$wggallery_upload_image_url}>/medium/blank.gif' name='imageGrid3' id='imageGrid3' alt='imageGrid3' style='margin:5px;max-width:75px'>
 					<br>
-					<button id='btnGridAdd4' type='button' class='btn <{$btn_style}>' style='display:inline;margin:5px' data-toggle='modal' data-target='#myModalImagePicker4'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID_SRC4}></button>
+					<button id='btnGridAdd4' type='button' class='btn <{$btn_style}> wg-color1' style='display:inline;margin:5px' data-toggle='modal' data-target='#myModalImagePicker4'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID_SRC4}></button>
 					<img src='<{$wggallery_upload_image_url}>/medium/blank.gif' name='imageGrid4' id='imageGrid4' alt='imageGrid4' style='margin:5px;max-width:75px'>
 					<br>
-					<button id='btnGridAdd5' type='button' class='btn <{$btn_style}>' style='display:inline;margin:5px' data-toggle='modal' data-target='#myModalImagePicker5' disabled='disabled'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID_SRC5}></button>
+					<button id='btnGridAdd5' type='button' class='btn <{$btn_style}> wg-color1' style='display:inline;margin:5px' data-toggle='modal' data-target='#myModalImagePicker5' disabled='disabled'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID_SRC5}></button>
 					<img src='<{$wggallery_upload_image_url}>/medium/blank.gif' name='imageGrid5' id='imageGrid5' alt='imageGrid5' style='margin:5px;max-width:75px'>
 					<br>
-					<button id='btnGridAdd6' type='button' class='btn <{$btn_style}>' style='display:inline;margin:5px' data-toggle='modal' data-target='#myModalImagePicker6' disabled='disabled'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID_SRC6}></button>
+					<button id='btnGridAdd6' type='button' class='btn <{$btn_style}> wg-color1' style='display:inline;margin:5px' data-toggle='modal' data-target='#myModalImagePicker6' disabled='disabled'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID_SRC6}></button>
 					<img src='<{$wggallery_upload_image_url}>/medium/blank.gif' name='imageGrid6' id='imageGrid6' alt='imageGrid6' style='margin:5px;max-width:75px'>
 				</div>
                 <div class='col-xs-12 col-sm-8'>
                     <img id='gridImg' class='img-responsive' src='<{$wggallery_upload_image_url}>/temp/blank.gif' alt='<{$album.name}>'>
                 </div>
 				<div class='col-xs-12 col-sm-12 center'>
-					<button id='btnCreateGrid4' type='button' class='btn <{$btn_style}>' style='display:inline;margin:5px'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID_CREATE}></button>
-					<button id='btnCreateGrid6' type='button' class='btn <{$btn_style}> hidden' style='display:inline;margin:5px'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID_CREATE}></button>
+					<button id='btnCreateGrid4' type='button' class='btn <{$btn_style}> wg-color1' style='display:inline;margin:5px'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID_CREATE}></button>
+					<button id='btnCreateGrid6' type='button' class='btn <{$btn_style}> hidden wg-color1' style='display:inline;margin:5px'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID_CREATE}></button>
 					<form class='form-horizontal' name='form' id='form_selectalbimage' action='album_images.php' method='post' enctype='multipart/form-data'>
 						<input type='hidden' name='op' value='saveGrid'>
 						<input type='hidden' name='alb_id' value='<{$album.id}>'>
 						<input type='hidden' name='alb_pid' value='<{$album.alb_pid}>'>
 						<input type='hidden' name='alb_state' value='<{$album.alb_state}>'>
-						<input type="submit" class="btn <{$btn_style}> disabled" name="btnApplyGrid" id="btnApplyGrid" value="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_APPLY}>">
+						<input type="submit" class="btn <{$btn_style}>  wg-color1 disabled" name="btnApplyGrid" id="btnApplyGrid" value="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_APPLY}>">
 					</form>
 				</div>
 			</div>
@@ -143,59 +143,59 @@
                     <div class="col-md-12 docs-buttons">
                         <!-- <h3>Toolbar:</h3> -->
                         <div class="btn-group">
-                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="setDragMode" data-option="move" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE}>">
+                            <button type="button" class="btn btn-crop <{$btn_style}> wg-color1" data-method="setDragMode" data-option="move" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE}>">
                                 <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE}>"><span class="fa fa-arrows"></span></span>
                             </button>
-                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="setDragMode" data-option="crop" title="<{$smarty.const._CO_WGGALLERY_ALBUM_CROP_IMAGE}>">
+                            <button type="button" class="btn btn-crop <{$btn_style}> wg-color1" data-method="setDragMode" data-option="crop" title="<{$smarty.const._CO_WGGALLERY_ALBUM_CROP_IMAGE}>">
 								<span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_CROP_IMAGE}>"><span class="fa fa-crop"></span>
 								</span>
 							</button>
                         </div>
 
                         <div class="btn-group">
-                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="zoom" data-option="0.1" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_ZOOMIN}>">
+                            <button type="button" class="btn btn-crop <{$btn_style}> wg-color1" data-method="zoom" data-option="0.1" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_ZOOMIN}>">
                                 <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_ZOOMIN}>"><span class="fa fa-search-plus"></span></span>
                             </button>
-                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="zoom" data-option="-0.1" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_ZOOMOUT}>">
+                            <button type="button" class="btn btn-crop <{$btn_style}> wg-color1" data-method="zoom" data-option="-0.1" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_ZOOMOUT}>">
                                 <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_ZOOMOUT}>"><span class="fa fa-search-minus"></span></span>
                             </button>
                         </div>
 
                         <div class="btn-group">
-                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="move" data-option="-10" data-second-option="0" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE_LEFT}>">
+                            <button type="button" class="btn btn-crop <{$btn_style}> wg-color1" data-method="move" data-option="-10" data-second-option="0" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE_LEFT}>">
                                 <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE_LEFT}>"><span class="fa fa-arrow-left"></span></span>
                             </button>
-                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="move" data-option="10" data-second-option="0" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE_RIGHT}>">
+                            <button type="button" class="btn btn-crop <{$btn_style}> wg-color1" data-method="move" data-option="10" data-second-option="0" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE_RIGHT}>">
                                 <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE_RIGHT}>"><span class="fa fa-arrow-right"></span></span>
                             </button>
-                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="move" data-option="0" data-second-option="-10" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE_UP}>">
+                            <button type="button" class="btn btn-crop <{$btn_style}> wg-color1" data-method="move" data-option="0" data-second-option="-10" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE_UP}>">
                                 <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE_UP}>"><span class="fa fa-arrow-up"></span></span>
                             </button>
-                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="move" data-option="0" data-second-option="10" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE_DOWN}>">
+                            <button type="button" class="btn btn-crop <{$btn_style}> wg-color1" data-method="move" data-option="0" data-second-option="10" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE_DOWN}>">
                                 <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_MOVE_DOWN}>"><span class="fa fa-arrow-down"></span></span>
                             </button>
                         </div>
 
                         <div class="btn-group">
-                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="rotate" data-option="-45" title="<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_LEFT}>">
+                            <button type="button" class="btn btn-crop <{$btn_style}> wg-color1" data-method="rotate" data-option="-45" title="<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_LEFT}>">
                                 <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_LEFT}>"><span class="fa fa-rotate-left"></span></span>
                             </button>
-                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="rotate" data-option="45" title="<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_RIGHT}>">
+                            <button type="button" class="btn btn-crop <{$btn_style}> wg-color1" data-method="rotate" data-option="45" title="<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_RIGHT}>">
                                 <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_IMAGE_ROTATE_RIGHT}>"><span class="fa fa-rotate-right"></span></span>
                             </button>
                         </div>
 
                         <div class="btn-group">
-                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="scaleX" data-option="-1" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_FLIP_HORIZONTAL}>">
+                            <button type="button" class="btn btn-crop <{$btn_style}> wg-color1" data-method="scaleX" data-option="-1" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_FLIP_HORIZONTAL}>">
                                 <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_FLIP_HORIZONTAL}>"><span class="fa fa-arrows-h"></span></span>
                             </button>
-                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="scaleY" data-option="-1" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_FLIP_VERTICAL}>">
+                            <button type="button" class="btn btn-crop <{$btn_style}> wg-color1" data-method="scaleY" data-option="-1" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_FLIP_VERTICAL}>">
                                 <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_FLIP_VERTICAL}>"><span class="fa fa-arrows-v"></span></span>
                             </button>
                         </div>
 
                         <div class="btn-group">
-                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="reset" title="<{$smarty.const._RESET}>">
+                            <button type="button" class="btn btn-crop <{$btn_style}> wg-color1" data-method="reset" title="<{$smarty.const._RESET}>">
                                 <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._RESET}>"><span class="fa fa-refresh"></span></span>
                             </button>
                         </div>
@@ -207,13 +207,13 @@
                         </div>
 
                         <div class="btn-group-horizontal btn-group-crop col-xs-12 col-sm-12">
-                            <button type="button" class="btn btn-crop <{$btn_style}>" data-method="getCroppedCanvas" data-option="{ &quot;maxWidth&quot;: 4096, &quot;maxHeight&quot;: 4096, &quot;save&quot;: 0 }">
+                            <button type="button" class="btn btn-crop <{$btn_style}> wg-color1" data-method="getCroppedCanvas" data-option="{ &quot;maxWidth&quot;: 4096, &quot;maxHeight&quot;: 4096, &quot;save&quot;: 0 }">
                                 <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._PREVIEW}>"><{$smarty.const._PREVIEW}></span>
                             </button>
-                            <button id="btnCropCreate" type="button" class="btn btn-crop <{$btn_style}>" data-method="getCroppedCanvas" data-option="{ &quot;maxWidth&quot;: 4096, &quot;maxHeight&quot;: 4096, &quot;save&quot;: 1 }">
+                            <button id="btnCropCreate" type="button" class="btn btn-crop <{$btn_style}> wg-color1" data-method="getCroppedCanvas" data-option="{ &quot;maxWidth&quot;: 4096, &quot;maxHeight&quot;: 4096, &quot;save&quot;: 1 }">
                                 <span class="docs-tooltip" data-toggle="tooltip" title="<{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_CREATE}>"><{$smarty.const._CO_WGGALLERY_ALBUM_IH_CROP_CREATE}></span>
                             </button>
-                            <a class="btn <{$btn_style}> disabled" id="btnCropApply" href="<{$wggallery_url}>/album_images.php?op=saveCrop&alb_id=<{$album.alb_id}>&alb_pid=<{$album.alb_pid}>&alb_state=<{$album.alb_state}>" ><{$smarty.const._CO_WGGALLERY_ALBUM_IH_APPLY}></a>
+                            <a class="btn <{$btn_style}>  wg-color1 disabled" id="btnCropApply" href="<{$wggallery_url}>/album_images.php?op=saveCrop&alb_id=<{$album.alb_id}>&alb_pid=<{$album.alb_pid}>&alb_state=<{$album.alb_state}>" ><{$smarty.const._CO_WGGALLERY_ALBUM_IH_APPLY}></a>
                         </div>
 
                         <!-- Show the cropped image in modal -->
@@ -228,7 +228,7 @@
                                     </div>
                                     <div class="modal-body"></div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-crop <{$btn_style}>" data-dismiss="modal"><{$smarty.const._CLOSE}></button>
+                                        <button type="button" class="btn btn-crop <{$btn_style}> wg-color1" data-dismiss="modal"><{$smarty.const._CLOSE}></button>
                                         <a class="btn <{$btn_style}> hidden" id="download" href="javascript:void(0);" download="cropped.jpg">Download</a>
                                     </div>
                                 </div>

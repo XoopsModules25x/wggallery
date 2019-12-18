@@ -33,6 +33,10 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
  */
 class Albums extends \XoopsObject
 {
+    public $start;
+    
+    public $limit;
+    
     /**
      * Constructor
      *
@@ -372,8 +376,8 @@ class Albums extends \XoopsObject
         $form->addElement($albIdSelect);
         unset($crAlbums);
 
-        $form->addElement(new \XoopsFormHidden('start', 0));
-        $form->addElement(new \XoopsFormHidden('limit', 0));
+        $form->addElement(new \XoopsFormHidden('start', $this->start));
+        $form->addElement(new \XoopsFormHidden('limit', $this->limit));
 
         return $form;
     }

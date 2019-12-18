@@ -25,6 +25,8 @@
  - fixed bug with deleting albums in admin area (goffy)
  - fixed redirect params (goffy)
  - added column with sub albums in admin/albums template (goffy)
+ - fixed bug with xoopsnav in images.php (goffy)
+ - added possibility to delete exif data (goffy)
 
 <h5>1.13 RC1</h5>  [2019/../..]
 <hr>

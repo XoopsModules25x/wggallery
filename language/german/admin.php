@@ -273,7 +273,7 @@ define('_AM_WGGALLERY_MAINTENANCE_ITEM_SEARCH', 'Einträge suchen');
 define('_AM_WGGALLERY_MAINTENANCE_IMG_SEARCHOK', 'Keine fehlerhafte Einträge Bilder gefunden');
 define('_AM_WGGALLERY_MAINTENANCE_IMG_CLEAN', 'Fehlerhafte Einträge bereinigen');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_SYSTEM', 'Systemchecks');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_SYSTEMDESC', 'Überprüfung ob die PHP-Einstellungen mit den Moduleinstellungen kommpatibel sind');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_SYSTEMDESC', 'Überprüfung ob die PHP-Einstellungen mit den Moduleinstellungen kompatibel sind');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_RESULTS', 'Ergebnis Systemchecks');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_TYPE', "Überprüfung PHP-Einstellung '%s'");
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_DESC', 'Die Moduleinstellung erlauben %s bytes');
@@ -340,3 +340,8 @@ define('_AM_WGGALLERY_IMPORT_ERR_ALBEXIST', 'Es gibt bereits Alben');
 define('_AM_WGGALLERY_IMPORT_ERR_IMGEXIST', 'Es gibt bereits Bilder');
 define('_AM_WGGALLERY_IMPORT_SUCCESS', '%a Alben und %i Bilder erfolgreich importiert');
 define('_AM_WGGALLERY_IMPORT_ERROR', 'Während des Imports ist ein Fehler aufgetreten');
+
+define('_AM_WGGALLERY_MAINTENANCE_DELETE_EXIF', 'Exif-Daten löschen');
+define('_AM_WGGALLERY_MAINTENANCE_EXIF_CURRENT', 'Derzeit fehlende Exif-Daten: %c von %t Bildern');
+define('_AM_WGGALLERY_MAINTENANCE_DELETE_EXIF_SUCCESS', 'Exif-Daten erfolgreich gelöscht');
+define('_AM_WGGALLERY_MAINTENANCE_DELETE_EXIF_ERROR', 'Fehler beim Löschen der Exif-Daten');

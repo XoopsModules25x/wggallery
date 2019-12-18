@@ -3,7 +3,7 @@
 <script type="text/template" id="qq-template-manual-trigger">
     <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="<{$smarty.const._DROPFILESHERE}>">
         <div class="qq-total-progress-bar-container">
-            <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-containerrrrrrr">
+            <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
                 <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
             </div>
             <div id='qq-uploader-status' class='qq-uploader-status'>
@@ -14,10 +14,10 @@
             <span class="qq-upload-drop-area-text-selector"></span>
         </div>
         <div class="buttons">
-            <div class="qq-upload-button-selector qq-upload-button">
+            <div class="qq-upload-button-selector qq-upload-button wg-color1">
                 <div><{$smarty.const._SELECTFILES}></div>
             </div>
-            <button type="button" id="trigger-upload" class="btn btn-primary" title="Upload">
+            <button type="button" id="trigger-upload" class="btn btn-primary wg-color1" title="Upload">
                 <span class="fa fa-upload"></span> <{$smarty.const._UPLOAD}>
             </button>
         </div>
@@ -36,9 +36,9 @@
                 <span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Edit filename"></span>
                 <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
                 <span class="qq-upload-size-selector qq-upload-size"></span>
-                <button type="button" class="qq-btn qq-upload-cancel-selector qq-upload-cancel"><{$smarty.const._CANCEL}></button>
-                <button type="button" class="qq-btn qq-upload-retry-selector qq-upload-retry"><{$smarty.const._RETRY}></button>
-                <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete"><{$smarty.const._DELETE}></button>
+                <button type="button" class="qq-btn qq-upload-cancel-selector qq-upload-cancel wg-color1"><{$smarty.const._CANCEL}></button>
+                <button type="button" class="qq-btn qq-upload-retry-selector qq-upload-retry wg-color1"><{$smarty.const._RETRY}></button>
+                <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete wg-color1"><{$smarty.const._DELETE}></button>
                 <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
             </li>
         </ul>
@@ -46,15 +46,15 @@
         <dialog class="qq-alert-dialog-selector">
             <div class="qq-dialog-message-selector"></div>
             <div class="qq-dialog-buttons">
-                <button type="button" class="qq-cancel-button-selector"><{$smarty.const._CLOSE}></button>
+                <button type="button" class="qq-cancel-button-selector wg-color1"><{$smarty.const._CLOSE}></button>
             </div>
         </dialog>
 
         <dialog class="qq-confirm-dialog-selector">
             <div class="qq-dialog-message-selector"></div>
             <div class="qq-dialog-buttons">
-                <button type="button" class="qq-cancel-button-selector"><{$smarty.const._NO}></button>
-                <button type="button" class="qq-ok-button-selector"><{$smarty.const._YES}></button>
+                <button type="button" class="qq-cancel-button-selector wg-color1"><{$smarty.const._NO}></button>
+                <button type="button" class="qq-ok-button-selector wg-color1"><{$smarty.const._YES}></button>
             </div>
         </dialog>
 
@@ -62,8 +62,8 @@
             <div class="qq-dialog-message-selector"></div>
             <input type="text">
             <div class="qq-dialog-buttons">
-                <button type="button" class="qq-cancel-button-selector"><{$smarty.const._CANCEL}></button>
-                <button type="button" class="qq-ok-button-selector"><{$smarty.const._OK}></button>
+                <button type="button" class="qq-cancel-button-selector wg-color1"><{$smarty.const._CANCEL}></button>
+                <button type="button" class="qq-ok-button-selector wg-color1smarty.const._OK}></button>
             </div>
         </dialog>
     </div>

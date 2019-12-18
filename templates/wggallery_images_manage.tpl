@@ -15,8 +15,8 @@
                             <li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-collapsed mjs-nestedSortable-leaf" id="menuItem_<{$image.id}>">
                                 <div class="menuDiv ui-sortable-handle">
                                     <div class='col-xs-1 wgg-img-sort'><img id='image_<{$image.id}>' src='<{$wggallery_icon_url_16}>drag.png' alt='drag&drop'></div>
-                                    <div class='col-xs-2 wgg-img-sort'><img class='img-responsive' src='<{$image.thumb}>' alt='<{$image.title}>'></div>
-                                    <div class='col-xs-3 wgg-img-sort'><{$image.title}></div>
+                                    <div class='col-xs-3 wgg-img-sort'><img class='img-responsive' src='<{$image.thumb}>' alt='<{$image.title}>'></div>
+                                    <div class='col-xs-2 wgg-img-sort'><{$image.title}></div>
                                     <div class='col-xs-1 wgg-img-sort'><{$image.date}></div>
                                     <div class='col-xs-5 wgg-img-sort right'>
                                         <a class='btn btn-default wgg-btn-small' href='<{$wggallery_url}>/images.php?op=show&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>&amp;start=<{$start}>&amp;limit=<{$limit}>&amp;img_submitter=<{$img_submitter}>&amp;redir_op=manage' title='<{$smarty.const._CO_WGGALLERY_IMAGE_SHOW}>' target='<{$image_target}>'>
