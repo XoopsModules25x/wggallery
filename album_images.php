@@ -233,7 +233,9 @@ switch ($op) {
         $fileName       = $_FILES['attachedfile']['name'];
         $imageMimetype  = $_FILES['attachedfile']['type'];
         $uploaderErrors = '';
-        $uploader       = new \XoopsMediaUploader(WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/', $helper->getConfig('mimetypes'), $helper->getConfig('maxsize'), null, null);
+        $maxwidth = $helper->getConfig('maxwidth');
+        $maxheight = $helper->getConfig('maxheight');
+        $uploader       = new \XoopsMediaUploader(WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/', $helper->getConfig('mimetypes'), $helper->getConfig('maxsize'), $maxwidth, $maxheight);
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
             $extension = preg_replace('/^.+\.([^.]+)$/sU', '', $fileName);
             $imgName   = 'album' . $albId . '.' . $extension;
@@ -245,21 +247,20 @@ switch ($op) {
                 $savedFilename = $uploader->getSavedFileName();
                 $albumsObj->setVar('alb_image', $savedFilename);
                 // resize image
-                //                require_once XOOPS_ROOT_PATH . '/modules/wggallery/include/imagehandler.php';
-                $maxwidth = (int)$helper->getConfig('maxwidth_albimage');
+                $maxwidth_albimage = (int)$helper->getConfig('maxwidth_albimage');
                 if (0 === $maxwidth) {
-                    $maxwidth = $helper->getConfig('maxwidth');
+                    $maxwidth_albimage = $maxwidth;
                 }
-                $maxheight = (int)$helper->getConfig('maxheight_albimage');
+                $maxheight_albimage = (int)$helper->getConfig('maxheight_albimage');
                 if (0 === $maxheight) {
-                    $maxheight = $helper->getConfig('maxheight');
+                    $maxheight_albimage = $maxheight;
                 }
                 $imgHandler                = new Wggallery\Resizer();
                 $imgHandler->sourceFile    = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename;
                 $imgHandler->endFile       = WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $savedFilename;
                 $imgHandler->imageMimetype = $imageMimetype;
-                $imgHandler->maxWidth      = $maxwidth;
-                $imgHandler->maxHeight     = $maxheight;
+                $imgHandler->maxWidth      = $maxwidth_albimage;
+                $imgHandler->maxHeight     = $maxheight_albimage;
                 $result                    = $imgHandler->resizeImage();
                 $albumsObj->setVar('alb_image', $savedFilename);
             }
@@ -280,7 +281,7 @@ switch ($op) {
         // Insert Data
         if ($albumsHandler->insert($albumsObj)) {
             if ('' !== $uploaderErrors) {
-                redirect_header('albums.php?op=list&amp;alb_pid=' . $albPid . '&amp;start=' . $start . '&amp;limit=' . $limit, $uploaderErrors);
+                redirect_header('albums.php?op=list&amp;alb_pid=' . $albPid . '&amp;start=' . $start . '&amp;limit=' . $limit, 5, $uploaderErrors);
             } else {
                 redirect_header('albums.php?op=list&amp;alb_pid=' . $albPid . '&amp;start=' . $start . '&amp;limit=' . $limit, 2, _CO_WGGALLERY_FORM_OK);
             }
