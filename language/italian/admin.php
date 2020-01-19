@@ -345,3 +345,6 @@ define('_AM_WGGALLERY_MAINTENANCE_DELETE_EXIF', 'Cancella i dati EXIF');
 define('_AM_WGGALLERY_MAINTENANCE_EXIF_CURRENT', 'Dati EXIF attualmente mancanti: %c di %t immagini');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_EXIF_SUCCESS', 'Dati EXIF cancellati correttamente');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_EXIF_ERROR', 'Errore durante la cancellazione dei dati EXIF');
+
+define('_AM_WGGALLERY_PERMS_ALBDEFAULT', 'Autorizzazioni predefinite per un nuovo album');
+define('_AM_WGGALLERY_PERMS_ALBDEFAULT_DESC', 'Definire le autorizzazioni predefinite per la creazione di un nuovo album');

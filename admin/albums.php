@@ -131,9 +131,12 @@ switch ($op) {
         $albumsObj->setVar('alb_image', Request::getString('alb_image'));
         $albumsObj->setVar('alb_imgid', Request::getInt('alb_imgid'));
         $albumsObj->setVar('alb_wmid', Request::getInt('alb_wmid'));
-        $albCats = serialize(Request::getArray('alb_cats'));
-        $albumsObj->setVar('alb_cats', $albCats);
-        $albumsObj->setVar('alb_tags', Request::getString('alb_tags'));
+        if ($helper->getConfig('use_categories')) {
+            $albumsObj->setVar('alb_cats', serialize(Request::getArray('alb_cats')));
+        }
+        if ($helper->getConfig('use_tags')) {
+            $albumsObj->setVar('alb_tags', Request::getString('alb_tags'));
+        }
         $albumDate = date_create_from_format(_SHORTDATESTRING, $_POST['alb_date']);
         $albumsObj->setVar('alb_date', $albumDate->getTimestamp());
         $albumsObj->setVar('alb_submitter', Request::getInt('alb_submitter'));
@@ -145,8 +148,7 @@ switch ($op) {
             $gpermHandler = xoops_getHandler('groupperm');
             // remove all existing rights
             $gpermHandler->deleteByModule($perm_modid, 'wggallery_view', $permId);
-            //TODO
-            // $gpermHandler->deleteByModule($perm_modid, 'wggallery_dlfullalb', $permId);
+            $gpermHandler->deleteByModule($perm_modid, 'wggallery_dlfullalb', $permId);
             $gpermHandler->deleteByModule($perm_modid, 'wggallery_dlimage_large', $permId);
             $gpermHandler->deleteByModule($perm_modid, 'wggallery_dlimage_medium', $permId);
             // set selected rights new
@@ -156,13 +158,12 @@ switch ($op) {
                     $gpermHandler->addRight('wggallery_view', $permId, $onegroupId, $perm_modid);
                 }
             }
-            //TODO
             // Permission to download full album
-            // if(isset($_POST['groups_dlfullalb'])) {
-            // foreach($_POST['groups_dlfullalb'] as $onegroupId) {
-            // $gpermHandler->addRight('wggallery_dlfullalb', $permId, $onegroupId, $perm_modid);
-            // }
-            // }
+            if(isset($_POST['groups_dlfullalb'])) {
+                foreach($_POST['groups_dlfullalb'] as $onegroupId) {
+                    $gpermHandler->addRight('wggallery_dlfullalb', $permId, $onegroupId, $perm_modid);
+                }
+            }
             // Permission to download large images
             if (isset($_POST['groups_dlimage_large'])) {
                 foreach ($_POST['groups_dlimage_large'] as $onegroupId) {

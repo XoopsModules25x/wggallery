@@ -1,9 +1,11 @@
 <h5>1.14 RC2</h5>  [2019/12/23]
 <hr>
-  - fixed missing check of allowed resolution (goffy)
-  -
+ - fixed missing check of allowed resolution (goffy)
+ - added DirectoryChecker and other new common classes (mamba)
+ - code checking and cosmetics (mamba)
+ - fixed problems with array to string conversion (goffy)
+ - added default permissions for creation of albums (goffy)
 
-   
 <h5>1.14 RC1</h5>  [2019/11/09]
 <hr>
  - added possibility to store original image (lupin/goffy)

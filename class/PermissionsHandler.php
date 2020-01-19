@@ -45,7 +45,7 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
      */
     public function permGlobalSubmit()
     {
-        global $xoopsUser, $xoopsModule;
+        global $xoopsUser;
 
         $currentuid = 0;
         if (isset($xoopsUser) && is_object($xoopsUser)) {

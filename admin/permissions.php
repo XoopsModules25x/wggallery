@@ -35,6 +35,7 @@ $permTableForm = new \XoopsSimpleForm('', 'fselperm', 'permissions.php', 'post')
 $formSelect    = new \XoopsFormSelect('', 'op', $op);
 $formSelect->setExtra('onchange="document.fselperm.submit()"');
 $formSelect->addOption('global', _CO_WGGALLERY_PERMS_GLOBAL);
+$formSelect->addOption('albdefault', _AM_WGGALLERY_PERMS_ALBDEFAULT);
 $formSelect->addOption('view', _CO_WGGALLERY_PERMS_ALB_VIEW);
 $formSelect->addOption('dlfullalb', _CO_WGGALLERY_PERMS_ALB_DLFULLALB);
 $formSelect->addOption('dlimage_large', _CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE);
@@ -48,6 +49,13 @@ switch ($op) {
         $permName    = 'wggallery_global';
         $permDesc    = _CO_WGGALLERY_PERMS_GLOBAL_DESC;
         $globalPerms = ['4' => _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL, '8' => _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN, '16' => _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR];
+        break;
+    case 'albdefault':
+        $formTitle   = _AM_WGGALLERY_PERMS_ALBDEFAULT;
+        $permName    = 'wggallery_albdefault';
+        $permDesc    = _AM_WGGALLERY_PERMS_ALBDEFAULT_DESC;
+        $globalPerms = ['4' => _CO_WGGALLERY_PERMS_ALB_VIEW, '8' => _CO_WGGALLERY_PERMS_ALB_DLFULLALB, '16' => _CO_WGGALLERY_PERMS_ALB_DLIMAGE_LARGE, '32' => _CO_WGGALLERY_PERMS_ALB_DLIMAGE_MEDIUM
+        ];
         break;
     case 'view':
         $formTitle = _CO_WGGALLERY_PERMS_ALB_VIEW;
@@ -74,6 +82,12 @@ $moduleId = $xoopsModule->getVar('mid');
 
 if ('global' === $op) {
     $permform = new \XoopsGroupPermForm($formTitle, $moduleId, $permName, $permDesc, 'admin/permissions.php', false);
+    foreach ($globalPerms as $gPermId => $gPermName) {
+        $permform->addItem($gPermId, $gPermName);
+    }
+    $GLOBALS['xoopsTpl']->assign('form', $permform->render());
+} elseif ('albdefault' === $op) {
+    $permform = new \XoopsGroupPermForm($formTitle, $moduleId, $permName, $permDesc, 'admin/permissions.php', true);
     foreach ($globalPerms as $gPermId => $gPermName) {
         $permform->addItem($gPermId, $gPermName);
     }

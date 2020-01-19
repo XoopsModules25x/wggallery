@@ -345,3 +345,6 @@ define('_AM_WGGALLERY_MAINTENANCE_DELETE_EXIF', 'Delete Exif-data');
 define('_AM_WGGALLERY_MAINTENANCE_EXIF_CURRENT', 'Currently missing exif-data: %c of %t images');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_EXIF_SUCCESS', 'Exif-data successfully deleted');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_EXIF_ERROR', 'Error when deleting Exif-data');
+
+define('_AM_WGGALLERY_PERMS_ALBDEFAULT', 'Default permissions new album');
+define('_AM_WGGALLERY_PERMS_ALBDEFAULT_DESC', 'Define the default permissions for creation of a new album');
