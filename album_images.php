@@ -233,8 +233,8 @@ switch ($op) {
         $fileName       = $_FILES['attachedfile']['name'];
         $imageMimetype  = $_FILES['attachedfile']['type'];
         $uploaderErrors = '';
-        $maxwidth = $helper->getConfig('maxwidth');
-        $maxheight = $helper->getConfig('maxheight');
+        $maxwidth       = $helper->getConfig('maxwidth');
+        $maxheight      = $helper->getConfig('maxheight');
         $uploader       = new \XoopsMediaUploader(WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/', $helper->getConfig('mimetypes'), $helper->getConfig('maxsize'), $maxwidth, $maxheight);
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
             $extension = preg_replace('/^.+\.([^.]+)$/sU', '', $fileName);

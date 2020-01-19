@@ -20,7 +20,6 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 menu.php 1 Mon 2018-03-19 10:04:52Z XOOPS Project (www.xoops.org) $
  */
-
 $dirname       = basename(dirname(__DIR__));
 $moduleHandler = xoops_getHandler('module');
 $xoopsModule   = \XoopsModule::getByDirname($dirname);

@@ -35,13 +35,13 @@ if ('manage' === $op) {
 }
 require_once XOOPS_ROOT_PATH . '/header.php';
 
-$imgId    = Request::getInt('img_id');
-$albId    = Request::getInt('alb_id', 0);
-$albPid   = Request::getInt('alb_pid');
-$ref      = Request::getString('ref');
-$imgSubm  = Request::getInt('img_submitter');
-$start    = Request::getInt('start', 0);
-$limit    = Request::getInt('limit', $helper->getConfig('userpager'));
+$imgId   = Request::getInt('img_id');
+$albId   = Request::getInt('alb_id', 0);
+$albPid  = Request::getInt('alb_pid');
+$ref     = Request::getString('ref');
+$imgSubm = Request::getInt('img_submitter');
+$start   = Request::getInt('start', 0);
+$limit   = Request::getInt('limit', $helper->getConfig('userpager'));
 
 $redir_op = Request::getString('redir', '');
 if ('' === $redir_op) {
@@ -107,7 +107,7 @@ $xoBreadcrumbs[] = ['title' => _CO_WGGALLERY_IMAGES];
 if (0 === $albId) {
     $albumsObj->start = $start;
     $albumsObj->limit = $limit;
-    $form = $albumsObj->getFormUploadToAlbum();
+    $form             = $albumsObj->getFormUploadToAlbum();
     $GLOBALS['xoopsTpl']->assign('form', $form->render());
 }
 
@@ -345,8 +345,11 @@ switch ($op) {
         }
         $GLOBALS['xoopsTpl']->assign('alb_name', $albName);
         // $GLOBALS['xoopsTpl']->assign('alb_allowdownload', $permissionsHandler->permAlbumDownload($albId));
-        $GLOBALS['xoopsTpl']->assign('img_allowdownload', $permissionsHandler->permImageDownloadLarge($albId)
-                                                          || $permissionsHandler->permImageDownloadMedium($albId));
+        $GLOBALS['xoopsTpl']->assign(
+            'img_allowdownload',
+            $permissionsHandler->permImageDownloadLarge($albId)
+            || $permissionsHandler->permImageDownloadMedium($albId)
+        );
         $GLOBALS['xoopsTpl']->assign('permAlbumEdit', $permissionsHandler->permAlbumEdit($albId, $albSubmitter));
         $GLOBALS['xoopsTpl']->assign('alb_id', $albId);
         $GLOBALS['xoopsTpl']->assign('alb_pid', $albPid);
@@ -423,8 +426,11 @@ switch ($op) {
             $file = $image['medium'];
         }
 
-        $GLOBALS['xoopsTpl']->assign('img_allowdownload', $permissionsHandler->permImageDownloadLarge($albId)
-                                                          || $permissionsHandler->permImageDownloadMedium($albId));
+        $GLOBALS['xoopsTpl']->assign(
+            'img_allowdownload',
+            $permissionsHandler->permImageDownloadLarge($albId)
+            || $permissionsHandler->permImageDownloadMedium($albId)
+        );
         $GLOBALS['xoopsTpl']->assign('permAlbumEdit', $permissionsHandler->permAlbumEdit($albId, $albSubmitter));
         $GLOBALS['xoopsTpl']->assign('showimage', true);
         $GLOBALS['xoopsTpl']->assign('file', $file);

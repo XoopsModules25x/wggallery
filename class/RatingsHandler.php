@@ -20,14 +20,10 @@ namespace XoopsModules\Wggallery;
  * @package        wgtimelines
  * @since          1.0
  * @min_xoops      2.5.7
- * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
+ * @author         TDM XOOPS - Email:<info@email.com> - Website:<https://xoops.org>
  * @version        $Id: 1.0 ratings.php 13070 Wed 2016-12-14 22:22:34Z XOOPS Development Team $
  */
-
-use XoopsModules\Wggallery;
-use XoopsModules\Wggallery\Constants;
-
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * Class Object WgtimelinesRatings
@@ -36,8 +32,6 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
 {
     /**
      * Constructor
-     *
-     * @param \XoopsDatabase $db
      */
     public function __construct(\XoopsDatabase $db)
     {
@@ -196,6 +190,8 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
      * delete ratings of given item
      * @param int itemid
      * @param int source
+     * @param mixed $itemid
+     * @param mixed $source
      * @return bool
      */
     public function deleteAllRatings($itemid, $source)
@@ -222,6 +218,7 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
         $crRatings->setLimit($limit);
         $crRatings->setSort($sort);
         $crRatings->setOrder($order);
+
         return $crRatings;
     }
 }

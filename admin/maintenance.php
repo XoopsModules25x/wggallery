@@ -36,24 +36,28 @@ $GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/wggallery/assets/js/admin.j
 
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
 
-$maintainance_resize_desc = str_replace(['%lw', '%lh', '%mw', '%mh', '%tw', '%th'], [
-    $helper->getConfig('maxwidth_large'),
-    $helper->getConfig('maxheight_large'),
-    $helper->getConfig('maxwidth_medium'),
-    $helper->getConfig('maxheight_medium'),
-    $helper->getConfig('maxwidth_thumbs'),
-    $helper->getConfig('maxheight_thumbs')
-], _AM_WGGALLERY_MAINTENANCE_RESIZE_DESC);
+$maintainance_resize_desc = str_replace(
+    ['%lw', '%lh', '%mw', '%mh', '%tw', '%th'],
+    [
+        $helper->getConfig('maxwidth_large'),
+        $helper->getConfig('maxheight_large'),
+        $helper->getConfig('maxwidth_medium'),
+        $helper->getConfig('maxheight_medium'),
+        $helper->getConfig('maxwidth_thumbs'),
+        $helper->getConfig('maxheight_thumbs'),
+    ],
+    _AM_WGGALLERY_MAINTENANCE_RESIZE_DESC
+);
 
 $maintainance_dui_desc = str_replace('%p', WGGALLERY_UPLOAD_IMAGE_PATH, _AM_WGGALLERY_MAINTENANCE_DELETE_UNUSED_DESC);
 
 // exif
 $imagesCount = $imagesHandler->getCount();
-$current = str_replace("%t", $imagesCount, _AM_WGGALLERY_MAINTENANCE_EXIF_CURRENT);
-$crImages = new \CriteriaCompo();
+$current     = str_replace('%t', $imagesCount, _AM_WGGALLERY_MAINTENANCE_EXIF_CURRENT);
+$crImages    = new \CriteriaCompo();
 $crImages->add(new \Criteria('img_exif', '', 'IS NULL'));
 $imagesCountNull = $imagesHandler->getCount($crImages);
-$GLOBALS['xoopsTpl']->assign('exif_current', str_replace("%c", $imagesCountNull, $current));
+$GLOBALS['xoopsTpl']->assign('exif_current', str_replace('%c', $imagesCountNull, $current));
 
 switch ($op) {
     case 'reset_gt':
@@ -934,7 +938,7 @@ switch ($op) {
         break;
     case 'delete_exif':
         $strSQL = 'UPDATE `' . $GLOBALS['xoopsDB']->prefix('wggallery_images') . '` SET `img_exif` = NULL;';
-        $ret = $GLOBALS['xoopsDB']->queryF($strSQL);
+        $ret    = $GLOBALS['xoopsDB']->queryF($strSQL);
 
         $templateMain = 'wggallery_admin_maintenance.tpl';
         $err_text     = '';
@@ -969,7 +973,7 @@ switch ($op) {
                 $imagesAll = $imagesHandler->getAll($crImages);
                 foreach (array_keys($imagesAll) as $i) {
                     $counter++;
-                    $image = $imagesAll[$i]->getValuesImages();
+                    $image      = $imagesAll[$i]->getValuesImages();
                     $imagesObj  = $imagesHandler->get($image['img_id']);
                     $sourcefile = WGGALLERY_UPLOAD_IMAGE_PATH . '/original/' . $imagesAll[$i]->getVar('img_nameorig');
                     if (!file_exists($sourcefile)) {
@@ -1253,7 +1257,8 @@ function getUnusedImages(&$unused, $directory)
     $albumsHandler = $helper->getHandler('Albums');
 
     if (is_dir($directory)) {
-        if ($handle = opendir($directory)) {
+        $handle = opendir($directory);
+        if ($handle) {
             while (false !== ($entry = readdir($handle))) {
                 switch ($entry) {
                     case 'blank.gif':

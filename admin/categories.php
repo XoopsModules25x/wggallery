@@ -23,7 +23,6 @@
 
 use Xmf\Request;
 use XoopsModules\Wggallery;
-use XoopsModules\Wggallery\Constants;
 
 require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$

@@ -22,7 +22,7 @@ namespace XoopsModules\Wggallery\Common;
  * @min_xoops      2.5.9
  * @author         XOOPS - Website:<https://xoops.org>
  */
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * Class Object ModuleFeedback

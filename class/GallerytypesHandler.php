@@ -23,7 +23,7 @@ namespace XoopsModules\Wggallery;
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 gallerytypes.php 1 Sat 2018-03-31 11:31:09Z XOOPS Project (www.xoops.org) $
  */
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * Class Object Handler Gallerytypes
@@ -326,8 +326,7 @@ class GallerytypesHandler extends \XoopsPersistableObjectHandler
                             $options[] = array('name' => 'slideshowAuto', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_AUTOPLAY');
                             $options[] = array('name' => 'showThumbnails', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_SHOWTHUMBS');
                             $options[] = array('name' => 'showTitle', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE');
-                        break; */
-          case 'viewerjs':
+                        break; */ case 'viewerjs':
             $gt_name    = 'ViewerJs';
             $gt_credits = 'http://chenfengyuan.com';
             $options[]  = ['name' => 'source', 'value' => 'large', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE'];

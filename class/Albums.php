@@ -26,7 +26,7 @@ namespace XoopsModules\Wggallery;
 
 use XoopsModules\Wggallery;
 
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * Class Object Albums
@@ -34,9 +34,9 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
 class Albums extends \XoopsObject
 {
     public $start;
-    
+
     public $limit;
-    
+
     /**
      * Constructor
      *
@@ -445,12 +445,12 @@ class Albums extends \XoopsObject
         $ret['desc']   = $this->getVar('alb_desc', 'show');
         $ret['weight'] = $this->getVar('alb_weight');
         $imagesHandler = $helper->getHandler('Images');
-        $image_path = '';
+        $image_path    = '';
         if (Constants::ALBUM_IMGCAT_USE_EXIST_VAL === $this->getVar('alb_imgtype')) {
             if ($this->getVar('alb_imgid') > 0) {
                 $imagesObj = $imagesHandler->get($this->getVar('alb_imgid'));
                 if (null !== $imagesObj && is_object($imagesObj)) {
-                    $image = WGGALLERY_UPLOAD_IMAGES_URL . '/medium/' . $imagesObj->getVar('img_name');
+                    $image      = WGGALLERY_UPLOAD_IMAGES_URL . '/medium/' . $imagesObj->getVar('img_name');
                     $image_path = '../uploads/wggallery/images/medium/' . $imagesObj->getVar('img_name');
                 } else {
                     $ret['image_err']     = true;
@@ -462,7 +462,7 @@ class Albums extends \XoopsObject
             }
         } else {
             $image = WGGALLERY_UPLOAD_IMAGES_URL . '/albums/' . $this->getVar('alb_image');
-            if ($this->getVar('alb_image') !== 'noimage.png') {
+            if ('noimage.png' !== $this->getVar('alb_image')) {
                 $image_path = '../uploads/wggallery/images/albums/' . $this->getVar('alb_image');
             }
         }
