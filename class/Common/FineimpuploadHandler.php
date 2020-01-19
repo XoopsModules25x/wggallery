@@ -182,11 +182,6 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
             return ['error' => sprintf(_MA_WGGALLERY_FAILSAVEIMG_LARGE, $this->imageNicename)];
         }
 
-        // TODO: copy exif from original to resized, if resized
-        // if (true === $ret && $helper->getConfig('store_exif')) {
-        // possible solutions???
-        // }
-
         $ret = $this->handleImageDB();
         if (!$ret) {
             return [

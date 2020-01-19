@@ -91,16 +91,16 @@ class Watermarks extends \XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
         // Permissions for uploader
-        $gpermHandler = xoops_getHandler('groupperm');
-        $groups       = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $grouppermHandler = xoops_getHandler('groupperm');
+        $groups           = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
         if ($GLOBALS['xoopsUser']) {
             if (!$GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid())) {
-                $permissionUpload = $gpermHandler->checkRight('', 32, $groups, $GLOBALS['xoopsModule']->getVar('mid')) ? true : false;
+                $permissionUpload = $grouppermHandler->checkRight('', 32, $groups, $GLOBALS['xoopsModule']->getVar('mid')) ? true : false;
             } else {
                 $permissionUpload = true;
             }
         } else {
-            $permissionUpload = $gpermHandler->checkRight('', 32, $groups, $GLOBALS['xoopsModule']->getVar('mid')) ? true : false;
+            $permissionUpload = $grouppermHandler->checkRight('', 32, $groups, $GLOBALS['xoopsModule']->getVar('mid')) ? true : false;
         }
         // Title
         $title = $this->isNew() ? sprintf(_CO_WGGALLERY_WATERMARK_ADD) : sprintf(_CO_WGGALLERY_WATERMARK_EDIT);

@@ -5,6 +5,7 @@
  - code checking and cosmetics (mamba)
  - fixed problems with array to string conversion (goffy)
  - added default permissions for creation of albums (goffy)
+ - applied XMF code styling - grouppermHandler (mamba/goffy)
 
 <h5>1.14 RC1</h5>  [2019/11/09]
 <hr>

@@ -41,7 +41,7 @@ $watermarksHandler   = $helper->getHandler('Watermarks');
 $ratingsHandler      = $helper->getHandler('Ratings');
 // Permission
 require XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
-$gpermHandler = xoops_getHandler('groupperm');
+$grouppermHandler = xoops_getHandler('groupperm');
 if (is_object($xoopsUser)) {
     $groups = $xoopsUser->getGroups();
 } else {

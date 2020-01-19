@@ -179,7 +179,6 @@ switch ($op) {
             // search in table wggallery_albums
             $crAlbums = new \CriteriaCompo();
             $crAlbums->add(new \Criteria('alb_state', Constants::STATE_ONLINE_VAL));
-            // TODO: filter permission to see
             $albumsCount = $albumsHandler->getCount($crAlbums);
             if ($albumsCount > 0) {
                 $albumsAll = $albumsHandler->getAll($crAlbums);
