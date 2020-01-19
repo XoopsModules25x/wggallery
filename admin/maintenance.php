@@ -49,11 +49,11 @@ $maintainance_dui_desc = str_replace('%p', WGGALLERY_UPLOAD_IMAGE_PATH, _AM_WGGA
 
 // exif
 $imagesCount = $imagesHandler->getCount();
-$current = str_replace("%t", $imagesCount, _AM_WGGALLERY_MAINTENANCE_EXIF_CURRENT);
+$current = str_replace('%t', $imagesCount, _AM_WGGALLERY_MAINTENANCE_EXIF_CURRENT);
 $crImages = new \CriteriaCompo();
 $crImages->add(new \Criteria('img_exif', '', 'IS NULL'));
 $imagesCountNull = $imagesHandler->getCount($crImages);
-$GLOBALS['xoopsTpl']->assign('exif_current', str_replace("%c", $imagesCountNull, $current));
+$GLOBALS['xoopsTpl']->assign('exif_current', str_replace('%c', $imagesCountNull, $current));
 
 switch ($op) {
     case 'reset_gt':

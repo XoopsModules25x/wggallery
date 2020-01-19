@@ -35,7 +35,7 @@ define('_AM_WGGALLERY_THEREARE_CATEGORIES', "Ci sono <span class='bold'>%s</span
 define('_AM_WGGALLERY_THEREARENT_GALLERYTYPES', "Non ci sono tipi di gallerie! Per la inizializzazione/ripristino vai a  'Manutenzione' => 'Manutenzione Tipi di gallerie' e clicca sul tasto 'Fissa impostazioni predefinite'");
 define('_AM_WGGALLERY_THEREARENT_ALBUMTYPES', "Non ci sono tipi di album! Per la inizializzazione/ripristino vai a  'Manutenzione' => 'Manutenzione Tipi di album' e clicca sul tasto 'Fissa impostazioni predefinite'");
 define('_AM_WGGALLERY_THEREARENT_WATERMARKS', 'Attualmente non ci sono filigrane definite!');
-define('_AM_WGGALLERY_THEREARENT_CATEGORIES', "Non ci sono categorie!");
+define('_AM_WGGALLERY_THEREARENT_CATEGORIES', 'Non ci sono categorie!');
 // ---------------- Admin Files ----------------
 // Buttons
 define('_AM_WGGALLERY_ADD_ALBUM', 'Aggiungi nuovo Album');

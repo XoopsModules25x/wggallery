@@ -96,7 +96,7 @@ define('_MA_WGGALLERY_RATING_10_10', '10 of 10');
 define('_MA_WGGALLERY_RATING_VOTE_BAD', 'Voto non valido');
 // define('_MA_WGGALLERY_RATING_VOTE_ALREADY', 'You have already voted');
 define('_MA_WGGALLERY_RATING_VOTE_THANKS', 'Grazie per aver votato');
-define('_MA_WGGALLERY_RATING_NOPERM', "Spiacenti, non sei autorizzato a valutare gli articoli");
+define('_MA_WGGALLERY_RATING_NOPERM', 'Spiacenti, non sei autorizzato a valutare gli articoli');
 define('_MA_WGGALLERY_RATING_LIKE', 'Mipiace');
 define('_MA_WGGALLERY_RATING_DISLIKE', 'Nonmipiace');
 define('_MA_WGGALLERY_ERROR_CREATE_ZIP', 'Errore: Impossibile creare archivio ZIP');

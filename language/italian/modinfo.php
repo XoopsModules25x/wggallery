@@ -99,7 +99,7 @@ define('_MI_WGGALLERY_ADDJQUERY_DESC', 'Se usi già jquery (ad es. Nel tuo tema)
 define('_MI_WGGALLERY_PANEL_TYPE', 'Tipo di Pannello');
 define('_MI_WGGALLERY_PANEL_TYPE_DESC', 'Il tipo di pannello è il div html bootstrap.');
 define('_MI_WGGALLERY_SHOWBCRUMBS', 'Mostra percorso di navigazione');
-define('_MI_WGGALLERY_SHOWBCRUMBS_DESC', "Il percorso di navigazione mostra il contesto della pagina corrente nella struttura del sito.");
+define('_MI_WGGALLERY_SHOWBCRUMBS_DESC', 'Il percorso di navigazione mostra il contesto della pagina corrente nella struttura del sito.');
 define('_MI_WGGALLERY_SHOWBCRUMBS_MNAME', 'Mostra il nome del modulo');
 define('_MI_WGGALLERY_SHOWBCRUMBS_MNAME_DESC', 'Mostra il nome del modulo nel percorso di navigazione');
 define('_MI_WGGALLERY_SHOWCOPYRIGHT', 'Mostra copyright');
