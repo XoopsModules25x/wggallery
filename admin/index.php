@@ -20,6 +20,9 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 index.php 1 Mon 2018-03-19 10:04:52Z XOOPS Project (www.xoops.org) $
  */
+
+use XoopsModules\Wggallery\Common;
+
 require __DIR__ . '/header.php';
 // Count elements
 $countAlbums       = $albumsHandler->getCount();
@@ -63,10 +66,22 @@ $folder = [
     WGGALLERY_UPLOAD_PATH . '/images/watermarks/',
 ];
 // Uploads Folders Created
+//foreach (array_keys($folder) as $i) {
+//    $adminObject->addConfigBoxLine($folder[$i], 'folder');
+//    $adminObject->addConfigBoxLine([$folder[$i], '777'], 'chmod');
+//}
+
+//------ check Upload Folders ---------------
+
+$adminObject->addConfigBoxLine('');
+$redirectFile = $_SERVER['SCRIPT_NAME'];
+
 foreach (array_keys($folder) as $i) {
-    $adminObject->addConfigBoxLine($folder[$i], 'folder');
-    $adminObject->addConfigBoxLine([$folder[$i], '777'], 'chmod');
+    $adminObject->addConfigBoxLine(Common\DirectoryChecker::getDirectoryStatus($folder[$i], 0777, $redirectFile));
 }
+//---------------------------
+
+
 
 // display Navigation
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('index.php'));

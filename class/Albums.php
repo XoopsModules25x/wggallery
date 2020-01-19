@@ -26,7 +26,7 @@ namespace XoopsModules\Wggallery;
 
 use XoopsModules\Wggallery;
 
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * Class Object Albums
@@ -462,7 +462,7 @@ class Albums extends \XoopsObject
             }
         } else {
             $image = WGGALLERY_UPLOAD_IMAGES_URL . '/albums/' . $this->getVar('alb_image');
-            if ($this->getVar('alb_image') !== 'noimage.png') {
+            if ('noimage.png' !== $this->getVar('alb_image')) {
                 $image_path = '../uploads/wggallery/images/albums/' . $this->getVar('alb_image');
             }
         }

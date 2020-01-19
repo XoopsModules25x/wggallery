@@ -43,7 +43,7 @@ switch ($op) {
 
                 $zip = new ZipArchive();
                 //create the file and throw the error if unsuccessful
-                if (true !== $zip->open($archive_file_path, ZIPARCHIVE::CREATE)) {
+                if (true !== $zip->open($archive_file_path, ZipArchive::CREATE)) {
                     redirect_header('albums.php', 5, _MA_WGGALLERY_ERROR_CREATE_ZIP);
                 }
 

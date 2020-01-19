@@ -1253,7 +1253,8 @@ function getUnusedImages(&$unused, $directory)
     $albumsHandler = $helper->getHandler('Albums');
 
     if (is_dir($directory)) {
-        if ($handle = opendir($directory)) {
+        $handle = opendir($directory);
+        if ($handle) {
             while (false !== ($entry = readdir($handle))) {
                 switch ($entry) {
                     case 'blank.gif':

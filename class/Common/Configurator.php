@@ -21,7 +21,7 @@ namespace XoopsModules\Wggallery\Common;
  * @since       1.05
  */
 
-// require_once dirname(dirname(__DIR__)) . '/include/common.php';
+
 
 /**
  * Class Configurator
@@ -46,8 +46,8 @@ class Configurator
         $moduleDirName = basename(dirname(__DIR__));
         $capsDirName   = mb_strtoupper($moduleDirName);
 
-        require dirname(dirname(__DIR__)) . '/include/config.php';
-        $config = getConfig();
+        $config = include dirname(dirname(__DIR__)) . '/config/config.php';
+        // $config = getConfig();
 
         $this->name            = $config->name;
         $this->paths           = $config->paths;
