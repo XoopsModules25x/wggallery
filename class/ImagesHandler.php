@@ -26,7 +26,7 @@ namespace XoopsModules\Wggallery;
 
 use XoopsModules\Wggallery;
 
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * Class Object Handler Images
@@ -155,7 +155,7 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
 
         return true;
     }
-    
+
     /**
      * extract data from exif as tags
      * @param  $exifs
@@ -165,7 +165,7 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
     public function exifExtractTags($exifs, $exif_tags)
     {
         $ret = '';
-        
+
         if (is_array($exifs)) {
             foreach ($exifs as $key => $value) {
                 if (in_array($key, $exif_tags)) {
@@ -181,9 +181,7 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
         } else {
             return null;
         }
-        
+
         return $ret;
-    }        
-            
-            
+    }
 }

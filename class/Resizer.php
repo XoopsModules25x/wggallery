@@ -44,16 +44,16 @@ class Resizer
     {
         // check file extension
         switch ($this->imageMimetype) {
-            case'image/png':
+            case 'image/png':
                 $img = imagecreatefrompng($this->sourceFile);
                 break;
-            case'image/jpeg':
+            case 'image/jpeg':
                 $img = imagecreatefromjpeg($this->sourceFile);
                 if (!$img) {
                     $img = imagecreatefromstring(file_get_contents($this->sourceFile));
                 }
                 break;
-            case'image/gif':
+            case 'image/gif':
                 $img = imagecreatefromgif($this->sourceFile);
                 break;
             default:
@@ -92,13 +92,13 @@ class Resizer
             unlink($this->endFile);
             //compressing the file
             switch ($this->imageMimetype) {
-                case'image/png':
+                case 'image/png':
                     imagepng($tmpimg, $this->endFile, 0);
                     break;
-                case'image/jpeg':
+                case 'image/jpeg':
                     imagejpeg($tmpimg, $this->endFile, 100);
                     break;
-                case'image/gif':
+                case 'image/gif':
                     imagegif($tmpimg, $this->endFile);
                     break;
             }
@@ -269,17 +269,17 @@ class Resizer
         unlink($this->endFile);
         //compressing the file
         switch ($this->imageMimetype) {
-            case'image/png':
+            case 'image/png':
                 if (!imagepng($tmpimg, $this->endFile, 0)) {
                     return false;
                 }
                 break;
-            case'image/jpeg':
+            case 'image/jpeg':
                 if (!imagejpeg($tmpimg, $this->endFile, $this->jpgQuality)) {
                     return false;
                 }
                 break;
-            case'image/gif':
+            case 'image/gif':
                 if (!imagegif($tmpimg, $this->endFile)) {
                     return false;
                 }

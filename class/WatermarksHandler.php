@@ -23,7 +23,7 @@ namespace XoopsModules\Wggallery;
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 watermarks.php 1 Thu 2018-11-01 08:54:56Z XOOPS Project (www.xoops.org) $
  */
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * Class Object Handler Watermarks
@@ -139,13 +139,13 @@ class WatermarksHandler extends \XoopsPersistableObjectHandler
         // get source image
         $mimetypeSource = mime_content_type($SourceFile);
         switch ($mimetypeSource) {
-            case'image/png':
+            case 'image/png':
                 $imgToBeStamped = imagecreatefrompng($SourceFile);
                 break;
-            case'image/jpeg':
+            case 'image/jpeg':
                 $imgToBeStamped = imagecreatefromjpeg($SourceFile);
                 break;
-            case'image/gif':
+            case 'image/gif':
                 $imgToBeStamped = imagecreatefromgif($SourceFile);
                 break;
             default:
@@ -165,13 +165,13 @@ class WatermarksHandler extends \XoopsPersistableObjectHandler
                 $mimetype_stamp = mime_content_type($imgStamp);
                 // create stamp
                 switch ($mimetype_stamp) {
-                    case'image/png':
+                    case 'image/png':
                         $stamp = imagecreatefrompng($imgStamp);
                         break;
-                    case'image/jpeg':
+                    case 'image/jpeg':
                         $stamp = imagecreatefromjpeg($imgStamp);
                         break;
-                    case'image/gif':
+                    case 'image/gif':
                         $stamp = imagecreatefromgif($imgStamp);
                         break;
                     default:
@@ -298,13 +298,13 @@ class WatermarksHandler extends \XoopsPersistableObjectHandler
 
         // save marked image
         switch ($mimetypeSource) {
-            case'image/png':
+            case 'image/png':
                 imagepng($imgFinal, $DestinationFile);
                 break;
-            case'image/jpeg':
+            case 'image/jpeg':
                 imagejpeg($imgFinal, $DestinationFile, 100);
                 break;
-            case'image/gif':
+            case 'image/gif':
                 imagegif($imgFinal, $DestinationFile);
                 break;
             default:

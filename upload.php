@@ -9,6 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xmf\Request;
 /**
  * wgGallery module for xoops
  *
@@ -21,8 +22,8 @@
  * @version        $Id: 1.0 upload.php 1 Sat 2018-03-17 09:55:45Z XOOPS Project (www.xoops.org) $
  */
 
-use Xmf\Request;
 use XoopsModules\Wggallery;
+use XoopsModules\Wggallery\Common\FineimpuploadHandler;
 
 require_once __DIR__ . '/header.php';
 // xoops_loadLanguage('admin', 'wggallery');
@@ -85,7 +86,6 @@ if ($albId > 0) {
                 break;
             case 'else':
             default:
-
                 break;
         }
     }
@@ -120,7 +120,7 @@ if ($albId > 0) {
         'aud'     => 'ajaxfineupload.php',
         'cat'     => $albId,
         'uid'     => $xoopsUser instanceof \XoopsUser ? $xoopsUser->id() : 0,
-        'handler' => '\XoopsModules\Wggallery\Common\FineimpuploadHandler',
+        'handler' => FineimpuploadHandler::class,
         'moddir'  => 'wggallery',
     ];
     $jwt     = \Xmf\Jwt\TokenFactory::build('fineuploader', $payload, 60 * 30); // token good for 30 minutes

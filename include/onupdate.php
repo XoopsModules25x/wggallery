@@ -22,7 +22,7 @@
  * @copyright      module for xoops
  * @license        GPL 2.0 or later
  */
- 
+
 /**
  * @param      $module
  * @param null $prev_version
@@ -38,7 +38,7 @@ function xoops_module_update_wggallery(&$module, $prev_version = null)
     }
 
     $ret = wggallery_check_db($module);
-    
+
     include_once __DIR__ . '/oninstall.php';
     $ret = xoops_module_install_wggallery($module);
 
@@ -60,11 +60,9 @@ function xoops_module_update_wggallery(&$module, $prev_version = null)
 function update_wggallery_v10(&$module)
 {
     global $xoopsDB;
-    $result = $xoopsDB->query('SELECT t1.tpl_id FROM '
-                              . $xoopsDB->prefix('tplfile')
-                              . ' t1, '
-                              . $xoopsDB->prefix('tplfile')
-                              . ' t2 WHERE t1.tpl_refid = t2.tpl_refid AND t1.tpl_module = t2.tpl_module AND t1.tpl_tplset=t2.tpl_tplset AND t1.tpl_file = t2.tpl_file AND t1.tpl_type = t2.tpl_type AND t1.tpl_id > t2.tpl_id');
+    $result = $xoopsDB->query(
+        'SELECT t1.tpl_id FROM ' . $xoopsDB->prefix('tplfile') . ' t1, ' . $xoopsDB->prefix('tplfile') . ' t2 WHERE t1.tpl_refid = t2.tpl_refid AND t1.tpl_module = t2.tpl_module AND t1.tpl_tplset=t2.tpl_tplset AND t1.tpl_file = t2.tpl_file AND t1.tpl_type = t2.tpl_type AND t1.tpl_id > t2.tpl_id'
+    );
     $tplids = [];
     while (false !== (list($tplid) = $xoopsDB->fetchRow($result))) {
         $tplids[] = $tplid;
@@ -244,7 +242,7 @@ function wggallery_check_db(&$module)
             $ret = false;
         }
     }
-    
+
     $table   = $GLOBALS['xoopsDB']->prefix('wggallery_ratings');
     $check   = $GLOBALS['xoopsDB']->queryF("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='$table'");
     $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);

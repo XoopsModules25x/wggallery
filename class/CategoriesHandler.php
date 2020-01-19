@@ -26,7 +26,7 @@ namespace XoopsModules\Wggallery;
 
 use XoopsModules\Wggallery;
 
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * Class Object Handler Images
@@ -147,6 +147,7 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
                 }
             }
         }
+
         return $listText;
     }
 }

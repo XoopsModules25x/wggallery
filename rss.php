@@ -91,11 +91,11 @@ if (!$tpl->is_cached('db:wggallery_rss.tpl', $cid)) {
             $description_short = mb_substr($description, 0, mb_strpos($description, '[pagebreak]'));
         }
         $tpl->append('items', [
-            'title'       => htmlspecialchars($imagesArr[$i]->getVar('img_ip'), ENT_QUOTES),
-            'link'        => XOOPS_URL . '/modules/wggallery/single.php?cid=' . $imagesArr[$i]->getVar('cid') . '&amp;img_id=' . $imagesArr[$i]->getVar('img_id'),
-            'guid'        => XOOPS_URL . '/modules/wggallery/single.php?cid=' . $imagesArr[$i]->getVar('cid') . '&amp;img_id=' . $imagesArr[$i]->getVar('img_id'),
-            'pubdate'     => formatTimestamp($imagesArr[$i]->getVar('date'), 'rss'),
-            'description' => htmlspecialchars($description_short, ENT_QUOTES),
+                'title'       => htmlspecialchars($imagesArr[$i]->getVar('img_ip'), ENT_QUOTES),
+                'link'        => XOOPS_URL . '/modules/wggallery/single.php?cid=' . $imagesArr[$i]->getVar('cid') . '&amp;img_id=' . $imagesArr[$i]->getVar('img_id'),
+                'guid'        => XOOPS_URL . '/modules/wggallery/single.php?cid=' . $imagesArr[$i]->getVar('cid') . '&amp;img_id=' . $imagesArr[$i]->getVar('img_id'),
+                'pubdate'     => formatTimestamp($imagesArr[$i]->getVar('date'), 'rss'),
+                'description' => htmlspecialchars($description_short, ENT_QUOTES),
         ]);
     }
 }
