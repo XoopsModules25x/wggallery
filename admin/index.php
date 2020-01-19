@@ -76,8 +76,6 @@ foreach (array_keys($folder) as $i) {
 }
 //---------------------------
 
-
-
 // display Navigation
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('index.php'));
 

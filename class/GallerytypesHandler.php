@@ -326,8 +326,7 @@ class GallerytypesHandler extends \XoopsPersistableObjectHandler
                             $options[] = array('name' => 'slideshowAuto', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_AUTOPLAY');
                             $options[] = array('name' => 'showThumbnails', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_SHOWTHUMBS');
                             $options[] = array('name' => 'showTitle', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE');
-                        break; */
-          case 'viewerjs':
+                        break; */ case 'viewerjs':
             $gt_name    = 'ViewerJs';
             $gt_credits = 'http://chenfengyuan.com';
             $options[]  = ['name' => 'source', 'value' => 'large', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE'];

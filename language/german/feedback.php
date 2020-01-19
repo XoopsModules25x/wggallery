@@ -19,7 +19,6 @@
  * @min_xoops      2.5.9
  * @author         XOOPS - Website:<https://xoops.org>
  */
-
 define('_FB_FORM_TITLE', 'Ein Feedback senden');
 define('_FB_RECIPIENT', 'Empfänger');
 define('_FB_NAME', 'Name');

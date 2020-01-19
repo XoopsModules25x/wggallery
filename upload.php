@@ -9,8 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-use XoopsModules\Wggallery\Common\FineimpuploadHandler;
-
+use Xmf\Request;
 /**
  * wgGallery module for xoops
  *
@@ -23,8 +22,8 @@ use XoopsModules\Wggallery\Common\FineimpuploadHandler;
  * @version        $Id: 1.0 upload.php 1 Sat 2018-03-17 09:55:45Z XOOPS Project (www.xoops.org) $
  */
 
-use Xmf\Request;
 use XoopsModules\Wggallery;
+use XoopsModules\Wggallery\Common\FineimpuploadHandler;
 
 require_once __DIR__ . '/header.php';
 // xoops_loadLanguage('admin', 'wggallery');
@@ -87,7 +86,6 @@ if ($albId > 0) {
                 break;
             case 'else':
             default:
-
                 break;
         }
     }

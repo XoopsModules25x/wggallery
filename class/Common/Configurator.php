@@ -21,8 +21,6 @@ namespace XoopsModules\Wggallery\Common;
  * @since       1.05
  */
 
-
-
 /**
  * Class Configurator
  */

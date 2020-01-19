@@ -147,6 +147,7 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
                 }
             }
         }
+
         return $listText;
     }
 }

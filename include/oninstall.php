@@ -20,11 +20,11 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 install.php 1 Mon 2018-03-19 10:04:53Z XOOPS Project (www.xoops.org) $
  */
+
 use XoopsModules\Wggallery;
 use XoopsModules\Wggallery\Common;
 
 /**
- * @param  \XoopsModule $module
  * @return bool
  */
 function xoops_module_pre_install_wggallery(\XoopsModule $module)
@@ -50,15 +50,13 @@ function xoops_module_pre_install_wggallery(\XoopsModule $module)
 }
 
 /**
- * @param \XoopsModule $module
- *
  * @return bool|string
  */
 function xoops_module_install_wggallery(\XoopsModule $module)
 {
     require dirname(__DIR__) . '/preloads/autoloader.php';
 
-    /** @var Wggallery\Helper $helper */
+    /** @var Wggallery\Helper $helper */ 
     /** @var Wggallery\Utility $utility */
     /** @var Common\Configurator $configurator */
     $helper       = Wggallery\Helper::getInstance();
@@ -87,27 +85,27 @@ function xoops_module_install_wggallery(\XoopsModule $module)
         }
     }
 
-/* 
-    //  ---  COPY test folder files ---------------
-    if ($configurator->copyTestFolders && is_array($configurator->copyTestFolders)) {
-        //        $file =  dirname(__DIR__) . '/testdata/images/';
-        foreach (array_keys($configurator->copyTestFolders) as $i) {
-            $src  = $configurator->copyTestFolders[$i][0];
-            $dest = $configurator->copyTestFolders[$i][1];
-            $utility::rcopy($src, $dest);
-        }
-    } */
-    
+    /*
+        //  ---  COPY test folder files ---------------
+        if ($configurator->copyTestFolders && is_array($configurator->copyTestFolders)) {
+            //        $file =  dirname(__DIR__) . '/testdata/images/';
+            foreach (array_keys($configurator->copyTestFolders) as $i) {
+                $src  = $configurator->copyTestFolders[$i][0];
+                $dest = $configurator->copyTestFolders[$i][1];
+                $utility::rcopy($src, $dest);
+            }
+        } */
+
     // copy noimage.png
     $source = XOOPS_ROOT_PATH . '/modules/wggallery/assets/images/noimage.png';
     $target = XOOPS_UPLOAD_PATH . '/wggallery/images/albums';
     copy($source, $target . '/noimage.png');
-    
+
     // copy watermark logo
     $source = XOOPS_ROOT_PATH . '/modules/wggallery/assets/images/wedega_logo.png';
     $target = XOOPS_UPLOAD_PATH . '/wggallery/images/watermarks';
     copy($source, $target . '/wedega_logo.png');
-    
+
     // installing watermark fonts
     $target = XOOPS_UPLOAD_PATH . '/wggallery/fonts';
     $rep    = XOOPS_ROOT_PATH . '/modules/wggallery/assets/fonts/';

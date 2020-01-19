@@ -294,7 +294,7 @@ switch ($op) {
                 $notificationHandler->triggerEvent('albums', $albId, 'album_delete', $tags);
                 // delete all notifications linked to this album
                 $notificationHandler->unsubscribeByItem($GLOBALS['xoopsModule']->getVar('mid'), 'albums', $albId);
-                
+
                 $albumsHandler->setAlbumIsColl();
 
                 redirect_header('albums.php', 3, _CO_WGGALLERY_FORM_DELETE_OK);

@@ -26,14 +26,11 @@ namespace XoopsModules\Wggallery;
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  */
 
-use XoopsModules\Wggallery\Common;
-
 /**
  * Class Utility
  */
 class Utility extends Common\SysUtility
 {
-
     //--------------- Custom module methods -----------------------------
 
     /**

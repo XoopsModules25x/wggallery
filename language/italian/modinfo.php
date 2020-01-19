@@ -95,7 +95,7 @@ define('_MI_WGGALLERY_IMAGE_TARGET_DESC', 'Seleziona dove deve essere mostrata u
 define('_MI_WGGALLERY_LINK_TARGET_MODAL', 'Mostra immagine come modale senza informazioni');
 define('_MI_WGGALLERY_LINK_TARGET_MODALINFO', 'Mostra immagine come modale con le proprie informazioni dettagliate');
 define('_MI_WGGALLERY_ADDJQUERY', 'Aggiungi libreria jquery');
-define('_MI_WGGALLERY_ADDJQUERY_DESC', 'Se usi già jquery (ad es. Nel tuo tema), imposta su NO'); 
+define('_MI_WGGALLERY_ADDJQUERY_DESC', 'Se usi già jquery (ad es. Nel tuo tema), imposta su NO');
 define('_MI_WGGALLERY_PANEL_TYPE', 'Tipo di Pannello');
 define('_MI_WGGALLERY_PANEL_TYPE_DESC', 'Il tipo di pannello è il div html bootstrap.');
 define('_MI_WGGALLERY_SHOWBCRUMBS', 'Mostra percorso di navigazione');

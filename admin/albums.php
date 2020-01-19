@@ -89,7 +89,7 @@ switch ($op) {
             // Display Navigation
             if ($albumsCount > $limit) {
                 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-                $pagenav = new \XoopsPageNav($albumsCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit . '&amp;sort=' . $sort  . '&amp;orderby=' . $orderby);
+                $pagenav = new \XoopsPageNav($albumsCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit . '&amp;sort=' . $sort . '&amp;orderby=' . $orderby);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
             $GLOBALS['xoopsTpl']->assign('use_tags', $helper->getConfig('use_tags'));
@@ -261,8 +261,8 @@ switch ($op) {
             }
         } else {
             xoops_confirm(['ok' => 1, 'alb_id' => $albId, 'op' => 'delete', 'start' => $start, 'limit' => $limit], $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $albumsObj->getVar('alb_name')));
-//            $form = $helper->getFormDelete(['ok' => 1, 'alb_id' => $albId, 'op' => 'delete'], _CO_WGGALLERY_FORM_DELETE, $albumsObj->getVar('alb_name'), _CO_WGGALLERY_ALBUM_DELETE_DESC);
-//            $GLOBALS['xoopsTpl']->assign('form', $form->render());
+            //            $form = $helper->getFormDelete(['ok' => 1, 'alb_id' => $albId, 'op' => 'delete'], _CO_WGGALLERY_FORM_DELETE, $albumsObj->getVar('alb_name'), _CO_WGGALLERY_ALBUM_DELETE_DESC);
+            //            $GLOBALS['xoopsTpl']->assign('form', $form->render());
         }
         break;
 }

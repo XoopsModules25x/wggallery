@@ -16,7 +16,6 @@
  * @since
  * @author       XOOPS Development Team
  */
-
 $moduleDirName      = basename(dirname(__DIR__));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 

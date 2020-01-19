@@ -96,6 +96,7 @@ class Helper extends \Xmf\Module\Helper
         $helper = self::getInstance();
         $ret    = new $class($db, $helper);
         $this->addLog("Getting handler '{$name}'");
+
         return $ret;
     }
 

@@ -127,12 +127,12 @@ switch ($pr_gallery['template']) {
             case Constants::OPTION_GT_SLIDERTYPE_2_VAL:
                 $GLOBALS['xoopsTpl']->assign('jssor_maxwidth_js', 3000);
                 break;
-            case  Constants::OPTION_GT_SLIDERTYPE_1_VAL:
+            case Constants::OPTION_GT_SLIDERTYPE_1_VAL:
             default:
                 $GLOBALS['xoopsTpl']->assign('jssor_maxwidth_js', $jssor_maxwidth);
                 break;
         }
-        if ( Constants::OPTION_GT_SLIDERTYPE_1_VAL == $jssor_slidertype) {
+        if (Constants::OPTION_GT_SLIDERTYPE_1_VAL == $jssor_slidertype) {
             $GLOBALS['xoopsTpl']->assign('jssor_maxwidth_js', $jssor_maxwidth);
         }
         $GLOBALS['xoopsTpl']->assign('jssor_maxwidth', $jssor_maxwidth);

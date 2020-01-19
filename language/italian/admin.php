@@ -176,7 +176,7 @@ define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_UNDER', 'Sotto');
 define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_OVER', 'Sopra');
 define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_RSIDE', 'Lato destro');
 define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_LSIDE', 'Lato sinistro');
-define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_DESC', "Nota che lightbox utilizza un sistema intelligente passando automaticamente a '". _AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_OVER."' Non appena l'elemento diventa troppo piccolo a causa di testi lunghi o di una finestra minuscola.");
+define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_DESC', "Nota che lightbox utilizza un sistema intelligente passando automaticamente a '" . _AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_OVER . "' Non appena l'elemento diventa troppo piccolo a causa di testi lunghi o di una finestra minuscola.");
 define('_AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION', 'Posizione comando');
 define('_AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION_INNER', 'Interno');
 define('_AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION_OUTER', 'Esterno');
