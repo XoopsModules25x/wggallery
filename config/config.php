@@ -91,6 +91,11 @@ return (object)[
 
     'renameTables' => [//         'XX_archive'     => 'ZZZZ_archive',
     ],
+    'moduleStats'  => [
+        //            'totalcategories' => $helper->getHandler('Category')->getCategoriesCount(-1),
+        //            'totalitems'      => $helper->getHandler('Item')->getItemsCount(),
+        //            'totalsubmitted'  => $helper->getHandler('Item')->getItemsCount(-1, [Constants::PUBLISHER_STATUS_SUBMITTED]),
+    ],
     'modCopyright' => "<a href='https://xoops.org' title='XOOPS Project' target='_blank'>
                      <img src='" . constant($moduleDirNameUpper . '_AUTHOR_LOGOIMG') . '\' alt=\'XOOPS Project\'></a>',
 ];
