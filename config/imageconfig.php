@@ -3,10 +3,6 @@
 $moduleDirName      = basename(dirname(__DIR__));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
-/** @var \XoopsModules\Xoopsfaq\Helper $helper */
-$helper = \XoopsModules\Xoopsfaq\Helper::getInstance();
-$helper->loadLanguage('common');
-
 // extra module configs
 $modversion['config'][] = [
     'name'        => 'imageConfigs',

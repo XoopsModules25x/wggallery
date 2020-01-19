@@ -65,11 +65,6 @@ $folder = [
     WGGALLERY_UPLOAD_PATH . '/images/thumbs/',
     WGGALLERY_UPLOAD_PATH . '/images/watermarks/',
 ];
-// Uploads Folders Created
-//foreach (array_keys($folder) as $i) {
-//    $adminObject->addConfigBoxLine($folder[$i], 'folder');
-//    $adminObject->addConfigBoxLine([$folder[$i], '777'], 'chmod');
-//}
 
 //------ check Upload Folders ---------------
 

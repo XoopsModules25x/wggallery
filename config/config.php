@@ -20,8 +20,13 @@
 $moduleDirName      = basename(dirname(__DIR__));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
+if (!defined($moduleDirNameUpper . '_AUTHOR_LOGOIMG')) {
+    $pathIcon32 = \Xmf\Module\Admin::iconUrl('', 32);
+    define($moduleDirNameUpper . '_AUTHOR_LOGOIMG', $pathIcon32 . '/xoopsmicrobutton.gif');
+}
+
 return (object)[
-    'name'           => mb_strtoupper($moduleDirName) . ' ModuleConfigurator',
+    'name'           => mb_strtoupper($moduleDirName) . ' Module Configurator',
     'paths'          => [
         'dirname'    => $moduleDirName,
         'admin'      => XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/admin',
@@ -32,14 +37,28 @@ return (object)[
     ],
     'uploadFolders'  => [
         XOOPS_UPLOAD_PATH . '/' . $moduleDirName,
-        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/category',
-        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/screenshots',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/albums',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/original',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/large',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/medium',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/thumbs',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/temp',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/watermarks',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/watermarks-test',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/temp',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/fonts',
         //XOOPS_UPLOAD_PATH . '/flags'
     ],
     'copyBlankFiles' => [
-        XOOPS_UPLOAD_PATH . '/' . $moduleDirName,
-        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/category',
-        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/screenshots',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/albums',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/original',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/large',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/medium',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/thumbs',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/watermarks',
         //XOOPS_UPLOAD_PATH . '/flags'
     ],
 
@@ -48,10 +67,6 @@ return (object)[
             XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/testdata/uploads',
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName,
         ],
-        //            [
-        //                XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/testdata/thumbs',
-        //                XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/thumbs',
-        //            ],
     ],
 
     'templateFolders' => [
@@ -77,12 +92,6 @@ return (object)[
 
     'renameTables' => [//         'XX_archive'     => 'ZZZZ_archive',
     ],
-    'moduleStats'  => [
-        //            'totalcategories' => $helper->getHandler('Category')->getCategoriesCount(-1),
-        //            'totalitems'      => $helper->getHandler('Item')->getItemsCount(),
-        //            'totalsubmitted'  => $helper->getHandler('Item')->getItemsCount(-1, [Constants::PUBLISHER_STATUS_SUBMITTED]),
-    ],
     'modCopyright' => "<a href='https://xoops.org' title='XOOPS Project' target='_blank'>
-                     <img src='" . constant($moduleDirNameUpper . '_AUTHOR_LOGOIMG') . "' alt='XOOPS Project'></a>",
+                     <img src='" . constant($moduleDirNameUpper . '_AUTHOR_LOGOIMG') . '\' alt=\'XOOPS Project\'></a>',
 ];
-
