@@ -1,6 +1,8 @@
 <h5>1.14 RC2</h5>  [2019/12/23]
 <hr>
   - fixed missing check of allowed resolution (goffy)
+  -
+
    
 <h5>1.14 RC1</h5>  [2019/11/09]
 <hr>

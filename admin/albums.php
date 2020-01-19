@@ -260,7 +260,7 @@ switch ($op) {
                 $GLOBALS['xoopsTpl']->assign('error', $albumsObj->getHtmlErrors());
             }
         } else {
-            xoops_confirm(array('ok' => 1, 'alb_id' => $albId, 'op' => 'delete', 'start' => $start, 'limit' => $limit), $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $albumsObj->getVar('alb_name')));
+            xoops_confirm(['ok' => 1, 'alb_id' => $albId, 'op' => 'delete', 'start' => $start, 'limit' => $limit], $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $albumsObj->getVar('alb_name')));
 //            $form = $helper->getFormDelete(['ok' => 1, 'alb_id' => $albId, 'op' => 'delete'], _CO_WGGALLERY_FORM_DELETE, $albumsObj->getVar('alb_name'), _CO_WGGALLERY_ALBUM_DELETE_DESC);
 //            $GLOBALS['xoopsTpl']->assign('form', $form->render());
         }
