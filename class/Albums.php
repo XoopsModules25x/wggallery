@@ -177,26 +177,26 @@ class Albums extends \XoopsObject
         $form->addElement($albStateSelect);
 
         // Permissions
-        $memberHandler = xoops_getHandler('member');
-        $groupList     = $memberHandler->getGroupList();
-        $gpermHandler  = xoops_getHandler('groupperm');
+        $memberHandler    = xoops_getHandler('member');
+        $groupList        = $memberHandler->getGroupList();
+        $grouppermHandler = xoops_getHandler('groupperm');
         if ($this->isNew()) {
-            $groupsIdsView        = $gpermHandler->getGroupIds('wggallery_albdefault', 4, $GLOBALS['xoopsModule']->getVar('mid'));
+            $groupsIdsView        = $grouppermHandler->getGroupIds('wggallery_albdefault', 4, $GLOBALS['xoopsModule']->getVar('mid'));
             $groupsIdsView[]      = array_values($groupsIdsView);
-            $groupsIdsDlFullAlb   = $gpermHandler->getGroupIds('wggallery_albdefault', 8, $GLOBALS['xoopsModule']->getVar('mid'));
+            $groupsIdsDlFullAlb   = $grouppermHandler->getGroupIds('wggallery_albdefault', 8, $GLOBALS['xoopsModule']->getVar('mid'));
             $groupsIdsDlFullAlb[] = array_values($groupsIdsDlFullAlb);
-            $groupsIdsDlImageL    = $gpermHandler->getGroupIds('wggallery_albdefault', 16, $GLOBALS['xoopsModule']->getVar('mid'));
+            $groupsIdsDlImageL    = $grouppermHandler->getGroupIds('wggallery_albdefault', 16, $GLOBALS['xoopsModule']->getVar('mid'));
             $groupsIdsDlImageL[]  = array_values($groupsIdsDlImageL);
-            $groupsIdsDlImageM    = $gpermHandler->getGroupIds('wggallery_albdefault', 32, $GLOBALS['xoopsModule']->getVar('mid'));
+            $groupsIdsDlImageM    = $grouppermHandler->getGroupIds('wggallery_albdefault', 32, $GLOBALS['xoopsModule']->getVar('mid'));
             $groupsIdsDlImageM[]  = array_values($groupsIdsDlImageM);
         } else {
-            $groupsIdsView        = $gpermHandler->getGroupIds('wggallery_view', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
+            $groupsIdsView        = $grouppermHandler->getGroupIds('wggallery_view', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
             $groupsIdsView[]      = array_values($groupsIdsView);
-            $groupsIdsDlFullAlb   = $gpermHandler->getGroupIds('wggallery_dlfullalb', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
+            $groupsIdsDlFullAlb   = $grouppermHandler->getGroupIds('wggallery_dlfullalb', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
             $groupsIdsDlFullAlb[] = array_values($groupsIdsDlFullAlb);
-            $groupsIdsDlImageL    = $gpermHandler->getGroupIds('wggallery_dlimage_large', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
+            $groupsIdsDlImageL    = $grouppermHandler->getGroupIds('wggallery_dlimage_large', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
             $groupsIdsDlImageL[]  = array_values($groupsIdsDlImageL);
-            $groupsIdsDlImageM    = $gpermHandler->getGroupIds('wggallery_dlimage_medium', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
+            $groupsIdsDlImageM    = $grouppermHandler->getGroupIds('wggallery_dlimage_medium', $this->getVar('alb_id'), $GLOBALS['xoopsModule']->getVar('mid'));
             $groupsIdsDlImageM[]  = array_values($groupsIdsDlImageM);
         }
         // To View

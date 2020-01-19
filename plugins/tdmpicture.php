@@ -69,7 +69,7 @@ function wggalleryPluginGetFormTdmpicture($im_name, $num_albums, $num_images)
     // Permissions
     $memberHandler              = xoops_getHandler('member');
     $groupList                  = $memberHandler->getGroupList();
-    $gpermHandler               = xoops_getHandler('groupperm');
+    $grouppermHandler           = xoops_getHandler('groupperm');
     $fullList[]                 = array_keys($groupList);
     $groupsCanViewCheckbox      = new \XoopsFormCheckBox('', 'groups_view', $fullList);
     $groupsCanDlFullAlbCheckbox = new \XoopsFormCheckBox('', 'groups_dlfullalb', $fullList);
@@ -85,16 +85,15 @@ function wggalleryPluginGetFormTdmpicture($im_name, $num_albums, $num_images)
     $groupsCanViewTray->addElement($groupsCanViewAll, false);
     $form->addElement($groupsCanViewTray);
 
-    // TODO
     // To Download full album
-    // $groupsCanDlFullAlbCheckbox->addOptionArray($groupList);
-    // $groupsCanDlFullAlbTray = new \XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_DLFULLALB, '&nbsp;' );
-    // $groupsCanDlFullAlbTray->addElement($groupsCanDlFullAlbCheckbox, false);
-    // $groupsCanDlFullAlbAll = new \XoopsFormCheckBox( '', 'all_groups_dlfullalb', 0);
-    // $groupsCanDlFullAlbAll->setExtra('onclick="javascript:toggleCheckboxGroupPerm(' . "'groups_dlfullalb'" . ')"');
-    // $groupsCanDlFullAlbAll->addOption(1, _CO_WGGALLERY_ALL);
-    // $groupsCanDlFullAlbTray->addElement($groupsCanDlFullAlbAll, false);
-    // $form->addElement($groupsCanDlFullAlbTray);
+    $groupsCanDlFullAlbCheckbox->addOptionArray($groupList);
+    $groupsCanDlFullAlbTray = new \XoopsFormElementTray(_CO_WGGALLERY_PERMS_ALB_DLFULLALB, '&nbsp;' );
+    $groupsCanDlFullAlbTray->addElement($groupsCanDlFullAlbCheckbox, false);
+    $groupsCanDlFullAlbAll = new \XoopsFormCheckBox( '', 'all_groups_dlfullalb', 0);
+    $groupsCanDlFullAlbAll->setExtra('onclick="javascript:toggleCheckboxGroupPerm(' . "'groups_dlfullalb'" . ')"');
+    $groupsCanDlFullAlbAll->addOption(1, _CO_WGGALLERY_ALL);
+    $groupsCanDlFullAlbTray->addElement($groupsCanDlFullAlbAll, false);
+    $form->addElement($groupsCanDlFullAlbTray);
 
     // To Download Large Images
     $groupsCanDlImageLCheckbox->addOptionArray($groupList);
@@ -165,33 +164,32 @@ function wggalleryPluginExecImportTdmpicture()
     $sql = 'SELECT `alb_id` FROM ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums');
     $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . $GLOBALS['xoopsDB']->error());
     while (false !== (list($albId) = $GLOBALS['xoopsDB']->fetchRow($result))) {
-        $permId       = $albId;
-        $perm_modid   = $GLOBALS['xoopsModule']->getVar('mid');
-        $gpermHandler = xoops_getHandler('groupperm');
+        $permId           = $albId;
+        $perm_modid       = $GLOBALS['xoopsModule']->getVar('mid');
+        $grouppermHandler = xoops_getHandler('groupperm');
         // set selected rights
         // Permission to view
         if (isset($_POST['groups_view'])) {
             foreach ($_POST['groups_view'] as $onegroupId) {
-                $gpermHandler->addRight('wggallery_view', $permId, $onegroupId, $perm_modid);
+                $grouppermHandler->addRight('wggallery_view', $permId, $onegroupId, $perm_modid);
             }
         }
-        //TODO
         // Permission to download full album
-        // if(isset($_POST['groups_dlfullalb'])) {
-        // foreach($_POST['groups_dlfullalb'] as $onegroupId) {
-        // $gpermHandler->addRight('wggallery_dlfullalb', $permId, $onegroupId, $perm_modid);
-        // }
-        // }
+        if(isset($_POST['groups_dlfullalb'])) {
+            foreach($_POST['groups_dlfullalb'] as $onegroupId) {
+                $grouppermHandler->addRight('wggallery_dlfullalb', $permId, $onegroupId, $perm_modid);
+            }
+        }
         // Permission to download large images
         if (isset($_POST['groups_dlimage_large'])) {
             foreach ($_POST['groups_dlimage_large'] as $onegroupId) {
-                $gpermHandler->addRight('wggallery_dlimage_large', $permId, $onegroupId, $perm_modid);
+                $grouppermHandler->addRight('wggallery_dlimage_large', $permId, $onegroupId, $perm_modid);
             }
         }
         // Permission to download medium images
         if (isset($_POST['groups_dlimage_medium'])) {
             foreach ($_POST['groups_dlimage_medium'] as $onegroupId) {
-                $gpermHandler->addRight('wggallery_dlimage_medium', $permId, $onegroupId, $perm_modid);
+                $grouppermHandler->addRight('wggallery_dlimage_medium', $permId, $onegroupId, $perm_modid);
             }
         }
     }

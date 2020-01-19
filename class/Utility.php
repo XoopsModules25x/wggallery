@@ -65,11 +65,11 @@ class Utility extends Common\SysUtility
         if (is_array($permissions) && array_key_exists($permtype, $permissions)) {
             return $permissions[$permtype];
         }
-        $moduleHandler   = xoops_getHandler('module');
-        $wggalleryModule = $moduleHandler->getByDirname($dirname);
-        $groups          = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-        $gpermHandler    = xoops_getHandler('groupperm');
-        $images          = $gpermHandler->getItemIds($permtype, $groups, $wggalleryModule->getVar('mid'));
+        $moduleHandler    = xoops_getHandler('module');
+        $wggalleryModule  = $moduleHandler->getByDirname($dirname);
+        $groups           = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $grouppermHandler = xoops_getHandler('groupperm');
+        $images           = $grouppermHandler->getItemIds($permtype, $groups, $wggalleryModule->getVar('mid'));
 
         return $images;
     }
