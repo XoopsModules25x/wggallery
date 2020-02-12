@@ -143,7 +143,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         $this->imageNicename  = str_replace(['_', '-'], ' ', $pathParts['filename']);
         $this->imageNameLarge = str_replace('.', '_', uniqid('imgl', true)) . '.' . mb_strtolower($pathParts['extension']);
         $this->imagePath      = $this->pathUpload . '/large/' . $this->imageNameLarge;
-        $this->imageNameOrig  = $_FILES[$this->inputName]['name'];
+        $this->imageNameOrig  = str_replace('.', '_', 'imgo' . hash("md5", uniqid('', true))) . '.' . mb_strtolower($pathParts['extension']);
         $this->imageMimetype  = $_FILES[$this->inputName]['type'];
         $this->imageSize      = $_FILES[$this->inputName]['size'];
 
