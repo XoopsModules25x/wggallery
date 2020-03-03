@@ -302,7 +302,7 @@ class Images extends \XoopsObject
                 $exif_types = $helper->getConfig('exif_types');
                 foreach ($exifs as $key => $value) {
                     if (in_array('all', $exif_types) || in_array($key, $exif_types)) {
-                        $ret['exifs'][$key] = $value;
+                        $ret['exifs'][preg_replace('/[^a-zA-Z0-9]/', '', $key)] = $value;
                         if (is_array($value)) {
                             $exif_text .= $key . ': <br>';
                             foreach ($value as $skey => $svalue) {
