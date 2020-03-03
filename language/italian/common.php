@@ -143,7 +143,7 @@ define('_CO_WGGALLERY_IMAGES_COUNT', 'Numero di immagini');
 define('_CO_WGGALLERY_IMAGES_ALBUMSHOW', 'Mostra Album');
 define('_CO_WGGALLERY_IMAGES_INDEX', 'Mostra Indice delle immagini');
 define('_CO_WGGALLERY_IMAGES_UPLOAD', 'Carica immagini');
-define('_CO_WGGALLERY_IMAGE_MANAGE', 'Gestiona immagini');
+define('_CO_WGGALLERY_IMAGE_MANAGE', 'Gestisci immagini');
 define('_CO_WGGALLERY_IMAGE_MANAGE_DESC', 'Riordina le tue immagini trascinandole');
 define('_CO_WGGALLERY_IMAGE_ID', 'Id');
 define('_CO_WGGALLERY_IMAGE_TITLE', 'Titolo');
