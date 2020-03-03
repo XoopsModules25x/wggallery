@@ -295,12 +295,14 @@ class Images extends \XoopsObject
         $exif_text         = '';
         $exif_short        = '';
         $exif              = $this->getVar('img_exif');
+        $ret['exifs']      = [];
         if ($helper->getConfig('store_exif') && '' !== $exif) {
             $exifs = json_decode($exif, true);
             if (is_array($exifs)) {
                 $exif_types = $helper->getConfig('exif_types');
                 foreach ($exifs as $key => $value) {
                     if (in_array('all', $exif_types) || in_array($key, $exif_types)) {
+                        $ret['exifs'][$key] = $value;
                         if (is_array($value)) {
                             $exif_text .= $key . ': <br>';
                             foreach ($value as $skey => $svalue) {
