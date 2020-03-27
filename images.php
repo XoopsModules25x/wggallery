@@ -270,7 +270,7 @@ switch ($op) {
                 $notificationHandler->triggerEvent('albums', $albId, 'image_delete', $tags);
                 // delete comments
                 $commentHandler = xoops_getHandler('comment');
-                $critComments   = new CriteriaCompo(new Criteria('com_modid', $helper->getMid()));
+                $critComments   = new CriteriaCompo(new Criteria('com_modid', $helper::getMid()));
                 $critComments->add(new Criteria('com_itemid', $imgId));
                 $commentHandler->deleteAll($critComments);
                 // delete ratings

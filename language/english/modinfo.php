@@ -157,12 +157,12 @@ define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY', 'Send notification when a new i
 define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_CAPTION', 'Notify me about deleting image from this album');
 define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_SUBJECT', 'Notification about deleted image');
 
-define('_MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY', 'Notify me about when any image is commented');
+define('_MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY', 'Notify me about new comments for images');
 define('_MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY_CAPTION', 'Notify me about comments for images');
-define('_MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY_SUBJECT', 'Notification about comment for image');
-define('_MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY', 'Notify me about when an image of this album is commented');
-define('_MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY_CAPTION', 'Notify me about comments for images of this album');
-define('_MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY_SUBJECT', 'Notification about comment for image');
+define('_MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY_SUBJECT', 'Notification about comments for an image');
+define('_MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY', 'Notify me about new comments for images in this album');
+define('_MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY_CAPTION', 'Notify me about comments for images in this album');
+define('_MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY_SUBJECT', 'Notification about new comment for an image');
 
 define('_MI_WGGALLERY_RATINGBARS', 'Allow rating');
 define('_MI_WGGALLERY_RATINGBARS_DESC', 'Define whether rating should be possible and which kind of rating should be used');

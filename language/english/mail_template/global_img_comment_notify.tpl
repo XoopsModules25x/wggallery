@@ -1,7 +1,7 @@
 
 Hello {X_UNAME},
 
-To image "{IMAGE_NAME}" has been added a comment at {X_SITENAME}.
+The image "{IMAGE_NAME}" has a new comment at {X_SITENAME}.
 
 You can view this image here:
 {IMAGE_URL}
@@ -11,7 +11,7 @@ You can view full album here:
 
 -----------
 
-You are receiving this message because you selected to be notified when new stories are added to our site.
+You are receiving this message because you selected to be notified when new comments are added to our site.
 
 If this is an error or you wish not to receive further such notifications, please update your subscriptions by visiting the link below:
 {X_UNSUBSCRIBE_URL}

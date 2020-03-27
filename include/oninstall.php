@@ -25,6 +25,7 @@ use XoopsModules\Wggallery;
 use XoopsModules\Wggallery\Common;
 
 /**
+ * @param \XoopsModule $module
  * @return bool
  */
 function xoops_module_pre_install_wggallery(\XoopsModule $module)
@@ -50,6 +51,7 @@ function xoops_module_pre_install_wggallery(\XoopsModule $module)
 }
 
 /**
+ * @param \XoopsModule $module
  * @return bool|string
  */
 function xoops_module_install_wggallery(\XoopsModule $module)

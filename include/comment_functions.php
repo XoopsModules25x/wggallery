@@ -46,7 +46,7 @@ function wggalleryCommentsUpdate($itemId, $commentCount)
  *
  * @param string $comment
  */
-function wggalleryCommentsApprove(&$comment)
+function wggalleryCommentsApprove($comment)
 {
     $helper = \XoopsModules\Wggallery\Helper::getInstance();
     // send notifications
