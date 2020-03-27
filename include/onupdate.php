@@ -57,7 +57,7 @@ function xoops_module_update_wggallery(&$module, $prev_version = null)
  *
  * @return bool
  */
-function update_wggallery_v10(&$module)
+function update_wggallery_v10($module)
 {
     global $xoopsDB;
     $result = $xoopsDB->query(
@@ -110,7 +110,7 @@ function update_wggallery_v10(&$module)
  *
  * @return bool
  */
-function wggallery_check_db(&$module)
+function wggallery_check_db($module)
 {
     $ret = true;
 
