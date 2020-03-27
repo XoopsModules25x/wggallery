@@ -1,7 +1,7 @@
 
 Hello {X_UNAME},
 
-A album "{ALBUM_NAME}" has been added/modified at {X_SITENAME} and is waiting for approval.
+An album "{ALBUM_NAME}" has been added/modified at {X_SITENAME} and is waiting for approval.
 
 You can view this album here:
 {ALBUM_URL}
