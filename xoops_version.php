@@ -834,3 +834,25 @@ $modversion['notification']['event'][] = [
     'mail_template' => 'global_img_delete_notify',
     'mail_subject'  => _MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_SUBJECT,
 ];
+// Global Events Image commented
+$modversion['notification']['event'][] = [
+    'name'          => 'img_comment_all',
+    'category'      => 'global',
+    'admin_only'    => 0,
+    'title'         => _MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY,
+    'caption'       => _MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY_CAPTION,
+    'description'   => '',
+    'mail_template' => 'global_img_comment_notify',
+    'mail_subject'  => _MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY_SUBJECT,
+];
+// Album Events Image commented
+$modversion['notification']['event'][] = [
+    'name'          => 'image_comment',
+    'category'      => 'albums',
+    'admin_only'    => 0,
+    'title'         => _MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY,
+    'caption'       => _MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY_CAPTION,
+    'description'   => '',
+    'mail_template' => 'global_img_comment_notify',
+    'mail_subject'  => _MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY_SUBJECT,
+];
