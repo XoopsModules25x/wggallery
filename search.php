@@ -99,7 +99,7 @@ $form1->addElement($trayCats, false);
 $userHandler = xoops_getHandler('user');
 $sql         = 'SELECT alb_submitter FROM ' . $xoopsDB->prefix('wggallery_albums') . ' GROUP BY alb_submitter';
 $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . mysqli_error());
-while ($row = $GLOBALS['xoopsDB']->fetchrow($result)) {
+while (false !== ($row = $GLOBALS['xoopsDB']->fetchrow($result))) {
     $subm_search[$row[0]]['uid'] = $row[0];
     $user                        = $userHandler->get($row[0]);
     $username                    = $user->getVar('name');
@@ -110,7 +110,7 @@ while ($row = $GLOBALS['xoopsDB']->fetchrow($result)) {
 }
 $sql = 'SELECT img_submitter FROM ' . $xoopsDB->prefix('wggallery_images') . ' GROUP BY img_submitter';
 $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . mysqli_error());
-while ($row = $GLOBALS['xoopsDB']->fetchrow($result)) {
+while (false !== ($row = $GLOBALS['xoopsDB']->fetchrow($result))) {
     $subm_search[$row[0]]['uid'] = $row[0];
     $user                        = $userHandler->get($row[0]);
     $username                    = $user->getVar('name');
@@ -224,7 +224,7 @@ switch ($op) {
                     $img_albids = implode(',', $album_ids);
                     $sql        = 'SELECT img_id FROM ' . $xoopsDB->prefix('wggallery_images') . ' WHERE (`img_albid` IN (' . $img_albids . '))';
                     $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . mysqli_error());
-                    while ($row = $GLOBALS['xoopsDB']->fetchrow($result)) {
+                    while (false !== ($row = $GLOBALS['xoopsDB']->fetchrow($result))) {
                         $image_ids[] = $row[0];
                     }
                 }

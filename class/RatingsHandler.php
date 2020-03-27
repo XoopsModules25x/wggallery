@@ -32,6 +32,7 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
 {
     /**
      * Constructor
+     * @param \XoopsDatabase $db
      */
     public function __construct(\XoopsDatabase $db)
     {
@@ -188,8 +189,6 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
 
     /**
      * delete ratings of given item
-     * @param int itemid
-     * @param int source
      * @param mixed $itemid
      * @param mixed $source
      * @return bool

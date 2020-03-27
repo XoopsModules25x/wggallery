@@ -55,6 +55,7 @@ trait VersionChecks
      * Verifies PHP version meets minimum requirements for this module
      * @static
      *
+     * @param \XoopsModule $module
      * @return bool true if meets requirements, false if not
      */
     public static function checkVerPhp(\XoopsModule $module)
