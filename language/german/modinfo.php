@@ -141,8 +141,8 @@ define('_MI_WGGALLERY_GLOBAL_ALB_DELETE_ALL_NOTIFY_SUBJECT', 'Benachrichtigung �
 define('_MI_WGGALLERY_GLOBAL_IMG_NEW_ALL_NOTIFY', 'Sende Benachrichtigung wenn neue Bilder hochgeladen wurden');
 define('_MI_WGGALLERY_GLOBAL_IMG_NEW_ALL_NOTIFY_CAPTION', 'Benachrichtige mich wenn irgendein Bild hochgeladen wurde');
 define('_MI_WGGALLERY_GLOBAL_IMG_NEW_ALL_NOTIFY_SUBJECT', 'Benachrichtigung über hochgeladenes Bild');
-define('_MI_WGGALLERY_GLOBAL_IMG_DELETE_ALL_NOTIFY', 'Sende Benachrichtigung wenn ein Bild aus diesem Album gelöscht wurde');
-define('_MI_WGGALLERY_GLOBAL_IMG_DELETE_ALL_NOTIFY_CAPTION', 'Benachrichtige mich über Löschung eines Bildes aus diesem Album');
+define('_MI_WGGALLERY_GLOBAL_IMG_DELETE_ALL_NOTIFY', 'Sende Benachrichtigung wenn irgendein ein Bild gelöscht wurde');
+define('_MI_WGGALLERY_GLOBAL_IMG_DELETE_ALL_NOTIFY_CAPTION', 'Benachrichtige mich über jede Löschung eines Bildes');
 define('_MI_WGGALLERY_GLOBAL_IMG_DELETE_ALL_NOTIFY_SUBJECT', 'Benachrichtigung über Löschung eines Bildes');
 define('_MI_WGGALLERY_ALBUMS_NOTIFY', 'Benachrichtigugen Album');
 define('_MI_WGGALLERY_ALBUMS_ALB_MODIFY_NOTIFY', 'Sende Benachrichtigung wenn dieses Album bearbeitet wurde');
@@ -154,12 +154,19 @@ define('_MI_WGGALLERY_ALBUMS_ALB_DELETE_NOTIFY_SUBJECT', 'Benachrichtigung über
 define('_MI_WGGALLERY_ALBUMS_IMG_NEW_NOTIFY', 'Sende Benachrichtigung wenn neue Bilder in dieses Album hochgeladen wurden');
 define('_MI_WGGALLERY_ALBUMS_IMG_NEW_NOTIFY_CAPTION', 'Benachrichtige mich über hochgeladenes Bild in dieses Album');
 define('_MI_WGGALLERY_ALBUMS_IMG_NEW_NOTIFY_SUBJECT', 'Benachrichtigung über ein hochgeladenes Bild');
-define('_MI_WGGALLERY_ALBUMS_IMG_APPROVE_NOTIFY', 'Sende Benachrichtigung wenn wenn ein Bild auf Freigabe wartet');
+define('_MI_WGGALLERY_ALBUMS_IMG_APPROVE_NOTIFY', 'Sende Benachrichtigung wenn ein Bild auf Freigabe wartet');
 define('_MI_WGGALLERY_ALBUMS_IMG_APPROVE_NOTIFY_CAPTION', 'Benachrichtige mich über anstehende Freigaben von Bildern');
 define('_MI_WGGALLERY_ALBUMS_IMG_APPROVE_NOTIFY_SUBJECT', 'Benachrichtigung dass ein Bild auf Freigabe wartet');
-define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY', 'Sende Benachrichtigung wenn wenn ein Bild dieses Albums gelöscht wurde');
+define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY', 'Sende Benachrichtigung wenn ein Bild dieses Albums gelöscht wurde');
 define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_CAPTION', 'Benachrichtige mich über Bilderlöschungen dieses Albums');
 define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_SUBJECT', 'Benachrichtigung über Bilderlöschung');
+
+define('_MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY', 'Sende Benachrichtigung wenn ein Bild kommentiert wurde');
+define('_MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY_CAPTION', 'Benachrichtige mich über Kommentare zu Bildern');
+define('_MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY_SUBJECT', 'Benachrichtigung über Bilderkommentare');
+define('_MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY', 'Sende Benachrichtigung wenn ein Bild dieses Albums kommentiert wurde');
+define('_MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY_CAPTION', 'Benachrichtige mich über Kommentare Bilder dieses Albums');
+define('_MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY_SUBJECT', 'Benachrichtigung über Bilderkommentare');
 
 define('_MI_WGGALLERY_RATINGBARS', 'Bewertung zulassen');
 define('_MI_WGGALLERY_RATINGBARS_DESC', 'Definieren Sie, ob eine Bewertung zulässig sein soll, und falls ja, welche');

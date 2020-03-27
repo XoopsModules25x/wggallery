@@ -8,6 +8,7 @@
  - applied XMF code styling - grouppermHandler (mamba/goffy)
  - use coded name for file name of original image (lupin/goffy)
  - added all exif data as array to image object (lupin/goffy)
+ - added notification for comments (lupin/goffy)
 
 <h5>1.14 RC1</h5>  [2019/11/09]
 <hr>

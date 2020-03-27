@@ -148,7 +148,7 @@ define('_MI_WGGALLERY_ALBUMS_ALB_DELETE_NOTIFY', 'Invia notifica quando questo a
 define('_MI_WGGALLERY_ALBUMS_ALB_DELETE_NOTIFY_CAPTION', 'Avvisami della eliminazione di questo album');
 define('_MI_WGGALLERY_ALBUMS_ALB_DELETE_NOTIFY_SUBJECT', 'Notifica relativa all\'album eliminato');
 define('_MI_WGGALLERY_ALBUMS_IMG_NEW_NOTIFY', 'Invia notifica quando una nuova immagine è stata caricata in questo album');
-define('_MI_WGGALLERY_ALBUMS_IMG_NEW_NOTIFY_CAPTION', 'Notificami sulla nuova immagine in questo album this album');
+define('_MI_WGGALLERY_ALBUMS_IMG_NEW_NOTIFY_CAPTION', 'Notificami sulla nuova immagine in questo album');
 define('_MI_WGGALLERY_ALBUMS_IMG_NEW_NOTIFY_SUBJECT', 'Notifica di una nuova immagine');
 define('_MI_WGGALLERY_ALBUMS_IMG_APPROVE_NOTIFY', 'Invia notifica quando una immagine è in attesa di approvazione');
 define('_MI_WGGALLERY_ALBUMS_IMG_APPROVE_NOTIFY_CAPTION', 'Notificami sulla immagine in attesa di approvazione');

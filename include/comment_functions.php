@@ -48,5 +48,17 @@ function wggalleryCommentsUpdate($itemId, $commentCount)
  */
 function wggalleryCommentsApprove(&$comment)
 {
-    // notification mail here
+    $helper = \XoopsModules\Wggallery\Helper::getInstance();
+    // send notifications
+    $imgId               = $comment->getVar('com_itemid');
+    $imageObj            = $helper->getHandler('Images')->get($imgId);
+    $albId               = $imageObj->getVar('img_albid');
+    $tags                = [];
+    $tags['IMAGE_NAME']  = $imageObj->getVar('img_name');
+    $tags['IMAGE_URL']   = XOOPS_URL . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/images.php?op=show&img_id=' . $imgId . '&amp;alb_id=' . $albId;
+    $tags['ALBUM_URL']   = XOOPS_URL . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/albums.php?op=show&alb_id=' . $albId;
+    $notificationHandler = xoops_getHandler('notification');
+    $notificationHandler->triggerEvent('global', 0, 'img_comment_all', $tags, [], $comment->getVar('com_modid'));
+    $notificationHandler->triggerEvent('albums', $albId, 'img_comment', $tags);
+
 }
