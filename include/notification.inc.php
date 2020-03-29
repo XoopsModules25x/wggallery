@@ -43,6 +43,9 @@ function wggallery_notify_iteminfo($category, $item_id)
         $module = &$xoopsModule;
         $config = $xoopsModuleConfig;
     }
+    if (!defined('WGGALLERY_URL')) {
+        define('WGGALLERY_URL', XOOPS_URL . '/modules/wggallery');
+    }
 
     switch ($category) {
         case 'global':
@@ -51,7 +54,7 @@ function wggallery_notify_iteminfo($category, $item_id)
             // return $item;
             // Assume we have a valid album id
             $sql          = 'SELECT alb_name FROM ' . $xoopsDB->prefix('wggallery_albums') . ' WHERE alb_id = ' . $item_id;
-            $result       = $xoopsDB->query($sql); // TODO: error check
+            $result       = $xoopsDB->query($sql);
             $result_array = $xoopsDB->fetchArray($result);
             $item['name'] = $result_array['alb_name'];
             $item['url']  = WGGALLERY_URL . '/albums.php?alb_id=' . $item_id;
@@ -61,7 +64,7 @@ function wggallery_notify_iteminfo($category, $item_id)
         case 'albums':
             // Assume we have a valid album id
             $sql          = 'SELECT alb_name FROM ' . $xoopsDB->prefix('wggallery_albums') . ' WHERE alb_id = ' . $item_id;
-            $result       = $xoopsDB->query($sql); // TODO: error check
+            $result       = $xoopsDB->query($sql);
             $result_array = $xoopsDB->fetchArray($result);
             $item['name'] = $result_array['alb_name'];
             $item['url']  = WGGALLERY_URL . '/albums.php?alb_id=' . $item_id;
@@ -71,7 +74,7 @@ function wggallery_notify_iteminfo($category, $item_id)
         case 'image':
             // Assume we have a valid image id
             $sql          = 'SELECT img_name FROM ' . $xoopsDB->prefix('wggallery_images') . ' WHERE img_id = ' . $item_id;
-            $result       = $xoopsDB->query($sql); // TODO: error check
+            $result       = $xoopsDB->query($sql);
             $result_array = $xoopsDB->fetchArray($result);
             $item['name'] = $result_array['img_name'];
             $item['url']  = WGGALLERY_URL . '/images.php?op=show&amp;img_id=' . $item_id . '&amp;alb_id=' . $result_array['img_albid'];
