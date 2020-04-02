@@ -156,6 +156,10 @@ define('_MI_WGGALLERY_ALBUMS_IMG_APPROVE_NOTIFY_SUBJECT', 'La notifica sulla imm
 define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY', 'Invia notifica quando una nuova immagine è stata eliminata da questo album');
 define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_CAPTION', 'Avvisami sulla eliminazione della immagine da questo album');
 define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_SUBJECT', 'Notifica della immagine eliminata');
+define('_MI_WGGALLERY_IMAGES_NOTIFY', 'Image notification');
+define('_MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY', 'Notify me about new comments for this image');
+define('_MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY_CAPTION', 'Notify me about comments for this image');
+define('_MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY_SUBJECT', 'Notification about new comment for an image');
 
 define('_MI_WGGALLERY_RATINGBARS', 'Autorizza valutazione');
 define('_MI_WGGALLERY_RATINGBARS_DESC', 'Definire se la valutazione deve essere possibile e quale tipo di valutazione deve essere utilizzata');

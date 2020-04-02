@@ -10,6 +10,7 @@
  - added all exif data as array to image object (lupin/goffy)
  - added notification for comments (lupin/goffy)
  - fixed bug with notification include (lupin/goffy)
+ - added notification for comments on image level (lupin/goffy)
 
 <h5>1.14 RC1</h5>  [2019/11/09]
 <hr>
