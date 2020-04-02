@@ -163,6 +163,10 @@ define('_MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY_SUBJECT', 'Notification about co
 define('_MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY', 'Notify me about new comments for images in this album');
 define('_MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY_CAPTION', 'Notify me about comments for images in this album');
 define('_MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY_SUBJECT', 'Notification about new comment for an image');
+define('_MI_WGGALLERY_IMAGES_NOTIFY', 'Image notification');
+define('_MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY', 'Notify me about new comments for this image');
+define('_MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY_CAPTION', 'Notify me about comments for this image');
+define('_MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY_SUBJECT', 'Notification about new comment for an image');
 
 define('_MI_WGGALLERY_RATINGBARS', 'Allow rating');
 define('_MI_WGGALLERY_RATINGBARS_DESC', 'Define whether rating should be possible and which kind of rating should be used');

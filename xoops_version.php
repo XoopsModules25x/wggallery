@@ -695,7 +695,7 @@ $modversion['notification']['category'][] = [
     'name'           => 'global',
     'title'          => _MI_WGGALLERY_GLOBAL_NOTIFY,
     'description'    => '',
-    'subscribe_from' => ['index.php', 'albums.php', 'images.php'],
+	'subscribe_from' => ['index.php'],   //'subscribe_from' => ['index.php', 'albums.php', 'images.php'],
 ];
 $modversion['notification']['category'][] = [
     'name'           => 'albums',
@@ -705,14 +705,14 @@ $modversion['notification']['category'][] = [
     'item_name'      => 'alb_id',
     'allow_bookmark' => 1,
 ];
-// $modversion['notification']['category'][] = [
-// 'name' => 'images',
-// 'title' => _MI_WGGALLERY_IMAGES_NOTIFY,
-// 'description' => '',
-// 'subscribe_from' => ['index.php', 'albums.php', 'images.php'],
-// 'item_name' => 'img_id',
-// 'allow_bookmark' => 1,
-// ];
+$modversion['notification']['category'][] = [
+    'name'           => 'images',
+    'title'          => _MI_WGGALLERY_IMAGES_NOTIFY,
+    'description'    => '',
+    'subscribe_from' => ['images.php'],
+    'item_name'      => 'img_id',
+    'allow_bookmark' => 1,
+ ];
 // GLOBAL Events Notify Album New
 $modversion['notification']['event'][] = [
     'name'          => 'album_new_all',
@@ -836,7 +836,7 @@ $modversion['notification']['event'][] = [
 ];
 // Global Events Image commented
 $modversion['notification']['event'][] = [
-    'name'          => 'img_comment_all',
+    'name'          => 'image_comment_all',
     'category'      => 'global',
     'admin_only'    => 0,
     'title'         => _MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY,
@@ -847,7 +847,7 @@ $modversion['notification']['event'][] = [
 ];
 // Album Events Image commented
 $modversion['notification']['event'][] = [
-    'name'          => 'image_comment',
+    'name'          => 'image_comment_alb',
     'category'      => 'albums',
     'admin_only'    => 0,
     'title'         => _MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY,
@@ -855,4 +855,15 @@ $modversion['notification']['event'][] = [
     'description'   => '',
     'mail_template' => 'global_img_comment_notify',
     'mail_subject'  => _MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY_SUBJECT,
+];
+// Image Events Image commented
+$modversion['notification']['event'][] = [
+    'name'          => 'image_comment',
+    'category'      => 'images',
+    'admin_only'    => 0,
+    'title'         => _MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY,
+    'caption'       => _MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY_CAPTION,
+    'description'   => '',
+    'mail_template' => 'global_img_comment_notify',
+    'mail_subject'  => _MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY_SUBJECT,
 ];

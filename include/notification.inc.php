@@ -34,24 +34,12 @@ function wggallery_notify_iteminfo($category, $item_id)
 {
     global $xoopsModule, $xoopsModuleConfig, $xoopsDB;
 
-    if (empty($xoopsModule) || 'wggallery' !== $xoopsModule->getVar('dirname')) {
-        $moduleHandler = xoops_getHandler('module');
-        $module        = $moduleHandler->getByDirname('wggallery');
-        $configHandler = xoops_getHandler('config');
-        $config        = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
-    } else {
-        $module = &$xoopsModule;
-        $config = $xoopsModuleConfig;
-    }
     if (!defined('WGGALLERY_URL')) {
         define('WGGALLERY_URL', XOOPS_URL . '/modules/wggallery');
     }
 
     switch ($category) {
         case 'global':
-            // $item['name'] = '';
-            // $item['url'] = '';
-            // return $item;
             // Assume we have a valid album id
             $sql          = 'SELECT alb_name FROM ' . $xoopsDB->prefix('wggallery_albums') . ' WHERE alb_id = ' . $item_id;
             $result       = $xoopsDB->query($sql);
@@ -71,9 +59,9 @@ function wggallery_notify_iteminfo($category, $item_id)
 
             return $item;
             break;
-        case 'image':
+        case 'images':
             // Assume we have a valid image id
-            $sql          = 'SELECT img_name FROM ' . $xoopsDB->prefix('wggallery_images') . ' WHERE img_id = ' . $item_id;
+            $sql          = 'SELECT img_name, img_albid FROM ' . $xoopsDB->prefix('wggallery_images') . ' WHERE img_id = ' . $item_id;
             $result       = $xoopsDB->query($sql);
             $result_array = $xoopsDB->fetchArray($result);
             $item['name'] = $result_array['img_name'];

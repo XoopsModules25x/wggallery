@@ -144,7 +144,7 @@ define('_MI_WGGALLERY_GLOBAL_IMG_NEW_ALL_NOTIFY_SUBJECT', 'Benachrichtigung übe
 define('_MI_WGGALLERY_GLOBAL_IMG_DELETE_ALL_NOTIFY', 'Sende Benachrichtigung wenn irgendein ein Bild gelöscht wurde');
 define('_MI_WGGALLERY_GLOBAL_IMG_DELETE_ALL_NOTIFY_CAPTION', 'Benachrichtige mich über jede Löschung eines Bildes');
 define('_MI_WGGALLERY_GLOBAL_IMG_DELETE_ALL_NOTIFY_SUBJECT', 'Benachrichtigung über Löschung eines Bildes');
-define('_MI_WGGALLERY_ALBUMS_NOTIFY', 'Benachrichtigugen Album');
+define('_MI_WGGALLERY_ALBUMS_NOTIFY', 'Benachrichtigungen Album');
 define('_MI_WGGALLERY_ALBUMS_ALB_MODIFY_NOTIFY', 'Sende Benachrichtigung wenn dieses Album bearbeitet wurde');
 define('_MI_WGGALLERY_ALBUMS_ALB_MODIFY_NOTIFY_CAPTION', 'Benachrichtige mich Bearbeitung dieses Albums');
 define('_MI_WGGALLERY_ALBUMS_ALB_MODIFY_NOTIFY_SUBJECT', 'Benachrichtigung über Bearbeitung eines Albums');
@@ -167,6 +167,10 @@ define('_MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY_SUBJECT', 'Benachrichtigung übe
 define('_MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY', 'Sende Benachrichtigung wenn ein Bild dieses Albums kommentiert wurde');
 define('_MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY_CAPTION', 'Benachrichtige mich über Kommentare Bilder dieses Albums');
 define('_MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY_SUBJECT', 'Benachrichtigung über Bilderkommentare');
+define('_MI_WGGALLERY_IMAGES_NOTIFY', 'Benachrichtigungen Bild');
+define('_MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY', 'Sende Benachrichtigung wenn dieses Bild kommentiert wurde');
+define('_MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY_CAPTION', 'Benachrichtige mich über Kommentare dieses Bildes');
+define('_MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY_SUBJECT', 'Benachrichtigung über Bilderkommentare');
 
 define('_MI_WGGALLERY_RATINGBARS', 'Bewertung zulassen');
 define('_MI_WGGALLERY_RATINGBARS_DESC', 'Definieren Sie, ob eine Bewertung zulässig sein soll, und falls ja, welche');
