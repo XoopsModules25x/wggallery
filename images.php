@@ -52,6 +52,9 @@ $keywords = [];
 if (_CANCEL === Request::getString('cancel', 'none')) {
     $op = 'list';
 }
+if ($imgId > 0 && $albId > 0) {
+    $op = 'show';
+}
 
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet($style, null);
