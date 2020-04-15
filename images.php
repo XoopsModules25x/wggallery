@@ -27,7 +27,7 @@ use XoopsModules\Wggallery\Constants;
 
 require __DIR__ . '/header.php';
 
-$op = Request::getString('op', 'list');
+$op = Request::getString('op', '');
 if ('manage' === $op) {
     $GLOBALS['xoopsOption']['template_main'] = 'wggallery_images_manage.tpl';
 } else {
@@ -52,7 +52,7 @@ $keywords = [];
 if (_CANCEL === Request::getString('cancel', 'none')) {
     $op = 'list';
 }
-if ($imgId > 0 && $albId > 0) {
+if ('' === $op && $imgId > 0 && $albId > 0) {
     $op = 'show';
 }
 
