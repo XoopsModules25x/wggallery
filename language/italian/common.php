@@ -223,6 +223,8 @@ define('_CO_WGGALLERY_TAGS', 'Tag');
 define('_CO_WGGALLERY_TAGS_ENTER', 'Inserisci tag (usa #)');
 // Permissions
 define('_CO_WGGALLERY_PERMS_GLOBAL', 'Permessi globali');
+define('_CO_WGGALLERY_PERMS_GLOBAL_USECOLL', 'Permessi Globali per l\'uso di Collezioni di Album');
+define('_CO_WGGALLERY_PERMS_GLOBAL_USECOLL_DESC', "<ul><li>L'utente è autorizzato a raggruppare più album in una Collezione di album</li></ul>");
 define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL', 'Autorizzazioni globali per creare/modificare tutti gli album');
 define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC', 'Gruppi che hanno i permessi di  <ul><li>creare album</li><li>modificare tutti gli album</li><li>approvare tutti gli album</li><li>caricare le immagini in tutti gli album</li><li>approvare tutte le immagini</li></ul>');
 define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN', 'Autorizzazioni globali per creare/modificare i propri album senza approvazione');
@@ -230,9 +232,10 @@ define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN_DESC', 'Gruppi che hanno i permessi
 define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR', 'Autorizzazioni globali per creare/modificare i propri album solo con approvazione');
 define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR_DESC', 'Gruppi che hanno i permessi di <ul><li>creare albums</li><li>modificare i propri album</li><li>caricare immagini nei propri album</li></ul>');
 define('_CO_WGGALLERY_PERMS_GLOBAL_DESC', '<ul>
-                                                <li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC . '</li>
-                                                <li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN_DESC . '</li>
-                                                <li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR_DESC . '</li>
+                                                <li>' . _CO_WGGALLERY_PERMS_GLOBAL_USECOLL . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_USECOLL_DESC . '<br></li>
+                                                <li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC . '<br></li>
+                                                <li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN_DESC . '<br></li>
+                                                <li>' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR . ': ' . _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR_DESC . '<br></li>
                                            </ul>');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW', 'Autorizzazioni per visualizzare');
 define('_CO_WGGALLERY_PERMS_ALB_VIEW_DESC', 'Gruppi autorizzati a visualizzare un album');

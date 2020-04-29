@@ -14,6 +14,8 @@
  - changed redir after notification update (lupin/goffy)
  - updated italian language (lupin/goffy)
  - fixed bug with deleting images (lupin/goffy)
+ - fixed bug in comment notification (lupin/goffy)
+ - added new permission to use album collections (lupin/goffy)
 
 <h5>1.14 RC1</h5>  [2019/11/09]
 <hr>

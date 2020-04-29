@@ -48,7 +48,7 @@ switch ($op) {
         $formTitle   = _CO_WGGALLERY_PERMS_GLOBAL;
         $permName    = 'wggallery_global';
         $permDesc    = _CO_WGGALLERY_PERMS_GLOBAL_DESC;
-        $globalPerms = ['4' => _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL, '8' => _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN, '16' => _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR];
+        $globalPerms = ['2' => _CO_WGGALLERY_PERMS_GLOBAL_USECOLL, '4' => _CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL, '8' => _CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN, '16' => _CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR];
         break;
     case 'albdefault':
         $formTitle   = _AM_WGGALLERY_PERMS_ALBDEFAULT;

@@ -41,6 +41,8 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
     }
 
     /**
+     * function to check global permissions
+     *
      * @return int
      */
     public function permGlobalSubmit()
@@ -73,6 +75,36 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
         }
 
         return Constants::PERM_SUBMITNONE;
+    }
+
+    /**
+     * function to check permission to use album collections
+     * @return bool
+     */
+    public function permGlobalUseCollections()
+    {
+        global $xoopsUser;
+
+        $currentuid = 0;
+        if (isset($xoopsUser) && is_object($xoopsUser)) {
+            if ($xoopsUser->isAdmin()) {
+                return true;
+            }
+            $currentuid = $xoopsUser->uid();
+        }
+        $grouppermHandler = xoops_getHandler('groupperm');
+        $mid              = \XoopsModules\Wggallery\Helper::getMid();
+        $memberHandler    = xoops_getHandler('member');
+        if (0 == $currentuid) {
+            $my_group_ids = [XOOPS_GROUP_ANONYMOUS];
+        } else {
+            $my_group_ids = $memberHandler->getGroupsByUser($currentuid);
+        }
+        if ($grouppermHandler->checkRight('wggallery_global', '2', $my_group_ids, $mid)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
