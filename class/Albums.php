@@ -89,10 +89,10 @@ class Albums extends \XoopsObject
     /**
      * @public function getFormAlbums
      * @param bool $action
-     * @param bool $admin
+     * @param bool $adminArea
      * @return \XoopsThemeForm
      */
-    public function getFormAlbums($action = false, $admin = false)
+    public function getFormAlbums($action = false, $adminArea = false)
     {
         /** @var \XoopsModules\Wggallery\Helper $helper */
         $helper        = \XoopsModules\Wggallery\Helper::getInstance();
@@ -100,6 +100,14 @@ class Albums extends \XoopsObject
         $permissionsHandler = $helper->getHandler('Permissions');
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
+        }
+        $currentuid = 0;
+        $isAdmin    = false;
+        if (isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser'])) {
+            if ($GLOBALS['xoopsUser']->isAdmin()) {
+                $isAdmin = true;
+            }
+            $currentuid = $GLOBALS['xoopsUser']->getVar('uid');
         }
         // Title
         $title = $this->isNew() ? sprintf(_CO_WGGALLERY_ALBUM_ADD) : sprintf(_CO_WGGALLERY_ALBUM_EDIT);
@@ -113,7 +121,6 @@ class Albums extends \XoopsObject
         $albPid = $this->isNew() ? '0' : $this->getVar('alb_pid');
         if ($permissionsHandler->permGlobalUseCollections()) {
             $albumsHandler = $helper->getHandler('Albums');
-            $permissionsHandler = $helper->getHandler('Permissions');
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('alb_id', $this->getVar('alb_id'), '<>'));
             $criteria->setSort('alb_weight ASC, alb_date');
@@ -160,7 +167,7 @@ class Albums extends \XoopsObject
         $albImgcat = $this->isNew() ? Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL : $this->getVar('alb_imgtype');
         $albImage  = $this->isNew() ? 'noimage.png' : $this->getVar('alb_image');
         $albImgid  = $this->isNew() ? 0 : $this->getVar('alb_imgid');
-        if ($admin) {
+        if ($adminArea) {
             $albImgcatSelect = new \XoopsFormRadio(_CO_WGGALLERY_ALBUM_IMGTYPE, 'alb_imgtype', $albImgcat);
             $albImgcatSelect->addOption(Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL, _CO_WGGALLERY_ALBUM_USE_UPLOADED);
             $albImgcatSelect->addOption(Constants::ALBUM_IMGCAT_USE_EXIST_VAL, _CO_WGGALLERY_ALBUM_IMGID);
@@ -310,19 +317,23 @@ class Albums extends \XoopsObject
         // Form Text Date Select AlbDate
         $albDate = $this->isNew() ? 0 : $this->getVar('alb_date');
         $form->addElement(new \XoopsFormTextDateSelect(_CO_WGGALLERY_DATE, 'alb_date', '', $albDate));
+        
         // Form Select User AlbSubmitter
-        if ($this->isNew()) {
-            $alb_submitter = (isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
+        $alb_submitter = $this->isNew() ? $currentuid : $this->getVar('alb_submitter');
+        if ($isAdmin && $adminArea) {
+            $form->addElement(new \XoopsFormSelectUser(_CO_WGGALLERY_SUBMITTER, 'alb_submitter', false, $alb_submitter));
         } else {
-            $alb_submitter = $this->getVar('alb_submitter');
+            $form->addElement(new \XoopsFormHidden('alb_submitter', $alb_submitter));
+            if (!$this->isNew()) {
+                $form->addElement(new \XoopsFormLabel(_CO_WGGALLERY_SUBMITTER, \XoopsUser::getUnameFromId($alb_submitter)));
+            }
         }
-        $form->addElement(new \XoopsFormSelectUser(_CO_WGGALLERY_SUBMITTER, 'alb_submitter', false, $alb_submitter));
 
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $btnTray = new \XoopsFormElementTray('', '&nbsp;');
         $btnTray->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
-        if (!$admin) {
+        if (!$adminArea) {
             $btnSubmitUpload = new \XoopsFormButton('', 'submit_upload', _CO_WGGALLERY_FORM_SUBMIT_SUBMITUPLOAD, 'submit');
             $btnSubmitUpload->setClass('btn btn-primary');
             $btnTray->addElement($btnSubmitUpload);
