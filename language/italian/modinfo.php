@@ -156,10 +156,17 @@ define('_MI_WGGALLERY_ALBUMS_IMG_APPROVE_NOTIFY_SUBJECT', 'La notifica sulla imm
 define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY', 'Invia notifica quando una nuova immagine è stata eliminata da questo album');
 define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_CAPTION', 'Avvisami sulla eliminazione della immagine da questo album');
 define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_SUBJECT', 'Notifica della immagine eliminata');
-define('_MI_WGGALLERY_IMAGES_NOTIFY', 'Notifica per Immagine');
-define('_MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY', 'Notificami per nuovi commenti a questa immagine');
-define('_MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY_CAPTION', 'Notificami per commenti a questa immagine');
-define('_MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY_SUBJECT', 'Notifica per un nuovo commento ad una immagine');
+
+define('_MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY', 'Avvisami di nuovi commenti per le immagini');
+define('_MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY_CAPTION', 'Avvisami di commenti per le immagini');
+define('_MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY_SUBJECT', 'Notifica relativa ai commenti per una immagine');
+define('_MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY', 'Notificami per nuovi commenti alle immagini di questo album');
+define('_MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY_CAPTION', 'Notificami per commenti alle immagini di questo album');
+define('_MI_WGGALLERY_ALBUMS_IMG_COMMENT_NOTIFY_SUBJECT', 'Notifica di un nuovo commento per una immagine');
+define('_MI_WGGALLERY_IMAGES_NOTIFY', 'Notifica per una immagine');
+define('_MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY', 'Avvisami di nuovi commenti per questa immagine');
+define('_MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY_CAPTION', 'Avvisami di commenti per questa immagine');
+define('_MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY_SUBJECT', 'Avvisami di nuovi commenti per una immagine');
 
 define('_MI_WGGALLERY_RATINGBARS', 'Autorizza valutazione');
 define('_MI_WGGALLERY_RATINGBARS_DESC', 'Definire se la valutazione deve essere possibile e quale tipo di valutazione deve essere utilizzata');
