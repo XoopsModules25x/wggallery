@@ -120,7 +120,6 @@ class Albums extends \XoopsObject
         // Form Select Parent Album
         $albPid = $this->isNew() ? '0' : $this->getVar('alb_pid');
         if ($permissionsHandler->permGlobalUseCollections()) {
-            $albumsHandler = $helper->getHandler('Albums');
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('alb_id', $this->getVar('alb_id'), '<>'));
             $criteria->setSort('alb_weight ASC, alb_date');
@@ -148,7 +147,6 @@ class Albums extends \XoopsObject
         } else {
             $form->addElement(new \XoopsFormHidden('alb_pid', $albPid));
         }
-
         // Form editor AlbDesc
         $editorConfigs           = [];
         $editorConfigs['name']   = 'alb_desc';
@@ -162,7 +160,6 @@ class Albums extends \XoopsObject
         // Form Text AlbWeight
         $albWeight = $this->isNew() ? '0' : $this->getVar('alb_weight');
         $form->addElement(new \XoopsFormHidden('alb_weight', $albWeight));
-
         // Form Album image
         $albImgcat = $this->isNew() ? Constants::ALBUM_IMGCAT_USE_UPLOADED_VAL : $this->getVar('alb_imgtype');
         $albImage  = $this->isNew() ? 'noimage.png' : $this->getVar('alb_image');
@@ -179,7 +176,6 @@ class Albums extends \XoopsObject
             $form->addElement(new \XoopsFormHidden('alb_image', $albImage));
             $form->addElement(new \XoopsFormHidden('alb_imgid', $albImgid));
         }
-
         // Form Select Albstate
         $albState       = $this->isNew() ? 0 : $this->getVar('alb_state');
         $albStateSelect = new \XoopsFormRadio(_CO_WGGALLERY_ALBUM_STATE, 'alb_state', $albState);
@@ -189,7 +185,6 @@ class Albums extends \XoopsObject
             $albStateSelect->addOption(Constants::STATE_APPROVAL_VAL, _CO_WGGALLERY_STATE_APPROVAL);
         }
         $form->addElement($albStateSelect);
-
         // Permissions
         $memberHandler    = xoops_getHandler('member');
         $groupList        = $memberHandler->getGroupList();
@@ -253,7 +248,6 @@ class Albums extends \XoopsObject
         $groupsCanDlImageMAll->addOption(1, _CO_WGGALLERY_ALL);
         $groupsCanDlImageMTray->addElement($groupsCanDlImageMAll, false);
         $form->addElement($groupsCanDlImageMTray);
-
         // Form Select Album watermark
         $albWmid = $this->isNew() ? 0 : $this->getVar('alb_wmid');
         // is there a watermark for usage in all albums
@@ -288,7 +282,6 @@ class Albums extends \XoopsObject
             $form->addElement(new \XoopsFormHidden('alb_wmid', '0'));
         }
         unset($criteria);
-
         // Form Text Select AlbCats
         $albCats = $this->isNew() ? [] : unserialize($this->getVar('alb_cats'));
         if ($helper->getConfig('use_categories')) {
@@ -313,11 +306,9 @@ class Albums extends \XoopsObject
         } else {
             $form->addElement(new \XoopsFormHidden('alb_tags', $this->getVar('alb_tags')));
         }
-
         // Form Text Date Select AlbDate
         $albDate = $this->isNew() ? 0 : $this->getVar('alb_date');
         $form->addElement(new \XoopsFormTextDateSelect(_CO_WGGALLERY_DATE, 'alb_date', '', $albDate));
-        
         // Form Select User AlbSubmitter
         $alb_submitter = $this->isNew() ? $currentuid : $this->getVar('alb_submitter');
         if ($isAdmin && $adminArea) {
@@ -328,7 +319,6 @@ class Albums extends \XoopsObject
                 $form->addElement(new \XoopsFormLabel(_CO_WGGALLERY_SUBMITTER, \XoopsUser::getUnameFromId($alb_submitter)));
             }
         }
-
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $btnTray = new \XoopsFormElementTray('', '&nbsp;');

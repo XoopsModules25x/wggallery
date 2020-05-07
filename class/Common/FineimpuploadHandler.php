@@ -159,13 +159,12 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         $exif = '';
         if ($helper->getConfig('store_exif')) {
             // read exif from original image
-            $exif           = exif_read_data($this->imagePath);
-            $this->exifData = json_encode($exif);
+            $this->exifData = $imagesHandler->exifRead($this->imagePath);
         }
         if ('none' !== $helper->getConfig('exif_tags')) {
             if ('' == $exif) {
                 // read exif from original image
-                $exif = exif_read_data($this->imagePath);
+                $exif = $imagesHandler->exifRead($this->imagePath, false);
             }
             $this->imageTags = $imagesHandler->exifExtractTags($exif, $helper->getConfig('exif_tags'));
         }

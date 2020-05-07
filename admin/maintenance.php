@@ -956,6 +956,8 @@ switch ($op) {
         break;
     case 'read_exif':
     case 'read_exifall':
+        $strSQL = 'UPDATE `' . $GLOBALS['xoopsDB']->prefix('wggallery_images') . "` SET `img_exif` = NULL WHERE `img_exif`='';";
+        $GLOBALS['xoopsDB']->queryF($strSQL);
         if ('read_exifall' === $op) {
             $strSQL = 'UPDATE `' . $GLOBALS['xoopsDB']->prefix('wggallery_images') . '` SET `img_exif` = NULL;';
             $GLOBALS['xoopsDB']->queryF($strSQL);
@@ -979,7 +981,7 @@ switch ($op) {
                     if (!file_exists($sourcefile)) {
                         $sourcefile = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesAll[$i]->getVar('img_namelarge');
                     }
-                    $imgExif = exif_read_data($sourcefile);
+                    $imgExif = $imagesHandler->exifRead($sourcefile);
                     $imagesObj->setVar('img_exif', json_encode($imgExif));
                     if ($imagesHandler->insert($imagesObj, true)) {
                         $success[] = _AM_WGGALLERY_MAINTENANCE_READ_EXIF_SUCCESS . ': ' . $image['img_id'];

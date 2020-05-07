@@ -184,4 +184,20 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
 
         return $ret;
     }
+
+    /**
+     * encode and decode with json in order to get proper values
+     * @param  $file
+     * @param  $encode
+     * @return string or array
+     */
+    public function exifRead($file, $encoded = true)
+    {
+        $exif = exif_read_data($file);
+        $ret  = json_encode($exif, JSON_INVALID_UTF8_IGNORE);
+        if ($encoded) {
+            return $ret;
+        }
+        return json_decode($ret);
+    }
 }
