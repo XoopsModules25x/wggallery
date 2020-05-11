@@ -314,10 +314,18 @@ switch ($op) {
         $aorder = $_POST['menuItem'];
         $i      = 0;
         foreach (array_keys($aorder) as $key) {
+            $albPid = (int)$aorder[$key];
             $albumsObj = $albumsHandler->get($key);
-            $albumsObj->setVar('alb_pid', $aorder[$key]);
+            $albumsObj->setVar('alb_pid', $albPid);
             $albumsObj->setVar('alb_weight', $i + 1);
             $albumsHandler->insert($albumsObj);
+            unset($albumsObj);
+            if ($albPid > 0) {
+                $albumsObj = $albumsHandler->get($albPid);
+                $albumsObj->setVar('alb_iscoll', 1);
+                $albumsHandler->insert($albumsObj);
+                unset($albumsObj);
+            }
             $i++;
         }
         break;

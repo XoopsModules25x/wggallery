@@ -176,7 +176,13 @@ switch ($op) {
             redirect_header('images.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         $imgAlbId = Request::getInt('img_albid');
-        if (!$permAlbumEdit || $imgAlbId !== $albId) {
+        if ($imgAlbId !== $albId) {
+            //if image is moved from one to another album then user must have permission for both albums
+            if (!$permissionsHandler->permAlbumEdit($imgAlbId, $albSubmitter)) {
+                redirect_header('images.php', 3, _NOPERM);
+            }
+        }
+        if (!$permAlbumEdit) {
             redirect_header('images.php', 3, _NOPERM);
         }
         if (isset($imgId)) {

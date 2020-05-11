@@ -19,6 +19,8 @@
  - removed user select of album creator on user side (lupin/goffy)
  - fixed bug in read exif non utf8 (lupin/goffy)
  - fixed perm for album list in image editor (lupin/goffy)
+ - fixed perm bug for moving image from one to another album (lupin/goffy)
+ - fixed bug in nested sorting (lupin/goffy)
 
 <h5>1.14 RC1</h5>  [2019/11/09]
 <hr>
