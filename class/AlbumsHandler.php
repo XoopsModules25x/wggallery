@@ -204,7 +204,6 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
         // Table view albums
         if ($albumsCount > 0) {
             foreach (array_keys($albumsAll) as $i) {
-                $alb_name =  $albumsAll[$i]->getVar('alb_name');
                 if ($permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'))) {
                     $child     = $this->getListChildsOfCollection($albumsAll[$i]->getVar('alb_id'));
                     $childsAll .= '<li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-collapsed" id="menuItem_' . $albumsAll[$i]->getVar('alb_id') . '">';
