@@ -52,6 +52,7 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
     if (is_array($queryarray)) {
         $count = count($queryarray);
     }
+	
     if (is_array($queryarray) && $count > 0) {
         $criteriaKeywords = new CriteriaCompo();
         $elementCount     = count($queryarray);
@@ -75,10 +76,10 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
     }
 
     $critSearch = new CriteriaCompo();
-    if (null !== $criteriaUser) {
+    if (isset($criteriaUser)) {
         $critSearch->add($criteriaUser, 'AND');
     }
-    if (null !== $criteriaKeywords) {
+    if (isset($criteriaKeywords)) {
         $critSearch->add($criteriaKeywords, 'AND');
     }
     $critSearch->setLimit($limit);
@@ -122,10 +123,10 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
     }
 
     $critSearch = new CriteriaCompo();
-    if (null !== $criteriaUser) {
+    if (isset($criteriaUser)) {
         $critSearch->add($criteriaUser, 'AND');
     }
-    if (null !== $criteriaKeywords) {
+    if (isset($criteriaKeywords)) {
         $critSearch->add($criteriaKeywords, 'AND');
     }
     $critSearch->setLimit($limit);
