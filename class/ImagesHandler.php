@@ -166,7 +166,7 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
     {
         $ret = '';
 
-        if (is_array($exifs)) {
+        if (is_object($exifs) || is_array($exifs)) {
             foreach ($exifs as $key => $value) {
                 if (in_array($key, $exif_tags)) {
                     if (is_array($value)) {
