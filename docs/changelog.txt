@@ -22,6 +22,7 @@
  - fixed perm bug for moving image from one to another album (lupin/goffy)
  - fixed bug in nested sorting (lupin/goffy)
  - fixed bug in extract exif (lupin/goffy)
+ - added album name to lc_lightbox (goffy)
 
 <h5>1.14 RC1</h5>  [2019/11/09]
 <hr>

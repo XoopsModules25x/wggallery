@@ -40,15 +40,14 @@
 				'<div id="lcl_play" class="lcl_icon lcl_play"></div>'+
 				'<div id="lcl_next" class="lcl_icon lcl_next" title="next"></div>'+
 				'<div id="lcl_counter" class="lcl_icon lcl_counter"></div>'+
-
-				'<div id="lcl_close" class="lcl_icon lcl_right_icon lcl_close" title="close"></div>'+
-				
+				'<div id="lcl_close" class="lcl_icon lcl_right_icon lcl_close" title="close"></div>'+				
 				'<div id="lcl_fullscreen" class="lcl_icon lcl_right_icon lcl_fullscreen" title="toggle fullscreen"></div>'+
 				'<div id="lcl_txt_toggle" class="lcl_icon lcl_right_icon lcl_txt_toggle" title="toggle text"></div>'+
 				'<div id="lcl_download" class="lcl_icon lcl_right_icon lcl_download" title="download"></div>'+
 				'<div id="lcl_thumbs_toggle" class="lcl_icon lcl_right_icon lcl_thumbs_toggle" title="toggle thumbnails"></div>'+
 				'<div id="lcl_socials" class="lcl_icon lcl_right_icon lcl_socials" title="toggle socials"></div>'+
 			'</div>'+
+            '<div id="lbl_album"></div>'+
 			'<div id="lcl_contents_wrap">'+
 				'<div id="lcl_subj">'+
 					'<div id="lcl_elem_wrap"></div>'+
