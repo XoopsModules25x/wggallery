@@ -116,7 +116,8 @@ switch ($pr_gallery['template']) {
     case 'lclightboxlite':
         $GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/gallerytypes/lclightboxlite/css/lc_lightbox.min.css', null);
         $GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/gallerytypes/lclightboxlite/skins/' . $lcl_skin . '.css', null);
-        $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/lclightboxlite/js/lc_lightbox.lite.min.js');
+        $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/gallerytypes/lclightboxlite/js/lc_lightbox.lite.js');
+        $GLOBALS['xoopsTpl']->assign('lbl_album', $albName);
         break;
     case 'jssor':
         $GLOBALS['xoopsTpl']->assign('uniqid', preg_replace('/[^a-zA-Z0-9]+/', '_', uniqid('', true)));

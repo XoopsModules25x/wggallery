@@ -18,7 +18,7 @@
         <{/foreach}><{/if}>];
         
         var $instance = lc_lightbox(data, {
-			gallery:true,
+            gallery:true,
 			slideshow:<{$lcl_slideshow}>,
             skin:'<{$lcl_skin}>',
 			open_close_time : <{$speedOpen}>,
@@ -69,8 +69,12 @@
         lclSetAttribute("lcl_txt_toggle", "<{$smarty.const._MA_WGGALLERY_LCL_TXT_TOGGLE}>");
         lclSetAttribute("lcl_download", "<{$smarty.const._MA_WGGALLERY_LCL_DOWNLOAD}>");
         lclSetAttribute("lcl_thumbs_toggle", "<{$smarty.const._MA_WGGALLERY_LCL_THUMBS_TOGGLE}>");
-        lclSetAttribute("lcl_socials", "<{$smarty.const._MA_WGGALLERY_LCL_SOCIALS}>");  
-        
+        lclSetAttribute("lcl_socials", "<{$smarty.const._MA_WGGALLERY_LCL_SOCIALS}>");
+        //set album name
+        <{if $lbl_album}>
+            $('#lbl_album').html('<p><{$lbl_album}></p>');
+        <{/if}>
+
     });
     $(document).on('click', '#lcl_downloadlink', function(){
         var ele = document.getElementById("lcl_downloadlink"); 
@@ -89,7 +93,20 @@
           x[i].setAttribute("title", mytitle);
         } 
     };
+    
 </script>
+
+<style>
+    #lbl_album {
+        margin-top: -40px;
+        text-align: center;
+        height: 30px;
+    }
+    #lbl_album p {
+        padding-top:15px;
+        font-size: 18px;
+    }
+</style>
 
 <div style="height:<{$lcl_backgroundheight}>;">&nbsp;</div>
 

@@ -286,9 +286,9 @@ switch ($op) {
                 $ratingsHandler->deleteAllRatings($imgId, 1);
 
                 if ('manage' === $redir_op) {
-                    redirect_header('images.php?op=manage&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid, 2, _CO_WGGALLERY_FORM_DELETE_OK);
+                    redirect_header('images.php?op=manage&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $albPid, 2, _CO_WGGALLERY_FORM_DELETE_OK);
                 } else {
-                    redirect_header('images.php?op=list&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid, 2, _CO_WGGALLERY_FORM_DELETE_OK);
+                    redirect_header('images.php?op=list&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $albPid, 2, _CO_WGGALLERY_FORM_DELETE_OK);
                 }
 
                 redirect_header('images.php?op=list&amp;alb_id=' . $albId, 3, _CO_WGGALLERY_FORM_DELETE_OK);
