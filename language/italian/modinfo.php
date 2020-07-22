@@ -99,7 +99,7 @@ define('_MI_WGGALLERY_ADDJQUERY_DESC', 'Se usi già jquery (ad es. Nel tuo tema)
 define('_MI_WGGALLERY_PANEL_TYPE', 'Tipo di Pannello');
 define('_MI_WGGALLERY_PANEL_TYPE_DESC', 'Il tipo di pannello è il div html bootstrap.');
 define('_MI_WGGALLERY_SHOWBCRUMBS', 'Mostra percorso di navigazione');
-define('_MI_WGGALLERY_SHOWBCRUMBS_DESC', 'Il percorso di navigazione mostra il contesto della pagina corrente nella struttura del sito.');
+define('_MI_WGGALLERY_SHOWBCRUMBS_DESC', "Il percorso di navigazione mostra il contesto della pagina corrente nella struttura del sito.");
 define('_MI_WGGALLERY_SHOWBCRUMBS_MNAME', 'Mostra il nome del modulo');
 define('_MI_WGGALLERY_SHOWBCRUMBS_MNAME_DESC', 'Mostra il nome del modulo nel percorso di navigazione');
 define('_MI_WGGALLERY_SHOWCOPYRIGHT', 'Mostra copyright');
@@ -111,9 +111,9 @@ define('_MI_WGGALLERY_USE_TAGS_DESC', 'Definire se si desidera utilizzare i tag 
 define('_MI_WGGALLERY_STOREEXIF', 'Salva i meta dati (exif)');
 define('_MI_WGGALLERY_STOREEXIF_DESC', 'Definire se si desidera salvare i metadati (exif) delle immagini');
 define('_MI_WGGALLERY_EXIFTYPES', 'Dati Exif da mostrare');
-define('_MI_WGGALLERY_EXIFTYPES_DESC', "Definire quali dati exif devono essere mostrati<br>La opzione '" . _MI_WGGALLERY_STOREEXIF . "' deve essere attivata");
+define('_MI_WGGALLERY_EXIFTYPES_DESC', "Definire quali dati exif devono essere mostrati<br>La opzione 'Salva i meta dati (exif)' deve essere attivata");
 define('_MI_WGGALLERY_EXIF_TAGS', 'Estrai i tag dei dati Exif');
-define('_MI_WGGALLERY_EXIF_TAGS_DESC', "Definire quali dati exif devono essere estratti automaticamente ed aggiunti ad una immagine caricata, come tag<br>La opzione '" . _MI_WGGALLERY_USE_TAGS . "' deve essere attivata");
+define('_MI_WGGALLERY_EXIF_TAGS_DESC', "Definire quali dati exif devono essere estratti automaticamente ed aggiunti ad una immagine caricata, come tag<br>La opzione 'Usa i tag' deve essere attivata");
 define('_MI_WGGALLERY_SHOWBUTTONTEXT', 'Mostra il titolo del pulsante');
 define('_MI_WGGALLERY_SHOWBUTTONTEXT_DESC', 'Mostra il titolo del pulsante. Se NO, vengono visualizzate solo le immagini');
 define('_MI_WGGALLERY_GROUP_UPLOAD', 'Opzioni per il caricamento della immagine');

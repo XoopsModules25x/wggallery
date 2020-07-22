@@ -35,7 +35,7 @@ define('_AM_WGGALLERY_THEREARE_CATEGORIES', "Es gibt <span class='bold'>%s</span
 define('_AM_WGGALLERY_THEREARENT_GALLERYTYPES', "Es gibt keine Galerietypen! Für eine Initialisierung bzw. Wiederherstellung gehen Sie bitte auf 'Wartung' => 'Wartung Galerietypen' und klicken Sie auf die Schaltfläche 'Standardeinstellungen wiederherstellen'");
 define('_AM_WGGALLERY_THEREARENT_ALBUMTYPES', "Es gibt keine Albumtypen! Für eine Initialisierung bzw. Wiederherstellung gehen Sie bitte auf 'Wartung' => 'Wartung Albumtypen' und klicken Sie auf die Schaltfläche 'Standardeinstellungen wiederherstellen'");
 define('_AM_WGGALLERY_THEREARENT_WATERMARKS', 'Derzeit sind keine Wasserzeichen definiert!');
-define('_AM_WGGALLERY_THEREARENT_CATEGORIES', 'Es gibt keine Kategorien!');
+define('_AM_WGGALLERY_THEREARENT_CATEGORIES', "Es gibt keine Kategorien!");
 // ---------------- Admin Files ----------------
 // Buttons
 define('_AM_WGGALLERY_ADD_ALBUM', 'Neues Album hinzufügen');
@@ -53,8 +53,8 @@ define('_AM_WGGALLERY_ALBUMTYPES_LIST', 'Liste der Albumtypen');
 define('_AM_WGGALLERY_WATERMARKS_LIST', 'Liste der Wasserzeichen');
 define('_AM_WGGALLERY_CATEGORIES_LIST', 'Liste der Kategorien');
 // Album
-define('_AM_WGGALLERY_ALBUM_IMGNAME', "Name des Albumbildes (wenn '" . _CO_WGGALLERY_ALBUM_USE_UPLOADED . "')");
-define('_AM_WGGALLERY_ALBUM_IMGID', "ID des Albumbildes (wenn '" . _CO_WGGALLERY_ALBUM_IMGID . "')");
+define('_AM_WGGALLERY_ALBUM_IMGNAME', "Name des Albumbildes (wenn 'Ein dafür hochgeladenes Bild verwenden')");
+define('_AM_WGGALLERY_ALBUM_IMGID', "ID des Albumbildes (wenn 'In diesem Album enthaltene Bilder')");
 //Categories
 define('_AM_WGGALLERY_EDIT_CATEGORY', 'Kategorie bearbeiten');
 define('_AM_WGGALLERY_CAT_ID', 'Id');
@@ -64,7 +64,7 @@ define('_AM_WGGALLERY_CAT_ALBUM', 'Kategorie für Alben verwenden');
 define('_AM_WGGALLERY_CAT_IMAGE', 'Kategorie für Bilder verwenden');
 define('_AM_WGGALLERY_CAT_SEARCH', 'Kategorie für Suche verwenden');
 define('_AM_WGGALLERY_CAT_ERROR_CHANGE', 'Fehler beim Ändern der Option');
-//Gallerytype/Albumtypes
+// Elements of Gallerytype
 define('_AM_WGGALLERY_GT_AT_ID', 'Id');
 define('_AM_WGGALLERY_GT_AT_PRIMARY', 'Primär');
 define('_AM_WGGALLERY_GT_AT_PRIMARY_1', 'Derzeit primär');
@@ -111,9 +111,9 @@ define('_AM_WGGALLERY_OPTION_GT_SLIDERTYPE_1', 'Definierte Größen');
 define('_AM_WGGALLERY_OPTION_GT_SLIDERTYPE_2', 'Volle Templatebreite');
 // define('_AM_WGGALLERY_OPTION_GT_SLIDERTYPE_3', 'Ganzes Fenster');
 define('_AM_WGGALLERY_OPTION_GT_MAXWIDTH', 'Maximale Bildbreite');
-define('_AM_WGGALLERY_OPTION_GT_MAXWIDTH_DESC', "Definieren Sie die maximale Bildbreite des Bildercontainers in Pixel. Nicht gültig für '" . _AM_WGGALLERY_OPTION_GT_SLIDERTYPE_2 . "'");
+define('_AM_WGGALLERY_OPTION_GT_MAXWIDTH_DESC', "Definieren Sie die maximale Bildbreite des Bildercontainers in Pixel. Nicht gültig für 'Volle Templatebreite'");
 define('_AM_WGGALLERY_OPTION_GT_MAXHEIGHT', 'Maximale Bildhöhe');
-define('_AM_WGGALLERY_OPTION_GT_MAXHEIGHT_DESC', 'Definieren Sie die maximale Bildhöhe des Bildercontainers in Pixel. Nicht gültig für ' . _AM_WGGALLERY_OPTION_GT_SLIDERTYPE_2 . "'");
+define('_AM_WGGALLERY_OPTION_GT_MAXHEIGHT_DESC', "Definieren Sie die maximale Bildhöhe des Bildercontainers in Pixel. Nicht gültig für 'Volle Templatebreite'");
 define('_AM_WGGALLERY_OPTION_GT_ORIENTATION', 'Ausrichtung');
 define('_AM_WGGALLERY_OPTION_GT_ORIENTATION_H', 'Horizontal');
 define('_AM_WGGALLERY_OPTION_GT_ORIENTATION_V', 'Vertikal');
@@ -175,15 +175,15 @@ define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_UNDER', 'Darunter');
 define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_OVER', 'Darüber');
 define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_RSIDE', 'Rechte Seite');
 define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_LSIDE', 'Linke Seite');
-define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_DESC', "Beachten Sie bitte, dass Lightbox im Falle eines zu kleinen Bildes/Fensters automatisch '" . _AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_OVER . "' verwendet");
+define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_DESC', "Beachten Sie bitte, dass Lightbox im Falle eines zu kleinen Bildes/Fensters automatisch 'Darüber' verwendet");
 define('_AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION', 'Anzeigeposition Schaltflächen');
 define('_AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION_INNER', 'Innerhalb');
 define('_AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION_OUTER', 'Außerhalb');
-define('_AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION_DESC', "Beachten Sie bitte, dass Lightbox im Falle eines zu kleinen Bildes/Fensters automatisch '" . _AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION_OUTER . "' verwendet");
+define('_AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION_DESC', "Beachten Sie bitte, dass Lightbox im Falle eines zu kleinen Bildes/Fensters automatisch 'Außerhalb' verwendet");
 define('_AM_WGGALLERY_OPTION_GT_LCLTHUMBSWIDTH', 'Breite Vorschaubilder (in Pixel)');
 define('_AM_WGGALLERY_OPTION_GT_LCLTHUMBSHEIGTH', 'Höhe Vorschaubilder (in Pixel)');
 define('_AM_WGGALLERY_OPTION_GT_LCLFULLSCREEN', "Schaltfläche 'Ganzer Bildschirm' anzeigen");
-define('_AM_WGGALLERY_OPTION_GT_LCLFSIMGBEHAVIOUR', "Bildverhalten bei 'Ganzer Bildschirm'");
+define('_AM_WGGALLERY_OPTION_GT_LCLFSIMGBEHAVIOUR', 'Bildverhalten bei \'Ganzer Bildschirm\'');
 define('_AM_WGGALLERY_OPTION_GT_LCLFSIMGBEHAVIOUR_FIT', 'fit - Bild wird vollständig angezeigt (eventuell entstehen dadurch Leerflächen)');
 define('_AM_WGGALLERY_OPTION_GT_LCLFSIMGBEHAVIOUR_FILL', 'fill - Bild wird auf Bildschirmgröße angepasst (eventuell werden Bildteile nicht mehr angezeigt)');
 define('_AM_WGGALLERY_OPTION_GT_LCLFSIMGBEHAVIOUR_SMART', "smart - LC Lightbox verwendet 'fit' und ändert nur auf 'fill' wenn das Bildverhältnis dem verfügbaren Platz entspricht");

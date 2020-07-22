@@ -290,5 +290,5 @@ define('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_FEEDBACK', 'Feedback');
 
 //Latest Version Check
 define('CO_' . $moduleDirNameUpper . '_' . 'NEW_VERSION', 'New Version: ');
-define('CO_' . $moduleDirNameUpper . '_' . 'ERROR_BAD_XOOPS', 'You need minimum version %s (your current version is %s)');
+define('CO_' . $moduleDirNameUpper . '_' . 'ERROR_BAD_XOOPS', 'You need minimul version %s (your current version is %s)');
 define('CO_' . $moduleDirNameUpper . '_' . 'ERROR_BAD_PHP', 'You need minimum version %s (your current version is %s)');
