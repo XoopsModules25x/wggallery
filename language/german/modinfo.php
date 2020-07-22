@@ -71,17 +71,13 @@ define('_MI_WGGALLERY_MAXWIDTH_DESC', 'Bitte die für den Upload von Dateien max
 define('_MI_WGGALLERY_MAXHEIGHT', 'Maximale Höhe Upload');
 define('_MI_WGGALLERY_MAXHEIGHT_DESC', 'Bitte die für den Upload von Dateien maximal zulässige Bildhöhe definieren (in pixel)');
 define('_MI_WGGALLERY_MAXWIDTH_LARGE', 'Maximale Breite für große Bilder');
-define('_MI_WGGALLERY_MAXWIDTH_LARGE_DESC',
-       'Definieren Sie die maximale Breite, auf die die hochgeladenen Bilder für Format "Große Bilder" automatisch verkleinert werden sollen (in pixel)<br>0 bedeutet, dass Bilder die Originalgröße behalten. <br>Wenn ein Bild kleiner ist als die angegebenen Maximalwerte, so wird das Bild nicht vergrößert, sondern es wird in Originalgröße abgespeichert');
+define('_MI_WGGALLERY_MAXWIDTH_LARGE_DESC', 'Definieren Sie die maximale Breite, auf die die hochgeladenen Bilder für Format "Große Bilder" automatisch verkleinert werden sollen (in pixel)<br>0 bedeutet, dass Bilder die Originalgröße behalten. <br>Wenn ein Bild kleiner ist als die angegebenen Maximalwerte, so wird das Bild nicht vergrößert, sondern es wird in Originalgröße abgespeichert');
 define('_MI_WGGALLERY_MAXHEIGHT_LARGE', 'Maximale Höhe für große Bilder');
-define('_MI_WGGALLERY_MAXHEIGHT_LARGE_DESC',
-       'Definieren Sie die maximale Höhe, auf die die hochgeladenen Bilder für Format "Große Bilder" automatisch verkleinert werden sollen (in pixel)<br>0 bedeutet, dass Bilder die Originalgröße behalten. <br>Wenn ein Bild kleiner ist als die angegebenen Maximalwerte, so wird das Bild nicht vergrößert, sondern es wird in Originalgröße abgespeichert');
+define('_MI_WGGALLERY_MAXHEIGHT_LARGE_DESC', 'Definieren Sie die maximale Höhe, auf die die hochgeladenen Bilder für Format "Große Bilder" automatisch verkleinert werden sollen (in pixel)<br>0 bedeutet, dass Bilder die Originalgröße behalten. <br>Wenn ein Bild kleiner ist als die angegebenen Maximalwerte, so wird das Bild nicht vergrößert, sondern es wird in Originalgröße abgespeichert');
 define('_MI_WGGALLERY_MAXWIDTH_MEDIUM', 'Maximale Breite für mittlere Bilder');
-define('_MI_WGGALLERY_MAXWIDTH_MEDIUM_DESC',
-       'Definieren Sie die maximale Breite, auf die die hochgeladenen Bilder für Format "Mittlere Bilder" automatisch verkleinert werden sollen (in pixel)<br>0 bedeutet, dass Bilder die Originalgröße behalten. <br>Sofern das Originalbild kleiner sein sollte, so wird dieses nicht vergrößert (eine Kopie des Originalbildes wird als mittleres Bild abgespeichert).');
+define('_MI_WGGALLERY_MAXWIDTH_MEDIUM_DESC', 'Definieren Sie die maximale Breite, auf die die hochgeladenen Bilder für Format "Mittlere Bilder" automatisch verkleinert werden sollen (in pixel)<br>0 bedeutet, dass Bilder die Originalgröße behalten. <br>Sofern das Originalbild kleiner sein sollte, so wird dieses nicht vergrößert (eine Kopie des Originalbildes wird als mittleres Bild abgespeichert).');
 define('_MI_WGGALLERY_MAXHEIGHT_MEDIUM', 'Maximale Höhe für mittlere Bilder');
-define('_MI_WGGALLERY_MAXHEIGHT_MEDIUM_DESC',
-       'Definieren Sie die maximale Höhe, auf die die hochgeladenen Bilder für Format "Mittlere Bilder" automatisch verkleinert werden sollen (in pixel)<br>0 bedeutet, dass Bilder die Originalgröße behalten. <br>Sofern das Originalbild kleiner sein sollte, so wird dieses nicht vergrößert (eine Kopie des Originalbildes wird als mittleres Bild abgespeichert).');
+define('_MI_WGGALLERY_MAXHEIGHT_MEDIUM_DESC', 'Definieren Sie die maximale Höhe, auf die die hochgeladenen Bilder für Format "Mittlere Bilder" automatisch verkleinert werden sollen (in pixel)<br>0 bedeutet, dass Bilder die Originalgröße behalten. <br>Sofern das Originalbild kleiner sein sollte, so wird dieses nicht vergrößert (eine Kopie des Originalbildes wird als mittleres Bild abgespeichert).');
 define('_MI_WGGALLERY_MAXWIDTH_THUMBS', 'Maximale Breite für Vorschaubilder');
 define('_MI_WGGALLERY_MAXWIDTH_THUMBS_DESC', 'Definieren Sie die maximale Breite, auf die die hochgeladenen Bilder für Format "Vorschaubilder" automatisch verkleinert werden sollen (in pixel).');
 define('_MI_WGGALLERY_MAXHEIGHT_THUMBS', 'Maximale Höhe für Vorschaubilder');
@@ -103,7 +99,7 @@ define('_MI_WGGALLERY_ADDJQUERY_DESC', 'Wenn Sie bereits jquery implentiert habe
 define('_MI_WGGALLERY_PANEL_TYPE', 'Panel Type');
 define('_MI_WGGALLERY_PANEL_TYPE_DESC', 'Panel Type is the bootstrap html div.');
 define('_MI_WGGALLERY_SHOWBCRUMBS', 'Brotkrumen-Navigation (breadcrumbs) anzeigen');
-define('_MI_WGGALLERY_SHOWBCRUMBS_DESC', 'Eine Brotkrumen-Navigation zeigt den aktuellen Seitenstand innerhalb der Websitestruktur');
+define('_MI_WGGALLERY_SHOWBCRUMBS_DESC', "Eine Brotkrumen-Navigation zeigt den aktuellen Seitenstand innerhalb der Websitestruktur");
 define('_MI_WGGALLERY_SHOWBCRUMBS_MNAME', 'Modulnamen anzeigen');
 define('_MI_WGGALLERY_SHOWBCRUMBS_MNAME_DESC', 'Den Modulnamen in der Brotkrumen-Navigation anzeigen');
 define('_MI_WGGALLERY_SHOWCOPYRIGHT', 'Copyright anzeigen');
@@ -115,9 +111,9 @@ define('_MI_WGGALLERY_USE_TAGS_DESC', 'Definieren sie, ob Sie für die Bilder un
 define('_MI_WGGALLERY_STOREEXIF', 'Metadaten (exif) speichern');
 define('_MI_WGGALLERY_STOREEXIF_DESC', 'Definieren sie, ob Sie die Metadaten der Bilder (exif-Daten) speichern wollen');
 define('_MI_WGGALLERY_EXIFTYPES', 'Exif-Daten für Anzeige');
-define('_MI_WGGALLERY_EXIFTYPES_DESC', "Definieren Sie welche Exif-Daten angezeigt werden sollen<br>Die Option '" . _MI_WGGALLERY_STOREEXIF . "' muss aktiviert sein");
+define('_MI_WGGALLERY_EXIFTYPES_DESC', "Definieren Sie welche Exif-Daten angezeigt werden sollen<br>Die Option 'Metadaten (exif) speichern' muss aktiviert sein");
 define('_MI_WGGALLERY_EXIF_TAGS', 'Tags aus Exif-Daten extrahieren');
-define('_MI_WGGALLERY_EXIF_TAGS_DESC', "Definieren Sie, ob sie bestimmte Informationen automatisch aus den Exif-Daten extrahieren und als Tags zum Bild abspeichern wollen<br>Die Option '" . _MI_WGGALLERY_USE_TAGS . "' muss aktiviert sein");
+define('_MI_WGGALLERY_EXIF_TAGS_DESC', "Definieren Sie welche Exif-Daten angezeigt werden sollen<br>Die Option 'Tags verwenden' muss aktiviert sein");
 define('_MI_WGGALLERY_SHOWBUTTONTEXT', 'Schaltflächentext anzeigen');
 define('_MI_WGGALLERY_SHOWBUTTONTEXT_DESC', 'Anzeigen des Schaltflächentextes. Bei NEIN wird nur das Schaltflächenbild angezeigt');
 define('_MI_WGGALLERY_GROUP_UPLOAD', 'Optionen für Upload Bilder');

@@ -66,6 +66,7 @@ define('_CO_WGGALLERY_THEREARENT_IMAGES', 'Attualmente non ci sono immagini disp
 // fine uploader
 define('_CO_WGGALLERY_FU_SUBMIT', 'Invio immagine: ');
 define('_CO_WGGALLERY_FU_SUBMITTED', 'Immagine verificata correttamente, si prega di caricare');
+define('_CO_WGGALLERY_FU_UPLOAD', 'Caricamento delle immagini: ');
 define('_CO_WGGALLERY_FU_FAILED', 'Si sono verificati errori durante il caricamento delle immagini');
 define('_CO_WGGALLERY_FU_SUCCEEDED', 'Caricate correttamente tutte le immagini');
 // Album buttons
@@ -290,3 +291,4 @@ define('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_FEEDBACK', 'Feedback');
 //Latest Version Check
 define('CO_' . $moduleDirNameUpper . '_' . 'NEW_VERSION', 'Nuova versione: ');
 define('CO_' . $moduleDirNameUpper . '_' . 'ERROR_BAD_XOOPS', 'Necessita la versione minima %s (la tua versione attuale è %s)');
+define('CO_' . $moduleDirNameUpper . '_' . 'ERROR_BAD_PHP', 'Necessita la versione minima %s (la tua versione attuale è %s)');

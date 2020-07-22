@@ -35,7 +35,7 @@ define('_AM_WGGALLERY_THEREARE_CATEGORIES', "Ci sono <span class='bold'>%s</span
 define('_AM_WGGALLERY_THEREARENT_GALLERYTYPES', "Non ci sono tipi di gallerie! Per la inizializzazione/ripristino vai a  'Manutenzione' => 'Manutenzione Tipi di gallerie' e clicca sul tasto 'Fissa impostazioni predefinite'");
 define('_AM_WGGALLERY_THEREARENT_ALBUMTYPES', "Non ci sono tipi di album! Per la inizializzazione/ripristino vai a  'Manutenzione' => 'Manutenzione Tipi di album' e clicca sul tasto 'Fissa impostazioni predefinite'");
 define('_AM_WGGALLERY_THEREARENT_WATERMARKS', 'Attualmente non ci sono filigrane definite!');
-define('_AM_WGGALLERY_THEREARENT_CATEGORIES', 'Non ci sono categorie!');
+define('_AM_WGGALLERY_THEREARENT_CATEGORIES', "Non ci sono categorie!");
 // ---------------- Admin Files ----------------
 // Buttons
 define('_AM_WGGALLERY_ADD_ALBUM', 'Aggiungi nuovo Album');
@@ -53,13 +53,13 @@ define('_AM_WGGALLERY_ALBUMTYPES_LIST', 'Elenco tipi di Album');
 define('_AM_WGGALLERY_WATERMARKS_LIST', 'Elenco Filigrane');
 define('_AM_WGGALLERY_CATEGORIES_LIST', 'Elenco Categorie');
 // Album
-define('_AM_WGGALLERY_ALBUM_IMGNAME', "Nome della immagine Album (se '" . _CO_WGGALLERY_ALBUM_USE_UPLOADED . "')");
-define('_AM_WGGALLERY_ALBUM_IMGID', "ID immagine Album (se '" . _CO_WGGALLERY_ALBUM_IMGID . "')");
+define('_AM_WGGALLERY_ALBUM_IMGNAME', "Nome della immagine Album (se 'Usa una immagine caricata come immagine Album')");
+define('_AM_WGGALLERY_ALBUM_IMGID', "ID immagine Album (se 'Immagini esistenti in questo album')");
 //Categories
 define('_AM_WGGALLERY_EDIT_CATEGORY', 'Modifica Categoria');
 define('_AM_WGGALLERY_CAT_ID', 'Id');
 define('_AM_WGGALLERY_CAT_TEXT', 'Testo Categoria');
-//define('_AM_WGGALLERY_CAT_EXIF', 'Exif name for category');
+define('_AM_WGGALLERY_CAT_EXIF', 'Exif name for category');
 define('_AM_WGGALLERY_CAT_ALBUM', 'Usa la categoria negli album');
 define('_AM_WGGALLERY_CAT_IMAGE', 'Usa la categoria nelle immagini');
 define('_AM_WGGALLERY_CAT_SEARCH', 'Usa la categoria nel cerca');
@@ -99,7 +99,6 @@ define('_AM_WGGALLERY_OPTION_GT_PLAYOPTION_1', 'Riproduci continuamente');
 define('_AM_WGGALLERY_OPTION_GT_PLAYOPTION_2', 'Fermati alla ultima diapositiva');
 define('_AM_WGGALLERY_OPTION_GT_PLAYOPTION_4', 'Ferma al clic');
 define('_AM_WGGALLERY_OPTION_GT_PLAYOPTION_8', 'Ferma la navigazione dell\'utente (fare clic sulla freccia/punto elenco/miniatura, scorrere la diapositiva, premere la tastiera a sinistra, il tasto freccia a destra)');
-// premere la tastiera a sinistra ???????????????
 define('_AM_WGGALLERY_OPTION_GT_PLAYOPTION_12', 'Ferma con clic o navigazione utente');
 define('_AM_WGGALLERY_OPTION_GT_FILLMODE', 'Opzioni per modalità riempimento');
 define('_AM_WGGALLERY_OPTION_GT_FILLMODE_0', 'estende');
@@ -112,9 +111,9 @@ define('_AM_WGGALLERY_OPTION_GT_SLIDERTYPE_1', 'Dimensione definita');
 define('_AM_WGGALLERY_OPTION_GT_SLIDERTYPE_2', 'Larghezza del modello intero');
 // define('_AM_WGGALLERY_OPTION_GT_SLIDERTYPE_3', 'Full window');
 define('_AM_WGGALLERY_OPTION_GT_MAXWIDTH', 'Massima larghezza immagine');
-define('_AM_WGGALLERY_OPTION_GT_MAXWIDTH_DESC', "Definisce la larghezza massima immagine per il contenitore di immagini in pixel. Non valido per'" . _AM_WGGALLERY_OPTION_GT_SLIDERTYPE_2 . "'");
+define('_AM_WGGALLERY_OPTION_GT_MAXWIDTH_DESC', "Definisce la larghezza massima immagine per il contenitore di immagini in pixel. Non valido per 'Larghezza del modello intero'");
 define('_AM_WGGALLERY_OPTION_GT_MAXHEIGHT', 'Massima altezza immagine');
-define('_AM_WGGALLERY_OPTION_GT_MAXHEIGHT_DESC', "Definisce altezza massima immagine per il contenitore di immagini in pixel. Non valido per '" . _AM_WGGALLERY_OPTION_GT_SLIDERTYPE_2 . "'");
+define('_AM_WGGALLERY_OPTION_GT_MAXHEIGHT_DESC', "Definisce altezza massima immagine per il contenitore di immagini in pixel. Non valido per 'Larghezza del modello intero'");
 define('_AM_WGGALLERY_OPTION_GT_ORIENTATION', 'Orientamento');
 define('_AM_WGGALLERY_OPTION_GT_ORIENTATION_H', 'Orizzontale');
 define('_AM_WGGALLERY_OPTION_GT_ORIENTATION_V', 'Verticale');
@@ -176,11 +175,11 @@ define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_UNDER', 'Sotto');
 define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_OVER', 'Sopra');
 define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_RSIDE', 'Lato destro');
 define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_LSIDE', 'Lato sinistro');
-define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_DESC', "Nota che lightbox utilizza un sistema intelligente passando automaticamente a '" . _AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_OVER . "' Non appena l'elemento diventa troppo piccolo a causa di testi lunghi o di una finestra minuscola.");
+define('_AM_WGGALLERY_OPTION_GT_LCLDATAPOSITION_DESC', "Nota che lightbox utilizza un sistema intelligente passando automaticamente a 'Sopra' Non appena l'elemento diventa troppo piccolo a causa di testi lunghi o di una finestra minuscola.");
 define('_AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION', 'Posizione comando');
 define('_AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION_INNER', 'Interno');
 define('_AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION_OUTER', 'Esterno');
-define('_AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION_DESC', "Nota che lightbox passerà automaticamente a '" . _AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION_OUTER . "' se i comandi interni sono troppo ampi per l'elemento rappresentato");
+define('_AM_WGGALLERY_OPTION_GT_LCLCMDPOSITION_DESC', "Nota che lightbox passerà automaticamente a 'Esterno' se i comandi interni sono troppo ampi per l'elemento rappresentato");
 define('_AM_WGGALLERY_OPTION_GT_LCLTHUMBSWIDTH', 'Larghezza miniatura (in pixel)');
 define('_AM_WGGALLERY_OPTION_GT_LCLTHUMBSHEIGTH', 'Altezza miniatura (in pixel)');
 define('_AM_WGGALLERY_OPTION_GT_LCLFULLSCREEN', "Mostra comando 'Schermo Intero'");
@@ -341,6 +340,7 @@ define('_AM_WGGALLERY_IMPORT_ERR_ALBEXIST', 'Esistono già album');
 define('_AM_WGGALLERY_IMPORT_ERR_IMGEXIST', 'Esistono già immagini');
 define('_AM_WGGALLERY_IMPORT_SUCCESS', '%a album e %i immagini importati correttamente');
 define('_AM_WGGALLERY_IMPORT_ERROR', 'Si è verificato un errore durante l\'importazione');
+
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_EXIF', 'Cancella i dati EXIF');
 define('_AM_WGGALLERY_MAINTENANCE_EXIF_CURRENT', 'Dati EXIF attualmente mancanti: %c di %t immagini');
 define('_AM_WGGALLERY_MAINTENANCE_DELETE_EXIF_SUCCESS', 'Dati EXIF cancellati correttamente');
