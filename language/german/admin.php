@@ -98,7 +98,7 @@ define('_AM_WGGALLERY_OPTION_GT_PLAYOPTIONS', 'Abspieloptionen');
 define('_AM_WGGALLERY_OPTION_GT_PLAYOPTION_1', 'Wiederkehrend abspielen');
 define('_AM_WGGALLERY_OPTION_GT_PLAYOPTION_2', 'Bei letztem Bild stoppen');
 define('_AM_WGGALLERY_OPTION_GT_PLAYOPTION_4', 'Bei Klick stoppen');
-define('_AM_WGGALLERY_OPTION_GT_PLAYOPTION_8', 'Stop bei Benutzeraktion (klick auf Pfeil/Bullet/Vorschaubild, swipe slide, Drücken der Links- oder Rechtstaste)');
+define('_AM_WGGALLERY_OPTION_GT_PLAYOPTION_8', 'Stop bei Benutzeraktion (Klick auf Pfeil/Bullet/Vorschaubild, swipe slide, Drücken der Links- oder Rechtstaste)');
 define('_AM_WGGALLERY_OPTION_GT_PLAYOPTION_12', 'Bei Klick stoppen oder bei jeder Benutzeraktion');
 define('_AM_WGGALLERY_OPTION_GT_FILLMODE', 'Optionen für Bildfüllung');
 define('_AM_WGGALLERY_OPTION_GT_FILLMODE_0', 'Stretch');
@@ -201,7 +201,7 @@ define('_AM_WGGALLERY_OPTION_GT_LCLSLIDESHOW', "Schaltfläche 'Abspielen' anzeig
 // Albumtype add/edit
 define('_AM_WGGALLERY_ALBUMTYPE_ADD', 'Albumtyp hinzufügen');
 define('_AM_WGGALLERY_ALBUMTYPE_EDIT', 'Albumtyp bearbeiten');
-// options  of Albumtypes
+// options  of Album types
 define('_AM_WGGALLERY_OPTION_AT_SET', 'Optionen für das entsprechende Album einstellen');
 define('_AM_WGGALLERY_OPTION_AT_SETINFO', 'Die Albumeinstellungen werden auf der Indexseite sowie für die Album Blöcke verwendet');
 define('_AM_WGGALLERY_OPTION_AT_HOVER', 'Hover Effekt');
