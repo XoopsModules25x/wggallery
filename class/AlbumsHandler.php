@@ -224,6 +224,59 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
                     if ($child) {
                         $childsAll .= $child;
                     }
+                    $childsAll .= '</li>';
+                }
+            }
+        } else {
+            return false;
+        }
+        if ($albPid > 0) {
+            $childsAll .= '</ol>';
+        }
+
+        return $childsAll;
+    }
+    
+        /**
+     * Get all childs of a category
+     * @param $albPid
+     * @return bool|string
+     */
+    public function getListChildsOfCollectionIndex($albPid, $target, $showThumb = false)
+    {
+        if ($albPid > 0) {
+            $childsAll = '<ol class="wgg-alblist-ol">';
+        } else {
+            $childsAll = '';
+        }
+
+        $helper             = \XoopsModules\Wggallery\Helper::getInstance();
+        $albumsHandler      = $helper->getHandler('Albums');
+        $permissionsHandler = $helper->getHandler('Permissions');
+        $crAlbums           = new \CriteriaCompo();
+        $crAlbums->add(new \Criteria('alb_pid', $albPid));
+        $crAlbums->setSort('alb_weight ASC, alb_date');
+        $crAlbums->setOrder('DESC');
+        $albumsCount = $albumsHandler->getCount($crAlbums);
+        $albumsAll   = $albumsHandler->getAll($crAlbums);
+        // Table view albums
+        if ($albumsCount > 0) {
+            foreach (array_keys($albumsAll) as $i) {
+                $album = $albumsAll[$i]->getValuesAlbums();
+                if ($permissionsHandler->permAlbumView($album['alb_id'])) {
+                    $child     = $this->getListChildsOfCollectionIndex($album['alb_id'], $target, $showThumb);
+                    $childsAll .= '<li class="wgg-alblist-li" id="menuItem_' . $album['alb_id'] . '">';
+
+                    $albName = $album['alb_name'];
+                    $childsAll .= '<a class="wgg-alblist-link" href="' . $target . '&amp;alb_id=' . $album['alb_id'] . '" title="' . $albName . '">';
+                    if ($showThumb) {
+                        $childsAll .= '<img class="wgg-alblist-thumb" src="' . $album['image'] . '" alt="' . $albName . '">';
+                    }
+                    $childsAll .= $albName . '</a>';
+                    if ($child) {
+                        $childsAll .= $child;
+                    }
+                    $childsAll .= '</li>';
                 }
             }
         } else {

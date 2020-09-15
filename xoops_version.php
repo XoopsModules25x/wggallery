@@ -25,8 +25,8 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 // ------------------- Informations ------------------- //
 $modversion = [
-    'version'             => '1.14',
-    'module_status'       => 'final',
+    'version'             => '1.15',
+    'module_status'       => 'RC1',
     'release_date'        => '2020/07/01',
     'name'                => _MI_WGGALLERY_NAME,
     'description'         => _MI_WGGALLERY_DESC,
@@ -458,6 +458,17 @@ $modversion['config'][] = [
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
     'default'     => 10,
+];
+
+// show album list on index page
+$modversion['config'][] = [
+    'name'        => 'idx_alblist',
+    'title'       => '_MI_WGGALLERY_IDX_ALBLIST',
+    'description' => '_MI_WGGALLERY_IDX_ALBLIST_DESC',
+    'formtype'    => 'select',
+    'valuetype'   => 'int',
+    'default'     => 0,
+    'options'     => ['_MI_WGGALLERY_IDX_ALBLIST_NONE' => 0, '_MI_WGGALLERY_IDX_ALBLIST_LIST' => 1, '_MI_WGGALLERY_IDX_ALBLIST_LISTTHUMB' => 2],
 ];
 
 // target for gallery page

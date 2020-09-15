@@ -120,6 +120,11 @@ define('_MI_WGGALLERY_GROUP_UPLOAD', 'Options for image upload');
 define('_MI_WGGALLERY_GROUP_IMAGE', 'Options for image processing');
 define('_MI_WGGALLERY_GROUP_DISPLAY', 'Options for display');
 define('_MI_WGGALLERY_GROUP_MISC', 'Misc options');
+define('_MI_WGGALLERY_IDX_ALBLIST', 'Show album list on index');
+define('_MI_WGGALLERY_IDX_ALBLIST_DESC', 'Define whether you want to show an album list on index page and which type');
+define('_MI_WGGALLERY_IDX_ALBLIST_NONE', 'No List');
+define('_MI_WGGALLERY_IDX_ALBLIST_LIST', 'List only');
+define('_MI_WGGALLERY_IDX_ALBLIST_LISTTHUMB', 'List with thumbs');
 // Notifications
 define('_MI_WGGALLERY_GLOBAL_NOTIFY', 'Global notification');
 define('_MI_WGGALLERY_GLOBAL_ALB_NEW_ALL_NOTIFY', 'Send notification when a new album was created');

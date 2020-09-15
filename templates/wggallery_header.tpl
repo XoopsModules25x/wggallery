@@ -6,3 +6,6 @@
 	<div class='center'>
 <{$ads}></div>
 <{/if}>
+<{if $albumlist}>
+    <div class='wgg-alblist'><{$albumlist}></div>
+<{/if}>
