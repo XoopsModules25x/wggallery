@@ -37,12 +37,14 @@
 	font-size: 120%;
 	font-weight:900;
 	text-align: left;
-} 
+}
+
 .wgg-album-img {
 	margin: 5px auto 5px auto;
     border: 1px solid grey;
     padding: 2px;
-	position: relative; z-index: 1;
+	position: relative; 
+    z-index: 1;
 }
 
 .wgg-img {
@@ -110,4 +112,10 @@
 	height:0;
     padding:0 !important;
     margin:0;
+}
+
+/* album list on index page */
+.wgg-alblist-thumb {
+    max-height:30px;
+    padding: 5px;
 }

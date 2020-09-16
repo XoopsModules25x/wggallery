@@ -37,11 +37,9 @@ $submitterId = Request::getInt('subm_id', 0);
 $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
 $GLOBALS['xoopsTpl']->assign('panel_type', $helper->getConfig('panel_type'));
-// $GLOBALS['xoopsTpl']->assign('type', $helper->getConfig('table_type'));
-// $GLOBALS['xoopsTpl']->assign('divideby', $helper->getConfig('divideby'));
-// $GLOBALS['xoopsTpl']->assign('numb_col', $helper->getConfig('numb_col'));
 $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
 $GLOBALS['xoopsTpl']->assign('displayButtonText', $helper->getConfig('displayButtonText'));
+
 
 // assign all album options
 $atoptions = unserialize($pr_album['options'], ['allowed_classes' => false]);
@@ -59,6 +57,24 @@ $GLOBALS['xoopsTpl']->assign('gallery_target', $helper->getConfig('gallery_targe
 
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet($style, null);
+
+$pr_gallery = $gallerytypesHandler->getPrimaryGallery();
+$gallery = ('none' !== $pr_gallery['template']);
+
+
+$idxAlblist = (int)$helper->getConfig('idx_alblist');
+if ($idxAlblist > 0) { 
+    $alTarget = WGGALLERY_URL . '/images.php?op=list';
+    $alThumb = (2 === $idxAlblist);
+    if ($gallery) {
+        $target = WGGALLERY_URL . '/gallery.php?op=show';
+    }    
+    $albumlist = '<ol class="wgg-alblist-ol">';
+    $albumlist .= $albumsHandler->getListChildsOfCollectionIndex(0, $alTarget, $alThumb);
+    $albumlist .= '</ol>';
+    $GLOBALS['xoopsTpl']->assign('albumlist', $albumlist);
+}
+
 
 switch ($pr_album['template']) {
     case 'hovereffectideas':
@@ -161,8 +177,7 @@ if ($albumsCount > 0) {
 
         $GLOBALS['xoopsTpl']->assign('albums', $albums);
         $GLOBALS['xoopsTpl']->assign('alb_pid', $albPid);
-        $pr_gallery = $gallerytypesHandler->getPrimaryGallery();
-        $GLOBALS['xoopsTpl']->assign('gallery', 'none' !== $pr_gallery['template']);
+        $GLOBALS['xoopsTpl']->assign('gallery', $gallery);
         // $GLOBALS['xoopsTpl']->assign('album_showsubmitter', $helper->getConfig('album_showsubmitter'));
         if ($submitterId > 0) {
             $GLOBALS['xoopsTpl']->assign('index_alb_title', _CO_WGGALLERY_ALBUMS_TITLE . ': ' . XoopsUser::getUnameFromId($submitter));
