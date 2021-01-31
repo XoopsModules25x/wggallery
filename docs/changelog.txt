@@ -1,6 +1,7 @@
 <h5>1.15 RC</h5>  [2020/09/15]
 <hr>
  - added album list to index page (wdc/goffy)
+ - fixed bug in blocks (heyula/goffy)
  
 <h5>1.14 Final</h5>  [2020/07/01]
 <hr>

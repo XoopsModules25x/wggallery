@@ -119,8 +119,8 @@ function b_wggallery_albums_show($options)
     switch ($typeBlock) {
         // For the block: albums recent
         case 'recent':
-            $criteria->add(new \Criteria('alb_date', strtotime(date(_SHORTDATESTRING)), '>='));
-            $criteria->add(new \Criteria('alb_date', strtotime(date(_SHORTDATESTRING)) + 86400, '<='));
+            $criteria->add(new \Criteria('alb_date', time(), '<='));
+            $criteria->add(new \Criteria('alb_date', time() - 604800, '>=')); //new since last week
             $criteria->setSort('alb_date');
             $criteria->setOrder('DESC');
             break;
@@ -227,7 +227,7 @@ function b_wggallery_albums_edit($options)
     $form .= "<option value='0' " . (0 === (int)$options[7] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_SHOW_INDEX . '</option>';
     $form .= "<option value='1' " . (1 === (int)$options[7] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_SHOW_GALLERY . '</option>';
     $form .= '</select><br>';
-    $form .= _MB_WGGALLERY_ALBUMTYPES . ": <select name='options[8]' size='2'>";
+    $form .= _MB_WGGALLERY_ALBUMTYPES . ": <select name='options[8]' size='5'>";
     $form .= "<option value='0' " . (0 === (int)$options[8] ? "selected='selected'" : '') . '>' . _MB_WGGALLERY_ALBUMTYPES_PRIMARY . '</option>';
     foreach (array_keys($albumtypesAll) as $i) {
         $at_id = $albumtypesAll[$i]->getVar('at_id');
