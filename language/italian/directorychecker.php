@@ -18,12 +18,14 @@
  * @since           3.23
  * @author          Xoops Development Team
  */
-define('_DC_WGGALLERY_AVAILABLE', "<span style='color: green;'> The folder is Available</span>");
-define('_DC_WGGALLERY_NOTAVAILABLE', "<span style='color: red;'> The folder is Not available</span>");
-define('_DC_WGGALLERY_NOTWRITABLE', "<span style='color: red;'> The folder should have permission ( %d ), but it has ( %d )</span>");
-define('_DC_WGGALLERY_CREATETHEDIR', 'Create it');
-define('_DC_WGGALLERY_SETMPERM', 'Set the permission');
-define('_DC_WGGALLERY_DIRCREATED', 'The directory has been created');
-define('_DC_WGGALLERY_DIRNOTCREATED', 'The directory cannot be created');
-define('_DC_WGGALLERY_PERMSET', 'The permission has been set');
-define('_DC_WGGALLERY_PERMNOTSET', 'The permission cannot be set');
+define('_DC_WGGALLERY_AVAILABLE', "<span style='color: green;'> La cartella è disponibile</span>");
+define('_DC_WGGALLERY_NOTAVAILABLE', "<span style='color: red;'> la cartella NON è disponibile</span>");
+define('_DC_WGGALLERY_NOTWRITABLE', "<span style='color: red;'> La cartella dovrebbe avere i permessi ( %d ), ma ha ( %d )</span>");
+define('_DC_WGGALLERY_CREATETHEDIR', 'Creala');
+define('_DC_WGGALLERY_SETMPERM', 'Imposta i permessi');
+define('_DC_WGGALLERY_DIRCREATED', 'La cartella principale è stata creata'); /* many tecnicians usually talk abiut "directory" like in english , instead of "cartella principale" : choose ! :-) */
+define('_DC_WGGALLERY_DIRNOTCREATED', 'Non è stato possibile creare la cartella principale');
+define('_DC_WGGALLERY_PERMSET', 'I permessi sono stati impostati');
+define('_DC_WGGALLERY_PERMNOTSET', 'Non è stato possibile impostare i permessi');
+
+/* I prefer to write "permissions" because I think it is not only one if usual r-w-x are involved. */

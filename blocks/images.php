@@ -75,8 +75,8 @@ function b_wggallery_images_show($options)
     switch ($typeBlock) {
         // For the block: images new
         case 'recent':
-            $criteria->add(new Criteria('img_date', strtotime(date(_SHORTDATESTRING)), '>='));
-            $criteria->add(new Criteria('img_date', strtotime(date(_SHORTDATESTRING)) + 86400, '<='));
+            $criteria->add(new \Criteria('img_date', time(), '<='));
+            $criteria->add(new \Criteria('img_date', time() - 604800, '>=')); //new since last week
             $criteria->setSort('img_date');
             $criteria->setOrder('DESC');
             break;
