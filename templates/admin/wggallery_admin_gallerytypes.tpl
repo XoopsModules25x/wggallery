@@ -1,6 +1,6 @@
 <!-- Header -->
 <{include file='db:wggallery_admin_header.tpl'}>
-<{if $gallerytypes_list}>
+<{if $gallerytypes_list|default:''}>
 	<table class='table table-bordered'>
 		<thead>
 			<tr class="head">
@@ -14,7 +14,7 @@
 				<th class="center width5"><{$smarty.const._CO_WGGALLERY_FORM_ACTION}></th>
 			</tr>
 		</thead>
-		<{if $gallerytypes_count}>
+		<{if $gallerytypes_count|default:''}>
 			<tbody>
 				<{foreach item=gallerytype from=$gallerytypes_list}>
 					<tr class="<{cycle values='odd, even'}>">
@@ -25,7 +25,7 @@
 						<td class="left width30"><{$gallerytype.options_text}></td>
 						<td class="center"><{$gallerytype.date}></td>
 						<td class="center">
-							<{if 0 == $gallerytype.primary}>
+							<{if 0 == $gallerytype.primary|default:''}>
 								<a href="gallerytypes.php?op=set_primary&amp;gt_id=<{$gallerytype.id}>" title="<{$smarty.const._AM_WGGALLERY_GT_AT_PRIMARY_SET}>">
 									<img src="<{$wggallery_icon_url_16}>0.png" alt="_AM_WGGALLERY_GT_AT_PRIMARY_SET">
 								</a>
@@ -34,7 +34,7 @@
                             <{/if}>
 						</td>
 						<td class="center  width10">
-							<{if 1 < $gallerytype.id}>
+							<{if 1 < $gallerytype.id|default:''}>
 								<a href="gallerytypes.php?op=options&amp;gt_id=<{$gallerytype.id}>" title="<{$smarty.const._OPTIONS}>">
 									<img src="<{$wggallery_icon_url_16}>options.png" alt="<{$smarty.const._OPTIONS}>">
 								</a>
@@ -52,15 +52,15 @@
 		<{/if}>
 	</table>
 	<div class="clear">&nbsp;</div>
-	<{if $pagenav}>
+	<{if $pagenav|default:''}>
 		<div class="xo-pagenav floatright"><{$pagenav}></div>
 		<div class="clear spacer"></div>
 	<{/if}>
 <{/if}>
-<{if $form}>
+<{if $form|default:''}>
 	<{$form}>
 <{/if}>
-<{if $error}>
+<{if $error|default:''}>
 	<div class="errorMsg"><strong><{$error}></strong>
 </div>
 

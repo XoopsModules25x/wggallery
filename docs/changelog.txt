@@ -2,6 +2,7 @@
 <hr>
  - added album list to index page (wdc/goffy)
  - fixed bug in blocks (heyula/goffy)
+ - added defaults for tpl vars (goffy)
  
 <h5>1.14 Final</h5>  [2020/07/01]
 <hr>

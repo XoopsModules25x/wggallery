@@ -14,25 +14,25 @@
 }
 </style>
 
-<{if $slideshowtype == 'lightbox'}>
-    <{if $images_nb > 0}>
+<{if $slideshowtype|default:'' == 'lightbox'}>
+    <{if $images_nb|default:0 > 0}>
         <div id="links">
             <{foreach item=image from=$images}>
-                <a href="<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>" title="<{$image.title}>" data-description="<{$image.desc}>">
-                    <img src="<{if $source_preview == 'medium'}><{$image.medium}><{else}><{$image.thumb}><{/if}>" alt="<{$image.title}>"></a>
+                <a href="<{if $source|default:'' == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>" title="<{$image.title}>" data-description="<{$image.desc}>">
+                    <img src="<{if $source_preview|default:'' == 'medium'}><{$image.medium}><{else}><{$image.thumb}><{/if}>" alt="<{$image.title}>"></a>
             <{/foreach}>
         </div>
     <{/if}>
     <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
     <div id="blueimp-gallery" class="blueimp-gallery  blueimp-gallery-controls">
         <div class="slides"></div>
-        <{if $showTitle == 'true'}><h3 class="title"></h3><{/if}>
+        <{if $showTitle|default:'' == 'true'}><h3 class="title"></h3><{/if}>
         <p class="description"></p>
         <a class="prev">‹</a>
         <a class="next">›</a>
         <a class="close">×</a>
         <a class="play-pause"></a>
-        <{if $showThumbnails == 'true'}>
+        <{if $showThumbnails|default:'' == 'true'}>
             <ol class="indicator">
                 <{foreach name=image item=image from=$images}>
                     <li style="background-image: url('<{$image.thumb}>');" title="<{$image.title}>" data-index="<{$smarty.foreach.image.iteration}>"></li>
@@ -74,16 +74,16 @@
     </script>
 <{/if}> 
 
-<{if $slideshowtype == 'inline'}>
+<{if $slideshowtype|default:'' == 'inline'}>
 
     <!-- The Gallery as inline carousel, can be positioned anywhere on the page -->
     <div id="blueimp-gallery-carousel" class="blueimp-gallery blueimp-gallery-controls blueimp-gallery-carousel blueimp-gallery-display blueimp-gallery-playing">
         <div class="slides"></div>
-        <{if $showTitle == 'true'}><h3 class="title"></h3><{/if}>
+        <{if $showTitle|default:'' == 'true'}><h3 class="title"></h3><{/if}>
         <a class="prev">‹</a>
         <a class="next">›</a>
         <a class="play-pause"></a>
-        <{if $showThumbnails == 'true'}>
+        <{if $showThumbnails|default:'' == 'true'}>
             <ol class="indicator">
                 <{foreach name=image item=image from=$images}>
                     <li style="background-image: url('<{$image.thumb}>');" title="<{$image.title}>" data-index="<{$smarty.foreach.image.iteration}>"></li>
@@ -92,10 +92,10 @@
         <{/if}>
     </div>
     
-    <{if $images_nb > 0}>
+    <{if $images_nb|default:0 > 0}>
         <div id="links" class='hidden'>
             <{foreach item=image from=$images}>
-                <a href="<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>" title="<{$image.title}>"></a>
+                <a href="<{if $source|default:'' == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>" title="<{$image.title}>"></a>
             <{/foreach}>
         </div>
     <{/if}>
@@ -122,7 +122,7 @@
 	
 <div class="clear spacer"></div>
 
-<{if $error}>
+<{if $error|default:''}>
 	<div class="errorMsg"><strong><{$error}></strong></div>
 <{/if}> 
 

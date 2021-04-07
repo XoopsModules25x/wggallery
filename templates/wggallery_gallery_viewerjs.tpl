@@ -38,11 +38,11 @@
     }
   </style>
   
-<{if $images_nb > 0}>
+<{if $images_nb|default:0 > 0}>
     <div id="gallery">
         <ul class="pictures">
             <{foreach item=image from=$images}>
-                <li><img data-original="<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>" src="<{if $source_preview == 'medium'}><{$image.medium}><{else}><{$image.thumb}><{/if}>" alt="<{$image.title}>"></li>
+                <li><img data-original="<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>" src="<{if $source_preview|default:'' == 'medium'}><{$image.medium}><{else}><{$image.thumb}><{/if}>" alt="<{$image.title}>"></li>
             <{/foreach}>
         </ul>
     </div>
@@ -61,7 +61,7 @@
             title: <{$viewerjs_title}>,
             fullscreen: <{$fullscreen}>,
             zoomable: <{$zoomable}>,
-            <{if $toolbar}>toolbar: {
+            <{if $toolbar|default:''}>toolbar: {
                 oneToOne: true,
                 zoomIn: true,
                 zoomOut: true,
@@ -72,7 +72,7 @@
                 next: function() {
                     viewer.next(true);
                 },
-                <{if $download}>
+                <{if $download|default:''}>
                     download: function() {
                     $.ajax({
                         data: 'op=viewerjs&src=' + viewer.image.src,
@@ -95,9 +95,9 @@
                 toolbar: false,
             <{/if}>
         });
-        <{if $open}>
+        <{if $open|default:''}>
             viewer.show(<{$slideshowAuto}>);
-            <{if $slideshowAuto}>
+            <{if $slideshowAuto|default:''}>
                 viewer.play(true);
             <{/if}>
             gallery.addEventListener('hidden', function () {
@@ -109,7 +109,7 @@
 
 <div class="clear spacer"></div>
 
-<{if $error}>
+<{if $error|default:''}>
 	<div class="errorMsg"><strong><{$error}></strong></div>
 <{/if}>
 

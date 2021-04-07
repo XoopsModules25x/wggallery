@@ -1,15 +1,15 @@
 <{include file='db:wggallery_header.tpl'}>
 
-<{if $form}>
+<{if $form|default:''}>
 	<{$form}>
 <{else}>
-    <div class='panel panel-<{$panel_type}>'>
+    <div class='panel panel-<{$panel_type|default:''}>'>
             <div class='panel-heading wgg-imgindex-header'>
                 <h3><{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}> <{$alb_name}></h3>
                 <p><{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE_DESC}></p>
             </div>
             <div class=' panel-body'>
-                <{if $images}>
+                <{if $images|default:''}>
                     <ol class="sortable ui-sortable mjs-nestedSortable-branch mjs-nestedSortable-expanded">
                         <{foreach item=image from=$images}>
                             <li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-collapsed mjs-nestedSortable-leaf" id="menuItem_<{$image.id}>">
@@ -37,19 +37,19 @@
                             </li>
                         <{/foreach}>
                     </ol>            
-                <{else if $showlist}>
+                <{elseif $showlist|default:''}>
                     <div class=''>
                         <div class='errorMsg'><strong><{$smarty.const._CO_WGGALLERY_THEREARENT_IMAGES}></strong></div>
                     </div>
                 <{/if}>   
                 <div class='clear'>&nbsp;</div>
                 <div class='wgg-goback'>
-                    <a class='btn btn-default wgg-btn' href='<{if $ref}><{$ref}><{else}>images<{/if}>.php?op=<{if $redir_op}><{$redir_op}><{else}>list<{/if}>&amp;alb_id=<{$alb_id}>&amp;alb_pid=<{$alb_pid}>' title='<{$smarty.const._CO_WGGALLERY_BACK}>'>
-                        <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>back.png' alt='<{$smarty.const._CO_WGGALLERY_BACK}>'><{if $displayButtonText}><{$smarty.const._CO_WGGALLERY_BACK}><{/if}></a>
+                    <a class='btn btn-default wgg-btn' href='<{if $ref}><{$ref}><{else}>images<{/if}>.php?op=<{if $redir_op|default:''}><{$redir_op}><{else}>list<{/if}>&amp;alb_id=<{$alb_id}>&amp;alb_pid=<{$alb_pid}>' title='<{$smarty.const._CO_WGGALLERY_BACK}>'>
+                        <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>back.png' alt='<{$smarty.const._CO_WGGALLERY_BACK}>'><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_BACK}><{/if}></a>
                     </div>
             </div>
             <div class='clear'>&nbsp;</div>
-                <{if $pagenav}>
+                <{if $pagenav|default:''}>
                     <div class='xo-pagenav floatright'><{$pagenav}></div>
                     <div class='clear spacer'></div>
                 <{/if}>
@@ -57,7 +57,7 @@
     </div>
 <{/if}>
 
-<{if $error}>
+<{if $error|default:''}>
 	<div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
 

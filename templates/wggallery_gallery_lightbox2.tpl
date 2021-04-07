@@ -13,7 +13,7 @@
 		height:<{$indexImageheight}>px;
 		width:<{$indexImageheight}>px;
 	}
-	<{if $indexImage == 'simpleContainer'}>
+	<{if $indexImage|default:'' == 'simpleContainer'}>
 		.simpleContainer {
 			position: relative;
 			display: inline-block;
@@ -48,18 +48,18 @@
     })
 </script>
 
-<{if $images_nb > 0}>
+<{if $images_nb|default:0 > 0}>
 	<div class='clear'></div>
 	<!-- Images used to open the lightbox -->
 	<div>
 		<{foreach item=image from=$images name=images}>
-			<a class="lightbox-image-link" href="<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>" data-lightbox="lightbox2-set" <{if $showDescr}> data-title="<{$image.desc}>"<{/if}> >
-				<{if $indexImage == 'simpleContainer'}>
+			<a class="lightbox-image-link" href="<{if $source|default:'' == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>" data-lightbox="lightbox2-set" <{if $showDescr|default:false}> data-title="<{$image.desc}>"<{/if}> >
+				<{if $indexImage|default:'' == 'simpleContainer'}>
 					<div class="simpleContainer">
 						<img class="img-responsive" src="<{if $source_preview == 'medium'}><{$image.medium}><{else}><{$image.thumb}><{/if}>" alt="<{$image.title}>" title="<{$image.title}>">
 						<div class="simpleContent">
-							<{if $showTitle}><p><{$image.title}></p><{/if}>
-							<{if $showDescr}><p><{$image.desc}></p><{/if}>
+							<{if $showTitle|default:false}><p><{$image.title}></p><{/if}>
+							<{if $showDescr|default:false}><p><{$image.desc}></p><{/if}>
 						</div>
 					</div>
 				<{else}> 
@@ -72,7 +72,7 @@
 
 <div class="clear spacer"></div>
 
-<{if $error}>
+<{if $error|default:''}>
 	<div class="errorMsg"><strong><{$error}></strong></div>
 <{/if}> 
 
