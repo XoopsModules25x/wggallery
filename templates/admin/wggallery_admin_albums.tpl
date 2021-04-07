@@ -1,7 +1,7 @@
 <!-- Header -->
 <{include file='db:wggallery_admin_header.tpl'}>
 
-<{if $albums_list}>
+<{if $albums_list|default:''}>
 	<table class='table table-bordered'>
 		<thead>
 			<tr class='head'>
@@ -34,14 +34,14 @@
                 <th class='center'><{$smarty.const._CO_WGGALLERY_WATERMARKS}></th>
                 <th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_NB_IMAGES}></th>
                 <th class='center'><{$smarty.const._CO_WGGALLERY_ALBUM_NB_COLL}></th>
-                <{if $use_categories}><th class='center'><{$smarty.const._CO_WGGALLERY_CATS}></th><{/if}>
-                <{if $use_tags}><th class='center'><{$smarty.const._CO_WGGALLERY_TAGS}></th><{/if}>
+                <{if $use_categories|default:''}><th class='center'><{$smarty.const._CO_WGGALLERY_CATS}></th><{/if}>
+                <{if $use_tags|default:''}><th class='center'><{$smarty.const._CO_WGGALLERY_TAGS}></th><{/if}>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_DATE}></th>
 				<th class='center'><{$smarty.const._CO_WGGALLERY_SUBMITTER}></th>
 				<th class='center width5'><{$smarty.const._CO_WGGALLERY_FORM_ACTION}></th>
 			</tr>
 		</thead>
-		<{if $albums_count}>
+		<{if $albums_count|default:''}>
 			<tbody>
 				<{foreach item=album from=$albums_list}>
 					<tr class="<{cycle values='odd, even'}>">
@@ -52,44 +52,44 @@
 						<td class='center'><{$album.desc}></td>
 						<td class='center'><{$album.weight}></td>
 						<td class='center'>
-							<{if $album.image_err}>
+							<{if $album.image_err|default:''}>
 								<span style='color:#ff0000'><strong><{$album.image_errtext}></strong></span>
 							<{else}>
 								<img src='<{$album.image}>' alt='<{$album.name}>' style='max-width:50px'>
 							<{/if}>
 						</td>
 						<td class='center'>
-                            <{if $album.state == 0}>
+                            <{if $album.state|default:'' == 0}>
                                 <img class='state active' src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'>
                             <{/if}>
-                            <{if $album.state == 1}>
+                            <{if $album.state|default:'' == 1}>
                                 <img class='state active' src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'>
                             <{/if}>
-                            <{if $album.state == 2}>
+                            <{if $album.state|default:'' == 2}>
                                 <img class='state active' src='<{$wggallery_icon_url_16}>state2.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_APPROVAL}>'>
                             <{/if}>
                         </td>
                         <td class='center'>
-                            <a href='watermarks.php?op=edit&amp;wm_id=<{$album.wmid}>' title='<{$album.wmname}>'>
-								<{$album.wmname}>
+                            <a href='watermarks.php?op=edit&amp;wm_id=<{$album.wmid}>' title='<{$album.wmname|default:''}>'>
+								<{$album.wmname|default:''}>
 							</a>
                         </td>
-                        <td class='center'><{if $album.iscoll}>-<{else}><{$album.nb_images}><{/if}></td>
-                        <td class='center'><{if $album.iscoll}><{$album.nb_subalbums}><{else}>-<{/if}></td>
-                        <{if $use_categories}><td class='center'><{$album.cats_list}></td><{/if}>
-                        <{if $use_tags}><td class='center'><{$album.tags}></td><{/if}>
+                        <td class='center'><{if $album.iscoll|default:''}>-<{else}><{$album.nb_images}><{/if}></td>
+                        <td class='center'><{if $album.iscoll|default:''}><{$album.nb_subalbums}><{else}>-<{/if}></td>
+                        <{if $use_categories|default:''}><td class='center'><{$album.cats_list}></td><{/if}>
+                        <{if $use_tags|default:''}><td class='center'><{$album.tags}></td><{/if}>
 						<td class='center'><{$album.date}></td>
 						<td class='center'><{$album.submitter}></td>
 						<td class='center  width10'>
-                            <{if $album.state == 0}>
+                            <{if $album.state|default:'' == 0}>
                                 <a href='albums.php?op=change_state&amp;alb_state=1&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'>
                                     <img src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'></a>
                             <{/if}>
-                            <{if $album.state == 1}>
+                            <{if $album.state|default:'' == 1}>
                                 <a href='albums.php?op=change_state&amp;alb_state=0&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'>
                                     <img src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'></a>
                             <{/if}>
-                            <{if $album.state == 2}>
+                            <{if $album.state|default:'' == 2}>
                                 <a href='albums.php?op=change_state&amp;alb_state=1&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'>
                                     <img src='<{$wggallery_icon_url_16}>state1.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_ONLINE}>'></a>
                                 <a href='albums.php?op=change_state&amp;alb_state=0&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'>
@@ -99,7 +99,7 @@
 								<img src='<{xoModuleIcons16 edit.png}>' alt='<{$smarty.const._EDIT}>'></a>
 							<a href='albums.php?op=delete&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._DELETE}>'>
 								<img src='<{xoModuleIcons16 delete.png}>' alt='<{$smarty.const._DELETE}>'></a>
-                            <{if $album.nb_images > 0}>
+                            <{if $album.nb_images|default:0 > 0}>
                                 <a href='images.php?op=list&amp;alb_id=<{$album.id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES}>'>
                                     <img src='<{$wggallery_icon_url_16}>photos.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES}>'></a>
                             <{/if}>
@@ -110,12 +110,12 @@
 		<{/if}>
 	</table>
 	<div class='clear'>&nbsp;</div>
-	<{if $pagenav}>
+	<{if $pagenav|default:''}>
 		<div class='xo-pagenav floatright'><{$pagenav}></div>
 		<div class='clear spacer'></div>
 	<{/if}>
 <{/if}>
-<{if $form}>
+<{if $form|default:''}>
 	<{$form}>
     <!-- Modal for selection album image -->
     <div class="modal fade" id="myModalImagePicker" tabindex="-1" role="dialog"
@@ -129,11 +129,13 @@
                     <h4 class="modal-title" id="myModalLabel">Image Gallery</h4>
                 </div>
                 <div class="modal-body">
-                    <{foreach item=image from=$images}>
-                        <input class="img <{if $image.selected}>wgg-modal-selected<{/if}>" type="image" src="<{$image.thumb}>" alt="<{$image.title}>"
-                               height="100" width="130" value="<{$image.name}>"
-                               style="padding:3px;">
-                    <{/foreach}>
+                    <{if $images|default:''}>
+                        <{foreach item=image from=$images}>
+                            <input class="img <{if $image.selected|default:''}>wgg-modal-selected<{/if}>" type="image" src="<{$image.thumb}>" alt="<{$image.title}>"
+                                   height="100" width="130" value="<{$image.name}>"
+                                   style="padding:3px;">
+                        <{/foreach}>
+                    <{/if}>
                 </div>
             </div>
         </div>
@@ -210,7 +212,7 @@
     <!-- End of modal for selection album image -->
 <{/if}>
 
-<{if $error}>
+<{if $error|default:''}>
 	<div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
 <br>

@@ -229,7 +229,7 @@ switch ($op) {
             $tags['ALBUM_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/albums.php?op=show&alb_id={$albId}&amp;alb_pid={$albPid}";
             $notificationHandler = xoops_getHandler('notification');
 
-            if (WGGALLERY_STATE_APPROVAL_VAL === $albState) {
+            if (Constants::STATE_APPROVAL_VAL === $albState) {
                 $notificationHandler->triggerEvent('global', 0, 'album_approve_all', $tags);
             } else {
                 if ($albNew) {

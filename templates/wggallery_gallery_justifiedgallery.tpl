@@ -3,11 +3,11 @@
 
 <link href="<{$wggallery_url}>/assets/gallerytypes/justifiedgallery/dist/css/colorbox/<{$colorboxstyle}>/colorbox.css" rel="stylesheet">
 
-<{if $images_nb > 0}>
+<{if $images_nb|default:0 > 0}>
 	<div id="mygallery" >
 		<{foreach item=image from=$images}>
-			<a href='<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>' rel='gallery1'>
-				<img alt='<{$image.title}>' src='<{if $source_preview == 'medium'}><{$image.medium}><{else}><{$image.thumb}><{/if}>'>
+			<a href='<{if $source|default:'' == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>' rel='gallery1'>
+				<img alt='<{$image.title}>' src='<{if $source_preview|default:'' == 'medium'}><{$image.medium}><{else}><{$image.thumb}><{/if}>'>
 			</a>
 		<{/foreach}>
 	</div>
@@ -38,7 +38,7 @@
 			next: '<{$colorbox_next}>',
 			close: '<{$colorbox_close}>',
 			maxWidth: '100%',
-			<{if $open == 'true'}>
+			<{if $open|default:'' == 'true'}>
 				onClosed: function () {
 					window.history.go(-1);
 				}
@@ -49,7 +49,7 @@
 
 <div class="clear spacer"></div>
 
-<{if $error}>
+<{if $error|default:''}>
 	<div class="errorMsg"><strong><{$error}></strong></div>
 <{/if}> 
 

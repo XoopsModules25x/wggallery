@@ -1,6 +1,6 @@
 <{include file='db:wggallery_header.tpl'}>
 
-<{if $form}>
+<{if $form|default:''}>
 	<{$form}>
 <{/if}>
 
@@ -41,7 +41,7 @@
                 maxHeightImageError: "<{$smarty.const._MAXHEIGHTIMAGEERROR}>",
                 maxWidthImageError: "<{$smarty.const._MAXWIDTHIMAGEERROR}>",
                 minHeightImageError: "<{$smarty.const._MINHEIGHTIMAGEERROR}>",
-                minWidthImageError: "<{$smarty.const.__MINWIDTHIMAGEERROR}>",
+                minWidthImageError: "<{$smarty.const._MINWIDTHIMAGEERROR}>",
                 retryFailTooManyItems: "<{$smarty.const._RETRYFAILTOOMANYITEMS}>",
                 onLeave: "<{$smarty.const._ONLEAVE}>",
                 unsupportedBrowserIos8Safari: "<{$smarty.const._UNSUPPORTEDBROWSERIOS8SAFARI}>"
@@ -102,12 +102,12 @@
 <div class='multiupload-footer'>
 	<{if $albId}>
 		<div class='col-xs-12 col-sm-12 right'>
-			<a class='btn btn-default wgg-btn' href='images.php?op=list&amp;ref=albums&amp;alb_id=<{$albId}>&amp;alb_pid=<{$albPid}><{if $subm_id}>&amp;subm_id=<{$subm_id}><{/if}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'>
-                <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>photos.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'><{if $displayButtonText}><{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}><{/if}></a>
+			<a class='btn btn-default wgg-btn' href='images.php?op=list&amp;ref=albums&amp;alb_id=<{$albId}>&amp;alb_pid=<{$albPid|default:0}><{if $subm_id|default:''}>&amp;subm_id=<{$subm_id}><{/if}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'>
+                <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>photos.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}><{/if}></a>
             <a class='btn btn-default wgg-btn' href='albums.php?op=edit&amp;alb_id=<{$albId}>' title='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>'>
-				<span class="wgg-btn-icon"><img class='' src='<{$wggallery_icon_url_16}>edit.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>'></span><{if $displayButtonText}><{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}><{/if}></a>
+				<span class="wgg-btn-icon"><img class='' src='<{$wggallery_icon_url_16}>edit.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>'></span><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}><{/if}></a>
 			<a class='btn btn-default wgg-btn' href='album_images.php?op=list&amp;alb_id=<{$albId}>' title='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}>'>
-				<span class="wgg-btn-icon"><img class='' src='<{$wggallery_icon_url_16}>album_images.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}>'></span><{if $displayButtonText}><{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}><{/if}></a>
+				<span class="wgg-btn-icon"><img class='' src='<{$wggallery_icon_url_16}>album_images.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}>'></span><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}><{/if}></a>
 		</div>
 	<{/if}>
 </div>

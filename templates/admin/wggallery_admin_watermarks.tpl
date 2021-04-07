@@ -1,6 +1,6 @@
 <!-- Header -->
 <{include file='db:wggallery_admin_header.tpl'}>
-<{if $watermarks_list}>
+<{if $watermarks_list|default:''}>
 	<table class='table table-bordered'>
         <thead>
             <tr class="head">
@@ -22,7 +22,7 @@
                 <th class="center width5"><{$smarty.const._CO_WGGALLERY_FORM_ACTION}></th>
             </tr>
         </thead>
-        <{if $watermarks_count}>
+        <{if $watermarks_count|default:''}>
         	<tbody>
                 <{foreach item=watermark from=$watermarks_list}>
                     <tr class="<{cycle values='odd, even'}>">
@@ -56,18 +56,18 @@
         <{/if}>
     </table>
     <div class="clear">&nbsp;</div>
-    <{if $pagenav}>
+    <{if $pagenav|default:''}>
         <div class="xo-pagenav floatright"><{$pagenav}></div>
         <div class="clear spacer"></div>
     <{/if}>
 <{/if}>
-<{if $form}>
+<{if $form|default:''}>
     <{if $imgTest}>
         <img src="<{$wggallery_upload_url}>/images/watermarks-test/<{$imgTest}>" alt="watermarks" class="img-responsive center" style="max-width:400px">
     <{/if}>
 	<{$form}>
 <{/if}>
-<{if $error}>
+<{if $error|default:''}>
 	<div class="errorMsg"><strong><{$error}></strong></div>
 <{/if}>
 <br>

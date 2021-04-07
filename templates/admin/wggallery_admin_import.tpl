@@ -13,17 +13,17 @@
  }
 </style>
 
-<{if $error_exist }>
+<{if $error_exist|default:'' }>
 	<div style='font-size:120%;margin-bottom:20px'><p style='color:#ff0000'><{$error_exist}>:</p>
         <{if $error_albexist}><p style='color:#ff0000'><{$error_albexist}></p><{/if}>
         <{if $error_imgexist}><p style='color:#ff0000'><{$error_imgexist}></p><{/if}>
     </div>
 <{/if}>
-<{if $search_result}>
+<{if $search_result|default:''}>
 	<div style='font-size:120%;margin-bottom:20px'><{$smarty.const._AM_WGGALLERY_IMPORT_READ}>: <{$im_name}></div>
 <{/if}>
 
-<{if $import_modules}>
+<{if $import_modules|default:''}>
     <table class='table table-bordered'>
         <thead>
             <tr class='head'>
@@ -37,7 +37,7 @@
                 <tr class="<{cycle values='odd, even'}>">
                     <td class='left'><{$module.name}></td>
                     <td class='left'>
-                        <{if $module.found == 1}>
+                        <{if $module.found|default:'' == 1}>
                             <img src="<{$wggallery_icon_url_16}>on.png" alt="<{$smarty.const._YES}>">  <{$smarty.const._AM_WGGALLERY_IMPORT_SUP_INSTALLED}>
                         <{else}>
                             <img src="<{$wggallery_icon_url_16}>off.png" alt="<{$smarty.const._NO}>">  <{$smarty.const._AM_WGGALLERY_IMPORT_SUP_NOTINSTALLED}>
@@ -52,10 +52,10 @@
     </table>
 <{/if}>
 
-<{if $form}>
+<{if $form|default:''}>
 	<{$form}>
 <{/if}>
-<{if $error}>
+<{if $error|default:''}>
 	<div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
 <br>

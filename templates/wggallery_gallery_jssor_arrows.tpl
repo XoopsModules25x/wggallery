@@ -1,7 +1,7 @@
 <!--#region Arrow Navigator Skin Begin -->
 <!-- Help: https://www.jssor.com/development/slider-with-arrow-navigator.html -->
 
-<{if $jssor_arrows == 'arrow-051'}>
+<{if $jssor_arrows|default:'' == 'arrow-051'}>
         <style>
             .jssora051 {opacity:.3;pointer-events:none;}
         </style>
@@ -17,7 +17,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_arrows == 'arrow-052'}>
+<{if $jssor_arrows|default:'' == 'arrow-052'}>
 		<style>
             .jssora052 {display:block;position:absolute;cursor:pointer;}
             .jssora052 .a {fill:none;stroke:#000;stroke-width:360;stroke-miterlimit:10;}
@@ -37,7 +37,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_arrows == 'arrow-053'}>
+<{if $jssor_arrows|default:'' == 'arrow-053'}>
         <style>
             .jssora053 {display:block;position:absolute;cursor:pointer;}
             .jssora053 .a {fill:none;stroke:#fff;stroke-width:640;stroke-miterlimit:10;}
@@ -57,7 +57,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_arrows == 'arrow-054'}>
+<{if $jssor_arrows|default:'' == 'arrow-054'}>
         <style>
             .jssora054 {display:block;position:absolute;cursor:pointer;}
             .jssora054 .a {fill:none;stroke:#000;stroke-width:640;stroke-miterlimit:10;}
@@ -77,7 +77,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_arrows == 'arrow-055'}>
+<{if $jssor_arrows|default:'' == 'arrow-055'}>
         <style>
             .jssora055 {display:block;position:absolute;cursor:pointer;}
             .jssora055 .a {fill:none;stroke:#fff;stroke-width:960;stroke-miterlimit:10;}
@@ -97,7 +97,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_arrows == 'arrow-056'}>
+<{if $jssor_arrows|default:'' == 'arrow-056'}>
         <style>
             .jssora056 {display:block;position:absolute;cursor:pointer;}
             .jssora056 .a {fill:none;stroke:#000;stroke-width:960;stroke-miterlimit:10;}
@@ -117,7 +117,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_arrows == 'arrow-071'}>
+<{if $jssor_arrows|default:'' == 'arrow-071'}>
         <style>
             .jssora071 {display:block;position:absolute;cursor:pointer;}
             .jssora071 .a {fill:#fff;fill-opacity:.8;stroke:#000;stroke-width:120;stroke-miterlimit:10;stroke-opacity:.5;}
@@ -137,7 +137,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_arrows == 'arrow-072'}>
+<{if $jssor_arrows|default:'' == 'arrow-072'}>
         <style>
             .jssora072 {display:block;position:absolute;cursor:pointer;}
             .jssora072 .a {fill:#000;fill-opacity:.8;stroke:#fff;stroke-width:120;stroke-miterlimit:10;stroke-opacity:.5;}
@@ -157,7 +157,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_arrows == 'arrow-073'}>
+<{if $jssor_arrows|default:'' == 'arrow-073'}>
         <style>
             .jssora073 {display:block;position:absolute;cursor:pointer;}
             .jssora073 .a {fill:#ddd;fill-opacity:.7;stroke:#000;stroke-width:160;stroke-miterlimit:10;stroke-opacity:.7;}
@@ -177,7 +177,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_arrows == 'arrow-074'}>
+<{if $jssor_arrows|default:'' == 'arrow-074'}>
         <style>
             .jssora074 {display:block;position:absolute;cursor:pointer;}
             .jssora074 .a {fill:#333;fill-opacity:.7;stroke:#fff;stroke-width:160;stroke-miterlimit:10;stroke-opacity:.7;}
@@ -197,7 +197,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_arrows == 'arrow-081'}>
+<{if $jssor_arrows|default:'' == 'arrow-081'}>
         <style>
             .jssora082 {display:block;position:absolute;cursor:pointer;}
             .jssora082 .c {fill:#fff;fill-opacity:.5;stroke:#000;stroke-width:160;stroke-miterlimit:10;stroke-opacity:0.3;}
@@ -221,7 +221,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_arrows == 'arrow-082'}>
+<{if $jssor_arrows|default:'' == 'arrow-082'}>
         <style>
             .jssora081 {display:block;position:absolute;cursor:pointer;}
             .jssora081 .c {fill:#000;fill-opacity:.5;stroke:#fff;stroke-width:120;stroke-miterlimit:10;stroke-opacity:0.5;}
@@ -245,7 +245,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_arrows == 'arrow-091'}>
+<{if $jssor_arrows|default:'' == 'arrow-091'}>
         <style>
             .jssora091 {display:block;position:absolute;cursor:pointer;}
             .jssora091 .c {fill:#fff;fill-opacity:0.7;}
@@ -268,7 +268,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_arrows == 'arrow-092'}>
+<{if $jssor_arrows|default:'' == 'arrow-092'}>
         <style>
             .jssora092 {display:block;position:absolute;cursor:pointer;}
             .jssora092 .c {fill:#000;fill-opacity:0.5;}
@@ -291,7 +291,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_arrows == 'arrow-093'}>
+<{if $jssor_arrows|default:'' == 'arrow-093'}>
         <style>
             .jssora093 {display:block;position:absolute;cursor:pointer;}
             .jssora093 .c {fill:none;stroke:#fff;stroke-width:400;stroke-miterlimit:10;}
@@ -316,7 +316,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_arrows == 'arrow-094'}>
+<{if $jssor_arrows|default:'' == 'arrow-094'}>
         <style>
             .jssora094 {display:block;position:absolute;cursor:pointer;}
             .jssora094 .c {fill:none;stroke:#000;stroke-width:400;stroke-miterlimit:10;}

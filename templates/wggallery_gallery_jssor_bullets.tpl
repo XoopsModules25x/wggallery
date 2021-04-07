@@ -1,7 +1,7 @@
 <!--#region Bullet Navigator Skin Begin -->
 <!-- Help: https://www.jssor.com/development/slider-with-bullet-navigator.html -->
 
-<{if $jssor_bullets == 'bullet-031'}>
+<{if $jssor_bullets|default:'' == 'bullet-031'}>
         <style>
             .jssorb031 {position:absolute;}
             .jssorb031 .i {position:absolute;cursor:pointer;}
@@ -19,7 +19,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_bullets == 'bullet-032'}>
+<{if $jssor_bullets|default:'' == 'bullet-032'}>
         <style>
             .jssorb032 {position:absolute;}
             .jssorb032 .i {position:absolute;cursor:pointer;}
@@ -37,7 +37,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_bullets == 'bullet-033'}>
+<{if $jssor_bullets|default:'' == 'bullet-033'}>
         <style>
             .jssorb033 {position:absolute;}
             .jssorb033 .i {position:absolute;cursor:pointer;}
@@ -55,7 +55,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_bullets == 'bullet-034'}>
+<{if $jssor_bullets|default:'' == 'bullet-034'}>
         <style>
             .jssorb034 {position:absolute;}
             .jssorb034 .i {position:absolute;cursor:pointer;}
@@ -73,7 +73,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_bullets == 'bullet-035'}>
+<{if $jssor_bullets|default:'' == 'bullet-035'}>
         <style>
             .jssorb035 {position:absolute;}
             .jssorb035 .i {position:absolute;cursor:pointer;}
@@ -91,7 +91,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_bullets == 'bullet-036'}>
+<{if $jssor_bullets|default:'' == 'bullet-036'}>
         <style>
             .jssorb036 {position:absolute;}
             .jssorb036 .i {position:absolute;cursor:pointer;}
@@ -109,7 +109,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_bullets == 'bullet-051'}>
+<{if $jssor_bullets|default:'' == 'bullet-051'}>
         <style>
             .jssorb051 .i {position:absolute;cursor:pointer;}
             .jssorb051 .i .b {fill:#fff;fill-opacity:0.5;}
@@ -126,7 +126,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_bullets == 'bullet-052'}>
+<{if $jssor_bullets|default:'' == 'bullet-052'}>
         <style>
             .jssorb052 .i {position:absolute;cursor:pointer;}
             .jssorb052 .i .b {fill:#000;fill-opacity:0.3;}
@@ -143,7 +143,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_bullets == 'bullet-053'}>
+<{if $jssor_bullets|default:'' == 'bullet-053'}>
         <style>
             .jssorb053 .i {position:absolute;cursor:pointer;}
             .jssorb053 .i .b {fill:#fff;fill-opacity:0.5;}
@@ -160,7 +160,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_bullets == 'bullet-054'}>
+<{if $jssor_bullets|default:'' == 'bullet-054'}>
         <style>
             .jssorb054 .i {position:absolute;cursor:pointer;}
             .jssorb054 .i .b {fill:#000;fill-opacity:0.3;}
@@ -177,7 +177,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_bullets == 'bullet-055'}>
+<{if $jssor_bullets|default:'' == 'bullet-055'}>
         <style>
             .jssorb055 .i {position:absolute;cursor:pointer;}
             .jssorb055 .i .b {fill:#fff;fill-opacity:0.5;}
@@ -194,7 +194,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_bullets == 'bullet-056'}>
+<{if $jssor_bullets|default:'' == 'bullet-056'}>
         <style>
             .jssorb056 .i {position:absolute;cursor:pointer;}
             .jssorb056 .i .b {fill:#000;fill-opacity:0.3;stroke:#fff;stroke-width:400;stroke-miterlimit:10;stroke-opacity:0.7;}
@@ -211,7 +211,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_bullets == 'bullet-057'}>
+<{if $jssor_bullets|default:'' == 'bullet-057'}>
         <style>
             .jssorb057 .i {position:absolute;cursor:pointer;}
             .jssorb057 .i .b {fill:none;stroke:#fff;stroke-width:2000;stroke-miterlimit:10;stroke-opacity:0.4;}
@@ -228,7 +228,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_bullets == 'bullet-058'}>
+<{if $jssor_bullets|default:'' == 'bullet-058'}>
         <style>
             .jssorb058 .i {position:absolute;cursor:pointer;}
             .jssorb058 .i .b {fill:none;stroke:#000;stroke-width:2000;stroke-miterlimit:10;stroke-opacity:0.3;}
@@ -245,7 +245,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_bullets == 'bullet-061'}>
+<{if $jssor_bullets|default:'' == 'bullet-061'}>
         <style type="text/css">
             .jssorb061 {position:absolute;}
             .jssorb061 .i {position:absolute;cursor:pointer;}
@@ -263,7 +263,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_bullets == 'bullet-062'}>
+<{if $jssor_bullets|default:'' == 'bullet-062'}>
         <style type="text/css">
             .jssorb062 {position:absolute;}
             .jssorb062 .i {position:absolute;cursor:pointer;}
@@ -282,7 +282,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_bullets == 'bullet-063'}>
+<{if $jssor_bullets|default:'' == 'bullet-063'}>
         <style type="text/css">
             .jssorb063 {position:absolute;}
             .jssorb063 .i {position:absolute;cursor:pointer;}
@@ -300,7 +300,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_bullets == 'bullet-064'}>
+<{if $jssor_bullets|default:'' == 'bullet-064'}>
         <style type="text/css">
             .jssorb064 {position:absolute;}
             .jssorb064 .i {position:absolute;cursor:pointer;}
@@ -319,7 +319,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_bullets == 'bullet-071'}>
+<{if $jssor_bullets|default:'' == 'bullet-071'}>
         <style>
             .jssorb071 .i {position:absolute;color:#fff;font-family:"Helvetica neue",Helvetica,Arial,sans-serif;text-align:center;cursor:pointer;z-index:0;}
             .jssorb071 .i .b {fill:#000;opacity:.2;}
@@ -338,7 +338,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_bullets == 'bullet-072'}>
+<{if $jssor_bullets|default:'' == 'bullet-072'}>
         <style>
             .jssorb072 .i {position:absolute;color:#000;font-family:"Helvetica neue",Helvetica,Arial,sans-serif;text-align:center;cursor:pointer;z-index:0;}
             .jssorb072 .i .b {fill:#fff;opacity:.3;}

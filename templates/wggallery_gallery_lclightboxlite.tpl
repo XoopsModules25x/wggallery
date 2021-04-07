@@ -5,15 +5,15 @@
 
 <script type='text/javascript'>
     $(document).ready(function() {
-        var data = [<{if $images_nb > 0}><{foreach item=image from=$images}>                
+        var data = [<{if $images_nb|default:0 > 0}><{foreach item=image from=$images}>
 					{
 						type            : 'image',
-						src             : '<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>',
-						title           : '<{if $showTitle == 'true'}><{$image.title}><{/if}>',
-						author          : '<{if $showSubmitter == 'true'}><{$image.submitter}><{/if}>',
+						src             : '<{if $source|default:'' == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>',
+						title           : '<{if $showTitle|default:'' == 'true'}><{$image.title}><{/if}>',
+						author          : '<{if $showSubmitter|default:'' == 'true'}><{$image.submitter}><{/if}>',
 						thumb           : '<{$image.thumb}>',
 						force_outer_cmd : true,
-						download        : '<{if $source == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>'
+						download        : '<{if $source|default:'' == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>'
 					},
         <{/foreach}><{/if}>];
         
@@ -71,7 +71,7 @@
         lclSetAttribute("lcl_thumbs_toggle", "<{$smarty.const._MA_WGGALLERY_LCL_THUMBS_TOGGLE}>");
         lclSetAttribute("lcl_socials", "<{$smarty.const._MA_WGGALLERY_LCL_SOCIALS}>");
         //set album name
-        <{if $lbl_album}>
+        <{if $lbl_album|default:''}>
             $('#lbl_album').html('<p><{$lbl_album}></p>');
         <{/if}>
 

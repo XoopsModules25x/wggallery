@@ -1,6 +1,6 @@
 <!-- Help: https://www.jssor.com/development/slider-with-loading-screen.html -->
 
-<{if $jssor_loadings == 'loading-003-oval'}>
+<{if $jssor_loadings|default:'' == 'loading-003-oval'}>
 		<style>
 			.jssorl-003-oval img {
 				animation-name: jssorl-003-oval;
@@ -22,7 +22,7 @@
         </div>	
 <{/if}>
 
-<{if $jssor_loadings == 'loading-004-double-tail-spin'}>
+<{if $jssor_loadings|default:'' == 'loading-004-double-tail-spin'}>
 		<style>
 			.jssorl-004-double-tail-spin img {
 				animation-name: jssorl-004-double-tail-spin;
@@ -44,7 +44,7 @@
         </div>		
 <{/if}>
 
-<{if $jssor_loadings == 'loading-005-circles'}>
+<{if $jssor_loadings|default:'' == 'loading-005-circles'}>
 		<style>
 			.jssorl-005-circles img {
 				animation-name: jssorl-005-circles;
@@ -66,7 +66,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_loadings == 'loading-006-tail-spin'}>
+<{if $jssor_loadings|default:'' == 'loading-006-tail-spin'}>
 		<style>
 			.jssorl-006-tail-spin img {
 				animation-name: jssorl-006-tail-spin;
@@ -88,7 +88,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_loadings == 'loading-008-ball-triangle'}>
+<{if $jssor_loadings|default:'' == 'loading-008-ball-triangle'}>
 		<style>
 			.jssorl-008-ball-triangle img {
 				animation-name: jssorl-008-ball-triangle;
@@ -111,7 +111,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_loadings == 'loading-009-spin'}>
+<{if $jssor_loadings|default:'' == 'loading-009-spin'}>
 		<style>
 			.jssorl-009-spin img {
 				animation-name: jssorl-009-spin;

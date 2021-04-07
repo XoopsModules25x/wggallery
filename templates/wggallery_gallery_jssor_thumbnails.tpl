@@ -1,7 +1,7 @@
 <!--#region Thumbnail Navigator Skin Begin -->
 <!-- Help: https://www.jssor.com/development/slider-with-thumbnail-navigator.html -->
 
-<{if $jssor_thumbnails == 'thumbnail-051'}>
+<{if $jssor_thumbnails|default:'' == 'thumbnail-051'}>
         <style>
             .jssort051 .p {position:absolute;top:0;left:0;background-color:#000;}
             .jssort051 .t {position:absolute;top:0;left:0;width:100%;height:100%;border:none;opacity:.45;}
@@ -17,7 +17,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_thumbnails == 'thumbnail-052'}>
+<{if $jssor_thumbnails|default:'' == 'thumbnail-052'}>
         <style>
             .jssort052 .p {position:absolute;top:0;left:0;background-color:#fff;}
             .jssort052 .t {position:absolute;top:0;left:0;width:100%;height:100%;border:none;opacity:.45;}
@@ -33,7 +33,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_thumbnails == 'thumbnail-061'}>
+<{if $jssor_thumbnails|default:'' == 'thumbnail-061'}>
         <style>
             .jssort061 .p {position:absolute;top:0;left:0;border:2px solid rgba(255,255,255,.5);box-sizing:border-box;}
             .jssort061 .t {position:absolute;top:0;left:0;width:100%;height:100%;border:none;opacity:.6;}
@@ -50,7 +50,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_thumbnails == 'thumbnail-062'}>
+<{if $jssor_thumbnails|default:'' == 'thumbnail-062'}>
         <style>
             .jssort062 .p {position:absolute;top:0;left:0;border:2px solid rgba(0,0,0,.4);box-sizing:border-box;}
             .jssort062 .t {position:absolute;top:0;left:0;width:100%;height:100%;border:none;opacity:.6;}
@@ -67,7 +67,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_thumbnails == 'thumbnail-091'}>
+<{if $jssor_thumbnails|default:'' == 'thumbnail-091'}>
         <div u="thumbnavigator" style="position:absolute;bottom:0;left:0;width:<{$jssor_maxwidth}>px;height:50px;color:#FFF;overflow:hidden;cursor:default;background-color:rgba(0,0,0,.5);">
             <div u="slides">
                 <div u="prototype" style="position:absolute;top:0;left:0;width:<{$jssor_maxwidth}>px;height:50px;">
@@ -77,7 +77,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_thumbnails == 'thumbnail-092'}>
+<{if $jssor_thumbnails|default:'' == 'thumbnail-092'}>
         <div u="thumbnavigator" style="position:absolute;bottom:0;left:0;width:<{$jssor_maxwidth}>px;height:50px;color:#000;overflow:hidden;cursor:default;background-color:rgba(255,255,255,.5);">
             <div u="slides">
                 <div u="prototype" style="position:absolute;top:0;left:0;width:<{$jssor_maxwidth}>px;height:50px;">
@@ -87,7 +87,7 @@
         </div>
 <{/if}>
 
-<{if $jssor_thumbnails == 'thumbnail-101'}>
+<{if $jssor_thumbnails|default:'' == 'thumbnail-101'}>
         <style>
             .jssort101 .p {position: absolute;top:0;left:0;box-sizing:border-box;background:#000;}
             .jssort101 .p .cv {position:relative;top:0;left:0;width:100%;height:100%;border:2px solid #000;box-sizing:border-box;z-index:1;}
@@ -115,7 +115,7 @@
             </div>
         </div>
 <{/if}>
-<{if $jssor_thumbnails == 'thumbnail-111'}>
+<{if $jssor_thumbnails|default:'' == 'thumbnail-111'}>
         <style>
             .jssort111 .p {position:absolute;top:0;left:0;width:200px;height:100px;background-color:#000;}
             .jssort111 .p img {position:absolute;top:0;left:0;width:100%;height:100%;}
@@ -133,7 +133,7 @@
             </div>
         </div>
 <{/if}>
-<{if $jssor_thumbnails == 'thumbnail-121'}>
+<{if $jssor_thumbnails|default:'' == 'thumbnail-121'}>
         <style>
             .jssort121 .p {position:absolute;top:0;left:0;border-bottom:1px solid rgba(255,255,255,.2);box-sizing:border-box;color:#fff;background:rgba(0,0,0,.1);opacity:.7;}
             .jssort121 .p .t {position:absolute;padding:10px;box-sizing:border-box;top:0;left:0;width:100%;height:100%;line-height:24px;overflow:hidden;}

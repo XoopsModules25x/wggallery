@@ -9,7 +9,7 @@
         padding:2px !important;
     }
 </style>
-    <h3><{$album.name}></h3>
+    <h3><{$album.name|default:''}></h3>
 	<div id='imghandler' class='col-xs-12 col-sm-12'>
 		<ul class='nav nav-tabs'>
 			<li class='active'><a id='navtab_main' href='#1' data-toggle='tab'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_CURRENT}></a></li>
@@ -23,7 +23,7 @@
 			<!-- *************** Basic Tab ***************-->
             <div class='tab-pane active center' id='1'>
 				<img id='currentImg' class='img-responsive wgg-album-img' src='<{$album.image}>' alt='<{$album.name}>'>
-                <{if $album.image_path}>
+                <{if $album.image_path|default:''}>
                     <p><{$smarty.const._CO_WGGALLERY_ALBUM_IMGTYPE}>: <{$album.image_path}><br>
                     <{$smarty.const._CO_WGGALLERY_IMAGE_RES}>: <{$albimage_width}> / <{$albimage_height}></p>
                     <input type='button' class='btn <{$btn_style}> wg-color1' value='<{$smarty.const._CANCEL}>' onclick='history.go(-1);return true;'>
@@ -34,12 +34,12 @@
 			<div class='tab-pane' id='2'>
                 <div class='col-xs-12 col-sm-6'>
                     <{foreach item=image from=$images name=fe_image}>
-                        <{if $image.alb_name}>
+                        <{if $image.alb_name|default:''}>
                             <div class='clear'></div>
                             <div class='selimages col-xs-12 col-sm-12'><h5 class='modal-title' style='width:100%'><{$image.alb_name}></h5></div>
                         <{/if}>
                         <div class='selimages col-xs-12 col-sm-4'>
-                            <input id='<{$image.id}>_image' class='imgSelect1 img-responsive wgg-album-img <{if $image.selected}>wgg-modal-selected<{/if}>' type='image' src='<{$image.thumb}>'  preview='<{$image.medium}>' alt='<{$image.title}>' style='padding:3px;' value='<{$image.name}>'>
+                            <input id='<{$image.id}>_image' class='imgSelect1 img-responsive wgg-album-img <{if $image.selected|default:''}>wgg-modal-selected<{/if}>' type='image' src='<{$image.thumb}>'  preview='<{$image.medium}>' alt='<{$image.title}>' style='padding:3px;' value='<{$image.name}>'>
                         </div>
                         <{if $image.counter % 3 == 0}>
                             <div class='clear'></div>
@@ -240,7 +240,7 @@
 			
             <!-- ***************Tab for upload image ***************-->
 			<div class='tab-pane center' id='5'>
-				<{$form_uploadimage}>
+				<{$form_uploadimage|default:''}>
 			</div>
 		</div>
 	</div>				
@@ -260,7 +260,7 @@
                 </div>
                 <div class='modal-body'>
                     <{foreach item=image from=$images}>
-                        <{if $image.alb_name}><h4 class='modal-title'><{$image.alb_name}></h4><{/if}>
+                        <{if $image.alb_name|default:''}><h4 class='modal-title'><{$image.alb_name}></h4><{/if}>
                         <input class='imgGrid<{$m}>' type='image' src='<{$image.thumb}>' alt='<{$image.title}>'
                                style='padding:3px;max-height:150px;max-width:200px' value='<{$image.name}>' onclick='selectGridImage(this, <{$m}>)'>
                     <{/foreach}>
