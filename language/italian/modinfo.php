@@ -37,6 +37,7 @@ require_once __DIR__ . '/common.php';
 \define('_MI_WGGALLERY_ADMENU10', 'Importazione');
 \define('_MI_WGGALLERY_ADMENU11', 'Categorie');
 \define('_MI_WGGALLERY_ADMENU12', 'Caricare con batch');
+\define('_MI_WGGALLERY_ADMENU13', 'Modulo clone');
 \define('_MI_WGGALLERY_FEEDBACK', 'Feedback');
 \define('_MI_WGGALLERY_ABOUT', 'Riguardo');
 // ---------------- Admin Nav ----------------

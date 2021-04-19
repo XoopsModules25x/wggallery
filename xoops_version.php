@@ -86,7 +86,6 @@ $modversion['templates'] = [
     ['file' => 'wggallery_admin_index.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wggallery_admin_albums.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wggallery_admin_images.tpl', 'description' => '', 'type' => 'admin'],
-    ['file' => 'wggallery_admin_batch.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wggallery_admin_gallerytypes.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wggallery_admin_albumtypes.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wggallery_admin_watermarks.tpl', 'description' => '', 'type' => 'admin'],
@@ -95,6 +94,8 @@ $modversion['templates'] = [
     ['file' => 'wggallery_admin_import.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wggallery_admin_footer.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wggallery_admin_categories.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'wggallery_admin_batch.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'wggallery_admin_clone.tpl', 'description' => '', 'type' => 'admin'],
     // User
     ['file' => 'wggallery_header.tpl', 'description' => ''],
     ['file' => 'wggallery_index_default.tpl', 'description' => ''],

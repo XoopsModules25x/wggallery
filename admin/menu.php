@@ -93,6 +93,12 @@ $adminmenu[] = [
 ];
 
 $adminmenu[] = [
+    'title' => \_MI_WGGALLERY_ADMENU13,
+    'link'  => 'admin/clone.php',
+    'icon'  => 'assets/icons/32/clone.png',
+];
+
+$adminmenu[] = [
     'title' => \_MI_WGGALLERY_FEEDBACK,
     'link'  => 'admin/feedback.php',
     'icon'  => 'assets/icons/32/feedback.png',
