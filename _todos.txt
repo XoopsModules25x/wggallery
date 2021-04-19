@@ -1,16 +1,1 @@
-
-Groups for exif?
-
-handle large number of images in admin/maintenance
-
-
-wenn Bild bei Liste vorhandene ausgewählt, dann dieses auch gleich bei Crop anzeigen
-
-
-
-max_time-out
-
-
-Bildermanagement: 
-- Bild drehen funktioniert nicht
-                     
+https://www.jqueryscript.net/lightbox/Responsive-Touch-enabled-jQuery-Image-Lightbox-Plugin.html

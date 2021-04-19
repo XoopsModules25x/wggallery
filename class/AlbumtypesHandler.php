@@ -19,11 +19,11 @@ namespace XoopsModules\Wggallery;
  * @license        GPL 2.0 or later
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.9
+ * @min_xoops      2.5.11
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 albumtypes.php 1 Sat 2018-03-31 11:31:09Z XOOPS Project (www.xoops.org) $
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+\defined('\XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * Class Object Handler Albumtypes
@@ -135,7 +135,7 @@ class AlbumtypesHandler extends \XoopsPersistableObjectHandler
         $crAlbumtypes->add(new \Criteria('at_primary', 1));
         $crAlbumtypes->setLimit(1);
         $albumtypesAll = $this->getAll($crAlbumtypes);
-        foreach (array_keys($albumtypesAll) as $i) {
+        foreach (\array_keys($albumtypesAll) as $i) {
             $albumtype['name']     = $albumtypesAll[$i]->getVar('at_name');
             $albumtype['template'] = $albumtypesAll[$i]->getVar('at_template');
             $albumtype['options']  = $albumtypesAll[$i]->getVar('at_options', 'N');
@@ -181,9 +181,9 @@ class AlbumtypesHandler extends \XoopsPersistableObjectHandler
                 $albumtypesObj->setVar('at_name', $template);
                 $albumtypesObj->setVar('at_template', $template);
                 if ($this->insert($albumtypesObj)) {
-                    $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE . $template;
+                    $success[] = \_AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE . $template;
                 } else {
-                    $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $template;
+                    $errors[] = \_AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $template;
                 }
             }
             unset($albumtypesObj);
@@ -195,28 +195,28 @@ class AlbumtypesHandler extends \XoopsPersistableObjectHandler
         $crAlbumtypes = new \CriteriaCompo();
         $crAlbumtypes->add(new \Criteria('at_primary', 1));
         $albumtypesAll = $this->getAll($crAlbumtypes);
-        foreach (array_keys($albumtypesAll) as $i) {
+        foreach (\array_keys($albumtypesAll) as $i) {
             if ($this->reset($albumtypesAll[$i]->getVar('at_id'), $albumtypesAll[$i]->getVar('at_template'), 1)) {
-                $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET . $albumtypesAll[$i]->getVar('at_name');
+                $success[] = \_AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET . $albumtypesAll[$i]->getVar('at_name');
                 $count_pr++;
             } else {
-                $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_RESET . $template;
+                $errors[] = \_AM_WGGALLERY_MAINTENANCE_ERROR_RESET . $template;
             }
         }
         unset($crAlbumtypes);
         $crAlbumtypes = new \CriteriaCompo();
         $crAlbumtypes->add(new \Criteria('at_primary', 0));
         $albumtypesAll = $this->getAll($crAlbumtypes);
-        foreach (array_keys($albumtypesAll) as $i) {
+        foreach (\array_keys($albumtypesAll) as $i) {
             $primary = 0;
             if (0 == $count_pr) {
                 $primary = 1;
             }
             if ($this->reset($albumtypesAll[$i]->getVar('at_id'), $albumtypesAll[$i]->getVar('at_template'), $primary)) {
-                $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET . $albumtypesAll[$i]->getVar('at_name');
+                $success[] = \_AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET . $albumtypesAll[$i]->getVar('at_name');
                 $count_pr++;
             } else {
-                $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_RESET . $template;
+                $errors[] = \_AM_WGGALLERY_MAINTENANCE_ERROR_RESET . $template;
             }
         }
         unset($crAlbumtypes);
@@ -267,7 +267,7 @@ class AlbumtypesHandler extends \XoopsPersistableObjectHandler
                 break;
             case 'none':
             default:
-                redirect_header('albumtypes.php?op=list', 3, 'Invalid albumtype name:' . $template);
+                \redirect_header('albumtypes.php?op=list', 3, 'Invalid albumtype name:' . $template);
                 break;
         }
 
@@ -289,7 +289,7 @@ class AlbumtypesHandler extends \XoopsPersistableObjectHandler
             $albumtypesObj->setVar('at_credits', $at_credits);
             $albumtypesObj->setVar('at_template', $template);
             $albumtypesObj->setVar('at_options', serialize($options));
-            $albumtypesObj->setVar('at_date', time());
+            $albumtypesObj->setVar('at_date', \time());
             if ($this->insert($albumtypesObj)) {
                 return true;
             }

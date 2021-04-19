@@ -16,7 +16,7 @@
  * @license        GPL 2.0 or later
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.9
+ * @min_xoops      2.5.11
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 albumtypes.php 1 Sat 2018-03-31 11:31:09Z XOOPS Project (www.xoops.org) $
  */
@@ -30,7 +30,7 @@ $atId = Request::getInt('at_id');
 
 $atCount = $albumtypesHandler->getCount();
 if ($atCount < 1) {
-    redirect_header('maintenance.php?op=list', 3, _AM_WGGALLERY_THEREARENT_ALBUMTYPES);
+    \redirect_header('maintenance.php?op=list', 3, \_AM_WGGALLERY_THEREARENT_ALBUMTYPES);
 }
 
 switch ($op) {
@@ -43,31 +43,31 @@ switch ($op) {
         $albumtypesCount = $albumtypesHandler->getCountAlbumtypes();
         $albumtypesAll   = $albumtypesHandler->getAllAlbumtypes($start, $limit);
         $GLOBALS['xoopsTpl']->assign('albumtypes_count', $albumtypesCount);
-        $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
-        $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
-        $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
+        $GLOBALS['xoopsTpl']->assign('wggallery_url', \WGGALLERY_URL);
+        $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', \WGGALLERY_UPLOAD_URL);
+        $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', \WGGALLERY_ICONS_URL . '16/');
         // Table view albumtypes
         if ($albumtypesCount > 0) {
-            foreach (array_keys($albumtypesAll) as $i) {
+            foreach (\array_keys($albumtypesAll) as $i) {
                 $albumtype = $albumtypesAll[$i]->getValuesAlbumtypes();
                 $GLOBALS['xoopsTpl']->append('albumtypes_list', $albumtype);
                 unset($albumtype);
             }
             // Display Navigation
             if ($albumtypesCount > $limit) {
-                require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($albumtypesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
         } else {
-            $GLOBALS['xoopsTpl']->assign('error', _AM_WGGALLERY_THEREARENT_ALBUMTYPES);
+            $GLOBALS['xoopsTpl']->assign('error', \_AM_WGGALLERY_THEREARENT_ALBUMTYPES);
         }
 
         break;
     case 'options':
         $templateMain = 'wggallery_admin_albumtypes.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('albumtypes.php'));
-        $adminObject->addItemButton(_AM_WGGALLERY_ALBUMTYPES_LIST, 'albumtypes.php', 'list');
+        $adminObject->addItemButton(\_AM_WGGALLERY_ALBUMTYPES_LIST, 'albumtypes.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $albumtypesObj = $albumtypesHandler->get($atId);
@@ -78,7 +78,7 @@ switch ($op) {
     case 'new':
         $templateMain = 'wggallery_admin_albumtypes.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('albumtypes.php'));
-        $adminObject->addItemButton(_AM_WGGALLERY_ALBUMTYPES_LIST, 'albumtypes.php', 'list');
+        $adminObject->addItemButton(\_AM_WGGALLERY_ALBUMTYPES_LIST, 'albumtypes.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $albumtypesObj = $albumtypesHandler->create();
@@ -90,7 +90,7 @@ switch ($op) {
         if (isset($atId)) {
             $albumtypesObj = $albumtypesHandler->get($atId);
         } else {
-            redirect_header('albumtypes.php', 3, 'missing Id');
+            \redirect_header('albumtypes.php', 3, 'missing Id');
         }
         // reset all
         $strSQL = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albumtypes') . ' SET ' . $GLOBALS['xoopsDB']->prefix('wggallery_albumtypes') . '.at_primary = 0';
@@ -99,19 +99,19 @@ switch ($op) {
         $albumtypesObj->setVar('at_primary', 1);
         // Insert Data
         if ($albumtypesHandler->insert($albumtypesObj)) {
-            redirect_header('albumtypes.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
+            \redirect_header('albumtypes.php?op=list', 2, \_CO_WGGALLERY_FORM_OK);
         }
 
         break;
     case 'saveoptions':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('albumtypes.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            \redirect_header('albumtypes.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         if (isset($atId)) {
             $albumtypesObj = $albumtypesHandler->get($atId);
         } else {
-            redirect_header('albumtypes.php', 3, 'invalid at_id at saveoptions');
+            \redirect_header('albumtypes.php', 3, 'invalid at_id at saveoptions');
         }
         $options = [];
 
@@ -136,7 +136,7 @@ switch ($op) {
 
         // apply sort order
         $option_sort   = Request::getString('option_sort', '');
-        $sort_arr      = explode('|', $option_sort);
+        $sort_arr      = \explode('|', $option_sort);
         $options_final = []; // result array
         foreach ($sort_arr as $val) { // loop
             foreach ($options as $option) {
@@ -151,7 +151,7 @@ switch ($op) {
         $albumtypesObj->setVar('at_options', serialize($options_final));
         // Insert Data
         if ($albumtypesHandler->insert($albumtypesObj)) {
-            redirect_header('albumtypes.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
+            \redirect_header('albumtypes.php?op=list', 2, \_CO_WGGALLERY_FORM_OK);
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $albumtypesObj->getHtmlErrors());
@@ -164,15 +164,15 @@ switch ($op) {
         $template      = $albumtypesObj->getVar('at_template');
         $primary       = $albumtypesObj->getVar('at_primary');
         if ($albumtypesHandler->reset($atId, $template, $primary)) {
-            redirect_header('albumtypes.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
+            \redirect_header('albumtypes.php?op=list', 2, \_CO_WGGALLERY_FORM_OK);
         } else {
-            redirect_header('albumtypes.php?op=list', 3, _CO_WGGALLERY_FORM_ERROR);
+            \redirect_header('albumtypes.php?op=list', 3, \_CO_WGGALLERY_FORM_ERROR);
         }
         break;
     case 'save':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('albumtypes.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            \redirect_header('albumtypes.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         if (isset($atId)) {
             $albumtypesObj = $albumtypesHandler->get($atId);
@@ -190,7 +190,7 @@ switch ($op) {
         $albumtypesObj->setVar('at_date', $albumtypeDate->getTimestamp());
         // Insert Data
         if ($albumtypesHandler->insert($albumtypesObj)) {
-            redirect_header('albumtypes.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
+            \redirect_header('albumtypes.php?op=list', 2, \_CO_WGGALLERY_FORM_OK);
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $albumtypesObj->getHtmlErrors());
@@ -201,7 +201,7 @@ switch ($op) {
     case 'edit':
         $templateMain = 'wggallery_admin_albumtypes.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('albumtypes.php'));
-        $adminObject->addItemButton(_AM_WGGALLERY_ALBUMTYPES_LIST, 'albumtypes.php', 'list');
+        $adminObject->addItemButton(\_AM_WGGALLERY_ALBUMTYPES_LIST, 'albumtypes.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $albumtypesObj = $albumtypesHandler->get($atId);
@@ -213,15 +213,15 @@ switch ($op) {
         $albumtypesObj = $albumtypesHandler->get($atId);
         if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
-                redirect_header('albumtypes.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+                \redirect_header('albumtypes.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             if ($albumtypesHandler->delete($albumtypesObj)) {
-                redirect_header('albumtypes.php', 3, _CO_WGGALLERY_FORM_DELETE_OK);
+                \redirect_header('albumtypes.php', 3, \_CO_WGGALLERY_FORM_DELETE_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $albumtypesObj->getHtmlErrors());
             }
         } else {
-            xoops_confirm(['ok' => 1, 'at_id' => $atId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $albumtypesObj->getVar('at_name')));
+            xoops_confirm(['ok' => 1, 'at_id' => $atId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], \sprintf(\_CO_WGGALLERY_FORM_SURE_DELETE, $albumtypesObj->getVar('at_name')));
         }
 
         break;

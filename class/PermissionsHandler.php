@@ -19,11 +19,11 @@ namespace XoopsModules\Wggallery;
  * @license        GPL 2.0 or later
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.9
+ * @min_xoops      2.5.11
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 permissions.php 1 Sat 2018-03-31 11:31:09Z XOOPS Project (www.xoops.org) $
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+\defined('\XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * Class Object Handler Permissions
@@ -50,17 +50,17 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
         global $xoopsUser;
 
         $currentuid = 0;
-        if (isset($xoopsUser) && is_object($xoopsUser)) {
+        if (isset($xoopsUser) && \is_object($xoopsUser)) {
             if ($xoopsUser->isAdmin()) {
                 return Constants::PERM_SUBMITALL;
             }
             $currentuid = $xoopsUser->uid();
         }
-        $grouppermHandler = xoops_getHandler('groupperm');
+        $grouppermHandler = \xoops_getHandler('groupperm');
         $mid              = \XoopsModules\Wggallery\Helper::getMid();
-        $memberHandler    = xoops_getHandler('member');
+        $memberHandler    = \xoops_getHandler('member');
         if (0 == $currentuid) {
-            $my_group_ids = [XOOPS_GROUP_ANONYMOUS];
+            $my_group_ids = [\XOOPS_GROUP_ANONYMOUS];
         } else {
             $my_group_ids = $memberHandler->getGroupsByUser($currentuid);
         }
@@ -86,17 +86,17 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
         global $xoopsUser;
 
         $currentuid = 0;
-        if (isset($xoopsUser) && is_object($xoopsUser)) {
+        if (isset($xoopsUser) && \is_object($xoopsUser)) {
             if ($xoopsUser->isAdmin()) {
                 return true;
             }
             $currentuid = $xoopsUser->uid();
         }
-        $grouppermHandler = xoops_getHandler('groupperm');
+        $grouppermHandler = \xoops_getHandler('groupperm');
         $mid              = \XoopsModules\Wggallery\Helper::getMid();
-        $memberHandler    = xoops_getHandler('member');
+        $memberHandler    = \xoops_getHandler('member');
         if (0 == $currentuid) {
-            $my_group_ids = [XOOPS_GROUP_ANONYMOUS];
+            $my_group_ids = [\XOOPS_GROUP_ANONYMOUS];
         } else {
             $my_group_ids = $memberHandler->getGroupsByUser($currentuid);
         }
@@ -117,7 +117,7 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
         global $xoopsUser;
 
         $currentuid = 0;
-        if (isset($xoopsUser) && is_object($xoopsUser)) {
+        if (isset($xoopsUser) && \is_object($xoopsUser)) {
             if ($xoopsUser->isAdmin()) {
                 return true;
             }
@@ -151,17 +151,17 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
         global $xoopsUser, $xoopsModule;
 
         $currentuid = 0;
-        if (isset($xoopsUser) && is_object($xoopsUser)) {
+        if (isset($xoopsUser) && \is_object($xoopsUser)) {
             if ($xoopsUser->isAdmin()) {
                 return true;
             }
             $currentuid = $xoopsUser->uid();
         }
-        $grouppermHandler = xoops_getHandler('groupperm');
+        $grouppermHandler = \xoops_getHandler('groupperm');
         $mid              = $xoopsModule->mid();
-        $memberHandler    = xoops_getHandler('member');
+        $memberHandler    = \xoops_getHandler('member');
         if (0 === $currentuid) {
-            $my_group_ids = [XOOPS_GROUP_ANONYMOUS];
+            $my_group_ids = [\XOOPS_GROUP_ANONYMOUS];
         } else {
             $my_group_ids = $memberHandler->getGroupsByUser($currentuid);
         }
@@ -178,17 +178,17 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
         global $xoopsUser, $xoopsModule;
 
         $currentuid = 0;
-        if (isset($xoopsUser) && is_object($xoopsUser)) {
+        if (isset($xoopsUser) && \is_object($xoopsUser)) {
             if ($xoopsUser->isAdmin()) {
                 return 1;
             }
             $currentuid = $xoopsUser->uid();
         }
-        $grouppermHandler  = xoops_getHandler('groupperm');
+        $grouppermHandler  = \xoops_getHandler('groupperm');
         $mid           = $xoopsModule->mid();
-        $memberHandler = xoops_getHandler('member');
+        $memberHandler = \xoops_getHandler('member');
         if (0 == $currentuid) {
-            $my_group_ids = [XOOPS_GROUP_ANONYMOUS];
+            $my_group_ids = [\XOOPS_GROUP_ANONYMOUS];
         } else {
             $my_group_ids = $memberHandler->getGroupsByUser($currentuid);
         }
@@ -205,17 +205,17 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
         global $xoopsUser, $xoopsModule;
 
         $currentuid = 0;
-        if (isset($xoopsUser) && is_object($xoopsUser)) {
+        if (isset($xoopsUser) && \is_object($xoopsUser)) {
             if ($xoopsUser->isAdmin()) {
                 return 1;
             }
             $currentuid = $xoopsUser->uid();
         }
-        $grouppermHandler = xoops_getHandler('groupperm');
+        $grouppermHandler = \xoops_getHandler('groupperm');
         $mid              = $xoopsModule->mid();
-        $memberHandler    = xoops_getHandler('member');
+        $memberHandler    = \xoops_getHandler('member');
         if (0 == $currentuid) {
-            $my_group_ids = [XOOPS_GROUP_ANONYMOUS];
+            $my_group_ids = [\XOOPS_GROUP_ANONYMOUS];
         } else {
             $my_group_ids = $memberHandler->getGroupsByUser($currentuid);
         }
@@ -232,17 +232,17 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
         global $xoopsUser, $xoopsModule;
 
         $currentuid = 0;
-        if (isset($xoopsUser) && is_object($xoopsUser)) {
+        if (isset($xoopsUser) && \is_object($xoopsUser)) {
             if ($xoopsUser->isAdmin()) {
                 return 1;
             }
             $currentuid = $xoopsUser->uid();
         }
-        $grouppermHandler = xoops_getHandler('groupperm');
+        $grouppermHandler = \xoops_getHandler('groupperm');
         $mid              = $xoopsModule->mid();
-        $memberHandler    = xoops_getHandler('member');
+        $memberHandler    = \xoops_getHandler('member');
         if (0 == $currentuid) {
-            $my_group_ids = [XOOPS_GROUP_ANONYMOUS];
+            $my_group_ids = [\XOOPS_GROUP_ANONYMOUS];
         } else {
             $my_group_ids = $memberHandler->getGroupsByUser($currentuid);
         }

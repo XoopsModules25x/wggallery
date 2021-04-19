@@ -16,7 +16,7 @@
  * @license        GPL 2.0 or later
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.9
+ * @min_xoops      2.5.11
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 watermarks.php 1 Thu 2018-11-01 08:54:56Z XOOPS Project (www.xoops.org) $
  */
@@ -32,10 +32,10 @@ if (_CANCEL === Request::getString('cancel', 'none')) {
     $op = 'list';
 }
 
-$GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/wggallery/assets/js/admin.js');
+$GLOBALS['xoTheme']->addScript(\XOOPS_URL . '/modules/wggallery/assets/js/admin.js');
 
-$GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
-$GLOBALS['xoopsTpl']->assign('wggallery_upload_fonts_path', WGGALLERY_UPLOAD_FONTS_PATH);
+$GLOBALS['xoopsTpl']->assign('wggallery_upload_url', \WGGALLERY_UPLOAD_URL);
+$GLOBALS['xoopsTpl']->assign('wggallery_upload_fonts_path', \WGGALLERY_UPLOAD_FONTS_PATH);
 
 switch ($op) {
     case 'list':
@@ -44,35 +44,35 @@ switch ($op) {
         $limit        = Request::getInt('limit', $helper->getConfig('adminpager'));
         $templateMain = 'wggallery_admin_watermarks.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('watermarks.php'));
-        $adminObject->addItemButton(_CO_WGGALLERY_WATERMARK_ADD, 'watermarks.php?op=new', 'add');
+        $adminObject->addItemButton(\_CO_WGGALLERY_WATERMARK_ADD, 'watermarks.php?op=new', 'add');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $watermarksCount = $watermarksHandler->getCountWatermarks();
         $watermarksAll   = $watermarksHandler->getAllWatermarks($start, $limit);
         $GLOBALS['xoopsTpl']->assign('watermarks_count', $watermarksCount);
-        $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
+        $GLOBALS['xoopsTpl']->assign('wggallery_url', \WGGALLERY_URL);
 
         // Table view watermarks
         if ($watermarksCount > 0) {
-            foreach (array_keys($watermarksAll) as $i) {
+            foreach (\array_keys($watermarksAll) as $i) {
                 $watermark = $watermarksAll[$i]->getValuesWatermarks();
                 $GLOBALS['xoopsTpl']->append('watermarks_list', $watermark);
                 unset($watermark);
             }
             // Display Navigation
             if ($watermarksCount > $limit) {
-                require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($watermarksCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
         } else {
-            $GLOBALS['xoopsTpl']->assign('error', _AM_WGGALLERY_THEREARENT_WATERMARKS);
+            $GLOBALS['xoopsTpl']->assign('error', \_AM_WGGALLERY_THEREARENT_WATERMARKS);
         }
 
         break;
     case 'new':
         $templateMain = 'wggallery_admin_watermarks.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('watermarks.php'));
-        $adminObject->addItemButton(_AM_WGGALLERY_WATERMARKS_LIST, 'watermarks.php', 'list');
+        $adminObject->addItemButton(\_AM_WGGALLERY_WATERMARKS_LIST, 'watermarks.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $watermarksObj = $watermarksHandler->create();
@@ -83,7 +83,7 @@ switch ($op) {
     case 'save':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('watermarks.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            \redirect_header('watermarks.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         if (isset($wmId)) {
             $watermarksObj = $watermarksHandler->get($wmId);
@@ -98,13 +98,13 @@ switch ($op) {
         $watermarksObj->setVar('wm_marginlr', Request::getInt('wm_marginlr', 0));
         $watermarksObj->setVar('wm_margintb', Request::getInt('wm_margintb', 0));
         // Set Var wm_image
-        require_once XOOPS_ROOT_PATH . '/class/uploader.php';
+        require_once \XOOPS_ROOT_PATH . '/class/uploader.php';
         $fileName       = $_FILES['attachedfile']['name'];
         $uploaderErrors = '';
-        $uploader       = new \XoopsMediaUploader(WGGALLERY_UPLOAD_IMAGE_PATH . '/watermarks/', $helper->getConfig('mimetypes'), $helper->getConfig('maxsize'), null, null);
+        $uploader       = new \XoopsMediaUploader(\WGGALLERY_UPLOAD_IMAGE_PATH . '/watermarks/', $helper->getConfig('mimetypes'), $helper->getConfig('maxsize'), null, null);
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
-            $extension = preg_replace('/^.+\.([^.]+)$/sU', '', $fileName);
-            $imgName   = str_replace(' ', '', $wm_name) . '.' . $extension;
+            $extension = \preg_replace('/^.+\.([^.]+)$/sU', '', $fileName);
+            $imgName   = \str_replace(' ', '', $wm_name) . '.' . $extension;
             $uploader->setPrefix($imgName);
             $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
             if (!$uploader->upload()) {
@@ -131,14 +131,14 @@ switch ($op) {
                 // reset all other watermarks to usage none
                 $sql = 'UPDATE `' . $GLOBALS['xoopsDB']->prefix('wggallery_watermarks') . '` SET `wm_usage` = ' . Constants::WATERMARK_USAGENONE . ';';
                 if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
-                    redirect_header('watermarks.php?op=list', 2, _CO_WGGALLERY_FORM_ERROR_RESETUSAGE1);
+                    \redirect_header('watermarks.php?op=list', 2, \_CO_WGGALLERY_FORM_ERROR_RESETUSAGE1);
                 }
             }
             if ($albumsHandler->getCount() > 0) {
                 // reset all albums to use this watermark
                 $sql = 'UPDATE `' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '` SET `alb_wmid` = ' . $wmId . ';';
                 if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
-                    redirect_header('watermarks.php?op=list', 2, _CO_WGGALLERY_FORM_ERROR_RESETUSAGE2);
+                    \redirect_header('watermarks.php?op=list', 2, \_CO_WGGALLERY_FORM_ERROR_RESETUSAGE2);
                 }
             }
         }
@@ -147,7 +147,7 @@ switch ($op) {
             // if there is a watermark with "usage for all" it must be reset to "single use"
             $sql = 'UPDATE `' . $GLOBALS['xoopsDB']->prefix('wggallery_watermarks') . '` SET `wm_usage` = ' . Constants::WATERMARK_USAGESINGLE . ' WHERE `wm_usage` = ' . Constants::WATERMARK_USAGEALL . ';';
             if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
-                redirect_header('watermarks.php?op=list', 2, _CO_WGGALLERY_FORM_ERROR_RESETUSAGE1);
+                \redirect_header('watermarks.php?op=list', 2, \_CO_WGGALLERY_FORM_ERROR_RESETUSAGE1);
             }
         }
         $watermarksObj->setVar('wm_target', Request::getInt('wm_target'));
@@ -177,18 +177,18 @@ switch ($op) {
                        . Constants::WATERMARK_USAGENONE
                        . '));';
                 if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
-                    redirect_header('watermarks.php?op=list', 2, _CO_WGGALLERY_FORM_ERROR_RESETUSAGE2);
+                    \redirect_header('watermarks.php?op=list', 2, \_CO_WGGALLERY_FORM_ERROR_RESETUSAGE2);
                 }
             }
             // create example image
             $imgTest = 'wmtest' . $wmId . '.jpg';
-            unlink(WGGALLERY_UPLOAD_IMAGE_PATH . '/watermarks-test/' . $imgTest);
-            $watermarksHandler->watermarkImage($wmId, WGGALLERY_IMAGE_PATH . '/wmtest.jpg', WGGALLERY_UPLOAD_IMAGE_PATH . '/watermarks-test/' . $imgTest);
+            \unlink(\WGGALLERY_UPLOAD_IMAGE_PATH . '/watermarks-test/' . $imgTest);
+            $watermarksHandler->watermarkImage($wmId, \WGGALLERY_IMAGE_PATH . '/wmtest.jpg', \WGGALLERY_UPLOAD_IMAGE_PATH . '/watermarks-test/' . $imgTest);
 
             if ('' !== $uploaderErrors) {
-                redirect_header('watermarks.php?op=edit&wm_id=' . $wmId, 4, $uploaderErrors);
+                \redirect_header('watermarks.php?op=edit&wm_id=' . $wmId, 4, $uploaderErrors);
             } else {
-                redirect_header('watermarks.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
+                \redirect_header('watermarks.php?op=list', 2, \_CO_WGGALLERY_FORM_OK);
             }
         }
         // Get Form
@@ -200,8 +200,8 @@ switch ($op) {
     case 'edit':
         $templateMain = 'wggallery_admin_watermarks.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('watermarks.php'));
-        $adminObject->addItemButton(_CO_WGGALLERY_WATERMARK_ADD, 'watermarks.php?op=new', 'add');
-        $adminObject->addItemButton(_AM_WGGALLERY_WATERMARKS_LIST, 'watermarks.php', 'list');
+        $adminObject->addItemButton(\_CO_WGGALLERY_WATERMARK_ADD, 'watermarks.php?op=new', 'add');
+        $adminObject->addItemButton(\_AM_WGGALLERY_WATERMARKS_LIST, 'watermarks.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $watermarksObj = $watermarksHandler->get($wmId);
@@ -215,15 +215,15 @@ switch ($op) {
         $watermarksObj = $watermarksHandler->get($wmId);
         if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
-                redirect_header('watermarks.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+                \redirect_header('watermarks.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             if ($watermarksHandler->delete($watermarksObj)) {
-                redirect_header('watermarks.php', 3, _CO_WGGALLERY_FORM_DELETE_OK);
+                \redirect_header('watermarks.php', 3, \_CO_WGGALLERY_FORM_DELETE_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $watermarksObj->getHtmlErrors());
             }
         } else {
-            xoops_confirm(['ok' => 1, 'wm_id' => $wmId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $watermarksObj->getVar('wm_name')));
+            xoops_confirm(['ok' => 1, 'wm_id' => $wmId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], \sprintf(\_CO_WGGALLERY_FORM_SURE_DELETE, $watermarksObj->getVar('wm_name')));
         }
 
         break;

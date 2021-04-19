@@ -19,11 +19,11 @@ namespace XoopsModules\Wggallery;
  * @license        GPL 2.0 or later
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.9
+ * @min_xoops      2.5.11
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 gallerytypes.php 1 Sat 2018-03-31 11:31:09Z XOOPS Project (www.xoops.org) $
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+\defined('\XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * Class Object Handler Gallerytypes
@@ -135,7 +135,7 @@ class GallerytypesHandler extends \XoopsPersistableObjectHandler
         $crGallerytypes->add(new \Criteria('gt_primary', 1));
         $crGallerytypes->setLimit(1);
         $gallerytypesAll = $this->getAll($crGallerytypes);
-        foreach (array_keys($gallerytypesAll) as $i) {
+        foreach (\array_keys($gallerytypesAll) as $i) {
             $gallerytype['name']     = $gallerytypesAll[$i]->getVar('gt_name');
             $gallerytype['template'] = $gallerytypesAll[$i]->getVar('gt_template');
             $gallerytype['options']  = $gallerytypesAll[$i]->getVar('gt_options', 'N');
@@ -164,9 +164,9 @@ class GallerytypesHandler extends \XoopsPersistableObjectHandler
                 $gallerytypesObj->setVar('gt_name', $template);
                 $gallerytypesObj->setVar('gt_template', $template);
                 if ($this->insert($gallerytypesObj)) {
-                    $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE . $template;
+                    $success[] = \_AM_WGGALLERY_MAINTENANCE_SUCCESS_CREATE . $template;
                 } else {
-                    $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $template;
+                    $errors[] = \_AM_WGGALLERY_MAINTENANCE_ERROR_CREATE . $template;
                 }
             }
             unset($gallerytypeObj);
@@ -178,28 +178,28 @@ class GallerytypesHandler extends \XoopsPersistableObjectHandler
         $crGallerytypes = new \CriteriaCompo();
         $crGallerytypes->add(new \Criteria('gt_primary', 1));
         $gallerytypesAll = $this->getAll($crGallerytypes);
-        foreach (array_keys($gallerytypesAll) as $i) {
+        foreach (\array_keys($gallerytypesAll) as $i) {
             if ($this->reset($gallerytypesAll[$i]->getVar('gt_id'), $gallerytypesAll[$i]->getVar('gt_template'), 1)) {
-                $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET . $gallerytypesAll[$i]->getVar('gt_name');
+                $success[] = \_AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET . $gallerytypesAll[$i]->getVar('gt_name');
                 $count_pr++;
             } else {
-                $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_RESET . $template;
+                $errors[] = \_AM_WGGALLERY_MAINTENANCE_ERROR_RESET . $template;
             }
         }
         unset($crGallerytypes);
         $crGallerytypes = new \CriteriaCompo();
         $crGallerytypes->add(new \Criteria('gt_primary', 0));
         $gallerytypesAll = $this->getAll($crGallerytypes);
-        foreach (array_keys($gallerytypesAll) as $i) {
+        foreach (\array_keys($gallerytypesAll) as $i) {
             $primary = 0;
             if (0 == $count_pr) {
                 $primary = 1;
             }
             if ($this->reset($gallerytypesAll[$i]->getVar('gt_id'), $gallerytypesAll[$i]->getVar('gt_template'), $primary)) {
-                $success[] = _AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET . $gallerytypesAll[$i]->getVar('gt_name');
+                $success[] = \_AM_WGGALLERY_MAINTENANCE_SUCCESS_RESET . $gallerytypesAll[$i]->getVar('gt_name');
                 $count_pr++;
             } else {
-                $errors[] = _AM_WGGALLERY_MAINTENANCE_ERROR_RESET . $gallerytypesAll[$i]->getVar('gt_template');
+                $errors[] = \_AM_WGGALLERY_MAINTENANCE_ERROR_RESET . $gallerytypesAll[$i]->getVar('gt_template');
             }
         }
         unset($crGallerytypes);
@@ -345,7 +345,7 @@ class GallerytypesHandler extends \XoopsPersistableObjectHandler
             break;
             case 'default':
             default:
-                redirect_header('gallerytypes.php?op=list', 3, 'Invalid template name:' . $template);
+                \redirect_header('gallerytypes.php?op=list', 3, 'Invalid template name:' . $template);
                 break;
         }
 
@@ -367,7 +367,7 @@ class GallerytypesHandler extends \XoopsPersistableObjectHandler
             $gallerytypesObj->setVar('gt_credits', $gt_credits);
             $gallerytypesObj->setVar('gt_template', $template);
             $gallerytypesObj->setVar('gt_options', serialize($options));
-            $gallerytypesObj->setVar('gt_date', time());
+            $gallerytypesObj->setVar('gt_date', \time());
             // Insert Data
             if ($this->insert($gallerytypesObj)) {
                 return true;

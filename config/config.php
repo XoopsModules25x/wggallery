@@ -16,21 +16,21 @@
  * @since
  * @author       XOOPS Development Team
  */
-$moduleDirName      = basename(dirname(__DIR__));
-$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+$moduleDirName      = \basename(\dirname(__DIR__));
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
-if (!defined($moduleDirNameUpper . '_AUTHOR_LOGOIMG')) {
+if (!\defined($moduleDirNameUpper . '_AUTHOR_LOGOIMG')) {
     $pathIcon32 = \Xmf\Module\Admin::iconUrl('', 32);
-    define($moduleDirNameUpper . '_AUTHOR_LOGOIMG', $pathIcon32 . '/xoopsmicrobutton.gif');
+    \define($moduleDirNameUpper . '_AUTHOR_LOGOIMG', $pathIcon32 . '/xoopsmicrobutton.gif');
 }
 
 return (object)[
-    'name'           => mb_strtoupper($moduleDirName) . ' Module Configurator',
+    'name'           => \mb_strtoupper($moduleDirName) . ' Module Configurator',
     'paths'          => [
         'dirname'    => $moduleDirName,
-        'admin'      => XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/admin',
-        'modPath'    => XOOPS_ROOT_PATH . '/modules/' . $moduleDirName,
-        'modUrl'     => XOOPS_URL . '/modules/' . $moduleDirName,
+        'admin'      => \XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/admin',
+        'modPath'    => \XOOPS_ROOT_PATH . '/modules/' . $moduleDirName,
+        'modUrl'     => \XOOPS_URL . '/modules/' . $moduleDirName,
         'uploadPath' => XOOPS_UPLOAD_PATH . '/' . $moduleDirName,
         'uploadUrl'  => XOOPS_UPLOAD_URL . '/' . $moduleDirName,
     ],
@@ -46,7 +46,7 @@ return (object)[
         XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/watermarks',
         XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/watermarks-test',
         XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/temp',
-        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/batch',
         XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/fonts',
         //XOOPS_UPLOAD_PATH . '/flags'
     ],
@@ -63,7 +63,7 @@ return (object)[
 
     'copyTestFolders' => [
         [
-            XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/testdata/uploads',
+            \XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/testdata/uploads',
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName,
         ],
     ],
@@ -97,5 +97,5 @@ return (object)[
         //            'totalsubmitted'  => $helper->getHandler('Item')->getItemsCount(-1, [Constants::PUBLISHER_STATUS_SUBMITTED]),
     ],
     'modCopyright' => "<a href='https://xoops.org' title='XOOPS Project' target='_blank'>
-                     <img src='" . constant($moduleDirNameUpper . '_AUTHOR_LOGOIMG') . '\' alt=\'XOOPS Project\'></a>',
+                     <img src='" . \constant($moduleDirNameUpper . '_AUTHOR_LOGOIMG') . '\' alt=\'XOOPS Project\'></a>',
 ];

@@ -46,8 +46,8 @@
                                 <a class='btn btn-default wgg-btn' href='images.php?op=manage&amp;ref=albums&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$album.pid}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}>'>
                                     <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>images.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}>'><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}><{/if}></a>
                             <{/if}>
-							<{if 0 == $album.iscoll|default:0}>
-								<a class='btn btn-default wgg-btn' href='upload.php?op=list&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$album.pid}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}>'>
+							<{if 0 == $album.iscoll|default:0 && $optUploader|default:''}>
+								<a class='btn btn-default wgg-btn' href='<{$optUploader}>.php?op=list&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$album.pid}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}>'>
 									<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>upload.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}>'><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}><{/if}></a>
                             <{/if}>
 							<a class='btn btn-default wgg-btn' href='albums.php?op=edit&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$album.pid}>' title='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>'>

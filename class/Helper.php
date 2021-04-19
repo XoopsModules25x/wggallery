@@ -19,7 +19,7 @@ namespace XoopsModules\Wggallery;
  * @license        GPL 2.0 or later
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.9
+ * @min_xoops      2.5.11
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 helper.php 1 Mon 2018-03-19 10:04:53Z XOOPS Project (www.xoops.org) $
  */
@@ -37,7 +37,7 @@ class Helper extends \Xmf\Module\Helper
     public function __construct($debug = false)
     {
         $this->debug   = $debug;
-        $moduleDirName = basename(dirname(__DIR__));
+        $moduleDirName = \basename(\dirname(__DIR__));
         parent::__construct($moduleDirName);
     }
 
@@ -69,7 +69,7 @@ class Helper extends \Xmf\Module\Helper
      */
     public static function getMid()
     {
-        $moduleHandler = xoops_getHandler('module');
+        $moduleHandler = \xoops_getHandler('module');
         $xoopsModule   = $moduleHandler->getByDirname('wggallery');
         $mid           = $xoopsModule->mid();
 
@@ -87,8 +87,8 @@ class Helper extends \Xmf\Module\Helper
     {
         $ret = false;
 
-        $class = __NAMESPACE__ . '\\' . ucfirst($name) . 'Handler';
-        if (!class_exists($class)) {
+        $class = __NAMESPACE__ . '\\' . \ucfirst($name) . 'Handler';
+        if (!\class_exists($class)) {
             throw new \RuntimeException("Class '$class' not found");
         }
         /** @var \XoopsMySQLDatabase $db */
@@ -109,13 +109,13 @@ class Helper extends \Xmf\Module\Helper
     {
         switch ($state) {
             case Constants::STATE_ONLINE_VAL:
-                return _CO_WGGALLERY_STATE_ONLINE;
+                return \_CO_WGGALLERY_STATE_ONLINE;
                 break;
             case Constants::STATE_APPROVAL_VAL:
-                return _CO_WGGALLERY_STATE_APPROVAL;
+                return \_CO_WGGALLERY_STATE_APPROVAL;
                 break;
             case Constants::STATE_OFFLINE_VAL:
-                return _CO_WGGALLERY_STATE_OFFLINE;
+                return \_CO_WGGALLERY_STATE_OFFLINE;
                 break;
             default:
                 return 'invalid state in getStateText in Class/Helper.php'; //should never happen
@@ -137,8 +137,8 @@ class Helper extends \Xmf\Module\Helper
         $action = $_SERVER['REQUEST_URI'];
 
         // Get Theme Form
-        xoops_load('XoopsFormLoader');
-        $form = new \XoopsThemeForm(_CO_WGGALLERY_FORM_DELETE_SURE, 'xoopsform-delete', $action, 'post', true);
+        \xoops_load('XoopsFormLoader');
+        $form = new \XoopsThemeForm(\_CO_WGGALLERY_FORM_DELETE_SURE, 'xoopsform-delete', $action, 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
         // Form Text AlbName
         $label = new \XoopsFormLabel($title, $text);

@@ -16,7 +16,7 @@
  * @license        GPL 2.0 or later
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.9
+ * @min_xoops      2.5.11
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 albums.php 1 Mon 2018-03-19 10:04:49Z XOOPS Project (www.xoops.org) $
  */
@@ -35,8 +35,8 @@ $sort    = Request::getString('sort', 'alb_id');
 $orderby = Request::getString('orderby', 'DESC');
 
 // add scripts
-$GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/wggallery/assets/js/admin.js');
-$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
+$GLOBALS['xoTheme']->addScript(\XOOPS_URL . '/modules/wggallery/assets/js/admin.js');
+$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', \WGGALLERY_ICONS_URL . '16/');
 $GLOBALS['xoopsTpl']->assign('start', $start);
 $GLOBALS['xoopsTpl']->assign('limit', $limit);
 
@@ -46,15 +46,15 @@ switch ($op) {
         // Define Stylesheet
         $templateMain = 'wggallery_admin_albums.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('albums.php'));
-        $adminObject->addItemButton(_AM_WGGALLERY_ADD_ALBUM, 'albums.php?op=new', 'add');
+        $adminObject->addItemButton(\_AM_WGGALLERY_ADD_ALBUM, 'albums.php?op=new', 'add');
         if ('approve' === $op) {
-            $adminObject->addItemButton(_AM_WGGALLERY_ALBUMS_LIST, 'albums.php', 'list');
+            $adminObject->addItemButton(\_AM_WGGALLERY_ALBUMS_LIST, 'albums.php', 'list');
         } else {
             $crAlbums = new \CriteriaCompo();
             $crAlbums->add(new \Criteria('alb_state', Constants::STATE_APPROVAL_VAL));
             $albumsCount = $albumsHandler->getCount($crAlbums);
             if ($albumsCount > 0) {
-                $adminObject->addItemButton(_AM_WGGALLERY_ALBUMS_APPROVE, 'albums.php?op=approve', 'alert');
+                $adminObject->addItemButton(\_AM_WGGALLERY_ALBUMS_APPROVE, 'albums.php?op=approve', 'alert');
             }
             unset($crAlbums);
         }
@@ -70,13 +70,13 @@ switch ($op) {
         $albumsCount = $albumsHandler->getCount($crAlbums);
         $albumsAll   = $albumsHandler->getAll($crAlbums);
         $GLOBALS['xoopsTpl']->assign('albums_count', $albumsCount);
-        $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
-        $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
+        $GLOBALS['xoopsTpl']->assign('wggallery_url', \WGGALLERY_URL);
+        $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', \WGGALLERY_UPLOAD_URL);
         $GLOBALS['xoopsTpl']->assign('start', $start);
         $GLOBALS['xoopsTpl']->assign('limit', $limit);
         // Table view albums
         if ($albumsCount > 0) {
-            foreach (array_keys($albumsAll) as $i) {
+            foreach (\array_keys($albumsAll) as $i) {
                 $album    = $albumsAll[$i]->getValuesAlbums();
                 $crImages = new \CriteriaCompo();
                 $crImages->add(new \Criteria('img_albid', $album['alb_id']));
@@ -88,21 +88,21 @@ switch ($op) {
             }
             // Display Navigation
             if ($albumsCount > $limit) {
-                require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($albumsCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit . '&amp;sort=' . $sort . '&amp;orderby=' . $orderby);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
             $GLOBALS['xoopsTpl']->assign('use_tags', $helper->getConfig('use_tags'));
             $GLOBALS['xoopsTpl']->assign('use_categories', $helper->getConfig('use_categories'));
         } else {
-            $GLOBALS['xoopsTpl']->assign('error', _CO_WGGALLERY_THEREARENT_ALBUMS);
+            $GLOBALS['xoopsTpl']->assign('error', \_CO_WGGALLERY_THEREARENT_ALBUMS);
         }
 
         break;
     case 'new':
         $templateMain = 'wggallery_admin_albums.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('albums.php'));
-        $adminObject->addItemButton(_AM_WGGALLERY_ALBUMS_LIST, 'albums.php', 'list');
+        $adminObject->addItemButton(\_AM_WGGALLERY_ALBUMS_LIST, 'albums.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $albumsObj = $albumsHandler->create();
@@ -113,7 +113,7 @@ switch ($op) {
     case 'save':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('albums.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            \redirect_header('albums.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         if (isset($albId)) {
             $albumsObj = $albumsHandler->get($albId);
@@ -145,7 +145,7 @@ switch ($op) {
             $newAlbId         = $albumsHandler->getInsertId();
             $permId           = isset($_REQUEST['alb_id']) ? $albId : $newAlbId;
             $perm_modid       = $GLOBALS['xoopsModule']->getVar('mid');
-            $grouppermHandler = xoops_getHandler('groupperm');
+            $grouppermHandler = \xoops_getHandler('groupperm');
             // remove all existing rights
             $grouppermHandler->deleteByModule($perm_modid, 'wggallery_view', $permId);
             $grouppermHandler->deleteByModule($perm_modid, 'wggallery_dlfullalb', $permId);
@@ -177,7 +177,7 @@ switch ($op) {
                 }
             }
             $albumsHandler->setAlbumIsColl();
-            redirect_header('albums.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
+            \redirect_header('albums.php?op=list', 2, \_CO_WGGALLERY_FORM_OK);
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $albumsObj->getHtmlErrors());
@@ -188,8 +188,8 @@ switch ($op) {
     case 'edit':
         $templateMain = 'wggallery_admin_albums.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('albums.php'));
-        $adminObject->addItemButton(_AM_WGGALLERY_ADD_ALBUM, 'albums.php?op=new', 'add');
-        $adminObject->addItemButton(_AM_WGGALLERY_ALBUMS_LIST, 'albums.php', 'list');
+        $adminObject->addItemButton(\_AM_WGGALLERY_ADD_ALBUM, 'albums.php?op=new', 'add');
+        $adminObject->addItemButton(\_AM_WGGALLERY_ALBUMS_LIST, 'albums.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $albumsObj = $albumsHandler->get($albId);
@@ -212,10 +212,10 @@ switch ($op) {
                     $crImages->add(new \Criteria('img_state', Constants::STATE_APPROVAL_VAL));
                     $imgApprove = $imagesHandler->getCount($crImages);
                     if ($imgApprove > 0) {
-                        redirect_header('images.php?op=approve&amp;alb_id=' . $albId, 2, _CO_WGGALLERY_FORM_OK_APPROVE);
+                        \redirect_header('images.php?op=approve&amp;alb_id=' . $albId, 2, \_CO_WGGALLERY_FORM_OK_APPROVE);
                     }
                 }
-                redirect_header('albums.php?op=list&amp;start=' . $start . '&amp;limit=' . $limit, 2, _CO_WGGALLERY_FORM_OK);
+                \redirect_header('albums.php?op=list&amp;start=' . $start . '&amp;limit=' . $limit, 2, \_CO_WGGALLERY_FORM_OK);
             }
             // Get Form
             $GLOBALS['xoopsTpl']->assign('error', $albumsObj->getHtmlErrors());
@@ -224,23 +224,23 @@ switch ($op) {
     case 'delete':
         $albumsObj = $albumsHandler->get($albId);
         if (!$permissionsHandler->permAlbumEdit($albId, $albumsObj->getVar('alb_submitter'))) {
-            redirect_header('albums.php', 3, _NOPERM);
+            \redirect_header('albums.php', 3, _NOPERM);
         }
         if (1 == Request::getInt('ok')) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
-                redirect_header('albums.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+                \redirect_header('albums.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             $alb_image = $albumsObj->getVar('alb_image');
             if ($albumsHandler->delete($albumsObj)) {
                 // delete albimage
                 if ('blank.gif' !== $alb_image && 'noimage.png' !== $alb_image) {
-                    unlink(WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $alb_image);
+                    \unlink(\WGGALLERY_UPLOAD_IMAGE_PATH . '/albums/' . $alb_image);
                 }
                 // delete all images linked to this album
                 $crit_img = new \CriteriaCompo();
                 $crit_img->add(new \Criteria('img_albid', $albId));
                 $imagesAll = $imagesHandler->getAll($crit_img);
-                foreach (array_keys($imagesAll) as $i) {
+                foreach (\array_keys($imagesAll) as $i) {
                     $imagesHandler->unlinkImages($imagesAll[$i]->getVar('img_name'), $imagesAll[$i]->getVar('img_namelarge'));
                     $imagesObj = $imagesHandler->get($imagesAll[$i]->getVar('img_id'));
                     $imagesHandler->delete($imagesObj, true);
@@ -250,19 +250,19 @@ switch ($op) {
                 // send notifications
                 $tags                = [];
                 $tags['ALBUM_NAME']  = $alb_name;
-                $notificationHandler = xoops_getHandler('notification');
+                $notificationHandler = \xoops_getHandler('notification');
                 $notificationHandler->triggerEvent('global', 0, 'album_delete_all', $tags);
                 $notificationHandler->triggerEvent('albums', $albId, 'album_delete', $tags);
                 // delete all notifications linked to this album
                 $notificationHandler->unsubscribeByItem($GLOBALS['xoopsModule']->getVar('mid'), 'albums', $albId);
 
-                redirect_header('albums.php?op=list&amp;start=' . $start . '&amp;limit=' . $limit, 3, _CO_WGGALLERY_FORM_DELETE_OK);
+                \redirect_header('albums.php?op=list&amp;start=' . $start . '&amp;limit=' . $limit, 3, \_CO_WGGALLERY_FORM_DELETE_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $albumsObj->getHtmlErrors());
             }
         } else {
-            xoops_confirm(['ok' => 1, 'alb_id' => $albId, 'op' => 'delete', 'start' => $start, 'limit' => $limit], $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $albumsObj->getVar('alb_name')));
-            //            $form = $helper->getFormDelete(['ok' => 1, 'alb_id' => $albId, 'op' => 'delete'], _CO_WGGALLERY_FORM_DELETE, $albumsObj->getVar('alb_name'), _CO_WGGALLERY_ALBUM_DELETE_DESC);
+            xoops_confirm(['ok' => 1, 'alb_id' => $albId, 'op' => 'delete', 'start' => $start, 'limit' => $limit], $_SERVER['REQUEST_URI'], \sprintf(\_CO_WGGALLERY_FORM_SURE_DELETE, $albumsObj->getVar('alb_name')));
+            //            $form = $helper->getFormDelete(['ok' => 1, 'alb_id' => $albId, 'op' => 'delete'], \_CO_WGGALLERY_FORM_DELETE, $albumsObj->getVar('alb_name'), \_CO_WGGALLERY_ALBUM_DELETE_DESC);
             //            $GLOBALS['xoopsTpl']->assign('form', $form->render());
         }
         break;

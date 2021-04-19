@@ -16,7 +16,7 @@
  * @license        GPL 2.0 or later
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.9
+ * @min_xoops      2.5.11
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 download.php 1 Mon 2018-03-19 10:04:51Z XOOPS Project (www.xoops.org) $
  */
@@ -36,15 +36,15 @@ switch ($op) {
             // check permission whether download of full album is allowed
             if ($permissionsHandler->permAlbumDownload($albId)) {
                 //Archive name
-                $archive_file_name = preg_replace('/[^a-z0-9_]/i', '', $albumsHandler->get($albId)->getVar('alb_name'));
+                $archive_file_name = \preg_replace('/[^a-z0-9_]/i', '', $albumsHandler->get($albId)->getVar('alb_name'));
                 $archive_file_name .= uniqid('_', true) . '.zip';
-                $archive_file_path = WGGALLERY_UPLOAD_PATH . '/temp/' . $archive_file_name;
-                unlink($archive_file_path);
+                $archive_file_path = \WGGALLERY_UPLOAD_PATH . '/temp/' . $archive_file_name;
+                \unlink($archive_file_path);
 
                 $zip = new ZipArchive();
                 //create the file and throw the error if unsuccessful
                 if (true !== $zip->open($archive_file_path, ZipArchive::CREATE)) {
-                    redirect_header('albums.php', 5, _MA_WGGALLERY_ERROR_CREATE_ZIP);
+                    \redirect_header('albums.php', 5, \_MA_WGGALLERY_ERROR_CREATE_ZIP);
                 }
 
                 $crImages = new \CriteriaCompo();
@@ -56,15 +56,15 @@ switch ($op) {
                 if ($imagesCount > 0) {
                     $imagesAll = $imagesHandler->getAll($crImages);
                     // Get All Images
-                    foreach (array_keys($imagesAll) as $i) {
+                    foreach (\array_keys($imagesAll) as $i) {
                         $file = '';
                         if ($permissionsHandler->permImageDownloadMedium($albId)) {
-                            $file = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $imagesAll[$i]->getVar('img_name');
+                            $file = \WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $imagesAll[$i]->getVar('img_name');
                         }
                         if ($permissionsHandler->permImageDownloadLarge($albId)) {
-                            $file = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesAll[$i]->getVar('img_namelarge');
+                            $file = \WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesAll[$i]->getVar('img_namelarge');
                         }
-                        if (file_exists($file)) {
+                        if (\file_exists($file)) {
                             $zip->addFile($file, $imagesAll[$i]->getVar('img_name'));
                         }
                     }
@@ -83,43 +83,43 @@ switch ($op) {
                 header('Content-Length: ' . filesize($archive_file_path));
                 ob_end_flush();
                 @readfile($archive_file_path);
-                unlink($archive_file_path);
+                \unlink($archive_file_path);
 
                 // mark all images of album as downloaded
-                foreach (array_keys($imagesAll) as $i) {
+                foreach (\array_keys($imagesAll) as $i) {
                     $imagesObj = $imagesHandler->get($imagesAll[$i]->getVar('img_id'));
                     $imagesObj->setVar('img_downloads', $imagesObj->getVar('img_downloads') + 1);
                     $imagesHandler->insert($imagesObj, true);
                 }
             } else {
-                redirect_header('albums.php', 3, _NOPERM);
+                \redirect_header('albums.php', 3, _NOPERM);
             }
         }
         break;
     case 'viewerjs':
         //src: provided by viewer.js
         $file     = Request::getString('src', 'none');
-        $filename = basename($file);
+        $filename = \basename($file);
 
         $crImages = new \CriteriaCompo();
         $crImages->add(new \Criteria('img_name', $filename), 'OR');
         $crImages->add(new \Criteria('img_namelarge', $filename), 'OR');
         $imagesAll = $imagesHandler->getAll($crImages);
         // Get All Images
-        foreach (array_keys($imagesAll) as $i) {
+        foreach (\array_keys($imagesAll) as $i) {
             $image = $imagesAll[$i]->getValuesImages();
         }
         $albId = $image['albid'];
         // check permissions
         $file = '';
         if ($permissionsHandler->permImageDownloadMedium($albId)) {
-            $file = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $image['img_name'];
+            $file = \WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $image['img_name'];
         }
         if ($permissionsHandler->permImageDownloadLarge($albId)) {
-            $file = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $image['img_namelarge'];
+            $file = \WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $image['img_namelarge'];
         }
         if ('' === $file) {
-            redirect_header('images.php?op=list&amp;alb_id=' . $albId, 3, _CO_WGGALLERY_PERMS_NODOWNLOAD);
+            \redirect_header('images.php?op=list&amp;alb_id=' . $albId, 3, \_CO_WGGALLERY_PERMS_NODOWNLOAD);
         }
         // count downloads
         $imagesObj = $imagesHandler->get($image['id']);
@@ -131,27 +131,27 @@ switch ($op) {
     case 'lclightboxlite':
         //src: provided by wggallery_lclightboxlite.tpl
         $file     = Request::getString('src', 'none');
-        $filename = basename($file);
+        $filename = \basename($file);
 
         $crImages = new \CriteriaCompo();
         $crImages->add(new \Criteria('img_name', $filename), 'OR');
         $crImages->add(new \Criteria('img_namelarge', $filename), 'OR');
         $imagesAll = $imagesHandler->getAll($crImages);
         // Get All Images
-        foreach (array_keys($imagesAll) as $i) {
+        foreach (\array_keys($imagesAll) as $i) {
             $image = $imagesAll[$i]->getValuesImages();
         }
         $albId = $image['albid'];
         // check permissions
         $file = '';
         if ($permissionsHandler->permImageDownloadMedium($albId)) {
-            $file = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $image['img_name'];
+            $file = \WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $image['img_name'];
         }
         if ($permissionsHandler->permImageDownloadLarge($albId)) {
-            $file = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $image['img_namelarge'];
+            $file = \WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $image['img_namelarge'];
         }
         if ('' === $file) {
-            redirect_header('images.php?op=list&amp;alb_id=' . $albId, 3, _CO_WGGALLERY_PERMS_NODOWNLOAD);
+            \redirect_header('images.php?op=list&amp;alb_id=' . $albId, 3, \_CO_WGGALLERY_PERMS_NODOWNLOAD);
         }
         // count downloads
         $imagesObj = $imagesHandler->get($image['id']);
@@ -169,13 +169,13 @@ switch ($op) {
         // check permissions
         $file = '';
         if ($permissionsHandler->permImageDownloadMedium($albId)) {
-            $file = WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $image['img_name'];
+            $file = \WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $image['img_name'];
         }
         if ($permissionsHandler->permImageDownloadLarge($albId)) {
-            $file = WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $image['img_namelarge'];
+            $file = \WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $image['img_namelarge'];
         }
         if ('' === $file) {
-            redirect_header('images.php?op=list&amp;alb_id=' . $albId, 3, _CO_WGGALLERY_PERMS_NODOWNLOAD);
+            \redirect_header('images.php?op=list&amp;alb_id=' . $albId, 3, \_CO_WGGALLERY_PERMS_NODOWNLOAD);
         }
         // count downloads
         $imagesObj->setVar('img_downloads', $image['downloads'] + 1);
@@ -184,7 +184,7 @@ switch ($op) {
         $fp = fopen($file, 'rb');
         header('Content-type: ' . $image['img_mimetype']);
         header('Content-Length: ' . filesize($file));
-        header('Content-Disposition: attachment; filename=' . basename($file));
+        header('Content-Disposition: attachment; filename=' . \basename($file));
         header('Content-Transfer-Encoding: binary');
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
         fpassthru($fp);

@@ -16,7 +16,7 @@
  * @license        GPL 2.0 or later
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.9
+ * @min_xoops      2.5.11
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 gallerytypes.php 1 Sat 2018-03-31 11:31:09Z XOOPS Project (www.xoops.org) $
  */
@@ -30,7 +30,7 @@ $gtId = Request::getInt('gt_id');
 
 $gtCount = $gallerytypesHandler->getCount();
 if ($gtCount < 1) {
-    redirect_header('maintenance.php?op=list', 3, _AM_WGGALLERY_THEREARENT_GALLERYTYPES);
+    \redirect_header('maintenance.php?op=list', 3, \_AM_WGGALLERY_THEREARENT_GALLERYTYPES);
 }
 
 switch ($op) {
@@ -43,31 +43,31 @@ switch ($op) {
         $gallerytypesCount = $gallerytypesHandler->getCountGallerytypes();
         $gallerytypesAll   = $gallerytypesHandler->getAllGallerytypes($start, $limit);
         $GLOBALS['xoopsTpl']->assign('gallerytypes_count', $gallerytypesCount);
-        $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
-        $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
-        $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
+        $GLOBALS['xoopsTpl']->assign('wggallery_url', \WGGALLERY_URL);
+        $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', \WGGALLERY_UPLOAD_URL);
+        $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', \WGGALLERY_ICONS_URL . '16/');
         // Table view gallerytypes
         if ($gallerytypesCount > 0) {
-            foreach (array_keys($gallerytypesAll) as $i) {
+            foreach (\array_keys($gallerytypesAll) as $i) {
                 $gallerytype = $gallerytypesAll[$i]->getValuesGallerytypes(true);
                 $GLOBALS['xoopsTpl']->append('gallerytypes_list', $gallerytype);
                 unset($gallerytype);
             }
             // Display Navigation
             if ($gallerytypesCount > $limit) {
-                require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($gallerytypesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
         } else {
-            $GLOBALS['xoopsTpl']->assign('error', _AM_WGGALLERY_THEREARENT_GALLERYTYPES);
+            $GLOBALS['xoopsTpl']->assign('error', \_AM_WGGALLERY_THEREARENT_GALLERYTYPES);
         }
 
         break;
     case 'options':
         $templateMain = 'wggallery_admin_gallerytypes.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('gallerytypes.php'));
-        $adminObject->addItemButton(_AM_WGGALLERY_GALLERYTYPES_LIST, 'gallerytypes.php', 'list');
+        $adminObject->addItemButton(\_AM_WGGALLERY_GALLERYTYPES_LIST, 'gallerytypes.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $gallerytypesObj = $gallerytypesHandler->get($gtId);
@@ -78,7 +78,7 @@ switch ($op) {
     case 'new':
         $templateMain = 'wggallery_admin_gallerytypes.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('gallerytypes.php'));
-        $adminObject->addItemButton(_AM_WGGALLERY_GALLERYTYPES_LIST, 'gallerytypes.php', 'list');
+        $adminObject->addItemButton(\_AM_WGGALLERY_GALLERYTYPES_LIST, 'gallerytypes.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $gallerytypesObj = $gallerytypesHandler->create();
@@ -90,7 +90,7 @@ switch ($op) {
         if (isset($gtId)) {
             $gallerytypesObj = $gallerytypesHandler->get($gtId);
         } else {
-            redirect_header('gallerytypes.php', 3, 'missing Id');
+            \redirect_header('gallerytypes.php', 3, 'missing Id');
         }
         // reset all
         $strSQL = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_gallerytypes') . ' SET ' . $GLOBALS['xoopsDB']->prefix('wggallery_gallerytypes') . '.gt_primary = 0';
@@ -99,19 +99,19 @@ switch ($op) {
         $gallerytypesObj->setVar('gt_primary', 1);
         // Insert Data
         if ($gallerytypesHandler->insert($gallerytypesObj)) {
-            redirect_header('gallerytypes.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
+            \redirect_header('gallerytypes.php?op=list', 2, \_CO_WGGALLERY_FORM_OK);
         }
 
         break;
     case 'saveoptions':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('gallerytypes.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            \redirect_header('gallerytypes.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         if (isset($gtId)) {
             $gallerytypesObj = $gallerytypesHandler->get($gtId);
         } else {
-            redirect_header('gallerytypes.php', 3, 'invalid gt_id at saveoptions');
+            \redirect_header('gallerytypes.php', 3, 'invalid gt_id at saveoptions');
         }
         $options = [];
         //general
@@ -353,7 +353,7 @@ switch ($op) {
 
         // apply sort order
         $option_sort   = Request::getString('option_sort', '');
-        $sort_arr      = explode('|', $option_sort);
+        $sort_arr      = \explode('|', $option_sort);
         $options_final = []; // result array
         foreach ($sort_arr as $val) { // loop
             foreach ($options as $option) {
@@ -368,7 +368,7 @@ switch ($op) {
         $gallerytypesObj->setVar('gt_options', serialize($options_final));
         // Insert Data
         if ($gallerytypesHandler->insert($gallerytypesObj)) {
-            redirect_header('gallerytypes.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
+            \redirect_header('gallerytypes.php?op=list', 2, \_CO_WGGALLERY_FORM_OK);
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $gallerytypesObj->getHtmlErrors());
@@ -381,15 +381,15 @@ switch ($op) {
         $template        = $gallerytypesObj->getVar('gt_template');
         $primary         = $gallerytypesObj->getVar('gt_primary');
         if ($gallerytypesHandler->reset($gtId, $template, $primary)) {
-            redirect_header('gallerytypes.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
+            \redirect_header('gallerytypes.php?op=list', 2, \_CO_WGGALLERY_FORM_OK);
         } else {
-            redirect_header('gallerytypes.php?op=list', 2, _CO_WGGALLERY_FORM_ERROR);
+            \redirect_header('gallerytypes.php?op=list', 2, \_CO_WGGALLERY_FORM_ERROR);
         }
         break;
     case 'save':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('gallerytypes.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            \redirect_header('gallerytypes.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         if (isset($gtId)) {
             $gallerytypesObj = $gallerytypesHandler->get($gtId);
@@ -407,7 +407,7 @@ switch ($op) {
         $gallerytypesObj->setVar('gt_date', $gallerytypeDate->getTimestamp());
         // Insert Data
         if ($gallerytypesHandler->insert($gallerytypesObj)) {
-            redirect_header('gallerytypes.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
+            \redirect_header('gallerytypes.php?op=list', 2, \_CO_WGGALLERY_FORM_OK);
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $gallerytypesObj->getHtmlErrors());
@@ -418,7 +418,7 @@ switch ($op) {
     case 'edit':
         $templateMain = 'wggallery_admin_gallerytypes.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('gallerytypes.php'));
-        $adminObject->addItemButton(_AM_WGGALLERY_GALLERYTYPES_LIST, 'gallerytypes.php', 'list');
+        $adminObject->addItemButton(\_AM_WGGALLERY_GALLERYTYPES_LIST, 'gallerytypes.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $gallerytypesObj = $gallerytypesHandler->get($gtId);
@@ -430,15 +430,15 @@ switch ($op) {
         $gallerytypesObj = $gallerytypesHandler->get($gtId);
         if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
-                redirect_header('gallerytypes.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+                \redirect_header('gallerytypes.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             if ($gallerytypesHandler->delete($gallerytypesObj)) {
-                redirect_header('gallerytypes.php', 3, _CO_WGGALLERY_FORM_DELETE_OK);
+                \redirect_header('gallerytypes.php', 3, \_CO_WGGALLERY_FORM_DELETE_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $gallerytypesObj->getHtmlErrors());
             }
         } else {
-            xoops_confirm(['ok' => 1, 'gt_id' => $gtId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $gallerytypesObj->getVar('gt_name')));
+            xoops_confirm(['ok' => 1, 'gt_id' => $gtId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], \sprintf(\_CO_WGGALLERY_FORM_SURE_DELETE, $gallerytypesObj->getVar('gt_name')));
         }
 
         break;

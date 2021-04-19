@@ -15,7 +15,7 @@
  * @param mixed $itemId
  * @param mixed $commentCount
  * @since          1.0
- * @min_xoops      2.5.9
+ * @min_xoops      2.5.11
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 comment_functions.php 1 Mon 2018-03-19 10:04:54Z XOOPS Project (www.xoops.org) $
  * @copyright      module for xoops
@@ -55,9 +55,9 @@ function wggalleryCommentsApprove($comment)
     $albId               = $imageObj->getVar('img_albid');
     $tags                = [];
     $tags['IMAGE_NAME']  = $imageObj->getVar('img_name');
-    $tags['IMAGE_URL']   = XOOPS_URL . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/images.php?op=show&img_id=' . $imgId . '&amp;alb_id=' . $albId;
-    $tags['ALBUM_URL']   = XOOPS_URL . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/images.php?op=list&alb_id=' . $albId;
-    $notificationHandler = xoops_getHandler('notification');
+    $tags['IMAGE_URL']   = \XOOPS_URL . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/images.php?op=show&img_id=' . $imgId . '&amp;alb_id=' . $albId;
+    $tags['ALBUM_URL']   = \XOOPS_URL . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/images.php?op=list&alb_id=' . $albId;
+    $notificationHandler = \xoops_getHandler('notification');
     $notificationHandler->triggerEvent('global', 0, 'image_comment_all', $tags, [], $comment->getVar('com_modid'));
     $notificationHandler->triggerEvent('albums', $albId, 'image_comment_alb', $tags);
     $notificationHandler->triggerEvent('images', $imgId, 'image_comment', $tags);

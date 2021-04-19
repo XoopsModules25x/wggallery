@@ -16,16 +16,17 @@
  * @license        GPL 2.0 or later
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.9
+ * @min_xoops      2.5.11
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 header.php 1 Mon 2018-03-19 10:04:54Z XOOPS Project (www.xoops.org) $
  */
 
 use XoopsModules\Wggallery;
+use XoopsModules\Wggallery\Constants;
 
-include dirname(dirname(__DIR__)) . '/mainfile.php';
+include \dirname(\dirname(__DIR__)) . '/mainfile.php';
 require __DIR__ . '/include/common.php';
-$dirname = basename(__DIR__);
+$dirname = \basename(__DIR__);
 // Get instance of module
 /** @var \XoopsModules\Wggallery\Helper $helper */
 $helper = \XoopsModules\Wggallery\Helper::getInstance();
@@ -39,26 +40,19 @@ $albumtypesHandler   = $helper->getHandler('Albumtypes');
 $permissionsHandler  = $helper->getHandler('Permissions');
 $watermarksHandler   = $helper->getHandler('Watermarks');
 $ratingsHandler      = $helper->getHandler('Ratings');
-// Permission
-require XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
-$grouppermHandler = xoops_getHandler('groupperm');
-if (is_object($xoopsUser)) {
-    $groups = $xoopsUser->getGroups();
-} else {
-    $groups = XOOPS_GROUP_ANONYMOUS;
-}
+
 // Breadcrumbs
 $xoBreadcrumbs = [];
 if ($helper->getConfig('show_bcrumb_mname')) {
-    if (isset($GLOBALS['xoopsModule']) && is_object($GLOBALS['xoopsModule'])) { // necessary to check, otherwise uploader runs into errors
-        $xoBreadcrumbs[] = ['title' => $GLOBALS['xoopsModule']->getVar('name'), 'link' => WGGALLERY_URL . '/'];
+    if (isset($GLOBALS['xoopsModule']) && \is_object($GLOBALS['xoopsModule'])) { // necessary to check, otherwise uploader runs into errors
+        $xoBreadcrumbs[] = ['title' => $GLOBALS['xoopsModule']->getVar('name'), 'link' => \WGGALLERY_URL . '/'];
     }
 }
 
 $myts = \MyTextSanitizer::getInstance();
 // Default Css Style
-$style = WGGALLERY_URL . '/assets/css/style.css';
-if (!file_exists($style)) {
+$style = \WGGALLERY_URL . '/assets/css/style.css';
+if (!\file_exists($style)) {
     return false;
 }
 // Smarty Default
@@ -68,6 +62,6 @@ $pathModuleAdmin = $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin');
 $modPathIcon16   = $GLOBALS['xoopsModule']->getInfo('modicons16');
 $modPathIcon32   = $GLOBALS['xoopsModule']->getInfo('modicons16');
 // Load Languages
-xoops_loadLanguage('main');
-xoops_loadLanguage('modinfo');
-xoops_loadLanguage('common');
+\xoops_loadLanguage('main');
+\xoops_loadLanguage('modinfo');
+\xoops_loadLanguage('common');

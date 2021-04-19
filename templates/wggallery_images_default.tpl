@@ -96,8 +96,10 @@
                         <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>edit.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>'><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}><{/if}></a>
                     <a class='btn btn-default wgg-btn' href='images.php?op=manage&amp;alb_id=<{$alb_id}>&amp;redir=list' title='<{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}>'>
                         <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>images.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}>'><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}><{/if}></a>
-                    <a class='btn btn-default wgg-btn' href='upload.php?op=list&amp;alb_id=<{$alb_id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}>'>
-                        <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>upload.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}>'><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}><{/if}></a>
+                    <{if $optUploader|default:''}>
+                        <a class='btn btn-default wgg-btn' href='<{$optUploader}>.php?op=list&amp;alb_id=<{$alb_id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}>'>
+                            <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>upload.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}>'><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}><{/if}></a>
+                    <{/if}>
                 <{/if}>
             </div>
         </div>

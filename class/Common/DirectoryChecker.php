@@ -25,11 +25,11 @@ use XoopsModules\Wggallery;
  * @author          Xoops Development Team
  */
 
-//defined('XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
+//\defined('\XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
 
-require_once dirname(dirname(dirname(dirname(__DIR__)))) . '/mainfile.php';
-$moduleDirName = basename(dirname(dirname(__DIR__)));
-xoops_loadLanguage('directorychecker', $moduleDirName);
+require_once \dirname(\dirname(\dirname(\dirname(__DIR__)))) . '/mainfile.php';
+$moduleDirName = \basename(\dirname(\dirname(__DIR__)));
+\xoops_loadLanguage('directorychecker', $moduleDirName);
 
 /**
  * Class DirectoryChecker
@@ -54,7 +54,7 @@ class DirectoryChecker
         if (null === $redirectFile) {
             $redirectFile = $_SERVER['SCRIPT_NAME'];
         }
-        if (!@is_dir($path)) {
+        if (!@\is_dir($path)) {
             $path_status = "<img src='$pathIcon16/0.png' >";
             $path_status .= "$path (" . _DC_WGGALLERY_NOTAVAILABLE . ') ';
             $path_status .= "<form action='" . $_SERVER['SCRIPT_NAME'] . "' method='post'>";
@@ -69,7 +69,7 @@ class DirectoryChecker
             $currentMode = mb_substr(decoct(fileperms($path)), 2);
             if ($currentMode != decoct($mode)) {
                 $path_status = "<img src='$pathIcon16/0.png' >";
-                $path_status .= $path . sprintf(_DC_WGGALLERY_NOTWRITABLE, decoct($mode), $currentMode);
+                $path_status .= $path . \sprintf(_DC_WGGALLERY_NOTWRITABLE, decoct($mode), $currentMode);
                 $path_status .= "<form action='" . $_SERVER['SCRIPT_NAME'] . "' method='post'>";
                 $path_status .= "<input type='hidden' name='op' value='setdirperm'>";
                 $path_status .= "<input type='hidden' name='mode' value='$mode'>";
@@ -81,7 +81,7 @@ class DirectoryChecker
         } else {
             $currentMode = mb_substr(decoct(fileperms($path)), 2);
             $path_status = "<img src='$pathIcon16/0.png' >";
-            $path_status .= $path . sprintf(_DC_WGGALLERY_NOTWRITABLE, decoct($mode), $currentMode);
+            $path_status .= $path . \sprintf(_DC_WGGALLERY_NOTWRITABLE, decoct($mode), $currentMode);
             $path_status .= "<form action='" . $_SERVER['SCRIPT_NAME'] . "' method='post'>";
             $path_status .= "<input type='hidden' name='op' value='setdirperm'>";
             $path_status .= "<input type='hidden' name='mode' value='$mode'>";
@@ -102,10 +102,10 @@ class DirectoryChecker
      */
     public static function createDirectory($target, $mode = 0777)
     {
-        $target = str_replace('..', '', $target);
+        $target = \str_replace('..', '', $target);
 
         // http://www.php.net/manual/en/function.mkdir.php
-        return is_dir($target) || (self::createDirectory(dirname($target), $mode) && !mkdir($target, $mode) && !is_dir($target));
+        return \is_dir($target) || (self::createDirectory(\dirname($target), $mode) && !\mkdir($target, $mode) && !\is_dir($target));
     }
 
     /**
@@ -116,7 +116,7 @@ class DirectoryChecker
      */
     public static function setDirectoryPermissions($target, $mode = 0777)
     {
-        $target = str_replace('..', '', $target);
+        $target = \str_replace('..', '', $target);
 
         return @chmod($target, (int)$mode);
     }
@@ -128,7 +128,7 @@ class DirectoryChecker
      */
     public static function dirExists($dir_path)
     {
-        return is_dir($dir_path);
+        return \is_dir($dir_path);
     }
 }
 
@@ -142,7 +142,7 @@ switch ($op) {
             $redirect = $_POST['redirect'];
         }
         $msg = DirectoryChecker::createDirectory($path) ? _DC_WGGALLERY_DIRCREATED : _DC_WGGALLERY_DIRNOTCREATED;
-        redirect_header($redirect, 2, $msg . ': ' . $path);
+        \redirect_header($redirect, 2, $msg . ': ' . $path);
         break;
     case 'setdirperm':
         if (\Xmf\Request::hasVar('path', 'POST')) {
@@ -155,6 +155,6 @@ switch ($op) {
             $mode = $_POST['mode'];
         }
         $msg = DirectoryChecker::setDirectoryPermissions($path, $mode) ? _DC_WGGALLERY_PERMSET : _DC_WGGALLERY_PERMNOTSET;
-        redirect_header($redirect, 2, $msg . ': ' . $path);
+        \redirect_header($redirect, 2, $msg . ': ' . $path);
         break;
 }

@@ -19,14 +19,14 @@ namespace XoopsModules\Wggallery;
  * @license        GPL 2.0 or later
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.9
+ * @min_xoops      2.5.11
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 albums.php 1 Mon 2018-03-19 10:04:50Z XOOPS Project (www.xoops.org) $
  */
 
 use XoopsModules\Wggallery;
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+\defined('\XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * Class Object Handler Albums
@@ -139,7 +139,7 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
 
         // set values new
         $albumsAll = $this->getAllAlbums();
-        foreach (array_keys($albumsAll) as $i) {
+        foreach (\array_keys($albumsAll) as $i) {
             $albPid = $albumsAll[$i]->getVar('alb_pid');
             $strSQL = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . ' SET ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '.alb_iscoll = 1 WHERE ' . $GLOBALS['xoopsDB']->prefix('wggallery_albums') . '.alb_id = ' . $albPid;
             $GLOBALS['xoopsDB']->query($strSQL);
@@ -166,8 +166,8 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
         $albumsAll   = $albumsHandler->getAll($crAlbums);
         // Table view albums
         if ($albumsCount > 0) {
-            foreach (array_keys($albumsAll) as $i) {
-                // if ( 0 < count($childsAll) ) {$childsAll .= "#".('' !== $childsAll)."|";}
+            foreach (\array_keys($albumsAll) as $i) {
+                // if ( 0 < \count($childsAll) ) {$childsAll .= "#".('' !== $childsAll)."|";}
                 $childsAll .= '|' . $albumsAll[$i]->getVar('alb_id');
                 $child     = $this->getChildsOfCategory($albumsAll[$i]->getVar('alb_id'));
                 if ($child) {
@@ -203,7 +203,7 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
         $albumsAll   = $albumsHandler->getAll($crAlbums);
         // Table view albums
         if ($albumsCount > 0) {
-            foreach (array_keys($albumsAll) as $i) {
+            foreach (\array_keys($albumsAll) as $i) {
                 if ($permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'))) {
                     $child     = $this->getListChildsOfCollection($albumsAll[$i]->getVar('alb_id'));
                     $childsAll .= '<li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-collapsed" id="menuItem_' . $albumsAll[$i]->getVar('alb_id') . '">';
@@ -215,8 +215,8 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
                     $childsAll .= '<span>';
                     $childsAll .= '<span data-id="' . $albumsAll[$i]->getVar('alb_id') . '" class="itemTitle">' . $albumsAll[$i]->getVar('alb_name') . '</span>';
                     $childsAll .= '<span class="pull-right">
-                                    <a class="" href="albums.php?op=edit&amp;alb_id=' . $albumsAll[$i]->getVar('alb_id') . '" title="' . _CO_WGGALLERY_ALBUM_EDIT . '">
-                                        <img class="wgg-btn-icon" src="' . WGGALLERY_ICONS_URL . '/16/edit.png" alt="' . _CO_WGGALLERY_ALBUM_EDIT . '">
+                                    <a class="" href="albums.php?op=edit&amp;alb_id=' . $albumsAll[$i]->getVar('alb_id') . '" title="' . \_CO_WGGALLERY_ALBUM_EDIT . '">
+                                        <img class="wgg-btn-icon" src="' . \WGGALLERY_ICONS_URL . '/16/edit.png" alt="' . \_CO_WGGALLERY_ALBUM_EDIT . '">
                                     </a></span>';
                     $childsAll .= '</span>';
                     $childsAll .= '</div>';
@@ -261,7 +261,7 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
         $albumsAll   = $albumsHandler->getAll($crAlbums);
         // Table view albums
         if ($albumsCount > 0) {
-            foreach (array_keys($albumsAll) as $i) {
+            foreach (\array_keys($albumsAll) as $i) {
                 $album = $albumsAll[$i]->getValuesAlbums();
                 if ($permissionsHandler->permAlbumView($album['alb_id'])) {
                     $child     = $this->getListChildsOfCollectionIndex($album['alb_id'], $target, $showThumb);

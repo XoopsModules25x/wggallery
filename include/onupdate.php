@@ -16,7 +16,7 @@
  * @param null|mixed $prev_version
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.9
+ * @min_xoops      2.5.11
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 update.php 1 Mon 2018-03-19 10:04:53Z XOOPS Project (www.xoops.org) $
  * @copyright      module for xoops
@@ -67,19 +67,19 @@ function update_wggallery_v10($module)
     while (false !== (list($tplid) = $xoopsDB->fetchRow($result))) {
         $tplids[] = $tplid;
     }
-    if (count($tplids) > 0) {
-        $tplfileHandler  = xoops_getHandler('tplfile');
-        $duplicate_files = $tplfileHandler->getObjects(new \Criteria('tpl_id', '(' . implode(',', $tplids) . ')', 'IN'));
+    if (\count($tplids) > 0) {
+        $tplfileHandler  = \xoops_getHandler('tplfile');
+        $duplicate_files = $tplfileHandler->getObjects(new \Criteria('tpl_id', '(' . \implode(',', $tplids) . ')', 'IN'));
 
-        if (count($duplicate_files) > 0) {
-            foreach (array_keys($duplicate_files) as $i) {
+        if (\count($duplicate_files) > 0) {
+            foreach (\array_keys($duplicate_files) as $i) {
                 $tplfileHandler->delete($duplicate_files[$i]);
             }
         }
     }
     $sql = 'SHOW INDEX FROM ' . $xoopsDB->prefix('tplfile') . " WHERE KEY_NAME = 'tpl_refid_module_set_file_type'";
     if (!$result = $xoopsDB->queryF($sql)) {
-        xoops_error($this->db->error() . '<br>' . $sql);
+        xoops_error($xoopsDB->error() . '<br>' . $sql);
 
         return false;
     }

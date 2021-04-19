@@ -16,7 +16,7 @@
  * @param mixed $item_id
  * @package        wggallery
  * @since          1.0
- * @min_xoops      2.5.9
+ * @min_xoops      2.5.11
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 notifications.inc.php 1 Mon 2018-03-19 10:04:53Z XOOPS Project (www.xoops.org) $
  * @copyright      module for xoops
@@ -34,8 +34,8 @@ function wggallery_notify_iteminfo($category, $item_id)
 {
     global $xoopsModule, $xoopsModuleConfig, $xoopsDB;
 
-    if (!defined('WGGALLERY_URL')) {
-        define('WGGALLERY_URL', XOOPS_URL . '/modules/wggallery');
+    if (!\defined('\WGGALLERY_URL')) {
+        \define('\WGGALLERY_URL', \XOOPS_URL . '/modules/wggallery');
     }
 
     switch ($category) {
@@ -45,7 +45,7 @@ function wggallery_notify_iteminfo($category, $item_id)
             $result       = $xoopsDB->query($sql);
             $result_array = $xoopsDB->fetchArray($result);
             $item['name'] = $result_array['alb_name'];
-            $item['url']  = WGGALLERY_URL . '/albums.php?alb_id=' . $item_id;
+            $item['url']  = \WGGALLERY_URL . '/albums.php?alb_id=' . $item_id;
 
             return $item;
             break;
@@ -55,7 +55,7 @@ function wggallery_notify_iteminfo($category, $item_id)
             $result       = $xoopsDB->query($sql);
             $result_array = $xoopsDB->fetchArray($result);
             $item['name'] = $result_array['alb_name'];
-            $item['url']  = WGGALLERY_URL . '/albums.php?alb_id=' . $item_id;
+            $item['url']  = \WGGALLERY_URL . '/albums.php?alb_id=' . $item_id;
 
             return $item;
             break;
@@ -65,7 +65,7 @@ function wggallery_notify_iteminfo($category, $item_id)
             $result       = $xoopsDB->query($sql);
             $result_array = $xoopsDB->fetchArray($result);
             $item['name'] = $result_array['img_name'];
-            $item['url']  = WGGALLERY_URL . '/images.php?op=show&amp;img_id=' . $item_id . '&amp;alb_id=' . $result_array['img_albid'];
+            $item['url']  = \WGGALLERY_URL . '/images.php?op=show&amp;img_id=' . $item_id . '&amp;alb_id=' . $result_array['img_albid'];
 
             return $item;
             break;

@@ -18,12 +18,12 @@
  * @since           3.23
  * @author          Xoops Development Team
  */
-define('_DC_WGGALLERY_AVAILABLE', "<span style='color: green;'> The folder is Available</span>");
-define('_DC_WGGALLERY_NOTAVAILABLE', "<span style='color: red;'> The folder is Not available</span>");
-define('_DC_WGGALLERY_NOTWRITABLE', "<span style='color: red;'> The folder should have permission ( %d ), but it has ( %d )</span>");
-define('_DC_WGGALLERY_CREATETHEDIR', 'Create it');
-define('_DC_WGGALLERY_SETMPERM', 'Set the permission');
-define('_DC_WGGALLERY_DIRCREATED', 'The directory has been created');
-define('_DC_WGGALLERY_DIRNOTCREATED', 'The directory cannot be created');
-define('_DC_WGGALLERY_PERMSET', 'The permission has been set');
-define('_DC_WGGALLERY_PERMNOTSET', 'The permission cannot be set');
+\define('_DC_WGGALLERY_AVAILABLE', "<span style='color: green;'> The folder is Available</span>");
+\define('_DC_WGGALLERY_NOTAVAILABLE', "<span style='color: red;'> The folder is Not available</span>");
+\define('_DC_WGGALLERY_NOTWRITABLE', "<span style='color: red;'> The folder should have permission ( %d ), but it has ( %d )</span>");
+\define('_DC_WGGALLERY_CREATETHEDIR', 'Create it');
+\define('_DC_WGGALLERY_SETMPERM', 'Set the permission');
+\define('_DC_WGGALLERY_DIRCREATED', 'The directory has been created');
+\define('_DC_WGGALLERY_DIRNOTCREATED', 'The directory cannot be created');
+\define('_DC_WGGALLERY_PERMSET', 'The permission has been set');
+\define('_DC_WGGALLERY_PERMNOTSET', 'The permission cannot be set');
