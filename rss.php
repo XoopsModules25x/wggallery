@@ -24,8 +24,8 @@
 use Xmf\Request;
 
 $cid = Request::getInt('cid', 0, 'GET');
-require_once XOOPS_ROOT_PATH . '/class/template.php';
-if (function_exists('mb_http_output')) {
+require_once \XOOPS_ROOT_PATH . '/class/template.php';
+if (\function_exists('mb_http_output')) {
     mb_http_output('pass');
 }
 //header ('Content-Type:text/xml; charset=UTF-8');
@@ -39,7 +39,7 @@ $categories = wggalleryMyGetItemIds('wggallery_view', 'wggallery');
 $criteria   = new \CriteriaCompo();
 
 $criteria->add(new \Criteria('cat_status', 0, '!='));
-$criteria->add(new \Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
+$criteria->add(new \Criteria('cid', '(' . \implode(',', $categories) . ')', 'IN'));
 if (0 != $cid) {
     $criteria->add(new \Criteria('cid', $cid));
     $images = $imagesHandler->get($cid);
@@ -55,9 +55,9 @@ unset($criteria);
 
 if (!$tpl->is_cached('db:wggallery_rss.tpl', $cid)) {
     $tpl->assign('channel_title', htmlspecialchars($title, ENT_QUOTES));
-    $tpl->assign('channel_link', XOOPS_URL . '/');
+    $tpl->assign('channel_link', \XOOPS_URL . '/');
     $tpl->assign('channel_desc', htmlspecialchars($xoopsConfig['slogan'], ENT_QUOTES));
-    $tpl->assign('channel_lastbuild', formatTimestamp(time(), 'rss'));
+    $tpl->assign('channel_lastbuild', \formatTimestamp(\time(), 'rss'));
     $tpl->assign('channel_webmaster', $xoopsConfig['adminmail']);
     $tpl->assign('channel_editor', $xoopsConfig['adminmail']);
     $tpl->assign('channel_category', 'Event');
@@ -68,8 +68,8 @@ if (!$tpl->is_cached('db:wggallery_rss.tpl', $cid)) {
     } else {
         $tpl->assign('docs', 'http://cyber.law.harvard.edu/rss/rss.html');
     }
-    $tpl->assign('image_url', XOOPS_URL . $xoopsModuleConfig['logorss']);
-    $dimention = getimagesize(XOOPS_ROOT_PATH . $xoopsModuleConfig['logorss']);
+    $tpl->assign('image_url', \XOOPS_URL . $xoopsModuleConfig['logorss']);
+    $dimention = \getimagesize(\XOOPS_ROOT_PATH . $xoopsModuleConfig['logorss']);
     if (empty($dimention[0])) {
         $width = 88;
     } else {
@@ -82,7 +82,7 @@ if (!$tpl->is_cached('db:wggallery_rss.tpl', $cid)) {
     }
     $tpl->assign('image_width', $width);
     $tpl->assign('image_height', $height);
-    foreach (array_keys($imagesArr) as $i) {
+    foreach (\array_keys($imagesArr) as $i) {
         $description = $imagesArr[$i]->getVar('description');
         //permet d'afficher uniquement la description courte
         if (false === mb_strpos($description, '[pagebreak]')) {
@@ -92,9 +92,9 @@ if (!$tpl->is_cached('db:wggallery_rss.tpl', $cid)) {
         }
         $tpl->append('items', [
                 'title'       => htmlspecialchars($imagesArr[$i]->getVar('img_ip'), ENT_QUOTES),
-                'link'        => XOOPS_URL . '/modules/wggallery/single.php?cid=' . $imagesArr[$i]->getVar('cid') . '&amp;img_id=' . $imagesArr[$i]->getVar('img_id'),
-                'guid'        => XOOPS_URL . '/modules/wggallery/single.php?cid=' . $imagesArr[$i]->getVar('cid') . '&amp;img_id=' . $imagesArr[$i]->getVar('img_id'),
-                'pubdate'     => formatTimestamp($imagesArr[$i]->getVar('date'), 'rss'),
+                'link'        => \XOOPS_URL . '/modules/wggallery/single.php?cid=' . $imagesArr[$i]->getVar('cid') . '&amp;img_id=' . $imagesArr[$i]->getVar('img_id'),
+                'guid'        => \XOOPS_URL . '/modules/wggallery/single.php?cid=' . $imagesArr[$i]->getVar('cid') . '&amp;img_id=' . $imagesArr[$i]->getVar('img_id'),
+                'pubdate'     => \formatTimestamp($imagesArr[$i]->getVar('date'), 'rss'),
                 'description' => htmlspecialchars($description_short, ENT_QUOTES),
         ]);
     }

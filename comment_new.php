@@ -24,7 +24,7 @@
 
 use Xmf\Request;
 
-require dirname(dirname(__DIR__)) . '/mainfile.php';
+require \dirname(\dirname(__DIR__)) . '/mainfile.php';
 $com_itemid = Request::getInt('com_itemid', 0);
 if ($com_itemid > 0) {
     /** @var \XoopsModules\Wggallery\Helper $helper */
@@ -34,5 +34,5 @@ if ($com_itemid > 0) {
 
     $itemObj        = $imagesHandler->get($com_itemid);
     $com_replytitle = $itemObj->getVar('img_title');
-    require XOOPS_ROOT_PATH . '/include/comment_new.php';
+    require \XOOPS_ROOT_PATH . '/include/comment_new.php';
 }

@@ -23,7 +23,7 @@ namespace XoopsModules\Wggallery;
  * @author         TDM XOOPS - Email:<info@email.com> - Website:<https://xoops.org>
  * @version        $Id: 1.0 ratings.php 13070 Wed 2016-12-14 22:22:34Z XOOPS Development Team $
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+\defined('\XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * Class Object Ratings
@@ -37,13 +37,13 @@ class Ratings extends \XoopsObject
      */
     public function __construct()
     {
-        $this->initVar('rate_id', XOBJ_DTYPE_INT);
-        $this->initVar('rate_source', XOBJ_DTYPE_INT);
-        $this->initVar('rate_itemid', XOBJ_DTYPE_INT);
-        $this->initVar('rate_value', XOBJ_DTYPE_INT);
-        $this->initVar('rate_uid', XOBJ_DTYPE_INT);
-        $this->initVar('rate_ip', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('rate_date', XOBJ_DTYPE_INT);
+        $this->initVar('rate_id', \XOBJ_DTYPE_INT);
+        $this->initVar('rate_source', \XOBJ_DTYPE_INT);
+        $this->initVar('rate_itemid', \XOBJ_DTYPE_INT);
+        $this->initVar('rate_value', \XOBJ_DTYPE_INT);
+        $this->initVar('rate_uid', \XOBJ_DTYPE_INT);
+        $this->initVar('rate_ip', \XOBJ_DTYPE_TXTBOX);
+        $this->initVar('rate_date', \XOBJ_DTYPE_INT);
     }
 
     /**
@@ -87,7 +87,7 @@ class Ratings extends \XoopsObject
         $ret['value']  = $this->getVar('rate_value');
         $ret['uid']    = \XoopsUser::getUnameFromId($this->getVar('rate_uid'));
         $ret['ip']     = $this->getVar('rate_ip');
-        $ret['date']   = formatTimestamp($this->getVar('rate_date'), 's');
+        $ret['date']   = \formatTimestamp($this->getVar('rate_date'), 's');
 
         return $ret;
     }
@@ -101,7 +101,7 @@ class Ratings extends \XoopsObject
     {
         $ret  = [];
         $vars = $this->getVars();
-        foreach (array_keys($vars) as $var) {
+        foreach (\array_keys($vars) as $var) {
             $ret[$var] = $this->getVar('"{$var}"');
         }
 

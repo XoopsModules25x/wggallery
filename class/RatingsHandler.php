@@ -23,7 +23,7 @@ namespace XoopsModules\Wggallery;
  * @author         TDM XOOPS - Email:<info@email.com> - Website:<https://xoops.org>
  * @version        $Id: 1.0 ratings.php 13070 Wed 2016-12-14 22:22:34Z XOOPS Development Team $
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+\defined('\XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * Class Object WgtimelinesRatings
@@ -85,7 +85,7 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
         $ItemRating               = [];
         $ItemRating['nb_ratings'] = 0;
 
-        $uid   = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
+        $uid   = \is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
         $voted = false;
         $ip    = getenv('REMOTE_ADDR');
 
@@ -105,7 +105,7 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
             $criteria->add(new \Criteria('rate_source', $source));
 
             $ratingObjs               = $helper->getHandler('ratings')->getObjects($criteria);
-            $count                    = count($ratingObjs);
+            $count                    = \count($ratingObjs);
             $ItemRating['nb_ratings'] = $count;
 
             foreach ($ratingObjs as $ratingObj) {
@@ -123,16 +123,16 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
                 $ItemRating['avg_rate_value'] = number_format($current_rating / $count, 2);
             }
             if (1 == $count) {
-                $text      = str_replace('%c', $ItemRating['avg_rate_value'], _MA_WGGALLERY_RATING_CURRENT_1);
-                $shorttext = str_replace('%c', $ItemRating['avg_rate_value'], _MA_WGGALLERY_RATING_CURRENT_SHORT_1);
+                $text      = \str_replace('%c', $ItemRating['avg_rate_value'], \_MA_WGGALLERY_RATING_CURRENT_1);
+                $shorttext = \str_replace('%c', $ItemRating['avg_rate_value'], \_MA_WGGALLERY_RATING_CURRENT_SHORT_1);
             } else {
-                $text      = str_replace('%c', $ItemRating['avg_rate_value'], _MA_WGGALLERY_RATING_CURRENT_X);
-                $shorttext = str_replace('%c', $ItemRating['avg_rate_value'], _MA_WGGALLERY_RATING_CURRENT_SHORT_X);
+                $text      = \str_replace('%c', $ItemRating['avg_rate_value'], \_MA_WGGALLERY_RATING_CURRENT_X);
+                $shorttext = \str_replace('%c', $ItemRating['avg_rate_value'], \_MA_WGGALLERY_RATING_CURRENT_SHORT_X);
             }
-            $text                    = str_replace('%c', $ItemRating['avg_rate_value'], _MA_WGGALLERY_RATING_CURRENT_X);
-            $text                    = str_replace('%m', $max_units, $text);
-            $text                    = str_replace('%t', $ItemRating['nb_ratings'], $text);
-            $shorttext               = str_replace('%t', $ItemRating['nb_ratings'], $shorttext);
+            $text                    = \str_replace('%c', $ItemRating['avg_rate_value'], \_MA_WGGALLERY_RATING_CURRENT_X);
+            $text                    = \str_replace('%m', $max_units, $text);
+            $text                    = \str_replace('%t', $ItemRating['nb_ratings'], $text);
+            $shorttext               = \str_replace('%t', $ItemRating['nb_ratings'], $shorttext);
             $ItemRating['text']      = $text;
             $ItemRating['shorttext'] = $shorttext;
             $ItemRating['size']      = ($ItemRating['avg_rate_value'] * $rating_unitwidth) . 'px';
@@ -144,7 +144,7 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
             $criteria->add(new \Criteria('rate_value', 0, '<'));
 
             $ratingObjs = $helper->getHandler('ratings')->getObjects($criteria);
-            $count      = count($ratingObjs);
+            $count      = \count($ratingObjs);
 
             foreach ($ratingObjs as $ratingObj) {
                 $current_rating += $ratingObj->getVar('rate_value');
@@ -163,7 +163,7 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
             $criteria->add(new \Criteria('rate_value', 0, '>'));
 
             $ratingObjs = $helper->getHandler('ratings')->getObjects($criteria);
-            $count      = count($ratingObjs);
+            $count      = \count($ratingObjs);
 
             foreach ($ratingObjs as $ratingObj) {
                 $current_rating += $ratingObj->getVar('rate_value');

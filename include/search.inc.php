@@ -49,13 +49,13 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
     require_once __DIR__ . '/common.php';
 
     // search in images table
-    if (is_array($queryarray)) {
-        $count = count($queryarray);
+    if (\is_array($queryarray)) {
+        $count = \count($queryarray);
     }
 	
-    if (is_array($queryarray) && $count > 0) {
+    if (\is_array($queryarray) && $count > 0) {
         $criteriaKeywords = new CriteriaCompo();
-        $elementCount     = count($queryarray);
+        $elementCount     = \count($queryarray);
         for ($i = 0; $i < $elementCount; ++$i) {
             $criteriaKeyword = new CriteriaCompo();
             $criteriaKeyword->add(new Criteria('img_title', '%' . $queryarray[$i] . '%', 'LIKE'), 'OR');
@@ -66,10 +66,10 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
             unset($criteriaKeyword);
         }
     }
-    if ($userid && is_array($userid)) {
+    if ($userid && \is_array($userid)) {
         $userid       = array_map('intval', $userid);
         $criteriaUser = new CriteriaCompo();
-        $criteriaUser->add(new Criteria('img_submitter', '(' . implode(',', $userid) . ')', 'IN'), 'OR');
+        $criteriaUser->add(new Criteria('img_submitter', '(' . \implode(',', $userid) . ')', 'IN'), 'OR');
     } elseif (is_numeric($userid) && $userid > 0) {
         $criteriaUser = new CriteriaCompo();
         $criteriaUser->add(new Criteria('img_submitter', $userid), 'OR');
@@ -87,7 +87,7 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
     $critSearch->setSort('img_date');
     $critSearch->setOrder('DESC');
     $imagesAll = $imagesHandler->getAll($critSearch);
-    foreach (array_keys($imagesAll) as $i) {
+    foreach (\array_keys($imagesAll) as $i) {
         $images[$i] = $imagesAll[$i]->getValuesImages();
         $ret[]      = [
             'image' => 'assets/icons/16/images.png',
@@ -101,9 +101,9 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
     unset($criteriaKeywords);
 
     // search in albums table
-    if (is_array($queryarray) && $count > 0) {
+    if (\is_array($queryarray) && $count > 0) {
         $criteriaKeywords = new CriteriaCompo();
-        $elementCount     = count($queryarray);
+        $elementCount     = \count($queryarray);
         for ($i = 0; $i < $elementCount; ++$i) {
             $criteriaKeyword = new CriteriaCompo();
             $criteriaKeyword->add(new Criteria('alb_name', '%' . $queryarray[$i] . '%', 'LIKE'), 'OR');
@@ -113,10 +113,10 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
             unset($criteriaKeyword);
         }
     }
-    if ($userid && is_array($userid)) {
+    if ($userid && \is_array($userid)) {
         $userid       = array_map('intval', $userid);
         $criteriaUser = new CriteriaCompo();
-        $criteriaUser->add(new Criteria('alb_submitter', '(' . implode(',', $userid) . ')', 'IN'), 'OR');
+        $criteriaUser->add(new Criteria('alb_submitter', '(' . \implode(',', $userid) . ')', 'IN'), 'OR');
     } elseif (is_numeric($userid) && $userid > 0) {
         $criteriaUser = new CriteriaCompo();
         $criteriaUser->add(new Criteria('alb_submitter', $userid), 'OR');
@@ -134,7 +134,7 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
     $critSearch->setSort('alb_date');
     $critSearch->setOrder('DESC');
     $albumsAll = $albumsHandler->getAll($critSearch);
-    foreach (array_keys($albumsAll) as $i) {
+    foreach (\array_keys($albumsAll) as $i) {
         $ret[] = [
             'image' => 'assets/icons/16/albums.png',
             'link'  => 'albums.php?op=show&amp;alb_id=' . $albumsAll[$i]->getVar('alb_id'),

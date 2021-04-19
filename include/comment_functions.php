@@ -55,9 +55,9 @@ function wggalleryCommentsApprove($comment)
     $albId               = $imageObj->getVar('img_albid');
     $tags                = [];
     $tags['IMAGE_NAME']  = $imageObj->getVar('img_name');
-    $tags['IMAGE_URL']   = XOOPS_URL . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/images.php?op=show&img_id=' . $imgId . '&amp;alb_id=' . $albId;
-    $tags['ALBUM_URL']   = XOOPS_URL . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/images.php?op=list&alb_id=' . $albId;
-    $notificationHandler = xoops_getHandler('notification');
+    $tags['IMAGE_URL']   = \XOOPS_URL . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/images.php?op=show&img_id=' . $imgId . '&amp;alb_id=' . $albId;
+    $tags['ALBUM_URL']   = \XOOPS_URL . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/images.php?op=list&alb_id=' . $albId;
+    $notificationHandler = \xoops_getHandler('notification');
     $notificationHandler->triggerEvent('global', 0, 'image_comment_all', $tags, [], $comment->getVar('com_modid'));
     $notificationHandler->triggerEvent('albums', $albId, 'image_comment_alb', $tags);
     $notificationHandler->triggerEvent('images', $imgId, 'image_comment', $tags);

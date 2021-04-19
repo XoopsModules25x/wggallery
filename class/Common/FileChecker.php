@@ -25,11 +25,11 @@ namespace XoopsModules\Wggallery\Common;
 use Xmf\Request;
 use XoopsModules\Wggallery;
 
-//defined('XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
+//\defined('\XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
 
-require_once dirname(dirname(dirname(dirname(__DIR__)))) . '/mainfile.php';
-$moduleDirName = basename(dirname(dirname(__DIR__)));
-xoops_loadLanguage('filechecker', $moduleDirName);
+require_once \dirname(\dirname(\dirname(\dirname(__DIR__)))) . '/mainfile.php';
+$moduleDirName = \basename(\dirname(\dirname(__DIR__)));
+\xoops_loadLanguage('filechecker', $moduleDirName);
 
 /**
  * Class FileChecker
@@ -89,10 +89,10 @@ class FileChecker
      */
     public static function copyFile($source_path, $destination_path)
     {
-        $source_path      = str_replace('..', '', $source_path);
-        $destination_path = str_replace('..', '', $destination_path);
+        $source_path      = \str_replace('..', '', $source_path);
+        $destination_path = \str_replace('..', '', $destination_path);
 
-        return @copy($source_path, $destination_path);
+        return @\copy($source_path, $destination_path);
     }
 
     /**
@@ -112,8 +112,8 @@ class FileChecker
         if (filesize($file1_path) !== filesize($file2_path)) {
             return false;
         }
-        $crc1 = mb_strtoupper(dechex(crc32(file_get_contents($file1_path))));
-        $crc2 = mb_strtoupper(dechex(crc32(file_get_contents($file2_path))));
+        $crc1 = \mb_strtoupper(dechex(crc32(file_get_contents($file1_path))));
+        $crc2 = \mb_strtoupper(dechex(crc32(file_get_contents($file2_path))));
 
         return !($crc1 !== $crc2);
     }
@@ -136,7 +136,7 @@ class FileChecker
      */
     public static function setFilePermissions($target, $mode = 0777)
     {
-        $target = str_replace('..', '', $target);
+        $target = \str_replace('..', '', $target);
 
         return @chmod($target, (int)$mode);
     }
@@ -155,6 +155,6 @@ switch ($op) {
             $redirect = $_POST['redirect'];
         }
         $msg = FileChecker::copyFile($original_file_path, $file_path) ? _FC_WGGALLERY_FILECOPIED : _FC_WGGALLERY_FILENOTCOPIED;
-        redirect_header($redirect, 2, $msg . ': ' . $file_path);
+        \redirect_header($redirect, 2, $msg . ': ' . $file_path);
         break;
 }

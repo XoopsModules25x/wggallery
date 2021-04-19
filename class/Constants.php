@@ -20,7 +20,7 @@ namespace XoopsModules\Wggallery;
  * @author       XOOPS Development Team
  */
 
-//defined('XOOPS_ROOT_PATH') || die('Restricted access';
+//\defined('\XOOPS_ROOT_PATH') || die('Restricted access';
 
 /**
  * class Constants
@@ -78,4 +78,10 @@ class Constants
     const RATING_10STARS = 2;
     const RATING_LIKES = 3;
     const RATING_10NUM = 4;
+    // constants for upload
+    const UPLOADER_NONE = 0;
+    const UPLOADER_MULTI = 1;
+    const UPLOADER_SINGLE = 2;
+    const UPLOADER_BOTHMULTI = 3;
+    const UPLOADER_BOTHSINGLE = 4;
 }

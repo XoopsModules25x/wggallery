@@ -26,7 +26,7 @@ namespace XoopsModules\Wggallery;
 
 use XoopsModules\Wggallery;
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+\defined('\XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * Class Object Handler Images
@@ -136,13 +136,13 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
     public function getCatsList($cats)
     {
         $listText = '';
-        if (is_array($cats)) {
+        if (\is_array($cats)) {
             foreach ($cats as $cat) {
                 if ('' !== $listText) {
                     $listText .= ', ';
                 }
                 $categoryObj = $this->get($cat);
-                if (is_object($categoryObj)) {
+                if (\is_object($categoryObj)) {
                     $listText .= '<span>' . $this->get($cat)->getVar('cat_text') . '</span>';
                 }
             }

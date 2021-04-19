@@ -30,11 +30,11 @@ if (_CANCEL === Request::getString('cancel', 'none')) {
     $op = 'list';
 }
 
-$GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/wggallery/assets/js/admin.js');
+$GLOBALS['xoTheme']->addScript(\XOOPS_URL . '/modules/wggallery/assets/js/admin.js');
 
-$GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
-$GLOBALS['xoopsTpl']->assign('wggallery_upload_fonts_path', WGGALLERY_UPLOAD_FONTS_PATH);
-$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
+$GLOBALS['xoopsTpl']->assign('wggallery_upload_url', \WGGALLERY_UPLOAD_URL);
+$GLOBALS['xoopsTpl']->assign('wggallery_upload_fonts_path', \WGGALLERY_UPLOAD_FONTS_PATH);
+$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', \WGGALLERY_ICONS_URL . '16/');
 
 $templateMain = 'wggallery_admin_import.tpl';
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('import.php'));
@@ -47,22 +47,22 @@ $albumsCount    = $albumsHandler->getCount();
 $imagesCount    = $imagesHandler->getCount();
 $error_notempty = 0;
 if ($imagesCount > 0 || $albumsCount > 0) {
-    $GLOBALS['xoopsTpl']->assign('error_exist', _AM_WGGALLERY_IMPORT_ERR);
+    $GLOBALS['xoopsTpl']->assign('error_exist', \_AM_WGGALLERY_IMPORT_ERR);
     $error_notempty = 1;
     if ($albumsCount > 0) {
-        $GLOBALS['xoopsTpl']->assign('error_albexist', _AM_WGGALLERY_IMPORT_ERR_ALBEXIST);
+        $GLOBALS['xoopsTpl']->assign('error_albexist', \_AM_WGGALLERY_IMPORT_ERR_ALBEXIST);
     }
     if ($imagesCount > 0) {
-        $GLOBALS['xoopsTpl']->assign('error_imgexist', _AM_WGGALLERY_IMPORT_ERR_IMGEXIST);
+        $GLOBALS['xoopsTpl']->assign('error_imgexist', \_AM_WGGALLERY_IMPORT_ERR_IMGEXIST);
     }
 }
 
 switch ($op) {
     case 'read_eXtGallery':
         $im_name = 'eXtGallery';
-        $adminObject->addItemButton(_AM_WGGALLERY_IMPORT_LIST, 'import.php?op=list', 'list');
+        $adminObject->addItemButton(\_AM_WGGALLERY_IMPORT_LIST, 'import.php?op=list', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
-        require_once WGGALLERY_PATH . '/plugins/extgallery.php';
+        require_once \WGGALLERY_PATH . '/plugins/extgallery.php';
         $result     = wggalleryPluginGetDataExtgallery();
         $num_albums = $result[0];
         $num_images = $result[1];
@@ -71,21 +71,21 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     case 'import_eXtGallery':
-        require_once WGGALLERY_PATH . '/plugins/extgallery.php';
+        require_once \WGGALLERY_PATH . '/plugins/extgallery.php';
         $albState     = Request::getInt('alb_state');
         $albSubmitter = Request::getInt('alb_submitter');
         $result       = wggalleryPluginExecImportExtgallery($albState, $albSubmitter);
         if ($result) {
-            redirect_header('albums.php', 3, str_replace(['%a', '%i'], [$albumsHandler->getCount(), $imagesHandler->getCount()], _AM_WGGALLERY_IMPORT_SUCCESS));
+            \redirect_header('albums.php', 3, \str_replace(['%a', '%i'], [$albumsHandler->getCount(), $imagesHandler->getCount()], \_AM_WGGALLERY_IMPORT_SUCCESS));
         } else {
-            redirect_header('albums.php', 3, _AM_WGGALLERY_IMPORT_ERROR);
+            \redirect_header('albums.php', 3, \_AM_WGGALLERY_IMPORT_ERROR);
         }
         break;
     case 'read_TDMPicture':
         $im_name = 'TDMPicture';
-        $adminObject->addItemButton(_AM_WGGALLERY_IMPORT_LIST, 'import.php?op=list', 'list');
+        $adminObject->addItemButton(\_AM_WGGALLERY_IMPORT_LIST, 'import.php?op=list', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
-        require_once WGGALLERY_PATH . '/plugins/tdmpicture.php';
+        require_once \WGGALLERY_PATH . '/plugins/tdmpicture.php';
         $result     = wggalleryPluginGetDataTdmpicture();
         $num_albums = $result[0];
         $num_images = $result[1];
@@ -94,20 +94,20 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     case 'import_TDMPicture':
-        require_once WGGALLERY_PATH . '/plugins/tdmpicture.php';
+        require_once \WGGALLERY_PATH . '/plugins/tdmpicture.php';
         $result = wggalleryPluginExecImportTdmpicture();
         if ($result) {
-            redirect_header('albums.php', 3, str_replace(['%a', '%i'], [$albumsHandler->getCount(), $imagesHandler->getCount()], _AM_WGGALLERY_IMPORT_SUCCESS));
+            \redirect_header('albums.php', 3, \str_replace(['%a', '%i'], [$albumsHandler->getCount(), $imagesHandler->getCount()], \_AM_WGGALLERY_IMPORT_SUCCESS));
         } else {
-            redirect_header('albums.php', 3, _AM_WGGALLERY_IMPORT_ERROR);
+            \redirect_header('albums.php', 3, \_AM_WGGALLERY_IMPORT_ERROR);
         }
         break;
     case 'list':
     default:
         $import_modules = [];
-        $moduleHandler  = xoops_getHandler('module');
+        $moduleHandler  = \xoops_getHandler('module');
         foreach ($sup_modules as $s) {
-            $im_found         = is_object($moduleHandler->getByDirname($s['dir'])) ? 1 : 0;
+            $im_found         = \is_object($moduleHandler->getByDirname($s['dir'])) ? 1 : 0;
             $import_modules[] = ['name' => $s['name'], 'dir' => $s['dir'], 'found' => $im_found];
         }
         $GLOBALS['xoopsTpl']->assign('import_modules', $import_modules);

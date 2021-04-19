@@ -23,7 +23,7 @@ namespace XoopsModules\Wggallery;
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 watermarks.php 1 Thu 2018-11-01 08:54:56Z XOOPS Project (www.xoops.org) $
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+\defined('\XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * Class Object Handler Watermarks
@@ -133,26 +133,26 @@ class WatermarksHandler extends \XoopsPersistableObjectHandler
     public function watermarkImage($wmId, $SourceFile, $DestinationFile)
     {
         // check file exists
-        if (!file_exists($SourceFile)) {
+        if (!\file_exists($SourceFile)) {
             return 'File not found!';
         }
         // get source image
-        $mimetypeSource = mime_content_type($SourceFile);
+        $mimetypeSource = \mime_content_type($SourceFile);
         switch ($mimetypeSource) {
             case 'image/png':
-                $imgToBeStamped = imagecreatefrompng($SourceFile);
+                $imgToBeStamped = \imagecreatefrompng($SourceFile);
                 break;
             case 'image/jpeg':
-                $imgToBeStamped = imagecreatefromjpeg($SourceFile);
+                $imgToBeStamped = \imagecreatefromjpeg($SourceFile);
                 break;
             case 'image/gif':
-                $imgToBeStamped = imagecreatefromgif($SourceFile);
+                $imgToBeStamped = \imagecreatefromgif($SourceFile);
                 break;
             default:
                 return 'Unsupported format sourcefile';
         }
-        $sxFinal = imagesx($imgToBeStamped);
-        $syFinal = imagesy($imgToBeStamped);
+        $sxFinal = \imagesx($imgToBeStamped);
+        $syFinal = \imagesy($imgToBeStamped);
         // get watermark object
         $watermarksObj = $this->get($wmId);
         $wm_type       = $watermarksObj->getVar('wm_type');
@@ -161,18 +161,18 @@ class WatermarksHandler extends \XoopsPersistableObjectHandler
         $position      = $watermarksObj->getVar('wm_position');
         switch ($wm_type) {
             case Constants::WATERMARK_TYPEIMAGE:
-                $imgStamp       = WGGALLERY_UPLOAD_IMAGE_PATH . '/watermarks/' . $watermarksObj->getVar('wm_image');
-                $mimetype_stamp = mime_content_type($imgStamp);
+                $imgStamp       = \WGGALLERY_UPLOAD_IMAGE_PATH . '/watermarks/' . $watermarksObj->getVar('wm_image');
+                $mimetype_stamp = \mime_content_type($imgStamp);
                 // create stamp
                 switch ($mimetype_stamp) {
                     case 'image/png':
-                        $stamp = imagecreatefrompng($imgStamp);
+                        $stamp = \imagecreatefrompng($imgStamp);
                         break;
                     case 'image/jpeg':
-                        $stamp = imagecreatefromjpeg($imgStamp);
+                        $stamp = \imagecreatefromjpeg($imgStamp);
                         break;
                     case 'image/gif':
-                        $stamp = imagecreatefromgif($imgStamp);
+                        $stamp = \imagecreatefromgif($imgStamp);
                         break;
                     default:
                         return 'Unsupported format watermark image';
@@ -185,36 +185,36 @@ class WatermarksHandler extends \XoopsPersistableObjectHandler
                         $posStampY = $marginTB;
                         break;
                     case Constants::WATERMARK_POSTOPRIGHT:
-                        $posStampX = $sxFinal - imagesx($stamp) - $marginLR;
+                        $posStampX = $sxFinal - \imagesx($stamp) - $marginLR;
                         $posStampY = $marginTB;
                         break;
                     case Constants::WATERMARK_POSTOPCENTER:
-                        $posStampX = ($sxFinal - imagesx($stamp)) / 2;
+                        $posStampX = ($sxFinal - \imagesx($stamp)) / 2;
                         $posStampY = $marginTB;
                         break;
                     case Constants::WATERMARK_POSMIDDLELEFT:
                         $posStampX = $marginLR;
-                        $posStampY = ($syFinal - imagesy($stamp)) / 2;
+                        $posStampY = ($syFinal - \imagesy($stamp)) / 2;
                         break;
                     case Constants::WATERMARK_POSMIDDLERIGHT:
-                        $posStampX = $sxFinal - imagesx($stamp) - $marginLR;
-                        $posStampY = ($syFinal - imagesy($stamp)) / 2;
+                        $posStampX = $sxFinal - \imagesx($stamp) - $marginLR;
+                        $posStampY = ($syFinal - \imagesy($stamp)) / 2;
                         break;
                     case Constants::WATERMARK_POSMIDDLECENTER:
-                        $posStampX = ($sxFinal - imagesx($stamp)) / 2;
-                        $posStampY = ($syFinal - imagesy($stamp)) / 2;
+                        $posStampX = ($sxFinal - \imagesx($stamp)) / 2;
+                        $posStampY = ($syFinal - \imagesy($stamp)) / 2;
                         break;
                     case Constants::WATERMARK_POSBOTTOMLEFT:
                         $posStampX = $marginLR;
-                        $posStampY = $syFinal - imagesy($stamp) - $marginTB;
+                        $posStampY = $syFinal - \imagesy($stamp) - $marginTB;
                         break;
                     case Constants::WATERMARK_POSBOTTOMRIGHT:
-                        $posStampX = $sxFinal - imagesx($stamp) - $marginLR;
-                        $posStampY = $syFinal - imagesy($stamp) - $marginTB;
+                        $posStampX = $sxFinal - \imagesx($stamp) - $marginLR;
+                        $posStampY = $syFinal - \imagesy($stamp) - $marginTB;
                         break;
                     case Constants::WATERMARK_POSBOTTOMCENTER:
-                        $posStampX = ($sxFinal - imagesx($stamp)) / 2;
-                        $posStampY = $syFinal - imagesy($stamp) - $marginTB;
+                        $posStampX = ($sxFinal - \imagesx($stamp)) / 2;
+                        $posStampY = $syFinal - \imagesy($stamp) - $marginTB;
                         break;
                     case 'else':
                     default:
@@ -223,20 +223,20 @@ class WatermarksHandler extends \XoopsPersistableObjectHandler
                 }
 
                 // create new image
-                imagecopy($imgToBeStamped, $stamp, $posStampX, $posStampY, 0, 0, imagesx($stamp), imagesy($stamp));
+                imagecopy($imgToBeStamped, $stamp, $posStampX, $posStampY, 0, 0, \imagesx($stamp), \imagesy($stamp));
                 $imgFinal = $imgToBeStamped;
                 break;
             case Constants::WATERMARK_TYPETEXT:
                 $wmText = $watermarksObj->getVar('wm_text');
-                $stamp  = imagecreatetruecolor($sxFinal, $syFinal);
-                imagecopyresampled($stamp, $imgToBeStamped, 0, 0, 0, 0, $sxFinal, $syFinal, $sxFinal, $syFinal);
+                $stamp  = \imagecreatetruecolor($sxFinal, $syFinal);
+                \imagecopyresampled($stamp, $imgToBeStamped, 0, 0, 0, 0, $sxFinal, $syFinal, $sxFinal, $syFinal);
                 // convert hex to rgb
                 $Hex        = mb_substr($watermarksObj->getVar('wm_color'), 1);
                 $R          = hexdec(mb_substr($Hex, 0, 2));
                 $G          = hexdec(mb_substr($Hex, 2, 2));
                 $B          = hexdec(mb_substr($Hex, 4, 2));
                 $fontColor  = imagecolorallocate($stamp, $R, $G, $B);
-                $fontFamily = WGGALLERY_UPLOAD_FONTS_PATH . '/' . $watermarksObj->getVar('wm_font');
+                $fontFamily = \WGGALLERY_UPLOAD_FONTS_PATH . '/' . $watermarksObj->getVar('wm_font');
                 $fontSize   = $watermarksObj->getVar('wm_fontsize');
 
                 $fontSizePoints = $fontSize * 72 / 96;
@@ -299,20 +299,20 @@ class WatermarksHandler extends \XoopsPersistableObjectHandler
         // save marked image
         switch ($mimetypeSource) {
             case 'image/png':
-                imagepng($imgFinal, $DestinationFile);
+                \imagepng($imgFinal, $DestinationFile);
                 break;
             case 'image/jpeg':
-                imagejpeg($imgFinal, $DestinationFile, 100);
+                \imagejpeg($imgFinal, $DestinationFile, 100);
                 break;
             case 'image/gif':
-                imagegif($imgFinal, $DestinationFile);
+                \imagegif($imgFinal, $DestinationFile);
                 break;
             default:
                 return 'Unsupported format sourcefile';
         }
 
-        imagedestroy($imgToBeStamped);
-        imagedestroy($stamp);
+        \imagedestroy($imgToBeStamped);
+        \imagedestroy($stamp);
 
         return true;
     }

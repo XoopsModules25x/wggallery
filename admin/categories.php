@@ -31,17 +31,17 @@ $op = Request::getString('op', 'list');
 $catId = Request::getInt('cat_id');
 
 $templateMain = 'wggallery_admin_categories.tpl';
-$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
+$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', \WGGALLERY_ICONS_URL . '16/');
 
 switch ($op) {
     case 'list':
     default:
-        $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/js/jquery-ui.min.js');
-        $GLOBALS['xoTheme']->addScript(WGGALLERY_URL . '/assets/js/sortable-categories.js');
+        $GLOBALS['xoTheme']->addScript(\WGGALLERY_URL . '/assets/js/jquery-ui.min.js');
+        $GLOBALS['xoTheme']->addScript(\WGGALLERY_URL . '/assets/js/sortable-categories.js');
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('categories.php'));
         $start = Request::getInt('start', 0);
         $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
-        $adminObject->addItemButton(_AM_WGGALLERY_ADD_CATEGORY, 'categories.php?op=new', 'add');
+        $adminObject->addItemButton(\_AM_WGGALLERY_ADD_CATEGORY, 'categories.php?op=new', 'add');
 
         $crCategories    = new \CriteriaCompo();
         $categoriesCount = $categoriesHandler->getCount($crCategories);
@@ -51,30 +51,30 @@ switch ($op) {
         $crCategories->setOrder('ASC');
         $categoriesAll = $categoriesHandler->getAll($crCategories);
         $GLOBALS['xoopsTpl']->assign('categories_count', $categoriesCount);
-        $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
-        $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', WGGALLERY_UPLOAD_URL);
+        $GLOBALS['xoopsTpl']->assign('wggallery_url', \WGGALLERY_URL);
+        $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', \WGGALLERY_UPLOAD_URL);
         // Table view categories
         if ($categoriesCount > 0) {
-            foreach (array_keys($categoriesAll) as $i) {
+            foreach (\array_keys($categoriesAll) as $i) {
                 $category = $categoriesAll[$i]->getValuesCategories();
                 $GLOBALS['xoopsTpl']->append('categories_list', $category);
                 unset($category);
             }
             // Display Navigation
             if ($categoriesCount > $limit) {
-                require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($categoriesCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit . '&amp;alb_id=' . $catId);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
         } else {
-            $GLOBALS['xoopsTpl']->assign('error', _AM_WGGALLERY_THEREARENT_CATEGORIES);
+            $GLOBALS['xoopsTpl']->assign('error', \_AM_WGGALLERY_THEREARENT_CATEGORIES);
         }
 
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         break;
     case 'new':
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('categories.php'));
-        $adminObject->addItemButton(_AM_WGGALLERY_CATEGORIES_LIST, 'categories.php', 'list');
+        $adminObject->addItemButton(\_AM_WGGALLERY_CATEGORIES_LIST, 'categories.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $categoriesObj = $categoriesHandler->create();
@@ -85,7 +85,7 @@ switch ($op) {
     case 'save':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('categories.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            \redirect_header('categories.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         if (isset($catId)) {
             $categoriesObj = $categoriesHandler->get($catId);
@@ -103,7 +103,7 @@ switch ($op) {
         $categoriesObj->setVar('cat_submitter', isset($_POST['cat_submitter']) ? $_POST['cat_submitter'] : 0);
         // Insert Data
         if ($categoriesHandler->insert($categoriesObj)) {
-            redirect_header('categories.php?op=list', 2, _CO_WGGALLERY_FORM_OK);
+            \redirect_header('categories.php?op=list', 2, \_CO_WGGALLERY_FORM_OK);
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $categoriesObj->getHtmlErrors());
@@ -112,8 +112,8 @@ switch ($op) {
         break;
     case 'edit':
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('categories.php'));
-        $adminObject->addItemButton(_AM_WGGALLERY_ADD_CATEGORY, 'categories.php?op=new', 'add');
-        $adminObject->addItemButton(_AM_WGGALLERY_CATEGORIES_LIST, 'categories.php', 'list');
+        $adminObject->addItemButton(\_AM_WGGALLERY_ADD_CATEGORY, 'categories.php?op=new', 'add');
+        $adminObject->addItemButton(\_AM_WGGALLERY_CATEGORIES_LIST, 'categories.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $categoriesObj = $categoriesHandler->get($catId);
@@ -127,9 +127,9 @@ switch ($op) {
             $categoriesObj->setVar('cat_' . Request::getString('field'), Request::getInt('state'));
             // Insert Data
             if ($categoriesHandler->insert($categoriesObj)) {
-                redirect_header('categories.php?op=list&amp;start=' . $start . '&amp;limit=' . $limit . '&amp;alb_id=' . $catId, 2, _CO_WGGALLERY_FORM_OK);
+                \redirect_header('categories.php?op=list&amp;start=' . $start . '&amp;limit=' . $limit . '&amp;alb_id=' . $catId, 2, \_CO_WGGALLERY_FORM_OK);
             } else {
-                redirect_header('categories.php?op=list&amp;start=' . $start . '&amp;limit=' . $limit . '&amp;alb_id=' . $catId, 2, _AM_WGGALLERY_CAT_ERROR_CHANGE);
+                \redirect_header('categories.php?op=list&amp;start=' . $start . '&amp;limit=' . $limit . '&amp;alb_id=' . $catId, 2, \_AM_WGGALLERY_CAT_ERROR_CHANGE);
             }
             // Get Form
             $GLOBALS['xoopsTpl']->assign('error', $categoriesObj->getHtmlErrors());
@@ -139,22 +139,22 @@ switch ($op) {
         $categoriesObj = $categoriesHandler->get($catId);
         if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
-                redirect_header('categories.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+                \redirect_header('categories.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             $cat_text = $categoriesObj->getVar('cat_text');
             if ($categoriesHandler->delete($categoriesObj)) {
-                redirect_header('categories.php?alb_id=' . $catId, 3, _CO_WGGALLERY_FORM_DELETE_OK);
+                \redirect_header('categories.php?alb_id=' . $catId, 3, \_CO_WGGALLERY_FORM_DELETE_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $categoriesObj->getHtmlErrors());
             }
         } else {
-            xoops_confirm(['ok' => 1, 'op' => 'delete', 'cat_id' => $catId], $_SERVER['REQUEST_URI'], sprintf(_CO_WGGALLERY_FORM_SURE_DELETE, $categoriesObj->getVar('cat_text')));
+            xoops_confirm(['ok' => 1, 'op' => 'delete', 'cat_id' => $catId], $_SERVER['REQUEST_URI'], \sprintf(\_CO_WGGALLERY_FORM_SURE_DELETE, $categoriesObj->getVar('cat_text')));
         }
 
         break;
     case 'order':
         $corder = $_POST['corder'];
-        for ($i = 0, $iMax = count($corder); $i < $iMax; $i++) {
+        for ($i = 0, $iMax = \count($corder); $i < $iMax; $i++) {
             $categoriesObj = $categoriesHandler->get($corder[$i]);
             $categoriesObj->setVar('cat_weight', $i + 1);
             $categoriesHandler->insert($categoriesObj);

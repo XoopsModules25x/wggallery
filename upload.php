@@ -23,34 +23,35 @@ use Xmf\Request;
  */
 
 use XoopsModules\Wggallery;
+use XoopsModules\Wggallery\Constants;
 use XoopsModules\Wggallery\Common\FineimpuploadHandler;
 
 require_once __DIR__ . '/header.php';
-// xoops_loadLanguage('admin', 'wggallery');
+// \xoops_loadLanguage('admin', 'wggallery');
 // It recovered the value of argument op in URL$
 $op    = Request::getString('op', 'form');
 $albId = Request::getInt('alb_id', 0);
 
 // Template
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_upload.tpl';
-require_once XOOPS_ROOT_PATH . '/header.php';
+require_once \XOOPS_ROOT_PATH . '/header.php';
 
-$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
+$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', \WGGALLERY_ICONS_URL . '16/');
 $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
 $GLOBALS['xoopsTpl']->assign('displayButtonText', $helper->getConfig('displayButtonText'));
 
 // check permissions
-if (isset($albId)) {
+if ($albId > 0) {
     $albumsObj = $albumsHandler->get($albId);
     if (!$permissionsHandler->permAlbumEdit($albId, $albumsObj->getVar('alb_submitter'))) {
-        redirect_header('albums.php', 3, _NOPERM);
+        \redirect_header('albums.php', 3, _NOPERM);
     }
-    $xoBreadcrumbs[] = ['title' => $albumsObj->getVar('alb_name'), 'link' => WGGALLERY_URL . '/images.php?op=list&amp;alb_id=' . $albId];
+    $xoBreadcrumbs[] = ['title' => $albumsObj->getVar('alb_name'), 'link' => \WGGALLERY_URL . '/images.php?op=list&amp;alb_id=' . $albId];
 } else {
-    $albumsObj = $albumsHandler->create();
     if (!$permissionsHandler->permGlobalSubmit()) {
-        redirect_header('albums.php', 3, _NOPERM);
+        \redirect_header('albums.php', 3, _NOPERM);
     }
+    $albumsObj = $albumsHandler->create();
 }
 
 // show form
@@ -90,32 +91,34 @@ if ($albId > 0) {
         }
     }
 
-    $allowedfileext = implode("', '", $fileextions);
+    $allowedfileext = \implode("', '", $fileextions);
     if ('' !== $allowedfileext) {
         $allowedfileext = "'" . $allowedfileext . "'";
     }
-    $allowedmimetypes = implode("', '", $mimetypes);
+    $allowedmimetypes = \implode("', '", $mimetypes);
     if ('' !== $allowedmimetypes) {
         $allowedmimetypes = "'" . $allowedmimetypes . "'";
     }
+    $maxSizeMB = ((int)$helper->getConfig('maxsize') / 1048576) . ' '  . \_CO_WGGALLERY_MB . ' (' . $helper->getConfig('maxsize') . ')';
+    $GLOBALS['xoopsTpl']->assign('img_maxsizeMB', $maxSizeMB);
+    $GLOBALS['xoopsTpl']->assign('img_maxsize', $helper->getConfig('maxsize'));
+    $GLOBALS['xoopsTpl']->assign('img_maxwidth', $helper->getConfig('maxwidth'));
+    $GLOBALS['xoopsTpl']->assign('img_maxheight', $helper->getConfig('maxheight'));
+    $GLOBALS['xoopsTpl']->assign('img_albname', $albumObj->getVar('alb_name'));
+    $GLOBALS['xoopsTpl']->assign('allowedfileext', $albumObj->getVar('allowedfileext'));
+    $GLOBALS['xoopsTpl']->assign('allowedmimetypes', $albumObj->getVar('allowedmimetypes'));
+
+    $GLOBALS['xoopsTpl']->assign('multiupload', true);
     // Define Stylesheet
-    $xoTheme->addStylesheet(XOOPS_URL . '/media/fine-uploader/fine-uploader-new.css');
-    $xoTheme->addStylesheet(XOOPS_URL . '/media/fine-uploader/ManuallyTriggerUploads.css');
-    $xoTheme->addStylesheet(XOOPS_URL . '/media/font-awesome/css/font-awesome.min.css');
-    $xoTheme->addStylesheet(XOOPS_URL . '/modules/system/css/admin.css');
+    $GLOBALS['xoTheme']->addStylesheet(\XOOPS_URL . '/media/fine-uploader/fine-uploader-new.css');
+    $GLOBALS['xoTheme']->addStylesheet(\XOOPS_URL . '/media/fine-uploader/ManuallyTriggerUploads.css');
+    $GLOBALS['xoTheme']->addStylesheet(\XOOPS_URL . '/media/font-awesome/css/font-awesome.min.css');
+    $GLOBALS['xoTheme']->addStylesheet(\XOOPS_URL . '/modules/system/css/admin.css');
     // Define scripts
-    $xoTheme->addScript('browse.php?Frameworks/jquery/jquery.js');
-    $xoTheme->addScript('modules/system/js/admin.js');
-    $xoTheme->addScript('media/fine-uploader/fine-uploader.js');
-    // Define Breadcrumb and tips
-    $xoopsTpl->assign('multiupload', true);
-    // echo $helper->getConfig('mimetypes');
-    $xoopsTpl->assign('img_maxsize', $helper->getConfig('maxsize'));
-    $xoopsTpl->assign('img_maxwidth', $helper->getConfig('maxwidth'));
-    $xoopsTpl->assign('img_maxheight', $helper->getConfig('maxheight'));
-    $xoopsTpl->assign('img_albname', $albumObj->getVar('alb_name'));
-    $xoopsTpl->assign('allowedfileext', $albumObj->getVar('allowedfileext'));
-    $xoopsTpl->assign('allowedmimetypes', $albumObj->getVar('allowedmimetypes'));
+    $GLOBALS['xoTheme']->addScript('browse.php?Frameworks/jquery/jquery.js');
+    $GLOBALS['xoTheme']->addScript('modules/system/js/admin.js');
+    $GLOBALS['xoTheme']->addScript('media/fine-uploader/fine-uploader.js');
+
     $payload = [
         'aud'     => 'ajaxfineupload.php',
         'cat'     => $albId,
@@ -124,16 +127,17 @@ if ($albId > 0) {
         'moddir'  => 'wggallery',
     ];
     $jwt     = \Xmf\Jwt\TokenFactory::build('fineuploader', $payload, 60 * 30); // token good for 30 minutes
-    $xoopsTpl->assign('jwt', $jwt);
+    $GLOBALS['xoopsTpl']->assign('jwt', $jwt);
     setcookie('jwt', $jwt);
     $fineup_debug = 'false';
     if (($xoopsUser instanceof \XoopsUser ? $xoopsUser->isAdmin() : false)
         && isset($_REQUEST['FINEUPLOADER_DEBUG'])) {
         $fineup_debug = 'true';
     }
-    $xoopsTpl->assign('fineup_debug', $fineup_debug);
+    $GLOBALS['xoopsTpl']->assign('fineup_debug', $fineup_debug);
+
 }
 
 // Breadcrumbs
-$xoBreadcrumbs[] = ['title' => _CO_WGGALLERY_IMAGES_UPLOAD];
+$xoBreadcrumbs[] = ['title' => \_CO_WGGALLERY_IMAGES_UPLOAD];
 require __DIR__ . '/footer.php';

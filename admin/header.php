@@ -23,10 +23,10 @@
 
 use XoopsModules\Wggallery;
 
-include dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
-require dirname(__DIR__) . '/include/common.php';
+include \dirname(\dirname(\dirname(__DIR__))) . '/include/cp_header.php';
+require \dirname(__DIR__) . '/include/common.php';
 
-$moduleDirName = basename(dirname(__DIR__));
+$moduleDirName = \basename(\dirname(__DIR__));
 /** @var \XoopsModules\Wggallery\Helper $helper */
 $helper = \XoopsModules\Wggallery\Helper::getInstance();
 /** @var \XoopsModules\Wggallery\Utility $utility */
@@ -48,8 +48,8 @@ $categoriesHandler   = $helper->getHandler('Categories');
 $ratingsHandler      = $helper->getHandler('Ratings');
 $myts                = \MyTextSanitizer::getInstance();
 
-if (!isset($xoopsTpl) || !is_object($xoopsTpl)) {
-    require_once XOOPS_ROOT_PATH . '/class/template.php';
+if (!isset($xoopsTpl) || !\is_object($xoopsTpl)) {
+    require_once \XOOPS_ROOT_PATH . '/class/template.php';
     $xoopsTpl = new \XoopsTpl();
 }
 // System icons path
@@ -64,4 +64,4 @@ $helper->loadLanguage('common');
 
 xoops_cp_header();
 $adminObject = \Xmf\Module\Admin::getInstance();
-$GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/css/admin/style.css', null);
+$GLOBALS['xoTheme']->addStylesheet(\WGGALLERY_URL . '/assets/css/admin/style.css', null);

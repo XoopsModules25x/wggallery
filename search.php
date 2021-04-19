@@ -31,7 +31,7 @@ $op    = Request::getString('op', 'initiate');
 $start = Request::getInt('start', 0);
 $limit = Request::getInt('limit', $helper->getConfig('userpager'));
 
-$search_text = mb_strtolower(Request::getString('search_text', ''));
+$search_text = \mb_strtolower(Request::getString('search_text', ''));
 $search_cats = Request::getArray('search_cats', []);
 $search_subm = Request::getInt('search_subm', 0);
 $search_act  = Request::getInt('search_act', 1);
@@ -39,41 +39,41 @@ $imageIdsIn  = Request::getString('imageIdsIn', '');
 
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_search.tpl';
 
-require_once XOOPS_ROOT_PATH . '/header.php';
+require_once \XOOPS_ROOT_PATH . '/header.php';
 
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet($style, null);
-$GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/css/style.css', null);
+$GLOBALS['xoTheme']->addStylesheet(\WGGALLERY_URL . '/assets/css/style.css', null);
 if ($helper->getConfig('ratingbars') > 0) {
-    $GLOBALS['xoTheme']->addStylesheet(WGGALLERY_URL . '/assets/css/rating.css', null);
+    $GLOBALS['xoTheme']->addStylesheet(\WGGALLERY_URL . '/assets/css/rating.css', null);
     $GLOBALS['xoopsTpl']->assign('rating', true);
     $GLOBALS['xoopsTpl']->assign('save', 'save-img' . $op);
 }
 $GLOBALS['xoopsTpl']->assign('show_exif', $helper->getConfig('store_exif'));
 
 // defines only for search
-define('WGGALLERY_SEARCH_NOTAPPLY', 0);
-define('WGGALLERY_SEARCH_ACT_DOWNLOADS', 1);
-define('WGGALLERY_SEARCH_ACT_VIEWS', 2);
-define('WGGALLERY_SEARCH_ACT_RATINGS', 3);
-define('WGGALLERY_SEARCH_ACT_VOTES', 4);
+\define('\WGGALLERY_SEARCH_NOTAPPLY', 0);
+\define('\WGGALLERY_SEARCH_ACT_DOWNLOADS', 1);
+\define('\WGGALLERY_SEARCH_ACT_VIEWS', 2);
+\define('\WGGALLERY_SEARCH_ACT_RATINGS', 3);
+\define('\WGGALLERY_SEARCH_ACT_VOTES', 4);
 
 // **************************
 // start search form section
-xoops_load('XoopsFormLoader');
-$form1 = new \XoopsThemeForm(_MA_WGGALLERY_SEARCH, 'form1', 'search.php', 'post', true);
+\xoops_load('XoopsFormLoader');
+$form1 = new \XoopsThemeForm(\_MA_WGGALLERY_SEARCH, 'form1', 'search.php', 'post', true);
 $form1->setExtra('enctype="multipart/form-data"');
 
 // search for text
-$trayText = new \XoopsFormElementTray(_MA_WGGALLERY_SEARCH_TEXT, '<br>');
-$descText = new \XoopsFormLabel('', _MA_WGGALLERY_SEARCH_TEXT_DESC);
+$trayText = new \XoopsFormElementTray(\_MA_WGGALLERY_SEARCH_TEXT, '<br>');
+$descText = new \XoopsFormLabel('', \_MA_WGGALLERY_SEARCH_TEXT_DESC);
 $trayText->addElement($descText, false);
 $trayText->addElement(new \XoopsFormText('', 'search_text', 50, 255, $search_text), false);
 $form1->addElement($trayText, false);
 
 // search for categories
-$trayCats = new \XoopsFormElementTray(_MA_WGGALLERY_SEARCH_CATS, '<br>');
-$descCats = new \XoopsFormLabel('', _MA_WGGALLERY_SEARCH_CATS_DESC);
+$trayCats = new \XoopsFormElementTray(\_MA_WGGALLERY_SEARCH_CATS, '<br>');
+$descCats = new \XoopsFormLabel('', \_MA_WGGALLERY_SEARCH_CATS_DESC);
 $trayCats->addElement($descCats, false);
 if ($helper->getConfig('use_categories')) {
     $categoriesHandler = $helper->getHandler('Categories');
@@ -85,7 +85,7 @@ if ($helper->getConfig('use_categories')) {
         $crCategories->setOrder('ASC');
         $categoriesAll    = $categoriesHandler->getAll($crCategories);
         $selectCategories = new \XoopsFormCheckBox('', 'search_cats', $search_cats);
-        foreach (array_keys($categoriesAll) as $i) {
+        foreach (\array_keys($categoriesAll) as $i) {
             $selectCategories->addOption($categoriesAll[$i]->getVar('cat_id'), $categoriesAll[$i]->getVar('cat_text'));
         }
         $trayCats->addElement($selectCategories, false);
@@ -96,7 +96,7 @@ if ($helper->getConfig('use_categories')) {
 $form1->addElement($trayCats, false);
 
 // search for submitter of album or image
-$userHandler = xoops_getHandler('user');
+$userHandler = \xoops_getHandler('user');
 $sql         = 'SELECT alb_submitter FROM ' . $xoopsDB->prefix('wggallery_albums') . ' GROUP BY alb_submitter';
 $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . mysqli_error());
 while (false !== ($row = $GLOBALS['xoopsDB']->fetchrow($result))) {
@@ -120,8 +120,8 @@ while (false !== ($row = $GLOBALS['xoopsDB']->fetchrow($result))) {
     $subm_search[$row[0]]['name'] = $username;
 }
 // Form Select users
-$traySubmitter = new \XoopsFormElementTray(_MA_WGGALLERY_SEARCH_SUBM, '<br>');
-$descSelect    = new \XoopsFormLabel('', _MA_WGGALLERY_SEARCH_SUBM_DESC);
+$traySubmitter = new \XoopsFormElementTray(\_MA_WGGALLERY_SEARCH_SUBM, '<br>');
+$descSelect    = new \XoopsFormLabel('', \_MA_WGGALLERY_SEARCH_SUBM_DESC);
 $traySubmitter->addElement($descSelect, false);
 $submSelect = new \XoopsFormSelect('', 'search_subm', $search_subm);
 $submSelect->addOption(0, ' ');
@@ -138,16 +138,16 @@ $form1->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
 $GLOBALS['xoopsTpl']->assign('form1', $form1->render());
 
 // form for searching for user activities
-$form2 = new \XoopsThemeForm(_MA_WGGALLERY_SEARCH_ACT, 'form', 'search.php', 'post', true);
+$form2 = new \XoopsThemeForm(\_MA_WGGALLERY_SEARCH_ACT, 'form', 'search.php', 'post', true);
 $form2->setExtra('enctype="multipart/form-data"');
 
-$activitySelect = new \XoopsFormRadio(_MA_WGGALLERY_SEARCH_ACT, 'search_act', $search_act);
-$activitySelect->addOption(WGGALLERY_SEARCH_ACT_DOWNLOADS, _MA_WGGALLERY_SEARCH_ACT_DOWNLOADS);
-$activitySelect->addOption(WGGALLERY_SEARCH_ACT_VIEWS, _MA_WGGALLERY_SEARCH_ACT_VIEWS);
+$activitySelect = new \XoopsFormRadio(\_MA_WGGALLERY_SEARCH_ACT, 'search_act', $search_act);
+$activitySelect->addOption(\WGGALLERY_SEARCH_ACT_DOWNLOADS, \_MA_WGGALLERY_SEARCH_ACT_DOWNLOADS);
+$activitySelect->addOption(\WGGALLERY_SEARCH_ACT_VIEWS, \_MA_WGGALLERY_SEARCH_ACT_VIEWS);
 $ratingbars = $helper->getConfig('ratingbars');
 if ($ratingbars > 0) {
-    $activitySelect->addOption(WGGALLERY_SEARCH_ACT_RATINGS, _MA_WGGALLERY_SEARCH_ACT_RATINGS);
-    $activitySelect->addOption(WGGALLERY_SEARCH_ACT_VOTES, _MA_WGGALLERY_SEARCH_ACT_VOTES);
+    $activitySelect->addOption(\WGGALLERY_SEARCH_ACT_RATINGS, \_MA_WGGALLERY_SEARCH_ACT_RATINGS);
+    $activitySelect->addOption(\WGGALLERY_SEARCH_ACT_VOTES, \_MA_WGGALLERY_SEARCH_ACT_VOTES);
     $GLOBALS['xoopsTpl']->assign('rating_5stars', (Constants::RATING_5STARS === $ratingbars));
     $GLOBALS['xoopsTpl']->assign('rating_10stars', (Constants::RATING_10STARS === $ratingbars));
     $GLOBALS['xoopsTpl']->assign('rating_likes', (Constants::RATING_LIKES === $ratingbars));
@@ -168,8 +168,8 @@ switch ($op) {
         if ('' === $imageIdsIn) {
             // search wasnt done till now
             // check that minimum one search option is used
-            if ('' === $search_text && 0 == count($search_cats) && 0 === $search_subm && 'exec_search' === $op) {
-                redirect_header('search.php', 3, _MA_WGGALLERY_SEARCH_ERROR_NO_FILTER);
+            if ('' === $search_text && 0 == \count($search_cats) && 0 === $search_subm && 'exec_search' === $op) {
+                \redirect_header('search.php', 3, \_MA_WGGALLERY_SEARCH_ERROR_NO_FILTER);
             }
 
             $album_ids      = [];
@@ -182,23 +182,23 @@ switch ($op) {
             $albumsCount = $albumsHandler->getCount($crAlbums);
             if ($albumsCount > 0) {
                 $albumsAll = $albumsHandler->getAll($crAlbums);
-                foreach (array_keys($albumsAll) as $i) {
+                foreach (\array_keys($albumsAll) as $i) {
                     $albId    = $albumsAll[$i]->getVar('alb_id');
                     $permView = $permissionsHandler->permAlbumView($albId);
                     if ($permView) {
                         $album_ids_view[] = $albId;
                         if ('' !== $search_text) {
-                            $pos = mb_strpos(mb_strtolower($albumsAll[$i]->getVar('alb_name')), $search_text);
+                            $pos = mb_strpos(\mb_strtolower($albumsAll[$i]->getVar('alb_name')), $search_text);
                             if (false !== $pos) {
                                 $album_ids[] = $albId;
                                 //echo "<br>$albId: alb_name ".$albumsAll[$i]->getVar('alb_name')." contains " . $search_text;
                             }
-                            $pos = mb_strpos(mb_strtolower($albumsAll[$i]->getVar('alb_desc')), $search_text);
+                            $pos = mb_strpos(\mb_strtolower($albumsAll[$i]->getVar('alb_desc')), $search_text);
                             if (false !== $pos) {
                                 $album_ids[] = $albId;
                                 //echo "<br>$albId: alb_desc ".$albumsAll[$i]->getVar('alb_desc')." contains " . $search_text;
                             }
-                            $pos = mb_strpos(mb_strtolower($albumsAll[$i]->getVar('alb_tags')), $search_text);
+                            $pos = mb_strpos(\mb_strtolower($albumsAll[$i]->getVar('alb_tags')), $search_text);
                             if (false !== $pos) {
                                 $album_ids[] = $albId;
                                 //echo "<br>$albId: alb_tags ".$albumsAll[$i]->getVar('alb_tags')." contains " . $search_text;
@@ -211,7 +211,7 @@ switch ($op) {
                         if ('' != $albumsAll[$i]->getVar('alb_cats')) {
                             $alb_cats = unserialize($albumsAll[$i]->getVar('alb_cats'));
                             foreach ($search_cats as $cat) {
-                                if (in_array($cat, $alb_cats)) {
+                                if (\in_array($cat, $alb_cats)) {
                                     $album_ids[] = $albId;
                                     //echo "<br>$albId: cat $cat is in alb_cats = ";
                                 }
@@ -219,9 +219,9 @@ switch ($op) {
                         }
                     }
                 }
-                //echo "<br>count(album_ids):".count($album_ids);
-                if (count($album_ids) > 0) {
-                    $img_albids = implode(',', $album_ids);
+                //echo "<br>\count(album_ids):".\count($album_ids);
+                if (\count($album_ids) > 0) {
+                    $img_albids = \implode(',', $album_ids);
                     $sql        = 'SELECT img_id FROM ' . $xoopsDB->prefix('wggallery_images') . ' WHERE (`img_albid` IN (' . $img_albids . '))';
                     $result = $GLOBALS['xoopsDB']->query($sql) or die('MySQL-Error: ' . mysqli_error());
                     while (false !== ($row = $GLOBALS['xoopsDB']->fetchrow($result))) {
@@ -238,24 +238,24 @@ switch ($op) {
             $imagesCount = $imagesHandler->getCount($crImages);
             if ($imagesCount > 0) {
                 $imagesAll = $imagesHandler->getAll($crImages);
-                foreach (array_keys($imagesAll) as $i) {
+                foreach (\array_keys($imagesAll) as $i) {
                     if ('' !== $search_text) {
-                        $pos = mb_strpos(mb_strtolower($imagesAll[$i]->getVar('img_title')), $search_text);
+                        $pos = mb_strpos(\mb_strtolower($imagesAll[$i]->getVar('img_title')), $search_text);
                         if (false !== $pos) {
                             $image_ids[] = $imagesAll[$i]->getVar('img_id');
                             //echo "<br>img_title ".$imagesAll[$i]->getVar('img_title')." contains " . $search_text;
                         }
-                        $pos = mb_strpos(mb_strtolower($imagesAll[$i]->getVar('img_name')), $search_text);
+                        $pos = mb_strpos(\mb_strtolower($imagesAll[$i]->getVar('img_name')), $search_text);
                         if (false !== $pos) {
                             $image_ids[] = $imagesAll[$i]->getVar('img_id');
                             //echo "<br>img_name ".$imagesAll[$i]->getVar('img_name')." contains " . $search_text;
                         }
-                        $pos = mb_strpos(mb_strtolower($imagesAll[$i]->getVar('img_desc')), $search_text);
+                        $pos = mb_strpos(\mb_strtolower($imagesAll[$i]->getVar('img_desc')), $search_text);
                         if (false !== $pos) {
                             $image_ids[] = $imagesAll[$i]->getVar('img_id');
                             //echo "<br>img_desc ".$imagesAll[$i]->getVar('img_desc')." contains " . $search_text;
                         }
-                        $pos = mb_strpos(mb_strtolower($imagesAll[$i]->getVar('img_tags')), $search_text);
+                        $pos = mb_strpos(\mb_strtolower($imagesAll[$i]->getVar('img_tags')), $search_text);
                         if (false !== $pos) {
                             $image_ids[] = $imagesAll[$i]->getVar('img_id');
                             //echo "<br>img_tags ".$imagesAll[$i]->getVar('img_tags')." contains " . $search_text;
@@ -268,7 +268,7 @@ switch ($op) {
                     if ('' != $imagesAll[$i]->getVar('img_cats')) {
                         $img_cats = unserialize($imagesAll[$i]->getVar('img_cats'));
                         foreach ($search_cats as $cat) {
-                            if (in_array($cat, $img_cats)) {
+                            if (\in_array($cat, $img_cats)) {
                                 $image_ids[] = $imagesAll[$i]->getVar('img_id');
                                 //echo "<br>cat $cat is in img_cats = ";
                             }
@@ -279,7 +279,7 @@ switch ($op) {
             unset($crImages);
             unset($i);
 
-            $imageIdsIn = implode(',', array_unique($image_ids));
+            $imageIdsIn = \implode(',', array_unique($image_ids));
         }
 
         //echo "<br>imageIdsIn: $imageIdsIn";
@@ -292,26 +292,26 @@ switch ($op) {
         }
         if ('exec_search_act' == $op) {
             switch ($search_act) {
-                case WGGALLERY_SEARCH_ACT_DOWNLOADS:
+                case \WGGALLERY_SEARCH_ACT_DOWNLOADS:
                     $crImages->setSort('img_downloads');
                     $crImages->setOrder('DESC');
                     break;
-                case WGGALLERY_SEARCH_ACT_VIEWS:
+                case \WGGALLERY_SEARCH_ACT_VIEWS:
                     $crImages->setSort('img_views');
                     $crImages->setOrder('DESC');
                     break;
-                case WGGALLERY_SEARCH_ACT_RATINGS:
+                case \WGGALLERY_SEARCH_ACT_RATINGS:
                     $crImages->setSort('img_ratinglikes');
                     $crImages->setOrder('DESC');
                     break;
-                case WGGALLERY_SEARCH_ACT_VOTES:
+                case \WGGALLERY_SEARCH_ACT_VOTES:
                     $crImages->setSort('img_votes');
                     $crImages->setOrder('DESC');
                     break;
                 case 'default':
                 default:
                     // should never happens
-                    redirect_header('search.php', 3, 'invalid parameter');
+                    \redirect_header('search.php', 3, 'invalid parameter');
                     break;
             }
         }
@@ -322,7 +322,7 @@ switch ($op) {
         if ($imagesCount > 0) {
             $images = [];
             // Get All Images
-            foreach (array_keys($imagesAll) as $i) {
+            foreach (\array_keys($imagesAll) as $i) {
                 $images[$i] = $imagesAll[$i]->getValuesImages();
                 if ($helper->getConfig('ratingbars') > 0) {
                     $images[$i]['rating'] = $ratingsHandler->getItemRating($images[$i]['id'], 1);
@@ -332,7 +332,7 @@ switch ($op) {
             unset($images);
             // Display Navigation
             if ($imagesCount > $limit && 'exec_search' == $op) {
-                require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($imagesCount, $limit, $start, 'start', 'op=exec_search&amp;limit=' . $limit . '&amp;imageIdsIn=' . $imageIdsIn);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
@@ -340,9 +340,9 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('showlist', true);
         $GLOBALS['xoopsTpl']->assign('start', $start);
         $GLOBALS['xoopsTpl']->assign('limit', $limit);
-        $GLOBALS['xoopsTpl']->assign('wggallery_url', WGGALLERY_URL);
-        $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '16/');
-        $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_24', WGGALLERY_ICONS_URL . '24/');
+        $GLOBALS['xoopsTpl']->assign('wggallery_url', \WGGALLERY_URL);
+        $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', \WGGALLERY_ICONS_URL . '16/');
+        $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_24', \WGGALLERY_ICONS_URL . '24/');
         $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
         $GLOBALS['xoopsTpl']->assign('displayButtonText', $helper->getConfig('displayButtonText'));
         $GLOBALS['xoopsTpl']->assign('use_tags', $helper->getConfig('use_tags'));

@@ -29,12 +29,12 @@ trait VersionChecks
      */
     public static function checkVerXoops(\XoopsModule $module = null, $requiredVer = null)
     {
-        $moduleDirName      = basename(dirname(dirname(__DIR__)));
-        $moduleDirNameUpper = mb_strtoupper($moduleDirName);
+        $moduleDirName      = \basename(\dirname(\dirname(__DIR__)));
+        $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
         if (null === $module) {
             $module = \XoopsModule::getByDirname($moduleDirName);
         }
-        xoops_loadLanguage('admin', $moduleDirName);
+        \xoops_loadLanguage('admin', $moduleDirName);
 
         //check for minimum XOOPS version
         $currentVer = mb_substr(XOOPS_VERSION, 6); // get the numeric part of string
@@ -43,9 +43,9 @@ trait VersionChecks
         }
         $success = true;
 
-        if (version_compare($currentVer, $requiredVer, '<')) {
+        if (\version_compare($currentVer, $requiredVer, '<')) {
             $success = false;
-            $module->setErrors(sprintf(constant('CO_' . $moduleDirNameUpper . '_ERROR_BAD_XOOPS'), $requiredVer, $currentVer));
+            $module->setErrors(\sprintf(\constant('CO_' . $moduleDirNameUpper . '_ERROR_BAD_XOOPS'), $requiredVer, $currentVer));
         }
 
         return $success;
@@ -60,16 +60,16 @@ trait VersionChecks
      */
     public static function checkVerPhp(\XoopsModule $module)
     {
-        $moduleDirName      = basename(dirname(dirname(__DIR__)));
-        $moduleDirNameUpper = mb_strtoupper($moduleDirName);
-        xoops_loadLanguage('admin', $module->dirname());
+        $moduleDirName      = \basename(\dirname(\dirname(__DIR__)));
+        $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
+        \xoops_loadLanguage('admin', $module->dirname());
         // check for minimum PHP version
         $success = true;
         $verNum  = PHP_VERSION;
         $reqVer  = $module->getInfo('min_php');
         if (false !== $reqVer && '' !== $reqVer) {
-            if (version_compare($verNum, $reqVer, '<')) {
-                $module->setErrors(sprintf(constant('CO_' . $moduleDirNameUpper . '_ERROR_BAD_PHP'), $reqVer, $verNum));
+            if (\version_compare($verNum, $reqVer, '<')) {
+                $module->setErrors(\sprintf(\constant('CO_' . $moduleDirNameUpper . '_ERROR_BAD_PHP'), $reqVer, $verNum));
                 $success = false;
             }
         }

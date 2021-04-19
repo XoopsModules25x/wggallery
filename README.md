@@ -1,5 +1,8 @@
 ![alt XOOPS CMS](https://xoops.org/images/logoXoops4GithubRepository.png)
-## wgGallery module for  [XOOPS CMS 2.5.7+](https://xoops.org)
+
+![alt XOOPS CMS](https://xoops.org/images/logoXoopsPhp8.png)
+
+## wgGallery module for  [XOOPS CMS 2.5.10+](https://xoops.org)
 [![Software License](https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat)](LICENSE)
 [![Latest Pre-Release](https://img.shields.io/github/tag/ggoffy/wggallery.svg?style=flat)](https://github.com/ggoffy/wggallery/tags/)
 [![Latest Version](https://img.shields.io/github/release/ggoffy/wggallery.svg?style=flat)](https://github.com/ggoffy/wggallery/releases/)

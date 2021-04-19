@@ -18,13 +18,13 @@
  * @since           3.23
  * @author          Xoops Development Team
  */
-define('_FC_WGGALLERY_AVAILABLE', "<span style='color: green;'>Disponibile</span>");
-define('_FC_WGGALLERY_NOTAVAILABLE', "<span style='color: red;'>NON disponibile</span>");
-define('_FC_WGGALLERY_NOTWRITABLE', "<span style='color: red;'>Dovrebbe avere i permessi ( %d ), ma ha ( %d )</span>");
-define('_FC_WGGALLERY_COPYTHEFILE', 'Copia');
-define('_FC_WGGALLERY_CREATETHEFILE', 'Crea');
-define('_FC_WGGALLERY_SETMPERM', 'Imposta i permessi');
-define('_FC_WGGALLERY_FILECOPIED', 'Il file è stato copiato');
-define('_FC_WGGALLERY_FILENOTCOPIED', 'Non è stato possibile copiare il file');
-define('_FC_WGGALLERY_PERMSET', 'I permessi sono stati impostati');
-define('_FC_WGGALLERY_PERMNOTSET', 'Non è stato possibile impostare i permessi');
+\define('_FC_WGGALLERY_AVAILABLE', "<span style='color: green;'>Disponibile</span>");
+\define('_FC_WGGALLERY_NOTAVAILABLE', "<span style='color: red;'>NON disponibile</span>");
+\define('_FC_WGGALLERY_NOTWRITABLE', "<span style='color: red;'>Dovrebbe avere i permessi ( %d ), ma ha ( %d )</span>");
+\define('_FC_WGGALLERY_COPYTHEFILE', 'Copia');
+\define('_FC_WGGALLERY_CREATETHEFILE', 'Crea');
+\define('_FC_WGGALLERY_SETMPERM', 'Imposta i permessi');
+\define('_FC_WGGALLERY_FILECOPIED', 'Il file è stato copiato');
+\define('_FC_WGGALLERY_FILENOTCOPIED', 'Non è stato possibile copiare il file');
+\define('_FC_WGGALLERY_PERMSET', 'I permessi sono stati impostati');
+\define('_FC_WGGALLERY_PERMNOTSET', 'Non è stato possibile impostare i permessi');

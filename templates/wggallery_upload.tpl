@@ -4,12 +4,12 @@
 	<{$form}>
 <{/if}>
 
-<{if $multiupload}>
+<{if $multiupload|default:''}>
     <div class="clear">&nbsp;</div>
     <{include file="db:wggallery_trigger_uploads.tpl"}>
     <h2><{$img_albname}></h2>
     <div id="fine-uploader-manual-trigger"></div>
-    <div><{$smarty.const._IMGMAXSIZE}> <{$img_maxsize}></div>
+    <div><{$smarty.const._IMGMAXSIZE}> <{$img_maxsizeMB}></div>
     <div><{$smarty.const._IMGMAXWIDTH}> <{$img_maxwidth}></div>
     <div><{$smarty.const._IMGMAXHEIGHT}> <{$img_maxheight}></div>
     <!-- Your code to create an instance of Fine Uploader and bind to the DOM/template
@@ -97,20 +97,20 @@
             manualUploader.uploadStoredFiles();
         });
     </script>
-<{/if}>
-<div class="clear">&nbsp;</div>
-<div class='multiupload-footer'>
-	<{if $albId}>
-		<div class='col-xs-12 col-sm-12 right'>
-			<a class='btn btn-default wgg-btn' href='images.php?op=list&amp;ref=albums&amp;alb_id=<{$albId}>&amp;alb_pid=<{$albPid|default:0}><{if $subm_id|default:''}>&amp;subm_id=<{$subm_id}><{/if}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'>
-                <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>photos.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}><{/if}></a>
-            <a class='btn btn-default wgg-btn' href='albums.php?op=edit&amp;alb_id=<{$albId}>' title='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>'>
-				<span class="wgg-btn-icon"><img class='' src='<{$wggallery_icon_url_16}>edit.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>'></span><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}><{/if}></a>
-			<a class='btn btn-default wgg-btn' href='album_images.php?op=list&amp;alb_id=<{$albId}>' title='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}>'>
-				<span class="wgg-btn-icon"><img class='' src='<{$wggallery_icon_url_16}>album_images.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}>'></span><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}><{/if}></a>
-		</div>
-	<{/if}>
-</div>
 
+    <div class="clear">&nbsp;</div>
+    <div class='multiupload-footer'>
+        <{if $albId|default:''}>
+            <div class='col-xs-12 col-sm-12 right'>
+                <a class='btn btn-default wgg-btn' href='images.php?op=list&amp;ref=albums&amp;alb_id=<{$albId}>&amp;alb_pid=<{$albPid|default:0}><{if $subm_id|default:''}>&amp;subm_id=<{$subm_id}><{/if}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'>
+                    <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>photos.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}><{/if}></a>
+                <a class='btn btn-default wgg-btn' href='albums.php?op=edit&amp;alb_id=<{$albId}>' title='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>'>
+                    <span class="wgg-btn-icon"><img class='' src='<{$wggallery_icon_url_16}>edit.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>'></span><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}><{/if}></a>
+                <a class='btn btn-default wgg-btn' href='album_images.php?op=list&amp;alb_id=<{$albId}>' title='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}>'>
+                    <span class="wgg-btn-icon"><img class='' src='<{$wggallery_icon_url_16}>album_images.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}>'></span><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_ALBUM_IH_IMAGE_EDIT}><{/if}></a>
+            </div>
+        <{/if}>
+    </div>
+<{/if}>
 
 <{include file='db:wggallery_footer.tpl'}>
