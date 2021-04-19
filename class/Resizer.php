@@ -19,7 +19,7 @@ namespace XoopsModules\Wggallery;
  * @license        GPL 2.0 or later
  * @package        XOOPS common
  * @since          1.0
- * @min_xoops      2.5.9
+ * @min_xoops      2.5.11
  * @author         Goffy - Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  * @version        $Id: 1.0 Resizer.php 1 Mon 2019-02-09 10:04:49Z XOOPS Project (www.xoops.org) $
  */
