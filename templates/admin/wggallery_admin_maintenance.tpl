@@ -21,7 +21,7 @@
 		<tbody>
 			<{foreach item=check from=$system_check}>
 				<tr class="<{cycle values='odd, even'}>">
-					<td class='left'><{$check.type}> (<{$check.info1}>)</td>
+					<td class='left'><div style="font-size:100%;margin:10px 0 5px 0;"><{$check.type}></div><div style="font-size:80%;margin:0 0 10px 0;"><{$check.info1}></div></td>
 					<td class='left'><{$check.result1}><{if $check.result2|default:''}><br><{$check.result2}><{/if}></td>
 					<td class='left'>
 						<{if $check.change|default:''}>

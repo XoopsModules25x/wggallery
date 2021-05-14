@@ -4,6 +4,7 @@
  - added single upload (liomj/goffy)
  - added batch upload (goffy)
  - added clone feature (goffy)
+ - added extension check (gd and exif) in maintenance (goffy)
 
 <h5>1.15 RC1</h5>  [2020/09/15]
 <hr>
