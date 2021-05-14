@@ -1082,6 +1082,46 @@ switch ($op) {
             $solve  = \_AM_WGGALLERY_MAINTENANCE_CHECK_MS_ERROR3;
         }
         $system_check[] = ['type' => $type, 'info1' => \_AM_WGGALLERY_MAINTENANCE_CHECK_ML_INFO1, 'info2' => \_AM_WGGALLERY_MAINTENANCE_CHECK_ML_INFO2, 'result1' => $result1, 'change' => $change, 'solve' => $solve];
+        
+        // gd extension
+        $type          = \_AM_WGGALLERY_MAINTENANCE_CHECK_EXTGD;
+        $extension_php = \extension_loaded('gd');
+        //var_dump(get_loaded_extensions()); 
+        $result1       = \_AM_WGGALLERY_MAINTENANCE_CHECK_EXTGD_LOADED . ': ' . \_YES;
+        $result2       = '';
+        $change        = false;
+        $solve         = '';
+        $info2         = '';
+        if (!$extension_php) {
+            $change  = true;
+            $result1 = \_AM_WGGALLERY_MAINTENANCE_CHECK_EXTGD_LOADED . ': ' . \_NO;
+            $solve   = \_AM_WGGALLERY_MAINTENANCE_CHECK_EXTGD_NOTLOADED;
+            $info2   = \_AM_WGGALLERY_MAINTENANCE_CHECK_EXTGD_INFO2;
+        }
+        $system_check[] = ['type' => $type, 'info1' => \_AM_WGGALLERY_MAINTENANCE_CHECK_EXTGD_INFO1, 'info2' => $info2, 'result1' => $result1, 'change' => $change, 'solve' => $solve];
+        
+        // exif extension
+        $type          = \_AM_WGGALLERY_MAINTENANCE_CHECK_EXTEXIF;
+        $extension_php = \extension_loaded('exif');
+        //var_dump(get_loaded_extensions()); 
+        $result1       = \_AM_WGGALLERY_MAINTENANCE_CHECK_EXTEXIF_LOADED . ': ' . \_YES;
+        $result2       = '';
+        $change        = false;
+        $solve         = '';
+        $info2         = '';
+        if (!$extension_php) {
+            $result1 = \_AM_WGGALLERY_MAINTENANCE_CHECK_EXTEXIF_LOADED . ': ' . \_NO;
+            $solve   = \_AM_WGGALLERY_MAINTENANCE_CHECK_EXTEXIF_NOTLOADED;
+            if ($helper->getConfig('store_exif')) {
+                $change  = true;
+                $result1 .= '<br>' . \_AM_WGGALLERY_MAINTENANCE_CHECK_EXTEXIF_OPTENABLED;
+                $info2   =  \_AM_WGGALLERY_MAINTENANCE_CHECK_EXTEXIF_INFO2;
+            } else {
+                $result1 .= '<br>' . \_AM_WGGALLERY_MAINTENANCE_CHECK_EXTEXIF_OPTDISABLED;
+                $info2   =  \_AM_WGGALLERY_MAINTENANCE_CHECK_EXTEXIF_INFO3;
+            }
+        }
+        $system_check[] = ['type' => $type, 'info1' => \_AM_WGGALLERY_MAINTENANCE_CHECK_EXTEXIF_INFO1, 'info2' => $info2, 'result1' => $result1, 'change' => $change, 'solve' => $solve];
 
         $GLOBALS['xoopsTpl']->assign('system_check', $system_check);
 
