@@ -84,4 +84,10 @@ class Constants
     const UPLOADER_SINGLE = 2;
     const UPLOADER_BOTHMULTI = 3;
     const UPLOADER_BOTHSINGLE = 4;
+    // constants for search
+    const SEARCH_ACT_DOWNLOADS = 1;
+    const SEARCH_ACT_VIEWS = 2;
+    const SEARCH_ACT_RATINGS = 3;
+    const SEARCH_ACT_VOTES = 4;
+
 }

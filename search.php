@@ -142,12 +142,12 @@ $form2 = new \XoopsThemeForm(\_MA_WGGALLERY_SEARCH_ACT, 'form', 'search.php', 'p
 $form2->setExtra('enctype="multipart/form-data"');
 
 $activitySelect = new \XoopsFormRadio(\_MA_WGGALLERY_SEARCH_ACT, 'search_act', $search_act);
-$activitySelect->addOption(\WGGALLERY_SEARCH_ACT_DOWNLOADS, \_MA_WGGALLERY_SEARCH_ACT_DOWNLOADS);
-$activitySelect->addOption(\WGGALLERY_SEARCH_ACT_VIEWS, \_MA_WGGALLERY_SEARCH_ACT_VIEWS);
+$activitySelect->addOption(Constants::SEARCH_ACT_DOWNLOADS, \_MA_WGGALLERY_SEARCH_ACT_DOWNLOADS);
+$activitySelect->addOption(Constants::SEARCH_ACT_VIEWS, \_MA_WGGALLERY_SEARCH_ACT_VIEWS);
 $ratingbars = $helper->getConfig('ratingbars');
 if ($ratingbars > 0) {
-    $activitySelect->addOption(\WGGALLERY_SEARCH_ACT_RATINGS, \_MA_WGGALLERY_SEARCH_ACT_RATINGS);
-    $activitySelect->addOption(\WGGALLERY_SEARCH_ACT_VOTES, \_MA_WGGALLERY_SEARCH_ACT_VOTES);
+    $activitySelect->addOption(Constants::SEARCH_ACT_RATINGS, \_MA_WGGALLERY_SEARCH_ACT_RATINGS);
+    $activitySelect->addOption(Constants::SEARCH_ACT_VOTES, \_MA_WGGALLERY_SEARCH_ACT_VOTES);
     $GLOBALS['xoopsTpl']->assign('rating_5stars', (Constants::RATING_5STARS === $ratingbars));
     $GLOBALS['xoopsTpl']->assign('rating_10stars', (Constants::RATING_10STARS === $ratingbars));
     $GLOBALS['xoopsTpl']->assign('rating_likes', (Constants::RATING_LIKES === $ratingbars));
@@ -292,19 +292,19 @@ switch ($op) {
         }
         if ('exec_search_act' == $op) {
             switch ($search_act) {
-                case \WGGALLERY_SEARCH_ACT_DOWNLOADS:
+                case Constants::SEARCH_ACT_DOWNLOADS:
                     $crImages->setSort('img_downloads');
                     $crImages->setOrder('DESC');
                     break;
-                case \WGGALLERY_SEARCH_ACT_VIEWS:
+                case Constants::SEARCH_ACT_VIEWS:
                     $crImages->setSort('img_views');
                     $crImages->setOrder('DESC');
                     break;
-                case \WGGALLERY_SEARCH_ACT_RATINGS:
+                case Constants::SEARCH_ACT_RATINGS:
                     $crImages->setSort('img_ratinglikes');
                     $crImages->setOrder('DESC');
                     break;
-                case \WGGALLERY_SEARCH_ACT_VOTES:
+                case Constants::SEARCH_ACT_VOTES:
                     $crImages->setSort('img_votes');
                     $crImages->setOrder('DESC');
                     break;
