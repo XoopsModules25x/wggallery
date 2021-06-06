@@ -100,7 +100,8 @@ function cloneFileFolder($path)
     global $patKeys;
     global $patValues;
 
-    $newPath = \str_replace($patKeys[0], $patValues[0], $path);
+    //remove XOOPS_ROOT_PATH and add after replace, otherwise there can be a bug if XOOPS_ROOT_PATH contains same pattern
+    $newPath = \XOOPS_ROOT_PATH . \str_replace($patKeys[0], $patValues[0], substr($path, strlen(\XOOPS_ROOT_PATH)));
 
     if (\is_dir($path)) {
         // create new dir
