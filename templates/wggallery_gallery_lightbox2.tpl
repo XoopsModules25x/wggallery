@@ -1,6 +1,8 @@
 <!-- Header -->
-<{include file='db:wggallery_admin_header.tpl'}>
+<{include file='db:wggallery_header.tpl'}>
 
+<h3><{$alb_name}></h3>
+<{$alb_desc}>
 <style>
 	.lightbox-image-preview {
 		margin: 0 1px 5px 0;
@@ -53,7 +55,7 @@
 	<!-- Images used to open the lightbox -->
 	<div>
 		<{foreach item=image from=$images name=images}>
-			<a class="lightbox-image-link" href="<{if $source|default:'' == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>" data-lightbox="lightbox2-set" <{if $showDescr|default:false}> data-title="<{$image.desc}>"<{/if}> >
+			<a class="lightbox-image-link" href="<{if $source|default:'' == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>" data-lightbox="lightbox2-set" <{if $showDescr|default:false}> data-title="<{$image.title}><br><{$image.desc}>"<{/if}> >
 				<{if $indexImage|default:'' == 'simpleContainer'}>
 					<div class="simpleContainer">
 						<img class="img-responsive" src="<{if $source_preview == 'medium'}><{$image.medium}><{else}><{$image.thumb}><{/if}>" alt="<{$image.title}>" title="<{$image.title}>">
