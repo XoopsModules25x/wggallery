@@ -34,7 +34,7 @@ trait FilesManagement
                     throw new \RuntimeException(\sprintf('Unable to create the %s directory', $folder));
                 }
 
-                file_put_contents($folder . '/index.html', '<script>history.go(-1);</script>');
+                \file_put_contents($folder . '/index.html', '<script>history.go(-1);</script>');
             }
         } catch (\Exception $e) {
             echo 'Caught exception: ', $e->getMessage(), '<br>';
@@ -90,7 +90,7 @@ trait FilesManagement
         }
 
         // Simple copy for a file
-        if (is_file($source)) {
+        if (\is_file($source)) {
             return \copy($source, $dest);
         }
 

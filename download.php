@@ -101,6 +101,7 @@ switch ($op) {
         $file     = Request::getString('src', 'none');
         $filename = \basename($file);
 
+        $image = [];
         $crImages = new \CriteriaCompo();
         $crImages->add(new \Criteria('img_name', $filename), 'OR');
         $crImages->add(new \Criteria('img_namelarge', $filename), 'OR');
@@ -133,6 +134,7 @@ switch ($op) {
         $file     = Request::getString('src', 'none');
         $filename = \basename($file);
 
+        $image = [];
         $crImages = new \CriteriaCompo();
         $crImages->add(new \Criteria('img_name', $filename), 'OR');
         $crImages->add(new \Criteria('img_namelarge', $filename), 'OR');

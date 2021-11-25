@@ -112,8 +112,8 @@ class FileChecker
         if (filesize($file1_path) !== filesize($file2_path)) {
             return false;
         }
-        $crc1 = \mb_strtoupper(dechex(crc32(file_get_contents($file1_path))));
-        $crc2 = \mb_strtoupper(dechex(crc32(file_get_contents($file2_path))));
+        $crc1 = \mb_strtoupper(dechex(crc32(\file_get_contents($file1_path))));
+        $crc2 = \mb_strtoupper(dechex(crc32(\file_get_contents($file2_path))));
 
         return !($crc1 !== $crc2);
     }
@@ -125,7 +125,7 @@ class FileChecker
      */
     public static function fileExists($file_path)
     {
-        return is_file($file_path);
+        return \is_file($file_path);
     }
 
     /**

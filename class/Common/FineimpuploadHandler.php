@@ -127,7 +127,6 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
     protected function storeUploadedFile($target, $mimeType, $uid)
     {
         require_once \XOOPS_ROOT_PATH . '/modules/wggallery/header.php';
-        /** @var \XoopsModules\Wggallery\Helper $helper */
         $helper           = \XoopsModules\Wggallery\Helper::getInstance();
         $imagesHandler    = $helper->getHandler('Images');
         $this->pathUpload = \WGGALLERY_UPLOAD_IMAGE_PATH;

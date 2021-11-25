@@ -30,7 +30,7 @@ $op = Request::getString('op', 'list');
 // Request img_id
 $imgId = Request::getInt('img_id');
 $albId = Request::getInt('alb_id');
-$start = Request::getInt('start', 0);
+$start = Request::getInt('start');
 $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
 
 $templateMain = 'wggallery_admin_images.tpl';
@@ -60,9 +60,9 @@ switch ($op) {
         }
         if ($albId > 0 || 'approve' === $op) {
             if ($albId > 0) {
-                $adminObject->addItemButton(\_AM_WGGALLERY_ADD_IMAGE, '../upload_single.php?op=list&amp;alb_id=' . $albId, 'add');
-                $adminObject->addItemButton(\_AM_WGGALLERY_ADD_IMAGES, '../upload.php?op=list&amp;alb_id=' . $albId, 'add');
-                $adminObject->addItemButton(\_AM_WGGALLERY_ADD_BATCH, 'batch.php?op=list&amp;alb_id=' . $albId, 'add');
+                $adminObject->addItemButton(\_AM_WGGALLERY_ADD_IMAGE, '../upload_single.php?op=list&amp;alb_id=' . $albId);
+                $adminObject->addItemButton(\_AM_WGGALLERY_ADD_IMAGES, '../upload.php?op=list&amp;alb_id=' . $albId);
+                $adminObject->addItemButton(\_AM_WGGALLERY_ADD_BATCH, 'batch.php?op=list&amp;alb_id=' . $albId);
             }
             $adminObject->addItemButton(\_AM_WGGALLERY_IMAGES_LIST, 'images.php?op=list', 'list');
 
@@ -106,7 +106,7 @@ switch ($op) {
                 if ($imagesCount > $limit) {
                     require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                     $pagenav = new \XoopsPageNav($imagesCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit . '&amp;alb_id=' . $albId);
-                    $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+                    $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
                 }
                 $GLOBALS['xoopsTpl']->assign('show_exif', $helper->getConfig('store_exif'));
                 $GLOBALS['xoopsTpl']->assign('use_tags', $helper->getConfig('use_tags'));
@@ -171,7 +171,7 @@ switch ($op) {
         break;
     case 'edit':
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('images.php'));
-        $adminObject->addItemButton(\_AM_WGGALLERY_ADD_IMAGE, 'images.php?op=new', 'add');
+        $adminObject->addItemButton(\_AM_WGGALLERY_ADD_IMAGE, 'images.php?op=new');
         $adminObject->addItemButton(\_AM_WGGALLERY_IMAGES_LIST, 'images.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form

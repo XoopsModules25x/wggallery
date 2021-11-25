@@ -34,10 +34,8 @@ function xoops_module_uninstall_wggallery(\XoopsModule $module)
 
     $moduleDirName      = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-    /** @var Wggallery\Helper $helper */
     $helper = Wggallery\Helper::getInstance();
 
-    /** @var Wggallery\Utility $utility */
     $utility = new Wggallery\Utility();
 
     $success = true;
@@ -65,7 +63,7 @@ function xoops_module_uninstall_wggallery(\XoopsModule $module)
     // Remove xsitemap.xml from XOOPS root folder if it exists
     //------------------------------------------------------------------
     $xmlfile = $GLOBALS['xoops']->path('xsitemap.xml');
-    if (is_file($xmlfile)) {
+    if (\is_file($xmlfile)) {
         if (false === ($delOk = \unlink($xmlfile))) {
             $module->setErrors(\sprintf(_AM_wggalleryX_ERROR_BAD_REMOVE, $xmlfile));
         }

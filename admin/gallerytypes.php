@@ -36,7 +36,7 @@ if ($gtCount < 1) {
 switch ($op) {
     case 'list':
     default:
-        $start        = Request::getInt('start', 0);
+        $start        = Request::getInt('start');
         $limit        = Request::getInt('limit', $helper->getConfig('adminpager'));
         $templateMain = 'wggallery_admin_gallerytypes.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('gallerytypes.php'));
@@ -57,7 +57,7 @@ switch ($op) {
             if ($gallerytypesCount > $limit) {
                 require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($gallerytypesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
-                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
             }
         } else {
             $GLOBALS['xoopsTpl']->assign('error', \_AM_WGGALLERY_THEREARENT_GALLERYTYPES);
@@ -150,7 +150,7 @@ switch ($op) {
             $jssor_transition = $_POST['jssor_transition'];
             $transText        = '';
             foreach ($jssor_transition as $transition) {
-                if (0 !== mb_strpos($transition, '-')) {
+                if (0 !== \mb_strpos($transition, '-')) {
                     if ('' !== $transText) {
                         $transText .= '|';
                     }
@@ -352,7 +352,7 @@ switch ($op) {
         }
 
         // apply sort order
-        $option_sort   = Request::getString('option_sort', '');
+        $option_sort   = Request::getString('option_sort');
         $sort_arr      = \explode('|', $option_sort);
         $options_final = []; // result array
         foreach ($sort_arr as $val) { // loop

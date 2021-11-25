@@ -203,7 +203,7 @@ switch ($op) {
         $resize_large  = 0;
         $img_original  = false;
         $resize_target = Request::getInt('resize_target');
-        $resize_albid  = Request::getInt('resize_albid', 0);
+        $resize_albid  = Request::getInt('resize_albid');
 
         if ('resize_thumb' === $op) {
             $resize_thumb = 1;
@@ -486,6 +486,12 @@ switch ($op) {
                 } else {
                     $errors[] = $ratingsAll[$i]->getVar('rate_itemid');
                 }
+            }
+        }
+        $err_text = '';
+        if (\count($errors) > 0) {
+            foreach ($errors as $error) {
+                $err_text .= '<br>' . $error;
             }
         }
         $success_text = \str_replace(['%e', '%s'], [\count($errors), $countTotal], \_AM_WGGALLERY_MAINTENANCE_INVALIDRATE_NUM);
@@ -941,11 +947,12 @@ switch ($op) {
         $ret    = $GLOBALS['xoopsDB']->queryF($strSQL);
 
         $templateMain = 'wggallery_admin_maintenance.tpl';
+        $success_text = '';
         $err_text     = '';
         if ($ret) {
             $success_text = \_AM_WGGALLERY_MAINTENANCE_DELETE_EXIF_SUCCESS;
         } else {
-            $$err_text = \_AM_WGGALLERY_MAINTENANCE_DELETE_EXIF_ERROR;
+            $err_text = \_AM_WGGALLERY_MAINTENANCE_DELETE_EXIF_ERROR;
         }
         // $GLOBALS['xoopsTpl']->assign('maintainance_resize_desc', $maintainance_resize_desc);
         // $GLOBALS['xoopsTpl']->assign('maintainance_dui_desc', $maintainance_dui_desc);
@@ -1222,6 +1229,7 @@ switch ($op) {
             }
             $err_text .= '</ul>';
         }
+        $success_text = '';
         if (\count($success) > 0) {
             $success_text = '<ul>';
             foreach ($success as $s) {
@@ -1285,14 +1293,13 @@ function returnCleanBytes($val)
 
 /**
  * get unused images of given directory
- * @param array  $unused
- * @param string $directory
+ * @param  $unused
+ * @param  $directory
  * @return bool
  */
 function getUnusedImages(&$unused, $directory)
 {
     // Get instance of module
-    /** @var \XoopsModules\Wggallery\Helper $helper */
     $helper        = \XoopsModules\Wggallery\Helper::getInstance();
     $imagesHandler = $helper->getHandler('Images');
     $albumsHandler = $helper->getHandler('Albums');
@@ -1343,7 +1350,7 @@ function getUnusedImages(&$unused, $directory)
 
 /**
  * get size of given directory
- * @param string $path
+ * @param  $path
  * @return int
  */
 function wgg_foldersize($path)
@@ -1352,14 +1359,14 @@ function wgg_foldersize($path)
     $files      = \scandir($path);
 
     foreach ($files as $t) {
-        if (\is_dir(rtrim($path, '/') . '/' . $t)) {
+        if (\is_dir(\rtrim($path, '/') . '/' . $t)) {
             if ('.' != $t && '..' != $t) {
-                $size = wgg_foldersize(rtrim($path, '/') . '/' . $t);
+                $size = wgg_foldersize(\rtrim($path, '/') . '/' . $t);
 
                 $total_size += $size;
             }
         } else {
-            $size       = filesize(rtrim($path, '/') . '/' . $t);
+            $size       = filesize(\rtrim($path, '/') . '/' . $t);
             $total_size += $size;
         }
     }
@@ -1369,7 +1376,7 @@ function wgg_foldersize($path)
 
 /**
  * format size
- * @param int $size
+ * @param  $size
  * @return string
  */
 function wgg_format_size($size)

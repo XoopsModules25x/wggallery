@@ -107,11 +107,11 @@ class GallerytypesHandler extends \XoopsPersistableObjectHandler
 
     /**
      * Get Criteria Gallerytypes
-     * @param        $crGallerytypes
-     * @param int    $start
-     * @param int    $limit
-     * @param string $sort
-     * @param string $order
+     * @param  $crGallerytypes
+     * @param  $start
+     * @param  $limit
+     * @param  $sort
+     * @param  $order
      * @return int
      */
     private function getGallerytypesCriteria($crGallerytypes, $start, $limit, $sort, $order)
@@ -154,7 +154,6 @@ class GallerytypesHandler extends \XoopsPersistableObjectHandler
         // create new gallerytypes if not existing
         $templates = ['none', 'lightbox2', 'justifiedgallery', 'viewerjs', 'jssor', 'lclightboxlite'];
         foreach ($templates as $template) {
-            $gtCount        = 0;
             $crGallerytypes = new \CriteriaCompo();
             $crGallerytypes->add(new \Criteria('gt_template', $template));
             $crGallerytypes->setLimit(1);
@@ -215,6 +214,8 @@ class GallerytypesHandler extends \XoopsPersistableObjectHandler
     public function reset($gtId, $template, $primary)
     {
         $options = [];
+        $gt_name    = '';
+        $gt_credits = '';
         switch ($template) {
             case 'none':
                 $gt_name    = 'none';

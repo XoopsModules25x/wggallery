@@ -1357,7 +1357,7 @@ class Gallerytypes extends \XoopsObject
                             $options_text .= \constant($option['caption']);
                         }
                         $optionValue = $option['value'];
-                        if (mb_strlen($optionValue) > 20) {
+                        if (\mb_strlen($optionValue) > 20) {
                             $optionValue = mb_substr($optionValue, 0, 17) . '...';
                         }
                         $options_text .= ': ' . $optionValue . '</li>';

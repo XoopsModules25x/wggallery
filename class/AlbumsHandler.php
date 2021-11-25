@@ -110,11 +110,11 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
 
     /**
      * Get Criteria Albums
-     * @param        $crAlbums
-     * @param int    $start
-     * @param int    $limit
-     * @param string $sort
-     * @param string $order
+     * @param  $crAlbums
+     * @param  $start
+     * @param  $limit
+     * @param  $sort
+     * @param  $order
      * @return int
      */
     private function getAlbumsCriteria($crAlbums, $start, $limit, $sort, $order)
@@ -157,7 +157,6 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
     public function getChildsOfCategory($albPid)
     {
         $childsAll = '';
-        /** @var \XoopsModules\Wggallery\Helper $helper */
         $helper        = \XoopsModules\Wggallery\Helper::getInstance();
         $albumsHandler = $helper->getHandler('Albums');
         $crAlbums      = new \CriteriaCompo();
@@ -236,10 +235,12 @@ class AlbumsHandler extends \XoopsPersistableObjectHandler
 
         return $childsAll;
     }
-    
-        /**
+
+    /**
      * Get all childs of a category
      * @param $albPid
+     * @param $target
+     * @param bool $showThumb
      * @return bool|string
      */
     public function getListChildsOfCollectionIndex($albPid, $target, $showThumb = false)

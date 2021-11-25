@@ -145,7 +145,6 @@ class Utility extends Common\SysUtility
     public static function rewriteUrl($module, $array, $type = 'content')
     {
         $comment = '';
-        /** @var \XoopsModules\Wggallery\Helper $helper */
         $helper = \XoopsModules\Wggallery\Helper::getInstance();
         //$images = $helper->getHandler('Images');
         $lenght_id   = $helper->getConfig('lenght_id');
@@ -153,7 +152,7 @@ class Utility extends Common\SysUtility
 
         if (0 !== $lenght_id) {
             $id = $array['content_id'];
-            while (mb_strlen($id) < $lenght_id) {
+            while (\mb_strlen($id) < $lenght_id) {
                 $id = '0' . $id;
             }
         } else {
@@ -175,7 +174,6 @@ class Utility extends Common\SysUtility
                 $page         = 'page=' . $array['content_alias'];
 
                 return \XOOPS_URL . $rewrite_base . $module . '/' . $type . '.php?' . $topic_name . 'id=' . $id . '&amp;' . $page . $comment;
-                break;
             case 'rewrite':
                 if ($topic_name) {
                     $topic_name .= '/';
@@ -197,7 +195,6 @@ class Utility extends Common\SysUtility
                 }
 
                 return \XOOPS_URL . $rewrite_base . $module_name . $type . $topic_name . $id . $page . $rewrite_ext;
-                break;
             case 'short':
                 if ($topic_name) {
                     $topic_name .= '/';
@@ -218,7 +215,6 @@ class Utility extends Common\SysUtility
                 }
 
                 return \XOOPS_URL . $rewrite_base . $module_name . $type . $topic_name . $page . $rewrite_ext;
-                break;
         }
 
         return null;

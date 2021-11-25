@@ -53,7 +53,6 @@ function b_wggallery_albums_show($options)
     array_shift($options);
     array_shift($options);
 
-    /** @var \XoopsModules\Wggallery\Helper $helper */
     $helper = \XoopsModules\Wggallery\Helper::getInstance();
 
     // assign block options
@@ -111,7 +110,7 @@ function b_wggallery_albums_show($options)
     $albumsHandler = $helper->getHandler('Albums');
     $criteria      = new \CriteriaCompo();
     $album_ids     = \implode(',', $options);
-    if (0 !== mb_strpos($album_ids, '0')) {
+    if (0 !== \mb_strpos($album_ids, '0')) {
         $criteria->add(new \Criteria('alb_id', '(' . $album_ids . ')', 'IN'));
     }
     $criteria->add(new \Criteria('alb_state', Constants::STATE_ONLINE_VAL));
@@ -154,10 +153,10 @@ function b_wggallery_albums_show($options)
     $i       = 0;
     foreach (\array_keys($albumsAll) as $i) {
         $block[$i] = $albumsAll[$i]->getValuesAlbums();
-        if ($bshowTitle > 0 && $blenghtTitle > 0 && $blenghtTitle < mb_strlen($block[$i]['name'])) {
+        if ($bshowTitle > 0 && $blenghtTitle > 0 && $blenghtTitle < \mb_strlen($block[$i]['name'])) {
             $block[$i]['name_limited'] = mb_substr($block[$i]['name'], 0, $blenghtTitle) . '...';
         }
-        if ($bshowDesc > 0 && $blenghtDesc > 0 && $blenghtDesc < mb_strlen($block[$i]['desc'])) {
+        if ($bshowDesc > 0 && $blenghtDesc > 0 && $blenghtDesc < \mb_strlen($block[$i]['desc'])) {
             $block[$i]['desc_limited'] = mb_substr($block[$i]['desc'], 0, $blenghtDesc) . '...';
         }
         //set indicator for line break

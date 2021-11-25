@@ -30,8 +30,8 @@ require_once __DIR__ . '/header.php';
 // \xoops_loadLanguage('admin', 'wggallery');
 // It recovered the value of argument op in URL$
 $op     = Request::getString('op', 'form');
-$albId  = Request::getInt('alb_id', 0);
-$albPid = Request::getInt('alb_pid', 0);
+$albId  = Request::getInt('alb_id');
+$albPid = Request::getInt('alb_pid');
 
 // Template
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_upload_single.tpl';
@@ -73,6 +73,7 @@ switch ($op) {
         $imgSize        = $_FILES['img_name']['size'];
         $imgTitle       = \preg_replace("/[^a-zA-Z0-9]+/", '', Request::getString('img_title'));
         $uploaderErrors = '';
+        $savedFilename  = '';
         $uploader = new \XoopsMediaUploader(\WGGALLERY_UPLOAD_IMAGE_PATH . '/large/',
             $helper->getConfig('mimetypes_image'),
             $helper->getConfig('maxsize_image'), null, null);

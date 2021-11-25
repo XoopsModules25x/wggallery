@@ -25,8 +25,8 @@ $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
 // ------------------- Informations ------------------- //
 $modversion = [
-    'version'             => '1.15',
-    'module_status'       => 'RC2',
+    'version'             => '1.2.0',
+    'module_status'       => 'RC1',
     'release_date'        => '2021/04/19',
     'name'                => \_MI_WGGALLERY_NAME,
     'description'         => \_MI_WGGALLERY_DESC,
@@ -42,7 +42,7 @@ $modversion = [
     'release_file'        => \XOOPS_URL . '/modules/wggallery/docs/release_info file',
     'manual'              => 'link to manual file',
     'manual_file'         => \XOOPS_URL . '/modules/wggallery/docs/install.txt',
-    'min_php'             => '7.2',
+    'min_php'             => '7.4',
     'min_xoops'           => '2.5.11 Beta1',
     'min_admin'           => '1.1',
     'min_db'              => ['mysql' => '5.5'],
@@ -161,7 +161,6 @@ if ($moduleDirName == $currdirname) {
     $modversion['sub'][$subcount]['name'] = \_MI_WGGALLERY_SMNAME1;
     $modversion['sub'][$subcount]['url']  = 'index.php';
     require_once $pathname . '/include/common.php';
-    /** @var \XoopsModules\Wggallery\Helper $helper */
     $helper = \XoopsModules\Wggallery\Helper::getInstance();
     $helper->loadLanguage('common');
     $permissionsHandler = $helper->getHandler('Permissions');
@@ -231,6 +230,7 @@ require_once __DIR__ . '/include/xoops_version.inc.php';
 $iniPostMaxSize       = wggalleryReturnBytes(\ini_get('post_max_size'));
 $iniUploadMaxFileSize = wggalleryReturnBytes(\ini_get('upload_max_filesize'));
 $maxSize              = min($iniPostMaxSize, $iniUploadMaxFileSize);
+$increment            = 0;
 if ($maxSize > 10000 * 1048576) {
     $increment = 500;
 }

@@ -32,7 +32,7 @@
  */
 function wggallery_notify_iteminfo($category, $item_id)
 {
-    global $xoopsModule, $xoopsModuleConfig, $xoopsDB;
+    global $xoopsDB;
 
     if (!\defined('\WGGALLERY_URL')) {
         \define('\WGGALLERY_URL', \XOOPS_URL . '/modules/wggallery');
@@ -40,15 +40,6 @@ function wggallery_notify_iteminfo($category, $item_id)
 
     switch ($category) {
         case 'global':
-            // Assume we have a valid album id
-            $sql          = 'SELECT alb_name FROM ' . $xoopsDB->prefix('wggallery_albums') . ' WHERE alb_id = ' . $item_id;
-            $result       = $xoopsDB->query($sql);
-            $result_array = $xoopsDB->fetchArray($result);
-            $item['name'] = $result_array['alb_name'];
-            $item['url']  = \WGGALLERY_URL . '/albums.php?alb_id=' . $item_id;
-
-            return $item;
-            break;
         case 'albums':
             // Assume we have a valid album id
             $sql          = 'SELECT alb_name FROM ' . $xoopsDB->prefix('wggallery_albums') . ' WHERE alb_id = ' . $item_id;
@@ -58,7 +49,6 @@ function wggallery_notify_iteminfo($category, $item_id)
             $item['url']  = \WGGALLERY_URL . '/albums.php?alb_id=' . $item_id;
 
             return $item;
-            break;
         case 'images':
             // Assume we have a valid image id
             $sql          = 'SELECT img_name, img_albid FROM ' . $xoopsDB->prefix('wggallery_images') . ' WHERE img_id = ' . $item_id;
@@ -68,7 +58,6 @@ function wggallery_notify_iteminfo($category, $item_id)
             $item['url']  = \WGGALLERY_URL . '/images.php?op=show&amp;img_id=' . $item_id . '&amp;alb_id=' . $result_array['img_albid'];
 
             return $item;
-            break;
     }
 
     return null;

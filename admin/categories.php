@@ -29,6 +29,8 @@ require __DIR__ . '/header.php';
 $op = Request::getString('op', 'list');
 // Request img_id
 $catId = Request::getInt('cat_id');
+$start = Request::getInt('start');
+$limit = Request::getInt('limit', $helper->getConfig('adminpager'));
 
 $templateMain = 'wggallery_admin_categories.tpl';
 $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', \WGGALLERY_ICONS_URL . '16/');
@@ -39,9 +41,7 @@ switch ($op) {
         $GLOBALS['xoTheme']->addScript(\WGGALLERY_URL . '/assets/js/jquery-ui.min.js');
         $GLOBALS['xoTheme']->addScript(\WGGALLERY_URL . '/assets/js/sortable-categories.js');
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('categories.php'));
-        $start = Request::getInt('start', 0);
-        $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
-        $adminObject->addItemButton(\_AM_WGGALLERY_ADD_CATEGORY, 'categories.php?op=new', 'add');
+        $adminObject->addItemButton(\_AM_WGGALLERY_ADD_CATEGORY, 'categories.php?op=new');
 
         $crCategories    = new \CriteriaCompo();
         $categoriesCount = $categoriesHandler->getCount($crCategories);
@@ -64,7 +64,7 @@ switch ($op) {
             if ($categoriesCount > $limit) {
                 require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($categoriesCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit . '&amp;alb_id=' . $catId);
-                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
             }
         } else {
             $GLOBALS['xoopsTpl']->assign('error', \_AM_WGGALLERY_THEREARENT_CATEGORIES);
@@ -112,7 +112,7 @@ switch ($op) {
         break;
     case 'edit':
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('categories.php'));
-        $adminObject->addItemButton(\_AM_WGGALLERY_ADD_CATEGORY, 'categories.php?op=new', 'add');
+        $adminObject->addItemButton(\_AM_WGGALLERY_ADD_CATEGORY, 'categories.php?op=new');
         $adminObject->addItemButton(\_AM_WGGALLERY_CATEGORIES_LIST, 'categories.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form

@@ -129,7 +129,6 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
                 $text      = \str_replace('%c', $ItemRating['avg_rate_value'], \_MA_WGGALLERY_RATING_CURRENT_X);
                 $shorttext = \str_replace('%c', $ItemRating['avg_rate_value'], \_MA_WGGALLERY_RATING_CURRENT_SHORT_X);
             }
-            $text                    = \str_replace('%c', $ItemRating['avg_rate_value'], \_MA_WGGALLERY_RATING_CURRENT_X);
             $text                    = \str_replace('%m', $max_units, $text);
             $text                    = \str_replace('%t', $ItemRating['nb_ratings'], $text);
             $shorttext               = \str_replace('%t', $ItemRating['nb_ratings'], $shorttext);
@@ -189,8 +188,8 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
 
     /**
      * delete ratings of given item
-     * @param mixed $itemid
-     * @param mixed $source
+     * @param  $itemid
+     * @param  $source
      * @return bool
      */
     public function deleteAllRatings($itemid, $source)
@@ -204,11 +203,11 @@ class RatingsHandler extends \XoopsPersistableObjectHandler
 
     /**
      * Get Criteria Ratings
-     * @param        $crRatings
-     * @param int    $start
-     * @param int    $limit
-     * @param string $sort
-     * @param string $order
+     * @param  $crRatings
+     * @param  $start
+     * @param  $limit
+     * @param  $sort
+     * @param  $order
      * @return int
      */
     private function getRatingsCriteria($crRatings, $start, $limit, $sort, $order)

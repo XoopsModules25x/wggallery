@@ -40,11 +40,11 @@ $GLOBALS['xoopsTpl']->assign('wggallery_upload_fonts_path', \WGGALLERY_UPLOAD_FO
 switch ($op) {
     case 'list':
     default:
-        $start        = Request::getInt('start', 0);
+        $start        = Request::getInt('start');
         $limit        = Request::getInt('limit', $helper->getConfig('adminpager'));
         $templateMain = 'wggallery_admin_watermarks.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('watermarks.php'));
-        $adminObject->addItemButton(\_CO_WGGALLERY_WATERMARK_ADD, 'watermarks.php?op=new', 'add');
+        $adminObject->addItemButton(\_CO_WGGALLERY_WATERMARK_ADD, 'watermarks.php?op=new');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $watermarksCount = $watermarksHandler->getCountWatermarks();
         $watermarksAll   = $watermarksHandler->getAllWatermarks($start, $limit);
@@ -62,7 +62,7 @@ switch ($op) {
             if ($watermarksCount > $limit) {
                 require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($watermarksCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
-                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
             }
         } else {
             $GLOBALS['xoopsTpl']->assign('error', \_AM_WGGALLERY_THEREARENT_WATERMARKS);
@@ -94,9 +94,9 @@ switch ($op) {
         $wm_name = Request::getString('wm_name', 'missing_wm_name');
         $watermarksObj->setVar('wm_name', $wm_name);
         $watermarksObj->setVar('wm_type', Request::getInt('wm_type', Constants::WATERMARK_TYPETEXT));
-        $watermarksObj->setVar('wm_position', Request::getInt('wm_position', 0));
-        $watermarksObj->setVar('wm_marginlr', Request::getInt('wm_marginlr', 0));
-        $watermarksObj->setVar('wm_margintb', Request::getInt('wm_margintb', 0));
+        $watermarksObj->setVar('wm_position', Request::getInt('wm_position'));
+        $watermarksObj->setVar('wm_marginlr', Request::getInt('wm_marginlr'));
+        $watermarksObj->setVar('wm_margintb', Request::getInt('wm_margintb'));
         // Set Var wm_image
         require_once \XOOPS_ROOT_PATH . '/class/uploader.php';
         $fileName       = $_FILES['attachedfile']['name'];
@@ -121,9 +121,9 @@ switch ($op) {
         }
         $watermarksObj->setVar('wm_text', Request::getString('wm_text'));
         $watermarksObj->setVar('wm_font', Request::getString('wm_font'));
-        $watermarksObj->setVar('wm_fontsize', Request::getInt('wm_fontsize', 0));
+        $watermarksObj->setVar('wm_fontsize', Request::getInt('wm_fontsize'));
         $watermarksObj->setVar('wm_color', Request::getString('wm_color'));
-        $wm_usage = Request::getInt('wm_usage', 0);
+        $wm_usage = Request::getInt('wm_usage');
         $watermarksObj->setVar('wm_usage', $wm_usage);
         if (Constants::WATERMARK_USAGEALL == $wm_usage) {
             // one specific watermark should be used for all
@@ -154,7 +154,7 @@ switch ($op) {
 
         $watermarkDate = date_create_from_format(_SHORTDATESTRING, $_POST['wm_date']);
         $watermarksObj->setVar('wm_date', $watermarkDate->getTimestamp());
-        $watermarksObj->setVar('wm_submitter', Request::getInt('wm_submitter', 0));
+        $watermarksObj->setVar('wm_submitter', Request::getInt('wm_submitter'));
         // Insert Data
         if ($watermarksHandler->insert($watermarksObj)) {
             $newWmId = $watermarksHandler->getInsertId();
@@ -200,7 +200,7 @@ switch ($op) {
     case 'edit':
         $templateMain = 'wggallery_admin_watermarks.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('watermarks.php'));
-        $adminObject->addItemButton(\_CO_WGGALLERY_WATERMARK_ADD, 'watermarks.php?op=new', 'add');
+        $adminObject->addItemButton(\_CO_WGGALLERY_WATERMARK_ADD, 'watermarks.php?op=new');
         $adminObject->addItemButton(\_AM_WGGALLERY_WATERMARKS_LIST, 'watermarks.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form

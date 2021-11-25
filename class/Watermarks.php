@@ -85,22 +85,9 @@ class Watermarks extends \XoopsObject
      */
     public function getFormWatermarks($action = false)
     {
-        /** @var \XoopsModules\Wggallery\Helper $helper */
         $helper = \XoopsModules\Wggallery\Helper::getInstance();
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
-        }
-        // Permissions for uploader
-        $grouppermHandler = \xoops_getHandler('groupperm');
-        $groups           = \is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : \XOOPS_GROUP_ANONYMOUS;
-        if ($GLOBALS['xoopsUser']) {
-            if (!$GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid())) {
-                $permissionUpload = $grouppermHandler->checkRight('', 32, $groups, $GLOBALS['xoopsModule']->getVar('mid')) ? true : false;
-            } else {
-                $permissionUpload = true;
-            }
-        } else {
-            $permissionUpload = $grouppermHandler->checkRight('', 32, $groups, $GLOBALS['xoopsModule']->getVar('mid')) ? true : false;
         }
         // Title
         $title = $this->isNew() ? \sprintf(\_CO_WGGALLERY_WATERMARK_ADD) : \sprintf(\_CO_WGGALLERY_WATERMARK_EDIT);
@@ -110,8 +97,6 @@ class Watermarks extends \XoopsObject
         $form->setExtra('enctype="multipart/form-data"');
         // Form Text WmName
         $form->addElement(new \XoopsFormText(\_CO_WGGALLERY_WATERMARK_NAME, 'wm_name', 50, 255, $this->getVar('wm_name')), true);
-        // Watermarks handler
-        $watermarksHandler = $helper->getHandler('Watermarks');
         // Form Select Watermarks
         $wmType       = $this->isNew() ? 1 : $this->getVar('wm_type');
         $wmTypeSelect = new \XoopsFormSelect(\_CO_WGGALLERY_WATERMARK_TYPE, 'wm_type', $wmType);
@@ -161,8 +146,6 @@ class Watermarks extends \XoopsObject
         // Form Text WmText
         $wmText = $this->isNew() ? '© ' : $this->getVar('wm_text');
         $form->addElement(new \XoopsFormText(\_CO_WGGALLERY_WATERMARK_TEXT, 'wm_text', 50, 255, $wmText));
-        // Watermarks handler
-        $watermarksHandler = $helper->getHandler('Watermarks');
         // Form Select Watermarks
         $wmfontTray   = new \XoopsFormElementTray(\_CO_WGGALLERY_WATERMARK_FONT, '&nbsp;');
         $wm_font      = $this->getVar('wm_font');
@@ -171,7 +154,7 @@ class Watermarks extends \XoopsObject
         $rep = \WGGALLERY_UPLOAD_FONTS_PATH . '/';
         $dir = \opendir($rep);
         while ($f = \readdir($dir)) {
-            if (is_file($rep . $f) && \preg_match('/.*ttf/', \mb_strtolower($f))) {
+            if (\is_file($rep . $f) && \preg_match('/.*ttf/', \mb_strtolower($f))) {
                 $wmFontSelect->addOption($f, mb_substr($f, 0, -4));
             }
         }
@@ -224,7 +207,6 @@ class Watermarks extends \XoopsObject
      */
     public function getValuesWatermarks($keys = null, $format = null, $maxDepth = null)
     {
-        $helper      = \XoopsModules\Wggallery\Helper::getInstance();
         $ret         = $this->getValues($keys, $format, $maxDepth);
         $ret['id']   = $this->getVar('wm_id');
         $ret['name'] = $this->getVar('wm_name');
@@ -314,7 +296,7 @@ class Watermarks extends \XoopsObject
                 break;
             case 'default':
             default:
-                $usage_text = "invalid value 'wm_target'";
+                $target_text = "invalid value 'wm_target'";
                 break;
         }
         $ret['target_text'] = $target_text;

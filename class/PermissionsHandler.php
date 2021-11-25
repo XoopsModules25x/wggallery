@@ -143,7 +143,7 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
     /**
      * get perms for current user to view album
      *
-     * @param string $albId string to transform
+     * @param  $albId
      * @return int
      */
     public function permAlbumView($albId)

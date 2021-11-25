@@ -26,13 +26,12 @@
 /**
  * CommentsUpdate
  *
- * @param mixed $itemId
- * @param int   $commentCount
+ * @param  $itemId
+ * @param  $commentCount
  * @return bool
  */
 function wggalleryCommentsUpdate($itemId, $commentCount)
 {
-    /** @var \XoopsModules\Wggallery\Helper $helper */
     $helper = \XoopsModules\Wggallery\Helper::getInstance();
     if (!$helper->getHandler('Images')->updateAll('comments', (int)$commentCount, new \Criteria('lid', (int)$itemId))) {
         return false;

@@ -110,15 +110,15 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
 
     /**
      * Get Criteria Categories
-     * @param        $crCategories
-     * @param        $catId
-     * @param int    $start
-     * @param int    $limit
-     * @param string $sort
-     * @param string $order
+     * @param $crCategories
+     * @param $catId
+     * @param $start
+     * @param $limit
+     * @param $sort
+     * @param $order
      * @return int
      */
-    private function getCategoriesCriteria($crCategories, $catId, $start, $limit, $sort, $order)
+    private function getCategoriesCriteria($crCategories, $start, $limit, $sort, $order)
     {
         $crCategories->setStart($start);
         $crCategories->setLimit($limit);

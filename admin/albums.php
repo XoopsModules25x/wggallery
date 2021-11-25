@@ -29,7 +29,7 @@ require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
 $op      = Request::getString('op', 'list');
 $albId   = Request::getInt('alb_id');
-$start   = Request::getInt('start', 0);
+$start   = Request::getInt('start');
 $limit   = Request::getInt('limit', $helper->getConfig('adminpager'));
 $sort    = Request::getString('sort', 'alb_id');
 $orderby = Request::getString('orderby', 'DESC');
@@ -46,7 +46,7 @@ switch ($op) {
         // Define Stylesheet
         $templateMain = 'wggallery_admin_albums.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('albums.php'));
-        $adminObject->addItemButton(\_AM_WGGALLERY_ADD_ALBUM, 'albums.php?op=new', 'add');
+        $adminObject->addItemButton(\_AM_WGGALLERY_ADD_ALBUM, 'albums.php?op=new');
         if ('approve' === $op) {
             $adminObject->addItemButton(\_AM_WGGALLERY_ALBUMS_LIST, 'albums.php', 'list');
         } else {
@@ -90,7 +90,7 @@ switch ($op) {
             if ($albumsCount > $limit) {
                 require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($albumsCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit . '&amp;sort=' . $sort . '&amp;orderby=' . $orderby);
-                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
             }
             $GLOBALS['xoopsTpl']->assign('use_tags', $helper->getConfig('use_tags'));
             $GLOBALS['xoopsTpl']->assign('use_categories', $helper->getConfig('use_categories'));
@@ -188,7 +188,7 @@ switch ($op) {
     case 'edit':
         $templateMain = 'wggallery_admin_albums.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('albums.php'));
-        $adminObject->addItemButton(\_AM_WGGALLERY_ADD_ALBUM, 'albums.php?op=new', 'add');
+        $adminObject->addItemButton(\_AM_WGGALLERY_ADD_ALBUM, 'albums.php?op=new');
         $adminObject->addItemButton(\_AM_WGGALLERY_ALBUMS_LIST, 'albums.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
@@ -231,6 +231,7 @@ switch ($op) {
                 \redirect_header('albums.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             $alb_image = $albumsObj->getVar('alb_image');
+            $alb_name  = $albumsObj->getVar('alb_name');
             if ($albumsHandler->delete($albumsObj)) {
                 // delete albimage
                 if ('blank.gif' !== $alb_image && 'noimage.png' !== $alb_image) {

@@ -56,7 +56,7 @@ $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGGALLERY_THEREARE_WATERM
 $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGGALLERY_THEREARE_CATEGORIES . '</label>', $countCategories));
 
 // Upload Folders
-$adminObject->addConfigBoxLine('');
+$adminObject->addConfigBoxLine();
 $configurator = new Common\Configurator();
 if ($configurator->uploadFolders && \is_array($configurator->uploadFolders)) {
     foreach (\array_keys($configurator->uploadFolders) as $i) {
@@ -77,8 +77,8 @@ $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('inde
 if ($helper->getConfig('displaySampleButton')) {
     \xoops_loadLanguage('admin/modulesadmin', 'system');
     require \dirname(__DIR__) . '/testdata/index.php';
-    $adminObject->addItemButton(\constant('CO_' . $moduleDirNameUpper . '_' . 'ADD_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=load', 'add');
-    $adminObject->addItemButton(\constant('CO_' . $moduleDirNameUpper . '_' . 'SAVE_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=save', 'add');
+    $adminObject->addItemButton(\constant('CO_' . $moduleDirNameUpper . '_' . 'ADD_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=load');
+    $adminObject->addItemButton(\constant('CO_' . $moduleDirNameUpper . '_' . 'SAVE_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=save');
     //    $adminObject->addItemButton(\constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA'), '__DIR__ . /../../testdata/index.php?op=exportschema', 'add');
     $adminObject->displayButton('left', '');
 }

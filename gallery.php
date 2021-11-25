@@ -30,7 +30,6 @@ $GLOBALS['xoopsOption']['template_main'] = 'wggallery_gallery_' . $pr_gallery['t
 require_once \XOOPS_ROOT_PATH . '/header.php';
 
 $albId = Request::getInt('alb_id');
-/** @var \XoopsModules\Wggallery\Utility $utility */
 $utility = new \XoopsModules\Wggallery\Utility();
 
 // Define Stylesheet
@@ -79,7 +78,8 @@ foreach ($options as $option) {
 
 // echo '<br>template:wggallery_gallery_' . $pr_gallery['template'] . '.tpl';
 // echo '<br>isdir template: ' . \is_dir(\WGGALLERY_URL . '/assets/wggallery_gallery_' . $pr_gallery['template'] . '.tpl');
-
+$albName      = '';
+$albSubmitter = '';
 $albumsObj = $albumsHandler->get($albId);
 if (isset($albumsObj) && \is_object($albumsObj)) {
     $albName      = $albumsObj->getVar('alb_name');
