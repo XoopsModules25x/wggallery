@@ -368,7 +368,7 @@ require_once __DIR__ . '/common.php';
 \define('_AM_WGGALLERY_BATCH_CHECKWIDTH', 'Die Bildbreite überschreitet das die Maximalbreite von %s');
 \define('_AM_WGGALLERY_BATCH_CHECKHEIGHT', 'Die Bildhöhe überschreitet das die Maximalhöhe von %s');
 \define('_AM_WGGALLERY_BATCH_FORM', 'Batchupload starten');
-\define('_AM_WGGALLERY_BATCH_LIST', 'Inhalt Batchverzeichnis anzeigen');
+\define('_AM_WGGALLERY_BATCH_LIST', 'Inhalt Batchverzeichnis');
 \define('_AM_WGGALLERY_BATCH_ERROR', 'Fehler bei Batchverarbeitung der Datei %s aufgetreten');
 \define('_AM_WGGALLERY_BATCH_SUCCESS', ' %s Dateien erfolgreich verarbeitet');
 \define('_AM_WGGALLERY_BATCH_NODATA', 'Im Batchverzeichnis %s befinden sich derzeit keine Dateien');

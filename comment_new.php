@@ -25,9 +25,8 @@
 use Xmf\Request;
 
 require \dirname(\dirname(__DIR__)) . '/mainfile.php';
-$com_itemid = Request::getInt('com_itemid', 0);
+$com_itemid = Request::getInt('com_itemid');
 if ($com_itemid > 0) {
-    /** @var \XoopsModules\Wggallery\Helper $helper */
     $helper = \XoopsModules\Wggallery\Helper::getInstance();
     /** @var \XoopsPersistableObjectHandler $imagesHandler */
     $imagesHandler = $helper->getHandler('Images');

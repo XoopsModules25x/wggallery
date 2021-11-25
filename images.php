@@ -27,7 +27,7 @@ use XoopsModules\Wggallery\Constants;
 
 require __DIR__ . '/header.php';
 
-$op = Request::getString('op', '');
+$op = Request::getString('op');
 if ('manage' === $op) {
     $GLOBALS['xoopsOption']['template_main'] = 'wggallery_images_manage.tpl';
 } else {
@@ -36,14 +36,14 @@ if ('manage' === $op) {
 require_once \XOOPS_ROOT_PATH . '/header.php';
 
 $imgId   = Request::getInt('img_id');
-$albId   = Request::getInt('alb_id', 0);
+$albId   = Request::getInt('alb_id');
 $albPid  = Request::getInt('alb_pid');
 $ref     = Request::getString('ref');
 $imgSubm = Request::getInt('img_submitter');
-$start   = Request::getInt('start', 0);
+$start   = Request::getInt('start');
 $limit   = Request::getInt('limit', $helper->getConfig('userpager'));
 
-$redir_op = Request::getString('redir', '');
+$redir_op = Request::getString('redir');
 if ('' === $redir_op) {
     $redir_op = Request::getString('redir_op', $op);
 }
@@ -110,7 +110,8 @@ if ($imgId > 0 && 0 === $albId) {
     $albId     = $imagesObj->getVar('img_albid');
 }
 
-$albName   = '';
+$albName      = '';
+$albSubmitter = '';
 $albumsObj = $albumsHandler->get($albId);
 if (isset($albumsObj) && \is_object($albumsObj)) {
     $albName      = $albumsObj->getVar('alb_name');
@@ -215,11 +216,11 @@ switch ($op) {
             $imgNew    = 1;
         }
         // Set Vars
-        $imagesObj->setVar('img_title', Request::getString('img_title', ''));
-        $imagesObj->setVar('img_desc', Request::getString('img_desc', ''));
-        $img_name = Request::getString('img_name', '');
+        $imagesObj->setVar('img_title', Request::getString('img_title'));
+        $imagesObj->setVar('img_desc', Request::getString('img_desc'));
+        $img_name = Request::getString('img_name');
         $imagesObj->setVar('img_name', $img_name);
-        $imagesObj->setVar('img_nameorig', Request::getString('img_nameorig', ''));
+        $imagesObj->setVar('img_nameorig', Request::getString('img_nameorig'));
         $imagesObj->setVar('img_mimetype', Request::getInt('img_mimetype'));
         $imagesObj->setVar('img_size', Request::getInt('img_size'));
         $imagesObj->setVar('img_resx', Request::getInt('img_resx'));
@@ -385,6 +386,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('alb_id', $albId);
         $GLOBALS['xoopsTpl']->assign('alb_pid', $albPid);
 
+        $image = [];
         $crImages = new \CriteriaCompo();
         $crImages->add(new \Criteria('img_albid', $albId));
         if (!$permAlbumEdit) {
@@ -422,7 +424,7 @@ switch ($op) {
             if ($imagesCount > $limit) {
                 require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($imagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit . '&alb_id=' . $albId . '&alb_pid=' . $albPid . '&img_submitter=' . $imgSubm);
-                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
             }
             $GLOBALS['xoopsTpl']->assign('type', $helper->getConfig('table_type'));
             $GLOBALS['xoopsTpl']->assign('divideby', $helper->getConfig('divideby'));

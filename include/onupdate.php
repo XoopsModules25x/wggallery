@@ -29,7 +29,7 @@
  *
  * @return bool|null
  */
-function xoops_module_update_wggallery(&$module, $prev_version = null)
+function xoops_module_update_wggallery($module, $prev_version = null)
 {
     // irmtfan bug fix: solve templates duplicate issue
     $ret = null;

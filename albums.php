@@ -29,10 +29,10 @@ $GLOBALS['xoopsOption']['template_main'] = 'wggallery_albums_default.tpl';
 require_once \XOOPS_ROOT_PATH . '/header.php';
 
 $op      = Request::getString('op', 'list');
-$albId   = Request::getInt('alb_id', 0);
+$albId   = Request::getInt('alb_id');
 $albPid  = Request::getInt('alb_pid');
 $albSubm = Request::getInt('alb_submitter');
-$start   = Request::getInt('start', 0);
+$start   = Request::getInt('start');
 $limit   = Request::getInt('limit', $helper->getConfig('adminpager'));
 
 if (_CANCEL === Request::getString('cancel', 'none')) {
@@ -115,6 +115,7 @@ switch ($op) {
         if ($albumsCount > 0) {
             foreach (\array_keys($albumsAll) as $i) {
                 //check permissions
+                $album = [];
                 if ($permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'))) {
                     $album         = $albumsAll[$i]->getValuesAlbums();
                     $album['edit'] = true;
@@ -131,7 +132,7 @@ switch ($op) {
             if ($albumsPermEdit > $limit) {
                 require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($albumsCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit . '&amp;alb_id=' . $albId . '&amp;alb_pid=' . $albPid . '&amp;alb_submitter=' . $albSubm);
-                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
             }
         } else {
             $GLOBALS['xoopsTpl']->assign('error', \_CO_WGGALLERY_THEREARENT_ALBUMS);
@@ -292,6 +293,7 @@ switch ($op) {
                 \redirect_header('albums.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             $alb_image = $albumsObj->getVar('alb_image');
+            $alb_name  = $albumsObj->getVar('alb_name');
             if ($albumsHandler->delete($albumsObj)) {
                 // delete albimage
                 if ('blank.gif' !== $alb_image && 'noimage.png' !== $alb_image) {

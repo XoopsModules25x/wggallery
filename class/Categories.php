@@ -33,7 +33,7 @@ use XoopsModules\Wggallery;
  */
 class Categories extends \XoopsObject
 {
-    public $redirOp = '';
+    public string $redirOp = '';
 
     /**
      * Constructor
@@ -79,14 +79,11 @@ class Categories extends \XoopsObject
 
     /**
      * @public function getForm
-     * @param bool $adminarea
      * @param bool $action
      * @return \XoopsThemeForm
      */
-    public function getFormCategories($adminarea = false, $action = false)
+    public function getFormCategories($action = false)
     {
-        /** @var \XoopsModules\Wggallery\Helper $helper */
-        $helper = \XoopsModules\Wggallery\Helper::getInstance();
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
@@ -131,7 +128,6 @@ class Categories extends \XoopsObject
      */
     public function getValuesCategories($keys = null, $format = null, $maxDepth = null)
     {
-        $helper           = \XoopsModules\Wggallery\Helper::getInstance();
         $ret              = $this->getValues($keys, $format, $maxDepth);
         $ret['id']        = $this->getVar('cat_id');
         $ret['text']      = $this->getVar('cat_text');

@@ -107,11 +107,11 @@ class AlbumtypesHandler extends \XoopsPersistableObjectHandler
 
     /**
      * Get Criteria Albumtypes
-     * @param        $crAlbumtypes
-     * @param int    $start
-     * @param int    $limit
-     * @param string $sort
-     * @param string $order
+     * @param  $crAlbumtypes
+     * @param  $start
+     * @param  $limit
+     * @param  $sort
+     * @param  $order
      * @return int
      */
     private function getAlbumtypesCriteria($crAlbumtypes, $start, $limit, $sort, $order)
@@ -169,9 +169,8 @@ class AlbumtypesHandler extends \XoopsPersistableObjectHandler
     {
         // create new albumtypes if not existing
         $templates = ['default', 'simple', 'hovereffectideas', 'bcards'];
-        $template  = '';
+
         foreach ($templates as $template) {
-            $gtCount      = 0;
             $crAlbumtypes = new \CriteriaCompo();
             $crAlbumtypes->add(new \Criteria('at_template', $template));
             $crAlbumtypes->setLimit(1);

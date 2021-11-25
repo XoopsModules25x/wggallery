@@ -185,12 +185,12 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
 
     /**
      * Get Criteria Images
-     * @param        $crImages
-     * @param        $albId
-     * @param int    $start
-     * @param int    $limit
-     * @param string $sort
-     * @param string $order
+     * @param  $crImages
+     * @param  $albId
+     * @param  $start
+     * @param  $limit
+     * @param  $sort
+     * @param  $order
      * @return int
      */
     private function getImagesCriteria($crImages, $albId, $start, $limit, $sort, $order)
@@ -261,8 +261,8 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
 
     /**
      * encode and decode with json in order to get proper values
-     * @param  $file
-     * @param  $encode
+     * @param $file
+     * @param bool $encoded
      * @return string or array
      */
     public function exifRead($file, $encoded = true)
@@ -516,7 +516,7 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
             case 'image/jpeg':
                 $img = \imagecreatefromjpeg($this->imagePath);
                 if (!$img) {
-                    $img = \imagecreatefromstring(file_get_contents($this->imagePath));
+                    $img = \imagecreatefromstring(\file_get_contents($this->imagePath));
                 }
                 break;
             case 'image/gif':

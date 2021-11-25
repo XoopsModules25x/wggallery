@@ -28,14 +28,14 @@ use XoopsModules\Wggallery\Constants;
 require __DIR__ . '/header.php';
 
 $op    = Request::getString('op', 'initiate');
-$start = Request::getInt('start', 0);
+$start = Request::getInt('start');
 $limit = Request::getInt('limit', $helper->getConfig('userpager'));
 
-$search_text = \mb_strtolower(Request::getString('search_text', ''));
+$search_text = \mb_strtolower(Request::getString('search_text'));
 $search_cats = Request::getArray('search_cats', []);
-$search_subm = Request::getInt('search_subm', 0);
+$search_subm = Request::getInt('search_subm');
 $search_act  = Request::getInt('search_act', 1);
-$imageIdsIn  = Request::getString('imageIdsIn', '');
+$imageIdsIn  = Request::getString('imageIdsIn');
 
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_search.tpl';
 
@@ -67,14 +67,14 @@ $form1->setExtra('enctype="multipart/form-data"');
 // search for text
 $trayText = new \XoopsFormElementTray(\_MA_WGGALLERY_SEARCH_TEXT, '<br>');
 $descText = new \XoopsFormLabel('', \_MA_WGGALLERY_SEARCH_TEXT_DESC);
-$trayText->addElement($descText, false);
-$trayText->addElement(new \XoopsFormText('', 'search_text', 50, 255, $search_text), false);
-$form1->addElement($trayText, false);
+$trayText->addElement($descText);
+$trayText->addElement(new \XoopsFormText('', 'search_text', 50, 255, $search_text));
+$form1->addElement($trayText);
 
 // search for categories
 $trayCats = new \XoopsFormElementTray(\_MA_WGGALLERY_SEARCH_CATS, '<br>');
 $descCats = new \XoopsFormLabel('', \_MA_WGGALLERY_SEARCH_CATS_DESC);
-$trayCats->addElement($descCats, false);
+$trayCats->addElement($descCats);
 if ($helper->getConfig('use_categories')) {
     $categoriesHandler = $helper->getHandler('Categories');
     $crCategories      = new \CriteriaCompo();
@@ -88,12 +88,12 @@ if ($helper->getConfig('use_categories')) {
         foreach (\array_keys($categoriesAll) as $i) {
             $selectCategories->addOption($categoriesAll[$i]->getVar('cat_id'), $categoriesAll[$i]->getVar('cat_text'));
         }
-        $trayCats->addElement($selectCategories, false);
+        $trayCats->addElement($selectCategories);
     }
 } else {
     $trayCats->addElement(new \XoopsFormHidden('search_cats', 0));
 }
-$form1->addElement($trayCats, false);
+$form1->addElement($trayCats);
 
 // search for submitter of album or image
 $userHandler = \xoops_getHandler('user');
@@ -122,14 +122,14 @@ while (false !== ($row = $GLOBALS['xoopsDB']->fetchrow($result))) {
 // Form Select users
 $traySubmitter = new \XoopsFormElementTray(\_MA_WGGALLERY_SEARCH_SUBM, '<br>');
 $descSelect    = new \XoopsFormLabel('', \_MA_WGGALLERY_SEARCH_SUBM_DESC);
-$traySubmitter->addElement($descSelect, false);
+$traySubmitter->addElement($descSelect);
 $submSelect = new \XoopsFormSelect('', 'search_subm', $search_subm);
 $submSelect->addOption(0, ' ');
 foreach ($subm_search as $subm) {
     $submSelect->addOption($subm['uid'], $subm['name']);
 }
-$traySubmitter->addElement($submSelect, false);
-$form1->addElement($traySubmitter, false);
+$traySubmitter->addElement($submSelect);
+$form1->addElement($traySubmitter);
 
 // To Save
 $form1->addElement(new \XoopsFormHidden('op', 'exec_search'));
@@ -188,17 +188,17 @@ switch ($op) {
                     if ($permView) {
                         $album_ids_view[] = $albId;
                         if ('' !== $search_text) {
-                            $pos = mb_strpos(\mb_strtolower($albumsAll[$i]->getVar('alb_name')), $search_text);
+                            $pos = \mb_strpos(\mb_strtolower($albumsAll[$i]->getVar('alb_name')), $search_text);
                             if (false !== $pos) {
                                 $album_ids[] = $albId;
                                 //echo "<br>$albId: alb_name ".$albumsAll[$i]->getVar('alb_name')." contains " . $search_text;
                             }
-                            $pos = mb_strpos(\mb_strtolower($albumsAll[$i]->getVar('alb_desc')), $search_text);
+                            $pos = \mb_strpos(\mb_strtolower($albumsAll[$i]->getVar('alb_desc')), $search_text);
                             if (false !== $pos) {
                                 $album_ids[] = $albId;
                                 //echo "<br>$albId: alb_desc ".$albumsAll[$i]->getVar('alb_desc')." contains " . $search_text;
                             }
-                            $pos = mb_strpos(\mb_strtolower($albumsAll[$i]->getVar('alb_tags')), $search_text);
+                            $pos = \mb_strpos(\mb_strtolower($albumsAll[$i]->getVar('alb_tags')), $search_text);
                             if (false !== $pos) {
                                 $album_ids[] = $albId;
                                 //echo "<br>$albId: alb_tags ".$albumsAll[$i]->getVar('alb_tags')." contains " . $search_text;
@@ -240,22 +240,22 @@ switch ($op) {
                 $imagesAll = $imagesHandler->getAll($crImages);
                 foreach (\array_keys($imagesAll) as $i) {
                     if ('' !== $search_text) {
-                        $pos = mb_strpos(\mb_strtolower($imagesAll[$i]->getVar('img_title')), $search_text);
+                        $pos = \mb_strpos(\mb_strtolower($imagesAll[$i]->getVar('img_title')), $search_text);
                         if (false !== $pos) {
                             $image_ids[] = $imagesAll[$i]->getVar('img_id');
                             //echo "<br>img_title ".$imagesAll[$i]->getVar('img_title')." contains " . $search_text;
                         }
-                        $pos = mb_strpos(\mb_strtolower($imagesAll[$i]->getVar('img_name')), $search_text);
+                        $pos = \mb_strpos(\mb_strtolower($imagesAll[$i]->getVar('img_name')), $search_text);
                         if (false !== $pos) {
                             $image_ids[] = $imagesAll[$i]->getVar('img_id');
                             //echo "<br>img_name ".$imagesAll[$i]->getVar('img_name')." contains " . $search_text;
                         }
-                        $pos = mb_strpos(\mb_strtolower($imagesAll[$i]->getVar('img_desc')), $search_text);
+                        $pos = \mb_strpos(\mb_strtolower($imagesAll[$i]->getVar('img_desc')), $search_text);
                         if (false !== $pos) {
                             $image_ids[] = $imagesAll[$i]->getVar('img_id');
                             //echo "<br>img_desc ".$imagesAll[$i]->getVar('img_desc')." contains " . $search_text;
                         }
-                        $pos = mb_strpos(\mb_strtolower($imagesAll[$i]->getVar('img_tags')), $search_text);
+                        $pos = \mb_strpos(\mb_strtolower($imagesAll[$i]->getVar('img_tags')), $search_text);
                         if (false !== $pos) {
                             $image_ids[] = $imagesAll[$i]->getVar('img_id');
                             //echo "<br>img_tags ".$imagesAll[$i]->getVar('img_tags')." contains " . $search_text;
@@ -334,7 +334,7 @@ switch ($op) {
             if ($imagesCount > $limit && 'exec_search' == $op) {
                 require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($imagesCount, $limit, $start, 'start', 'op=exec_search&amp;limit=' . $limit . '&amp;imageIdsIn=' . $imageIdsIn);
-                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
             }
         }
         $GLOBALS['xoopsTpl']->assign('showlist', true);

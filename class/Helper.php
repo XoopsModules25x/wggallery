@@ -79,7 +79,7 @@ class Helper extends \Xmf\Module\Helper
     /**
      * Get an Object Handler
      *
-     * @param string $name name of handler to load
+     * @param  $name name of handler to load
      *
      * @return bool|\XoopsObjectHandler|\XoopsPersistableObjectHandler
      */
@@ -102,7 +102,7 @@ class Helper extends \Xmf\Module\Helper
 
     /**
      * @function getStateText
-     * @param string $state
+     * @param  $state
      * @return string text for state
      */
     public function getStateText($state)
@@ -110,25 +110,21 @@ class Helper extends \Xmf\Module\Helper
         switch ($state) {
             case Constants::STATE_ONLINE_VAL:
                 return \_CO_WGGALLERY_STATE_ONLINE;
-                break;
             case Constants::STATE_APPROVAL_VAL:
                 return \_CO_WGGALLERY_STATE_APPROVAL;
-                break;
             case Constants::STATE_OFFLINE_VAL:
                 return \_CO_WGGALLERY_STATE_OFFLINE;
-                break;
             default:
                 return 'invalid state in getStateText in Class/Helper.php'; //should never happen
-                break;
         }
     }
 
     /**
      * @public function getForm for delete
-     * @param array  $arrParams
-     * @param string $title
-     * @param string $text
-     * @param string $descr
+     * @param  $arrParams
+     * @param  $title
+     * @param  $text
+     * @param  string $descr
      * @return \XoopsThemeForm
      */
     public function getFormDelete($arrParams, $title, $text, $descr = '')

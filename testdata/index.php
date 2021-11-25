@@ -19,7 +19,7 @@ use XoopsModules\Wggallery\Common;
 
 require \dirname(\dirname(\dirname(__DIR__))) . '/mainfile.php';
 include \dirname(__DIR__) . '/preloads/autoloader.php';
-$op = \Xmf\Request::getCmd('op', '');
+$op = \Xmf\Request::getCmd('op');
 
 switch ($op) {
     case 'load':
@@ -106,20 +106,20 @@ function exportSchema()
 
         \redirect_header('../admin/index.php', 1, \constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_SUCCESS'));
     } catch (\Exception $e) {
-        exit(\constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_ERROR'));
+        exit(\constant('CO_' . $moduleDirName . '_' . 'EXPORT_SCHEMA_ERROR'));
     }
 }
 
 /**
  * loadTableFromArrayWithReplace
  *
- * @param string $table  value with should be used insead of original value of $search
+ * @param  $table  value with should be used insead of original value of $search
  *
- * @param array  $data   array of rows to insert
+ * @param  $data   array of rows to insert
  *                       Each element of the outer array represents a single table row.
  *                       Each row is an associative array in 'column' => 'value' format.
- * @param string $search name of column for which the value should be replaced
- * @param        $replace
+ * @param  $search name of column for which the value should be replaced
+ * @param  $replace
  * @return int number of rows inserted
  */
 function loadTableFromArrayWithReplace($table, $data, $search, $replace)

@@ -31,7 +31,6 @@ use XoopsModules\Wggallery\Common;
 function xoops_module_pre_install_wggallery(\XoopsModule $module)
 {
     require \dirname(__DIR__) . '/preloads/autoloader.php';
-    /** @var Wggallery\Utility $utility */
     $utility = new Wggallery\Utility();
 
     //check for minimum XOOPS version
@@ -113,7 +112,7 @@ function xoops_module_install_wggallery(\XoopsModule $module)
     $rep    = \XOOPS_ROOT_PATH . '/modules/wggallery/assets/fonts/';
     $dir    = \opendir($rep);
     while ($f = \readdir($dir)) {
-        if (is_file($rep . $f)) {
+        if (\is_file($rep . $f)) {
             if (\preg_match('/.*ttf/', \mb_strtolower($f))) {
                 \copy($rep . $f, $target . '/' . $f);
             }

@@ -35,9 +35,9 @@ switch ($op) {
             \redirect_header('index.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
 
-        $itemid = Request::getInt('img_id', 0);
-        $rating = Request::getInt('rating', 0);
-        $source = Request::getInt('source', 0); //source 1 = image / source 2 = album rating TODO
+        $itemid = Request::getInt('img_id');
+        $rating = Request::getInt('rating');
+        $source = Request::getInt('source'); //source 1 = image / source 2 = album rating TODO
 
         // Checking permissions
         $rate_allowed = false;

@@ -34,7 +34,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('clone.php'));
         
         require_once $GLOBALS['xoops']->path('class/xoopsformloader.php');
-        $form  = new \XoopsThemeForm(sprintf(\_AM_WGGALLERY_CLONE_TITLE, $helper->getModule()->getVar('name', 'E')), 'clone', 'clone.php', 'post', true);
+        $form  = new \XoopsThemeForm(\sprintf(\_AM_WGGALLERY_CLONE_TITLE, $helper->getModule()->getVar('name', 'E')), 'clone', 'clone.php', 'post', true);
         $clone = new \XoopsFormText(\_AM_WGGALLERY_CLONE_NAME, 'clone', 20, 20, '');
         $clone->setDescription(\_AM_WGGALLERY_CLONE_NAME_DSC);
         $form->addElement($clone, true);
@@ -50,36 +50,36 @@ switch ($op) {
         }
         $clone = Request::getString('clone', '', 'POST');
         //check if name is valid
-        if (empty($clone) || preg_match('/[^a-zA-Z0-9\_\-]/', $clone)) {
-            redirect_header('clone.php', 3, sprintf(\_AM_WGGALLERY_CLONE_INVALIDNAME, $clone));
+        if (empty($clone) || \preg_match('/[^a-zA-Z0-9\_\-]/', $clone)) {
+            \redirect_header('clone.php', 3, \sprintf(\_AM_WGGALLERY_CLONE_INVALIDNAME, $clone));
         }
 
         // Check wether the cloned module exists or not
         $dirClone = $GLOBALS['xoops']->path('modules/' . $clone);
-        if ($clone && is_dir($dirClone)) {
-            redirect_header('clone.php', 3, sprintf(\_AM_WGGALLERY_CLONE_EXISTS, $clone));
+        if ($clone && \is_dir($dirClone)) {
+            \redirect_header('clone.php', 3, \sprintf(\_AM_WGGALLERY_CLONE_EXISTS, $clone));
         }
 
         $patterns = [
-            mb_strtolower(\WGGALLERY_DIRNAME)          => mb_strtolower($clone),
-            mb_strtoupper(\WGGALLERY_DIRNAME)          => mb_strtoupper($clone),
-            ucfirst(mb_strtolower(\WGGALLERY_DIRNAME)) => ucfirst(mb_strtolower($clone)),
+            \mb_strtolower(\WGGALLERY_DIRNAME)          => \mb_strtolower($clone),
+            \mb_strtoupper(\WGGALLERY_DIRNAME)          => \mb_strtoupper($clone),
+            \ucfirst(\mb_strtolower(\WGGALLERY_DIRNAME)) => \ucfirst(\mb_strtolower($clone)),
         ];
 
-        $patKeys   = array_keys($patterns);
-        $patValues = array_values($patterns);
+        $patKeys   = \array_keys($patterns);
+        $patValues = \array_values($patterns);
         cloneFileFolder(\WGGALLERY_ROOT_PATH);
-        $logocreated = createLogo(mb_strtolower($clone));
+        $logocreated = createLogo(\mb_strtolower($clone));
 
         //change module name in modinfo.php
         // file, read it
-        $content = file_get_contents($dirClone . '/language/english/modinfo.php');
-        $content = \str_replace('wgGallery', mb_strtolower($clone), $content);
-        file_put_contents($dirClone . '/language/english/modinfo.php', $content);
+        $content = \file_get_contents($dirClone . '/language/english/modinfo.php');
+        $content = \str_replace('wgGallery', \mb_strtolower($clone), $content);
+        \file_put_contents($dirClone . '/language/english/modinfo.php', $content);
 
         $msg = '';
-        if (is_dir($GLOBALS['xoops']->path('modules/' . mb_strtolower($clone)))) {
-            $msg .= sprintf(\_AM_WGGALLERY_CLONE_CONGRAT, "<a href='" . XOOPS_URL . "/modules/system/admin.php?fct=modulesadmin&op=installlist'>" . ucfirst(mb_strtolower($clone)) . '</a>') . "<br>\n";
+        if (\is_dir($GLOBALS['xoops']->path('modules/' . \mb_strtolower($clone)))) {
+            $msg .= \sprintf(\_AM_WGGALLERY_CLONE_CONGRAT, "<a href='" . \XOOPS_URL . "/modules/system/admin.php?fct=modulesadmin&op=installlist'>" . \ucfirst(\mb_strtolower($clone)) . '</a>') . "<br>\n";
             if (!$logocreated) {
                 $msg .= \_AM_WGGALLERY_CLONE_IMAGEFAIL;
             }
@@ -100,8 +100,8 @@ function cloneFileFolder($path)
     global $patKeys;
     global $patValues;
 
-    //remove XOOPS_ROOT_PATH and add after replace, otherwise there can be a bug if XOOPS_ROOT_PATH contains same pattern
-    $newPath = \XOOPS_ROOT_PATH . \str_replace($patKeys[0], $patValues[0], substr($path, strlen(\XOOPS_ROOT_PATH)));
+    //remove \XOOPS_ROOT_PATH and add after replace, otherwise there can be a bug if \XOOPS_ROOT_PATH contains same pattern
+    $newPath = \XOOPS_ROOT_PATH . \str_replace($patKeys[0], $patValues[0], \substr($path, \strlen(\XOOPS_ROOT_PATH)));
 
     if (\is_dir($path)) {
         // create new dir
@@ -126,9 +126,9 @@ function cloneFileFolder($path)
             \copy($path, $newPath);
         } else {
             // file, read it
-            $content = file_get_contents($path);
+            $content = \file_get_contents($path);
             $content = \str_replace($patKeys, $patValues, $content);
-            file_put_contents($newPath, $content);
+            \file_put_contents($newPath, $content);
         }
     }
 }
@@ -167,8 +167,8 @@ function createLogo($dirname)
 
     $imageModule = \imagecreatefrompng($imageBase);
     // save existing alpha channel
-    imagealphablending($imageModule, false);
-    imagesavealpha($imageModule, true);
+    \imagealphablending($imageModule, false);
+    \imagesavealpha($imageModule, true);
 
     //Erase old text
     $greyColor = \imagecolorallocate($imageModule, 237, 237, 237);

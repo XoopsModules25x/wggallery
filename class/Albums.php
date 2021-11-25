@@ -33,9 +33,15 @@ use XoopsModules\Wggallery;
  */
 class Albums extends \XoopsObject
 {
-    public $start;
+    /**
+     * @var int
+     */
+    public int $start;
 
-    public $limit;
+    /**
+     * @var int
+     */
+    public int $limit;
 
     /**
      * Constructor
@@ -94,7 +100,6 @@ class Albums extends \XoopsObject
      */
     public function getFormAlbums($action = false, $adminArea = false)
     {
-        /** @var \XoopsModules\Wggallery\Helper $helper */
         $helper        = \XoopsModules\Wggallery\Helper::getInstance();
         $albumsHandler = $helper->getHandler('Albums');
         $permissionsHandler = $helper->getHandler('Permissions');

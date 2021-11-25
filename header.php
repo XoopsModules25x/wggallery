@@ -28,9 +28,7 @@ include \dirname(\dirname(__DIR__)) . '/mainfile.php';
 require __DIR__ . '/include/common.php';
 $dirname = \basename(__DIR__);
 // Get instance of module
-/** @var \XoopsModules\Wggallery\Helper $helper */
 $helper = \XoopsModules\Wggallery\Helper::getInstance();
-/** @var \XoopsModules\Wggallery\Utility $utility */
 $utility = new \XoopsModules\Wggallery\Utility();
 
 $albumsHandler       = $helper->getHandler('Albums');

@@ -60,14 +60,12 @@ class ModuleFeedback extends \XoopsObject
     /**
      * @public function getFormFeedback:
      * provide form for sending a feedback to module author
-     * @param bool $action
+     * @param null
      * @return \XoopsThemeForm
      */
-    public function getFormFeedback($action = false)
+    public function getFormFeedback()
     {
-        if (!$action) {
-            $action = $_SERVER['REQUEST_URI'];
-        }
+
         // Get Theme Form
         \xoops_load('XoopsFormLoader');
         $form = new \XoopsThemeForm(_FB_FORM_TITLE, 'formfeedback', 'feedback.php', 'post', true);
@@ -87,7 +85,7 @@ class ModuleFeedback extends \XoopsObject
         $form->addElement($your_mail);
 
         $fbtypeSelect = new \XoopsFormSelect(_FB_TYPE, 'fb_type', $this->type);
-        $fbtypeSelect->addOption('', '');
+        $fbtypeSelect->addOption('');
         $fbtypeSelect->addOption(_FB_TYPE_SUGGESTION, _FB_TYPE_SUGGESTION);
         $fbtypeSelect->addOption(_FB_TYPE_BUGS, _FB_TYPE_BUGS);
         $fbtypeSelect->addOption(_FB_TYPE_TESTIMONIAL, _FB_TYPE_TESTIMONIAL);

@@ -107,11 +107,11 @@ class WatermarksHandler extends \XoopsPersistableObjectHandler
 
     /**
      * Get Criteria Watermarks
-     * @param        $crWatermarks
-     * @param int    $start
-     * @param int    $limit
-     * @param string $sort
-     * @param string $order
+     * @param  $crWatermarks
+     * @param  $start
+     * @param  $limit
+     * @param  $sort
+     * @param  $order
      * @return int
      */
     private function getWatermarksCriteria($crWatermarks, $start, $limit, $sort, $order)
@@ -219,11 +219,10 @@ class WatermarksHandler extends \XoopsPersistableObjectHandler
                     case 'else':
                     default:
                         return 'wrong wm_position';
-                        break;
                 }
 
                 // create new image
-                imagecopy($imgToBeStamped, $stamp, $posStampX, $posStampY, 0, 0, \imagesx($stamp), \imagesy($stamp));
+                \imagecopy($imgToBeStamped, $stamp, $posStampX, $posStampY, 0, 0, \imagesx($stamp), \imagesy($stamp));
                 $imgFinal = $imgToBeStamped;
                 break;
             case Constants::WATERMARK_TYPETEXT:
@@ -285,7 +284,6 @@ class WatermarksHandler extends \XoopsPersistableObjectHandler
                     case 'else':
                     default:
                         return 'wrong wm_position';
-                        break;
                 }
                 imagettftext($stamp, $fontSizePoints, 0, $posStampX, $posStampY, $fontColor, $fontFamily, $wmText);
                 $imgFinal = $stamp;
@@ -293,7 +291,6 @@ class WatermarksHandler extends \XoopsPersistableObjectHandler
             case 'default':
             default:
                 return 'wrong wm_type';
-                break;
         }
 
         // save marked image

@@ -28,10 +28,10 @@ require __DIR__ . '/header.php';
 $pr_album                                = $albumtypesHandler->getPrimaryAlbum();
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_index_' . $pr_album['template'] . '.tpl';
 require_once \XOOPS_ROOT_PATH . '/header.php';
-$start       = Request::getInt('start', 0);
+$start       = Request::getInt('start');
 $limit       = Request::getInt('limit', $helper->getConfig('userpager'));
-$albPid      = Request::getInt('alb_pid', 0);
-$submitterId = Request::getInt('subm_id', 0);
+$albPid      = Request::getInt('alb_pid');
+$submitterId = Request::getInt('subm_id');
 
 // general template assigns
 $GLOBALS['xoopsTpl']->assign('wggallery_url', \WGGALLERY_URL);
@@ -39,7 +39,6 @@ $GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', \WGGALLERY_ICONS_URL . '16
 $GLOBALS['xoopsTpl']->assign('panel_type', $helper->getConfig('panel_type'));
 $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadcrumbs'));
 $GLOBALS['xoopsTpl']->assign('displayButtonText', $helper->getConfig('displayButtonText'));
-
 
 // assign all album options
 $atoptions = unserialize($pr_album['options'], ['allowed_classes' => false]);
@@ -190,7 +189,7 @@ if ($albumsCount > 0) {
         if ($albumsCount > $limit) {
             require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
             $pagenav = new \XoopsPageNav($albumsCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit . '&amp;alb_pid=' . $albPid);
-            $GLOBALS['xoopsTpl']->assign('pagenav_albums', $pagenav->renderNav(4));
+            $GLOBALS['xoopsTpl']->assign('pagenav_albums', $pagenav->renderNav());
         }
     }
 }
@@ -273,7 +272,7 @@ if ($catsCount > 0) {
         if ($catsCount > $limit) {
             require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
             $pagenav = new \XoopsPageNav($catsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
-            $GLOBALS['xoopsTpl']->assign('pagenav_cats', $pagenav->renderNav(4));
+            $GLOBALS['xoopsTpl']->assign('pagenav_cats', $pagenav->renderNav());
         }
     }
 }

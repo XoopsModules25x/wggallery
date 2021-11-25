@@ -33,7 +33,7 @@ use XoopsModules\Wggallery;
  */
 class Images extends \XoopsObject
 {
-    public $redirOp = '';
+    public string $redirOp = '';
 
     /**
      * Constructor
@@ -100,7 +100,6 @@ class Images extends \XoopsObject
      */
     public function getFormImages($adminarea = false, $action = false)
     {
-        /** @var \XoopsModules\Wggallery\Helper $helper */
         $helper = \XoopsModules\Wggallery\Helper::getInstance();
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
@@ -202,7 +201,7 @@ class Images extends \XoopsObject
 
         foreach (\array_keys($albumsAll) as $i) {
             if ($permissionsHandler->permAlbumEdit($albumsAll[$i]->getVar('alb_id'), $albumsAll[$i]->getVar('alb_submitter'))) {
-                $albId   = $albumsAll[$i]->getVar('alb_id');
+                //$albId   = $albumsAll[$i]->getVar('alb_id');
                 $albName = $albumsAll[$i]->getVar('alb_name');
                 $albPid  = $albumsAll[$i]->getVar('alb_pid');
                 if ($albPid > 0) {
@@ -218,8 +217,6 @@ class Images extends \XoopsObject
         }
         $form->addElement($imgAlbidSelect, true);
 
-        // Images handler
-        $imagesHandler = $helper->getHandler('Images');
         // Form Select Images
         $imgStateSelect = new \XoopsFormSelect(\_CO_WGGALLERY_IMAGE_STATE, 'img_state', $this->getVar('img_state'));
         $imgStateSelect->addOption(Constants::STATE_OFFLINE_VAL, \_CO_WGGALLERY_STATE_OFFLINE);
@@ -396,7 +393,7 @@ class Images extends \XoopsObject
             } else {
                 $exif_text = 'Unexpected error json_decode:' . ($this->getVar('img_exif'));
             }
-            if (mb_strlen($exif_text) > 500) {
+            if (\mb_strlen($exif_text) > 500) {
                 $exif_short = mb_substr($exif_text, 0, 500) . '...';
             } else {
                 $exif_short = $exif_text;

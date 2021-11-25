@@ -33,7 +33,6 @@ require_once \XOOPS_ROOT_PATH . '/modules/wggallery/include/common.php';
  */
 function b_wggallery_images_show($options)
 {
-    /** @var \XoopsModules\Wggallery\Helper $helper */
     $helper = \XoopsModules\Wggallery\Helper::getInstance();
 
     //$myts = \MyTextSanitizer::getInstance();
@@ -67,7 +66,7 @@ function b_wggallery_images_show($options)
     $criteria      = new \CriteriaCompo();
     $album_ids     = \implode(',', $options);
     // echo "options;".$album_ids;
-    if (0 !== mb_strpos($album_ids, '0')) {
+    if (0 !== \mb_strpos($album_ids, '0')) {
         $criteria->add(new \Criteria('img_albid', '(' . $album_ids . ')', 'IN'));
     }
     $criteria->add(new \Criteria('img_state', Constants::STATE_ONLINE_VAL));
@@ -98,13 +97,12 @@ function b_wggallery_images_show($options)
     $criteria->setLimit($bnbImages);
     $imagesAll = $imagesHandler->getAll($criteria);
     unset($criteria);
-    $counter = 0;
     foreach (\array_keys($imagesAll) as $i) {
         $block[$i] = $imagesAll[$i]->getValuesImages();
-        if ($bshowTitle > 0 && $blenghtTitle > 0 && $blenghtTitle < mb_strlen($block[$i]['title'])) {
+        if ($bshowTitle > 0 && $blenghtTitle > 0 && $blenghtTitle < \mb_strlen($block[$i]['title'])) {
             $block[$i]['title_limited'] = mb_substr($block[$i]['title'], 0, $blenghtTitle) . '...';
         }
-        if ($bshowDesc > 0 && $blenghtDesc > 0 && $blenghtDesc < mb_strlen($block[$i]['desc'])) {
+        if ($bshowDesc > 0 && $blenghtDesc > 0 && $blenghtDesc < \mb_strlen($block[$i]['desc'])) {
             $block[$i]['desc_limited'] = mb_substr($block[$i]['desc'], 0, $blenghtDesc) . '...';
         }
         $albumsObj           = $albumsHandler->get($block[$i]['albid']);
@@ -123,7 +121,6 @@ function b_wggallery_images_show($options)
  */
 function b_wggallery_images_edit($options)
 {
-    /** @var \XoopsModules\Wggallery\Helper $helper */
     $helper        = \XoopsModules\Wggallery\Helper::getInstance();
     $albumsHandler = $helper->getHandler('Albums');
     $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', \WGGALLERY_UPLOAD_URL);

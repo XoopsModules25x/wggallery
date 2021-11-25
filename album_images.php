@@ -29,13 +29,12 @@ require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wggallery_album_images.tpl';
 require_once \XOOPS_ROOT_PATH . '/header.php';
 
-/** @var \XoopsModules\Wggallery\Utility $utility */
 $utility = new \XoopsModules\Wggallery\Utility();
 
 $op     = Request::getString('op', 'list');
-$albId  = Request::getInt('alb_id', 0);
+$albId  = Request::getInt('alb_id');
 $albPid = Request::getInt('alb_pid');
-$start  = Request::getInt('start', 0);
+$start  = Request::getInt('start');
 $limit  = Request::getInt('limit', $helper->getConfig('adminpager'));
 
 if (0 == $permissionsHandler->permGlobalSubmit()) {
@@ -85,13 +84,13 @@ if (0 === (int)$maxheight) {
 switch ($op) {
     case 'creategrid':
         $type   = Request::getInt('type', 4);
-        $src[1] = Request::getString('src1', '');
-        $src[2] = Request::getString('src2', '');
-        $src[3] = Request::getString('src3', '');
-        $src[4] = Request::getString('src4', '');
-        $src[5] = Request::getString('src5', '');
-        $src[6] = Request::getString('src6', '');
-        $target = Request::getString('target', '');
+        $src[1] = Request::getString('src1');
+        $src[2] = Request::getString('src2');
+        $src[3] = Request::getString('src3');
+        $src[4] = Request::getString('src4');
+        $src[5] = Request::getString('src5');
+        $src[6] = Request::getString('src6');
+        $target = Request::getString('target');
         // replace thumbs dir by dir for medium images
         $src[1] = \str_replace('/thumbs/', '/medium/', $src[1]);
         $src[2] = \str_replace('/thumbs/', '/medium/', $src[2]);
@@ -170,11 +169,11 @@ switch ($op) {
         $albPid   = $albumsObj->getVar('alb_pid');
 
         $imgTemp              = \WGGALLERY_UPLOAD_IMAGE_PATH . '/temp/album' . $albId . '.jpg';
-        $base64_image_content = Request::getString('croppedImage', '');
+        $base64_image_content = Request::getString('croppedImage');
         //$ret = move_uploaded_file( $_FILES['croppedImage']['tmp_name'], $imgTemp );
         if (\preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
             $type = $result[2];
-            file_put_contents($imgTemp, base64_decode(\str_replace($result[1], '', $base64_image_content), true));
+            \file_put_contents($imgTemp, base64_decode(\str_replace($result[1], '', $base64_image_content), true));
         }
 
         $imgHandler                = new Wggallery\Resizer();

@@ -79,7 +79,6 @@ class Ratings extends \XoopsObject
      */
     public function getValuesRatings($keys = null, $format = null, $maxDepth = null)
     {
-        $helper        = \XoopsModules\Wggallery\Helper::getInstance();
         $ret           = $this->getValues($keys, $format, $maxDepth);
         $ret['id']     = $this->getVar('rate_id');
         $ret['source'] = $this->getVar('rate_source');

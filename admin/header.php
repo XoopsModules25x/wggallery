@@ -27,9 +27,7 @@ include \dirname(\dirname(\dirname(__DIR__))) . '/include/cp_header.php';
 require \dirname(__DIR__) . '/include/common.php';
 
 $moduleDirName = \basename(\dirname(__DIR__));
-/** @var \XoopsModules\Wggallery\Helper $helper */
 $helper = \XoopsModules\Wggallery\Helper::getInstance();
-/** @var \XoopsModules\Wggallery\Utility $utility */
 $utility = new \XoopsModules\Wggallery\Utility();
 
 $sysPathIcon16   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons16');
