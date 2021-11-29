@@ -36,12 +36,12 @@ class Albums extends \XoopsObject
     /**
      * @var int
      */
-    public int $start;
+    public int $start = 0;
 
     /**
      * @var int
      */
-    public int $limit;
+    public int $limit = 0;
 
     /**
      * Constructor
