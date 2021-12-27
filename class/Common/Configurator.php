@@ -21,6 +21,7 @@ namespace XoopsModules\Wggallery\Common;
  * @since       1.05
  */
 
+
 /**
  * Class Configurator
  */
@@ -35,6 +36,7 @@ class Configurator
     public $oldFiles        = [];
     public $oldFolders      = [];
     public $renameTables    = [];
+    public $renameColumns   = [];
     public $moduleStats     = [];
     public $modCopyright;
 
@@ -43,7 +45,7 @@ class Configurator
      */
     public function __construct()
     {
-        $config = include \dirname(\dirname(__DIR__)) . '/config/config.php';
+        $config = require \dirname(__DIR__, 2) . '/config/config.php';
 
         $this->name            = $config->name;
         $this->paths           = $config->paths;
@@ -54,6 +56,7 @@ class Configurator
         $this->oldFiles        = $config->oldFiles;
         $this->oldFolders      = $config->oldFolders;
         $this->renameTables    = $config->renameTables;
+        $this->renameColumns   = $config->renameColumns;
         $this->moduleStats     = $config->moduleStats;
         $this->modCopyright    = $config->modCopyright;
     }

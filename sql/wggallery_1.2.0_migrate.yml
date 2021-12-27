@@ -1,0 +1,301 @@
+wggallery_albums:
+    options: 'ENGINE=InnoDB'
+    columns: 
+        -
+            name: alb_id
+            attributes: ' INT(8) UNSIGNED NOT NULL AUTO_INCREMENT '
+        -
+            name: alb_pid
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: alb_iscoll
+            attributes: ' INT(1)          NOT NULL DEFAULT ''0'' '
+        -
+            name: alb_name
+            attributes: ' VARCHAR(200)    NOT NULL DEFAULT '''''''' '
+        -
+            name: alb_desc
+            attributes: ' TEXT            NULL '
+        -
+            name: alb_weight
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: alb_imgtype
+            attributes: ' INT(1)          NOT NULL DEFAULT ''0'' '
+        -
+            name: alb_image
+            attributes: ' VARCHAR(200)    NOT NULL DEFAULT '''''''' '
+        -
+            name: alb_imgid
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: alb_state
+            attributes: ' INT(1)          NOT NULL DEFAULT ''0'' '
+        -
+            name: alb_wmid
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: alb_cats
+            attributes: ' TEXT            NULL '
+        -
+            name: alb_tags
+            attributes: ' TEXT            NULL '
+        -
+            name: alb_date
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: alb_submitter
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+    keys:
+        PRIMARY:
+            columns: alb_id
+            unique: true
+wggallery_images:
+    options: 'ENGINE=InnoDB'
+    columns: 
+        -
+            name: img_id
+            attributes: ' INT(8) UNSIGNED NOT NULL AUTO_INCREMENT '
+        -
+            name: img_title
+            attributes: ' VARCHAR(200)    NOT NULL DEFAULT '''''''' '
+        -
+            name: img_desc
+            attributes: ' TEXT            NULL '
+        -
+            name: img_name
+            attributes: ' VARCHAR(200)    NOT NULL DEFAULT '''''''' '
+        -
+            name: img_namelarge
+            attributes: ' VARCHAR(200)    NOT NULL DEFAULT '''''''' '
+        -
+            name: img_nameorig
+            attributes: ' VARCHAR(200)    NOT NULL DEFAULT '''''''' '
+        -
+            name: img_mimetype
+            attributes: ' VARCHAR(50)     NOT NULL DEFAULT '''''''' '
+        -
+            name: img_size
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: img_resx
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: img_resy
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: img_downloads
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: img_ratinglikes
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: img_votes
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: img_weight
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: img_views
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: img_albid
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: img_state
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: img_cats
+            attributes: ' TEXT            NULL '
+        -
+            name: img_tags
+            attributes: ' TEXT            NULL '
+        -
+            name: img_exif
+            attributes: ' TEXT            NULL '
+        -
+            name: img_ip
+            attributes: ' VARCHAR(50)     NOT NULL DEFAULT '''''''' '
+        -
+            name: img_date
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: img_submitter
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+    keys:
+        PRIMARY:
+            columns: img_id
+            unique: true
+wggallery_gallerytypes:
+    options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8'
+    columns: 
+        -
+            name: gt_id
+            attributes: ' int(8) UNSIGNED NOT NULL AUTO_INCREMENT '
+        -
+            name: gt_primary
+            attributes: ' int(1)          NOT NULL DEFAULT ''0'' '
+        -
+            name: gt_name
+            attributes: ' varchar(100)    NOT NULL DEFAULT '''''''' '
+        -
+            name: gt_credits
+            attributes: ' varchar(100)    NOT NULL DEFAULT '''''''' '
+        -
+            name: gt_template
+            attributes: ' varchar(100)    NOT NULL DEFAULT '''''''' '
+        -
+            name: gt_options
+            attributes: ' text            NULL '
+        -
+            name: gt_date
+            attributes: ' int(8)          NOT NULL DEFAULT ''0'' '
+    keys:
+        PRIMARY:
+            columns: gt_id
+            unique: true
+        gt_template:
+            columns: gt_template
+            unique: true
+wggallery_albumtypes:
+    options: 'ENGINE=InnoDB'
+    columns: 
+        -
+            name: at_id
+            attributes: ' INT(8) UNSIGNED NOT NULL AUTO_INCREMENT '
+        -
+            name: at_primary
+            attributes: ' INT(1)          NOT NULL DEFAULT ''0'' '
+        -
+            name: at_name
+            attributes: ' VARCHAR(100)    NOT NULL DEFAULT '''''''' '
+        -
+            name: at_credits
+            attributes: ' VARCHAR(100)    NOT NULL DEFAULT '''''''' '
+        -
+            name: at_template
+            attributes: ' VARCHAR(100)    NOT NULL DEFAULT '''''''' '
+        -
+            name: at_options
+            attributes: ' TEXT            NULL '
+        -
+            name: at_date
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+    keys:
+        PRIMARY:
+            columns: at_id
+            unique: true
+        at_template:
+            columns: at_template
+            unique: true
+wggallery_watermarks:
+    options: 'ENGINE=InnoDB'
+    columns: 
+        -
+            name: wm_id
+            attributes: ' INT(8) UNSIGNED NOT NULL AUTO_INCREMENT '
+        -
+            name: wm_name
+            attributes: ' VARCHAR(100)    NOT NULL DEFAULT '''''''' '
+        -
+            name: wm_type
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: wm_position
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: wm_marginlr
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: wm_margintb
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: wm_image
+            attributes: ' VARCHAR(255)    NOT NULL DEFAULT '''''''' '
+        -
+            name: wm_text
+            attributes: ' VARCHAR(100)    NOT NULL DEFAULT '''''''' '
+        -
+            name: wm_font
+            attributes: ' VARCHAR(255)    NOT NULL DEFAULT '''''''' '
+        -
+            name: wm_fontsize
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: wm_color
+            attributes: ' VARCHAR(100)    NOT NULL DEFAULT '''''''' '
+        -
+            name: wm_usage
+            attributes: ' INT(1)          NOT NULL DEFAULT ''0'' '
+        -
+            name: wm_target
+            attributes: ' INT(1)          NOT NULL DEFAULT ''0'' '
+        -
+            name: wm_date
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: wm_submitter
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+    keys:
+        PRIMARY:
+            columns: wm_id
+            unique: true
+wggallery_categories:
+    options: 'ENGINE=InnoDB'
+    columns: 
+        -
+            name: cat_id
+            attributes: ' INT(8) UNSIGNED NOT NULL AUTO_INCREMENT '
+        -
+            name: cat_text
+            attributes: ' VARCHAR(100)    NOT NULL DEFAULT '''''''' '
+        -
+            name: cat_album
+            attributes: ' INT(1)          NOT NULL DEFAULT ''0'' '
+        -
+            name: cat_image
+            attributes: ' INT(1)          NOT NULL DEFAULT ''0'' '
+        -
+            name: cat_search
+            attributes: ' INT(1)          NOT NULL DEFAULT ''0'' '
+        -
+            name: cat_weight
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: cat_date
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: cat_submitter
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+    keys:
+        PRIMARY:
+            columns: cat_id
+            unique: true
+wggallery_ratings:
+    options: 'ENGINE=InnoDB'
+    columns: 
+        -
+            name: rate_id
+            attributes: ' INT(8) UNSIGNED NOT NULL AUTO_INCREMENT '
+        -
+            name: rate_source
+            attributes: ' INT(8) NOT NULL DEFAULT ''0'' '
+        -
+            name: rate_itemid
+            attributes: ' INT(8) NOT NULL DEFAULT ''0'' '
+        -
+            name: rate_value
+            attributes: ' INT(1) NOT NULL DEFAULT ''0'' '
+        -
+            name: rate_uid
+            attributes: ' INT(8) NOT NULL DEFAULT ''0'' '
+        -
+            name: rate_ip
+            attributes: ' VARCHAR(60) NOT NULL DEFAULT '''''''' '
+        -
+            name: rate_date
+            attributes: ' INT(8) NOT NULL DEFAULT ''0'' '
+    keys:
+        PRIMARY:
+            columns: rate_id
+            unique: true
