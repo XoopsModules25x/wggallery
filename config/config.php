@@ -88,8 +88,14 @@ return (object)[
         '/js',
         '/tcpdf',
     ],
-
-    'renameTables' => [//         'XX_archive'     => 'ZZZZ_archive',
+    'renameTables' => [
+        'wggallery_albums_old'     => 'wggallery_albums',
+    ],
+    'renameColumns'  => [
+        'wggallery_albums' => [
+            'alb_iscat' => 'alb_iscoll',
+            'alb_imgcat' => 'alb_imgtype',
+        ],
     ],
     'moduleStats'  => [
         //            'totalcategories' => $helper->getHandler('Category')->getCategoriesCount(-1),
