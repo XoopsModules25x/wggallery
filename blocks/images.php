@@ -164,10 +164,10 @@ function b_wggallery_images_edit($options)
     $albumsAll = $albumsHandler->getAll($criteria);
     unset($criteria);
     $form .= \_MB_WGGALLERY_ALBUMS_TO_DISPLAY . "<br><select name='options[]' multiple='multiple' size='5'>";
-    $form .= "<option value='0' " . (\in_array(0, $options, false) ? "selected='selected'" : '') . '>' . \_MB_WGGALLERY_ALL_ALBUMS . '</option>';
+    $form .= "<option value='0' " . (\in_array(0, $options) ? "selected='selected'" : '') . '>' . \_MB_WGGALLERY_ALL_ALBUMS . '</option>';
     foreach (\array_keys($albumsAll) as $i) {
         $alb_id = $albumsAll[$i]->getVar('alb_id');
-        $form   .= "<option value='" . $alb_id . "' " . (\in_array($alb_id, $options, false) && !\in_array(0, $options, false) ? "selected='selected'" : '') . '>' . $albumsAll[$i]->getVar('alb_name') . '</option>';
+        $form   .= "<option value='" . $alb_id . "' " . (\in_array($alb_id, $options) && !\in_array(0, $options) ? "selected='selected'" : '') . '>' . $albumsAll[$i]->getVar('alb_name') . '</option>';
     }
     $form .= '</select>';
 

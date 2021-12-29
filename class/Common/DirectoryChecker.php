@@ -27,8 +27,8 @@ use XoopsModules\Wggallery;
 
 //\defined('\XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
 
-require_once \dirname(\dirname(\dirname(\dirname(__DIR__)))) . '/mainfile.php';
-$moduleDirName = \basename(\dirname(\dirname(__DIR__)));
+require_once \dirname(\dirname(__DIR__, 3)) . '/mainfile.php';
+$moduleDirName = \basename(\dirname(__DIR__, 2));
 \xoops_loadLanguage('directorychecker', $moduleDirName);
 
 /**

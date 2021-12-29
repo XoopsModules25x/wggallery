@@ -292,7 +292,6 @@ switch ($op) {
         if (isset($_POST['slideshow'])) {
             $options[] = ['name' => 'slideshow', 'value' => $_POST['slideshow'], 'caption' => '_AM_WGGALLERY_OPTION_GT_SLIDESHOW'];
         }
-        // if (isset($_POST['slideshow_options'])) {$options[] = array('name' => 'slideshow_options', 'value' => $_POST['slideshow_options']);}
         if (isset($_POST['colorboxstyle'])) {
             $options[] = ['name' => 'colorboxstyle', 'value' => $_POST['colorboxstyle'], 'caption' => '_AM_WGGALLERY_OPTION_GT_COLORBOXSTYLE'];
         }

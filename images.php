@@ -101,7 +101,6 @@ if ($permissionsHandler->permGlobalSubmit()) {
 }
 $GLOBALS['xoopsTpl']->assign('optUploader', $optUploader);
 
-
 $GLOBALS['xoopsTpl']->assign('random', mt_rand());
 
 if ($imgId > 0 && 0 === $albId) {
@@ -319,7 +318,6 @@ switch ($op) {
                 $GLOBALS['xoopsTpl']->assign('error', $imagesObj->getHtmlErrors());
             }
         } else {
-            // xoops_confirm(array('ok' => 1, 'img_id' => $imgId, 'op' => 'delete'), $_SERVER['REQUEST_URI'], \sprintf(\_CO_WGGALLERY_FORM_SURE_DELETE, $imagesObj->getVar('img_name')));
             $form = $helper->getFormDelete(['ok' => 1, 'img_id' => $imgId, 'op' => 'delete', 'alb_id=' . $albId, 'alb_pid=' . $albPid], \_CO_WGGALLERY_FORM_DELETE, $imagesObj->getVar('img_name'));
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
         }
@@ -376,7 +374,6 @@ switch ($op) {
             $albSubmitter = $albumsObj->getVar('alb_submitter');
         }
         $GLOBALS['xoopsTpl']->assign('alb_name', $albName);
-        // $GLOBALS['xoopsTpl']->assign('alb_allowdownload', $permissionsHandler->permAlbumDownload($albId));
         $GLOBALS['xoopsTpl']->assign(
             'img_allowdownload',
             $permissionsHandler->permImageDownloadLarge($albId)

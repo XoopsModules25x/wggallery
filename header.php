@@ -24,7 +24,7 @@
 use XoopsModules\Wggallery;
 use XoopsModules\Wggallery\Constants;
 
-include \dirname(\dirname(__DIR__)) . '/mainfile.php';
+include \dirname(__DIR__, 2) . '/mainfile.php';
 require __DIR__ . '/include/common.php';
 $dirname = \basename(__DIR__);
 // Get instance of module

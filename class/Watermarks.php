@@ -73,9 +73,7 @@ class Watermarks extends \XoopsObject
      */
     public function getNewInsertedIdWatermarks()
     {
-        $newInsertedId = $GLOBALS['xoopsDB']->getInsertId();
-
-        return $newInsertedId;
+        return $GLOBALS['xoopsDB']->getInsertId();
     }
 
     /**

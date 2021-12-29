@@ -17,7 +17,7 @@
 use XoopsModules\Wggallery;
 use XoopsModules\Wggallery\Common;
 
-require \dirname(\dirname(\dirname(__DIR__))) . '/mainfile.php';
+require \dirname(__DIR__, 3) . '/mainfile.php';
 include \dirname(__DIR__) . '/preloads/autoloader.php';
 $op = \Xmf\Request::getCmd('op');
 
