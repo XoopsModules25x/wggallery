@@ -65,9 +65,7 @@ class Ratings extends \XoopsObject
      */
     public function getNewInsertedIdRatings()
     {
-        $newInsertedId = $GLOBALS['xoopsDB']->getInsertId();
-
-        return $newInsertedId;
+        return $GLOBALS['xoopsDB']->getInsertId();
     }
 
     /**

@@ -24,7 +24,7 @@
 
 use Xmf\Request;
 
-require \dirname(\dirname(__DIR__)) . '/mainfile.php';
+require \dirname(__DIR__, 2) . '/mainfile.php';
 $com_itemid = Request::getInt('com_itemid');
 if ($com_itemid > 0) {
     $helper = \XoopsModules\Wggallery\Helper::getInstance();

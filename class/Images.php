@@ -87,9 +87,7 @@ class Images extends \XoopsObject
      */
     public function getNewInsertedIdImages()
     {
-        $newInsertedId = $GLOBALS['xoopsDB']->getInsertId();
-
-        return $newInsertedId;
+        return $GLOBALS['xoopsDB']->getInsertId();
     }
 
     /**

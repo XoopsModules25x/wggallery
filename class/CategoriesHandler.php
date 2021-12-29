@@ -36,7 +36,7 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param null|\XoopsDatabase $db
+     * @param \XoopsDatabase $db
      */
     public function __construct(\XoopsDatabase $db)
     {
@@ -111,7 +111,6 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
     /**
      * Get Criteria Categories
      * @param $crCategories
-     * @param $catId
      * @param $start
      * @param $limit
      * @param $sort

@@ -23,7 +23,7 @@
 
 use XoopsModules\Wggallery;
 
-include \dirname(\dirname(\dirname(__DIR__))) . '/include/cp_header.php';
+include \dirname(__DIR__, 3) . '/include/cp_header.php';
 require \dirname(__DIR__) . '/include/common.php';
 
 $moduleDirName = \basename(\dirname(__DIR__));

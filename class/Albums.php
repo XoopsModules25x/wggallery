@@ -87,9 +87,7 @@ class Albums extends \XoopsObject
      */
     public function getNewInsertedIdAlbums()
     {
-        $newInsertedId = $GLOBALS['xoopsDB']->getInsertId();
-
-        return $newInsertedId;
+        return $GLOBALS['xoopsDB']->getInsertId();
     }
 
     /**

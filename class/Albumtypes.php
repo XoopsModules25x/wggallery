@@ -66,9 +66,7 @@ class Albumtypes extends \XoopsObject
      */
     public function getNewInsertedIdAlbumtypes()
     {
-        $newInsertedId = $GLOBALS['xoopsDB']->getInsertId();
-
-        return $newInsertedId;
+        return $GLOBALS['xoopsDB']->getInsertId();
     }
 
     /**

@@ -12,10 +12,13 @@
 /**
  * wgGallery module for xoops
  *
- * @copyright      module for xoops
- * @license        GPL 2.0 or later
- * @package        wggallery
- * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
+ * @copyright module for xoops
+ * @license   GPL 2.0 or later
+ * @package   wggallery
+ * @since     1.0
+ * @min_xoops 2.5.7
+ * @author    Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
+ * @version   $Id: 1.0 main.php 1 Mon 2018-03-19 10:04:56Z XOOPS Project (www.xoops.org) $
  */
 
 // defines for state
@@ -225,11 +228,11 @@
 \define('_CO_WGGALLERY_PERMS_GLOBAL_USECOLL', 'Globale Berechtigung zum Erstellen von Albensammlungen');
 \define('_CO_WGGALLERY_PERMS_GLOBAL_USECOLL_DESC', '<ul><li>Benutzer dürfen Alben in einer Albensammlung zusammenfassen</li></ul>');
 \define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL', 'Globale Berechtigung zum Bearbeiten aller Alben');
-\define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC', 'Gruppen mit der Berechtigung für <ul><li>Erstellen von Alben</li><li>Bearbeiten aller Alben</li><li>Freigabe aller Alben</li><li>Hochladen von Bildern in alle Alben</li><li>Freigabe aller Bilder</li></ul>');
+\define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC', '<ul><li>Erstellen von Alben</li><li>Bearbeiten aller Alben</li><li>Freigabe aller Alben</li><li>Hochladen von Bildern in alle Alben</li><li>Freigabe aller Bilder</li></ul>');
 \define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN', 'Globale Berechtigung zum Bearbeiten eigener Alben ohne Freigabe');
-\define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN_DESC', 'Gruppen mit der Berechtigung für <ul><li>Erstellen von Alben</li><li>Bearbeiten der eigenen Alben</li><li>Hochladen von Bildern in eigene Alben</li></ul>');
+\define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITOWN_DESC', '<ul><li>Erstellen von Alben</li><li>Bearbeiten der eigenen Alben</li><li>Hochladen von Bildern in eigene Alben</li></ul>');
 \define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR', 'Globale Berechtigung zum Bearbeiten eigener Alben, jedoch ist eine Freigabe erforderlich');
-\define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR_DESC', 'Gruppen mit der Berechtigung für <ul><li>Erstellen von Alben (Freigabe erforderlich)</li><li>Bearbeiten der eigenen Alben (Freigabe erforderlich)</li><li>Hochladen von Bildern in eigene Alben (Freigabe erforderlich)</li></ul>');
+\define('_CO_WGGALLERY_PERMS_GLOBAL_SUBMITAPPR_DESC', '<ul><li>Erstellen von Alben (Freigabe erforderlich)</li><li>Bearbeiten der eigenen Alben (Freigabe erforderlich)</li><li>Hochladen von Bildern in eigene Alben (Freigabe erforderlich)</li></ul>');
 \define('_CO_WGGALLERY_PERMS_GLOBAL_DESC', '<ul>
                                                 <li>' . \_CO_WGGALLERY_PERMS_GLOBAL_USECOLL . ': ' . \_CO_WGGALLERY_PERMS_GLOBAL_USECOLL_DESC . '<br></li>
                                                 <li>' . \_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL . ': ' . \_CO_WGGALLERY_PERMS_GLOBAL_SUBMITALL_DESC . '<br></li>
@@ -265,7 +268,7 @@
 \define('_CO_WGGALLERY_MAINTAINEDBY', 'Unterstützt von');
 \define('_CO_WGGALLERY_MAINTAINEDBY_DESC', 'Erlaubt den Url zur Supportseite oder Community');
 
-$moduleDirName      = \basename(\dirname(\dirname(__DIR__)));
+$moduleDirName      = \basename(\dirname(__DIR__, 2));
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
 //Sample Data
@@ -289,4 +292,4 @@ $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 //Latest Version Check
 \define('CO_' . $moduleDirNameUpper . '_' . 'NEW_VERSION', 'Neue Version: ');
 \define('CO_' . $moduleDirNameUpper . '_' . 'ERROR_BAD_XOOPS', 'Sie benötigen mindestens Version %s (Ihre derzeitige Version ist %s)');
-\define('CO_' . $moduleDirNameUpper . '_' . 'ERROR_BAD_PHP', 'Dieses Modul benötigt mindestens PHP Version %s (Ihre aktuelle Version ist %s)');
+\define('CO_' . $moduleDirNameUpper . '_ERROR_BAD_PHP', 'Dieses Modul benötigt mindestens PHP Version %s (Ihre aktuelle Version ist %s)');

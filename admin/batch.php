@@ -29,7 +29,7 @@ require __DIR__ . '/header.php';
 $op = Request::getString('op', 'list');
 // Request img_id
 $albId = Request::getInt('alb_id');
-$start = Request::getInt('start', 0);
+$start = Request::getInt('start');
 $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
 
 $templateMain = 'wggallery_admin_batch.tpl';
@@ -60,14 +60,14 @@ switch ($op) {
         }
 
         if ($filesCount > 0) {
-            $adminObject->addItemButton(\_AM_WGGALLERY_BATCH_FORM, 'batch.php?op=new', 'add');
+            $adminObject->addItemButton(\_AM_WGGALLERY_BATCH_FORM, 'batch.php?op=new');
             $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
             $GLOBALS['xoopsTpl']->assign('filesCount', $filesCount);
             $GLOBALS['xoopsTpl']->assign('wggallery_upload_batch_url', \WGGALLERY_UPLOAD_BATCH_URL . '/');
             if ($filesCount > $limit) {
                 require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($filesCount, $limit, $start, 'start', 'op=list&amp;limit=' . $limit);
-                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
             }
             $GLOBALS['xoopsTpl']->assign('start', $start);
             $GLOBALS['xoopsTpl']->assign('limit', $limit);

@@ -33,7 +33,7 @@ class GallerytypesHandler extends \XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param null|\XoopsDatabase $db
+     * @param \XoopsDatabase $db
      */
     public function __construct(\XoopsDatabase $db)
     {
