@@ -15,11 +15,9 @@
  * @copyright      module for xoops
  * @license        GPL 2.0 or later
  * @package        wggallery
- * @since          1.0
- * @min_xoops      2.5.11
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
- * @version        $Id: 1.0 blocks.php 1 Mon 2018-03-19 10:04:53Z XOOPS Project (www.xoops.org) $
  */
+ 
 // Admin Edit
 \define('_MB_WGGALLERY_BLOCKTYPE', 'Block type');
 \define('_MB_WGGALLERY_BLOCKTYPE_DEFAULT', 'Default (sorted by date descending)');

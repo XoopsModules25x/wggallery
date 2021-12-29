@@ -15,11 +15,9 @@
  * @copyright      module for xoops
  * @license        GPL 2.0 or later
  * @package        wggallery
- * @since          1.0
- * @min_xoops      2.5.11
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
- * @version        $Id: 1.0 modinfo.php 1 Mon 2018-03-19 10:04:52Z XOOPS Project (www.xoops.org) $
  */
+ 
 require_once __DIR__ . '/common.php';
 
 // ---------------- Admin Main ----------------
@@ -135,6 +133,10 @@ require_once __DIR__ . '/common.php';
 \define('_MI_WGGALLERY_UPLOADER_SINGLE', 'Nur Einzelupload verwenden');
 \define('_MI_WGGALLERY_UPLOADER_BOTHMULTI', 'Beides verwenden (Multiupload primär)');
 \define('_MI_WGGALLERY_UPLOADER_BOTHSINGLE', 'Beides verwenden (Singleupload primär)');
+\define('_MI_WGGALLERY_STORE_ORIGINAL', 'Originalbild speichern');
+\define('_MI_WGGALLERY_STORE_ORIGINAL_DESC', 'Definieren Sie, ob sie das Originalbild zusätzlich speichern wollen.
+                <br>Vorteil: alle Bilder sind später in neuen Größen und mit neuen Wasserzeichen reproduzierbar
+                <br>Nachteil: der Speicherbedarf wird entsprechend der zulässigen Größe für Uploads ansteigen');
 // Notifications
 \define('_MI_WGGALLERY_GLOBAL_NOTIFY', 'Globale Benachrichtigungen');
 \define('_MI_WGGALLERY_GLOBAL_ALB_NEW_ALL_NOTIFY', 'Sende Benachrichtigung wenn ein neues Album erstellt wird');
@@ -171,7 +173,6 @@ require_once __DIR__ . '/common.php';
 \define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY', 'Sende Benachrichtigung wenn ein Bild dieses Albums gelöscht wurde');
 \define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_CAPTION', 'Benachrichtige mich über Bilderlöschungen dieses Albums');
 \define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_SUBJECT', 'Benachrichtigung über Bilderlöschung');
-
 \define('_MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY', 'Sende Benachrichtigung wenn ein Bild kommentiert wurde');
 \define('_MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY_CAPTION', 'Benachrichtige mich über Kommentare zu Bildern');
 \define('_MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY_SUBJECT', 'Benachrichtigung über Bilderkommentare');
@@ -182,7 +183,7 @@ require_once __DIR__ . '/common.php';
 \define('_MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY', 'Sende Benachrichtigung wenn dieses Bild kommentiert wurde');
 \define('_MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY_CAPTION', 'Benachrichtige mich über Kommentare dieses Bildes');
 \define('_MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY_SUBJECT', 'Benachrichtigung über Bilderkommentare');
-
+//ratings
 \define('_MI_WGGALLERY_RATINGBARS', 'Bewertung zulassen');
 \define('_MI_WGGALLERY_RATINGBARS_DESC', 'Definieren Sie, ob eine Bewertung zulässig sein soll, und falls ja, welche');
 \define('_MI_WGGALLERY_RATINGBAR_GROUPS', 'Gruppen mit Bewertungsrecht');
@@ -192,8 +193,3 @@ require_once __DIR__ . '/common.php';
 \define('_MI_WGGALLERY_RATING_10STARS', 'Bewertung mit 10 Sternen');
 \define('_MI_WGGALLERY_RATING_LIKES', 'Bewertung mit Likes');
 \define('_MI_WGGALLERY_RATING_10NUM', 'Bewertung mit 10 Punkten');
-
-\define('_MI_WGGALLERY_STORE_ORIGINAL', 'Originalbild speichern');
-\define('_MI_WGGALLERY_STORE_ORIGINAL_DESC', 'Definieren Sie, ob sie das Originalbild zusätzlich speichern wollen.
-                <br>Vorteil: alle Bilder sind später in neuen Größen und mit neuen Wasserzeichen reproduzierbar
-                <br>Nachteil: der Speicherbedarf wird entsprechend der zulässigen Größe für Uploads ansteigen');

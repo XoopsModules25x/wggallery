@@ -15,11 +15,9 @@
  * @copyright      module for xoops
  * @license        GPL 2.0 or later
  * @package        wggallery
- * @since          1.0
- * @min_xoops      2.5.11
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
- * @version        $Id: 1.0 admin.php 1 Mon 2018-03-19 10:04:52Z XOOPS Project (www.xoops.org) $
  */
+ 
 require_once __DIR__ . '/common.php';
 
 // ---------------- Admin Index ----------------
@@ -363,12 +361,12 @@ require_once __DIR__ . '/common.php';
 \define('_AM_WGGALLERY_PERMS_ALBDEFAULT', 'Standardberechtigungen neues Album');
 \define('_AM_WGGALLERY_PERMS_ALBDEFAULT_DESC', 'Definieren Sie die Standardberechtigungen für die Erstellung eines neuen Albums');
 //batch upload
-\define('_AM_WGGALLERY_BATCH_CHECKSIZE', 'Die Dateigröße überschreitet das die Maximalgröße von %s');
+\define('_AM_WGGALLERY_BATCH_CHECKSIZE', 'Die Dateigröße überschreitet die Maximalgröße von %s');
 \define('_AM_WGGALLERY_BATCH_CHECKFILEEXT', 'Die Dateierweiterung %s ist nicht zulässig');
-\define('_AM_WGGALLERY_BATCH_CHECKWIDTH', 'Die Bildbreite überschreitet das die Maximalbreite von %s');
-\define('_AM_WGGALLERY_BATCH_CHECKHEIGHT', 'Die Bildhöhe überschreitet das die Maximalhöhe von %s');
+\define('_AM_WGGALLERY_BATCH_CHECKWIDTH', 'Die Bildbreite überschreitet die Maximalbreite von %s');
+\define('_AM_WGGALLERY_BATCH_CHECKHEIGHT', 'Die Bildhöhe überschreitet die Maximalhöhe von %s');
 \define('_AM_WGGALLERY_BATCH_FORM', 'Batchupload starten');
-\define('_AM_WGGALLERY_BATCH_LIST', 'Inhalt Batchverzeichnis');
+\define('_AM_WGGALLERY_BATCH_LIST', 'Inhalt im Batchverzeichnis');
 \define('_AM_WGGALLERY_BATCH_ERROR', 'Fehler bei Batchverarbeitung der Datei %s aufgetreten');
 \define('_AM_WGGALLERY_BATCH_SUCCESS', ' %s Dateien erfolgreich verarbeitet');
 \define('_AM_WGGALLERY_BATCH_NODATA', 'Im Batchverzeichnis %s befinden sich derzeit keine Dateien');
@@ -382,4 +380,4 @@ require_once __DIR__ . '/common.php';
 \define('_AM_WGGALLERY_CLONE_EXISTS', 'FEHLER: Modulnamen bereits benutzt, bitte versuchen Sie einen anderen!');
 \define('_AM_WGGALLERY_CLONE_CONGRAT', 'Herzliche Glückwünsche! %s wurde erfolgreich erstellt! <br /> Sie können Änderungen in Sprachdateien machen.');
 \define('_AM_WGGALLERY_CLONE_IMAGEFAIL', 'Achtung, wir haben es nicht geschafft, das neue Modul-Logo zu erstellen. Bitte beachten Sie assets / images / logo_module.png manuell zu modifizieren!');
-\define('_AM_WGGALLERY_CLONE_FAIL', 'Leider konnten wir den neuen Klon nicht erstellen . Vielleicht müssen Sie die Schreibrechte von \'modules\' Verzeichnis auf  (CHMOD 777) festlegen und neu versuchen.');
+\define('_AM_WGGALLERY_CLONE_FAIL', "Leider konnten wir den neuen Klon nicht erstellen . Vielleicht müssen Sie die Schreibrechte von 'modules' Verzeichnis auf  (CHMOD 777) festlegen und neu versuchen.");
