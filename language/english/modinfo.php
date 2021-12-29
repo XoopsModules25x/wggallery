@@ -15,11 +15,9 @@
  * @copyright      module for xoops
  * @license        GPL 2.0 or later
  * @package        wggallery
- * @since          1.0
- * @min_xoops      2.5.11
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
- * @version        $Id: 1.0 modinfo.php 1 Mon 2018-03-19 10:04:52Z XOOPS Project (www.xoops.org) $
  */
+ 
 require_once __DIR__ . '/common.php';
 
 // ---------------- Admin Main ----------------
@@ -135,6 +133,10 @@ require_once __DIR__ . '/common.php';
 \define('_MI_WGGALLERY_UPLOADER_SINGLE', 'Use single upload only');
 \define('_MI_WGGALLERY_UPLOADER_BOTHMULTI', 'Use both (multi upload primary)');
 \define('_MI_WGGALLERY_UPLOADER_BOTHSINGLE', 'Use both (single upload primary)');
+\define('_MI_WGGALLERY_STORE_ORIGINAL', 'Store original image');
+\define('_MI_WGGALLERY_STORE_ORIGINAL_DESC', 'Define, whether you want to store the original image.
+                <br>Advantage: all images can be reproduced later including new water marks
+                <br>Disadvantage: the used server space will increase corresponding the allowed upload file size');
 // Notifications
 \define('_MI_WGGALLERY_GLOBAL_NOTIFY', 'Global notification');
 \define('_MI_WGGALLERY_GLOBAL_ALB_NEW_ALL_NOTIFY', 'Send notification when a new album was created');
@@ -171,7 +173,6 @@ require_once __DIR__ . '/common.php';
 \define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY', 'Send notification when a new image was deleted from this album');
 \define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_CAPTION', 'Notify me about deleting image from this album');
 \define('_MI_WGGALLERY_ALBUMS_IMG_DELETE_NOTIFY_SUBJECT', 'Notification about deleted image');
-
 \define('_MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY', 'Notify me about new comments for images');
 \define('_MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY_CAPTION', 'Notify me about comments for images');
 \define('_MI_WGGALLERY_GLOBAL_IMG_COMMENT_NOTIFY_SUBJECT', 'Notification about comments for an image');
@@ -182,7 +183,7 @@ require_once __DIR__ . '/common.php';
 \define('_MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY', 'Notify me about new comments for this image');
 \define('_MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY_CAPTION', 'Notify me about comments for this image');
 \define('_MI_WGGALLERY_IMAGES_IMG_COMMENT_NOTIFY_SUBJECT', 'Notification about new comment for an image');
-
+//ratings
 \define('_MI_WGGALLERY_RATINGBARS', 'Allow rating');
 \define('_MI_WGGALLERY_RATINGBARS_DESC', 'Define whether rating should be possible and which kind of rating should be used');
 \define('_MI_WGGALLERY_RATINGBAR_GROUPS', 'Groups with rating rights');
@@ -192,8 +193,3 @@ require_once __DIR__ . '/common.php';
 \define('_MI_WGGALLERY_RATING_10STARS', 'Rating with 10 stars');
 \define('_MI_WGGALLERY_RATING_LIKES', 'Rating with likes');
 \define('_MI_WGGALLERY_RATING_10NUM', 'Rating with 10 points');
-
-\define('_MI_WGGALLERY_STORE_ORIGINAL', 'Store original image');
-\define('_MI_WGGALLERY_STORE_ORIGINAL_DESC', 'Define, whether you want to store the original image.
-                <br>Advantage: all images can be reproduced later including new water marks
-                <br>Disadvantage: the used server space will increase corresponding the allowed upload file size');

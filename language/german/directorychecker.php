@@ -10,16 +10,16 @@
  */
 
 /**
- * wgGallery module
+ * wgGallery module for xoops
  *
- * @copyright       XOOPS Project (https://xoops.org)
- * @license         GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
- * @package         wgGallery
- * @since           3.23
- * @author          Xoops Development Team
+ * @copyright      module for xoops
+ * @license        GPL 2.0 or later
+ * @package        wggallery
+ * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  */
+ 
 \define('_DC_WGGALLERY_AVAILABLE', "<span style='color: green;'>Der Ordner ist verfügbar</span>");
-\define('_DC_WGGALLERY_NOTAVAILABLE', "<span style='color: red;'> Der Ordner ist nicht verfügbar</span>");
+\define('_DC_WGGALLERY_NOTAVAILABLE', "<span style='color: red;'>Der Ordner ist nicht verfügbar</span>");
 \define('_DC_WGGALLERY_NOTWRITABLE', "<span style='color: red;'>Sollte die Berechtigung haben ( %d ), aber es hat ( %d )</span>");
 \define('_DC_WGGALLERY_CREATETHEDIR', 'Erstellen');
 \define('_DC_WGGALLERY_SETMPERM', 'Berechtigung setzen');
