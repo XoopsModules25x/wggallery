@@ -34,7 +34,7 @@ require_once __DIR__ . '/common.php';
 \define('_MI_WGGALLERY_ADMENU9', 'Watermarks');
 \define('_MI_WGGALLERY_ADMENU10', 'Import');
 \define('_MI_WGGALLERY_ADMENU11', 'Categories');
-\define('_MI_WGGALLERY_ADMENU12', 'Batchupload');
+\define('_MI_WGGALLERY_ADMENU12', 'Batch upload');
 \define('_MI_WGGALLERY_ADMENU13', 'Clone Module');
 \define('_MI_WGGALLERY_FEEDBACK', 'Feedback');
 \define('_MI_WGGALLERY_ABOUT', 'About');

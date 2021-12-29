@@ -361,11 +361,11 @@ require_once __DIR__ . '/common.php';
 \define('_AM_WGGALLERY_PERMS_ALBDEFAULT', 'Default permissions new album');
 \define('_AM_WGGALLERY_PERMS_ALBDEFAULT_DESC', 'Define the default permissions for creation of a new album');
 //batch upload
-\define('_AM_WGGALLERY_BATCH_CHECKSIZE', 'File size excced max allowed size of %s');
+\define('_AM_WGGALLERY_BATCH_CHECKSIZE', 'File size exceed max allowed size of %s');
 \define('_AM_WGGALLERY_BATCH_CHECKFILEEXT', 'File extension %s is not allowed');
-\define('_AM_WGGALLERY_BATCH_CHECKWIDTH', 'Image width excced max allowed width of %s');
-\define('_AM_WGGALLERY_BATCH_CHECKHEIGHT', 'Image height excced max allowed height of %s');
-\define('_AM_WGGALLERY_BATCH_FORM', 'Start batchupload');
+\define('_AM_WGGALLERY_BATCH_CHECKWIDTH', 'Image width exceed max allowed width of %s');
+\define('_AM_WGGALLERY_BATCH_CHECKHEIGHT', 'Image height exceed max allowed height of %s');
+\define('_AM_WGGALLERY_BATCH_FORM', 'Start batch upload');
 \define('_AM_WGGALLERY_BATCH_LIST', 'Content of batch directory');
 \define('_AM_WGGALLERY_BATCH_ERROR', 'Error when batch processing of %s occured');
 \define('_AM_WGGALLERY_BATCH_SUCCESS', ' %s files successfully processed');

@@ -361,10 +361,10 @@ require_once __DIR__ . '/common.php';
 \define('_AM_WGGALLERY_PERMS_ALBDEFAULT', 'Standardberechtigungen neues Album');
 \define('_AM_WGGALLERY_PERMS_ALBDEFAULT_DESC', 'Definieren Sie die Standardberechtigungen für die Erstellung eines neuen Albums');
 //batch upload
-\define('_AM_WGGALLERY_BATCH_CHECKSIZE', 'Die Dateigröße überschreitet das die Maximalgröße von %s');
+\define('_AM_WGGALLERY_BATCH_CHECKSIZE', 'Die Dateigröße überschreitet die Maximalgröße von %s');
 \define('_AM_WGGALLERY_BATCH_CHECKFILEEXT', 'Die Dateierweiterung %s ist nicht zulässig');
-\define('_AM_WGGALLERY_BATCH_CHECKWIDTH', 'Die Bildbreite überschreitet das die Maximalbreite von %s');
-\define('_AM_WGGALLERY_BATCH_CHECKHEIGHT', 'Die Bildhöhe überschreitet das die Maximalhöhe von %s');
+\define('_AM_WGGALLERY_BATCH_CHECKWIDTH', 'Die Bildbreite überschreitet die Maximalbreite von %s');
+\define('_AM_WGGALLERY_BATCH_CHECKHEIGHT', 'Die Bildhöhe überschreitet die Maximalhöhe von %s');
 \define('_AM_WGGALLERY_BATCH_FORM', 'Batchupload starten');
 \define('_AM_WGGALLERY_BATCH_LIST', 'Inhalt im Batchverzeichnis');
 \define('_AM_WGGALLERY_BATCH_ERROR', 'Fehler bei Batchverarbeitung der Datei %s aufgetreten');
