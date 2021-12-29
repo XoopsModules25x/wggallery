@@ -31,6 +31,22 @@ use XoopsModules\Wggallery\Common\ {
 };
 
 /**
+ * Prepares system prior to attempting to install module
+ * @param \XoopsModule $module {@link XoopsModule}
+ *
+ * @return bool true if ready to install, false if not
+ */
+function xoops_module_pre_update_wggallery(\XoopsModule $module)
+{
+    $utility = new Wggallery\Utility();
+
+    $xoopsSuccess = $utility::checkVerXoops($module);
+    $phpSuccess   = $utility::checkVerPhp($module);
+
+    return $xoopsSuccess && $phpSuccess;
+}
+
+/**
  * @param      $module
  * @param null $prev_version
  *

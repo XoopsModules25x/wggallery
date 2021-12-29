@@ -315,35 +315,23 @@ class GallerytypesHandler extends \XoopsPersistableObjectHandler
                 $options[]  = ['name' => 'colorboxstyle', 'value' => 'style1', 'caption' => '_AM_WGGALLERY_OPTION_GT_COLORBOXSTYLE'];
                 $options[]  = ['name' => 'opacity', 'value' => '0.8', 'caption' => '_AM_WGGALLERY_OPTION_OPACITIY'];
                 break;
-            /*             case 'blueimpgallery':
-                            $gt_name = 'Blueimp Gallery';
-                            $gt_credits = 'Sebastian Tschan, https://blueimp.net';
-                            $gt_primary = $primary;
-                            $options[] = array('name' => 'source', 'value' => 'large', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE');
-                            $options[] = array('name' => 'source_preview', 'value' => 'thumb', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW');
-                            $options[] = array('name' => 'slideshowtype', 'value' => 'lightbox', 'caption' => '_AM_WGGALLERY_OPTION_GT_SLIDESHOWTYPE');
-                            $options[] = array('name' => 'slideshowSpeed', 'value'=> '3000', 'caption' => '_AM_WGGALLERY_OPTION_GT_SLIDESHOWSPEED');
-                            $options[] = array('name' => 'transitionDuration', 'value' => '500', 'caption' => '_AM_WGGALLERY_OPTION_GT_TRANSDURATION');
-                            $options[] = array('name' => 'slideshowAuto', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_AUTOPLAY');
-                            $options[] = array('name' => 'showThumbnails', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_SHOWTHUMBS');
-                            $options[] = array('name' => 'showTitle', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE');
-                        break; */ case 'viewerjs':
-            $gt_name    = 'ViewerJs';
-            $gt_credits = 'http://chenfengyuan.com';
-            $options[]  = ['name' => 'source', 'value' => 'large', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE'];
-            $options[]  = ['name' => 'source_preview', 'value' => 'thumb', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW'];
-            $options[]  = ['name' => 'button_close', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_BUTTTONCLOSE'];
-            $options[]  = ['name' => 'navbar', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_GT_NAVBAR'];
-            $options[]  = ['name' => 'viewerjs_title', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE'];
-            $options[]  = ['name' => 'toolbar', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_GT_TOOLBAR'];
-            $options[]  = ['name' => 'zoomable', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_TOOLBARZOOM'];
-            $options[]  = ['name' => 'download', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_TOOLBARDOWNLOAD'];
-            $options[]  = ['name' => 'fullscreen', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_FULLSCREEN'];
-            $options[]  = ['name' => 'loop', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_GT_PLAYOPTIONS'];
-            $options[]  = ['name' => 'slideshowSpeed', 'value' => '3000', 'caption' => '_AM_WGGALLERY_OPTION_GT_SLIDESHOWSPEED'];
-            $options[]  = ['name' => 'open', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_AUTOOPEN'];
-            $options[]  = ['name' => 'slideshowAuto', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_AUTOPLAY'];
-            break;
+            case 'viewerjs':
+                $gt_name    = 'ViewerJs';
+                $gt_credits = 'http://chenfengyuan.com';
+                $options[]  = ['name' => 'source', 'value' => 'large', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE'];
+                $options[]  = ['name' => 'source_preview', 'value' => 'thumb', 'caption' => '_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW'];
+                $options[]  = ['name' => 'button_close', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_BUTTTONCLOSE'];
+                $options[]  = ['name' => 'navbar', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_GT_NAVBAR'];
+                $options[]  = ['name' => 'viewerjs_title', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_SHOWTITLE'];
+                $options[]  = ['name' => 'toolbar', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_GT_TOOLBAR'];
+                $options[]  = ['name' => 'zoomable', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_TOOLBARZOOM'];
+                $options[]  = ['name' => 'download', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_TOOLBARDOWNLOAD'];
+                $options[]  = ['name' => 'fullscreen', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_FULLSCREEN'];
+                $options[]  = ['name' => 'loop', 'value' => '1', 'caption' => '_AM_WGGALLERY_OPTION_GT_PLAYOPTIONS'];
+                $options[]  = ['name' => 'slideshowSpeed', 'value' => '3000', 'caption' => '_AM_WGGALLERY_OPTION_GT_SLIDESHOWSPEED'];
+                $options[]  = ['name' => 'open', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_AUTOOPEN'];
+                $options[]  = ['name' => 'slideshowAuto', 'value' => 'true', 'caption' => '_AM_WGGALLERY_OPTION_GT_AUTOPLAY'];
+                break;
             case 'default':
             default:
                 \redirect_header('gallerytypes.php?op=list', 3, 'Invalid template name:' . $template);
