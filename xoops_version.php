@@ -721,7 +721,7 @@ $modversion['notification']['category'][] = [
     'name'           => 'global',
     'title'          => \_MI_WGGALLERY_GLOBAL_NOTIFY,
     'description'    => '',
-	'subscribe_from' => ['index.php'],   //'subscribe_from' => ['index.php', 'albums.php', 'images.php'],
+    'subscribe_from' => ['index.php'],   //'subscribe_from' => ['index.php', 'albums.php', 'images.php'],
 ];
 $modversion['notification']['category'][] = [
     'name'           => 'albums',
