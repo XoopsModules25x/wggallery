@@ -52,7 +52,7 @@ function wggallery_search($queryarray, $andor, $limit, $offset, $userid)
     if (\is_array($queryarray)) {
         $count = \count($queryarray);
     }
-	
+
     if (\is_array($queryarray) && $count > 0) {
         $criteriaKeywords = new CriteriaCompo();
         $elementCount     = \count($queryarray);
