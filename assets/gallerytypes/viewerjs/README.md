@@ -1,6 +1,6 @@
 # Viewer.js
 
-[![Build Status](https://travis-ci.org/fengyuanchen/viewerjs.svg)](https://travis-ci.org/fengyuanchen/viewerjs) [![Downloads](https://img.shields.io/npm/dm/viewerjs.svg)](https://www.npmjs.com/package/viewerjs) [![Version](https://img.shields.io/npm/v/viewerjs.svg)](https://www.npmjs.com/package/viewerjs)
+[![Downloads](https://img.shields.io/npm/dm/viewerjs.svg)](https://www.npmjs.com/package/viewerjs) [![Version](https://img.shields.io/npm/v/viewerjs.svg)](https://www.npmjs.com/package/viewerjs) [![Gzip Size](https://img.shields.io/bundlephobia/minzip/viewerjs.svg)](https://unpkg.com/viewerjs/dist/viewer.common.js)
 
 > JavaScript image viewer.
 
@@ -24,9 +24,9 @@
 
 ## Features
 
-- Supports 34 [options](#options)
+- Supports 52 [options](#options)
 - Supports 23 [methods](#methods)
-- Supports 7 [events](#events)
+- Supports 17 [events](#events)
 - Supports modal and inline modes
 - Supports touch
 - Supports move
@@ -36,7 +36,7 @@
 - Supports keyboard
 - Cross-browser support
 
-## Main
+## Main files
 
 ```text
 dist/
@@ -56,12 +56,14 @@ dist/
 npm install viewerjs
 ```
 
-Include files:
+In browser:
 
 ```html
 <link  href="/path/to/viewer.css" rel="stylesheet">
 <script src="/path/to/viewer.js"></script>
 ```
+
+The [cdnjs](https://github.com/cdnjs/cdnjs) provides CDN support for Viewer.js's CSS and JavaScript. You can find the links [here](https://cdnjs.com/libraries/viewerjs).
 
 ### Usage
 
@@ -97,15 +99,23 @@ new Viewer(element[, options])
 ```
 
 ```js
-var viewer = new Viewer(document.getElementById('image'), {
-  inline: true,
-  viewed: function() {
-    viewer.zoomTo(1);
-  }
-});
+// You should import the CSS file.
+// import 'viewerjs/dist/viewer.css';
+import Viewer from 'viewerjs';
 
-// View a list of images
-var viewer = new Viewer(document.getElementById('images'));
+// View an image.
+const viewer = new Viewer(document.getElementById('image'), {
+  inline: true,
+  viewed() {
+    viewer.zoomTo(1);
+  },
+});
+// Then, show the image by clicking it, or call `viewer.show()`.
+
+// View a list of images.
+// Note: All images within the container will be found by calling `element.querySelectorAll('img')`.
+const gallery = new Viewer(document.getElementById('images'));
+// Then, show one image by click it, or call `gallery.show()`.
 ```
 
 ## Keyboard support
@@ -114,6 +124,8 @@ var viewer = new Viewer(document.getElementById('images'));
 
 - `Esc`: Exit full screen or close the viewer or exit modal mode or stop play.
 - `Space`: Stop play.
+- `Tab`: Switch the focus state on the buttons in the viewer.
+- `Enter`: Trigger the click event handler on the button.
 - `←`: View the previous image.
 - `→`: View the next image.
 - `↑`: Zoom in the image.
@@ -128,12 +140,12 @@ var viewer = new Viewer(document.getElementById('images'));
 You may set viewer options with `new Viewer(image, options)`.
 If you want to change the global default options, You may use `Viewer.setDefaults(options)`.
 
-### inline
+### backdrop
 
-- Type: `Boolean`
-- Default: `false`
+- Type: `Boolean` or `String`
+- Default: `true`
 
-Enable inline mode.
+Enable the modal backdrop, specify `static` for the backdrop that will not close the modal on click.
 
 ### button
 
@@ -157,18 +169,28 @@ Specify the visibility of the navbar.
 
 ### title
 
-- Type: `Boolean` or `Number`
+- Type: `Boolean` or `Number` or `Function` or `Array`
 - Default: `true`
 - Options:
   - `0` or `false`: hide the title
-  - `1` or `true`: show the title
+  - `1` or `true` or `Function` or `Array`: show the title
   - `2`: show the title only when the screen width is greater than 768 pixels
   - `3`: show the title only when the screen width is greater than 992 pixels
   - `4`: show the title only when the screen width is greater than 1200 pixels
+  - `Function`: customize the title content
+  - `[Number, Function]`: the first element indicate the visibility, the second element customize the title content
 
-Specify the visibility of the title (the current image's name and dimensions).
+Specify the visibility and the content of the title.
 
-> The name comes from the `alt` attribute of an image element or the image name parsed from URL.
+> The name comes from the `alt` attribute of an image element or the image name parsed from its URL.
+
+For example, `title: 4` equals to:
+
+```js
+new Viewer(image, {
+  title: [4, (image, imageData) => `${image.alt} (${imageData.naturalWidth} × ${imageData.naturalHeight})`]
+});
+```
 
 ### toolbar
 
@@ -184,82 +206,112 @@ Specify the visibility of the title (the current image's name and dimensions).
   - `{ key: String }`: customize the size of the button.
   - `{ key: Function }`: customize the click handler of the button.
   - `{ key: { show: Boolean | Number, size: String, click: Function }`: customize each property of the button.
-  - Available keys: "zoomIn", "zoomOut", "oneToOne", "reset", "prev", "play", "next", "rotateLeft", "rotateRight", "flipHorizontal" and "flipVertical".
-  - Available sizes: "small", "medium" (default) and "large".
+  - Available built-in keys: "zoomIn", "zoomOut", "oneToOne", "reset", "prev", "play", "next", "rotateLeft", "rotateRight", "flipHorizontal", "flipVertical".
+  - Available built-in sizes: "small", "medium" (default) and "large".
 
 Specify the visibility and layout of the toolbar its buttons.
 
 For example, `toolbar: 4` equals to:
 
 ```js
-toolbar: {
-  zoomIn: 4,
-  zoomOut: 4,
-  oneToOne: 4,
-  reset: 4,
-  prev: 4,
-  play: {
-    show: 4,
-    size: 'large',
+new Viewer(image, {
+  toolbar: {
+    zoomIn: 4,
+    zoomOut: 4,
+    oneToOne: 4,
+    reset: 4,
+    prev: 4,
+    play: {
+      show: 4,
+      size: 'large',
+    },
+    next: 4,
+    rotateLeft: 4,
+    rotateRight: 4,
+    flipHorizontal: 4,
+    flipVertical: 4,
   },
-  next: 4,
-  rotateLeft: 4,
-  rotateRight: 4,
-  flipHorizontal: 4,
-  flipVertical: 4,
-}
+});
 ```
 
-### tooltip
+> see more for [custom toolbar](docs/examples/custom-toolbar.html).
 
-- Type: `Boolean`
-- Default: `true`
+### className
 
-Show the tooltip with image ratio (percentage) when zoom in or zoom out.
+- Type: `String`
+- Default: `''`
 
-### movable
+Custom class name(s) to add to the viewer's root element.
 
-- Type: `Boolean`
-- Default: `true`
+### container
 
-Enable to move the image.
+- Type: `Element` or `String`
+- Default: `'body'`
+- An element or a valid selector for [Document.querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)
 
-### zoomable
+Container to place the viewer in the modal mode.
 
-- Type: `Boolean`
-- Default: `true`
+> Only available when the `inline` option is set to `false`.
 
-Enable to zoom the image.
+### filter
 
-### rotatable
+- Type: `Function`
+- Default: `null`
 
-- Type: `Boolean`
-- Default: `true`
+Filter the images for viewing (should return `true` if the image is viewable, return `false` to ignore the image).
 
-Enable to rotate the image.
+For example:
 
-### scalable
+```js
+new Viewer(image, {
+  filter(image) {
+    return image.complete;
+  },
+});
+```
 
-- Type: `Boolean`
-- Default: `true`
-
-Enable to scale the image.
-
-### transition
-
-- Type: `Boolean`
-- Default: `true`
-
-Enable CSS3 Transition for some special elements.
+> Note that images without the `src` attribute set will be ignored by default.
 
 ### fullscreen
 
-- Type: `Boolean`
+- Type: `Boolean` or [`FullscreenOptions`](https://developer.mozilla.org/en-US/docs/Web/API/FullscreenOptions)
 - Default: `true`
 
 Enable to request full screen when play.
 
-> Requires the browser supports [Full Screen API](http://caniuse.com/fullscreen).
+> Requires the browser supports [Fullscreen API](https://caniuse.com/fullscreen).
+
+### inheritedAttributes
+
+- Type: `Array`
+- Default: `['crossOrigin', 'decoding', 'isMap', 'loading', 'referrerPolicy', 'sizes', 'srcset', 'useMap']`
+
+Define the extra attributes to inherit from the original image.
+
+> Note that the basic attributes `src` and `alt` will always inherit from the original image.
+
+### initialViewIndex
+
+- Type: `Number`
+- Default: `0`
+
+Define the initial index of the image for viewing.
+
+> Also used as the default parameter value of the `view` method.
+
+### inline
+
+- Type: `Boolean`
+- Default: `false`
+
+Enable inline mode.
+
+### interval
+
+- Type: `Number`
+- Default: `5000`
+
+The amount of time to delay between automatically cycling an image when playing.
 
 ### keyboard
 
@@ -268,35 +320,30 @@ Enable to request full screen when play.
 
 Enable keyboard support.
 
-### backdrop
+### focus
 
-- Type: `Boolean` or `String`
+- Type: `Boolean`
 - Default: `true`
 
-Enable a modal backdrop, specify `static` for a backdrop which doesn't close the modal on click.
+Focus the active item in the navbar when initialized.
+
+> Requires the `keyboard` option set to `true`.
 
 ### loading
 
 - Type: `Boolean`
 - Default: `true`
 
-Indicate if show a loading spinner when load image or not.
+Indicate if showing a loading spinner when loading the image or not.
 
 ### loop
 
 - Type: `Boolean`
 - Default: `true`
 
-Indicate if enable loop viewing or not.
+Indicate if enabling loop viewing or not.
 
 > If the current image is the last one, then the next one to view is the first one, and vice versa.
-
-### interval
-
-- Type: `Number`
-- Default: `5000`
-
-The amount of time to delay between automatically cycling an image when playing.
 
 ### minWidth
 
@@ -316,40 +363,114 @@ Define the minimum height of the viewer.
 
 > Only available in inline mode (set the `inline` option to `true`).
 
-### zoomRatio
+### movable
 
-- Type: `Number`
-- Default: `0.1`
+- Type: `Boolean`
+- Default: `true`
 
-Define the ratio when zoom the image by wheeling mouse.
+Enable to move the image.
 
-### minZoomRatio
+### rotatable
 
-- Type: `Number`
-- Default: `0.01`
+- Type: `Boolean`
+- Default: `true`
 
-Define the min ratio of the image when zoom out.
+Enable to rotate the image.
 
-### maxZoomRatio
+### scalable
 
-- Type: `Number`
-- Default: `100`
+- Type: `Boolean`
+- Default: `true`
 
-Define the max ratio of the image when zoom in.
+Enable to scale the image.
+
+### zoomable
+
+- Type: `Boolean`
+- Default: `true`
+
+Enable to zoom the image.
+
+### zoomOnTouch
+
+- Type: `Boolean`
+- Default: `true`
+
+Enable to zoom the current image by dragging on the touch screen.
+
+### zoomOnWheel
+
+- Type: `Boolean`
+- Default: `true`
+
+Enable to zoom the image by wheeling the mouse.
+
+### slideOnTouch
+
+- Type: `Boolean`
+- Default: `true`
+
+Enable to slide to the next or previous image by swiping on the touch screen.
+
+### toggleOnDblclick
+
+- Type: `Boolean`
+- Default: `true`
+
+Indicate if toggle the image size between its natural size and initial size when double click on the image or not.
+
+In other words, call the [`toggle`](#toggle) method automatically when double click on the image.
+
+> Requires [`dblclick`](https://developer.mozilla.org/en-US/docs/Web/Events/dblclick) event support.
+
+### tooltip
+
+- Type: `Boolean`
+- Default: `true`
+
+Show the tooltip with image ratio (percentage) when zooming in or zooming out.
+
+### transition
+
+- Type: `Boolean`
+- Default: `true`
+
+Enable CSS3 Transition for some special elements.
 
 ### zIndex
 
 - Type: `Number`
 - Default: `2015`
 
-Define the CSS `z-index` value of viewer in modal mode.
+Define the CSS `z-index` value of the viewer in modal mode.
 
 ### zIndexInline
 
 - Type: `Number`
 - Default: `0`
 
-Define the CSS `z-index` value of viewer in inline mode.
+Define the CSS `z-index` value of the viewer in inline mode.
+
+### zoomRatio
+
+- Type: `Number`
+- Default: `0.1`
+
+Define the ratio when zooming the image by wheeling the mouse.
+
+### minZoomRatio
+
+- Type: `Number`
+- Default: `0.01`
+
+Define the min ratio of the image when zooming out.
+
+### maxZoomRatio
+
+- Type: `Number`
+- Default: `100`
+
+Define the max ratio of the image when zooming in.
 
 ### url
 
@@ -375,81 +496,124 @@ new Viewer(image, {
 });
 ```
 
-### container
-
-- Type: `Element` or `String`
-- Default: `'body'`
-- An element or a valid selector for [Document.querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)
-
-The container to put the viewer in modal mode.
-
-> Only available when the `inline` option is set to `false`.
-
-### filter
-
-- Type: `Function`
-- Default: `null`
-
-Filter the images for viewing (should return `true` if the image is viewable).
-
-For example:
-
-```js
-new Viewer(images, {
-  filter(image) {
-    return image.complete;
-  },
-});
-```
-
 ### ready
 
 - Type: `Function`
 - Default: `null`
 
-A shortcut of the `ready` event.
+Shortcut of the `ready` event.
 
 ### show
 
 - Type: `Function`
 - Default: `null`
 
-A shortcut of the `show` event.
+Shortcut of the `show` event.
 
 ### shown
 
 - Type: `Function`
 - Default: `null`
 
-A shortcut of the `shown` event.
+Shortcut of the `shown` event.
 
 ### hide
 
 - Type: `Function`
 - Default: `null`
 
-A shortcut of the `hide` event.
+Shortcut of the `hide` event.
 
 ### hidden
 
 - Type: `Function`
 - Default: `null`
 
-A shortcut of the `hidden` event.
+Shortcut of the `hidden` event.
 
 ### view
 
 - Type: `Function`
 - Default: `null`
 
-A shortcut of the `view` event.
+Shortcut of the `view` event.
 
 ### viewed
 
 - Type: `Function`
 - Default: `null`
 
-A shortcut of the `viewed` event.
+Shortcut of the `viewed` event.
+
+### move
+
+- Type: `Function`
+- Default: `null`
+
+Shortcut of the `move` event.
+
+### moved
+
+- Type: `Function`
+- Default: `null`
+
+Shortcut of the `moved` event.
+
+### rotate
+
+- Type: `Function`
+- Default: `null`
+
+Shortcut of the `rotate` event.
+
+### rotated
+
+- Type: `Function`
+- Default: `null`
+
+Shortcut of the `rotated` event.
+
+### scale
+
+- Type: `Function`
+- Default: `null`
+
+Shortcut of the `scale` event.
+
+### scaled
+
+- Type: `Function`
+- Default: `null`
+
+Shortcut of the `scaled` event.
+
+### zoom
+
+- Type: `Function`
+- Default: `null`
+
+Shortcut of the `zoom` event.
+
+### zoomed
+
+- Type: `Function`
+- Default: `null`
+
+Shortcut of the `zoomed` event.
+
+### play
+
+- Type: `Function`
+- Default: `null`
+
+Shortcut of the `play` event.
+
+### stop
+
+- Type: `Function`
+- Default: `null`
+
+Shortcut of the `stop` event.
 
 [⬆ back to top](#table-of-contents)
 
@@ -461,13 +625,13 @@ As there are some **asynchronous** processes when start the viewer, you should c
 
 ```js
 new Viewer(image, {
-  ready: function () {
+  ready() {
     // 2 methods are available here: "show" and "destroy".
   },
-  shown: function () {
+  shown() {
     // 9 methods are available here: "hide", "view", "prev", "next", "play", "stop", "full", "exit" and "destroy".
   },
-  viewed: function () {
+  viewed() {
     // All methods are available here except "show".
     this.viewer.zoomTo(1).rotateTo(180);
   }
@@ -492,7 +656,7 @@ Show the viewer.
   - Default: `false`
   - Indicates if hide the viewer immediately or not.
 
-hide the viewer.
+Hide the viewer.
 
 > Only available in modal mode.
 
@@ -500,10 +664,10 @@ hide the viewer.
 
 - **index** (optional):
   - Type: `Number`
-  - Default: `0`
+  - Default: `0` (inherits from the `initialViewIndex` option)
   - The index of the image for viewing
 
-View one of the images with image's index. If the viewer is not shown, will show the viewer first.
+View one of the images with the image index. If the viewer is hidden, it will be shown first.
 
 ```js
 viewer.view(1); // View the second image
@@ -527,16 +691,16 @@ View the previous image.
 
 View the next image.
 
-### move(offsetX[, offsetY])
+### move(x[, y = x])
 
-- **offsetX**:
+- **x**:
   - Type: `Number`
-  - Moving size (px) in the horizontal direction
+  - The moving distance in the horizontal direction.
 
-- **offsetY** (optional):
+- **y** (optional):
   - Type: `Number`
-  - Moving size (px) in the vertical direction.
-  - If not present, its default value is `offsetX`
+  - The moving distance in the vertical direction.
+  - If not present, its default value is `x`
 
 Move the image with relative offsets.
 
@@ -548,55 +712,18 @@ viewer.move(0, -1); // Move up
 viewer.move(0, 1);  // Move down
 ```
 
-### moveTo(x[, y])
+### moveTo(x[, y = x])
 
 - **x**:
   - Type: `Number`
-  - The `left` value of the image
+  - The new position in the horizontal direction.
 
 - **y** (optional):
   - Type: `Number`
-  - The `top` value of the image
+  - The new position in the vertical direction.
   - If not present, its default value is `x`.
 
 Move the image to an absolute point.
-
-### zoom(ratio[, hasTooltip])
-
-- **ratio**:
-  - Type: `Number`
-  - Zoom in: requires a positive number (ratio > 0)
-  - Zoom out: requires a negative number (ratio < 0)
-
-- **hasTooltip** (optional):
-  - Type: `Boolean`
-  - Default: `false`
-  - Show tooltip
-
-Zoom the image with a relative ratio
-
-```js
-viewer.zoom(0.1);
-viewer.zoom(-0.1);
-```
-
-### zoomTo(ratio[, hasTooltip])
-
-- **ratio**:
-  - Type: `Number`
-  - Requires a positive number (ratio > 0)
-
-- **hasTooltip** (optional):
-  - Type: `Boolean`
-  - Default: `false`
-  - Show tooltip
-
-Zoom the image to an absolute ratio.
-
-```js
-viewer.zoomTo(0); // Zoom to zero size (0%)
-viewer.zoomTo(1); // Zoom to natural size (100%)
-```
 
 ### rotate(degree)
 
@@ -673,10 +800,47 @@ Scale the ordinate of the image.
 viewer.scaleY(-1); // Flip vertical
 ```
 
+### zoom(ratio[, hasTooltip])
+
+- **ratio**:
+  - Type: `Number`
+  - Zoom in: requires a positive number (ratio > 0)
+  - Zoom out: requires a negative number (ratio < 0)
+
+- **hasTooltip** (optional):
+  - Type: `Boolean`
+  - Default: `false`
+  - Show tooltip
+
+Zoom the image with a relative ratio
+
+```js
+viewer.zoom(0.1);
+viewer.zoom(-0.1);
+```
+
+### zoomTo(ratio[, hasTooltip])
+
+- **ratio**:
+  - Type: `Number`
+  - Requires a positive number (ratio > 0)
+
+- **hasTooltip** (optional):
+  - Type: `Boolean`
+  - Default: `false`
+  - Show tooltip
+
+Zoom the image to an absolute ratio.
+
+```js
+viewer.zoomTo(0); // Zoom to zero size (0%)
+viewer.zoomTo(1); // Zoom to natural size (100%)
+```
+
 ### play([fullscreen])
 
 - **fullscreen** (optional):
-  - Type: `Boolean`
+  - Type: `Boolean` or [`FullscreenOptions`](https://developer.mozilla.org/en-US/docs/Web/API/FullscreenOptions)
   - Default: `false`
   - Indicate if request fullscreen or not.
 
@@ -688,25 +852,27 @@ Stop play.
 
 ### full()
 
-Enter modal mode.
+Enter the modal mode.
 
 > Only available in inline mode.
 
 ### exit()
 
-Exit  modal mode.
+Exit the modal mode.
 
 > Only available in inline mode.
 
 ### tooltip()
 
-Show the current ratio of the image with percentage.
+Show the current ratio of the image by percentage.
 
 > Requires the `tooltip` option set to `true`.
 
 ### toggle()
 
-Toggle the image size between its natural size and initial size.
+Toggle the image size between its current size and natural size.
+
+> Used by the [`toggleOnDblclick`](#toggleOnDblclick) option.
 
 ### reset()
 
@@ -714,7 +880,7 @@ Reset the image to its initial state.
 
 ### update()
 
-Update the viewer instance when the source images changed (added, removed or sorted).
+Update the viewer instance when the source images changed (added, removed, or sorted).
 
 > If you load images dynamically (with XMLHTTPRequest), you can use this method to add the new images to the viewer instance.
 
@@ -728,21 +894,24 @@ Destroy the viewer and remove the instance.
 
 All events can access the viewer instance with `this.viewer` in its handler.
 
-> Be careful to use these events in other component which has the same event names, e.g.: [Bootstrap](https://getbootstrap.com/)'s modal.
-
+> Be careful to use these events with other components which have the same event names, e.g.: [Bootstrap](https://getbootstrap.com/)'s modal.
 
 ```js
-var viewer;
+let viewer;
 
 image.addEventListener('viewed', function () {
   console.log(this.viewer === viewer);
-  // -> true
-}, false);
+  // > true
+});
 
 viewer = new Viewer(image);
 ```
 
 ### ready
+
+- **event.bubbles**: `true`
+- **event.cancelable**: `true`
+- **event.detail**: `null`
 
 This event fires when a viewer instance is ready for viewing.
 
@@ -750,11 +919,19 @@ This event fires when a viewer instance is ready for viewing.
 
 ### show
 
+- **event.bubbles**: `true`
+- **event.cancelable**: `true`
+- **event.detail**: `null`
+
 This event fires when the viewer modal starts to show.
 
 > Only available in modal mode.
 
 ### shown
+
+- **event.bubbles**: `true`
+- **event.cancelable**: `true`
+- **event.detail**: `null`
 
 This event fires when the viewer modal has shown.
 
@@ -762,11 +939,19 @@ This event fires when the viewer modal has shown.
 
 ### hide
 
+- **event.bubbles**: `true`
+- **event.cancelable**: `true`
+- **event.detail**: `null`
+
 This event fires when the viewer modal starts to hide.
 
 > Only available in modal mode.
 
 ### hidden
+
+- **event.bubbles**: `true`
+- **event.cancelable**: `false`
+- **event.detail**: `null`
 
 This event fires when the viewer modal has hidden.
 
@@ -774,31 +959,155 @@ This event fires when the viewer modal has hidden.
 
 ### view
 
-- **event.detail.originalImage**:
-  - Type: `HTMLImageElement`
-  - The original image.
-
+- **event.bubbles**: `true`
+- **event.cancelable**: `true`
 - **event.detail.index**:
   - Type: `Number`
   - The index of the original image.
-
 - **event.detail.image**:
   - Type: `HTMLImageElement`
   - The current image (a clone of the original image).
+- **event.detail.originalImage**:
+  - Type: `HTMLImageElement`
+  - The original image.
 
 This event fires when a viewer starts to show (view) an image.
 
 ### viewed
 
+- **event.bubbles**: `true`
+- **event.cancelable**: `false`
 - **event.detail**: the same as the `view` event.
 
 This event fires when a viewer has shown (viewed) an image.
+
+### move
+
+- **event.bubbles**: `true`
+- **event.cancelable**: `true`
+- **event.detail.x**:
+  - Type: `Number`
+  - The new position in the horizontal direction.
+- **event.detail.y**:
+  - Type: `Number`
+  - The new position in the vertical direction.
+- **event.detail.oldX**:
+  - Type: `Number`
+  - The old position in the horizontal direction.
+- **event.detail.oldY**:
+  - Type: `Number`
+  - The old position in the vertical direction.
+- **event.detail.originalEvent**:
+  - Type: `Event` or `null`
+  - Options: `pointermove`, `touchmove`, and `mousemove`.
+
+This event fires when a viewer starts to move an image.
+
+### moved
+
+- **event.bubbles**: `true`
+- **event.cancelable**: `false`
+- **event.detail**: the same as the `move` event.
+
+This event fires when a viewer has moved an image.
+
+### rotate
+
+- **event.bubbles**: `true`
+- **event.cancelable**: `true`
+- **event.detail.degree**:
+  - Type: `Number`
+  - The new rotation degrees.
+- **event.detail.oldDegree**:
+  - Type: `Number`
+  - The old rotation degrees.
+
+This event fires when a viewer starts to rotate an image.
+
+### rotated
+
+- **event.bubbles**: `true`
+- **event.cancelable**: `false`
+- **event.detail**: the same as the `rotate` event.
+
+This event fires when a viewer has rotated an image.
+
+### scale
+
+- **event.bubbles**: `true`
+- **event.cancelable**: `true`
+- **event.detail.scaleX**:
+  - Type: `Number`
+  - The new scaling factor in the horizontal direction.
+- **event.detail.scaleY**:
+  - Type: `Number`
+  - The new scaling factor in the vertical direction.
+- **event.detail.oldScaleX**:
+  - Type: `Number`
+  - The old scaling factor in the horizontal direction.
+- **event.detail.oldScaleY**:
+  - Type: `Number`
+  - The old scaling factor in the vertical direction.
+
+This event fires when a viewer starts to scale an image.
+
+### scaled
+
+- **event.bubbles**: `true`
+- **event.cancelable**: `false`
+- **event.detail**: the same as the `scale` event.
+
+This event fires when a viewer has scaled an image.
+
+### zoom
+
+- **event.bubbles**: `true`
+- **event.cancelable**: `true`
+- **event.detail.ratio**:
+  - Type: `Number`
+  - The new (next) ratio of the image (`imageData.width / imageData.naturalWidth`).
+- **event.detail.oldRatio**:
+  - Type: `Number`
+  - The old (current) ratio of the image.
+- **event.detail.originalEvent**:
+  - Type: `Event` or `null`
+  - Options: `wheel`, `pointermove`, `touchmove`, and `mousemove`.
+
+This event fires when a viewer starts to zoom (in or out) an image.
+
+### zoomed
+
+- **event.bubbles**: `true`
+- **event.cancelable**: `false`
+- **event.detail**: the same as the `zoom` event.
+
+This event fires when a viewer has zoomed (in or out) an image.
+
+### play
+
+- **event.bubbles**: `true`
+- **event.cancelable**: `true`
+- **event.detail**: `null`
+
+This event fires when the viewer starts to play.
+
+> You can abort the playing process by calling `event.preventDefault()`.
+
+### stop
+
+- **event.bubbles**: `true`
+- **event.cancelable**: `true`
+- **event.detail**: `null`
+
+This event fires when the viewer starts to stop.
+
+> You can abort the stopping process by calling `event.preventDefault()`.
 
 [⬆ back to top](#table-of-contents)
 
 ## No conflict
 
-If you have to use other viewer with the same namespace, just call the `Viewer.noConflict` static method to revert to it.
+If you have to use another viewer with the same namespace, call the `Viewer.noConflict` static method to revert to it.
 
 ```html
 <script src="other-viewer.js"></script>
@@ -824,10 +1133,10 @@ Please read through our [contributing guidelines](.github/CONTRIBUTING.md).
 
 ## Versioning
 
-Maintained under the [Semantic Versioning guidelines](http://semver.org/).
+Maintained under the [Semantic Versioning guidelines](https://semver.org/).
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT) © [Chen Fengyuan](http://chenfengyuan.com)
+[MIT](https://opensource.org/licenses/MIT) © [Chen Fengyuan](https://chenfengyuan.com/)
 
 [⬆ back to top](#table-of-contents)

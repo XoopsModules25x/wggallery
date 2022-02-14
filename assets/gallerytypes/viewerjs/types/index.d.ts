@@ -1,17 +1,7 @@
 declare namespace Viewer {
-  export enum Visibility {
-    Hidden = 0,
-    Visible = 1,
-    VisibleOnMediumOrWiderScreen = 2,
-    VisibleOnLargeOrWiderScreen = 3,
-    VisibleOnExtraLargeOrWiderScreen = 4,
-  }
-
-  export enum ToolbarButtonSize {
-    Small = 'small',
-    Medium = 'medium',
-    Large = 'large',
-  }
+  export type Visibility = 0 | 1 | 2 | 3 | 4;
+  export type ToolbarButtonSize = 'small' | 'medium' | 'large';
+  export type ToolbarOption = boolean | Visibility | ToolbarButtonSize | Function | ToolbarButtonOptions | undefined;
 
   export interface ToolbarButtonOptions {
     click?: Function,
@@ -20,27 +10,90 @@ declare namespace Viewer {
   }
 
   export interface ToolbarOptions {
-    flipHorizontal?: boolean | Visibility | ToolbarButtonSize | Function | ToolbarButtonOptions;
-    flipVertical?: boolean | Visibility | ToolbarButtonSize | Function | ToolbarButtonOptions;
-    next?: boolean | Visibility | ToolbarButtonSize | Function | ToolbarButtonOptions;
-    oneToOne?: boolean | Visibility | ToolbarButtonSize | Function | ToolbarButtonOptions;
-    play?: boolean | Visibility | ToolbarButtonSize | Function | ToolbarButtonOptions;
-    prev?: boolean | Visibility | ToolbarButtonSize | Function | ToolbarButtonOptions;
-    reset?: boolean | Visibility | ToolbarButtonSize | Function | ToolbarButtonOptions;
-    rotateLeft?: boolean | Visibility | ToolbarButtonSize | Function | ToolbarButtonOptions;
-    rotateRight?: boolean | Visibility | ToolbarButtonSize | Function | ToolbarButtonOptions;
-    zoomIn?: boolean | Visibility | ToolbarButtonSize | Function | ToolbarButtonOptions;
-    zoomOut?: boolean | Visibility | ToolbarButtonSize | Function | ToolbarButtonOptions;
+    flipHorizontal?: ToolbarOption;
+    flipVertical?: ToolbarOption;
+    next?: ToolbarOption;
+    oneToOne?: ToolbarOption;
+    play?: ToolbarOption;
+    prev?: ToolbarOption;
+    reset?: ToolbarOption;
+    rotateLeft?: ToolbarOption;
+    rotateRight?: ToolbarOption;
+    zoomIn?: ToolbarOption;
+    zoomOut?: ToolbarOption;
+    [x: string]: ToolbarOption;
+  }
+
+  export interface MoveEventData {
+    x: number;
+    y: number;
+    oldX: number;
+    oldY: number;
+    originalEvent: PointerEvent | TouchEvent | MouseEvent | null;
+  }
+
+  export interface MoveEvent extends CustomEvent {
+    detail: MoveEventData;
+  }
+
+  export interface MovedEvent extends CustomEvent {
+    detail: MoveEventData;
+  }
+
+  export interface RotateEventData {
+    degree: number;
+    oldDegree: number;
+  }
+
+  export interface RotateEvent extends CustomEvent {
+    detail: RotateEventData;
+  }
+
+  export interface RotatedEvent extends CustomEvent {
+    detail: RotateEventData;
+  }
+
+  export interface ScaleEventData {
+    scaleX: number;
+    scaleY: number;
+    oldScaleX: number;
+    oldScaleY: number;
+  }
+
+  export interface ScaleEvent extends CustomEvent {
+    detail: ScaleEventData;
+  }
+
+  export interface ScaledEvent extends CustomEvent {
+    detail: ScaleEventData;
+  }
+
+  export interface ZoomEventData {
+    ratio: number;
+    oldRatio: number;
+    originalEvent: WheelEvent | PointerEvent | TouchEvent | MouseEvent | null;
+  }
+
+  export interface ZoomEvent extends CustomEvent {
+    detail: ZoomEventData;
+  }
+
+  export interface ZoomedEvent extends CustomEvent {
+    detail: ZoomEventData;
   }
 
   export interface Options {
     backdrop?: boolean | string;
     button?: boolean;
-    container?: string | Element;
+    className?: string;
+    container?: string | HTMLElement;
     filter?: Function;
-    fullscreen?: boolean;
+    fullscreen?: boolean | FullscreenOptions;
+    focus?: boolean;
     hidden?(event: CustomEvent): void;
     hide?(event: CustomEvent): void;
+    inheritedAttributes?: string[];
+    initialViewIndex?: number;
     inline?: boolean;
     interval?: number;
     keyboard?: boolean;
@@ -51,13 +104,23 @@ declare namespace Viewer {
     minWidth?: number;
     minZoomRatio?: number;
     movable?: boolean;
+    move?(event: MoveEvent): void;
+    moved?(event: MovedEvent): void;
     navbar?: boolean | Visibility;
+    play?(event: CustomEvent): void;
     ready?(event: CustomEvent): void;
     rotatable?: boolean;
+    rotate?(event: RotateEvent): void;
+    rotated?(event: RotatedEvent): void;
     scalable?: boolean;
+    scale?(event: ScaleEvent): void;
+    scaled?(event: ScaledEvent): void;
     show?(event: CustomEvent): void;
     shown?(event: CustomEvent): void;
-    title?: boolean | Visibility;
+    slideOnTouch?: boolean;
+    stop?(event: CustomEvent): void;
+    title?: boolean | Visibility | Function | [Visibility, Function];
+    toggleOnDblclick?: boolean;
     toolbar?: boolean | Visibility | ToolbarOptions;
     tooltip?: boolean;
     transition?: boolean;
@@ -66,13 +129,17 @@ declare namespace Viewer {
     viewed?(event: CustomEvent): void;
     zIndex?: number;
     zIndexInline?: number;
+    zoom?(event: ZoomEvent): void;
+    zoomOnTouch?: boolean;
+    zoomOnWheel?: boolean;
     zoomRatio?: number;
     zoomable?: boolean;
+    zoomed?(event: ZoomedEvent): void;
   }
 }
 
 declare class Viewer {
-  constructor(element: Element, options?: Viewer.Options);
+  constructor(element: HTMLElement, options?: Viewer.Options);
   destroy(): Viewer;
   exit(): Viewer;
   full(): Viewer;
@@ -80,7 +147,7 @@ declare class Viewer {
   move(offsetX: number, offsetY?: number): Viewer;
   moveTo(x: number, y?: number): Viewer;
   next(loop?: boolean): Viewer;
-  play(fullscreen?: boolean): Viewer;
+  play(fullscreen?: boolean | FullscreenOptions): Viewer;
   prev(loop?: boolean): Viewer;
   reset(): Viewer;
   rotate(degree: number): Viewer;
@@ -96,6 +163,8 @@ declare class Viewer {
   view(index?: number): Viewer;
   zoom(ratio: number, hasTooltip?: boolean): Viewer;
   zoomTo(ratio: number, hasTooltip?: boolean): Viewer;
+  static noConflict(): Viewer;
+  static setDefaults(options: Viewer.Options): void;
 }
 
 declare module 'viewerjs' {
