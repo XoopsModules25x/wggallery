@@ -3,7 +3,7 @@
  - semantic versioning (mamba/goffy)
  - code cleaning (PS inspect code) (goffy)
  - added new update procedure (goffy)
- - uninstall with bak-file creation (mamba/goffy)
+ - updated viewerjs to last version (goffy)
 
 <h5>1.15 RC2</h5>  [2021/04/19]
 <hr>

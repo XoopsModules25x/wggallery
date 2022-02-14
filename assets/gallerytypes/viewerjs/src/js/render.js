@@ -1,6 +1,7 @@
 import {
   CLASS_LOADING,
   CLASS_TRANSITION,
+  EVENT_ERROR,
   EVENT_LOAD,
   EVENT_TRANSITION_END,
   EVENT_VIEWED,
@@ -13,8 +14,7 @@ import {
   getImageNameFromURL,
   getImageNaturalSizes,
   getTransforms,
-  isFunction,
-  isString,
+  hasClass,
   removeClass,
   removeListener,
   setData,
@@ -27,6 +27,16 @@ export default {
     this.initViewer();
     this.initList();
     this.renderViewer();
+  },
+
+  initBody() {
+    const { ownerDocument } = this.element;
+    const body = ownerDocument.body || ownerDocument.documentElement;
+
+    this.body = body;
+    this.scrollbarWidth = window.innerWidth - ownerDocument.documentElement.clientWidth;
+    this.initialBodyPaddingRight = body.style.paddingRight;
+    this.initialBodyComputedPaddingRight = window.getComputedStyle(body).paddingRight;
   },
 
   initContainer() {
@@ -66,35 +76,49 @@ export default {
     const { element, options, list } = this;
     const items = [];
 
-    forEach(this.images, (image, i) => {
+    // initList may be called in this.update, so should keep idempotent
+    list.innerHTML = '';
+
+    forEach(this.images, (image, index) => {
       const { src } = image;
       const alt = image.alt || getImageNameFromURL(src);
-      let { url } = options;
-
-      if (isString(url)) {
-        url = image.getAttribute(url);
-      } else if (isFunction(url)) {
-        url = url.call(this, image);
-      }
+      const url = this.getImageURL(image);
 
       if (src || url) {
-        items.push('<li>' +
-          '<img' +
-            ` src="${src || url}"` +
-            ' role="button"' +
-            ' data-action="view"' +
-            ` data-index="${i}"` +
-            ` data-original-url="${url || src}"` +
-            ` alt="${alt}"` +
-          '>' +
-        '</li>');
+        const item = document.createElement('li');
+        const img = document.createElement('img');
+
+        forEach(options.inheritedAttributes, (name) => {
+          const value = image.getAttribute(name);
+
+          if (value !== null) {
+            img.setAttribute(name, value);
+          }
+        });
+
+        img.src = src || url;
+        img.alt = alt;
+        img.setAttribute('data-original-url', url || src);
+        item.setAttribute('data-index', index);
+        item.setAttribute('data-viewer-action', 'view');
+        item.setAttribute('role', 'button');
+
+        if (options.keyboard) {
+          item.setAttribute('tabindex', 0);
+        }
+
+        item.appendChild(img);
+        list.appendChild(item);
+        items.push(item);
       }
     });
 
-    list.innerHTML = items.join('');
-    this.items = list.getElementsByTagName('li');
-    forEach(this.items, (item) => {
+    this.items = items;
+
+    forEach(items, (item) => {
       const image = item.firstElementChild;
+      let onLoad;
+      let onError;
 
       setData(image, 'filled', true);
 
@@ -102,12 +126,23 @@ export default {
         addClass(item, CLASS_LOADING);
       }
 
-      addListener(image, EVENT_LOAD, (event) => {
+      addListener(image, EVENT_LOAD, onLoad = (event) => {
+        removeListener(image, EVENT_ERROR, onError);
+
         if (options.loading) {
           removeClass(item, CLASS_LOADING);
         }
 
         this.loadImage(event);
+      }, {
+        once: true,
+      });
+      addListener(image, EVENT_ERROR, onError = () => {
+        removeListener(image, EVENT_LOAD, onLoad);
+
+        if (options.loading) {
+          removeClass(item, CLASS_LOADING);
+        }
       }, {
         once: true,
       });
@@ -122,16 +157,24 @@ export default {
     }
   },
 
-  renderList(index) {
-    const i = index || this.index;
-    const width = this.items[i].offsetWidth || 30;
-    const outerWidth = width + 1; // 1 pixel of `margin-left` width
+  renderList() {
+    const { index } = this;
+    const item = this.items[index];
+
+    if (!item) {
+      return;
+    }
+
+    const next = item.nextElementSibling;
+    const gutter = parseInt(window.getComputedStyle(next || item).marginLeft, 10);
+    const { offsetWidth } = item;
+    const outerWidth = offsetWidth + gutter;
 
     // Place the active item in the center of the screen
     setStyle(this.list, assign({
-      width: outerWidth * this.length,
+      width: outerWidth * this.length - gutter,
     }, getTransforms({
-      translateX: ((this.viewerData.width - width) / 2) - (outerWidth * i),
+      translateX: ((this.viewerData.width - offsetWidth) / 2) - outerWidth * index,
     })));
   },
 
@@ -154,12 +197,12 @@ export default {
     let sizingImage;
 
     this.imageInitializing = {
-      abort() {
+      abort: () => {
         sizingImage.onload = null;
       },
     };
 
-    sizingImage = getImageNaturalSizes(image, (naturalWidth, naturalHeight) => {
+    sizingImage = getImageNaturalSizes(image, options, (naturalWidth, naturalHeight) => {
       const aspectRatio = naturalWidth / naturalHeight;
       let width = viewerWidth;
       let height = viewerHeight;
@@ -175,15 +218,21 @@ export default {
       width = Math.min(width * 0.9, naturalWidth);
       height = Math.min(height * 0.9, naturalHeight);
 
+      const left = (viewerWidth - width) / 2;
+      const top = (viewerHeight - height) / 2;
+
       const imageData = {
-        naturalWidth,
-        naturalHeight,
-        aspectRatio,
-        ratio: width / naturalWidth,
+        left,
+        top,
+        x: left,
+        y: top,
         width,
         height,
-        left: (viewerWidth - width) / 2,
-        top: (viewerHeight - height) / 2,
+        oldRatio: 1,
+        ratio: width / naturalWidth,
+        aspectRatio,
+        naturalWidth,
+        naturalHeight,
       };
       const initialImageData = assign({}, imageData);
 
@@ -214,19 +263,23 @@ export default {
     setStyle(image, assign({
       width: imageData.width,
       height: imageData.height,
-      marginLeft: imageData.left,
-      marginTop: imageData.top,
+
+      // XXX: Not to use translateX/Y to avoid image shaking when zooming
+      marginLeft: imageData.x,
+      marginTop: imageData.y,
     }, getTransforms(imageData)));
 
     if (done) {
-      if (this.viewing && this.options.transition) {
+      if ((this.viewing || this.moving || this.rotating || this.scaling || this.zooming)
+        && this.options.transition
+        && hasClass(image, CLASS_TRANSITION)) {
         const onTransitionEnd = () => {
           this.imageRendering = false;
           done();
         };
 
         this.imageRendering = {
-          abort() {
+          abort: () => {
             removeListener(image, EVENT_TRANSITION_END, onTransitionEnd);
           },
         };

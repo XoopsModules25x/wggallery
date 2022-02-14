@@ -13,10 +13,12 @@ import {
   CLASS_FULLSCREEN,
   CLASS_HIDE,
   CLASS_INVISIBLE,
+  DATA_ACTION,
   EVENT_CLICK,
   EVENT_LOAD,
   EVENT_READY,
   NAMESPACE,
+  REGEXP_SPACES,
   WINDOW,
 } from './constants';
 import {
@@ -25,7 +27,6 @@ import {
   assign,
   dispatchEvent,
   forEach,
-  getData,
   getResponsiveClass,
   hyphenate,
   isFunction,
@@ -40,6 +41,10 @@ import {
 } from './utilities';
 
 const AnotherViewer = WINDOW.Viewer;
+const getUniqueID = ((id) => (() => {
+  id += 1;
+  return id;
+}))(-1);
 
 class Viewer {
   /**
@@ -58,33 +63,45 @@ class Viewer {
     this.fading = false;
     this.fulled = false;
     this.hiding = false;
-    this.index = 0;
+    this.imageClicked = false;
+    this.imageData = {};
+    this.index = this.options.initialViewIndex;
     this.isImg = false;
+    this.isShown = false;
     this.length = 0;
+    this.moving = false;
     this.played = false;
     this.playing = false;
     this.pointers = {};
     this.ready = false;
+    this.rotating = false;
+    this.scaling = false;
     this.showing = false;
     this.timeout = false;
     this.tooltipping = false;
     this.viewed = false;
     this.viewing = false;
-    this.isShown = false;
     this.wheeling = false;
+    this.zooming = false;
+    this.id = getUniqueID();
     this.init();
   }
 
   init() {
     const { element, options } = this;
 
-    if (getData(element, NAMESPACE)) {
+    if (element[NAMESPACE]) {
       return;
     }
 
-    setData(element, NAMESPACE, this);
+    element[NAMESPACE] = this;
 
-    const isImg = element.tagName.toLowerCase() === 'img';
+    // The `focus` option requires the `keyboard` option set to `true`.
+    if (options.focus && !options.keyboard) {
+      options.focus = false;
+    }
+
+    const isImg = element.localName === 'img';
     const images = [];
 
     forEach(isImg ? [element] : element.querySelectorAll('img'), (image) => {
@@ -92,25 +109,15 @@ class Viewer {
         if (options.filter.call(this, image)) {
           images.push(image);
         }
-      } else {
+      } else if (this.getImageURL(image)) {
         images.push(image);
       }
     });
 
-    if (!images.length) {
-      return;
-    }
-
     this.isImg = isImg;
     this.length = images.length;
     this.images = images;
-
-    const { ownerDocument } = element;
-    const body = ownerDocument.body || ownerDocument.documentElement;
-
-    this.body = body;
-    this.scrollbarWidth = window.innerWidth - ownerDocument.documentElement.clientWidth;
-    this.initialBodyPaddingRight = window.getComputedStyle(body).paddingRight;
+    this.initBody();
 
     // Override `transition` option if it is not supported
     if (isUndefined(document.createElement(NAMESPACE).style.transition)) {
@@ -141,7 +148,7 @@ class Viewer {
       };
 
       this.initializing = {
-        abort() {
+        abort: () => {
           forEach(images, (image) => {
             if (!image.complete) {
               removeListener(image, EVENT_LOAD, progress);
@@ -161,7 +168,7 @@ class Viewer {
       });
     } else {
       addListener(element, EVENT_CLICK, (this.onStart = ({ target }) => {
-        if (target.tagName.toLowerCase() === 'img') {
+        if (target.localName === 'img' && (!isFunction(options.filter) || options.filter.call(this, target))) {
           this.view(this.images.indexOf(target));
         }
       }));
@@ -198,16 +205,31 @@ class Viewer {
     this.player = viewer.querySelector(`.${NAMESPACE}-player`);
     this.list = viewer.querySelector(`.${NAMESPACE}-list`);
 
-    addClass(title, !options.title ? CLASS_HIDE : getResponsiveClass(options.title));
+    viewer.id = `${NAMESPACE}${this.id}`;
+    title.id = `${NAMESPACE}Title${this.id}`;
+    addClass(title, !options.title ? CLASS_HIDE : getResponsiveClass(Array.isArray(options.title)
+      ? options.title[0]
+      : options.title));
     addClass(navbar, !options.navbar ? CLASS_HIDE : getResponsiveClass(options.navbar));
     toggleClass(button, CLASS_HIDE, !options.button);
+
+    if (options.keyboard) {
+      button.setAttribute('tabindex', 0);
+    }
 
     if (options.backdrop) {
       addClass(viewer, `${NAMESPACE}-backdrop`);
 
-      if (!options.inline && options.backdrop === true) {
-        setData(canvas, 'action', 'hide');
+      if (!options.inline && options.backdrop !== 'static') {
+        setData(canvas, DATA_ACTION, 'hide');
       }
+    }
+
+    if (isString(options.className) && options.className) {
+      // In case there are multiple class names
+      options.className.split(REGEXP_SPACES).forEach((className) => {
+        addClass(viewer, className);
+      });
     }
 
     if (options.toolbar) {
@@ -227,10 +249,10 @@ class Viewer {
         const show = deep && !isUndefined(value.show) ? value.show : value;
 
         if (
-          !show ||
-          (!options.zoomable && zoomButtons.indexOf(name) !== -1) ||
-          (!options.rotatable && rotateButtons.indexOf(name) !== -1) ||
-          (!options.scalable && scaleButtons.indexOf(name) !== -1)
+          !show
+          || (!options.zoomable && zoomButtons.indexOf(name) !== -1)
+          || (!options.rotatable && rotateButtons.indexOf(name) !== -1)
+          || (!options.scalable && scaleButtons.indexOf(name) !== -1)
         ) {
           return;
         }
@@ -239,11 +261,15 @@ class Viewer {
         const click = deep && !isUndefined(value.click) ? value.click : value;
         const item = document.createElement('li');
 
+        if (options.keyboard) {
+          item.setAttribute('tabindex', 0);
+        }
+
         item.setAttribute('role', 'button');
         addClass(item, `${NAMESPACE}-${name}`);
 
         if (!isFunction(click)) {
-          setData(item, 'action', name);
+          setData(item, DATA_ACTION, name);
         }
 
         if (isNumber(show)) {
@@ -333,7 +359,7 @@ class Viewer {
     }
 
     if (this.ready && options.inline) {
-      this.view();
+      this.view(this.index);
     }
   }
 

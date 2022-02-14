@@ -4,6 +4,7 @@ import {
   ACTION_ZOOM,
   CLASS_HIDE,
   CLASS_OPEN,
+  EVENT_FOCUSIN,
   EVENT_HIDDEN,
   EVENT_SHOWN,
 } from './constants';
@@ -14,16 +15,58 @@ import {
   forEach,
   getMaxZoomRatio,
   isFunction,
+  isPlainObject,
+  isString,
   removeClass,
+  removeListener,
 } from './utilities';
 
 export default {
+  getImageURL(image) {
+    let { url } = this.options;
+
+    if (isString(url)) {
+      url = image.getAttribute(url);
+    } else if (isFunction(url)) {
+      url = url.call(this, image);
+    } else {
+      url = '';
+    }
+
+    return url;
+  },
+
+  enforceFocus() {
+    this.clearEnforceFocus();
+    addListener(document, EVENT_FOCUSIN, (this.onFocusin = (event) => {
+      const { viewer } = this;
+      const { target } = event;
+
+      if (target !== document
+        && target !== viewer
+        && !viewer.contains(target)
+
+        // Avoid conflicts with other modals (#474)
+        && (target.getAttribute('tabindex') === null || target.getAttribute('aria-modal') !== 'true')
+      ) {
+        viewer.focus();
+      }
+    }));
+  },
+
+  clearEnforceFocus() {
+    if (this.onFocusin) {
+      removeListener(document, EVENT_FOCUSIN, this.onFocusin);
+      this.onFocusin = null;
+    }
+  },
+
   open() {
     const { body } = this;
 
     addClass(body, CLASS_OPEN);
 
-    body.style.paddingRight = `${this.scrollbarWidth + (parseFloat(this.initialBodyPaddingRight) || 0)}px`;
+    body.style.paddingRight = `${this.scrollbarWidth + (parseFloat(this.initialBodyComputedPaddingRight) || 0)}px`;
   },
 
   close() {
@@ -34,13 +77,18 @@ export default {
   },
 
   shown() {
-    const { element, options } = this;
+    const { element, options, viewer } = this;
 
     this.fulled = true;
     this.isShown = true;
     this.render();
     this.bind();
     this.showing = false;
+
+    if (options.focus) {
+      viewer.focus();
+      this.enforceFocus();
+    }
 
     if (isFunction(options.shown)) {
       addListener(element, EVENT_SHOWN, options.shown, {
@@ -58,14 +106,22 @@ export default {
   },
 
   hidden() {
-    const { element, options } = this;
+    const { element, options, viewer } = this;
+
+    if (options.fucus) {
+      this.clearEnforceFocus();
+    }
 
     this.fulled = false;
     this.viewed = false;
     this.isShown = false;
     this.close();
     this.unbind();
-    addClass(this.viewer, CLASS_HIDE);
+    addClass(viewer, CLASS_HIDE);
+    viewer.removeAttribute('role');
+    viewer.removeAttribute('aria-labelledby');
+    viewer.removeAttribute('aria-modal');
+    viewer.setAttribute('aria-hidden', true);
     this.resetList();
     this.resetImage();
     this.hiding = false;
@@ -77,69 +133,95 @@ export default {
         });
       }
 
-      dispatchEvent(element, EVENT_HIDDEN);
+      dispatchEvent(element, EVENT_HIDDEN, null, {
+        cancelable: false,
+      });
     }
   },
 
-  requestFullscreen() {
+  requestFullscreen(options) {
     const document = this.element.ownerDocument;
 
-    if (this.fulled && !document.fullscreenElement && !document.mozFullScreenElement &&
-      !document.webkitFullscreenElement && !document.msFullscreenElement) {
+    if (this.fulled && !(
+      document.fullscreenElement
+      || document.webkitFullscreenElement
+      || document.mozFullScreenElement
+      || document.msFullscreenElement
+    )) {
       const { documentElement } = document;
 
+      // Element.requestFullscreen()
       if (documentElement.requestFullscreen) {
-        documentElement.requestFullscreen();
-      } else if (documentElement.msRequestFullscreen) {
-        documentElement.msRequestFullscreen();
-      } else if (documentElement.mozRequestFullScreen) {
-        documentElement.mozRequestFullScreen();
+        // Avoid TypeError when convert `options` to dictionary
+        if (isPlainObject(options)) {
+          documentElement.requestFullscreen(options);
+        } else {
+          documentElement.requestFullscreen();
+        }
       } else if (documentElement.webkitRequestFullscreen) {
         documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+      } else if (documentElement.mozRequestFullScreen) {
+        documentElement.mozRequestFullScreen();
+      } else if (documentElement.msRequestFullscreen) {
+        documentElement.msRequestFullscreen();
       }
     }
   },
 
   exitFullscreen() {
-    if (this.fulled) {
-      const document = this.element.ownerDocument;
+    const document = this.element.ownerDocument;
 
+    if (this.fulled && (
+      document.fullscreenElement
+      || document.webkitFullscreenElement
+      || document.mozFullScreenElement
+      || document.msFullscreenElement
+    )) {
+      // Document.exitFullscreen()
       if (document.exitFullscreen) {
         document.exitFullscreen();
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-      } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
       } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
       }
     }
   },
 
-  change(e) {
+  change(event) {
     const { options, pointers } = this;
     const pointer = pointers[Object.keys(pointers)[0]];
+
+    // In the case of the `pointers` object is empty (#421)
+    if (!pointer) {
+      return;
+    }
+
     const offsetX = pointer.endX - pointer.startX;
     const offsetY = pointer.endY - pointer.startY;
 
     switch (this.action) {
       // Move the current image
       case ACTION_MOVE:
-        this.move(offsetX, offsetY);
+        this.move(offsetX, offsetY, event);
         break;
 
       // Zoom the current image
       case ACTION_ZOOM:
-        this.zoom(getMaxZoomRatio(pointers), false, e);
+        this.zoom(getMaxZoomRatio(pointers), false, event);
         break;
 
-      case ACTION_SWITCH:
+      case ACTION_SWITCH: {
         this.action = 'switched';
 
-        // Empty `pointers` as `touchend` event will not be fired after swiped in iOS browsers.
-        this.pointers = {};
+        const absoluteOffsetX = Math.abs(offsetX);
 
-        if (Math.abs(offsetX) > Math.abs(offsetY)) {
+        if (absoluteOffsetX > 1 && absoluteOffsetX > Math.abs(offsetY)) {
+          // Empty `pointers` as `touchend` event will not be fired after swiped in iOS browsers.
+          this.pointers = {};
+
           if (offsetX > 1) {
             this.prev(options.loop);
           } else if (offsetX < -1) {
@@ -148,6 +230,7 @@ export default {
         }
 
         break;
+      }
 
       default:
     }
@@ -162,8 +245,8 @@ export default {
   isSwitchable() {
     const { imageData, viewerData } = this;
 
-    return this.length > 1 && imageData.left >= 0 && imageData.top >= 0 &&
-      imageData.width <= viewerData.width &&
-      imageData.height <= viewerData.height;
+    return this.length > 1 && imageData.x >= 0 && imageData.y >= 0
+      && imageData.width <= viewerData.width
+      && imageData.height <= viewerData.height;
   },
 };

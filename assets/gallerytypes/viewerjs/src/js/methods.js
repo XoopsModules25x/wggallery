@@ -10,12 +10,23 @@ import {
   CLASS_SHOW,
   CLASS_TRANSITION,
   EVENT_CLICK,
+  EVENT_ERROR,
   EVENT_HIDE,
   EVENT_LOAD,
+  EVENT_MOVE,
+  EVENT_MOVED,
+  EVENT_PLAY,
+  EVENT_ROTATE,
+  EVENT_ROTATED,
+  EVENT_SCALE,
+  EVENT_SCALED,
   EVENT_SHOW,
+  EVENT_STOP,
   EVENT_TRANSITION_END,
   EVENT_VIEW,
   EVENT_VIEWED,
+  EVENT_ZOOM,
+  EVENT_ZOOMED,
   NAMESPACE,
 } from './constants';
 import {
@@ -23,6 +34,7 @@ import {
   addListener,
   assign,
   dispatchEvent,
+  escapeHTMLEntities,
   forEach,
   getData,
   getOffset,
@@ -32,7 +44,6 @@ import {
   isNumber,
   isUndefined,
   removeClass,
-  removeData,
   removeListener,
   setStyle,
   toggleClass,
@@ -80,12 +91,16 @@ export default {
     const { viewer } = this;
 
     removeClass(viewer, CLASS_HIDE);
+    viewer.setAttribute('role', 'dialog');
+    viewer.setAttribute('aria-labelledby', this.title.id);
+    viewer.setAttribute('aria-modal', true);
+    viewer.removeAttribute('aria-hidden');
 
     if (options.transition && !immediate) {
       const shown = this.shown.bind(this);
 
       this.transitioning = {
-        abort() {
+        abort: () => {
           removeListener(viewer, EVENT_TRANSITION_END, shown);
           removeClass(viewer, CLASS_IN);
         },
@@ -94,8 +109,7 @@ export default {
       addClass(viewer, CLASS_TRANSITION);
 
       // Force reflow to enable CSS3 transition
-      // eslint-disable-next-line
-      viewer.offsetWidth;
+      viewer.initialOffsetWidth = viewer.offsetWidth;
       addListener(viewer, EVENT_TRANSITION_END, shown, {
         once: true,
       });
@@ -142,38 +156,52 @@ export default {
       this.viewing.abort();
     }
 
-    const { viewer } = this;
+    const { viewer, image } = this;
+    const hideImmediately = () => {
+      removeClass(viewer, CLASS_IN);
+      this.hidden();
+    };
 
     if (options.transition && !immediate) {
-      const hidden = this.hidden.bind(this);
-      const hide = () => {
-        addListener(viewer, EVENT_TRANSITION_END, hidden, {
-          once: true,
-        });
-        removeClass(viewer, CLASS_IN);
+      const onViewerTransitionEnd = (event) => {
+        // Ignore all propagating `transitionend` events (#275).
+        if (event && event.target === viewer) {
+          removeListener(viewer, EVENT_TRANSITION_END, onViewerTransitionEnd);
+          this.hidden();
+        }
+      };
+      const onImageTransitionEnd = () => {
+        // In case of show the viewer by `viewer.show(true)` previously (#407).
+        if (hasClass(viewer, CLASS_TRANSITION)) {
+          addListener(viewer, EVENT_TRANSITION_END, onViewerTransitionEnd);
+          removeClass(viewer, CLASS_IN);
+        } else {
+          hideImmediately();
+        }
       };
 
       this.transitioning = {
-        abort() {
-          if (this.viewed) {
-            removeListener(this.image, EVENT_TRANSITION_END, hide);
-          } else {
-            removeListener(viewer, EVENT_TRANSITION_END, hidden);
+        abort: () => {
+          if (this.viewed && hasClass(image, CLASS_TRANSITION)) {
+            removeListener(image, EVENT_TRANSITION_END, onImageTransitionEnd);
+          } else if (hasClass(viewer, CLASS_TRANSITION)) {
+            removeListener(viewer, EVENT_TRANSITION_END, onViewerTransitionEnd);
           }
         },
       };
 
-      if (this.viewed) {
-        addListener(this.image, EVENT_TRANSITION_END, hide, {
+      // In case of hiding the viewer when holding on the image (#255),
+      // note that the `CLASS_TRANSITION` class will be removed on pointer down.
+      if (this.viewed && hasClass(image, CLASS_TRANSITION)) {
+        addListener(image, EVENT_TRANSITION_END, onImageTransitionEnd, {
           once: true,
         });
-        this.zoomTo(0, false, false, true);
+        this.zoomTo(0, false, null, true);
       } else {
-        hide();
+        onImageTransitionEnd();
       }
     } else {
-      removeClass(viewer, CLASS_IN);
-      this.hidden();
+      hideImmediately();
     }
 
     return this;
@@ -184,17 +212,17 @@ export default {
    * @param {number} index - The index of the image to view.
    * @returns {Viewer} this
    */
-  view(index = 0) {
+  view(index = this.options.initialViewIndex) {
     index = Number(index) || 0;
+
+    if (this.hiding || this.played || index < 0 || index >= this.length
+      || (this.viewed && index === this.index)) {
+      return this;
+    }
 
     if (!this.isShown) {
       this.index = index;
       return this.show();
-    }
-
-    if (this.hiding || this.played || index < 0 || index >= this.length ||
-      (this.viewed && index === this.index)) {
-      return this;
     }
 
     if (this.viewing) {
@@ -213,6 +241,14 @@ export default {
     const alt = img.getAttribute('alt');
     const image = document.createElement('img');
 
+    forEach(options.inheritedAttributes, (name) => {
+      const value = img.getAttribute(name);
+
+      if (value !== null) {
+        image.setAttribute(name, value);
+      }
+    });
+
     image.src = url;
     image.alt = alt;
 
@@ -230,9 +266,21 @@ export default {
       return this;
     }
 
-    this.image = image;
-    removeClass(this.items[this.index], CLASS_ACTIVE);
+    const activeItem = this.items[this.index];
+
+    if (activeItem) {
+      removeClass(activeItem, CLASS_ACTIVE);
+      activeItem.removeAttribute('aria-selected');
+    }
+
     addClass(item, CLASS_ACTIVE);
+    item.setAttribute('aria-selected', true);
+
+    if (options.focus) {
+      item.focus();
+    }
+
+    this.image = image;
     this.viewed = false;
     this.index = index;
     this.imageData = {};
@@ -254,17 +302,21 @@ export default {
     // Generate title after viewed
     const onViewed = () => {
       const { imageData } = this;
+      const render = Array.isArray(options.title) ? options.title[1] : options.title;
 
-      title.textContent = `${alt} (${imageData.naturalWidth} × ${imageData.naturalHeight})`;
+      title.innerHTML = escapeHTMLEntities(isFunction(render)
+        ? render.call(this, image, imageData)
+        : `${alt} (${imageData.naturalWidth} × ${imageData.naturalHeight})`);
     };
     let onLoad;
+    let onError;
 
     addListener(element, EVENT_VIEWED, onViewed, {
       once: true,
     });
 
     this.viewing = {
-      abort() {
+      abort: () => {
         removeListener(element, EVENT_VIEWED, onViewed);
 
         if (image.complete) {
@@ -274,6 +326,8 @@ export default {
             this.imageInitializing.abort();
           }
         } else {
+          // Cancel download to save bandwidth.
+          image.src = '';
           removeListener(image, EVENT_LOAD, onLoad);
 
           if (this.timeout) {
@@ -286,7 +340,26 @@ export default {
     if (image.complete) {
       this.load();
     } else {
-      addListener(image, EVENT_LOAD, onLoad = this.load.bind(this), {
+      addListener(image, EVENT_LOAD, onLoad = () => {
+        removeListener(image, EVENT_ERROR, onError);
+        this.load();
+      }, {
+        once: true,
+      });
+      addListener(image, EVENT_ERROR, onError = () => {
+        removeListener(image, EVENT_LOAD, onLoad);
+
+        if (this.timeout) {
+          clearTimeout(this.timeout);
+          this.timeout = false;
+        }
+
+        removeClass(image, CLASS_INVISIBLE);
+
+        if (options.loading) {
+          removeClass(this.canvas, CLASS_LOADING);
+        }
+      }, {
         once: true,
       });
 
@@ -341,16 +414,16 @@ export default {
 
   /**
    * Move the image with relative offsets.
-   * @param {number} offsetX - The relative offset distance on the x-axis.
-   * @param {number} offsetY - The relative offset distance on the y-axis.
+   * @param {number} x - The moving distance in the horizontal direction.
+   * @param {number} [y=x] The moving distance in the vertical direction.
    * @returns {Viewer} this
    */
-  move(offsetX, offsetY) {
+  move(x, y = x) {
     const { imageData } = this;
 
     this.moveTo(
-      isUndefined(offsetX) ? offsetX : imageData.left + Number(offsetX),
-      isUndefined(offsetY) ? offsetY : imageData.top + Number(offsetY),
+      isUndefined(x) ? x : imageData.x + Number(x),
+      isUndefined(y) ? y : imageData.y + Number(y),
     );
 
     return this;
@@ -358,31 +431,229 @@ export default {
 
   /**
    * Move the image to an absolute point.
-   * @param {number} x - The x-axis coordinate.
-   * @param {number} [y=x] - The y-axis coordinate.
+   * @param {number} x - The new position in the horizontal direction.
+   * @param {number} [y=x] - The new position in the vertical direction.
+   * @param {Event} [_originalEvent=null] - The original event if any.
    * @returns {Viewer} this
    */
-  moveTo(x, y = x) {
-    const { imageData } = this;
+  moveTo(x, y = x, _originalEvent = null) {
+    const { element, options, imageData } = this;
 
     x = Number(x);
     y = Number(y);
 
-    if (this.viewed && !this.played && this.options.movable) {
+    if (this.viewed && !this.played && options.movable) {
+      const oldX = imageData.x;
+      const oldY = imageData.y;
       let changed = false;
 
       if (isNumber(x)) {
-        imageData.left = x;
         changed = true;
+      } else {
+        x = oldX;
       }
 
       if (isNumber(y)) {
-        imageData.top = y;
         changed = true;
+      } else {
+        y = oldY;
       }
 
       if (changed) {
-        this.renderImage();
+        if (isFunction(options.move)) {
+          addListener(element, EVENT_MOVE, options.move, {
+            once: true,
+          });
+        }
+
+        if (dispatchEvent(element, EVENT_MOVE, {
+          x,
+          y,
+          oldX,
+          oldY,
+          originalEvent: _originalEvent,
+        }) === false) {
+          return this;
+        }
+
+        imageData.x = x;
+        imageData.y = y;
+        imageData.left = x;
+        imageData.top = y;
+        this.moving = true;
+        this.renderImage(() => {
+          this.moving = false;
+
+          if (isFunction(options.moved)) {
+            addListener(element, EVENT_MOVED, options.moved, {
+              once: true,
+            });
+          }
+
+          dispatchEvent(element, EVENT_MOVED, {
+            x,
+            y,
+            oldX,
+            oldY,
+            originalEvent: _originalEvent,
+          }, {
+            cancelable: false,
+          });
+        });
+      }
+    }
+
+    return this;
+  },
+
+  /**
+   * Rotate the image with a relative degree.
+   * @param {number} degree - The rotate degree.
+   * @returns {Viewer} this
+   */
+  rotate(degree) {
+    this.rotateTo((this.imageData.rotate || 0) + Number(degree));
+
+    return this;
+  },
+
+  /**
+   * Rotate the image to an absolute degree.
+   * @param {number} degree - The rotate degree.
+   * @returns {Viewer} this
+   */
+  rotateTo(degree) {
+    const { element, options, imageData } = this;
+
+    degree = Number(degree);
+
+    if (isNumber(degree) && this.viewed && !this.played && options.rotatable) {
+      const oldDegree = imageData.rotate;
+
+      if (isFunction(options.rotate)) {
+        addListener(element, EVENT_ROTATE, options.rotate, {
+          once: true,
+        });
+      }
+
+      if (dispatchEvent(element, EVENT_ROTATE, {
+        degree,
+        oldDegree,
+      }) === false) {
+        return this;
+      }
+
+      imageData.rotate = degree;
+      this.rotating = true;
+      this.renderImage(() => {
+        this.rotating = false;
+
+        if (isFunction(options.rotated)) {
+          addListener(element, EVENT_ROTATED, options.rotated, {
+            once: true,
+          });
+        }
+
+        dispatchEvent(element, EVENT_ROTATED, {
+          degree,
+          oldDegree,
+        }, {
+          cancelable: false,
+        });
+      });
+    }
+
+    return this;
+  },
+
+  /**
+   * Scale the image on the x-axis.
+   * @param {number} scaleX - The scale ratio on the x-axis.
+   * @returns {Viewer} this
+   */
+  scaleX(scaleX) {
+    this.scale(scaleX, this.imageData.scaleY);
+
+    return this;
+  },
+
+  /**
+   * Scale the image on the y-axis.
+   * @param {number} scaleY - The scale ratio on the y-axis.
+   * @returns {Viewer} this
+   */
+  scaleY(scaleY) {
+    this.scale(this.imageData.scaleX, scaleY);
+
+    return this;
+  },
+
+  /**
+   * Scale the image.
+   * @param {number} scaleX - The scale ratio on the x-axis.
+   * @param {number} [scaleY=scaleX] - The scale ratio on the y-axis.
+   * @returns {Viewer} this
+   */
+  scale(scaleX, scaleY = scaleX) {
+    const { element, options, imageData } = this;
+
+    scaleX = Number(scaleX);
+    scaleY = Number(scaleY);
+
+    if (this.viewed && !this.played && options.scalable) {
+      const oldScaleX = imageData.scaleX;
+      const oldScaleY = imageData.scaleY;
+      let changed = false;
+
+      if (isNumber(scaleX)) {
+        changed = true;
+      } else {
+        scaleX = oldScaleX;
+      }
+
+      if (isNumber(scaleY)) {
+        changed = true;
+      } else {
+        scaleY = oldScaleY;
+      }
+
+      if (changed) {
+        if (isFunction(options.scale)) {
+          addListener(element, EVENT_SCALE, options.scale, {
+            once: true,
+          });
+        }
+
+        if (dispatchEvent(element, EVENT_SCALE, {
+          scaleX,
+          scaleY,
+          oldScaleX,
+          oldScaleY,
+        }) === false) {
+          return this;
+        }
+
+        imageData.scaleX = scaleX;
+        imageData.scaleY = scaleY;
+        this.scaling = true;
+        this.renderImage(() => {
+          this.scaling = false;
+
+          if (isFunction(options.scaled)) {
+            addListener(element, EVENT_SCALED, options.scaled, {
+              once: true,
+            });
+          }
+
+          dispatchEvent(element, EVENT_SCALED, {
+            scaleX,
+            scaleY,
+            oldScaleX,
+            oldScaleY,
+          }, {
+            cancelable: false,
+          });
+        });
       }
     }
 
@@ -421,7 +692,20 @@ export default {
    * @returns {Viewer} this
    */
   zoomTo(ratio, hasTooltip = false, _originalEvent = null, _zoomable = false) {
-    const { options, pointers, imageData } = this;
+    const {
+      element,
+      options,
+      pointers,
+      imageData,
+    } = this;
+    const {
+      x,
+      y,
+      width,
+      height,
+      naturalWidth,
+      naturalHeight,
+    } = imageData;
 
     ratio = Math.max(0, ratio);
 
@@ -433,37 +717,89 @@ export default {
         ratio = Math.min(Math.max(ratio, minZoomRatio), maxZoomRatio);
       }
 
-      if (_originalEvent && ratio > 0.95 && ratio < 1.05) {
-        ratio = 1;
+      if (_originalEvent) {
+        switch (_originalEvent.type) {
+          case 'wheel':
+            if (options.zoomRatio >= 0.055 && ratio > 0.95 && ratio < 1.05) {
+              ratio = 1;
+            }
+            break;
+
+          case 'pointermove':
+          case 'touchmove':
+          case 'mousemove':
+            if (ratio > 0.99 && ratio < 1.01) {
+              ratio = 1;
+            }
+            break;
+
+          default:
+        }
       }
 
-      const newWidth = imageData.naturalWidth * ratio;
-      const newHeight = imageData.naturalHeight * ratio;
+      const newWidth = naturalWidth * ratio;
+      const newHeight = naturalHeight * ratio;
+      const offsetWidth = newWidth - width;
+      const offsetHeight = newHeight - height;
+      const oldRatio = imageData.ratio;
+
+      if (isFunction(options.zoom)) {
+        addListener(element, EVENT_ZOOM, options.zoom, {
+          once: true,
+        });
+      }
+
+      if (dispatchEvent(element, EVENT_ZOOM, {
+        ratio,
+        oldRatio,
+        originalEvent: _originalEvent,
+      }) === false) {
+        return this;
+      }
+
+      this.zooming = true;
 
       if (_originalEvent) {
         const offset = getOffset(this.viewer);
-        const center = pointers && Object.keys(pointers).length ? getPointersCenter(pointers) : {
-          pageX: _originalEvent.pageX,
-          pageY: _originalEvent.pageY,
-        };
+        const center = pointers && Object.keys(pointers).length > 0
+          ? getPointersCenter(pointers)
+          : {
+            pageX: _originalEvent.pageX,
+            pageY: _originalEvent.pageY,
+          };
 
         // Zoom from the triggering point of the event
-        imageData.left -= (newWidth - imageData.width) * (
-          ((center.pageX - offset.left) - imageData.left) / imageData.width
-        );
-        imageData.top -= (newHeight - imageData.height) * (
-          ((center.pageY - offset.top) - imageData.top) / imageData.height
-        );
+        imageData.x -= offsetWidth * (((center.pageX - offset.left) - x) / width);
+        imageData.y -= offsetHeight * (((center.pageY - offset.top) - y) / height);
       } else {
         // Zoom from the center of the image
-        imageData.left -= (newWidth - imageData.width) / 2;
-        imageData.top -= (newHeight - imageData.height) / 2;
+        imageData.x -= offsetWidth / 2;
+        imageData.y -= offsetHeight / 2;
       }
 
+      imageData.left = imageData.x;
+      imageData.top = imageData.y;
       imageData.width = newWidth;
       imageData.height = newHeight;
+      imageData.oldRatio = oldRatio;
       imageData.ratio = ratio;
-      this.renderImage();
+      this.renderImage(() => {
+        this.zooming = false;
+
+        if (isFunction(options.zoomed)) {
+          addListener(element, EVENT_ZOOMED, options.zoomed, {
+            once: true,
+          });
+        }
+
+        dispatchEvent(element, EVENT_ZOOMED, {
+          ratio,
+          oldRatio,
+          originalEvent: _originalEvent,
+        }, {
+          cancelable: false,
+        });
+      });
 
       if (hasTooltip) {
         this.tooltip();
@@ -474,92 +810,8 @@ export default {
   },
 
   /**
-   * Rotate the image with a relative degree.
-   * @param {number} degree - The rotate degree.
-   * @returns {Viewer} this
-   */
-  rotate(degree) {
-    this.rotateTo((this.imageData.rotate || 0) + Number(degree));
-
-    return this;
-  },
-
-  /**
-   * Rotate the image to an absolute degree.
-   * @param {number} degree - The rotate degree.
-   * @returns {Viewer} this
-   */
-  rotateTo(degree) {
-    const { imageData } = this;
-
-    degree = Number(degree);
-
-    if (isNumber(degree) && this.viewed && !this.played && this.options.rotatable) {
-      imageData.rotate = degree;
-      this.renderImage();
-    }
-
-    return this;
-  },
-
-  /**
-   * Scale the image on the x-axis.
-   * @param {number} scaleX - The scale ratio on the x-axis.
-   * @returns {Viewer} this
-   */
-  scaleX(scaleX) {
-    this.scale(scaleX, this.imageData.scaleY);
-
-    return this;
-  },
-
-  /**
-   * Scale the image on the y-axis.
-   * @param {number} scaleY - The scale ratio on the y-axis.
-   * @returns {Viewer} this
-   */
-  scaleY(scaleY) {
-    this.scale(this.imageData.scaleX, scaleY);
-
-    return this;
-  },
-
-  /**
-   * Scale the image.
-   * @param {number} scaleX - The scale ratio on the x-axis.
-   * @param {number} [scaleY=scaleX] - The scale ratio on the y-axis.
-   * @returns {Viewer} this
-   */
-  scale(scaleX, scaleY = scaleX) {
-    const { imageData } = this;
-
-    scaleX = Number(scaleX);
-    scaleY = Number(scaleY);
-
-    if (this.viewed && !this.played && this.options.scalable) {
-      let changed = false;
-
-      if (isNumber(scaleX)) {
-        imageData.scaleX = scaleX;
-        changed = true;
-      }
-
-      if (isNumber(scaleY)) {
-        imageData.scaleY = scaleY;
-        changed = true;
-      }
-
-      if (changed) {
-        this.renderImage();
-      }
-    }
-
-    return this;
-  },
-
-  /**
    * Play the images
-   * @param {boolean} [fullscreen=false] - Indicate if request fullscreen or not.
+   * @param {boolean|FullscreenOptions} [fullscreen=false] - Indicate if request fullscreen or not.
    * @returns {Viewer} this
    */
   play(fullscreen = false) {
@@ -567,7 +819,19 @@ export default {
       return this;
     }
 
-    const { options, player } = this;
+    const { element, options } = this;
+
+    if (isFunction(options.play)) {
+      addListener(element, EVENT_PLAY, options.play, {
+        once: true,
+      });
+    }
+
+    if (dispatchEvent(element, EVENT_PLAY) === false) {
+      return this;
+    }
+
+    const { player } = this;
     const onLoad = this.loadImage.bind(this);
     const list = [];
     let total = 0;
@@ -577,7 +841,7 @@ export default {
     this.onLoadWhenPlay = onLoad;
 
     if (fullscreen) {
-      this.requestFullscreen();
+      this.requestFullscreen(fullscreen);
     }
 
     addClass(player, CLASS_SHOW);
@@ -587,6 +851,7 @@ export default {
 
       image.src = getData(img, 'originalUrl');
       image.alt = img.getAttribute('alt');
+      image.referrerPolicy = img.referrerPolicy;
       total += 1;
       addClass(image, CLASS_FADE);
       toggleClass(image, CLASS_TRANSITION, options.transition);
@@ -625,6 +890,18 @@ export default {
   // Stop play
   stop() {
     if (!this.played) {
+      return this;
+    }
+
+    const { element, options } = this;
+
+    if (isFunction(options.stop)) {
+      addListener(element, EVENT_STOP, options.stop, {
+        once: true,
+      });
+    }
+
+    if (dispatchEvent(element, EVENT_STOP) === false) {
       return this;
     }
 
@@ -668,10 +945,17 @@ export default {
     }
 
     addClass(viewer, CLASS_FIXED);
-    viewer.setAttribute('style', '');
+    viewer.setAttribute('role', 'dialog');
+    viewer.setAttribute('aria-labelledby', this.title.id);
+    viewer.setAttribute('aria-modal', true);
+    viewer.removeAttribute('style');
     setStyle(viewer, {
       zIndex: options.zIndex,
     });
+
+    if (options.focus) {
+      this.enforceFocus();
+    }
 
     this.initContainer();
     this.viewerData = assign({}, this.containerData);
@@ -718,6 +1002,13 @@ export default {
       }
     }
 
+    if (options.focus) {
+      this.clearEnforceFocus();
+    }
+
+    viewer.removeAttribute('role');
+    viewer.removeAttribute('aria-labelledby');
+    viewer.removeAttribute('aria-modal');
     removeClass(viewer, CLASS_FIXED);
     setStyle(viewer, {
       zIndex: options.zIndexInline,
@@ -762,13 +1053,14 @@ export default {
         addClass(tooltipBox, CLASS_SHOW);
         addClass(tooltipBox, CLASS_FADE);
         addClass(tooltipBox, CLASS_TRANSITION);
+        tooltipBox.removeAttribute('aria-hidden');
 
         // Force reflow to enable CSS3 transition
-        // eslint-disable-next-line
-        tooltipBox.offsetWidth;
+        tooltipBox.initialOffsetWidth = tooltipBox.offsetWidth;
         addClass(tooltipBox, CLASS_IN);
       } else {
         addClass(tooltipBox, CLASS_SHOW);
+        tooltipBox.removeAttribute('aria-hidden');
       }
     } else {
       clearTimeout(this.tooltipping);
@@ -780,6 +1072,7 @@ export default {
           removeClass(tooltipBox, CLASS_SHOW);
           removeClass(tooltipBox, CLASS_FADE);
           removeClass(tooltipBox, CLASS_TRANSITION);
+          tooltipBox.setAttribute('aria-hidden', true);
           this.fading = false;
         }, {
           once: true,
@@ -789,6 +1082,7 @@ export default {
         this.fading = true;
       } else {
         removeClass(tooltipBox, CLASS_SHOW);
+        tooltipBox.setAttribute('aria-hidden', true);
       }
 
       this.tooltipping = false;
@@ -797,12 +1091,16 @@ export default {
     return this;
   },
 
-  // Toggle the image size between its natural size and initial size
-  toggle() {
+  /**
+   * Toggle the image size between its current size and natural size
+   * @param {Event} [_originalEvent=null] - The original event if any.
+   * @returns {Viewer} this
+   */
+  toggle(_originalEvent = null) {
     if (this.imageData.ratio === 1) {
-      this.zoomTo(this.initialImageData.ratio, true);
+      this.zoomTo(this.imageData.oldRatio, true, _originalEvent);
     } else {
-      this.zoomTo(1, true);
+      this.zoomTo(1, true, _originalEvent);
     }
 
     return this;
@@ -830,11 +1128,11 @@ export default {
     const images = [];
 
     forEach(isImg ? [element] : element.querySelectorAll('img'), (image) => {
-      if (options.filter) {
-        if (options.filter(image)) {
+      if (isFunction(options.filter)) {
+        if (options.filter.call(this, image)) {
           images.push(image);
         }
-      } else {
+      } else if (this.getImageURL(image)) {
         images.push(image);
       }
     });
@@ -847,18 +1145,23 @@ export default {
     this.length = images.length;
 
     if (this.ready) {
-      const indexes = [];
+      const changedIndexes = [];
 
       forEach(this.items, (item, i) => {
         const img = item.querySelector('img');
         const image = images[i];
 
-        if (image) {
-          if (image.src !== img.src) {
-            indexes.push(i);
+        if (image && img) {
+          if (
+            image.src !== img.src
+
+            // Title changed (#408)
+            || image.alt !== img.alt
+          ) {
+            changedIndexes.push(i);
           }
         } else {
-          indexes.push(i);
+          changedIndexes.push(i);
         }
       });
 
@@ -871,20 +1174,24 @@ export default {
       if (this.isShown) {
         if (this.length) {
           if (this.viewed) {
-            const index = indexes.indexOf(this.index);
+            const changedIndex = changedIndexes.indexOf(this.index);
 
-            if (index >= 0) {
+            if (changedIndex >= 0) {
               this.viewed = false;
-              this.view(Math.max(this.index - (index + 1), 0));
+              this.view(Math.max(Math.min(this.index - changedIndex, this.length - 1), 0));
             } else {
-              addClass(this.items[this.index], CLASS_ACTIVE);
+              const activeItem = this.items[this.index];
+
+              // Reactivate the current viewing item after reset the list.
+              addClass(activeItem, CLASS_ACTIVE);
+              activeItem.setAttribute('aria-selected', true);
             }
           }
         } else {
           this.image = null;
           this.viewed = false;
           this.index = 0;
-          this.imageData = null;
+          this.imageData = {};
           this.canvas.innerHTML = '';
           this.title.innerHTML = '';
         }
@@ -900,7 +1207,7 @@ export default {
   destroy() {
     const { element, options } = this;
 
-    if (!getData(element, NAMESPACE)) {
+    if (!element[NAMESPACE]) {
       return this;
     }
 
@@ -950,7 +1257,7 @@ export default {
       removeListener(element, EVENT_CLICK, this.onStart);
     }
 
-    removeData(element, NAMESPACE);
+    element[NAMESPACE] = undefined;
     return this;
   },
 };

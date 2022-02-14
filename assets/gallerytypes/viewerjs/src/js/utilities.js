@@ -2,7 +2,8 @@ import {
   CLASS_HIDE_MD_DOWN,
   CLASS_HIDE_SM_DOWN,
   CLASS_HIDE_XS_DOWN,
-  IN_BROWSER,
+  IS_BROWSER,
+  REGEXP_SPACES,
   WINDOW,
 } from './constants';
 
@@ -64,7 +65,7 @@ export function isPlainObject(value) {
     const { prototype } = constructor;
 
     return constructor && prototype && hasOwnProperty.call(prototype, 'isPrototypeOf');
-  } catch (e) {
+  } catch (error) {
     return false;
   }
 }
@@ -145,15 +146,33 @@ export function setStyle(element, styles) {
 }
 
 /**
+ * Escape a string for using in HTML.
+ * @param {String} value - The string to escape.
+ * @returns {String} Returns the escaped string.
+ */
+export function escapeHTMLEntities(value) {
+  return isString(value) ? value
+    .replace(/&(?!amp;|quot;|#39;|lt;|gt;)/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;') : value;
+}
+
+/**
  * Check if the given element has a special class.
  * @param {Element} element - The element to check.
  * @param {string} value - The class to search.
  * @returns {boolean} Returns `true` if the special class was found.
  */
 export function hasClass(element, value) {
-  return element.classList ?
-    element.classList.contains(value) :
-    element.className.indexOf(value) > -1;
+  if (!element || !value) {
+    return false;
+  }
+
+  return element.classList
+    ? element.classList.contains(value)
+    : element.className.indexOf(value) > -1;
 }
 
 /**
@@ -162,7 +181,7 @@ export function hasClass(element, value) {
  * @param {string} value - The classes to be added.
  */
 export function addClass(element, value) {
-  if (!value) {
+  if (!element || !value) {
     return;
   }
 
@@ -193,7 +212,7 @@ export function addClass(element, value) {
  * @param {string} value - The classes to be removed.
  */
 export function removeClass(element, value) {
-  if (!value) {
+  if (!element || !value) {
     return;
   }
 
@@ -260,7 +279,9 @@ export function hyphenate(value) {
 export function getData(element, name) {
   if (isObject(element[name])) {
     return element[name];
-  } else if (element.dataset) {
+  }
+
+  if (element.dataset) {
     return element.dataset[name];
   }
 
@@ -292,14 +313,14 @@ export function removeData(element, name) {
   if (isObject(element[name])) {
     try {
       delete element[name];
-    } catch (e) {
+    } catch (error) {
       element[name] = undefined;
     }
   } else if (element.dataset) {
     // #128 Safari not allows to delete dataset property
     try {
       delete element.dataset[name];
-    } catch (e) {
+    } catch (error) {
       element.dataset[name] = undefined;
     }
   } else {
@@ -307,11 +328,10 @@ export function removeData(element, name) {
   }
 }
 
-const REGEXP_SPACES = /\s\s*/;
 const onceSupported = (() => {
   let supported = false;
 
-  if (IN_BROWSER) {
+  if (IS_BROWSER) {
     let once = false;
     const listener = () => {};
     const options = Object.defineProperty({}, 'once', {
@@ -410,17 +430,19 @@ export function addListener(element, type, listener, options = {}) {
  * @param {Element} element - The event target.
  * @param {string} type - The event type(s).
  * @param {Object} data - The additional event data.
+ * @param {Object} options - The additional event options.
  * @returns {boolean} Indicate if the event is default prevented or not.
  */
-export function dispatchEvent(element, type, data) {
+export function dispatchEvent(element, type, data, options) {
   let event;
 
   // Event and CustomEvent on IE9-11 are global objects, not constructors
   if (isFunction(Event) && isFunction(CustomEvent)) {
     event = new CustomEvent(type, {
-      detail: data,
       bubbles: true,
       cancelable: true,
+      detail: data,
+      ...options,
     });
   } else {
     event = document.createEvent('CustomEvent');
@@ -493,11 +515,11 @@ export function getTransforms({
  * @param {string} url - The target url.
  * @example
  * // picture.jpg
- * getImageNameFromURL('http://domain.com/path/to/picture.jpg?size=1280×960')
+ * getImageNameFromURL('https://domain.com/path/to/picture.jpg?size=1280×960')
  * @returns {string} A string contains the image name.
  */
 export function getImageNameFromURL(url) {
-  return isString(url) ? url.replace(/^.*\//, '').replace(/[?&#].*$/, '') : '';
+  return isString(url) ? decodeURIComponent(url.replace(/^.*\//, '').replace(/[?&#].*$/, '')) : '';
 }
 
 const IS_SAFARI = WINDOW.navigator && /(Macintosh|iPhone|iPod|iPad).*AppleWebKit/i.test(WINDOW.navigator.userAgent);
@@ -505,10 +527,11 @@ const IS_SAFARI = WINDOW.navigator && /(Macintosh|iPhone|iPod|iPad).*AppleWebKit
 /**
  * Get an image's natural sizes.
  * @param {string} image - The target image.
+ * @param {Object} options - The viewer options.
  * @param {Function} callback - The callback function.
  * @returns {HTMLImageElement} The new image.
  */
-export function getImageNaturalSizes(image, callback) {
+export function getImageNaturalSizes(image, options, callback) {
   const newImage = document.createElement('img');
 
   // Modern browsers (except Safari)
@@ -527,21 +550,29 @@ export function getImageNaturalSizes(image, callback) {
     }
   };
 
+  forEach(options.inheritedAttributes, (name) => {
+    const value = image.getAttribute(name);
+
+    if (value !== null) {
+      newImage.setAttribute(name, value);
+    }
+  });
+
   newImage.src = image.src;
 
   // iOS Safari will convert the image automatically
   // with its orientation once append it into DOM
   if (!IS_SAFARI) {
     newImage.style.cssText = (
-      'left:0;' +
-      'max-height:none!important;' +
-      'max-width:none!important;' +
-      'min-height:0!important;' +
-      'min-width:0!important;' +
-      'opacity:0;' +
-      'position:absolute;' +
-      'top:0;' +
-      'z-index:-1;'
+      'left:0;'
+      + 'max-height:none!important;'
+      + 'max-width:none!important;'
+      + 'min-height:0!important;'
+      + 'min-width:0!important;'
+      + 'opacity:0;'
+      + 'position:absolute;'
+      + 'top:0;'
+      + 'z-index:-1;'
     );
     body.appendChild(newImage);
   }
@@ -576,7 +607,7 @@ export function getResponsiveClass(type) {
  * @returns {number} The result ratio.
  */
 export function getMaxZoomRatio(pointers) {
-  const pointers2 = assign({}, pointers);
+  const pointers2 = { ...pointers };
   const ratios = [];
 
   forEach(pointers, (pointer, pointerId) => {
@@ -612,10 +643,12 @@ export function getPointer({ pageX, pageY }, endOnly) {
     endY: pageY,
   };
 
-  return endOnly ? end : assign({
+  return endOnly ? end : ({
+    timeStamp: Date.now(),
     startX: pageX,
     startY: pageY,
-  }, end);
+    ...end,
+  });
 }
 
 /**
