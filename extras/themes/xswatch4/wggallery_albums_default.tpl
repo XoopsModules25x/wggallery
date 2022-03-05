@@ -57,7 +57,7 @@
                             <a class='btn btn-secondary wgg-btn' href='albums.php?op=delete&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$album.pid}>' title='<{$smarty.const._DELETE}>'>
                                 <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>delete.png' alt='<{$smarty.const._DELETE}>'><{if $displayButtonText|default:false}><{$smarty.const._DELETE}><{/if}></a>
                         <{/if}>
-                        <{if $album.iscoll|default:false == 0 && $album.download|default:false}>
+                        <{if $album.iscoll|default:false == 0 && $album.download|default:false && $album.nb_images|default:0 > 0}>
                             <a class='btn btn-secondary wgg-btn' href='<{$wggallery_url}>/download.php?op=album&amp;alb_id=<{$album.id}>' title='<{$smarty.const._CO_WGGALLERY_DOWNLOAD_ALB}>'>
                                 <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>download.png' alt='<{$smarty.const._CO_WGGALLERY_DOWNLOAD_ALB}>'><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_DOWNLOAD_ALB}><{/if}></a>
                         <{/if}>
