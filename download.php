@@ -77,12 +77,12 @@ switch ($op) {
                 header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
                 header('Cache-Control: public');
                 header('Content-Description: File Transfer');
-                header('Content-type: application/octet-stream');
+                header('Content-type: application/zip');
                 header('Content-Disposition: attachment; filename="' . $archive_file_name . '"');
                 header('Content-Transfer-Encoding: binary');
-                header('Content-Length: ' . filesize($archive_file_path));
-                ob_end_flush();
-                @readfile($archive_file_path);
+                header('Content-Length: ' . \filesize($archive_file_path));
+                \flush();
+                \readfile($archive_file_path);
                 \unlink($archive_file_path);
 
                 // mark all images of album as downloaded
