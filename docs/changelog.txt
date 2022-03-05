@@ -4,6 +4,9 @@
  - code cleaning (PS inspect code) (goffy)
  - added new update procedure (goffy)
  - updated viewerjs to last version (goffy)
+ - added chmod in install/update (cesagonchu/goffy)
+ - hide download button when album is empty (cesagonchu/goffy)
+ - fixed bug with download zip (cesagonchu/goffy)
 
 <h5>1.15 RC2</h5>  [2021/04/19]
 <hr>
