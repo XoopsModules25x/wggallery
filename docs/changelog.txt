@@ -9,6 +9,7 @@
  - fixed bug with download zip (cesagonchu/goffy)
  - adapted update due to new semantic versioning (goffy)
  - updated viewerjs (goffy)
+ - fixed bug in MigrateHelper (goffy)
 
 <h5>1.15 RC2</h5>  [2021/04/19]
 <hr>
