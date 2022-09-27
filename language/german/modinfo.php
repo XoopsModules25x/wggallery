@@ -137,6 +137,8 @@ require_once __DIR__ . '/common.php';
 \define('_MI_WGGALLERY_STORE_ORIGINAL_DESC', 'Definieren Sie, ob sie das Originalbild zusätzlich speichern wollen.
                 <br>Vorteil: alle Bilder sind später in neuen Größen und mit neuen Wasserzeichen reproduzierbar
                 <br>Nachteil: der Speicherbedarf wird entsprechend der zulässigen Größe für Uploads ansteigen');
+define('_MI_WGGALLERY_TAGMODULE', 'Tags auch in TAG Modul anzeigen');
+define('_MI_WGGALLERY_TAGMODULE_DESC', "Definieren die Bilder-Tags auch im Modul TAG angezeigt werden sollen<br>- Das Modul 'Tag' muss installiert sein<br>- Die Option 'Tags verwenden' muss aktiviert sein");
 // Notifications
 \define('_MI_WGGALLERY_GLOBAL_NOTIFY', 'Globale Benachrichtigungen');
 \define('_MI_WGGALLERY_GLOBAL_ALB_NEW_ALL_NOTIFY', 'Sende Benachrichtigung wenn ein neues Album erstellt wird');
