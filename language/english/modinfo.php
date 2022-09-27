@@ -137,6 +137,8 @@ require_once __DIR__ . '/common.php';
 \define('_MI_WGGALLERY_STORE_ORIGINAL_DESC', 'Define, whether you want to store the original image.
                 <br>Advantage: all images can be reproduced later including new water marks
                 <br>Disadvantage: the used server space will increase corresponding the allowed upload file size');
+define('_MI_WGGALLERY_TAGMODULE', 'Use TAG module to generate tags');
+define('_MI_WGGALLERY_TAGMODULE_DESC', "Define whether your image tags should be shown also in TAG module<br>- The module 'TAG' musst be installed<br>- The option 'Use Tags' musst be activated");
 // Notifications
 \define('_MI_WGGALLERY_GLOBAL_NOTIFY', 'Global notification');
 \define('_MI_WGGALLERY_GLOBAL_ALB_NEW_ALL_NOTIFY', 'Send notification when a new album was created');

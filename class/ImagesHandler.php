@@ -497,6 +497,7 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
         // Insert Data
         if ($this->insert($imagesObj)) {
             $this->imageId = $this->getInsertId();
+            $this->handleTagsForTagmodule($this->imageTags, $this->imageId, $this->albumId);
 
             return true;
         }
@@ -603,5 +604,26 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
         $form->addElement(new \XoopsFormHidden('op', 'uploadBatch'));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));
         return $form;
+    }
+
+    /**
+     * @public function to handle tags for tag module
+     * @param string $tags
+     * @param int    $id
+     * @param int    $catid
+     * @return bool
+     */
+    public function handleTagsForTagmodule($tags, $id, $catid = 0)
+    {
+        $helper = \XoopsModules\Wggallery\Helper::getInstance();
+        $moduleDirName      = basename(dirname(__DIR__));
+        //check whether tag module is installed and wggallery config is set usetagmodule = 1
+        if (1 == $helper->getConfig('usetagmodule') && in_array($moduleDirName, xoops_getActiveModules())) {
+            //wggallery use # as tag separator, tag module doesn't use #
+            $cleanTags = \str_replace('#', ' ', $tags);
+            $tagHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Tag'); // xoops_getModuleHandler('tag', 'tag');
+            $tagHandler->updateByItem($cleanTags, $id, $moduleDirName, $catid);
+        }
+        return true;
     }
 }

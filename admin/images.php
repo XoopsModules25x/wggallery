@@ -151,17 +151,21 @@ switch ($op) {
         $imagesObj->setVar('img_ratinglikes', Request::getInt('img_ratinglikes'));
         $imagesObj->setVar('img_votes', Request::getInt('img_votes'));
         $imagesObj->setVar('img_weight', Request::getInt('img_weight'));
-        $imagesObj->setVar('img_albid', Request::getInt('img_albid'));
+        $imgAlbid = Request::getInt('img_albid');
+        $imagesObj->setVar('img_albid', $imgAlbid);
         $imagesObj->setVar('img_state', Request::getInt('img_state'));
         $imagesObj->setVar('img_exif', Request::getString('img_exif'));
         $imagesObj->setVar('img_cats', serialize(Request::getArray('img_cats')));
-        $imagesObj->setVar('img_tags', Request::getString('img_tags'));
+        $imgTags = Request::getString('img_tags');
+        $imagesObj->setVar('img_tags', $imgTags);
         $imageDate = date_create_from_format(_SHORTDATESTRING, $_POST['img_date']);
         $imagesObj->setVar('img_date', $imageDate->getTimestamp());
         $imagesObj->setVar('img_submitter', Request::getInt('img_submitter'));
         $imagesObj->setVar('img_ip', $_SERVER['REMOTE_ADDR']);
         // Insert Data
         if ($imagesHandler->insert($imagesObj)) {
+            $newImgId = $imgId > 0 ? $imgId : $imagesObj->getNewInsertedIdImages();
+            $imagesHandler->handleTagsForTagmodule($imgTags, $newImgId, $imgAlbid);
             \redirect_header('images.php?op=list&amp;start=' . $start . '&amp;limit=' . $limit . '&amp;alb_id=' . $albId, 2, \_CO_WGGALLERY_FORM_OK);
         }
         // Get Form

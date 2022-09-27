@@ -1,3 +1,7 @@
+<h5>1.2.0 RC2</h5>  [2022/09/27]
+<hr>
+- added support of tag module (alain01/goffy)
+
 <h5>1.2.0 RC1</h5>  [2021/04/19]
 <hr>
  - semantic versioning (mamba/goffy)

@@ -26,7 +26,7 @@ $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 // ------------------- Informations ------------------- //
 $modversion = [
     'version'             => '1.2.0',
-    'module_status'       => 'RC1',
+    'module_status'       => 'RC2',
     'release_date'        => '2021/04/19',
     'name'                => \_MI_WGGALLERY_NAME,
     'description'         => \_MI_WGGALLERY_DESC,
@@ -667,6 +667,15 @@ $modversion['config'][] = [
     'valuetype'   => 'textbox',
     'default'     => 'even',
     'category'    => 'group_header',
+];
+
+$modversion['config'][] = [
+    'name'        => 'usetagmodule',
+    'title'       => '_MI_WGGALLERY_TAGMODULE',
+    'description' => '_MI_WGGALLERY_TAGMODULE_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 0,
 ];
 
 // Editor desc

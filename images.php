@@ -230,7 +230,8 @@ switch ($op) {
         $imagesObj->setVar('img_views', Request::getInt('img_views'));
         $imagesObj->setVar('img_weight', Request::getInt('img_weight'));
         $imagesObj->setVar('img_cats', serialize(Request::getArray('img_cats')));
-        $imagesObj->setVar('img_tags', Request::getString('img_tags'));
+        $imgTags = Request::getString('img_tags');
+        $imagesObj->setVar('img_tags', $imgTags);
         $albumsObj = $albumsHandler->get($albId);
         $imgAlbPid = $albumsObj->getVar('alb_pid');
         $imagesObj->setVar('img_albid', $imgAlbId);
@@ -257,6 +258,11 @@ switch ($op) {
                     $notificationHandler->triggerEvent('albums', $albId, 'image_new', $tags);
                 }
             }
+
+            //handle tags for module TAG
+            $newImgId = $imgId > 0 ? $imgId : $imagesObj->getNewInsertedIdImages();
+            $imagesHandler->handleTagsForTagmodule($imgTags, $newImgId, $imgAlbId);
+
             if ('manage' === $redir_op) {
                 \redirect_header('images.php?op=manage&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid . '#image_' . $imgId, 2, \_CO_WGGALLERY_FORM_OK);
             } else {
