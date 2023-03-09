@@ -61,6 +61,8 @@ function b_wggallery_images_show($options)
     $GLOBALS['xoopsTpl']->assign('bi_nbImagesRow', $nbImagesRow);
     $GLOBALS['xoopsTpl']->assign('bi_showTitle', $bshowTitle);
     $GLOBALS['xoopsTpl']->assign('bi_showDesc', $bshowDesc);
+    $image_target = $helper->getConfig('image_target');
+    $GLOBALS['xoopsTpl']->assign('image_target', $image_target);
 
     $imagesHandler = $helper->getHandler('Images');
     $criteria      = new \CriteriaCompo();

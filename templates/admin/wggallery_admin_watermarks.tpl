@@ -62,7 +62,7 @@
     <{/if}>
 <{/if}>
 <{if $form|default:''}>
-    <{if $imgTest}>
+    <{if $imgTest|default:''}>
         <img src="<{$wggallery_upload_url}>/images/watermarks-test/<{$imgTest}>" alt="watermarks" class="img-responsive center" style="max-width:400px">
     <{/if}>
 	<{$form}>
