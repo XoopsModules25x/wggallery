@@ -4,7 +4,7 @@
             <{assign var=active value=' active'}>
             <{foreach item=image from=$images_list}>
             <div class="carousel-item<{$active}>">
-                <a href="<{$wggallery_url}>/images.php?op=show&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>&alb_pid=<{$image.albpid}>" title="<{$smarty.const._CO_WGGALLERY_IMAGE_SHOW}>" target="<{$image_target|default:0}>">
+                <a href="<{$wggallery_url}>/images.php?op=show&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>&alb_pid=<{$image.albpid}>" title="<{$smarty.const._CO_WGGALLERY_IMAGE_SHOW}>" target="<{$image_target|default:''}>">
                 <img class="img-fluid wgg-album-img center" src="<{$image.medium}>" alt="<{$image.title}>">
                 </a>
                 <div class="carousel-caption">
