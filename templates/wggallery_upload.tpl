@@ -1,6 +1,6 @@
 <{include file='db:wggallery_header.tpl'}>
 
-<{if $form|default:''}>
+<{if isset($form)}>
 	<{$form}>
 <{/if}>
 

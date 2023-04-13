@@ -110,12 +110,12 @@
 		<{/if}>
 	</table>
 	<div class='clear'>&nbsp;</div>
-	<{if $pagenav|default:''}>
+	<{if isset($pagenav)}>
 		<div class='xo-pagenav floatright'><{$pagenav}></div>
 		<div class='clear spacer'></div>
 	<{/if}>
 <{/if}>
-<{if $form|default:''}>
+<{if isset($form)}>
 	<{$form}>
     <!-- Modal for selection album image -->
     <div class="modal fade" id="myModalImagePicker" tabindex="-1" role="dialog"
@@ -212,7 +212,7 @@
     <!-- End of modal for selection album image -->
 <{/if}>
 
-<{if $error|default:''}>
+<{if isset($error)}>
 	<div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
 <br>

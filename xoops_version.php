@@ -25,9 +25,9 @@ $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
 // ------------------- Informations ------------------- //
 $modversion = [
-    'version'             => '1.2.0',
-    'module_status'       => 'Stable',
-    'release_date'        => '2023/04/28', // format: yyyy/mm/dd
+    'version'             => '1.2.1',
+    'module_status'       => 'RC1',
+    'release_date'        => '2023/04/13', // format: yyyy/mm/dd
     'name'                => \_MI_WGGALLERY_NAME,
     'description'         => \_MI_WGGALLERY_DESC,
     'author'              => 'Wedega',
@@ -43,7 +43,7 @@ $modversion = [
     'manual'              => 'link to manual file',
     'manual_file'         => \XOOPS_URL . '/modules/wggallery/docs/install.txt',
     'min_php'             => '7.4',
-    'min_xoops'           => '2.5.11 Beta1',
+    'min_xoops'           => '2.5.11 RC1',
     'min_admin'           => '1.1',
     'min_db'              => ['mysql' => '5.5'],
     'image'               => 'assets/images/logoModule.png',
@@ -56,7 +56,7 @@ $modversion = [
     'support_name'        => 'Wedega - Webdesign Gabor',
     'module_website_url'  => 'https://xoops.wedega.com',
     'module_website_name' => 'Wedega XOOPS Demo Site',
-    'release'             => '28/02/2023',
+    'release'             => '13/04/2023',
     'system_menu'         => 1,
     'hasAdmin'            => 1,
     'hasMain'             => 1,

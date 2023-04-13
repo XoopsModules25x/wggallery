@@ -104,7 +104,7 @@
             </div>
         </div>
         <div class='clear'>&nbsp;</div>
-            <{if $pagenav|default:''}>
+            <{if isset($pagenav)}>
                 <div class='xo-pagenav floatright'><{$pagenav}></div>
                 <div class='clear spacer'></div>
             <{/if}>
@@ -219,10 +219,10 @@
     <!-- end of modals -->
 <{/if}>
 
-<{if $form|default:''}>
+<{if isset($form)}>
 	<{$form}>
 <{/if}>
-<{if $error|default:''}>
+<{if isset($error)}>
 	<div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
 <{include file='db:wggallery_footer.tpl'}>
