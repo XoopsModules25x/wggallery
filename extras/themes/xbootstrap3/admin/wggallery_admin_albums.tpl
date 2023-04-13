@@ -96,9 +96,9 @@
                                     <img src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'></a>
                             <{/if}>
                             <a href='albums.php?op=edit&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._EDIT}>'>
-								<img src='<{xoModuleIcons16 edit.png}>' alt='<{$smarty.const._EDIT}>'></a>
+								<img src='<{xoModuleIcons16 'edit.png'}>' alt='<{$smarty.const._EDIT}>'></a>
 							<a href='albums.php?op=delete&amp;alb_id=<{$album.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._DELETE}>'>
-								<img src='<{xoModuleIcons16 delete.png}>' alt='<{$smarty.const._DELETE}>'></a>
+								<img src='<{xoModuleIcons16 'delete.png'}>' alt='<{$smarty.const._DELETE}>'></a>
                             <{if $album.nb_images|default:0 > 0}>
                                 <a href='images.php?op=list&amp;alb_id=<{$album.id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES}>'>
                                     <img src='<{$wggallery_icon_url_16}>photos.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES}>'></a>
@@ -110,12 +110,12 @@
 		<{/if}>
 	</table>
 	<div class='clear'>&nbsp;</div>
-	<{if isset($pagenav)}>
+	<{if !empty($pagenav)}>
 		<div class='xo-pagenav floatright'><{$pagenav}></div>
 		<div class='clear spacer'></div>
 	<{/if}>
 <{/if}>
-<{if isset($form)}>
+<{if !empty($form)}>
 	<{$form}>
     <!-- Modal for selection album image -->
     <div class="modal fade" id="myModalImagePicker" tabindex="-1" role="dialog"
@@ -212,7 +212,7 @@
     <!-- End of modal for selection album image -->
 <{/if}>
 
-<{if isset($error)}>
+<{if !empty($error)}>
 	<div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
 <br>

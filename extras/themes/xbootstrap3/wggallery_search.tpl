@@ -6,7 +6,7 @@
 <{if $form2|default:''}>
 	<{$form2}>
 <{/if}>
-<{if isset($error)}>
+<{if !empty($error)}>
 	<div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
 
@@ -14,7 +14,7 @@
     <div class='panel panel-<{$panel_type|default:''}>'>
         <div class='panel-heading wgg-imgindex-header'><h3><{$smarty.const._MA_WGGALLERY_SEARCH_RESULT}></h3></div>
         <div class=' panel-body'>
-            <{if isset($pagenav)}>
+            <{if !empty($pagenav)}>
                 <div class='xo-pagenav floatright'><{$pagenav}></div>
                 <div class='clear spacer'></div>
             <{/if}>
@@ -97,7 +97,7 @@
             <{/if}>
         </div>
         <div class='clear'>&nbsp;</div>
-        <{if isset($pagenav)}>
+        <{if !empty($pagenav)}>
             <div class='xo-pagenav floatright'><{$pagenav}></div>
             <div class='clear spacer'></div>
         <{/if}>

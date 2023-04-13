@@ -1,9 +1,9 @@
 <!-- Header -->
 <{include file='db:wggallery_admin_header.tpl'}>
-<{if isset($form)}>
+<{if !empty($form)}>
 	<{$form}>
 <{/if}>
-<{if isset($error)}>
+<{if !empty($error)}>
 	<div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
 <{if $categories_list|default:''}>
@@ -59,9 +59,9 @@
                             <td class='center'><{$category.submitter}></td>
                             <td class='center  width10'>
                                 <a href='<{$wggallery_url}>/admin/categories.php?op=edit&amp;cat_id=<{$category.id}>' title='<{$smarty.const._EDIT}>'>
-                                    <img src='<{xoModuleIcons16 edit.png}>' alt='categories'></a>
+                                    <img src='<{xoModuleIcons16 'edit.png'}>' alt='categories'></a>
                                 <a href='<{$wggallery_url}>/admin/categories.php?op=delete&amp;cat_id=<{$category.id}>' title='<{$smarty.const._DELETE}>'>
-                                    <img src='<{xoModuleIcons16 delete.png}>' alt='categories'></a>
+                                    <img src='<{xoModuleIcons16 'delete.png'}>' alt='categories'></a>
                             </td>
                         </tr>
                     <{/foreach}>
@@ -69,7 +69,7 @@
             <{/if}>
         </table>
 	<div class='clear'>&nbsp;</div>
-	<{if isset($pagenav)}>
+	<{if !empty($pagenav)}>
 		<div class='xo-pagenav floatright'><{$pagenav}></div>
 		<div class='clear spacer'></div>
 	<{/if}>

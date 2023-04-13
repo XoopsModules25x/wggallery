@@ -1,9 +1,9 @@
 <!-- Header -->
 <{include file='db:wggallery_admin_header.tpl'}>
-<{if isset($form)}>
+<{if !empty($form)}>
 	<{$form}>
 <{/if}>
-<{if isset($error)}>
+<{if !empty($error)}>
 	<div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
 <{if $images_list|default:''}>
@@ -60,9 +60,9 @@
                                         <img src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'></a>
                                 <{/if}>
                                 <a href='<{$wggallery_url}>/admin/images.php?op=edit&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>' title='<{$smarty.const._EDIT}>'>
-                                    <img src='<{xoModuleIcons16 edit.png}>' alt='images'></a>
+                                    <img src='<{xoModuleIcons16 'edit.png'}>' alt='images'></a>
                                 <a href='<{$wggallery_url}>/admin/images.php?op=delete&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>' title='<{$smarty.const._DELETE}>'>
-                                    <img src='<{xoModuleIcons16 delete.png}>' alt='images'></a>
+                                    <img src='<{xoModuleIcons16 'delete.png'}>' alt='images'></a>
                             </td>
                         </tr>
                     <{/foreach}>
@@ -148,9 +148,9 @@
                                         <img src='<{$wggallery_icon_url_16}>state0.png' alt='<{$smarty.const._CO_WGGALLERY_STATE_OFFLINE}>'></a>
                                 <{/if}>
                                 <a href='<{$wggallery_url}>/admin/images.php?op=edit&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>' title='<{$smarty.const._EDIT}>'>
-                                    <img src='<{xoModuleIcons16 edit.png}>' alt='images'></a>
+                                    <img src='<{xoModuleIcons16 'edit.png'}>' alt='images'></a>
                                 <a href='<{$wggallery_url}>/admin/images.php?op=delete&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>' title='<{$smarty.const._DELETE}>'>
-                                    <img src='<{xoModuleIcons16 delete.png}>' alt='images'></a>
+                                    <img src='<{xoModuleIcons16 'delete.png'}>' alt='images'></a>
                             </td>
                         </tr>
                     <{/foreach}>
@@ -159,7 +159,7 @@
         </table>
     <{/if}>
 	<div class='clear'>&nbsp;</div>
-	<{if isset($pagenav)}>
+	<{if !empty($pagenav)}>
 		<div class='xo-pagenav floatright'><{$pagenav}></div>
 		<div class='clear spacer'></div>
 	<{/if}>

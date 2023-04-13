@@ -1,6 +1,6 @@
 <!-- Header -->
 <{include file='db:wggallery_admin_header.tpl'}>
-<{if isset($form)}>
+<{if !empty($form)}>
 	<{$form}>
 <{/if}>
 <{if $errors|default:''}>
@@ -60,7 +60,7 @@
                         <td class='center'><{$file.date}></td>
                         <td class='center'>
                             <a href='batch.php?op=delete&amp;file=<{$file.name}>&amp;start=<{$start}>&amp;limit=<{$limit}>' title='<{$smarty.const._DELETE}>'>
-                                <img src='<{xoModuleIcons16 delete.png}>' alt='<{$smarty.const._DELETE}>'></a>
+                                <img src='<{xoModuleIcons16 'delete.png'}>' alt='<{$smarty.const._DELETE}>'></a>
                         </td>
                     </tr>
                 <{/foreach}>
@@ -69,7 +69,7 @@
     </table>
 
 	<div class='clear'>&nbsp;</div>
-	<{if isset($pagenav)}>
+	<{if !empty($pagenav)}>
 		<div class='xo-pagenav floatright'><{$pagenav}></div>
 		<div class='clear spacer'></div>
 	<{/if}>
