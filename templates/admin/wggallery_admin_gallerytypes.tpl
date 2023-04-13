@@ -43,7 +43,7 @@
 								<img src="<{$wggallery_icon_url_16}>reset.png" alt="<{$smarty.const._RESET}>">
 							</a>
 							<a href="gallerytypes.php?op=delete&amp;gt_id=<{$gallerytype.id}>" title="<{$smarty.const._DELETE}>">
-								<img src="<{xoModuleIcons16 delete.png}>" alt="<{$smarty.const._DELETE}>">
+								<img src="<{xoModuleIcons16 'delete.png'}>" alt="<{$smarty.const._DELETE}>">
 							</a>
 						</td>
 					</tr>
@@ -52,15 +52,15 @@
 		<{/if}>
 	</table>
 	<div class="clear">&nbsp;</div>
-	<{if $pagenav|default:''}>
+	<{if isset($pagenav)}>
 		<div class="xo-pagenav floatright"><{$pagenav}></div>
 		<div class="clear spacer"></div>
 	<{/if}>
 <{/if}>
-<{if $form|default:''}>
+<{if isset($form)}>
 	<{$form}>
 <{/if}>
-<{if $error|default:''}>
+<{if isset($error)}>
 	<div class="errorMsg"><strong><{$error}></strong>
 </div>
 

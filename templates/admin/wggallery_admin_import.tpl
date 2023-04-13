@@ -52,10 +52,10 @@
     </table>
 <{/if}>
 
-<{if $form|default:''}>
+<{if isset($form)}>
 	<{$form}>
 <{/if}>
-<{if $error|default:''}>
+<{if isset($error)}>
 	<div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
 <br>

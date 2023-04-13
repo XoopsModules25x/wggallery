@@ -1,7 +1,7 @@
 <!-- Header -->
 <{include file='db:wggallery_admin_header.tpl'}>
 
-<{if $form|default:''}>
+<{if isset($form)}>
 	<{$form}>
 <{/if}>
 <{if $result|default:''}>

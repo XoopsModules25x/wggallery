@@ -73,7 +73,7 @@
 		</div>
 	</div>
 	<div class='clear'>&nbsp;</div>
-	<{if $pagenav|default:''}>
+	<{if isset($pagenav)}>
 		<div class='xo-pagenav floatright'><{$pagenav}></div>
 		<div class='clear spacer'></div>
 	<{/if}>
@@ -101,7 +101,7 @@
 <{/if}>
 		
 
-<{if $form|default:''}>
+<{if isset($form)}>
 	<{$form}>
 	
     <!-- Modal -->
@@ -147,7 +147,7 @@
     </script>
 
 <{/if}>
-<{if $error|default:''}>
+<{if isset($error)}>
 	<div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
 <div class='clear'>&nbsp;</div>

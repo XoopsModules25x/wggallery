@@ -46,9 +46,9 @@
                         <td class="center"><{$watermark.submitter}></td>
                         <td class="center  width5">
                             <a href="watermarks.php?op=edit&amp;wm_id=<{$watermark.id}>" title="<{$smarty.const._EDIT}>">
-                                <img src="<{xoModuleIcons16 edit.png}>" alt="watermarks"></a>
+                                <img src="<{xoModuleIcons16 'edit.png'}>" alt="watermarks"></a>
                             <a href="watermarks.php?op=delete&amp;wm_id=<{$watermark.id}>" title="<{$smarty.const._DELETE}>">
-                                <img src="<{xoModuleIcons16 delete.png}>" alt="watermarks"></a>
+                                <img src="<{xoModuleIcons16 'delete.png'}>" alt="watermarks"></a>
                         </td>
                     </tr>
                 <{/foreach}>
@@ -56,18 +56,18 @@
         <{/if}>
     </table>
     <div class="clear">&nbsp;</div>
-    <{if $pagenav|default:''}>
+    <{if isset($pagenav)}>
         <div class="xo-pagenav floatright"><{$pagenav}></div>
         <div class="clear spacer"></div>
     <{/if}>
 <{/if}>
-<{if $form|default:''}>
+<{if isset($form)}>
     <{if $imgTest|default:''}>
         <img src="<{$wggallery_upload_url}>/images/watermarks-test/<{$imgTest}>" alt="watermarks" class="img-responsive center" style="max-width:400px">
     <{/if}>
 	<{$form}>
 <{/if}>
-<{if $error|default:''}>
+<{if isset($error)}>
 	<div class="errorMsg"><strong><{$error}></strong></div>
 <{/if}>
 <br>

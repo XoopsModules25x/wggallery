@@ -1,9 +1,9 @@
 <!-- Header -->
 <{include file='db:wggallery_admin_header.tpl'}>
-<{if $form|default:''}>
+<{if isset($form)}>
 	<{$form}>
 <{/if}>
-<{if $error|default:''}>
+<{if isset($error)}>
 	<div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
 <{if $categories_list|default:''}>
@@ -69,7 +69,7 @@
             <{/if}>
         </table>
 	<div class='clear'>&nbsp;</div>
-	<{if $pagenav|default:''}>
+	<{if isset($pagenav)}>
 		<div class='xo-pagenav floatright'><{$pagenav}></div>
 		<div class='clear spacer'></div>
 	<{/if}>

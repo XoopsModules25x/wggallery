@@ -1,6 +1,6 @@
 <{include file='db:wggallery_header.tpl'}>
 
-<{if $form|default:''}>
+<{if isset($form)}>
 	<{$form}>
 <{else}>
     <div class='panel panel-<{$panel_type|default:''}>'>
@@ -49,7 +49,7 @@
                     </div>
             </div>
             <div class='clear'>&nbsp;</div>
-                <{if $pagenav|default:''}>
+                <{if isset($pagenav)}>
                     <div class='xo-pagenav floatright'><{$pagenav}></div>
                     <div class='clear spacer'></div>
                 <{/if}>
@@ -57,7 +57,7 @@
     </div>
 <{/if}>
 
-<{if $error|default:''}>
+<{if isset($error)}>
 	<div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
 
