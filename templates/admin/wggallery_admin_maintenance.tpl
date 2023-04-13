@@ -282,10 +282,10 @@
 	<p><a class='btn pull-right' href='maintenance.php?op=list' title='<{$smarty.const._CO_WGGALLERY_BACK}>'><{$smarty.const._CO_WGGALLERY_BACK}></a></p>
 <{/if}>
 
-<{if isset($form)}>
+<{if !empty($form)}>
 	<{$form}>
 <{/if}>
-<{if isset($error)}>
+<{if !empty($error)}>
 	<div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
 <br>

@@ -1,6 +1,6 @@
 <{include file='db:wggallery_admin_header.tpl'}>
 
-<{if isset($error)}>
+<{if !empty($error)}>
 	<div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
 

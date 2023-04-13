@@ -103,12 +103,14 @@ class Images extends \XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
         // Title
-        $title = $this->isNew() ? \sprintf(\_CO_WGGALLERY_IMAGE_ADD) : \sprintf(\_CO_WGGALLERY_IMAGE_EDIT);
+        $title = $this->isNew() ? \_CO_WGGALLERY_IMAGE_ADD : \_CO_WGGALLERY_IMAGE_EDIT;
         // Get Theme Form
         \xoops_load('XoopsFormLoader');
         $form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
-        $form->addElement(new \XoopsFormLabel('', "<img src='" . \XOOPS_URL . '/uploads/wggallery/images/medium/' . $this->getVar('img_name') . "' name='" . $this->getVar('img_name') . "' id='imagepreview' alt='" . $this->getVar('img_name') . "' style='max-width:100%'>"));
+        if (!$this->isNew()) {
+            $form->addElement(new \XoopsFormLabel('', "<img src='" . \XOOPS_URL . '/uploads/wggallery/images/medium/' . $this->getVar('img_name') . "' name='" . $this->getVar('img_name') . "' id='imagepreview' alt='" . $this->getVar('img_name') . "' style='max-width:100%'>"));
+        }
         // Form Text ImgTitle
         $form->addElement(new \XoopsFormText(\_CO_WGGALLERY_IMAGE_TITLE, 'img_title', 50, 255, $this->getVar('img_title')));
         // Form editor ImgDesc
