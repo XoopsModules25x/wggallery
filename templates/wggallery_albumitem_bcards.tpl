@@ -18,7 +18,7 @@
                     <a class='' href='<{$wggallery_url}>/images.php?op=list&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$album.pid}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'>
                 <{/if}>
             <{/if}>
-            <img class="card-img-top img-responsive" src="<{$album.image}>" alt="<{$album.name}>" title="<{$album.name}>">
+            <img class="card-img-top img-fluid" src="<{$album.image}>" alt="<{$album.name}>" title="<{$album.name}>">
             <{if $album.nb_images|default:''}></a><{/if}>
         <{/if}>
 		<div class="card-body">

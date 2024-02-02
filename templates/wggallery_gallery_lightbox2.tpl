@@ -58,7 +58,7 @@
 			<a class="lightbox-image-link" href="<{if $source|default:'' == 'large'}><{$image.large}><{else}><{$image.medium}><{/if}>" data-lightbox="lightbox2-set" <{if $showDescr|default:false}> data-title="<{$image.title}><br><{$image.desc}>"<{/if}> >
 				<{if $indexImage|default:'' == 'simpleContainer'}>
 					<div class="simpleContainer">
-						<img class="img-responsive" src="<{if $source_preview == 'medium'}><{$image.medium}><{else}><{$image.thumb}><{/if}>" alt="<{$image.title}>" title="<{$image.title}>">
+						<img class="img-fluid" src="<{if $source_preview == 'medium'}><{$image.medium}><{else}><{$image.thumb}><{/if}>" alt="<{$image.title}>" title="<{$image.title}>">
 						<div class="simpleContent">
 							<{if $showTitle|default:false}><p><{$image.title}></p><{/if}>
 							<{if $showDescr|default:false}><p><{$image.desc}></p><{/if}>

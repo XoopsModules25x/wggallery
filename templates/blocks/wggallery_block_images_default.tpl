@@ -8,7 +8,7 @@
         <{else}><div class='col-xs-12 col-sm-12'>
         <{/if}>
             <a class='' href='<{$wggallery_url}>/images.php?op=show&amp;img_id=<{$image.id}>&amp;alb_id=<{$image.albid}>&alb_pid=<{$image.albpid}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_SHOW}>' target='<{$image_target}>'>
-                <img class='img-responsive wgg-album-img center' src='<{$image.thumb}>' alt='<{$image.title}>'>
+                <img class='img-fluid wgg-album-img center' src='<{$image.thumb}>' alt='<{$image.title}>'>
                 <{if $bi_showTitle|default:'' || $bi_showDesc|default:''}>
                     <{if $bi_showTitle|default:''}>
                         <{if $image.title_limited|default:''}>

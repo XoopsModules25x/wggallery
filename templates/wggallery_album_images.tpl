@@ -22,7 +22,7 @@
 		<div class='tab-content '>
 			<!-- *************** Basic Tab ***************-->
             <div class='tab-pane active center' id='1'>
-				<img id='currentImg' class='img-responsive wgg-album-img' src='<{$album.image}>' alt='<{$album.name}>'>
+				<img id='currentImg' class='img-fluid wgg-album-img' src='<{$album.image}>' alt='<{$album.name}>'>
                 <{if $album.image_path|default:''}>
                     <p><{$smarty.const._CO_WGGALLERY_ALBUM_IMGTYPE}>: <{$album.image_path}><br>
                     <{$smarty.const._CO_WGGALLERY_IMAGE_RES}>: <{$albimage_width}> / <{$albimage_height}></p>
@@ -39,7 +39,7 @@
                             <div class='selimages col-xs-12 col-sm-12'><h5 class='modal-title' style='width:100%'><{$image.alb_name}></h5></div>
                         <{/if}>
                         <div class='selimages col-xs-12 col-sm-4'>
-                            <input id='<{$image.id}>_image' class='imgSelect1 img-responsive wgg-album-img <{if $image.selected|default:''}>wgg-modal-selected<{/if}>' type='image' src='<{$image.thumb}>'  preview='<{$image.medium}>' alt='<{$image.title}>' style='padding:3px;' value='<{$image.name}>'>
+                            <input id='<{$image.id}>_image' class='imgSelect1 img-fluid wgg-album-img <{if $image.selected|default:''}>wgg-modal-selected<{/if}>' type='image' src='<{$image.thumb}>'  preview='<{$image.medium}>' alt='<{$image.title}>' style='padding:3px;' value='<{$image.name}>'>
                         </div>
                         <{if $image.counter % 3 == 0}>
                             <div class='clear'></div>
@@ -48,7 +48,7 @@
                 </div>
                 <div class='col-xs-12 col-sm-6'>
                     <h5>&nbsp;</h5>
-                    <img id='albImgSelected' class='img-responsive wgg-album-img' src='<{$album.image}>' alt='<{$album.name}>'>
+                    <img id='albImgSelected' class='img-fluid wgg-album-img' src='<{$album.image}>' alt='<{$album.name}>'>
                 </div>
                 <div class='col-xs-12 col-sm-12 center'>
 					<form class='form-horizontal' name='form' id='form_selectalbimage' action='album_images.php' method='post' enctype='multipart/form-data'>
@@ -88,7 +88,7 @@
 					<img src='<{$wggallery_upload_image_url}>/medium/blank.gif' name='imageGrid6' id='imageGrid6' alt='imageGrid6' style='margin:5px;max-width:75px'>
 				</div>
                 <div class='col-xs-12 col-sm-8'>
-                    <img id='gridImg' class='img-responsive' src='<{$wggallery_upload_image_url}>/temp/blank.gif' alt='<{$album.name}>'>
+                    <img id='gridImg' class='img-fluid' src='<{$wggallery_upload_image_url}>/temp/blank.gif' alt='<{$album.name}>'>
                 </div>
 				<div class='col-xs-12 col-sm-12 center'>
 					<button id='btnCreateGrid4' type='button' class='btn <{$btn_style}> wg-color1' style='display:inline;margin:5px'><{$smarty.const._CO_WGGALLERY_ALBUM_IH_GRID_CREATE}></button>
@@ -110,7 +110,7 @@
                 <div class="container-crop">
                     <div class="row">
                         <div class="img-container">
-                            <img id='cropImg' class="img-responsive" src="<{$album.image}>" alt="<{$album.name}>">
+                            <img id='cropImg' class="img-fluid" src="<{$album.image}>" alt="<{$album.name}>">
                         </div>
                     </div>
                 </div>

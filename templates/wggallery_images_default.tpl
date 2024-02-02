@@ -9,7 +9,7 @@
                     <div id='imglist_<{$image.id}>' class='row wgg-img-panel wgg-image-list'>
                         <div class='wgg-img-panel-row col-sm-8'>
                             <{if $image.medium|default:''}>
-                                <div class='center'><img id='image_<{$image.id}>' class='img-responsive wgg-img' src='<{$image.medium}>#<{$random}>' alt='<{$image.title}>'></div>
+                                <div class='center'><img id='image_<{$image.id}>' class='img-fluid wgg-img' src='<{$image.medium}>#<{$random}>' alt='<{$image.title}>'></div>
                             <{/if}>
                         </div>
                         <div class='wgg-img-panel-row col-sm-4'>
@@ -111,7 +111,7 @@
         </div>
     <{/if}>
     <{if $showimage|default:''}>
-        <div class='wgg-img-panel-row col-xs-12 col-sm-12 col-md-12 col-lg-12 center'><img class='img-responsive wgg-img' src='<{$file}>' alt='<{$image.title}>'></div>
+        <div class='wgg-img-panel-row col-xs-12 col-sm-12 col-md-12 col-lg-12 center'><img class='img-fluid wgg-img' src='<{$file}>' alt='<{$image.title}>'></div>
         <div class='wgg-img-panel-row col-xs-12 col-sm-6 col-md-6 col-lg6'>
             <p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>photos.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_TITLE}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_TITLE}>'><{$image.title}></p>
             <{if $image.desc|default:''}>
@@ -183,7 +183,7 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <{/if}>
                                     <{if $image.alb_name|default:''}><h4 class='modal-title'><{$image.alb_name}></h4><{/if}>
-                                    <img class='img-responsive wgg-img' src='<{$image.img_modal}>' alt='<{$image.title}>'>
+                                    <img class='img-fluid wgg-img' src='<{$image.img_modal}>' alt='<{$image.title}>'>
                                 <{if $showModalInfo|default:''}>
                                     </div>
                                     <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">

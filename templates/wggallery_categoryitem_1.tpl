@@ -3,7 +3,7 @@
         <{if $category.image|default:''}>
             <div class='center'>
                 <a class='' href='index.php?op=list&amp;alb_pid=<{$category.id}>' title='<{$smarty.const._CO_WGGALLERY_COLL_ALBUMS}>'>
-                    <img class='img-responsive wgg-album-img' src='<{$category.image}>' alt='<{$category.name}>'></a>
+                    <img class='img-fluid wgg-album-img' src='<{$category.image}>' alt='<{$category.name}>'></a>
             </div>
         <{/if}>
     </div>
