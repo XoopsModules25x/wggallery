@@ -29,7 +29,7 @@
                         <td class='center'><{$watermark.id}></td>
                         <td class="center">
                             <a href="watermarks.php?op=edit&amp;wm_id=<{$watermark.id}>" title="<{$smarty.const._CO_WGGALLERY_WATERMARK_PREVIEW}>">
-                                <img src="<{$wggallery_upload_url}>/images/watermarks-test/wmtest<{$watermark.id}>.jpg" class="img-responsive" style="max-width:150px" alt="<{$smarty.const._CO_WGGALLERY_WATERMARK_PREVIEW}>"></a>
+                                <img src="<{$wggallery_upload_url}>/images/watermarks-test/wmtest<{$watermark.id}>.jpg" class="img-fluid" style="max-width:150px" alt="<{$smarty.const._CO_WGGALLERY_WATERMARK_PREVIEW}>"></a>
                         </td>
                         <td class="center"><{$watermark.name}></td>
                         <td class="center"><{$watermark.type_text}></td>
@@ -63,7 +63,7 @@
 <{/if}>
 <{if !empty($form)}>
     <{if $imgTest|default:''}>
-        <img src="<{$wggallery_upload_url}>/images/watermarks-test/<{$imgTest}>" alt="watermarks" class="img-responsive center" style="max-width:400px">
+        <img src="<{$wggallery_upload_url}>/images/watermarks-test/<{$imgTest}>" alt="watermarks" class="img-fluid center" style="max-width:400px">
     <{/if}>
 	<{$form}>
 <{/if}>

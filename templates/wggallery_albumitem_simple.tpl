@@ -20,7 +20,7 @@
 		<{/if}>
 		
 		<div class="simpleContainer">
-			<{if $album.image|default:''}><img class="img-responsive" src="<{$album.image}>" alt="<{$album.name}>" title="<{$album.name}>"><{/if}>
+			<{if $album.image|default:''}><img class="img-fluid" src="<{$album.image}>" alt="<{$album.name}>" title="<{$album.name}>"><{/if}>
 			<div class="simpleContent">
 				<{if $showTitle|default:false}><p><{$album.name}></p><{/if}>
 				<{if $showDesc|default:''}><p><{$album.desc}></p><{/if}>

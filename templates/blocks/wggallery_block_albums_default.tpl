@@ -11,7 +11,7 @@
             <{if $ba_template|default:'' == 'hovereffectideas'}>
                 <{if $album.newrow|default:''}><div class="grid"><{/if}>
                 <figure class="effect-<{$hovereffect}> figure<{$number_cols_album}><{$inblock}>">
-                    <img class='img-responsive' src='<{$album.image}>' alt='<{$album.name}>'>
+                    <img class='img-fluid' src='<{$album.image}>' alt='<{$album.name}>'>
                     <figcaption>
                         <div class="text_figure<{$number_cols_album}><{$inblock}>">
                             <{if $ba_showTitle|default:'' || $ba_showDesc|default:''}>
@@ -56,7 +56,7 @@
                                 <a class='' href='<{$wggallery_url}>/images.php?op=list&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$album.pid}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'>
                             <{/if}>
                         <{/if}>
-                        <img class="card-img-top img-responsive" src="<{$album.image}>" alt="<{$album.name}>" title="<{$album.name}>">
+                        <img class="card-img-top img-fluid" src="<{$album.image}>" alt="<{$album.name}>" title="<{$album.name}>">
                         <{if $album.nb_images|default:''}></a><{/if}>
                     <{/if}>
                     <div class="card-body">
@@ -102,7 +102,7 @@
                     <{/if}>
                     
                     <div class="simpleContainer">
-                        <{if $album.image|default:''}><img class="img-responsive center" src="<{$album.image}>" alt="<{$album.name}>" title="<{$album.name}>"><{/if}>
+                        <{if $album.image|default:''}><img class="img-fluid center" src="<{$album.image}>" alt="<{$album.name}>" title="<{$album.name}>"><{/if}>
                         <div class="simpleContent">
                             <{if $ba_showTitle|default:'' || $ba_showDesc|default:''}>
                                 <{if $ba_gallery|default:''}>
@@ -136,13 +136,13 @@
                         <{if $album.nb_images|default:''}>
                             <{if $ba_gallery|default:''}>
                                 <a class='' href='<{$wggallery_url}>/gallery.php?op=show&amp;alb_id=<{$album.id}><{if $subm_id|default:''}>&amp;subm_id=<{$subm_id}><{/if}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>' target='<{$ba_gallery_target}>'>
-                                    <img class='img-responsive wgg-album-img center' src='<{$album.image}>' alt='<{$album.name}>'></a>
+                                    <img class='img-fluid wgg-album-img center' src='<{$album.image}>' alt='<{$album.name}>'></a>
                             <{else}>
                                 <a class='' href='<{$wggallery_url}>/images.php?op=list&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$album.pid}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'>
-                                    <img class='img-responsive wgg-album-img center' src='<{$album.image}>' alt='<{$album.name}>'></a>
+                                    <img class='img-fluid wgg-album-img center' src='<{$album.image}>' alt='<{$album.name}>'></a>
                             <{/if}>
                         <{else}>
-                            <img class='img-responsive wgg-album-img center' src='<{$album.image}>' alt='<{$album.name}>'>
+                            <img class='img-fluid wgg-album-img center' src='<{$album.image}>' alt='<{$album.name}>'>
                         <{/if}>
                         <{if $ba_showTitle|default:'' || $ba_showDesc|default:''}>
                             <{if $ba_gallery|default:''}>

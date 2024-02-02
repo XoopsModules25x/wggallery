@@ -24,7 +24,7 @@
                     <div class='row wgg-img-panel wgg-image-list'>
                         <div class='wgg-img-panel-row col-sm-8'>
                             <{if $image.medium|default:''}>
-                                <div class='center'><img id='image_<{$image.id}>' class='img-responsive wgg-img' src='<{$image.medium}>#<{$random}>' alt='<{$image.title}>'></div>
+                                <div class='center'><img id='image_<{$image.id}>' class='img-fluid wgg-img' src='<{$image.medium}>#<{$random}>' alt='<{$image.title}>'></div>
                             <{/if}>
                         </div>
                         <div class='wgg-img-panel-row col-sm-4'>
