@@ -63,7 +63,9 @@ export default {
         break;
 
       case 'hide':
-        this.hide();
+        if (!this.pointerMoved) {
+          this.hide();
+        }
         break;
 
       case 'view':
@@ -273,7 +275,11 @@ export default {
 
       // ArrowLeft
       case 37:
-        this.prev(options.loop);
+        if (this.played && this.playing) {
+          this.playing.prev();
+        } else {
+          this.prev(options.loop);
+        }
         break;
 
       // ArrowUp
@@ -287,7 +293,11 @@ export default {
 
       // ArrowRight
       case 39:
-        this.next(options.loop);
+        if (this.played && this.playing) {
+          this.playing.next();
+        } else {
+          this.next(options.loop);
+        }
         break;
 
       // ArrowDown
@@ -326,6 +336,8 @@ export default {
   pointerdown(event) {
     const { options, pointers } = this;
     const { buttons, button } = event;
+
+    this.pointerMoved = false;
 
     if (
       !this.viewed
@@ -535,6 +547,6 @@ export default {
       delta = event.detail > 0 ? 1 : -1;
     }
 
-    this.zoom(-delta * ratio, true, event);
+    this.zoom(-delta * ratio, true, null, event);
   },
 };

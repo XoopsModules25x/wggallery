@@ -71,14 +71,19 @@ export default {
 
     addClass(body, CLASS_OPEN);
 
-    body.style.paddingRight = `${this.scrollbarWidth + (parseFloat(this.initialBodyComputedPaddingRight) || 0)}px`;
+    if (this.scrollbarWidth > 0) {
+      body.style.paddingRight = `${this.scrollbarWidth + (parseFloat(this.initialBodyComputedPaddingRight) || 0)}px`;
+    }
   },
 
   close() {
     const { body } = this;
 
     removeClass(body, CLASS_OPEN);
-    body.style.paddingRight = this.initialBodyPaddingRight;
+
+    if (this.scrollbarWidth > 0) {
+      body.style.paddingRight = this.initialBodyPaddingRight;
+    }
   },
 
   shown() {
@@ -117,9 +122,6 @@ export default {
       this.clearEnforceFocus();
     }
 
-    this.fulled = false;
-    this.viewed = false;
-    this.isShown = false;
     this.close();
     this.unbind();
     addClass(viewer, CLASS_HIDE);
@@ -129,6 +131,9 @@ export default {
     viewer.setAttribute('aria-hidden', true);
     this.resetList();
     this.resetImage();
+    this.fulled = false;
+    this.viewed = false;
+    this.isShown = false;
     this.hiding = false;
 
     if (!this.destroyed) {
@@ -210,12 +215,15 @@ export default {
     switch (this.action) {
       // Move the current image
       case ACTION_MOVE:
-        this.move(offsetX, offsetY, event);
+        if (offsetX !== 0 || offsetY !== 0) {
+          this.pointerMoved = true;
+          this.move(offsetX, offsetY, event);
+        }
         break;
 
       // Zoom the current image
       case ACTION_ZOOM:
-        this.zoom(getMaxZoomRatio(pointers), false, event);
+        this.zoom(getMaxZoomRatio(pointers), false, null, event);
         break;
 
       case ACTION_SWITCH: {

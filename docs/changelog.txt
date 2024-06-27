@@ -2,6 +2,7 @@
 <hr>
  - fixed missing default value smarty (goffy)
  - updates for XOOPS 2.5.11 Stable (goffy)
+ - update viewerjs (mamba/goffy)
 
 <h5>1.2.0 Stable</h5>  [2023/02/28]
 <hr>
