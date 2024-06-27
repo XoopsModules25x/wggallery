@@ -1,5 +1,37 @@
 # Changelog
 
+## 1.11.6 (Sep 17, 2023)
+
+- Fix an issue where some CSS styles were incompatible with old browsers (#611).
+
+## 1.11.5 (Aug 26, 2023)
+
+- Fix the issue of title blinking when opening the same image again (#609).
+
+## 1.11.4 (Jul 23, 2023)
+
+- Fix the incorrect RegExp for Safari browser detection (#606).
+
+## 1.11.3 (Mar 5, 2023)
+
+- Not actually moving when the `offsetX/Y` is `0` (#585, #588).
+
+## 1.11.2 (Jan 1, 2023)
+
+- Do not close the viewer when dragging the image on the backdrop (#577).
+
+## 1.11.1 (Nov 6, 2022)
+
+- Add missing type definitions for `initialCoverage` option and `zoom` and `zoomTo` methods (#571).
+
+## 1.11.0 (Oct 16, 2022)
+
+- Add a new option: `initialCoverage` (#314, #526).
+- Don't load images in the list when hide the navbar (#451).
+- Support for providing pivot pointer coordinates to `zoom` and `zoomTo` methods (#202).
+- Don't override the padding right of the body when the width of the scrollbar is zero (#197).
+- Add keyboard support to playing view (#90).
+
 ## 1.10.5 (Apr 5, 2022)
 
 - Continue to initialize even if some images fail to load in inline mode.

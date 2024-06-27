@@ -15,6 +15,7 @@ import {
   getImageNaturalSizes,
   getTransforms,
   hasClass,
+  isNumber,
   removeClass,
   removeListener,
   setData,
@@ -96,7 +97,10 @@ export default {
           }
         });
 
-        img.src = src || url;
+        if (options.navbar) {
+          img.src = src || url;
+        }
+
         img.alt = alt;
         img.setAttribute('data-original-url', url || src);
         item.setAttribute('data-index', index);
@@ -204,6 +208,7 @@ export default {
 
     sizingImage = getImageNaturalSizes(image, options, (naturalWidth, naturalHeight) => {
       const aspectRatio = naturalWidth / naturalHeight;
+      let initialCoverage = Math.max(0, Math.min(1, options.initialCoverage));
       let width = viewerWidth;
       let height = viewerHeight;
 
@@ -215,8 +220,9 @@ export default {
         width = viewerHeight * aspectRatio;
       }
 
-      width = Math.min(width * 0.9, naturalWidth);
-      height = Math.min(height * 0.9, naturalHeight);
+      initialCoverage = isNumber(initialCoverage) ? initialCoverage : 0.9;
+      width = Math.min(width * initialCoverage, naturalWidth);
+      height = Math.min(height * initialCoverage, naturalHeight);
 
       const left = (viewerWidth - width) / 2;
       const top = (viewerHeight - height) / 2;
@@ -294,16 +300,16 @@ export default {
   },
 
   resetImage() {
-    // this.image only defined after viewed
-    if (this.viewing || this.viewed) {
-      const { image } = this;
+    const { image } = this;
 
+    if (image) {
       if (this.viewing) {
         this.viewing.abort();
       }
 
       image.parentNode.removeChild(image);
       this.image = null;
+      this.title.innerHTML = '';
     }
   },
 };

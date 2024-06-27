@@ -24,7 +24,7 @@
 
 ## Features
 
-- Supports 52 [options](#options)
+- Supports 53 [options](#options)
 - Supports 23 [methods](#methods)
 - Supports 17 [events](#events)
 - Supports modal and inline modes
@@ -289,6 +289,13 @@ Enable to request full screen when play.
 Define the extra attributes to inherit from the original image.
 
 > Note that the basic attributes `src` and `alt` will always inherit from the original image.
+
+### initialCoverage
+
+- Type: `Number`
+- Default: `0.9`
+
+Define the initial coverage of the viewing image. It must a positive number between 0 (0%) and 1 (100%).
 
 ### initialViewIndex
 
@@ -800,17 +807,23 @@ Scale the ordinate of the image.
 viewer.scaleY(-1); // Flip vertical
 ```
 
-### zoom(ratio[, hasTooltip])
+### zoom(ratio[, showTooltip[, pivot]])
 
 - **ratio**:
   - Type: `Number`
   - Zoom in: requires a positive number (ratio > 0)
   - Zoom out: requires a negative number (ratio < 0)
 
-- **hasTooltip** (optional):
+- **showTooltip** (optional):
   - Type: `Boolean`
   - Default: `false`
-  - Show tooltip
+  - Indicates whether to show the tooltip.
+
+- **pivot** (optional):
+  - Type: `Object`
+  - Default: `null`
+  - Schema: `{ x: Number, y: Number }`
+  - The pivot point coordinate for zooming.
 
 Zoom the image with a relative ratio
 
@@ -819,22 +832,34 @@ viewer.zoom(0.1);
 viewer.zoom(-0.1);
 ```
 
-### zoomTo(ratio[, hasTooltip])
+### zoomTo(ratio[, showTooltip[, pivot]])
 
 - **ratio**:
   - Type: `Number`
   - Requires a positive number (ratio > 0)
 
-- **hasTooltip** (optional):
+- **showTooltip** (optional):
   - Type: `Boolean`
   - Default: `false`
-  - Show tooltip
+  - Indicates whether to show the tooltip.
+
+- **pivot** (optional):
+  - Type: `Object`
+  - Default: `null`
+  - Schema: `{ x: Number, y: Number }`
+  - The pivot point coordinate for zooming.
 
 Zoom the image to an absolute ratio.
 
 ```js
 viewer.zoomTo(0); // Zoom to zero size (0%)
 viewer.zoomTo(1); // Zoom to natural size (100%)
+
+// Zoom to 50% from the center of the window.
+viewer.zoomTo(.5, {
+  x: window.innerWidth / 2,
+  y: viewer.innerHeight / 2,
+});
 ```
 
 ### play([fullscreen])
