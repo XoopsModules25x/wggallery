@@ -329,6 +329,7 @@ switch ($op) {
         }
         break;
     case 'manage':
+        $GLOBALS['xoTheme']->addScript('browse.php?Frameworks/jquery/jquery.js');
         $GLOBALS['xoTheme']->addScript(\WGGALLERY_URL . '/assets/js/jquery-ui.min.js');
         $GLOBALS['xoTheme']->addScript(\WGGALLERY_URL . '/assets/js/sortable-images.js');
         $GLOBALS['xoTheme']->addScript(\WGGALLERY_URL . '/assets/js/jquery.mjs.nestedSortable.js');
