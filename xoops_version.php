@@ -156,39 +156,12 @@ $modversion['comments']['callback']['update']  = 'wggalleryCommentsUpdate';
 $currdirname = isset($GLOBALS['xoopsModule']) && \is_object($GLOBALS['xoopsModule']) ? $GLOBALS['xoopsModule']->getVar('dirname') : 'system';
 
 if ($moduleDirName == $currdirname) {
-    $subcount                             = 1;
-    $pathname                             = \XOOPS_ROOT_PATH . '/modules/' . $moduleDirName;
-    $modversion['sub'][$subcount]['name'] = \_MI_WGGALLERY_SMNAME1;
-    $modversion['sub'][$subcount]['url']  = 'index.php';
-    require_once $pathname . '/include/common.php';
-    $helper = \XoopsModules\Wggallery\Helper::getInstance();
-    $helper->loadLanguage('common');
-    $permissionsHandler = $helper->getHandler('Permissions');
-    if ($permissionsHandler->permGlobalSubmit() > 0) {
-        $subcount++;
-        $modversion['sub'][$subcount]['name'] = \_MI_WGGALLERY_SMNAME2;
-        $modversion['sub'][$subcount]['url']  = 'albums.php';
-        $subcount++;
-        $modversion['sub'][$subcount]['name'] = \_MI_WGGALLERY_SMNAME5;
-        $modversion['sub'][$subcount]['url']  = 'images.php?op=manage';
-        $subcount++;
-        $modversion['sub'][$subcount]['name'] = \_MI_WGGALLERY_SMNAME3;
-        $modversion['sub'][$subcount]['url']  = 'albums.php?op=new';
-        $uploaderType = (int)$helper->getConfig('uploader_type');
-        if (2 === $uploaderType || 3 === $uploaderType || 4 === $uploaderType) {
-            $subcount++;
-            $modversion['sub'][$subcount]['name'] = \_MI_WGGALLERY_SMNAME7;
-            $modversion['sub'][$subcount]['url'] = 'upload_single.php';
-        }
-        if (1 === $uploaderType || 3 === $uploaderType || 4 === $uploaderType) {
-            $subcount++;
-            $modversion['sub'][$subcount]['name'] = \_MI_WGGALLERY_SMNAME4;
-            $modversion['sub'][$subcount]['url'] = 'upload.php';
-        }
+    $submenu = new \XoopsModules\Wggallery\Modulemenu;
+    $menuItems = $submenu->getMenuitemsDefault();
+    foreach ($menuItems as $key => $menuItem) {
+        $modversion['sub'][$key]['name'] = $menuItem['name'];
+        $modversion['sub'][$key]['url'] = $menuItem['url'];
     }
-    $subcount++;
-    $modversion['sub'][$subcount]['name'] = \_MI_WGGALLERY_SMNAME6;
-    $modversion['sub'][$subcount]['url']  = 'search.php';
 }
 // ------------------- Blocks ------------------- //
 
