@@ -113,10 +113,10 @@ class Modulemenu
             'highlight' => \strpos($requestUri, $moduleDirName . '/index.php') > 0,
             'url' => $urlModule . 'index.php',
             'icon' => '<i class="fa fa-tachometer fa-fw fa-lg"></i>',
-            'name' => \_MI_WGEVENTS_SMNAME1,
+            'name' => \_MI_WGGALLERY_SMNAME1,
             'sublinks' => []
         ];
-        
+
         if ($permissionsHandler->permGlobalSubmit() > 0) {
             $items[] = [
                 'highlight' => \strpos($requestUri, $moduleDirName . '/albums.php') > 0 && 0 === (int)\strpos($requestUri, $moduleDirName . '/albums.php?op='),
