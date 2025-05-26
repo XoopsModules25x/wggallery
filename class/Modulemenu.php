@@ -34,7 +34,6 @@ class Modulemenu
 
         $moduleDirName = \basename(\dirname(__DIR__));
         $pathname      = \XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/';
-        $urlModule     = \XOOPS_URL . '/modules/' . $moduleDirName . '/';
 
         require_once $pathname . 'include/common.php';
         $helper = \XoopsModules\Wggallery\Helper::getInstance();
@@ -47,38 +46,38 @@ class Modulemenu
         $items = [];
         $items[] = [
             'name' => \_MI_WGGALLERY_SMNAME1,
-            'url'  => $urlModule . 'index.php',
+            'url'  => 'index.php',
         ];
         if ($permissionsHandler->permGlobalSubmit() > 0) {
             $items[] = [
                 'name' => \_MI_WGGALLERY_SMNAME2,
-                'url'  => $urlModule . 'albums.php',
+                'url'  => 'albums.php',
             ];
             $items[] = [
                 'name' => \_MI_WGGALLERY_SMNAME5,
-                'url'  => $urlModule . 'images.php?op=manage',
+                'url'  => 'images.php?op=manage',
             ];
             $items[] = [
                 'name' => \_MI_WGGALLERY_SMNAME3,
-                'url'  => $urlModule . 'albums.php?op=new',
+                'url'  => 'albums.php?op=new',
             ];
             $uploaderType = (int)$helper->getConfig('uploader_type');
             if (2 === $uploaderType || 3 === $uploaderType || 4 === $uploaderType) {
                 $items[] = [
                     'name' => \_MI_WGGALLERY_SMNAME7,
-                    'url'  => $urlModule . 'upload_single.php',
+                    'url'  => 'upload_single.php',
                 ];
             }
             if (1 === $uploaderType || 3 === $uploaderType || 4 === $uploaderType) {
                 $items[] = [
                     'name' => \_MI_WGGALLERY_SMNAME4,
-                    'url'  => $urlModule . 'upload.php',
+                    'url'  => 'upload.php',
                 ];
             }
         }
         $items[] = [
             'name' => \_MI_WGGALLERY_SMNAME6,
-            'url'  => $urlModule . 'search.php',
+            'url'  => 'search.php',
         ];
 
         return $items;
