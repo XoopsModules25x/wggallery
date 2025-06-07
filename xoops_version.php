@@ -26,8 +26,9 @@ $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 // ------------------- Informations ------------------- //
 $modversion = [
     'version'             => '1.2.1',
-    'module_status'       => 'RC1',
-    'release_date'        => '2023/04/13', // format: yyyy/mm/dd
+    'module_status'       => 'Stable',
+    'release'             => '07/06/2025',
+    'release_date'        => '2025/06/07', // format: yyyy/mm/dd
     'name'                => \_MI_WGGALLERY_NAME,
     'description'         => \_MI_WGGALLERY_DESC,
     'author'              => 'Wedega',
@@ -56,7 +57,6 @@ $modversion = [
     'support_name'        => 'Wedega - Webdesign Gabor',
     'module_website_url'  => 'https://xoops.wedega.com',
     'module_website_name' => 'Wedega XOOPS Demo Site',
-    'release'             => '13/04/2023',
     'system_menu'         => 1,
     'hasAdmin'            => 1,
     'hasMain'             => 1,
@@ -156,39 +156,12 @@ $modversion['comments']['callback']['update']  = 'wggalleryCommentsUpdate';
 $currdirname = isset($GLOBALS['xoopsModule']) && \is_object($GLOBALS['xoopsModule']) ? $GLOBALS['xoopsModule']->getVar('dirname') : 'system';
 
 if ($moduleDirName == $currdirname) {
-    $subcount                             = 1;
-    $pathname                             = \XOOPS_ROOT_PATH . '/modules/' . $moduleDirName;
-    $modversion['sub'][$subcount]['name'] = \_MI_WGGALLERY_SMNAME1;
-    $modversion['sub'][$subcount]['url']  = 'index.php';
-    require_once $pathname . '/include/common.php';
-    $helper = \XoopsModules\Wggallery\Helper::getInstance();
-    $helper->loadLanguage('common');
-    $permissionsHandler = $helper->getHandler('Permissions');
-    if ($permissionsHandler->permGlobalSubmit() > 0) {
-        $subcount++;
-        $modversion['sub'][$subcount]['name'] = \_MI_WGGALLERY_SMNAME2;
-        $modversion['sub'][$subcount]['url']  = 'albums.php';
-        $subcount++;
-        $modversion['sub'][$subcount]['name'] = \_MI_WGGALLERY_SMNAME5;
-        $modversion['sub'][$subcount]['url']  = 'images.php?op=manage';
-        $subcount++;
-        $modversion['sub'][$subcount]['name'] = \_MI_WGGALLERY_SMNAME3;
-        $modversion['sub'][$subcount]['url']  = 'albums.php?op=new';
-        $uploaderType = (int)$helper->getConfig('uploader_type');
-        if (2 === $uploaderType || 3 === $uploaderType || 4 === $uploaderType) {
-            $subcount++;
-            $modversion['sub'][$subcount]['name'] = \_MI_WGGALLERY_SMNAME7;
-            $modversion['sub'][$subcount]['url'] = 'upload_single.php';
-        }
-        if (1 === $uploaderType || 3 === $uploaderType || 4 === $uploaderType) {
-            $subcount++;
-            $modversion['sub'][$subcount]['name'] = \_MI_WGGALLERY_SMNAME4;
-            $modversion['sub'][$subcount]['url'] = 'upload.php';
-        }
+    $submenu = new \XoopsModules\Wggallery\Modulemenu;
+    $menuItems = $submenu->getMenuitemsDefault();
+    foreach ($menuItems as $key => $menuItem) {
+        $modversion['sub'][$key]['name'] = $menuItem['name'];
+        $modversion['sub'][$key]['url'] = $menuItem['url'];
     }
-    $subcount++;
-    $modversion['sub'][$subcount]['name'] = \_MI_WGGALLERY_SMNAME6;
-    $modversion['sub'][$subcount]['url']  = 'search.php';
 }
 // ------------------- Blocks ------------------- //
 
