@@ -103,6 +103,10 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
      * @var string
      */
     private ?string $imageDesc = null;
+    /**
+     * @var int
+     */
+    private int $imageDateOrig = 0;
 
 
     /**
@@ -261,7 +265,7 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
      * @param bool $encoded
      * @return string or array
      */
-    public function exifRead($file, bool $encoded = true): string
+    public function exifRead($file, bool $encoded = true)
     {
         $exif = \exif_read_data($file);
         $ret  = \json_encode($exif, JSON_INVALID_UTF8_IGNORE);
@@ -341,9 +345,11 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
         $this->albumId        = $albId;
         $this->imageTitle     = $imgTitle;
         $this->imageDesc      = $imgDesc;
-        $this->imageName      = $this->imageTitle . '_img' . uniqid('', true) . '.' . \mb_strtolower($pathParts['extension']);
+        $this->imageName      = $this->imageTitle . '_img' . uniqid('', false);
+        $this->imageName      = preg_replace('/[^a-zA-Z0-9]/', '_', $this->imageName)  . '.' . \mb_strtolower($pathParts['extension']);
         $this->imageNicename  = $imgName;
-        $this->imageNameOrig  = $this->imageTitle . '_imgo' . uniqid('', true) . '.' . \mb_strtolower($pathParts['extension']);
+        $this->imageNameOrig  = $this->imageTitle . '_imgo' . uniqid('', false) ;
+        $this->imageNameOrig  = preg_replace('/[^a-zA-Z0-9]/', '_', $this->imageNameOrig) . '.' . \mb_strtolower($pathParts['extension']);
         $this->imageMimetype  = $imageMimetype;
         $this->imageSize      = $imageSize;
 
@@ -352,10 +358,22 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
             \copy($this->imagePath, $imgPathSaveOrig);
         }
 
+        // handle original date of file creation/modification
+        $imageDateOrig = 0;
+        // read exif from original/large image
+        $exifData = $this->exifRead($this->imagePath);
+        if (is_array($exifData)){
+            // use original data from exif data of the image
+            $imageDateOrig = $exifData['DateTimeOriginal'];
+        }
+
+        $this->imageDateOrig = $imageDateOrig;
+
+        // handle exif data for storage
         $exif = '';
         if ($helper->getConfig('store_exif')) {
             // read exif from original image
-            $this->exifData = $this->exifRead($this->imagePath);
+            $this->exifData = $exifData;
         }
         if ('none' !== $helper->getConfig('exif_tags')) {
             // read exif from original image
@@ -486,14 +504,16 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
         $imagesObj->setVar('img_state', $this->permUseralbum);
         $imagesObj->setVar('img_exif', $this->exifData);
         $imagesObj->setVar('img_tags', $this->imageTags);
+        $imagesObj->setVar('img_dateorig', $this->imageDateOrig);
         $imagesObj->setVar('img_date', \time());
         $imagesObj->setVar('img_submitter', $xoopsUser->id());
         $imagesObj->setVar('img_ip', $_SERVER['REMOTE_ADDR']);
         // Insert Data
         if ($this->insert($imagesObj)) {
             $this->imageId = $this->getInsertId();
-            $this->handleTagsForTagmodule($this->imageTags, $this->imageId, $this->albumId);
-
+            if (!empty($this->imageTags)) {
+                $this->handleTagsForTagmodule($this->imageTags, $this->imageId, $this->albumId);
+            }
             return true;
         }
 

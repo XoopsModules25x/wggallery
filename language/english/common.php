@@ -144,7 +144,7 @@
 \define('_CO_WGGALLERY_IMAGES_INDEX', 'Show Images Index');
 \define('_CO_WGGALLERY_IMAGES_UPLOAD', 'Upload Images');
 \define('_CO_WGGALLERY_IMAGE_MANAGE', 'Image management');
-\define('_CO_WGGALLERY_IMAGE_MANAGE_DESC', 'Resort your images by drag & drop');
+\define('_CO_WGGALLERY_IMAGE_MANAGE_DESC', 'Resort your images by sort settings or by drag & drop');
 \define('_CO_WGGALLERY_IMAGE_ID', 'Id');
 \define('_CO_WGGALLERY_IMAGE_TITLE', 'Title');
 \define('_CO_WGGALLERY_IMAGE_DESC', 'Description');

@@ -853,17 +853,23 @@ switch ($op) {
         $errors      = [];
         $imagesCount = $imagesHandler->getCount();
         if ($imagesCount > 0) {
-            $imagesAll = $imagesHandler->getAll();
-            foreach (\array_keys($imagesAll) as $i) {
-                $image = $imagesAll[$i]->getValuesImages();
+            global $xoopsDB;
 
-                $crAlbums = new \CriteriaCompo();
-                $crAlbums->add(new \Criteria('alb_id', $image['img_albid']));
-                $albumsCount = $albumsHandler->getCount($crAlbums);
-                if (0 == $albumsCount) {
-                    $success[] = $image['img_name'];
+            $sql = "
+                SELECT i.*
+                FROM " . $xoopsDB->prefix("wggallery_images") . " AS i
+                LEFT JOIN " . $xoopsDB->prefix("wggallery_albums") . " AS a
+                    ON i.img_albid = a.alb_id
+                WHERE a.alb_id IS NULL
+            ";
+
+            $result = $xoopsDB->query($sql);
+            if ($result && is_object($result)) {
+                while ($row = $xoopsDB->fetchArray($result)) {
+                    $success[] = $row['img_name'];
                 }
-                unset($image);
+            } else {
+                $errors[] = "SQL Error: " . $xoopsDB->error();
             }
         } else {
             $errors[] = \_CO_WGGALLERY_THEREARENT_IMAGES;
@@ -896,22 +902,32 @@ switch ($op) {
         $errors      = [];
         $imagesCount = $imagesHandler->getCount();
         if ($imagesCount > 0) {
-            $imagesAll = $imagesHandler->getAll();
-            foreach (\array_keys($imagesAll) as $i) {
-                $image = $imagesAll[$i]->getValuesImages();
+            global $xoopsDB;
 
-                $crAlbums = new \CriteriaCompo();
-                $crAlbums->add(new \Criteria('alb_id', $image['img_albid']));
-                $albumsCount = $albumsHandler->getCount($crAlbums);
-                if (0 == $albumsCount) {
-                    $imagesObj = $imagesHandler->get($image['img_id']);
+            $sql = "
+                SELECT i.*
+                FROM " . $xoopsDB->prefix("wggallery_images") . " AS i
+                LEFT JOIN " . $xoopsDB->prefix("wggallery_albums") . " AS a
+                    ON i.img_albid = a.alb_id
+                WHERE a.alb_id IS NULL
+            ";
+
+            $result = $xoopsDB->query($sql);
+            if ($result && is_object($result)) {
+                while ($row = $xoopsDB->fetchArray($result)) {
+                    $imagesObj = $imagesHandler->get($row['img_id']);
+                    if (!$imagesObj) {
+                        $errors[] = \_AM_WGGALLERY_MAINTENANCE_ERROR_DELETE . $row['img_name'];
+                        continue;
+                    }
                     if ($imagesHandler->delete($imagesObj, true)) {
-                        $success[] = \_AM_WGGALLERY_MAINTENANCE_SUCCESS_DELETE . $image['img_name'];
+                        $success[] = \_AM_WGGALLERY_MAINTENANCE_SUCCESS_DELETE . $row['img_name'];
                     } else {
-                        $errors[] = \_AM_WGGALLERY_MAINTENANCE_ERROR_DELETE . $image['img_name'];
+                        $errors[] = \_AM_WGGALLERY_MAINTENANCE_ERROR_DELETE . $row['img_name'];
                     }
                 }
-                unset($image);
+            } else {
+                $errors[] = "SQL Error: " . $xoopsDB->error();
             }
         } else {
             $errors[] = \_CO_WGGALLERY_THEREARENT_IMAGES;

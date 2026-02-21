@@ -39,9 +39,13 @@ $GLOBALS['xoopsTpl']->assign('show_breadcrumbs', $helper->getConfig('show_breadc
 $GLOBALS['xoopsTpl']->assign('displayButtonText', $helper->getConfig('displayButtonText'));
 
 // check permissions
+$permAlbumEdit = false;
+$albSubmitter  = 0;
 if ($albId > 0) {
     $albumsObj = $albumsHandler->get($albId);
-    if (!$permissionsHandler->permAlbumEdit($albId, (int)$albumsObj->getVar('alb_submitter'))) {
+    $albSubmitter = (int)$albumsObj->getVar('alb_submitter');
+    $permAlbumEdit = $permissionsHandler->permAlbumEdit($albId, $albSubmitter);
+    if (!$permAlbumEdit) {
         \redirect_header('albums.php', 3, _NOPERM);
     }
     $xoBreadcrumbs[] = ['title' => $albumsObj->getVar('alb_name'), 'link' => \WGGALLERY_URL . '/images.php?op=list&amp;alb_id=' . $albId];
@@ -50,7 +54,11 @@ if ($albId > 0) {
         \redirect_header('albums.php', 3, _NOPERM);
     }
     $albumsObj = $albumsHandler->create();
+    $permAlbumEdit = true;
 }
+
+$GLOBALS['xoopsTpl']->assign('permAlbumEdit', $permAlbumEdit);
+$GLOBALS['xoopsTpl']->assign('albSubmitter', $albSubmitter);
 
 // show form
 $form = $albumsObj->getFormUploadToAlbum();

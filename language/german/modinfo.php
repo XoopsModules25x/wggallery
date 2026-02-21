@@ -195,3 +195,10 @@ define('_MI_WGGALLERY_TAGMODULE_DESC', "Definieren Sie, ob die Bilder-Tags auch 
 \define('_MI_WGGALLERY_RATING_10STARS', 'Bewertung mit 10 Sternen');
 \define('_MI_WGGALLERY_RATING_LIKES', 'Bewertung mit Likes');
 \define('_MI_WGGALLERY_RATING_10NUM', 'Bewertung mit 10 Punkten');
+/*version 1.2.3*/
+\define('_MI_WGGALLERY_IMAGE_NAME', 'Bildname bei Dateiupload');
+\define('_MI_WGGALLERY_IMAGE_NAME_DESC', 'Welcher Bildname soll beim Dateiupload verwendet werden:
+    <br>- Erstelle automatisch einen neuen eindeutigen Bildnamen, z.B. imgl6942f77b204125_89295478.jpg
+    <br>- Verwende den Originalnamen, erweitert um einen eindeutigen Identifier, z.B. meinbildname_89295478.jpg; alle Zeichen außer a-zA-Z0-9 werden vom Originalbildnamen entfernt');
+\define('_MI_WGGALLERY_IMAGE_NAME_UNIQUE', 'Erstelle neuen eindeutigen Bildnamen');
+\define('_MI_WGGALLERY_IMAGE_NAME_ORIG', 'Verwende Originalbildnamen');

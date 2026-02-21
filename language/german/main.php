@@ -99,3 +99,12 @@ require_once __DIR__ . '/common.php';
 \define('_MA_WGGALLERY_RATING_LIKE', 'Gefällt mir');
 \define('_MA_WGGALLERY_RATING_DISLIKE', 'Gefällt mir nicht');
 \define('_MA_WGGALLERY_ERROR_CREATE_ZIP', 'Fehler: das Zip-Archiv konnte nicht erstellt werden');
+// version '1.2.3
+\define('_MA_WGGALLERY_FU_NUMBER_OF_FILES', 'Anzahl Dateien');
+// do not use line breaks within _MA_WGGALLERY_FU_INFO_BIG_FILES!!
+\define('_MA_WGGALLERY_FU_INFO_BIG_FILES', 'Sie versuchen eine oder mehrere Dateien mit einer Dateigröße von mehr als 5 MB hochzuladen.<br>wgGallery kann grundsätzlich mit derart großen Dateien umgehen, jedoch kann der PHP Dateiupload eventuell Probleme damit haben.<br>Sollten beim hochladen Probleme auftreten (wie z.B. unvollständige Bilder), dann wird empfohlen, die Dateien vor dem Hochladen zu verkleinern.');
+\define('_MA_WGGALLERY_SORT_FILES', 'Sortieren');
+\define('_MA_WGGALLERY_SORT_BY', 'Sortieren nach');
+\define('_MA_WGGALLERY_SORT_BY_NAME', 'Name');
+\define('_MA_WGGALLERY_SORT_BY_DATEUPLOAD', 'Datum Upload');
+\define('_MA_WGGALLERY_SORT_SUCCESS', 'Sortieren der Bilder erfolgreich abgeschlossen');

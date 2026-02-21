@@ -64,19 +64,32 @@ switch ($op) {
             \redirect_header('images.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
 
+        $imageNameOpt = (int)$helper->getConfig('image_name');
+
         // Set Var img_name
         include_once \XOOPS_ROOT_PATH . '/class/uploader.php';
         $filename       = $_FILES['img_name']['name'];
         $imgMimetype    = $_FILES['img_name']['type'];
         $imgSize        = $_FILES['img_name']['size'];
-        $imgTitle       = \preg_replace("/[^a-zA-Z0-9]+/", '', Request::getString('img_title'));
+
+        $imgTitle = Request::getString('img_title');
+        if ('' === $imgTitle) {
+            // use file name as title
+            $imgTitle = substr($filename, 0, strrpos($filename, '.'));
+        }
+
         $uploaderErrors = '';
         $savedFilename  = '';
         $uploader = new \XoopsMediaUploader(\WGGALLERY_UPLOAD_IMAGE_PATH . '/large/',
             $helper->getConfig('mimetypes_image'),
             $helper->getConfig('maxsize_image'), null, null);
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
-            $imgName = $imgTitle  . '_imgl';
+            if (Constants::IMAGENAME_ORIGINAL === $imageNameOpt) {
+                // use original file name
+                $imgName = substr($filename, 0, strrpos($filename, '.'))  . '_imgl';
+            } else {
+                $imgName = \str_replace('.', '_', uniqid('imgl', true));
+            }
             $uploader->setPrefix($imgName);
             $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
             if (!$uploader->upload()) {

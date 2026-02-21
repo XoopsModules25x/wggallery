@@ -107,14 +107,17 @@ if ($imgId > 0 && 0 === $albId) {
     $albId     = $imagesObj->getVar('img_albid');
 }
 
-$albName      = '';
-$albSubmitter = '';
-$albumsObj = $albumsHandler->get($albId);
-if (isset($albumsObj) && \is_object($albumsObj)) {
-    $albName      = $albumsObj->getVar('alb_name');
-    $albSubmitter = (int)$albumsObj->getVar('alb_submitter');
+$permAlbumEdit = false;
+$albName       = '';
+$albSubmitter  = 0;
+if ($albId > 0) {
+    $albumsObj = $albumsHandler->get($albId);
+    if (isset($albumsObj) && \is_object($albumsObj)) {
+        $albName      = $albumsObj->getVar('alb_name');
+        $albSubmitter = (int)$albumsObj->getVar('alb_submitter');
+        $permAlbumEdit = $permissionsHandler->permAlbumEdit($albId, $albSubmitter);
+    }
 }
-$permAlbumEdit = $permissionsHandler->permAlbumEdit($albId, $albSubmitter);
 
 // Breadcrumbs
 $xoBreadcrumbs[] = ['title' => \_CO_WGGALLERY_ALBUMS, 'link' => \WGGALLERY_URL . '/'];
@@ -152,9 +155,9 @@ switch ($op) {
         }
         $redir .= '&amp;start=' . $start . '&amp;limit=' . $limit . '&amp;alb_id=' . $albId . '&amp;alb_pid=' . $albPid . '&amp;img_submitter=' . $imgSubm . '#image_' . $imgId;
 
-        $imgHandler                = new Wggallery\Resizer();
+        $imgHandler = new Wggallery\Resizer();
         $imgHandler->imageMimetype = $imagesObj->getVar('img_mimetype');
-        $degrees                   = 0;
+        $degrees = 0;
         if ('left' === Request::getString('dir')) {
             $degrees = 90;
         }
@@ -167,22 +170,22 @@ switch ($op) {
         $imgHandler->degrees = $degrees;
         // rotate large
         $imgHandler->sourceFile = \WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesObj->getVar('img_namelarge');
-        $imgHandler->endFile    = \WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesObj->getVar('img_namelarge');
-        $result                 = $imgHandler->rotateImage();
+        $imgHandler->endFile = \WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imagesObj->getVar('img_namelarge');
+        $result = $imgHandler->rotateImage();
         if (true !== (bool)$result) {
             \redirect_header($redir, 3, \_CO_WGGALLERY_IMAGE_ROTATE_ERROR . ': ' . $result);
         }
         // rotate medium
         $imgHandler->sourceFile = \WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $imagesObj->getVar('img_name');
-        $imgHandler->endFile    = \WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $imagesObj->getVar('img_name');
-        $result                 = $imgHandler->rotateImage();
+        $imgHandler->endFile = \WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $imagesObj->getVar('img_name');
+        $result = $imgHandler->rotateImage();
         if (true !== (bool)$result) {
             \redirect_header($redir, 3, \_CO_WGGALLERY_IMAGE_ROTATE_ERROR . ': ' . $result);
         }
         // rotate thumb
         $imgHandler->sourceFile = \WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/' . $imagesObj->getVar('img_name');
-        $imgHandler->endFile    = \WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/' . $imagesObj->getVar('img_name');
-        $result                 = $imgHandler->rotateImage();
+        $imgHandler->endFile = \WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/' . $imagesObj->getVar('img_name');
+        $result = $imgHandler->rotateImage();
         if (true !== (bool)$result) {
             \redirect_header($redir, 3, \_CO_WGGALLERY_IMAGE_ROTATE_ERROR . ': ' . $result);
         }
@@ -207,10 +210,10 @@ switch ($op) {
         }
         if (isset($imgId)) {
             $imagesObj = $imagesHandler->get($imgId);
-            $imgNew    = 0;
+            $imgNew = 0;
         } else {
             $imagesObj = $imagesHandler->create();
-            $imgNew    = 1;
+            $imgNew = 1;
         }
         // Set Vars
         $imagesObj->setVar('img_title', Request::getString('img_title'));
@@ -241,11 +244,12 @@ switch ($op) {
         $imagesObj->setVar('img_ip', $_SERVER['REMOTE_ADDR']);
         // Insert Data
         if ($imagesHandler->insert($imagesObj)) {
+            $newImgId = $imgId > 0 ? $imgId : $imagesObj->getNewInsertedIdImages();
             // send notifications
-            $tags                = [];
-            $tags['IMAGE_NAME']  = $img_name;
-            $tags['IMAGE_URL']   = \XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/images.php?op=show&img_id=$imgId&amp;alb_id=$albId";
-            $tags['ALBUM_URL']   = \XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/albums.php?op=show&alb_id=$albId&amp;alb_pid=$imgAlbPid";
+            $tags = [];
+            $tags['IMAGE_NAME'] = $img_name;
+            $tags['IMAGE_URL'] = \XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/images.php?op=show&img_id=$newImgId&amp;alb_id=$albId";
+            $tags['ALBUM_URL'] = \XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/albums.php?op=show&alb_id=$albId&amp;alb_pid=$imgAlbPid";
             $notificationHandler = \xoops_getHandler('notification');
 
             if (Constants::STATE_APPROVAL_VAL === $imgState) {
@@ -258,11 +262,10 @@ switch ($op) {
             }
 
             //handle tags for module TAG
-            $newImgId = $imgId > 0 ? $imgId : $imagesObj->getNewInsertedIdImages();
             $imagesHandler->handleTagsForTagmodule($imgTags, $newImgId, $imgAlbId);
 
             if ('manage' === $redir_op) {
-                \redirect_header('images.php?op=manage&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid . '#image_' . $imgId, 2, \_CO_WGGALLERY_FORM_OK);
+                \redirect_header('images.php?op=manage&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid . '#image_' . $newImgId, 2, \_CO_WGGALLERY_FORM_OK);
             } else {
                 \redirect_header('images.php?op=list&amp;alb_id=' . $imgAlbId . '&amp;alb_pid=' . $imgAlbPid, 2, \_CO_WGGALLERY_FORM_OK);
             }
@@ -275,15 +278,15 @@ switch ($op) {
         break;
     case 'edit':
         // Get Form
-        $imagesObj          = $imagesHandler->get($imgId);
+        $imagesObj = $imagesHandler->get($imgId);
         $imagesObj->redirOp = $redir_op;
-        $form               = $imagesObj->getFormImages();
+        $form = $imagesObj->getFormImages();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
 
         break;
     case 'delete':
         $imagesObj = $imagesHandler->get($imgId);
-        $imgAlbId  = $imagesObj->getVar('img_albid');
+        $imgAlbId = $imagesObj->getVar('img_albid');
         if (!$permAlbumEdit || $imgAlbId !== $albId) {
             \redirect_header('images.php', 3, _NOPERM);
         }
@@ -297,15 +300,15 @@ switch ($op) {
                     $GLOBALS['xoopsTpl']->assign('error', \_CO_WGGALLERY_IMAGE_ERRORUNLINK);
                 }
                 // send notifications
-                $tags                = [];
-                $tags['IMAGE_NAME']  = $img_name;
-                $tags['IMAGE_URL']   = \XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/images.php?op=show&img_id=' . $imgId . '&amp;alb_id=' . $albId;
-                $tags['ALBUM_URL']   = \XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/albums.php?op=show&alb_id=' . $albId;
+                $tags = [];
+                $tags['IMAGE_NAME'] = $img_name;
+                $tags['IMAGE_URL'] = \XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/images.php?op=show&img_id=' . $imgId . '&amp;alb_id=' . $albId;
+                $tags['ALBUM_URL'] = \XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/albums.php?op=show&alb_id=' . $albId;
                 $notificationHandler = \xoops_getHandler('notification');
                 $notificationHandler->triggerEvent('albums', $albId, 'image_delete', $tags);
                 // delete comments
                 $commentHandler = \xoops_getHandler('comment');
-                $critComments   = new CriteriaCompo(new Criteria('com_modid', $helper::getMid()));
+                $critComments = new CriteriaCompo(new Criteria('com_modid', $helper::getMid()));
                 $critComments->add(new Criteria('com_itemid', $imgId));
                 $commentHandler->deleteAll($critComments);
                 // delete ratings
@@ -344,25 +347,36 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('limit', $limit);
         $GLOBALS['xoopsTpl']->assign('img_submitter', $imgSubm);
 
-        $crImages = new \CriteriaCompo();
-        $crImages->add(new \Criteria('img_albid', $albId));
-        $crImages->setSort('img_weight ASC, img_date');
-        $crImages->setOrder('DESC');
-        $imagesCount = $imagesHandler->getCount($crImages);
-        $imagesAll   = $imagesHandler->getAll($crImages);
-        if ($imagesCount > 0) {
-            $images = [];
-            // Get All Images
-            foreach (\array_keys($imagesAll) as $i) {
-                $images[$i] = $imagesAll[$i]->getValuesImages();
+        if ($albId > 0) {
+            $crImages = new \CriteriaCompo();
+            $crImages->add(new \Criteria('img_albid', $albId));
+            $crImages->setSort('img_weight ASC, img_date');
+            $crImages->setOrder('DESC');
+            $imagesCount = $imagesHandler->getCount($crImages);
+            $imagesAll = $imagesHandler->getAll($crImages);
+            if ($imagesCount > 0) {
+                $images = [];
+                // Get All Images
+                foreach (\array_keys($imagesAll) as $i) {
+                    $images[$i] = $imagesAll[$i]->getValuesImages();
+                }
+                $GLOBALS['xoopsTpl']->assign('images', $images);
+                unset($images);
             }
-            $GLOBALS['xoopsTpl']->assign('images', $images);
-            unset($images);
+
+            $imagesObj = $imagesHandler->create();
+            $imagesObj->setVar('img_albid', $albId);
+            $formSort = $imagesObj->getFormSortImages();
+            $GLOBALS['xoopsTpl']->assign('formSort', $formSort->render());
+        } else {
+            // show form for selecting album
         }
+
+
         break;
     case 'order':
         $aorder = $_POST['menuItem'];
-        $i      = 0;
+        $i = 0;
         foreach (\array_keys($aorder) as $key) {
             $imagesObj = $imagesHandler->get($key);
             $imagesObj->setVar('img_weight', $i + 1);
@@ -370,76 +384,118 @@ switch ($op) {
             $i++;
         }
         break;
+    case 'sort_images':
+        $sortBy = Request::getInt('sortby');
+        $orderBy = Request::getString('orderby');
+        $crImages = new \CriteriaCompo();
+        if (Constants::SORT_BY_NAME == $sortBy) {
+            $crImages->setSort('img_name');
+        } else {
+            $crImages->setSort('img_date');
+        }
+        $crImages->setOrder($orderBy);
+        $crImages->add(new \Criteria('img_albid', $albId));
+        $imagesCount = $imagesHandler->getCount($crImages);
+        if ($imagesCount > 0) {
+            $imagesAll = $imagesHandler->getAll($crImages);
+            // Get All Images
+            $i = 0;
+            foreach (\array_keys($imagesAll) as $key) {
+                $imagesObj = $imagesHandler->get($key);
+                $imagesObj->setVar('img_weight', $i + 1);
+                $imagesHandler->insert($imagesObj);
+                $i++;
+            }
+        }
+        $albumsObj = $albumsHandler->get($albId);
+        if (isset($albumsObj)) {
+            $albPid = $albumsObj->getVar('alb_pid');
+        }
+        \redirect_header('images.php?op=manage&amp;alb_id=' . $albId . '&amp;alb_pid=' . $albPid . '#image_' . $imgId, 2, \_MA_WGGALLERY_SORT_SUCCESS);
+
+        break;
     case 'list':
     default:
-        $albums    = $helper->getHandler('Albums');
-        $albumsObj = $albums->get($albId);
-        if (isset($albumsObj) && \is_object($albumsObj)) {
-            $albName      = $albumsObj->getVar('alb_name');
-            $albSubmitter = (int)$albumsObj->getVar('alb_submitter');
+        $albName = '';
+        $albSubmitter = 0;
+        $permAlbumEdit = false;
+        $permImageDownloadLarge = false;
+        $permImageDownloadMedium = false;
+        if ($albId > 0) {
+            $albums = $helper->getHandler('Albums');
+            $albumsObj = $albums->get($albId);
+            if (isset($albumsObj) && \is_object($albumsObj) ) {
+                $albName = $albumsObj->getVar('alb_name');
+                $albSubmitter = (int)$albumsObj->getVar('alb_submitter');
+            }
+            $permAlbumEdit           = $permissionsHandler->permAlbumEdit($albId, $albSubmitter);
+            $permImageDownloadLarge  = $permissionsHandler->permImageDownloadLarge($albId);
+            $permImageDownloadMedium = $permissionsHandler->permImageDownloadMedium($albId);
         }
         $GLOBALS['xoopsTpl']->assign('alb_name', $albName);
-        $GLOBALS['xoopsTpl']->assign(
-            'img_allowdownload',
-            $permissionsHandler->permImageDownloadLarge($albId)
-            || $permissionsHandler->permImageDownloadMedium($albId)
-        );
-        $GLOBALS['xoopsTpl']->assign('permAlbumEdit', $permissionsHandler->permAlbumEdit($albId, $albSubmitter));
+        $GLOBALS['xoopsTpl']->assign('img_allowdownload', $permImageDownloadLarge || $permImageDownloadMedium);
+        $GLOBALS['xoopsTpl']->assign('permAlbumEdit', $permAlbumEdit);
         $GLOBALS['xoopsTpl']->assign('alb_id', $albId);
         $GLOBALS['xoopsTpl']->assign('alb_pid', $albPid);
 
-        $image = [];
-        $crImages = new \CriteriaCompo();
-        $crImages->add(new \Criteria('img_albid', $albId));
-        if (!$permAlbumEdit) {
-            $crImages->add(new \Criteria('img_state', Constants::STATE_ONLINE_VAL));
-        }
-        $crImages->setSort('img_weight ASC, img_date');
-        $crImages->setOrder('DESC');
-        $imagesCount = $imagesHandler->getCount($crImages);
-        $crImages->setStart($start);
-        $crImages->setLimit($limit);
-        $imagesAll = $imagesHandler->getAll($crImages);
-        if ($imagesCount > 0) {
-            $images = [];
-            // Get All Images
-            foreach (\array_keys($imagesAll) as $i) {
-                $images[$i] = $imagesAll[$i]->getValuesImages();
-                //check permissions
-                $images[$i]['edit'] = $permAlbumEdit;
-                if ($helper->getConfig('ratingbars') > 0) {
-                    $images[$i]['rating'] = $ratingsHandler->getItemRating($images[$i]['id'], 1);
-                }
-                if ('_modal' === $image_target || '_modalinfo' === $image_target) {
-                    $images[$i]['img_modal'] = $images[$i]['thumb'];
-                    if ($permissionsHandler->permImageDownloadLarge($albId)) {
-                        $images[$i]['img_modal'] = $images[$i]['large'];
-                    } elseif ($permissionsHandler->permImageDownloadMedium($albId)) {
-                        $images[$i]['img_modal'] = $images[$i]['medium'];
+        $image       = [];
+        $showlist    = false;
+        $imagesCount = 0;
+        if ($albId > 0) {
+            $crImages = new \CriteriaCompo();
+            $crImages->add(new \Criteria('img_albid', $albId));
+            if (!$permAlbumEdit) {
+                $crImages->add(new \Criteria('img_state', Constants::STATE_ONLINE_VAL));
+            }
+            $crImages->setSort('img_weight ASC, img_date');
+            $crImages->setOrder('DESC');
+            $imagesCount = $imagesHandler->getCount($crImages);
+            if ($imagesCount > 0) {
+                $crImages->setStart($start);
+                $crImages->setLimit($limit);
+                $imagesAll = $imagesHandler->getAll($crImages);
+                $images = [];
+                // Get All Images
+                foreach (\array_keys($imagesAll) as $i) {
+                    $images[$i] = $imagesAll[$i]->getValuesImages();
+                    //check permissions
+                    $images[$i]['edit'] = $permAlbumEdit;
+                    if ($helper->getConfig('ratingbars') > 0) {
+                        $images[$i]['rating'] = $ratingsHandler->getItemRating($images[$i]['id'], 1);
                     }
+                    if ('_modal' === $image_target || '_modalinfo' === $image_target) {
+                        $images[$i]['img_modal'] = $images[$i]['thumb'];
+                        if ($permImageDownloadLarge) {
+                            $images[$i]['img_modal'] = $images[$i]['large'];
+                        } elseif ($permImageDownloadMedium) {
+                            $images[$i]['img_modal'] = $images[$i]['medium'];
+                        }
+                    }
+                    $keywords[] = $imagesAll[$i]->getVar('img_name');
                 }
-                $keywords[] = $imagesAll[$i]->getVar('img_name');
+                $GLOBALS['xoopsTpl']->assign('images', $images);
+                unset($images);
+                // Display Navigation
+                if ($imagesCount > $limit) {
+                    require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
+                    $pagenav = new \XoopsPageNav($imagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit . '&alb_id=' . $albId . '&alb_pid=' . $albPid . '&img_submitter=' . $imgSubm);
+                    $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
+                }
             }
-            $GLOBALS['xoopsTpl']->assign('images', $images);
-            unset($images);
-            // Display Navigation
-            if ($imagesCount > $limit) {
-                require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
-                $pagenav = new \XoopsPageNav($imagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit . '&alb_id=' . $albId . '&alb_pid=' . $albPid . '&img_submitter=' . $imgSubm);
-                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
-            }
-            $GLOBALS['xoopsTpl']->assign('type', $helper->getConfig('table_type'));
-            $GLOBALS['xoopsTpl']->assign('divideby', $helper->getConfig('divideby'));
-            $GLOBALS['xoopsTpl']->assign('numb_col', $helper->getConfig('numb_col'));
-            $GLOBALS['xoopsTpl']->assign('showlist', true);
-            $GLOBALS['xoopsTpl']->assign('ref', $ref);
-            $GLOBALS['xoopsTpl']->assign('start', $start);
-            $GLOBALS['xoopsTpl']->assign('limit', $limit);
-            $GLOBALS['xoopsTpl']->assign('img_submitter', $imgSubm);
-            $GLOBALS['xoopsTpl']->assign('img_allowdownload', $permissionsHandler->permImageDownloadLarge($albId) || $permissionsHandler->permImageDownloadMedium($albId));
-            $GLOBALS['xoopsTpl']->assign('showModal', ('_modal' === $image_target || '_modalinfo' === $image_target));
-            $GLOBALS['xoopsTpl']->assign('showModalInfo', '_modalinfo' === $image_target);
+            $showlist = true;
         }
+        $GLOBALS['xoopsTpl']->assign('type', $helper->getConfig('table_type'));
+        $GLOBALS['xoopsTpl']->assign('divideby', $helper->getConfig('divideby'));
+        $GLOBALS['xoopsTpl']->assign('numb_col', $helper->getConfig('numb_col'));
+        $GLOBALS['xoopsTpl']->assign('showlist', $showlist);
+        $GLOBALS['xoopsTpl']->assign('ref', $ref);
+        $GLOBALS['xoopsTpl']->assign('start', $start);
+        $GLOBALS['xoopsTpl']->assign('limit', $limit);
+        $GLOBALS['xoopsTpl']->assign('img_submitter', $imgSubm);
+        $GLOBALS['xoopsTpl']->assign('showModal', ('_modal' === $image_target || '_modalinfo' === $image_target));
+        $GLOBALS['xoopsTpl']->assign('showModalInfo', '_modalinfo' === $image_target);
+        $GLOBALS['xoopsTpl']->assign('imagesCount', $imagesCount);
+
         break;
     case 'show':
         if (!$imgId) {

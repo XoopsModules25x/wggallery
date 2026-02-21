@@ -89,5 +89,10 @@ class Constants
     const int SEARCH_ACT_VIEWS = 2;
     const int SEARCH_ACT_RATINGS = 3;
     const int SEARCH_ACT_VOTES = 4;
-
+    // constants for image name at upload
+    const int IMAGENAME_UNIQUE   = 0;
+    const int IMAGENAME_ORIGINAL = 1;
+    // constants for sorting
+    const int SORT_BY_NAME       = 1;
+    const int SORT_BY_DATEUPLOAD = 2;
 }

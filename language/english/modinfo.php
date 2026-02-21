@@ -195,3 +195,10 @@ define('_MI_WGGALLERY_TAGMODULE_DESC', "Define whether your image tags should be
 \define('_MI_WGGALLERY_RATING_10STARS', 'Rating with 10 stars');
 \define('_MI_WGGALLERY_RATING_LIKES', 'Rating with likes');
 \define('_MI_WGGALLERY_RATING_10NUM', 'Rating with 10 points');
+/*version 1.2.3*/
+\define('_MI_WGGALLERY_IMAGE_NAME', 'Image name for file upload');
+\define('_MI_WGGALLERY_IMAGE_NAME_DESC', 'Which image name should be used in case of file upload:
+    <br>- Create automatically a new unique image name by module, e.g. imgl6942f77b204125_89295478.jpg
+    <br>- Use original image name with a trailing unique identifier, e.g. myimagename_89295478.jpg; all characters except a-zA-Z0-9 will be removed from original name');
+\define('_MI_WGGALLERY_IMAGE_NAME_UNIQUE', 'Create new unique image name');
+\define('_MI_WGGALLERY_IMAGE_NAME_ORIG', 'Use original image name');

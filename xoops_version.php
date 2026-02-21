@@ -25,8 +25,8 @@ $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 $modversion = [
     'version'             => '1.2.3',
     'module_status'       => 'Beta1',
-    'release'             => '09/11/2025',
-    'release_date'        => '2025/11/09', // format: yyyy/mm/dd
+    'release'             => '12/02/2026',
+    'release_date'        => '2026/02/12', // format: yyyy/mm/dd
     'name'                => \_MI_WGGALLERY_NAME,
     'description'         => \_MI_WGGALLERY_DESC,
     'author'              => 'Wedega',
@@ -296,6 +296,17 @@ $modversion['config'][] = [
     'default'     => 1,
     'options'     => ['_MI_WGGALLERY_UPLOADER_NONE' => 0, '_MI_WGGALLERY_UPLOADER_MULTI' => 1, '_MI_WGGALLERY_UPLOADER_SINGLE' => 2,
         '_MI_WGGALLERY_UPLOADER_BOTHMULTI' => 3, '_MI_WGGALLERY_UPLOADER_BOTHSINGLE' => 4],
+];
+
+// image name for multiupload
+$modversion['config'][] = [
+    'name'        => 'image_name',
+    'title'       => '_MI_WGGALLERY_IMAGE_NAME',
+    'description' => '_MI_WGGALLERY_IMAGE_NAME_DESC',
+    'formtype'    => 'select',
+    'valuetype'   => 'int',
+    'default'     => 0,
+    'options'     => ['_MI_WGGALLERY_IMAGE_NAME_UNIQUE' => 0, '_MI_WGGALLERY_IMAGE_NAME_ORIG' => 1],
 ];
 
 // group header

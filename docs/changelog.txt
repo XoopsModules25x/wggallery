@@ -1,6 +1,11 @@
 <h5>1.2.3 Beta</h5>  [2025/11/09]
 <hr>
- - move to PHP 8.4.* (goffy)
+ - move to PHP 8.3.* (goffy)
+ - updated LC Lightbox (LITE) to version 2.0.2 (goffy)
+ - new preference for image name (goffy)
+ - added file size check for multiupload (goffy)
+ - added possibility to sort images (goffy)
+ - simplified maintenance (goffy)
 
 <h5>1.2.2 Beta</h5>  [2025/10/12]
 <hr>

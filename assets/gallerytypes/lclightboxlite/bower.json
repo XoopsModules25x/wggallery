@@ -1,13 +1,14 @@
 {
   "name": "lc-lightbox-lite",
-  "description": "LC Lightbox is a super customizable jQuery lightbox supporting any content type!",
+  "description": "LC Lightbox is a gesture-powered, highly customizable jQuery lightbox that supports any type of content!",
   "main": [
   	"js/lc_lightbox.lite.js",
 	"css/lc_lightbox.css"
   ],
   "keywords": [
     "jquery",
-    "lightbox"
+    "lightbox",
+    "popup"
   ],
   "authors": [
     "Luca Montanari (https://lcweb.it)"
@@ -15,8 +16,7 @@
   "license": "MIT",
   "homepage": "https://lcweb.it/lc-lightbox-jquery-plugin/",
   "dependencies": {
-    "jquery": ">=1.7.0",
-	"alloyfinger": "latest"
+    "jquery": ">=1.7.0"
   },
   "ignore": [
     "lib"

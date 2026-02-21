@@ -8,6 +8,9 @@
                 <h3><{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}> <{$alb_name}></h3>
                 <p><{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE_DESC}></p>
             </div>
+            <{if !empty($formSort|default:false)}>
+                <div class="wgg-form-image-sort"><{$formSort}></div>
+            <{/if}>
             <div class=' panel-body'>
                 <{if $images|default:''}>
                     <ol class="sortable ui-sortable mjs-nestedSortable-branch mjs-nestedSortable-expanded">

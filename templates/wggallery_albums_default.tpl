@@ -28,7 +28,7 @@
 						<p><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>submitter.png' alt='<{$album.submitter}>'><{$album.submitter}></p>
 					</div>
 					<div class='col-sm-12 center'>
-						<{if $album.nb_images|default:''}>
+						<{if $album.nb_images|default:0 > 0}>
 							<{if $gallery|default:''}>
 								<a class='btn btn-default wgg-btn' href='<{$wggallery_url}>/gallery.php?op=show&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$album.pid}><{if $subm_id|default:''}>&amp;subm_id=<{$subm_id}><{/if}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>' target='<{$gallery_target}>' >
 									<span class="wgg-btn-icon"><img class='' src='<{$wggallery_icon_url_16}>show.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_ALBUMSHOW}>'></span>
@@ -39,11 +39,9 @@
 								<img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>photos.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'>
 								<{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}><{/if}>
 							</a>
-						<{else}>
-							<span class = 'btn btn-default wgg-btn'><img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>photos.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_INDEX}>'><{$album.nb_images}></span>
 						<{/if}>
-						<{if $album.edit|default:''}>
-                            <{if $album.nb_images|default:''}>
+						<{if $album.edit|default:false}>
+                            <{if $album.nb_images|default:0 > 0}>
                                 <a class='btn btn-default wgg-btn' href='images.php?op=manage&amp;ref=albums&amp;alb_id=<{$album.id}>&amp;alb_pid=<{$album.pid}>' title='<{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}>'>
                                     <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>images.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}>'><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}><{/if}></a>
                             <{/if}>

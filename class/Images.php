@@ -85,16 +85,17 @@ class Images extends \XoopsObject
     }
 
     /**
-     * @public function getForm
+     * @public function getFormImages
      * @param bool $adminarea
-     * @param bool $action
+     * @param string|null $action
      * @return \XoopsThemeForm
      * @throws \Exception
      */
-    public function getFormImages(bool $adminarea = false, bool $action = false): \XoopsThemeForm
+    public function getFormImages(bool $adminarea = false, ?string $action = null): \XoopsThemeForm
     {
         $helper = \XoopsModules\Wggallery\Helper::getInstance();
-        if (!$action) {
+
+        if ($action === null || $action === '') {
             $action = $_SERVER['REQUEST_URI'];
         }
         // Title
@@ -278,6 +279,41 @@ class Images extends \XoopsObject
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $form->addElement(new \XoopsFormHidden('redir_op', $this->redirOp));
         $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+
+        return $form;
+    }
+
+    /**
+     * @public function getFormSortImages
+     * @param string|null $action
+     * @return \XoopsSimpleForm
+     * @throws \Exception
+     */
+    public function getFormSortImages(?string $action = null): \XoopsSimpleForm
+    {
+        if ($action === null || $action === '') {
+            $action = $_SERVER['REQUEST_URI'];
+        }
+        // Get Theme Form
+        \xoops_load('XoopsFormLoader');
+        $form = new \XoopsModules\Wggallery\Form\FormInline('', 'formSort', $action, 'post', true);
+        $form->setExtra('enctype="multipart/form-data"');
+
+        // Form Select Sort by
+        $sortSelect = new \XoopsFormSelect(\_MA_WGGALLERY_SORT_BY, 'sortby', Constants::SORT_BY_NAME);
+        $sortSelect->addOption(Constants::SORT_BY_NAME, \_MA_WGGALLERY_SORT_BY_NAME);
+        $sortSelect->addOption(Constants::SORT_BY_DATEUPLOAD, \_MA_WGGALLERY_SORT_BY_DATEUPLOAD);
+        $form->addElement($sortSelect, true);
+        // Form Select Order by
+        $orderSelect = new \XoopsFormSelect('', 'orderby', 'ASC');
+        $orderSelect->addOption('ASC', \_ASCENDING);
+        $orderSelect->addOption('DESC', \_DESCENDING);
+        $form->addElement($orderSelect, true);
+
+        // To Save
+        $form->addElement(new \XoopsFormHidden('op', 'sort_images'));
+        $form->addElement(new \XoopsFormHidden('alb_id', $this->getVar('img_albid')));
+        $form->addElement(new \XoopsFormButton('', 'submit', _MA_WGGALLERY_SORT_FILES, 'submit'));
 
         return $form;
     }

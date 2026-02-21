@@ -99,3 +99,12 @@ require_once __DIR__ . '/common.php';
 \define('_MA_WGGALLERY_RATING_LIKE', 'Like');
 \define('_MA_WGGALLERY_RATING_DISLIKE', 'Dislike');
 \define('_MA_WGGALLERY_ERROR_CREATE_ZIP', 'Error: Zip-archive could not be created');
+// version '1.2.3
+\define('_MA_WGGALLERY_FU_NUMBER_OF_FILES', 'Number of files');
+// do not use line breaks within _MA_WGGALLERY_FU_INFO_BIG_FILES!!
+\define('_MA_WGGALLERY_FU_INFO_BIG_FILES', 'You are trying to upload one or more files with more than 5 MB.<br>wgGallery in principle can handle such big files, but PHP file upload can maybe have problems with such files.<br>If problems occurs during upload (e.g. incomplete images) then it is recommended to reduce file size before uploading them.');
+\define('_MA_WGGALLERY_SORT_FILES', 'Sort');
+\define('_MA_WGGALLERY_SORT_BY', 'Sort by');
+\define('_MA_WGGALLERY_SORT_BY_NAME', 'Name');
+\define('_MA_WGGALLERY_SORT_BY_DATEUPLOAD', 'Date Upload');
+\define('_MA_WGGALLERY_SORT_SUCCESS', 'Sorting of images successfully completed');

@@ -106,12 +106,12 @@ switch ($op) {
         $crAlbums->setSort('alb_weight ASC, alb_date');
         $crAlbums->setOrder('DESC');
         $albumsCount = $albumsHandler->getCount($crAlbums);
-        $albumsAll   = $albumsHandler->getAll($crAlbums);
         $GLOBALS['xoopsTpl']->assign('albums_count', $albumsCount);
         $GLOBALS['xoopsTpl']->assign('wggallery_upload_url', \WGGALLERY_UPLOAD_URL);
         // Table view albums
         $albumsPermEdit = 0;
         if ($albumsCount > 0) {
+            $albumsAll   = $albumsHandler->getAll($crAlbums);
             foreach (\array_keys($albumsAll) as $i) {
                 //check permissions
                 $album = [];

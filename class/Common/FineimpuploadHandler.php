@@ -131,10 +131,15 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         $helper           = \XoopsModules\Wggallery\Helper::getInstance();
         $imagesHandler    = $helper->getHandler('Images');
         $this->pathUpload = \WGGALLERY_UPLOAD_IMAGE_PATH;
+        $imageNameOpt     = (int)$helper->getConfig('image_name');
 
-        $pathParts = \pathinfo($this->getName());
+        $pathParts       = \pathinfo($this->getName());
+        $this->imageName = $pathParts['filename'];
+        $fileExtension   = \mb_strtolower($pathParts['extension']);
 
-        $this->imageNameLarge = \str_replace('.', '_', uniqid('imgl', true)) . '.' . \mb_strtolower($pathParts['extension']);
+        $this->imageNameLarge = \str_replace('.', '_', uniqid('imgl', true));
+        $imageTitle           = $this->imageNameLarge;
+        $this->imageNameLarge .= '.' . $fileExtension;
         $this->imagePath      = $this->pathUpload . '/large/' . $this->imageNameLarge;
         $this->imageMimetype  = $_FILES[$this->inputName]['type'];
         $this->imageSize      = $_FILES[$this->inputName]['size'];
@@ -143,7 +148,11 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
             return false;
         }
 
-        $ret = $imagesHandler->handleSingleUpload($this->imageNameLarge, $this->imageNameLarge, '', $this->imageMimetype, $this->imageSize, $this->claims->cat);
+        if (Constants::IMAGENAME_ORIGINAL === $imageNameOpt) {
+            // if original name should be used then replace imageTitle by original name
+            $imageTitle = preg_replace('/[^a-zA-Z0-9]/', '_', $this->imageName);
+        }
+        $ret = $imagesHandler->handleSingleUpload($this->imageNameLarge, $imageTitle, '', $this->imageMimetype, $this->imageSize, $this->claims->cat);
         $uuid = '';// \bin2hex(random_bytes(16));
         if ($ret) {
             return ['success' => true, 'uuid' => $uuid];

@@ -1,8 +1,8 @@
 <{include file='db:wggallery_header.tpl'}>
 
 <div class='panel panel-<{$panel_type|default:''}>'>
-	<{if $showlist|default:''}>
-        <div class='panel-heading wgg-imgindex-header'><{$smarty.const._CO_WGGALLERY_IMAGES_TITLE}> <{$alb_name}></div>
+	<{if $showlist|default:false}>
+        <div class='panel-heading wgg-imgindex-header'><{$smarty.const._CO_WGGALLERY_IMAGES_TITLE}>: <{$alb_name}></div>
         <div class=' panel-body'>
             <{if $images|default:''}>
                 <{foreach item=image from=$images}>
@@ -91,12 +91,14 @@
             <div class='wgg-goback'>
                 <a class='btn btn-default wgg-btn' href='<{if $ref}><{$ref}><{else}>index<{/if}>.php?op=list&amp;alb_id=<{$alb_id}>&amp;alb_pid=<{$alb_pid}>#album_<{$alb_id}>' title='<{$smarty.const._CO_WGGALLERY_BACK}>'>
                     <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>back.png' alt='<{$smarty.const._CO_WGGALLERY_BACK}>'><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_BACK}><{/if}></a>
-                <{if $permAlbumEdit|default:''}>
+                <{if $permAlbumEdit|default:false}>
                     <a class='btn btn-default wgg-btn' href='albums.php?op=edit&amp;alb_id=<{$alb_id}>' title='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>'>
                         <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>edit.png' alt='<{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}>'><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_ALBUM_EDIT}><{/if}></a>
-                    <a class='btn btn-default wgg-btn' href='images.php?op=manage&amp;alb_id=<{$alb_id}>&amp;redir=list' title='<{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}>'>
-                        <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>images.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}>'><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}><{/if}></a>
-                    <{if $optUploader|default:''}>
+                    <{if $imagesCount|default:0 > 0}>
+                        <a class='btn btn-default wgg-btn' href='images.php?op=manage&amp;alb_id=<{$alb_id}>&amp;redir=list' title='<{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}>'>
+                            <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>images.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}>'><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_IMAGE_MANAGE}><{/if}></a>
+                    <{/if}>
+                    <{if $optUploader|default:false}>
                         <a class='btn btn-default wgg-btn' href='<{$optUploader}>.php?op=list&amp;alb_id=<{$alb_id}>' title='<{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}>'>
                             <img class='wgg-btn-icon' src='<{$wggallery_icon_url_16}>upload.png' alt='<{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}>'><{if $displayButtonText|default:false}><{$smarty.const._CO_WGGALLERY_IMAGES_UPLOAD}><{/if}></a>
                     <{/if}>
