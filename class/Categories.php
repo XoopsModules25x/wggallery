@@ -73,14 +73,12 @@ class Categories extends \XoopsObject
 
     /**
      * @public function getForm
-     * @param bool $action
      * @return \XoopsThemeForm
      */
-    public function getFormCategories(bool $action = false): \XoopsThemeForm
+    public function getFormCategories(): \XoopsThemeForm
     {
-        if (!$action) {
-            $action = $_SERVER['REQUEST_URI'];
-        }
+        $action = $_SERVER['REQUEST_URI'];
+
         // Title
         $title = $this->isNew() ? \_AM_WGGALLERY_ADD_CATEGORY : \_AM_WGGALLERY_EDIT_CATEGORY;
         // Get Theme Form

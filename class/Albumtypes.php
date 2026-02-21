@@ -67,15 +67,12 @@ class Albumtypes extends \XoopsObject
 
     /**
      * @public function getForm
-     * @param bool $action
      * @return \XoopsThemeForm
      */
-    public function getFormAlbumtypes(bool $action = false): \XoopsThemeForm
+    public function getFormAlbumtypes(): \XoopsThemeForm
     {
-        //$helper = \XoopsModules\Wggallery\Helper::getInstance();
-        if (!$action) {
-            $action = $_SERVER['REQUEST_URI'];
-        }
+        $action = $_SERVER['REQUEST_URI'];
+
         // Title
         $title = $this->isNew() ? \_AM_WGGALLERY_ALBUMTYPE_ADD : \_AM_WGGALLERY_ALBUMTYPE_EDIT;
         // Get Theme Form
@@ -107,15 +104,12 @@ class Albumtypes extends \XoopsObject
 
     /**
      * @public function getForm
-     * @param bool $action
      * @return \XoopsThemeForm
      */
-    public function getFormAlbumtypeOptions(bool $action = false): \XoopsThemeForm
+    public function getFormAlbumtypeOptions(): \XoopsThemeForm
     {
-        //$helper = \XoopsModules\Wggallery\Helper::getInstance();
-        if (!$action) {
-            $action = $_SERVER['REQUEST_URI'];
-        }
+        $action = $_SERVER['REQUEST_URI'];
+
         // Get Theme Form
         \xoops_load('XoopsFormLoader');
         $form = new \XoopsThemeForm(\_AM_WGGALLERY_OPTION_AT_SET, 'form', $action, 'post', true);

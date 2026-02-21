@@ -65,15 +65,12 @@ class Gallerytypes extends \XoopsObject
 
     /**
      * @public function getForm
-     * @param bool $action
      * @return \XoopsThemeForm
      */
-    public function getFormGallerytypes(bool $action = false): \XoopsThemeForm
+    public function getFormGallerytypes(): \XoopsThemeForm
     {
-        //$helper = \XoopsModules\Wggallery\Helper::getInstance();
-        if (!$action) {
-            $action = $_SERVER['REQUEST_URI'];
-        }
+        $action = $_SERVER['REQUEST_URI'];
+
         // Title
         $title = $this->isNew() ? \_AM_WGGALLERY_GALLERYTYPE_ADD : \_AM_WGGALLERY_GALLERYTYPE_EDIT;
         // Get Theme Form
@@ -103,15 +100,12 @@ class Gallerytypes extends \XoopsObject
 
     /**
      * @public function getForm
-     * @param bool $action
      * @return \XoopsThemeForm
      */
-    public function getFormGallerytypeOptions(bool $action = false): \XoopsThemeForm
+    public function getFormGallerytypeOptions(): \XoopsThemeForm
     {
-        //$helper = \XoopsModules\Wggallery\Helper::getInstance();
-        if (!$action) {
-            $action = $_SERVER['REQUEST_URI'];
-        }
+        $action = $_SERVER['REQUEST_URI'];
+
         // Get Theme Form
         \xoops_load('XoopsFormLoader');
         $form = new \XoopsThemeForm(\_AM_WGGALLERY_OPTION_GT_SET, 'form', $action, 'post', true);

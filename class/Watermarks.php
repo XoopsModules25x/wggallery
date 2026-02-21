@@ -72,15 +72,14 @@ class Watermarks extends \XoopsObject
 
     /**
      * @public function getForm
-     * @param bool $action
      * @return \XoopsThemeForm
      */
-    public function getFormWatermarks(bool $action = false): \XoopsThemeForm
+    public function getFormWatermarks(): \XoopsThemeForm
     {
         $helper = \XoopsModules\Wggallery\Helper::getInstance();
-        if (!$action) {
-            $action = $_SERVER['REQUEST_URI'];
-        }
+
+        $action = $_SERVER['REQUEST_URI'];
+
         // Title
         $title = $this->isNew() ? \_CO_WGGALLERY_WATERMARK_ADD : \_CO_WGGALLERY_WATERMARK_EDIT;
         // Get Theme Form

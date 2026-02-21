@@ -86,19 +86,18 @@ class Albums extends \XoopsObject
 
     /**
      * @public function getFormAlbums
-     * @param bool $action
      * @param bool $adminArea
      * @return \XoopsThemeForm
      * @throws \Exception
      */
-    public function getFormAlbums(bool $action = false, bool $adminArea = false): \XoopsThemeForm
+    public function getFormAlbums(bool $adminArea = false): \XoopsThemeForm
     {
         $helper        = \XoopsModules\Wggallery\Helper::getInstance();
         $albumsHandler = $helper->getHandler('Albums');
         $permissionsHandler = $helper->getHandler('Permissions');
-        if (!$action) {
-            $action = $_SERVER['REQUEST_URI'];
-        }
+
+        $action = $_SERVER['REQUEST_URI'];
+
         $currentuid = 0;
         $isAdmin    = false;
         if (isset($GLOBALS['xoopsUser']) && \is_object($GLOBALS['xoopsUser'])) {
@@ -333,16 +332,15 @@ class Albums extends \XoopsObject
     /**
      * @public function getFormUploadToAlbum:
      * provide form with a dropdown select containing all existing albums
-     * @param bool $action
      * @return \XoopsThemeForm
      * @throws \Exception
      */
-    public function getFormUploadToAlbum(bool $action = false): \XoopsThemeForm
+    public function getFormUploadToAlbum(): \XoopsThemeForm
     {
         $helper = \XoopsModules\Wggallery\Helper::getInstance();
-        if (!$action) {
-            $action = $_SERVER['REQUEST_URI'];
-        }
+
+        $action = $_SERVER['REQUEST_URI'];
+
         // Get Theme Form
         \xoops_load('XoopsFormLoader');
         $form = new \XoopsThemeForm(\_CO_WGGALLERY_ALBUM_SELECT, 'formselalbum', $action, 'post', true);

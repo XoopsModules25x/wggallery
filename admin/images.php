@@ -46,7 +46,7 @@ switch ($op) {
         }
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('images.php'));
         if ('list' === $op) {
-            $form = $albumsObj->getFormUploadToAlbum('images.php');
+            $form = $albumsObj->getFormUploadToAlbum();
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
             $crImages = new \CriteriaCompo();
             $crImages->add(new \Criteria('img_state', Constants::STATE_APPROVAL_VAL));
